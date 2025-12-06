@@ -44,3 +44,8 @@
 
 ## Limpeza do Banco de Dados
 - [x] Remover tabelas do projeto inicial (sales, messages, campaigns, clients)
+
+## Correções de Bugs
+- [x] Criar procedure adminMenus.getAll no backend
+- [x] Criar procedure stats.getDashboard no backend
+- [x] Criar procedure settings.get no backend
