@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
+import { InsertUser, users, clients, InsertClient, campaigns, InsertCampaign, messages, InsertMessage, sales, InsertSale } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -89,4 +89,108 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
-// TODO: add feature queries here as your schema grows.
+// Queries para Clientes
+export async function getAllClients() {
+  const db = await getDb();
+  if (!db) return [];
+  return await db.select().from(clients);
+}
+
+export async function getClientById(id: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(clients).where(eq(clients.id, id)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+export async function createClient(client: InsertClient) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const result = await db.insert(clients).values(client);
+  return result;
+}
+
+export async function updateClient(id: number, data: Partial<InsertClient>) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  return await db.update(clients).set(data).where(eq(clients.id, id));
+}
+
+// Queries para Campanhas
+export async function getAllCampaigns() {
+  const db = await getDb();
+  if (!db) return [];
+  return await db.select().from(campaigns);
+}
+
+export async function getCampaignById(id: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(campaigns).where(eq(campaigns.id, id)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+export async function getCampaignsByClient(clientId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return await db.select().from(campaigns).where(eq(campaigns.clientId, clientId));
+}
+
+export async function createCampaign(campaign: InsertCampaign) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const result = await db.insert(campaigns).values(campaign);
+  return result;
+}
+
+export async function updateCampaign(id: number, data: Partial<InsertCampaign>) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  return await db.update(campaigns).set(data).where(eq(campaigns.id, id));
+}
+
+// Queries para Mensagens
+export async function getMessagesByCampaign(campaignId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return await db.select().from(messages).where(eq(messages.campaignId, campaignId));
+}
+
+export async function createMessage(message: InsertMessage) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const result = await db.insert(messages).values(message);
+  return result;
+}
+
+// Queries para Vendas
+export async function getAllSales() {
+  const db = await getDb();
+  if (!db) return [];
+  return await db.select().from(sales);
+}
+
+export async function getSalesByClient(clientId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return await db.select().from(sales).where(eq(sales.clientId, clientId));
+}
+
+export async function getSalesBySeller(sellerId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return await db.select().from(sales).where(eq(sales.sellerId, sellerId));
+}
+
+export async function createSale(sale: InsertSale) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const result = await db.insert(sales).values(sale);
+  return result;
+}
+
+export async function updateSale(id: number, data: Partial<InsertSale>) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  return await db.update(sales).set(data).where(eq(sales.id, id));
+}
