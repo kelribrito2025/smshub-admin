@@ -1,0 +1,21 @@
+{
+  "query": "SELECT p.id, p.apiId, p.smshubPrice, p.ourPrice, p.quantityAvailable, p.active,\n       s.smshubCode, s.name as service_name,\n       a.name as api_name\nFROM prices p\nJOIN services s ON p.serviceId = s.id\nLEFT JOIN sms_apis a ON p.apiId = a.id\nWHERE s.smshubCode = 'wa'\nORDER BY p.apiId",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT p.id, p.apiId, p.smshubPrice, p.ourPrice, p.quantityAvailable, p.active,\n       s.smshubCode, s.name as service_name,\n       a.name as api_name\nFROM prices p\nJOIN services s ON p.serviceId = s.id\nLEFT JOIN sms_apis a ON p.apiId = a.id\nWHERE s.smshubCode = 'wa'\nORDER BY p.apiId",
+  "rows": [
+    {
+      "id": "60005",
+      "apiId": "1",
+      "smshubPrice": "200",
+      "ourPrice": "300",
+      "quantityAvailable": "1000",
+      "active": "1",
+      "smshubCode": "wa",
+      "service_name": "Whatsapp",
+      "api_name": "Opção 1"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tapiId\tsmshubPrice\tourPrice\tquantityAvailable\tactive\tsmshubCode\tservice_name\tapi_name\n60005\t1\t200\t300\t1000\t1\twa\tWhatsapp\tOpção 1\n",
+  "stderr": "",
+  "execution_time_ms": 51
+}

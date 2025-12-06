@@ -1,0 +1,60 @@
+{
+  "query": "\nSELECT p.id, c.name as country, s.name as service, s.smshubCode, p.apiId, a.name as apiName, p.smshubPrice, p.ourPrice\nFROM prices p\nJOIN countries c ON p.countryId = c.id\nJOIN services s ON p.serviceId = s.id\nLEFT JOIN sms_apis a ON p.apiId = a.id\nWHERE s.smshubCode = 'ot'\nORDER BY s.name, p.apiId;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT p.id, c.name as country, s.name as service, s.smshubCode, p.apiId, a.name as apiName, p.smshubPrice, p.ourPrice\nFROM prices p\nJOIN countries c ON p.countryId = c.id\nJOIN services s ON p.serviceId = s.id\nLEFT JOIN sms_apis a ON p.apiId = a.id\nWHERE s.smshubCode = 'ot'\nORDER BY s.name, p.apiId;\n",
+  "rows": [
+    {
+      "id": "180001",
+      "country": "Brazil",
+      "service": "Outros App/Site",
+      "smshubCode": "ot",
+      "apiId": "NULL",
+      "apiName": "NULL",
+      "smshubPrice": "0",
+      "ourPrice": "3"
+    },
+    {
+      "id": "180002",
+      "country": "Brazil",
+      "service": "Outros App/Site",
+      "smshubCode": "ot",
+      "apiId": "NULL",
+      "apiName": "NULL",
+      "smshubPrice": "0",
+      "ourPrice": "3"
+    },
+    {
+      "id": "360133",
+      "country": "Brazil",
+      "service": "Outros App/Site",
+      "smshubCode": "ot",
+      "apiId": "1",
+      "apiName": "SMS24h",
+      "smshubPrice": "70",
+      "ourPrice": "140"
+    },
+    {
+      "id": "60012",
+      "country": "Brazil",
+      "service": "Outros App/Site",
+      "smshubCode": "ot",
+      "apiId": "2",
+      "apiName": "SMSHub",
+      "smshubPrice": "18",
+      "ourPrice": "36"
+    },
+    {
+      "id": "330214",
+      "country": "Brazil",
+      "service": "Outros App/Site",
+      "smshubCode": "ot",
+      "apiId": "3",
+      "apiName": "SMSActivate",
+      "smshubPrice": "20",
+      "ourPrice": "40"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcountry\tservice\tsmshubCode\tapiId\tapiName\tsmshubPrice\tourPrice\n180001\tBrazil\tOutros App/Site\tot\tNULL\tNULL\t0\t3\n180002\tBrazil\tOutros App/Site\tot\tNULL\tNULL\t0\t3\n360133\tBrazil\tOutros App/Site\tot\t1\tSMS24h\t70\t140\n60012\tBrazil\tOutros App/Site\tot\t2\tSMSHub\t18\t36\n330214\tBrazil\tOutros App/Site\tot\t3\tSMSActivate\t20\t40\n",
+  "stderr": "",
+  "execution_time_ms": 70
+}

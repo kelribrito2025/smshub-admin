@@ -1,0 +1,31 @@
+{
+  "query": "SELECT id, name, profit_percentage, minimum_price, updatedAt FROM sms_apis ORDER BY updatedAt DESC LIMIT 3;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, name, profit_percentage, minimum_price, updatedAt FROM sms_apis ORDER BY updatedAt DESC LIMIT 3;",
+  "rows": [
+    {
+      "id": "1",
+      "name": "Opção 1 ",
+      "profit_percentage": "200.00",
+      "minimum_price": "90",
+      "updatedAt": "2025-12-04 19:07:17"
+    },
+    {
+      "id": "2",
+      "name": "Opção 2",
+      "profit_percentage": "160.00",
+      "minimum_price": "100",
+      "updatedAt": "2025-12-04 19:06:15"
+    },
+    {
+      "id": "3",
+      "name": "Opção 3",
+      "profit_percentage": "165.00",
+      "minimum_price": "110",
+      "updatedAt": "2025-12-04 18:55:28"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tprofit_percentage\tminimum_price\tupdatedAt\n1\tOpção 1 \t200.00\t90\t2025-12-04 19:07:17\n2\tOpção 2\t160.00\t100\t2025-12-04 19:06:15\n3\tOpção 3\t165.00\t110\t2025-12-04 18:55:28\n",
+  "stderr": "",
+  "execution_time_ms": 59
+}

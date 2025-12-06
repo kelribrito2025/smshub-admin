@@ -1,0 +1,19 @@
+{
+  "query": "SELECT id, userId, phoneNumber, status, createdAt, serviceId, countryId \nFROM activations \nWHERE id = 180004;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, userId, phoneNumber, status, createdAt, serviceId, countryId \nFROM activations \nWHERE id = 180004;",
+  "rows": [
+    {
+      "id": "180004",
+      "userId": "90007",
+      "phoneNumber": "5516990484775",
+      "status": "completed",
+      "createdAt": "2025-12-02 12:47:14",
+      "serviceId": "60009",
+      "countryId": "24"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tuserId\tphoneNumber\tstatus\tcreatedAt\tserviceId\tcountryId\n180004\t90007\t5516990484775\tcompleted\t2025-12-02 12:47:14\t60009\t24\n",
+  "stderr": "",
+  "execution_time_ms": 52
+}

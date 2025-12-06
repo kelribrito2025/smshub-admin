@@ -1,0 +1,62 @@
+{
+  "query": "\nSELECT \n  p.id,\n  p.countryId,\n  c.name as country_name,\n  p.serviceId,\n  s.name as service_name,\n  s.smshubCode,\n  p.apiId,\n  a.name as api_name,\n  p.ourPrice,\n  p.smshubPrice,\n  p.quantityAvailable\nFROM prices p\nJOIN countries c ON p.countryId = c.id\nJOIN services s ON p.serviceId = s.id\nLEFT JOIN sms_apis a ON p.apiId = a.id\nWHERE s.smshubCode = 'wa'\nORDER BY p.countryId, p.serviceId, p.apiId;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  p.id,\n  p.countryId,\n  c.name as country_name,\n  p.serviceId,\n  s.name as service_name,\n  s.smshubCode,\n  p.apiId,\n  a.name as api_name,\n  p.ourPrice,\n  p.smshubPrice,\n  p.quantityAvailable\nFROM prices p\nJOIN countries c ON p.countryId = c.id\nJOIN services s ON p.serviceId = s.id\nLEFT JOIN sms_apis a ON p.apiId = a.id\nWHERE s.smshubCode = 'wa'\nORDER BY p.countryId, p.serviceId, p.apiId;\n",
+  "rows": [
+    {
+      "id": "150631",
+      "countryId": "24",
+      "country_name": "Brazil",
+      "serviceId": "60001",
+      "service_name": "WhatsApp",
+      "smshubCode": "wa",
+      "apiId": "NULL",
+      "api_name": "NULL",
+      "ourPrice": "218",
+      "smshubPrice": "109",
+      "quantityAvailable": "294"
+    },
+    {
+      "id": "150012",
+      "countryId": "24",
+      "country_name": "Brazil",
+      "serviceId": "60001",
+      "service_name": "WhatsApp",
+      "smshubCode": "wa",
+      "apiId": "1",
+      "api_name": "Opção 1",
+      "ourPrice": "200",
+      "smshubPrice": "100",
+      "quantityAvailable": "100"
+    },
+    {
+      "id": "150013",
+      "countryId": "24",
+      "country_name": "Brazil",
+      "serviceId": "60001",
+      "service_name": "WhatsApp",
+      "smshubCode": "wa",
+      "apiId": "2",
+      "api_name": "Opcao 2",
+      "ourPrice": "1600",
+      "smshubPrice": "800",
+      "quantityAvailable": "540870"
+    },
+    {
+      "id": "150098",
+      "countryId": "60021",
+      "country_name": "Brazil",
+      "serviceId": "60001",
+      "service_name": "WhatsApp",
+      "smshubCode": "wa",
+      "apiId": "NULL",
+      "api_name": "NULL",
+      "ourPrice": "322",
+      "smshubPrice": "161",
+      "quantityAvailable": "50"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcountryId\tcountry_name\tserviceId\tservice_name\tsmshubCode\tapiId\tapi_name\tourPrice\tsmshubPrice\tquantityAvailable\n150631\t24\tBrazil\t60001\tWhatsApp\twa\tNULL\tNULL\t218\t109\t294\n150012\t24\tBrazil\t60001\tWhatsApp\twa\t1\tOpção 1\t200\t100\t100\n150013\t24\tBrazil\t60001\tWhatsApp\twa\t2\tOpcao 2\t1600\t800\t540870\n150098\t60021\tBrazil\t60001\tWhatsApp\twa\tNULL\tNULL\t322\t161\t50\n",
+  "stderr": "",
+  "execution_time_ms": 61
+}

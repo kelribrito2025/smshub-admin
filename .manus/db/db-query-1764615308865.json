@@ -1,0 +1,43 @@
+{
+  "query": "SELECT \n  p.id,\n  p.countryId,\n  p.serviceId,\n  p.apiId,\n  p.ourPrice,\n  p.quantityAvailable,\n  c.name as countryName,\n  s.name as serviceName,\n  a.name as apiName\nFROM prices p\nJOIN services s ON p.serviceId = s.id\nJOIN countries c ON p.countryId = c.id\nLEFT JOIN sms_apis a ON p.apiId = a.id\nWHERE s.smshubCode = 'wa'\nORDER BY p.apiId;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT \n  p.id,\n  p.countryId,\n  p.serviceId,\n  p.apiId,\n  p.ourPrice,\n  p.quantityAvailable,\n  c.name as countryName,\n  s.name as serviceName,\n  a.name as apiName\nFROM prices p\nJOIN services s ON p.serviceId = s.id\nJOIN countries c ON p.countryId = c.id\nLEFT JOIN sms_apis a ON p.apiId = a.id\nWHERE s.smshubCode = 'wa'\nORDER BY p.apiId;",
+  "rows": [
+    {
+      "id": "150008",
+      "countryId": "1",
+      "serviceId": "60001",
+      "apiId": "1",
+      "ourPrice": "1000",
+      "quantityAvailable": "100",
+      "countryName": "Updated Name",
+      "serviceName": "wahstao1",
+      "apiName": "Opção 1"
+    },
+    {
+      "id": "60005",
+      "countryId": "24",
+      "serviceId": "60001",
+      "apiId": "1",
+      "ourPrice": "200",
+      "quantityAvailable": "2999",
+      "countryName": "Brazil",
+      "serviceName": "wahstao1",
+      "apiName": "Opção 1"
+    },
+    {
+      "id": "150009",
+      "countryId": "1",
+      "serviceId": "60001",
+      "apiId": "2",
+      "ourPrice": "350",
+      "quantityAvailable": "500",
+      "countryName": "Updated Name",
+      "serviceName": "wahstao1",
+      "apiName": "Opcao 2"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcountryId\tserviceId\tapiId\tourPrice\tquantityAvailable\tcountryName\tserviceName\tapiName\n150008\t1\t60001\t1\t1000\t100\tUpdated Name\twahstao1\tOpção 1\n60005\t24\t60001\t1\t200\t2999\tBrazil\twahstao1\tOpção 1\n150009\t1\t60001\t2\t350\t500\tUpdated Name\twahstao1\tOpcao 2\n",
+  "stderr": "",
+  "execution_time_ms": 56
+}

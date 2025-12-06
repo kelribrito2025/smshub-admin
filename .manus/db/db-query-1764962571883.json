@@ -1,0 +1,9 @@
+{
+  "query": "INSERT INTO admin_menus (label, path, icon, position, active) VALUES\n  ('Dashboard', '/dashboard', 'LayoutDashboard', 1, true),\n  ('Relatórios', '/relatorios', 'LineChart', 2, true),\n  ('Auditoria de Saldo', '/auditoria', 'FileText', 3, true),\n  ('Configurações', '/settings', 'Settings', 4, true),\n  ('Pagamentos', '/payment-settings', 'CreditCard', 5, true),\n  ('APIs', '/apis', 'Cloud', 6, true),\n  ('Performance de APIs', '/api-performance', 'BarChart3', 7, true),\n  ('Países', '/countries', 'Globe', 8, true),\n  ('Catálogo', '/catalogo', 'BookOpen', 9, true),\n  ('Clientes', '/clientes', 'Users', 10, true),\n  ('Afiliados', '/affiliates', 'Gift', 11, true)\nON DUPLICATE KEY UPDATE label=label;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute INSERT INTO admin_menus (label, path, icon, position, active) VALUES\n  ('Dashboard', '/dashboard', 'LayoutDashboard', 1, true),\n  ('Relatórios', '/relatorios', 'LineChart', 2, true),\n  ('Auditoria de Saldo', '/auditoria', 'FileText', 3, true),\n  ('Configurações', '/settings', 'Settings', 4, true),\n  ('Pagamentos', '/payment-settings', 'CreditCard', 5, true),\n  ('APIs', '/apis', 'Cloud', 6, true),\n  ('Performance de APIs', '/api-performance', 'BarChart3', 7, true),\n  ('Países', '/countries', 'Globe', 8, true),\n  ('Catálogo', '/catalogo', 'BookOpen', 9, true),\n  ('Clientes', '/clientes', 'Users', 10, true),\n  ('Afiliados', '/affiliates', 'Gift', 11, true)\nON DUPLICATE KEY UPDATE label=label;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 87
+}

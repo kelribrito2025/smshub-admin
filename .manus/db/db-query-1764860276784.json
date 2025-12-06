@@ -1,0 +1,16 @@
+{
+  "query": "SELECT \n  COUNT(*) as total,\n  MIN(smshubPrice) as min_price,\n  MAX(smshubPrice) as max_price,\n  COUNT(DISTINCT serviceId) as unique_services\nFROM prices \nWHERE apiId = 1",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT \n  COUNT(*) as total,\n  MIN(smshubPrice) as min_price,\n  MAX(smshubPrice) as max_price,\n  COUNT(DISTINCT serviceId) as unique_services\nFROM prices \nWHERE apiId = 1",
+  "rows": [
+    {
+      "total": "0",
+      "min_price": "NULL",
+      "max_price": "NULL",
+      "unique_services": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "total\tmin_price\tmax_price\tunique_services\n0\tNULL\tNULL\t0\n",
+  "stderr": "",
+  "execution_time_ms": 119
+}

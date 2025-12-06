@@ -1,0 +1,70 @@
+{
+  "query": "\nSELECT \n  r.id,\n  r.customerId,\n  r.amount,\n  r.paymentMethod,\n  r.status,\n  r.transactionId,\n  r.createdAt,\n  r.completedAt,\n  c.email,\n  c.balance\nFROM recharges r\nJOIN customers c ON r.customerId = c.id\nWHERE c.email = 'xkelrix@gmail.com'\nORDER BY r.createdAt DESC\nLIMIT 5;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  r.id,\n  r.customerId,\n  r.amount,\n  r.paymentMethod,\n  r.status,\n  r.transactionId,\n  r.createdAt,\n  r.completedAt,\n  c.email,\n  c.balance\nFROM recharges r\nJOIN customers c ON r.customerId = c.id\nWHERE c.email = 'xkelrix@gmail.com'\nORDER BY r.createdAt DESC\nLIMIT 5;\n",
+  "rows": [
+    {
+      "id": "20",
+      "customerId": "180002",
+      "amount": "20000",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "NULL",
+      "createdAt": "2025-12-05 19:12:04",
+      "completedAt": "2025-12-05 19:12:04",
+      "email": "xkelrix@gmail.com",
+      "balance": "3328"
+    },
+    {
+      "id": "19",
+      "customerId": "180002",
+      "amount": "3000",
+      "paymentMethod": "picpay",
+      "status": "pending",
+      "transactionId": "NULL",
+      "createdAt": "2025-12-05 18:12:04",
+      "completedAt": "NULL",
+      "email": "xkelrix@gmail.com",
+      "balance": "3328"
+    },
+    {
+      "id": "18",
+      "customerId": "180002",
+      "amount": "15000",
+      "paymentMethod": "crypto",
+      "status": "completed",
+      "transactionId": "NULL",
+      "createdAt": "2025-12-05 08:12:04",
+      "completedAt": "2025-12-05 08:12:04",
+      "email": "xkelrix@gmail.com",
+      "balance": "3328"
+    },
+    {
+      "id": "17",
+      "customerId": "180002",
+      "amount": "7500",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "NULL",
+      "createdAt": "2025-12-04 20:12:04",
+      "completedAt": "2025-12-04 20:12:04",
+      "email": "xkelrix@gmail.com",
+      "balance": "3328"
+    },
+    {
+      "id": "16",
+      "customerId": "180002",
+      "amount": "2500",
+      "paymentMethod": "picpay",
+      "status": "completed",
+      "transactionId": "NULL",
+      "createdAt": "2025-12-03 20:12:04",
+      "completedAt": "2025-12-03 20:12:04",
+      "email": "xkelrix@gmail.com",
+      "balance": "3328"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\tamount\tpaymentMethod\tstatus\ttransactionId\tcreatedAt\tcompletedAt\temail\tbalance\n20\t180002\t20000\tpix\tcompleted\tNULL\t2025-12-05 19:12:04\t2025-12-05 19:12:04\txkelrix@gmail.com\t3328\n19\t180002\t3000\tpicpay\tpending\tNULL\t2025-12-05 18:12:04\tNULL\txkelrix@gmail.com\t3328\n18\t180002\t15000\tcrypto\tcompleted\tNULL\t2025-12-05 08:12:04\t2025-12-05 08:12:04\txkelrix@gmail.com\t3328\n17\t180002\t7500\tpix\tcompleted\tNULL\t2025-12-04 20:12:04\t2025-12-04 20:12:04\txkelrix@gmail.com\t3328\n16\t180002\t2500\tpicpay\tcompleted\tNULL\t2025-12-03 20:12:04\t2025-12-03 20:12:04\txkelrix@gmail.com\t3328\n",
+  "stderr": "",
+  "execution_time_ms": 59
+}

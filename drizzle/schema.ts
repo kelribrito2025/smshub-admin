@@ -1,17 +1,10 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
+import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, boolean, index, uniqueIndex, decimal } from "drizzle-orm/mysql-core";
 
 /**
  * Core user table backing auth flow.
- * Extend this file with additional tables as your product grows.
- * Columns use camelCase to match both database fields and generated types.
  */
 export const users = mysqlTable("users", {
-  /**
-   * Surrogate primary key. Auto-incremented numeric value managed by the database.
-   * Use this for relations between tables.
-   */
   id: int("id").autoincrement().primaryKey(),
-  /** Manus OAuth identifier (openId) returned from the OAuth callback. Unique per user. */
   openId: varchar("openId", { length: 64 }).notNull().unique(),
   name: text("name"),
   email: varchar("email", { length: 320 }),
@@ -26,77 +19,482 @@ export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 
 /**
- * Clientes que utilizam o serviço de SMS
+ * API Keys for external integrations (e.g., sales dashboard)
  */
-export const clients = mysqlTable("clients", {
+export const apiKeys = mysqlTable("api_keys", {
   id: int("id").autoincrement().primaryKey(),
-  name: text("name").notNull(),
-  email: varchar("email", { length: 320 }),
-  phone: varchar("phone", { length: 20 }),
-  company: text("company"),
-  status: mysqlEnum("status", ["active", "inactive"]).default("active").notNull(),
+  name: varchar("name", { length: 255 }).notNull(),
+  key: varchar("key", { length: 64 }).notNull().unique(),
+  active: int("active").default(1).notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
+  lastUsedAt: timestamp("lastUsedAt"),
+  expiresAt: timestamp("expiresAt"),
+});
+
+export type ApiKey = typeof apiKeys.$inferSelect;
+export type InsertApiKey = typeof apiKeys.$inferInsert;
+
+/**
+ * Settings table - stores API keys and global configurations
+ */
+export const settings = mysqlTable("settings", {
+  id: int("id").autoincrement().primaryKey(),
+  key: varchar("key", { length: 100 }).notNull().unique(),
+  value: text("value"),
+  description: text("description"),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
 
-export type Client = typeof clients.$inferSelect;
-export type InsertClient = typeof clients.$inferInsert;
+export type Setting = typeof settings.$inferSelect;
+export type InsertSetting = typeof settings.$inferInsert;
 
 /**
- * Campanhas de envio de SMS
+ * Countries table - stores available countries from SMSHub API
  */
-export const campaigns = mysqlTable("campaigns", {
+export const countries = mysqlTable("countries", {
   id: int("id").autoincrement().primaryKey(),
-  clientId: int("clientId").notNull(),
-  name: text("name").notNull(),
-  message: text("message").notNull(),
-  status: mysqlEnum("status", ["draft", "scheduled", "sending", "completed", "failed"]).default("draft").notNull(),
-  scheduledAt: timestamp("scheduledAt"),
-  sentAt: timestamp("sentAt"),
-  totalRecipients: int("totalRecipients").default(0).notNull(),
-  successCount: int("successCount").default(0).notNull(),
-  failedCount: int("failedCount").default(0).notNull(),
-  createdBy: int("createdBy").notNull(),
+  smshubId: int("smshubId").notNull().unique(), // ID from SMSHub API
+  name: varchar("name", { length: 100 }).notNull(),
+  code: varchar("code", { length: 50 }).notNull(), // e.g., "brazil", "usa"
+  active: boolean("active").default(true).notNull(),
+  markupPercentage: int("markupPercentage").default(0).notNull(), // Percentage markup (e.g., 20 for 20%)
+  markupFixed: int("markupFixed").default(0).notNull(), // Fixed markup in cents
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
-});
+}, (table) => ({
+  codeIdx: index("code_idx").on(table.code),
+}));
 
-export type Campaign = typeof campaigns.$inferSelect;
-export type InsertCampaign = typeof campaigns.$inferInsert;
+export type Country = typeof countries.$inferSelect;
+export type InsertCountry = typeof countries.$inferInsert;
 
 /**
- * Mensagens SMS individuais enviadas
+ * Operators table - stores mobile operators for each country
  */
-export const messages = mysqlTable("messages", {
+export const operators = mysqlTable("operators", {
   id: int("id").autoincrement().primaryKey(),
-  campaignId: int("campaignId").notNull(),
-  recipient: varchar("recipient", { length: 20 }).notNull(),
-  message: text("message").notNull(),
-  status: mysqlEnum("status", ["pending", "sent", "delivered", "failed"]).default("pending").notNull(),
-  sentAt: timestamp("sentAt"),
-  deliveredAt: timestamp("deliveredAt"),
+  countryId: int("countryId").notNull(),
+  code: varchar("code", { length: 50 }).notNull(), // e.g., "any", "vivo", "claro"
+  name: varchar("name", { length: 100 }).notNull(),
+  active: boolean("active").default(true).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({
+  countryCodeIdx: uniqueIndex("country_code_idx").on(table.countryId, table.code),
+}));
+
+export type Operator = typeof operators.$inferSelect;
+export type InsertOperator = typeof operators.$inferInsert;
+
+/**
+ * Services table - stores available services from SMSHub API
+ */
+export const services = mysqlTable("services", {
+  id: int("id").autoincrement().primaryKey(),
+  smshubCode: varchar("smshubCode", { length: 50 }).notNull().unique(), // e.g., "wa", "tg", "go"
+  name: varchar("name", { length: 200 }).notNull(),
+  category: varchar("category", { length: 100 }), // e.g., "Social", "Finance", "Shopping"
+  active: boolean("active").default(true).notNull(),
+  markupPercentage: int("markupPercentage").default(0).notNull(),
+  markupFixed: int("markupFixed").default(0).notNull(),
+  totalSales: int("totalSales").default(0).notNull(), // Total de vendas do serviço
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => ({
+  categoryIdx: index("category_idx").on(table.category),
+  totalSalesIdx: index("total_sales_idx").on(table.totalSales),
+}));
+
+export type Service = typeof services.$inferSelect;
+export type InsertService = typeof services.$inferInsert;
+
+/**
+ * Prices table - stores current prices and availability from SMSHub
+ */
+export const prices = mysqlTable("prices", {
+  id: int("id").autoincrement().primaryKey(),
+  apiId: int("apiId").references(() => smsApis.id, { onDelete: 'cascade' }), // NULL for legacy data, links to sms_apis table
+  countryId: int("countryId").notNull(),
+  serviceId: int("serviceId").notNull(),
+  smshubPrice: int("smshubPrice").notNull(), // Price in cents from SMSHub
+  ourPrice: int("ourPrice").notNull(), // Our selling price in cents (with markup)
+  fixedPrice: boolean("fixedPrice").default(false).notNull(), // If true, ourPrice won't be updated automatically
+  quantityAvailable: int("quantityAvailable").default(0).notNull(),
+  active: boolean("active").default(true).notNull(),
+  lastSync: timestamp("lastSync").defaultNow().notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({
+  countryServiceApiIdx: uniqueIndex("country_service_api_idx").on(table.countryId, table.serviceId, table.apiId),
+  apiIdx: index("api_idx").on(table.apiId),
+  lastSyncIdx: index("last_sync_idx").on(table.lastSync),
+}));
+
+export type Price = typeof prices.$inferSelect;
+export type InsertPrice = typeof prices.$inferInsert;
+
+/**
+ * Activations table - stores all SMS activation requests
+ */
+export const activations = mysqlTable("activations", {
+  id: int("id").autoincrement().primaryKey(),
+  smshubActivationId: varchar("smshubActivationId", { length: 50 }), // ID from SMSHub API
+  apiId: int("apiId"), // Which API was used (1=API1, 2=API2, etc)
+  userId: int("userId"), // Can be null for API requests without user context
+  serviceId: int("serviceId").notNull(),
+  countryId: int("countryId").notNull(),
+  phoneNumber: varchar("phoneNumber", { length: 20 }),
+  status: mysqlEnum("status", [
+    "pending",      // Waiting for number
+    "active",       // Number received, waiting for SMS
+    "completed",    // SMS received and confirmed
+    "cancelled",    // Activation cancelled
+    "failed",       // Failed to get number or receive SMS
+    "expired"       // Activation expired (>20min without SMS)
+  ]).default("pending").notNull(),
+  smshubStatus: varchar("smshubStatus", { length: 50 }), // Raw status from SMSHub API (e.g., "STATUS_WAIT_RETRY", "STATUS_OK")
+  smsCode: varchar("smsCode", { length: 100 }), // The SMS verification code received
+  smshubCost: int("smshubCost").default(0).notNull(), // Cost from SMSHub in cents
+  sellingPrice: int("sellingPrice").default(0).notNull(), // Price charged to customer in cents
+  profit: int("profit").default(0).notNull(), // Profit in cents
+  externalOrderId: varchar("externalOrderId", { length: 100 }), // Order ID from external dashboard
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  completedAt: timestamp("completedAt"),
+}, (table) => ({
+  userIdIdx: index("user_id_idx").on(table.userId),
+  statusIdx: index("status_idx").on(table.status),
+  createdAtIdx: index("created_at_idx").on(table.createdAt),
+  externalOrderIdx: index("external_order_idx").on(table.externalOrderId),
+}));
+
+export type Activation = typeof activations.$inferSelect;
+export type InsertActivation = typeof activations.$inferInsert;
+
+/**
+ * API Logs table - stores all API requests to SMSHub for debugging
+ */
+export const apiLogs = mysqlTable("apiLogs", {
+  id: int("id").autoincrement().primaryKey(),
+  endpoint: varchar("endpoint", { length: 100 }).notNull(),
+  action: varchar("action", { length: 50 }).notNull(), // e.g., "getBalance", "getNumber"
+  requestParams: text("requestParams"), // JSON string of request parameters
+  response: text("response"), // JSON string of response
+  statusCode: int("statusCode"),
+  success: boolean("success").default(false).notNull(),
   errorMessage: text("errorMessage"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
-});
+}, (table) => ({
+  actionIdx: index("action_idx").on(table.action),
+  createdAtIdx: index("created_at_idx").on(table.createdAt),
+}));
 
-export type Message = typeof messages.$inferSelect;
-export type InsertMessage = typeof messages.$inferInsert;
+export type ApiLog = typeof apiLogs.$inferSelect;
+export type InsertApiLog = typeof apiLogs.$inferInsert;
 
 /**
- * Vendas e transações
+ * Price History table - tracks price changes over time
  */
-export const sales = mysqlTable("sales", {
+export const priceHistory = mysqlTable("priceHistory", {
   id: int("id").autoincrement().primaryKey(),
-  clientId: int("clientId").notNull(),
-  sellerId: int("sellerId").notNull(),
-  amount: int("amount").notNull(), // valor em centavos
-  smsCredits: int("smsCredits").notNull(), // quantidade de créditos SMS vendidos
-  status: mysqlEnum("status", ["pending", "completed", "cancelled"]).default("pending").notNull(),
-  paymentMethod: varchar("paymentMethod", { length: 50 }),
-  notes: text("notes"),
+  countryId: int("countryId").notNull(),
+  serviceId: int("serviceId").notNull(),
+  smshubPrice: int("smshubPrice").notNull(),
+  ourPrice: int("ourPrice").notNull(),
+  changedAt: timestamp("changedAt").defaultNow().notNull(),
+}, (table) => ({
+  countryServiceIdx: index("country_service_hist_idx").on(table.countryId, table.serviceId),
+  changedAtIdx: index("changed_at_idx").on(table.changedAt),
+}));
+
+export type PriceHistory = typeof priceHistory.$inferSelect;
+export type InsertPriceHistory = typeof priceHistory.$inferInsert;
+
+/**
+ * Customers table - stores clients from the sales dashboard
+ */
+export const customers = mysqlTable("customers", {
+  id: int("id").autoincrement().primaryKey(),
+  pin: int("pin").notNull().unique(), // Unique sequential PIN for customer identification
+  name: varchar("name", { length: 255 }).notNull(),
+  email: varchar("email", { length: 320 }).notNull().unique(),
+  password: varchar("password", { length: 255 }), // Hashed password (bcrypt), nullable for backward compatibility
+  balance: int("balance").default(0).notNull(), // Balance in cents
+  bonusBalance: int("bonusBalance").default(0).notNull(), // Bonus balance in cents (non-withdrawable, can only be used for purchases)
+  referredBy: int("referredBy"), // ID of the customer who referred this customer (nullable)
+  active: boolean("active").default(true).notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => ({
+  emailIdx: index("email_idx").on(table.email),
+  pinIdx: index("pin_idx").on(table.pin),
+}));
+
+export type Customer = typeof customers.$inferSelect;
+export type InsertCustomer = typeof customers.$inferInsert;
+
+/**
+ * Balance transactions table - tracks all balance changes for customers
+ */
+export const balanceTransactions = mysqlTable("balance_transactions", {
+  id: int("id").autoincrement().primaryKey(),
+  customerId: int("customerId").notNull(),
+  amount: int("amount").notNull(), // Amount in cents (positive for credit, negative for debit)
+  type: mysqlEnum("type", ["credit", "debit", "purchase", "refund", "withdrawal", "hold"]).notNull(),
+  description: text("description"),
+  balanceBefore: int("balanceBefore").notNull(), // Balance before transaction in cents
+  balanceAfter: int("balanceAfter").notNull(), // Balance after transaction in cents
+  relatedActivationId: int("relatedActivationId"), // Link to activation if this is a purchase
+  createdBy: int("createdBy"), // Admin user who created this transaction
+  origin: mysqlEnum("origin", ["api", "customer", "admin", "system"]).default("system").notNull(), // Source of the transaction
+  ipAddress: varchar("ipAddress", { length: 45 }), // IP address of the requester (supports IPv6)
+  metadata: text("metadata"), // JSON string with additional context
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({
+  customerIdx: index("customer_idx").on(table.customerId),
+  typeIdx: index("type_idx").on(table.type),
+  createdAtIdx: index("created_at_idx").on(table.createdAt),
+  relatedActivationIdx: index("related_activation_idx").on(table.relatedActivationId),
+}));
+
+export type BalanceTransaction = typeof balanceTransactions.$inferSelect;
+export type InsertBalanceTransaction = typeof balanceTransactions.$inferInsert;
+
+/**
+ * Customer Favorites table - stores favorite services for each customer
+ */
+export const customerFavorites = mysqlTable("customer_favorites", {
+  id: int("id").autoincrement().primaryKey(),
+  customerId: int("customerId").notNull(),
+  serviceId: int("serviceId").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({
+  customerServiceIdx: uniqueIndex("customer_service_fav_idx").on(table.customerId, table.serviceId),
+  customerIdx: index("customer_fav_idx").on(table.customerId),
+}));
+
+export type CustomerFavorite = typeof customerFavorites.$inferSelect;
+export type InsertCustomerFavorite = typeof customerFavorites.$inferInsert;
+
+/**
+ * SMS APIs table - stores multiple SMSHub-compatible API configurations
+ */
+export const smsApis = mysqlTable("sms_apis", {
+  id: int("id").autoincrement().primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(), // e.g., "Opção 1", "Opção 2"
+  url: varchar("url", { length: 500 }).notNull(), // API base URL
+  token: varchar("token", { length: 500 }).notNull(), // API token/key
+  active: boolean("active").default(true).notNull(), // Reativação toggle
+  priority: int("priority").default(0).notNull(), // Lower number = higher priority (0 is highest)
+  currency: mysqlEnum("currency", ["BRL", "USD"]).default("USD").notNull(), // Currency of API prices (BRL or USD)
+  exchangeRate: decimal("exchange_rate", { precision: 6, scale: 2 }).default("1.00").notNull(), // Exchange rate USD to BRL (e.g., 6.00 for $1 = R$6)
+  profitPercentage: decimal("profit_percentage", { precision: 5, scale: 2 }).default("0.00").notNull(), // Profit margin percentage (e.g., 150.00 for 150%)
+  minimumPrice: int("minimum_price").default(0).notNull(), // Minimum price in cents (e.g., 300 for R$ 3.00)
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => ({
+  priorityIdx: index("priority_idx").on(table.priority),
+  activeIdx: index("active_idx").on(table.active),
+}));
+
+export type SmsApi = typeof smsApis.$inferSelect;
+export type InsertSmsApi = typeof smsApis.$inferInsert;
+
+/**
+ * PIX Transactions table - stores PIX payment transactions from EfiPay
+ */
+export const pixTransactions = mysqlTable("pix_transactions", {
+  id: int("id").autoincrement().primaryKey(),
+  customerId: int("customerId").notNull(), // Customer who initiated the recharge
+  txid: varchar("txid", { length: 100 }).notNull().unique(), // EfiPay transaction ID
+  amount: int("amount").notNull(), // Amount in cents
+  status: mysqlEnum("status", ["pending", "paid", "expired", "cancelled"]).default("pending").notNull(),
+  pixCopyPaste: text("pixCopyPaste"), // PIX Copia e Cola code
+  qrCodeUrl: varchar("qrCodeUrl", { length: 500 }), // URL to QR Code image
+  expiresAt: timestamp("expiresAt").notNull(), // When the PIX charge expires
+  paidAt: timestamp("paidAt"), // When payment was confirmed
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => ({
+  customerIdx: index("pix_customer_idx").on(table.customerId),
+  statusIdx: index("pix_status_idx").on(table.status),
+  txidIdx: uniqueIndex("pix_txid_idx").on(table.txid),
+  createdAtIdx: index("pix_created_at_idx").on(table.createdAt),
+}));
+
+export type PixTransaction = typeof pixTransactions.$inferSelect;
+export type InsertPixTransaction = typeof pixTransactions.$inferInsert;
+
+/**
+ * Stripe Transactions table - stores Stripe payment sessions
+ * Following Stripe best practices: store only IDs, fetch details from Stripe API
+ */
+export const stripeTransactions = mysqlTable("stripe_transactions", {
+  id: int("id").autoincrement().primaryKey(),
+  customerId: int("customerId").notNull(), // Customer who initiated the recharge
+  sessionId: varchar("sessionId", { length: 255 }).notNull().unique(), // Stripe Checkout Session ID
+  paymentIntentId: varchar("paymentIntentId", { length: 255 }), // Stripe Payment Intent ID (filled after payment)
+  amount: int("amount").notNull(), // Amount in cents (cached for quick access)
+  status: mysqlEnum("status", ["pending", "completed", "expired", "cancelled"]).default("pending").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => ({
+  customerIdx: index("stripe_customer_idx").on(table.customerId),
+  statusIdx: index("stripe_status_idx").on(table.status),
+  sessionIdIdx: uniqueIndex("stripe_session_id_idx").on(table.sessionId),
+  createdAtIdx: index("stripe_created_at_idx").on(table.createdAt),
+}));
+
+export type StripeTransaction = typeof stripeTransactions.$inferSelect;
+export type InsertStripeTransaction = typeof stripeTransactions.$inferInsert;
+
+/**
+ * Payment Settings table - controls which payment methods are enabled
+ */
+export const paymentSettings = mysqlTable("payment_settings", {
+  id: int("id").autoincrement().primaryKey(),
+  pixEnabled: boolean("pix_enabled").default(true).notNull(),
+  stripeEnabled: boolean("stripe_enabled").default(true).notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
 
-export type Sale = typeof sales.$inferSelect;
-export type InsertSale = typeof sales.$inferInsert;
+export type PaymentSettings = typeof paymentSettings.$inferSelect;
+export type InsertPaymentSettings = typeof paymentSettings.$inferInsert;
+
+/**
+ * Customer Sessions table - tracks login sessions for security monitoring
+ */
+export const customerSessions = mysqlTable("customer_sessions", {
+  id: int("id").autoincrement().primaryKey(),
+  customerId: int("customerId").notNull(),
+  sessionToken: varchar("sessionToken", { length: 255 }).notNull().unique(), // JWT token or session ID
+  ipAddress: varchar("ipAddress", { length: 45 }), // IPv4 or IPv6
+  deviceType: varchar("deviceType", { length: 100 }), // e.g., "iPhone", "Windows", "Android"
+  location: varchar("location", { length: 255 }), // City/State/Country
+  userAgent: text("userAgent"), // Full user agent string
+  loginAt: timestamp("loginAt").defaultNow().notNull(),
+  lastActivityAt: timestamp("lastActivityAt").defaultNow().notNull(),
+  isActive: boolean("isActive").default(true).notNull(),
+  terminatedAt: timestamp("terminatedAt"), // When session was manually terminated
+}, (table) => ({
+  customerIdx: index("session_customer_idx").on(table.customerId),
+  sessionTokenIdx: uniqueIndex("session_token_idx").on(table.sessionToken),
+  isActiveIdx: index("session_is_active_idx").on(table.isActive),
+  loginAtIdx: index("session_login_at_idx").on(table.loginAt),
+}));
+
+export type CustomerSession = typeof customerSessions.$inferSelect;
+export type InsertCustomerSession = typeof customerSessions.$inferInsert;
+
+/**
+ * SMS Messages table - stores all SMS codes received for each activation
+ * Allows multiple SMS per activation for services that send multiple codes
+ */
+export const smsMessages = mysqlTable("sms_messages", {
+  id: int("id").autoincrement().primaryKey(),
+  activationId: int("activationId").notNull(), // FK to activations.id
+  code: varchar("code", { length: 100 }).notNull(), // The SMS verification code
+  fullText: text("fullText"), // Full SMS message text (optional)
+  receivedAt: timestamp("receivedAt").defaultNow().notNull(), // When SMS was received
+}, (table) => ({
+  activationIdx: index("sms_activation_idx").on(table.activationId),
+  receivedAtIdx: index("sms_received_at_idx").on(table.receivedAt),
+}));
+
+export type SmsMessage = typeof smsMessages.$inferSelect;
+export type InsertSmsMessage = typeof smsMessages.$inferInsert;
+
+/**
+ * Affiliate Settings table - stores global configuration for the referral program
+ */
+export const affiliateSettings = mysqlTable("affiliate_settings", {
+  id: int("id").autoincrement().primaryKey(),
+  bonusPercentage: int("bonusPercentage").default(10).notNull(), // Percentage of first recharge given as bonus (e.g., 10 for 10%)
+  isActive: boolean("isActive").default(true).notNull(), // Enable/disable entire referral program
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type AffiliateSetting = typeof affiliateSettings.$inferSelect;
+export type InsertAffiliateSetting = typeof affiliateSettings.$inferInsert;
+
+/**
+ * Referrals table - tracks who referred whom
+ */
+export const referrals = mysqlTable("referrals", {
+  id: int("id").autoincrement().primaryKey(),
+  referrerId: int("referrerId").notNull(), // Customer who shared the referral link
+  referredId: int("referredId").notNull().unique(), // Customer who signed up via the link (can only be referred once)
+  firstRechargeAt: timestamp("firstRechargeAt"), // When the referred customer made their first recharge
+  firstRechargeAmount: int("firstRechargeAmount"), // Amount of first recharge in cents
+  bonusGenerated: int("bonusGenerated"), // Bonus amount generated in cents
+  status: mysqlEnum("status", ["pending", "active", "completed"]).default("pending").notNull(), // pending = no recharge yet, active = recharge done, completed = bonus paid
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({
+  referrerIdx: index("referrer_idx").on(table.referrerId),
+  referredIdx: uniqueIndex("referred_idx").on(table.referredId),
+  statusIdx: index("referral_status_idx").on(table.status),
+}));
+
+export type Referral = typeof referrals.$inferSelect;
+export type InsertReferral = typeof referrals.$inferInsert;
+
+/**
+ * Referral Earnings table - tracks all bonus payments to affiliates
+ */
+export const referralEarnings = mysqlTable("referral_earnings", {
+  id: int("id").autoincrement().primaryKey(),
+  affiliateId: int("affiliateId").notNull(), // Customer who earned the bonus
+  referralId: int("referralId").notNull(), // Link to the referral that generated this bonus
+  amount: int("amount").notNull(), // Bonus amount in cents
+  description: text("description"), // e.g., "Bônus de 10% pela primeira recarga de Cliente #123"
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({
+  affiliateIdx: index("affiliate_idx").on(table.affiliateId),
+  referralIdx: index("referral_earning_idx").on(table.referralId),
+  createdAtIdx: index("earning_created_at_idx").on(table.createdAt),
+}));
+
+export type ReferralEarning = typeof referralEarnings.$inferSelect;
+export type InsertReferralEarning = typeof referralEarnings.$inferInsert;
+
+/**
+ * Admin Menus table - stores navigation menu items and their order
+ */
+export const adminMenus = mysqlTable("admin_menus", {
+  id: int("id").autoincrement().primaryKey(),
+  label: varchar("label", { length: 100 }).notNull(), // Menu label (e.g., "Dashboard", "Países")
+  path: varchar("path", { length: 255 }).notNull(), // Route path (e.g., "/", "/countries")
+  icon: varchar("icon", { length: 50 }), // Icon name (e.g., "LayoutDashboard", "Globe")
+  position: int("position").notNull(), // Display order (lower = higher in menu)
+  active: boolean("active").default(true).notNull(), // Show/hide menu item
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => ({
+  positionIdx: index("position_idx").on(table.position),
+  pathIdx: uniqueIndex("path_idx").on(table.path),
+}));
+
+export type AdminMenu = typeof adminMenus.$inferSelect;
+export type InsertAdminMenu = typeof adminMenus.$inferInsert;
+
+/**
+ * Recharges table - stores all customer balance recharges
+ */
+export const recharges = mysqlTable("recharges", {
+  id: int("id").autoincrement().primaryKey(),
+  customerId: int("customerId").notNull(), // Customer who made the recharge
+  amount: int("amount").notNull(), // Recharge amount in cents
+  paymentMethod: mysqlEnum("paymentMethod", ["pix", "card", "crypto", "picpay"]).notNull(),
+  status: mysqlEnum("status", ["completed", "pending", "expired"]).default("pending").notNull(),
+  transactionId: varchar("transactionId", { length: 255 }), // External payment provider transaction ID
+  metadata: text("metadata"), // JSON string for additional payment data
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  completedAt: timestamp("completedAt"), // When the payment was confirmed
+  expiresAt: timestamp("expiresAt"), // When pending payment expires
+}, (table) => ({
+  customerIdx: index("recharge_customer_idx").on(table.customerId),
+  statusIdx: index("recharge_status_idx").on(table.status),
+  createdAtIdx: index("recharge_created_at_idx").on(table.createdAt),
+  paymentMethodIdx: index("recharge_payment_method_idx").on(table.paymentMethod),
+}));
+
+export type Recharge = typeof recharges.$inferSelect;
+export type InsertRecharge = typeof recharges.$inferInsert;

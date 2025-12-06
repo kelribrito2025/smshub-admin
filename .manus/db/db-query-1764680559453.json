@@ -1,0 +1,19 @@
+{
+  "query": "\nSELECT \n  id,\n  apiId,\n  smshubActivationId,\n  phoneNumber,\n  status,\n  smsCode,\n  createdAt\nFROM activations\nWHERE id = 180006;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  id,\n  apiId,\n  smshubActivationId,\n  phoneNumber,\n  status,\n  smsCode,\n  createdAt\nFROM activations\nWHERE id = 180006;\n",
+  "rows": [
+    {
+      "id": "180006",
+      "apiId": "1",
+      "smshubActivationId": "4032445",
+      "phoneNumber": "5531920033958",
+      "status": "active",
+      "smsCode": "NULL",
+      "createdAt": "2025-12-02 12:53:52"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tapiId\tsmshubActivationId\tphoneNumber\tstatus\tsmsCode\tcreatedAt\n180006\t1\t4032445\t5531920033958\tactive\tNULL\t2025-12-02 12:53:52\n",
+  "stderr": "",
+  "execution_time_ms": 57
+}

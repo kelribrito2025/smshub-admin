@@ -1,0 +1,9 @@
+{
+  "query": "\nUPDATE sms_apis SET active = 1 WHERE id = 2\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nUPDATE sms_apis SET active = 1 WHERE id = 2\n",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 53
+}

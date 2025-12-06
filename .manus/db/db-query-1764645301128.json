@@ -1,0 +1,21 @@
+{
+  "query": "\nSELECT \n  p.id,\n  p.countryId,\n  p.serviceId,\n  p.apiId,\n  a.name as api_name,\n  p.smshubPrice,\n  p.ourPrice,\n  p.createdAt,\n  p.lastSync\nFROM prices p\nLEFT JOIN sms_apis a ON p.apiId = a.id\nWHERE countryId = 1 AND serviceId = 1\nORDER BY p.id;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  p.id,\n  p.countryId,\n  p.serviceId,\n  p.apiId,\n  a.name as api_name,\n  p.smshubPrice,\n  p.ourPrice,\n  p.createdAt,\n  p.lastSync\nFROM prices p\nLEFT JOIN sms_apis a ON p.apiId = a.id\nWHERE countryId = 1 AND serviceId = 1\nORDER BY p.id;\n",
+  "rows": [
+    {
+      "id": "1",
+      "countryId": "1",
+      "serviceId": "1",
+      "apiId": "1",
+      "api_name": "Opção 1",
+      "smshubPrice": "100",
+      "ourPrice": "200",
+      "createdAt": "2025-11-30 17:14:16",
+      "lastSync": "2025-11-30 21:08:25"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcountryId\tserviceId\tapiId\tapi_name\tsmshubPrice\tourPrice\tcreatedAt\tlastSync\n1\t1\t1\t1\tOpção 1\t100\t200\t2025-11-30 17:14:16\t2025-11-30 21:08:25\n",
+  "stderr": "",
+  "execution_time_ms": 55
+}

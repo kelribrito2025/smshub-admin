@@ -1,0 +1,100 @@
+{
+  "query": "SELECT \n  pt.id as pix_id,\n  pt.txid,\n  pt.amount as pix_amount,\n  pt.paidAt,\n  r.id as recharge_id,\n  r.amount as recharge_amount,\n  r.createdAt as recharge_created\nFROM pix_transactions pt\nLEFT JOIN recharges r ON r.transactionId = pt.txid AND r.paymentMethod = 'pix'\nWHERE pt.status = 'paid'\nORDER BY pt.paidAt DESC\nLIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT \n  pt.id as pix_id,\n  pt.txid,\n  pt.amount as pix_amount,\n  pt.paidAt,\n  r.id as recharge_id,\n  r.amount as recharge_amount,\n  r.createdAt as recharge_created\nFROM pix_transactions pt\nLEFT JOIN recharges r ON r.transactionId = pt.txid AND r.paymentMethod = 'pix'\nWHERE pt.status = 'paid'\nORDER BY pt.paidAt DESC\nLIMIT 10;",
+  "rows": [
+    {
+      "pix_id": "240012",
+      "txid": "bec8392e7e8d4f20a316e41637e929ad",
+      "pix_amount": "333",
+      "paidAt": "2025-12-05 21:30:08",
+      "recharge_id": "NULL",
+      "recharge_amount": "NULL",
+      "recharge_created": "NULL"
+    },
+    {
+      "pix_id": "240011",
+      "txid": "56882da4dbce43ceb7e464e59ab81ada",
+      "pix_amount": "233",
+      "paidAt": "2025-12-05 21:18:06",
+      "recharge_id": "30002",
+      "recharge_amount": "233",
+      "recharge_created": "2025-12-05 21:17:30"
+    },
+    {
+      "pix_id": "240010",
+      "txid": "b4168cc8d681475492e2f3d6b451ad5b",
+      "pix_amount": "200",
+      "paidAt": "2025-12-05 21:07:45",
+      "recharge_id": "NULL",
+      "recharge_amount": "NULL",
+      "recharge_created": "NULL"
+    },
+    {
+      "pix_id": "240009",
+      "txid": "fb678ab22c61498fa6d26c4225ff70f4",
+      "pix_amount": "300",
+      "paidAt": "2025-12-05 20:58:30",
+      "recharge_id": "NULL",
+      "recharge_amount": "NULL",
+      "recharge_created": "NULL"
+    },
+    {
+      "pix_id": "240008",
+      "txid": "4a901276912e4c8c938a29b065f167a0",
+      "pix_amount": "123",
+      "paidAt": "2025-12-05 20:56:29",
+      "recharge_id": "NULL",
+      "recharge_amount": "NULL",
+      "recharge_created": "NULL"
+    },
+    {
+      "pix_id": "240007",
+      "txid": "25cc2fc21de64559a8908dd86e4b79a3",
+      "pix_amount": "111",
+      "paidAt": "2025-12-05 20:52:38",
+      "recharge_id": "NULL",
+      "recharge_amount": "NULL",
+      "recharge_created": "NULL"
+    },
+    {
+      "pix_id": "240005",
+      "txid": "f8ce93924f3841a4b18ca24629b551e7",
+      "pix_amount": "222",
+      "paidAt": "2025-12-05 20:47:50",
+      "recharge_id": "NULL",
+      "recharge_amount": "NULL",
+      "recharge_created": "NULL"
+    },
+    {
+      "pix_id": "240004",
+      "txid": "9c95460d6fff41afb1e4edad5dffb480",
+      "pix_amount": "150",
+      "paidAt": "2025-12-05 20:44:38",
+      "recharge_id": "NULL",
+      "recharge_amount": "NULL",
+      "recharge_created": "NULL"
+    },
+    {
+      "pix_id": "240003",
+      "txid": "054b2bfe547d4ccd9ed690cc30ea2529",
+      "pix_amount": "233",
+      "paidAt": "2025-12-05 20:43:07",
+      "recharge_id": "30001",
+      "recharge_amount": "233",
+      "recharge_created": "2025-12-05 20:42:59"
+    },
+    {
+      "pix_id": "240002",
+      "txid": "40ec3dc7cf6e4684b638e1302a20bc80",
+      "pix_amount": "220",
+      "paidAt": "2025-12-05 20:41:09",
+      "recharge_id": "NULL",
+      "recharge_amount": "NULL",
+      "recharge_created": "NULL"
+    }
+  ],
+  "messages": [],
+  "stdout": "pix_id\ttxid\tpix_amount\tpaidAt\trecharge_id\trecharge_amount\trecharge_created\n240012\tbec8392e7e8d4f20a316e41637e929ad\t333\t2025-12-05 21:30:08\tNULL\tNULL\tNULL\n240011\t56882da4dbce43ceb7e464e59ab81ada\t233\t2025-12-05 21:18:06\t30002\t233\t2025-12-05 21:17:30\n240010\tb4168cc8d681475492e2f3d6b451ad5b\t200\t2025-12-05 21:07:45\tNULL\tNULL\tNULL\n240009\tfb678ab22c61498fa6d26c4225ff70f4\t300\t2025-12-05 20:58:30\tNULL\tNULL\tNULL\n240008\t4a901276912e4c8c938a29b065f167a0\t123\t2025-12-05 20:56:29\tNULL\tNULL\tNULL\n240007\t25cc2fc21de64559a8908dd86e4b79a3\t111\t2025-12-05 20:52:38\tNULL\tNULL\tNULL\n240005\tf8ce93924f3841a4b18ca24629b551e7\t222\t2025-12-05 20:47:50\tNULL\tNULL\tNULL\n240004\t9c95460d6fff41afb1e4edad5dffb480\t150\t2025-12-05 20:44:38\tNULL\tNULL\tNULL\n240003\t054b2bfe547d4ccd9ed690cc30ea2529\t233\t2025-12-05 20:43:07\t30001\t233\t2025-12-05 20:42:59\n240002\t40ec3dc7cf6e4684b638e1302a20bc80\t220\t2025-12-05 20:41:09\tNULL\tNULL\tNULL\n",
+  "stderr": "",
+  "execution_time_ms": 55
+}

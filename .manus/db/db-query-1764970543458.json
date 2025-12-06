@@ -1,0 +1,60 @@
+{
+  "query": "SELECT \n  'recharges' as source,\n  id,\n  customerId,\n  amount,\n  paymentMethod,\n  status,\n  transactionId,\n  createdAt\nFROM recharges \nWHERE paymentMethod = 'pix'\nORDER BY createdAt DESC\nLIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT \n  'recharges' as source,\n  id,\n  customerId,\n  amount,\n  paymentMethod,\n  status,\n  transactionId,\n  createdAt\nFROM recharges \nWHERE paymentMethod = 'pix'\nORDER BY createdAt DESC\nLIMIT 5;",
+  "rows": [
+    {
+      "source": "recharges",
+      "id": "30002",
+      "customerId": "180002",
+      "amount": "233",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "56882da4dbce43ceb7e464e59ab81ada",
+      "createdAt": "2025-12-05 21:17:30"
+    },
+    {
+      "source": "recharges",
+      "id": "30001",
+      "customerId": "180002",
+      "amount": "233",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "054b2bfe547d4ccd9ed690cc30ea2529",
+      "createdAt": "2025-12-05 20:42:59"
+    },
+    {
+      "source": "recharges",
+      "id": "20",
+      "customerId": "180002",
+      "amount": "20000",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "NULL",
+      "createdAt": "2025-12-05 19:12:04"
+    },
+    {
+      "source": "recharges",
+      "id": "3",
+      "customerId": "270001",
+      "amount": "2000",
+      "paymentMethod": "pix",
+      "status": "pending",
+      "transactionId": "NULL",
+      "createdAt": "2025-12-05 18:52:14"
+    },
+    {
+      "source": "recharges",
+      "id": "17",
+      "customerId": "180002",
+      "amount": "7500",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "NULL",
+      "createdAt": "2025-12-04 20:12:04"
+    }
+  ],
+  "messages": [],
+  "stdout": "source\tid\tcustomerId\tamount\tpaymentMethod\tstatus\ttransactionId\tcreatedAt\nrecharges\t30002\t180002\t233\tpix\tcompleted\t56882da4dbce43ceb7e464e59ab81ada\t2025-12-05 21:17:30\nrecharges\t30001\t180002\t233\tpix\tcompleted\t054b2bfe547d4ccd9ed690cc30ea2529\t2025-12-05 20:42:59\nrecharges\t20\t180002\t20000\tpix\tcompleted\tNULL\t2025-12-05 19:12:04\nrecharges\t3\t270001\t2000\tpix\tpending\tNULL\t2025-12-05 18:52:14\nrecharges\t17\t180002\t7500\tpix\tcompleted\tNULL\t2025-12-04 20:12:04\n",
+  "stderr": "",
+  "execution_time_ms": 57
+}

@@ -1,0 +1,230 @@
+{
+  "query": "\nSELECT \n  bt.id,\n  bt.customerId,\n  bt.amount,\n  bt.type,\n  bt.origin,\n  bt.description,\n  bt.balanceBefore,\n  bt.balanceAfter,\n  bt.createdAt\nFROM balance_transactions bt\nJOIN customers c ON bt.customerId = c.id\nWHERE c.email = 'xkelrix@gmail.com'\nORDER BY bt.createdAt DESC\nLIMIT 20;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  bt.id,\n  bt.customerId,\n  bt.amount,\n  bt.type,\n  bt.origin,\n  bt.description,\n  bt.balanceBefore,\n  bt.balanceAfter,\n  bt.createdAt\nFROM balance_transactions bt\nJOIN customers c ON bt.customerId = c.id\nWHERE c.email = 'xkelrix@gmail.com'\nORDER BY bt.createdAt DESC\nLIMIT 20;\n",
+  "rows": [
+    {
+      "id": "750008",
+      "customerId": "180002",
+      "amount": "300",
+      "type": "credit",
+      "origin": "system",
+      "description": "Recarga via PIX - fb678ab22c61498fa6d26c4225ff70f4",
+      "balanceBefore": "3028",
+      "balanceAfter": "3328",
+      "createdAt": "2025-12-05 20:58:31"
+    },
+    {
+      "id": "750007",
+      "customerId": "180002",
+      "amount": "123",
+      "type": "credit",
+      "origin": "system",
+      "description": "Recarga via PIX - 4a901276912e4c8c938a29b065f167a0",
+      "balanceBefore": "2905",
+      "balanceAfter": "3028",
+      "createdAt": "2025-12-05 20:56:30"
+    },
+    {
+      "id": "750006",
+      "customerId": "180002",
+      "amount": "111",
+      "type": "credit",
+      "origin": "system",
+      "description": "Recarga via PIX - 25cc2fc21de64559a8908dd86e4b79a3",
+      "balanceBefore": "2794",
+      "balanceAfter": "2905",
+      "createdAt": "2025-12-05 20:52:39"
+    },
+    {
+      "id": "750005",
+      "customerId": "180002",
+      "amount": "222",
+      "type": "credit",
+      "origin": "system",
+      "description": "Recarga via PIX - f8ce93924f3841a4b18ca24629b551e7",
+      "balanceBefore": "2572",
+      "balanceAfter": "2794",
+      "createdAt": "2025-12-05 20:47:51"
+    },
+    {
+      "id": "750004",
+      "customerId": "180002",
+      "amount": "150",
+      "type": "credit",
+      "origin": "system",
+      "description": "Recarga via PIX - 9c95460d6fff41afb1e4edad5dffb480",
+      "balanceBefore": "2422",
+      "balanceAfter": "2572",
+      "createdAt": "2025-12-05 20:44:40"
+    },
+    {
+      "id": "750003",
+      "customerId": "180002",
+      "amount": "233",
+      "type": "credit",
+      "origin": "system",
+      "description": "Recarga via PIX - 054b2bfe547d4ccd9ed690cc30ea2529",
+      "balanceBefore": "2189",
+      "balanceAfter": "2422",
+      "createdAt": "2025-12-05 20:43:08"
+    },
+    {
+      "id": "750002",
+      "customerId": "180002",
+      "amount": "220",
+      "type": "credit",
+      "origin": "system",
+      "description": "Recarga via PIX - 40ec3dc7cf6e4684b638e1302a20bc80",
+      "balanceBefore": "1969",
+      "balanceAfter": "2189",
+      "createdAt": "2025-12-05 20:41:10"
+    },
+    {
+      "id": "750001",
+      "customerId": "180002",
+      "amount": "122",
+      "type": "credit",
+      "origin": "system",
+      "description": "Recarga via PIX - f15eb7b7f2c3440aa803ef2cf7301e68",
+      "balanceBefore": "1847",
+      "balanceAfter": "1969",
+      "createdAt": "2025-12-05 20:30:53"
+    },
+    {
+      "id": "720007",
+      "customerId": "180002",
+      "amount": "200",
+      "type": "credit",
+      "origin": "system",
+      "description": "Recarga via PIX - d4e980183b8a456dbb0431acfc6959f2",
+      "balanceBefore": "1647",
+      "balanceAfter": "1847",
+      "createdAt": "2025-12-05 20:13:55"
+    },
+    {
+      "id": "720006",
+      "customerId": "180002",
+      "amount": "110",
+      "type": "credit",
+      "origin": "system",
+      "description": "Recarga via PIX - ca88df3f5e7b41d29575015c146d40cf",
+      "balanceBefore": "1537",
+      "balanceAfter": "1647",
+      "createdAt": "2025-12-05 20:08:27"
+    },
+    {
+      "id": "720005",
+      "customerId": "180002",
+      "amount": "229",
+      "type": "refund",
+      "origin": "system",
+      "description": "Reembolso de ativação cancelada #570043",
+      "balanceBefore": "1308",
+      "balanceAfter": "1537",
+      "createdAt": "2025-12-05 16:41:36"
+    },
+    {
+      "id": "720004",
+      "customerId": "180002",
+      "amount": "-229",
+      "type": "purchase",
+      "origin": "system",
+      "description": "Compra de número SMS - 3Fun (Brazil)",
+      "balanceBefore": "1537",
+      "balanceAfter": "1308",
+      "createdAt": "2025-12-05 16:41:15"
+    },
+    {
+      "id": "720003",
+      "customerId": "180002",
+      "amount": "97",
+      "type": "refund",
+      "origin": "system",
+      "description": "Reembolso automático - Ativação expirada #540001 (5531976025880)",
+      "balanceBefore": "1440",
+      "balanceAfter": "1537",
+      "createdAt": "2025-12-05 16:37:24"
+    },
+    {
+      "id": "720002",
+      "customerId": "180002",
+      "amount": "229",
+      "type": "refund",
+      "origin": "system",
+      "description": "Reembolso automático - Ativação expirada #540002 (5511961210456)",
+      "balanceBefore": "1211",
+      "balanceAfter": "1440",
+      "createdAt": "2025-12-05 16:37:24"
+    },
+    {
+      "id": "720001",
+      "customerId": "180002",
+      "amount": "-229",
+      "type": "purchase",
+      "origin": "system",
+      "description": "Compra de número SMS - 3Fun (Brazil)",
+      "balanceBefore": "1440",
+      "balanceAfter": "1211",
+      "createdAt": "2025-12-05 16:30:56"
+    },
+    {
+      "id": "690013",
+      "customerId": "180002",
+      "amount": "300",
+      "type": "credit",
+      "origin": "system",
+      "description": "Recarga via PIX - ed5b9eaa0cfa45fe921e0f5752e1d585",
+      "balanceBefore": "1140",
+      "balanceAfter": "1440",
+      "createdAt": "2025-12-05 02:50:07"
+    },
+    {
+      "id": "690012",
+      "customerId": "180002",
+      "amount": "229",
+      "type": "refund",
+      "origin": "system",
+      "description": "Reembolso de ativação cancelada #540003",
+      "balanceBefore": "911",
+      "balanceAfter": "1140",
+      "createdAt": "2025-12-05 02:48:13"
+    },
+    {
+      "id": "690011",
+      "customerId": "180002",
+      "amount": "229",
+      "type": "refund",
+      "origin": "system",
+      "description": "Reembolso de ativação cancelada #540004",
+      "balanceBefore": "682",
+      "balanceAfter": "911",
+      "createdAt": "2025-12-05 02:48:05"
+    },
+    {
+      "id": "690010",
+      "customerId": "180002",
+      "amount": "-229",
+      "type": "purchase",
+      "origin": "system",
+      "description": "Compra de número SMS - 3Fun (Brazil)",
+      "balanceBefore": "911",
+      "balanceAfter": "682",
+      "createdAt": "2025-12-05 02:47:20"
+    },
+    {
+      "id": "690009",
+      "customerId": "180002",
+      "amount": "-229",
+      "type": "purchase",
+      "origin": "system",
+      "description": "Compra de número SMS - 3Fun (Brazil)",
+      "balanceBefore": "1140",
+      "balanceAfter": "911",
+      "createdAt": "2025-12-05 02:47:12"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\tamount\ttype\torigin\tdescription\tbalanceBefore\tbalanceAfter\tcreatedAt\n750008\t180002\t300\tcredit\tsystem\tRecarga via PIX - fb678ab22c61498fa6d26c4225ff70f4\t3028\t3328\t2025-12-05 20:58:31\n750007\t180002\t123\tcredit\tsystem\tRecarga via PIX - 4a901276912e4c8c938a29b065f167a0\t2905\t3028\t2025-12-05 20:56:30\n750006\t180002\t111\tcredit\tsystem\tRecarga via PIX - 25cc2fc21de64559a8908dd86e4b79a3\t2794\t2905\t2025-12-05 20:52:39\n750005\t180002\t222\tcredit\tsystem\tRecarga via PIX - f8ce93924f3841a4b18ca24629b551e7\t2572\t2794\t2025-12-05 20:47:51\n750004\t180002\t150\tcredit\tsystem\tRecarga via PIX - 9c95460d6fff41afb1e4edad5dffb480\t2422\t2572\t2025-12-05 20:44:40\n750003\t180002\t233\tcredit\tsystem\tRecarga via PIX - 054b2bfe547d4ccd9ed690cc30ea2529\t2189\t2422\t2025-12-05 20:43:08\n750002\t180002\t220\tcredit\tsystem\tRecarga via PIX - 40ec3dc7cf6e4684b638e1302a20bc80\t1969\t2189\t2025-12-05 20:41:10\n750001\t180002\t122\tcredit\tsystem\tRecarga via PIX - f15eb7b7f2c3440aa803ef2cf7301e68\t1847\t1969\t2025-12-05 20:30:53\n720007\t180002\t200\tcredit\tsystem\tRecarga via PIX - d4e980183b8a456dbb0431acfc6959f2\t1647\t1847\t2025-12-05 20:13:55\n720006\t180002\t110\tcredit\tsystem\tRecarga via PIX - ca88df3f5e7b41d29575015c146d40cf\t1537\t1647\t2025-12-05 20:08:27\n720005\t180002\t229\trefund\tsystem\tReembolso de ativação cancelada #570043\t1308\t1537\t2025-12-05 16:41:36\n720004\t180002\t-229\tpurchase\tsystem\tCompra de número SMS - 3Fun (Brazil)\t1537\t1308\t2025-12-05 16:41:15\n720003\t180002\t97\trefund\tsystem\tReembolso automático - Ativação expirada #540001 (5531976025880)\t1440\t1537\t2025-12-05 16:37:24\n720002\t180002\t229\trefund\tsystem\tReembolso automático - Ativação expirada #540002 (5511961210456)\t1211\t1440\t2025-12-05 16:37:24\n720001\t180002\t-229\tpurchase\tsystem\tCompra de número SMS - 3Fun (Brazil)\t1440\t1211\t2025-12-05 16:30:56\n690013\t180002\t300\tcredit\tsystem\tRecarga via PIX - ed5b9eaa0cfa45fe921e0f5752e1d585\t1140\t1440\t2025-12-05 02:50:07\n690012\t180002\t229\trefund\tsystem\tReembolso de ativação cancelada #540003\t911\t1140\t2025-12-05 02:48:13\n690011\t180002\t229\trefund\tsystem\tReembolso de ativação cancelada #540004\t682\t911\t2025-12-05 02:48:05\n690010\t180002\t-229\tpurchase\tsystem\tCompra de número SMS - 3Fun (Brazil)\t911\t682\t2025-12-05 02:47:20\n690009\t180002\t-229\tpurchase\tsystem\tCompra de número SMS - 3Fun (Brazil)\t1140\t911\t2025-12-05 02:47:12\n",
+  "stderr": "",
+  "execution_time_ms": 61
+}

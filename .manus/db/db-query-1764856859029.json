@@ -1,0 +1,16 @@
+{
+  "query": "SELECT id, name, url, token FROM sms_apis WHERE id = 3",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, name, url, token FROM sms_apis WHERE id = 3",
+  "rows": [
+    {
+      "id": "3",
+      "name": "Opção 3",
+      "url": "https://api.sms-activate.ae/stubs/handler_api.php",
+      "token": "b9202b2bd66bf510e10d08f0A485fd27"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\turl\ttoken\n3\tOpção 3\thttps://api.sms-activate.ae/stubs/handler_api.php\tb9202b2bd66bf510e10d08f0A485fd27\n",
+  "stderr": "",
+  "execution_time_ms": 51
+}

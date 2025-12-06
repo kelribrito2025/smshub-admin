@@ -1,0 +1,23 @@
+{
+  "query": "SELECT s.*, (SELECT COUNT(*) FROM prices p WHERE p.serviceId = s.id) as price_count FROM services s WHERE s.smshubCode = 'wa'",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT s.*, (SELECT COUNT(*) FROM prices p WHERE p.serviceId = s.id) as price_count FROM services s WHERE s.smshubCode = 'wa'",
+  "rows": [
+    {
+      "id": "60001",
+      "smshubCode": "wa",
+      "name": "Whatsapp",
+      "category": "Social",
+      "active": "0",
+      "markupPercentage": "100",
+      "markupFixed": "0",
+      "createdAt": "2025-11-30 20:17:32",
+      "updatedAt": "2025-12-05 16:47:05",
+      "totalSales": "187",
+      "price_count": "3"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tsmshubCode\tname\tcategory\tactive\tmarkupPercentage\tmarkupFixed\tcreatedAt\tupdatedAt\ttotalSales\tprice_count\n60001\twa\tWhatsapp\tSocial\t0\t100\t0\t2025-11-30 20:17:32\t2025-12-05 16:47:05\t187\t3\n",
+  "stderr": "",
+  "execution_time_ms": 94
+}

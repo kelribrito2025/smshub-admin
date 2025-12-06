@@ -1,0 +1,9 @@
+{
+  "query": "CREATE INDEX total_sales_idx ON services(totalSales)",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute CREATE INDEX total_sales_idx ON services(totalSales)",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 623
+}

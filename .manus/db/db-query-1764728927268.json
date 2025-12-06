@@ -1,0 +1,9 @@
+{
+  "query": "SELECT p.id, p.apiId, p.countryId, p.serviceId, s.smshubCode, s.name FROM prices p LEFT JOIN services s ON p.serviceId = s.id WHERE p.apiId = 60001 AND s.smshubCode = 'wa'",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT p.id, p.apiId, p.countryId, p.serviceId, s.smshubCode, s.name FROM prices p LEFT JOIN services s ON p.serviceId = s.id WHERE p.apiId = 60001 AND s.smshubCode = 'wa'",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 58
+}

@@ -1,0 +1,70 @@
+{
+  "query": "SELECT id, status, phoneNumber, createdAt FROM activations ORDER BY createdAt DESC LIMIT 10",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, status, phoneNumber, createdAt FROM activations ORDER BY createdAt DESC LIMIT 10",
+  "rows": [
+    {
+      "id": "570042",
+      "status": "pending",
+      "phoneNumber": "+5511999999999",
+      "createdAt": "2025-12-05 16:31:18"
+    },
+    {
+      "id": "570041",
+      "status": "active",
+      "phoneNumber": "5531976102570",
+      "createdAt": "2025-12-05 16:30:56"
+    },
+    {
+      "id": "570027",
+      "status": "completed",
+      "phoneNumber": "+551131843447",
+      "createdAt": "2025-12-05 15:48:34"
+    },
+    {
+      "id": "570014",
+      "status": "completed",
+      "phoneNumber": "+551139616927",
+      "createdAt": "2025-12-05 15:48:22"
+    },
+    {
+      "id": "540004",
+      "status": "cancelled",
+      "phoneNumber": "5579976052670",
+      "createdAt": "2025-12-05 02:47:20"
+    },
+    {
+      "id": "540003",
+      "status": "cancelled",
+      "phoneNumber": "5562984459471",
+      "createdAt": "2025-12-05 02:47:11"
+    },
+    {
+      "id": "540002",
+      "status": "cancelled",
+      "phoneNumber": "5511961210456",
+      "createdAt": "2025-12-05 02:46:59"
+    },
+    {
+      "id": "540001",
+      "status": "expired",
+      "phoneNumber": "5531976025880",
+      "createdAt": "2025-12-05 01:23:44"
+    },
+    {
+      "id": "510019",
+      "status": "cancelled",
+      "phoneNumber": "5531976135263",
+      "createdAt": "2025-12-03 21:31:06"
+    },
+    {
+      "id": "510018",
+      "status": "cancelled",
+      "phoneNumber": "5511920212062",
+      "createdAt": "2025-12-03 21:05:59"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tstatus\tphoneNumber\tcreatedAt\n570042\tpending\t+5511999999999\t2025-12-05 16:31:18\n570041\tactive\t5531976102570\t2025-12-05 16:30:56\n570027\tcompleted\t+551131843447\t2025-12-05 15:48:34\n570014\tcompleted\t+551139616927\t2025-12-05 15:48:22\n540004\tcancelled\t5579976052670\t2025-12-05 02:47:20\n540003\tcancelled\t5562984459471\t2025-12-05 02:47:11\n540002\tcancelled\t5511961210456\t2025-12-05 02:46:59\n540001\texpired\t5531976025880\t2025-12-05 01:23:44\n510019\tcancelled\t5531976135263\t2025-12-03 21:31:06\n510018\tcancelled\t5511920212062\t2025-12-03 21:05:59\n",
+  "stderr": "",
+  "execution_time_ms": 64
+}

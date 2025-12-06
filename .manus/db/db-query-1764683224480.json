@@ -1,0 +1,80 @@
+{
+  "query": "SELECT id, smshubActivationId, phoneNumber, apiId, createdAt FROM activations WHERE apiId = 2 AND smshubActivationId != phoneNumber ORDER BY id DESC LIMIT 10",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, smshubActivationId, phoneNumber, apiId, createdAt FROM activations WHERE apiId = 2 AND smshubActivationId != phoneNumber ORDER BY id DESC LIMIT 10",
+  "rows": [
+    {
+      "id": "210001",
+      "smshubActivationId": "4036846",
+      "phoneNumber": "5521920245807",
+      "apiId": "2",
+      "createdAt": "2025-12-02 13:35:36"
+    },
+    {
+      "id": "180006",
+      "smshubActivationId": "4032445",
+      "phoneNumber": "5531920033958",
+      "apiId": "2",
+      "createdAt": "2025-12-02 12:53:52"
+    },
+    {
+      "id": "150002",
+      "smshubActivationId": "4029285",
+      "phoneNumber": "5522920179213",
+      "apiId": "2",
+      "createdAt": "2025-12-02 12:23:32"
+    },
+    {
+      "id": "120014",
+      "smshubActivationId": "851719378",
+      "phoneNumber": "5511937454168",
+      "apiId": "2",
+      "createdAt": "2025-12-02 01:45:02"
+    },
+    {
+      "id": "120013",
+      "smshubActivationId": "851719142",
+      "phoneNumber": "5562998534740",
+      "apiId": "2",
+      "createdAt": "2025-12-02 01:43:18"
+    },
+    {
+      "id": "120011",
+      "smshubActivationId": "851717386",
+      "phoneNumber": "5511950147370",
+      "apiId": "2",
+      "createdAt": "2025-12-02 01:33:53"
+    },
+    {
+      "id": "120010",
+      "smshubActivationId": "851717274",
+      "phoneNumber": "5531999968684",
+      "apiId": "2",
+      "createdAt": "2025-12-02 01:33:04"
+    },
+    {
+      "id": "120009",
+      "smshubActivationId": "851716485",
+      "phoneNumber": "5531999968684",
+      "apiId": "2",
+      "createdAt": "2025-12-02 01:30:11"
+    },
+    {
+      "id": "120008",
+      "smshubActivationId": "851715266",
+      "phoneNumber": "5521920282837",
+      "apiId": "2",
+      "createdAt": "2025-12-02 01:26:49"
+    },
+    {
+      "id": "120006",
+      "smshubActivationId": "3968840",
+      "phoneNumber": "5577920086378",
+      "apiId": "2",
+      "createdAt": "2025-12-02 01:01:38"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tsmshubActivationId\tphoneNumber\tapiId\tcreatedAt\n210001\t4036846\t5521920245807\t2\t2025-12-02 13:35:36\n180006\t4032445\t5531920033958\t2\t2025-12-02 12:53:52\n150002\t4029285\t5522920179213\t2\t2025-12-02 12:23:32\n120014\t851719378\t5511937454168\t2\t2025-12-02 01:45:02\n120013\t851719142\t5562998534740\t2\t2025-12-02 01:43:18\n120011\t851717386\t5511950147370\t2\t2025-12-02 01:33:53\n120010\t851717274\t5531999968684\t2\t2025-12-02 01:33:04\n120009\t851716485\t5531999968684\t2\t2025-12-02 01:30:11\n120008\t851715266\t5521920282837\t2\t2025-12-02 01:26:49\n120006\t3968840\t5577920086378\t2\t2025-12-02 01:01:38\n",
+  "stderr": "",
+  "execution_time_ms": 73
+}

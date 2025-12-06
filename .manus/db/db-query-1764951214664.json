@@ -1,0 +1,70 @@
+{
+  "query": "\nWITH ranked AS (\n  SELECT id, name, totalSales,\n         ROW_NUMBER() OVER (ORDER BY totalSales DESC, name ASC) as rank_num\n  FROM services\n  WHERE active = 1\n)\nSELECT * FROM ranked WHERE rank_num > 20 ORDER BY name ASC LIMIT 10\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nWITH ranked AS (\n  SELECT id, name, totalSales,\n         ROW_NUMBER() OVER (ORDER BY totalSales DESC, name ASC) as rank_num\n  FROM services\n  WHERE active = 1\n)\nSELECT * FROM ranked WHERE rank_num > 20 ORDER BY name ASC LIMIT 10\n",
+  "rows": [
+    {
+      "id": "60039",
+      "name": "Alipay/Alibaba",
+      "totalSales": "0",
+      "rank_num": "21"
+    },
+    {
+      "id": "60411",
+      "name": "Allegro",
+      "totalSales": "0",
+      "rank_num": "22"
+    },
+    {
+      "id": "60019",
+      "name": "Amazon",
+      "totalSales": "0",
+      "rank_num": "23"
+    },
+    {
+      "id": "60133",
+      "name": "Ame Digital",
+      "totalSales": "0",
+      "rank_num": "24"
+    },
+    {
+      "id": "60172",
+      "name": "Anthropic",
+      "totalSales": "0",
+      "rank_num": "25"
+    },
+    {
+      "id": "60360",
+      "name": "ApostaGanha",
+      "totalSales": "0",
+      "rank_num": "26"
+    },
+    {
+      "id": "60092",
+      "name": "Apple",
+      "totalSales": "0",
+      "rank_num": "27"
+    },
+    {
+      "id": "60118",
+      "name": "ArenaPlus",
+      "totalSales": "0",
+      "rank_num": "28"
+    },
+    {
+      "id": "120002",
+      "name": "Astropay",
+      "totalSales": "0",
+      "rank_num": "29"
+    },
+    {
+      "id": "60225",
+      "name": "Autodesk",
+      "totalSales": "0",
+      "rank_num": "30"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\ttotalSales\trank_num\n60039\tAlipay/Alibaba\t0\t21\n60411\tAllegro\t0\t22\n60019\tAmazon\t0\t23\n60133\tAme Digital\t0\t24\n60172\tAnthropic\t0\t25\n60360\tApostaGanha\t0\t26\n60092\tApple\t0\t27\n60118\tArenaPlus\t0\t28\n120002\tAstropay\t0\t29\n60225\tAutodesk\t0\t30\n",
+  "stderr": "",
+  "execution_time_ms": 61
+}

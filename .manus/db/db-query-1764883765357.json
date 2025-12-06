@@ -1,0 +1,18 @@
+{
+  "query": "SELECT p.id, s.name as service, c.name as country, p.smshubPrice as cost, p.ourPrice as price, \nROUND((p.ourPrice - p.smshubPrice) / p.smshubPrice * 100, 2) as calculated_profit\nFROM prices p\nJOIN services s ON p.serviceId = s.id\nJOIN countries c ON p.countryId = c.id\nWHERE s.name LIKE '%Outros%' AND p.apiId = 2;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT p.id, s.name as service, c.name as country, p.smshubPrice as cost, p.ourPrice as price, \nROUND((p.ourPrice - p.smshubPrice) / p.smshubPrice * 100, 2) as calculated_profit\nFROM prices p\nJOIN services s ON p.serviceId = s.id\nJOIN countries c ON p.countryId = c.id\nWHERE s.name LIKE '%Outros%' AND p.apiId = 2;",
+  "rows": [
+    {
+      "id": "60012",
+      "service": "Outros apps/Site",
+      "country": "Brazil",
+      "cost": "18",
+      "price": "97",
+      "calculated_profit": "438.89"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tservice\tcountry\tcost\tprice\tcalculated_profit\n60012\tOutros apps/Site\tBrazil\t18\t97\t438.89\n",
+  "stderr": "",
+  "execution_time_ms": 53
+}

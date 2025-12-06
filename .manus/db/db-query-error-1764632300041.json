@@ -1,0 +1,8 @@
+{
+  "query": "\nSELECT \n  a.id,\n  a.customerId,\n  a.serviceId,\n  s.name as serviceName,\n  a.phoneNumber,\n  a.status,\n  a.smsCode,\n  a.smshubActivationId,\n  a.apiId,\n  api.name as apiName,\n  a.createdAt\nFROM activations a\nJOIN services s ON a.serviceId = s.id\nJOIN smsApis api ON a.apiId = api.id\nWHERE s.name LIKE '%Outros%'\nORDER BY a.createdAt DESC\nLIMIT 1;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  a.id,\n  a.customerId,\n  a.serviceId,\n  s.name as serviceName,\n  a.phoneNumber,\n  a.status,\n  a.smsCode,\n  a.smshubActivationId,\n  a.apiId,\n  api.name as apiName,\n  a.createdAt\nFROM activations a\nJOIN services s ON a.serviceId = s.id\nJOIN smsApis api ON a.apiId = api.id\nWHERE s.name LIKE '%Outros%'\nORDER BY a.createdAt DESC\nLIMIT 1;\n",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1146 (42S02) at line 2: Table '2kemnlvgvayujv9aewkrsw.smsApis' doesn't exist"
+  ]
+}

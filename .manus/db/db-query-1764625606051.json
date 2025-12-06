@@ -1,0 +1,9 @@
+{
+  "query": "SELECT \n  s.name as service_name,\n  a.id as api_id,\n  a.name as api_name,\n  p.ourPrice\nFROM prices p\nINNER JOIN services s ON p.serviceId = s.id\nINNER JOIN sms_apis a ON p.apiId = a.id\nWHERE s.name IN ('WhatsApp', 'Telegram', 'Instagram', 'Facebook', 'Google,youtube,Gmail')\n  AND p.countryId = 1\n  AND a.active = 1\nORDER BY s.name, a.id ASC;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT \n  s.name as service_name,\n  a.id as api_id,\n  a.name as api_name,\n  p.ourPrice\nFROM prices p\nINNER JOIN services s ON p.serviceId = s.id\nINNER JOIN sms_apis a ON p.apiId = a.id\nWHERE s.name IN ('WhatsApp', 'Telegram', 'Instagram', 'Facebook', 'Google,youtube,Gmail')\n  AND p.countryId = 1\n  AND a.active = 1\nORDER BY s.name, a.id ASC;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 67
+}

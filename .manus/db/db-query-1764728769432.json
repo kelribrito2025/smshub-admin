@@ -1,0 +1,18 @@
+{
+  "query": "SELECT id, apiId, countryId, serviceId, smshubPrice, ourPrice FROM prices WHERE apiId = 60001 LIMIT 5",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, apiId, countryId, serviceId, smshubPrice, ourPrice FROM prices WHERE apiId = 60001 LIMIT 5",
+  "rows": [
+    {
+      "id": "210001",
+      "apiId": "60001",
+      "countryId": "60021",
+      "serviceId": "60001",
+      "smshubPrice": "100",
+      "ourPrice": "200"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tapiId\tcountryId\tserviceId\tsmshubPrice\tourPrice\n210001\t60001\t60021\t60001\t100\t200\n",
+  "stderr": "",
+  "execution_time_ms": 55
+}

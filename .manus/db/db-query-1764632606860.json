@@ -1,0 +1,9 @@
+{
+  "query": "\nSELECT \n  p.id,\n  p.apiId,\n  a.name as apiName,\n  p.serviceId,\n  s.name as serviceName,\n  s.smshubCode,\n  p.countryId,\n  c.name as countryName,\n  p.ourPrice,\n  p.smshubPrice\nFROM prices p\nLEFT JOIN sms_apis a ON p.apiId = a.id\nLEFT JOIN services s ON p.serviceId = s.id\nLEFT JOIN countries c ON p.countryId = c.id\nWHERE p.serviceId = 172 AND p.countryId = 1\nORDER BY a.priority;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  p.id,\n  p.apiId,\n  a.name as apiName,\n  p.serviceId,\n  s.name as serviceName,\n  s.smshubCode,\n  p.countryId,\n  c.name as countryName,\n  p.ourPrice,\n  p.smshubPrice\nFROM prices p\nLEFT JOIN sms_apis a ON p.apiId = a.id\nLEFT JOIN services s ON p.serviceId = s.id\nLEFT JOIN countries c ON p.countryId = c.id\nWHERE p.serviceId = 172 AND p.countryId = 1\nORDER BY a.priority;\n",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 52
+}

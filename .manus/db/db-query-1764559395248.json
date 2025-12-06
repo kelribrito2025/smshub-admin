@@ -1,0 +1,9 @@
+{
+  "query": "INSERT INTO operators (countryId, code, name, active) VALUES \n(1, 'any', 'Aleatória', 1),\n(1, 'claro', 'Claro', 1),\n(1, 'vivo', 'Vivo', 1),\n(1, 'tim', 'TIM', 1),\n(1, 'oi', 'Oi', 1),\n(1, 'algar', 'Algar', 1);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute INSERT INTO operators (countryId, code, name, active) VALUES \n(1, 'any', 'Aleatória', 1),\n(1, 'claro', 'Claro', 1),\n(1, 'vivo', 'Vivo', 1),\n(1, 'tim', 'TIM', 1),\n(1, 'oi', 'Oi', 1),\n(1, 'algar', 'Algar', 1);",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 62
+}

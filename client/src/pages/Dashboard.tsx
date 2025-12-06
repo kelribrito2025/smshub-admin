@@ -1,0 +1,281 @@
+import { useAuth } from "@/_core/hooks/useAuth";
+import DashboardLayout from "@/components/DashboardLayout";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { trpc } from "@/lib/trpc";
+import { Activity, DollarSign, TrendingUp, Users, ShoppingCart, LayoutDashboard } from "lucide-react";
+import { Link } from "wouter";
+import { useEffect } from "react";
+import { toast } from "sonner";
+
+export default function Dashboard() {
+  const { user, loading } = useAuth();
+  const { data: dashboardData, isLoading, error } = trpc.stats.getDashboard.useQuery();
+  const { data: apiKeySetting } = trpc.settings.get.useQuery(
+    { key: "smshub_api_key" },
+    { retry: false }
+  );
+
+  const { data: balance } = trpc.settings.getBalance.useQuery(undefined, {
+    enabled: !!apiKeySetting?.value,
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
+
+  useEffect(() => {
+    if (error) {
+      if (error.message.includes('API key not configured')) {
+        toast.error('Configure a API Key do SMSHub primeiro');
+      }
+    }
+  }, [error]);
+
+  if (loading || isLoading) {
+    return (
+      <DashboardLayout>
+        <div className="flex items-center justify-center min-h-[400px]">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+            <p className="mt-4 text-muted-foreground">Carregando...</p>
+          </div>
+        </div>
+      </DashboardLayout>
+    );
+  }
+
+  const stats = dashboardData?.stats;
+  const formatCurrency = (cents: number) => {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    }).format(cents / 100);
+  };
+
+  return (
+    <DashboardLayout>
+      <div className="space-y-6">
+        {/* Header */}
+        <div className="flex items-start justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-white flex items-center gap-2">
+              <LayoutDashboard className="w-8 h-8 text-blue-500" />
+              Dashboard
+            </h1>
+            <p className="text-muted-foreground mt-1">
+              Visão geral do seu painel administrativo SMSHub
+            </p>
+          </div>
+          <a href="https://numero-virtual.com/store" target="_blank" rel="noopener noreferrer">
+            <Button className="gap-2">
+              <ShoppingCart className="h-4 w-4" />
+              Painel de Vendas
+            </Button>
+          </a>
+        </div>
+
+        {/* Stats Cards */}
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Saldo SMSHub</CardTitle>
+              <DollarSign className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">
+                {balance ? formatCurrency(balance.balance * 100) : '---'}
+              </div>
+              <p className="text-xs text-muted-foreground">Saldo disponível na API</p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Total de Ativações</CardTitle>
+              <Activity className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{stats?.total || 0}</div>
+              <p className="text-xs text-muted-foreground">
+                {stats?.completed || 0} concluídas
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Receita Total</CardTitle>
+              <TrendingUp className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">
+                {formatCurrency(Number(stats?.totalRevenue) || 0)}
+              </div>
+              <p className="text-xs text-muted-foreground">Vendas realizadas</p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Lucro Total</CardTitle>
+              <DollarSign className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-green-600">
+                {formatCurrency(Number(stats?.totalProfit) || 0)}
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Margem de {stats?.totalRevenue ? ((Number(stats.totalProfit) / Number(stats.totalRevenue)) * 100).toFixed(1) : 0}%
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Recent Activity and Top Services */}
+        <div className="grid gap-4 md:grid-cols-2">
+          {/* Top Services */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Serviços Mais Vendidoss</CardTitle>
+              <CardDescription>Top 5 serviços por número de vendas</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {dashboardData?.topServices && dashboardData.topServices.length > 0 ? (
+                <div className="space-y-4">
+                  {dashboardData.topServices.map((item, index) => (
+                    <div key={index} className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold">
+                          {index + 1}
+                        </div>
+                        <div>
+                          <p className="font-medium">{item.service?.name}</p>
+                          <p className="text-xs text-muted-foreground">
+                            {item.count} vendas
+                          </p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="font-medium">{formatCurrency(Number(item.revenue) || 0)}</p>
+                        <p className="text-xs text-green-600">
+                          +{formatCurrency(Number(item.profit) || 0)}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8 text-muted-foreground">
+                  Nenhuma venda registrada ainda
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* Top Countries */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Países Mais Utilizados</CardTitle>
+              <CardDescription>Top 5 países por número de vendas</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {dashboardData?.topCountries && dashboardData.topCountries.length > 0 ? (
+                <div className="space-y-4">
+                  {dashboardData.topCountries.map((item, index) => (
+                    <div key={index} className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold">
+                          {index + 1}
+                        </div>
+                        <div>
+                          <p className="font-medium">{item.country?.name}</p>
+                          <p className="text-xs text-muted-foreground">
+                            {item.count} vendas
+                          </p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="font-medium">{formatCurrency(Number(item.revenue) || 0)}</p>
+                        <p className="text-xs text-green-600">
+                          +{formatCurrency(Number(item.profit) || 0)}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8 text-muted-foreground">
+                  Nenhuma venda registrada ainda
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Recent Activations */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Ativações Recentes</CardTitle>
+            <CardDescription>Últimas 10 ativações realizadas</CardDescription>
+          </CardHeader>
+          <CardContent>
+            {dashboardData?.recentActivations && dashboardData.recentActivations.length > 0 ? (
+              <div className="space-y-3">
+                {dashboardData.recentActivations.map((item) => {
+                  const activation = item.activation;
+                  const service = item.service;
+                  const country = item.country;
+
+                  return (
+                    <div
+                      key={activation?.id}
+                      className="flex items-center justify-between border-b pb-3 last:border-0"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div
+                          className={`h-2 w-2 rounded-full ${
+                            activation?.status === 'completed'
+                              ? 'bg-green-500'
+                              : activation?.status === 'cancelled'
+                              ? 'bg-red-500'
+                              : activation?.status === 'failed'
+                              ? 'bg-orange-500'
+                              : 'bg-blue-500'
+                          }`}
+                        />
+                        <div>
+                          <p className="font-medium">
+                            {service?.name} - {country?.name}
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            {activation?.phoneNumber || 'Aguardando número'}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm font-medium capitalize">
+                          {activation?.status === 'completed' ? 'Concluída' :
+                           activation?.status === 'cancelled' ? 'Cancelada' :
+                           activation?.status === 'failed' ? 'Falhou' :
+                           activation?.status === 'active' ? 'Ativa' : 'Pendente'}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          {activation?.createdAt
+                            ? new Date(activation.createdAt).toLocaleString('pt-BR')
+                            : ''}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="text-center py-8 text-muted-foreground">
+                Nenhuma ativação registrada ainda
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+    </DashboardLayout>
+  );
+}

@@ -1,0 +1,14 @@
+{
+  "query": "SELECT smsCode, LENGTH(smsCode) as tamanho FROM activations WHERE phoneNumber = '5521920394469'",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT smsCode, LENGTH(smsCode) as tamanho FROM activations WHERE phoneNumber = '5521920394469'",
+  "rows": [
+    {
+      "smsCode": "NULL",
+      "tamanho": "NULL"
+    }
+  ],
+  "messages": [],
+  "stdout": "smsCode\ttamanho\nNULL\tNULL\n",
+  "stderr": "",
+  "execution_time_ms": 55
+}

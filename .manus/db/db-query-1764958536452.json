@@ -1,0 +1,19 @@
+{
+  "query": "SELECT id, name, smshubCode, active, category, totalSales, createdAt FROM services WHERE smshubCode = 'wa'",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, name, smshubCode, active, category, totalSales, createdAt FROM services WHERE smshubCode = 'wa'",
+  "rows": [
+    {
+      "id": "60001",
+      "name": "Whatsapp",
+      "smshubCode": "wa",
+      "active": "0",
+      "category": "Social",
+      "totalSales": "187",
+      "createdAt": "2025-11-30 20:17:32"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tsmshubCode\tactive\tcategory\ttotalSales\tcreatedAt\n60001\tWhatsapp\twa\t0\tSocial\t187\t2025-11-30 20:17:32\n",
+  "stderr": "",
+  "execution_time_ms": 59
+}

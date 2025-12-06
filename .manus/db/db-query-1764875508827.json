@@ -1,0 +1,45 @@
+{
+  "query": "SELECT p.id, s.name as service_name, p.smshubPrice, p.ourPrice, a.profit_percentage \nFROM prices p \nJOIN services s ON p.serviceId = s.id \nJOIN sms_apis a ON p.apiId = a.id \nWHERE p.apiId = 1 AND p.smshubPrice > 0 \nLIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT p.id, s.name as service_name, p.smshubPrice, p.ourPrice, a.profit_percentage \nFROM prices p \nJOIN services s ON p.serviceId = s.id \nJOIN sms_apis a ON p.apiId = a.id \nWHERE p.apiId = 1 AND p.smshubPrice > 0 \nLIMIT 5;",
+  "rows": [
+    {
+      "id": "360112",
+      "service_name": "Whatsapp",
+      "smshubPrice": "800",
+      "ourPrice": "2400",
+      "profit_percentage": "200.00"
+    },
+    {
+      "id": "360137",
+      "service_name": "Google,youtube,Gmail",
+      "smshubPrice": "100",
+      "ourPrice": "300",
+      "profit_percentage": "200.00"
+    },
+    {
+      "id": "360099",
+      "service_name": "Vk.com",
+      "smshubPrice": "50",
+      "ourPrice": "150",
+      "profit_percentage": "200.00"
+    },
+    {
+      "id": "360061",
+      "service_name": "Telegram",
+      "smshubPrice": "600",
+      "ourPrice": "1800",
+      "profit_percentage": "200.00"
+    },
+    {
+      "id": "360133",
+      "service_name": "Outros apps/Site",
+      "smshubPrice": "70",
+      "ourPrice": "210",
+      "profit_percentage": "200.00"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tservice_name\tsmshubPrice\tourPrice\tprofit_percentage\n360112\tWhatsapp\t800\t2400\t200.00\n360137\tGoogle,youtube,Gmail\t100\t300\t200.00\n360099\tVk.com\t50\t150\t200.00\n360061\tTelegram\t600\t1800\t200.00\n360133\tOutros apps/Site\t70\t210\t200.00\n",
+  "stderr": "",
+  "execution_time_ms": 63
+}

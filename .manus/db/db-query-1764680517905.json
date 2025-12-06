@@ -1,0 +1,50 @@
+{
+  "query": "\nSELECT \n  a.id,\n  a.apiId,\n  api.name as api_name,\n  a.phoneNumber,\n  a.status,\n  a.createdAt\nFROM activations a\nLEFT JOIN sms_apis api ON a.apiId = api.id\nORDER BY a.id DESC\nLIMIT 5;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  a.id,\n  a.apiId,\n  api.name as api_name,\n  a.phoneNumber,\n  a.status,\n  a.createdAt\nFROM activations a\nLEFT JOIN sms_apis api ON a.apiId = api.id\nORDER BY a.id DESC\nLIMIT 5;\n",
+  "rows": [
+    {
+      "id": "180006",
+      "apiId": "1",
+      "api_name": "Opção 1",
+      "phoneNumber": "5531920033958",
+      "status": "active",
+      "createdAt": "2025-12-02 12:53:52"
+    },
+    {
+      "id": "180005",
+      "apiId": "1",
+      "api_name": "Opção 1",
+      "phoneNumber": "5561981043043",
+      "status": "completed",
+      "createdAt": "2025-12-02 12:50:26"
+    },
+    {
+      "id": "180004",
+      "apiId": "1",
+      "api_name": "Opção 1",
+      "phoneNumber": "5516990484775",
+      "status": "active",
+      "createdAt": "2025-12-02 12:47:14"
+    },
+    {
+      "id": "180003",
+      "apiId": "1",
+      "api_name": "Opção 1",
+      "phoneNumber": "5511973969002",
+      "status": "active",
+      "createdAt": "2025-12-02 12:46:00"
+    },
+    {
+      "id": "180002",
+      "apiId": "1",
+      "api_name": "Opção 1",
+      "phoneNumber": "5562991855817",
+      "status": "active",
+      "createdAt": "2025-12-02 12:43:11"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tapiId\tapi_name\tphoneNumber\tstatus\tcreatedAt\n180006\t1\tOpção 1\t5531920033958\tactive\t2025-12-02 12:53:52\n180005\t1\tOpção 1\t5561981043043\tcompleted\t2025-12-02 12:50:26\n180004\t1\tOpção 1\t5516990484775\tactive\t2025-12-02 12:47:14\n180003\t1\tOpção 1\t5511973969002\tactive\t2025-12-02 12:46:00\n180002\t1\tOpção 1\t5562991855817\tactive\t2025-12-02 12:43:11\n",
+  "stderr": "",
+  "execution_time_ms": 65
+}

@@ -1,0 +1,17 @@
+{
+  "query": "-- Primeiro, vamos ver se existe alguma ativação completada\nSELECT id, userId, phoneNumber, status, smsCode FROM activations WHERE status = 'completed' LIMIT 1;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute -- Primeiro, vamos ver se existe alguma ativação completada\nSELECT id, userId, phoneNumber, status, smsCode FROM activations WHERE status = 'completed' LIMIT 1;",
+  "rows": [
+    {
+      "id": "20",
+      "userId": "1",
+      "phoneNumber": "64274369577",
+      "status": "completed",
+      "smsCode": "987654"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tuserId\tphoneNumber\tstatus\tsmsCode\n20\t1\t64274369577\tcompleted\t987654\n",
+  "stderr": "",
+  "execution_time_ms": 102
+}

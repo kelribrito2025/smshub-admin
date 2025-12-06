@@ -1,0 +1,1 @@
+CREATE INDEX `active_idx` ON `prices` (`active`);

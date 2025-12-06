@@ -1,0 +1,9 @@
+{
+  "query": "SELECT p.*, s.name as service_name, s.smshubCode, c.name as country_name FROM prices p JOIN services s ON p.serviceId = s.id JOIN countries c ON p.countryId = c.id WHERE p.apiId = 26",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT p.*, s.name as service_name, s.smshubCode, c.name as country_name FROM prices p JOIN services s ON p.serviceId = s.id JOIN countries c ON p.countryId = c.id WHERE p.apiId = 26",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 59
+}

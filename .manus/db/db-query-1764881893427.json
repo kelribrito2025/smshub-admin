@@ -1,0 +1,90 @@
+{
+  "query": "SELECT p.id, c.name as country, s.name as service, p.smshubPrice, p.ourPrice, p.apiId FROM prices p JOIN countries c ON p.countryId = c.id JOIN services s ON p.serviceId = s.id WHERE p.apiId = 3 LIMIT 10",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT p.id, c.name as country, s.name as service, p.smshubPrice, p.ourPrice, p.apiId FROM prices p JOIN countries c ON p.countryId = c.id JOIN services s ON p.serviceId = s.id WHERE p.apiId = 3 LIMIT 10",
+  "rows": [
+    {
+      "id": "330028",
+      "country": "Brazil",
+      "service": "BeBoo",
+      "smshubPrice": "75",
+      "ourPrice": "150",
+      "apiId": "3"
+    },
+    {
+      "id": "330005",
+      "country": "Brazil",
+      "service": "DoorDash",
+      "smshubPrice": "1",
+      "ourPrice": "100",
+      "apiId": "3"
+    },
+    {
+      "id": "330062",
+      "country": "Brazil",
+      "service": "Claude",
+      "smshubPrice": "5",
+      "ourPrice": "100",
+      "apiId": "3"
+    },
+    {
+      "id": "330007",
+      "country": "Brazil",
+      "service": "EscapeFromTarkov",
+      "smshubPrice": "5",
+      "ourPrice": "100",
+      "apiId": "3"
+    },
+    {
+      "id": "330011",
+      "country": "Brazil",
+      "service": "Amazon",
+      "smshubPrice": "3",
+      "ourPrice": "100",
+      "apiId": "3"
+    },
+    {
+      "id": "330022",
+      "country": "Brazil",
+      "service": "BIGO LIVE",
+      "smshubPrice": "3",
+      "ourPrice": "100",
+      "apiId": "3"
+    },
+    {
+      "id": "330024",
+      "country": "Brazil",
+      "service": "Signal",
+      "smshubPrice": "3",
+      "ourPrice": "100",
+      "apiId": "3"
+    },
+    {
+      "id": "330025",
+      "country": "Brazil",
+      "service": "Blizzard",
+      "smshubPrice": "30",
+      "ourPrice": "100",
+      "apiId": "3"
+    },
+    {
+      "id": "330050",
+      "country": "Brazil",
+      "service": "Happn",
+      "smshubPrice": "2",
+      "ourPrice": "100",
+      "apiId": "3"
+    },
+    {
+      "id": "330052",
+      "country": "Brazil",
+      "service": "EBay",
+      "smshubPrice": "8",
+      "ourPrice": "100",
+      "apiId": "3"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcountry\tservice\tsmshubPrice\tourPrice\tapiId\n330028\tBrazil\tBeBoo\t75\t150\t3\n330005\tBrazil\tDoorDash\t1\t100\t3\n330062\tBrazil\tClaude\t5\t100\t3\n330007\tBrazil\tEscapeFromTarkov\t5\t100\t3\n330011\tBrazil\tAmazon\t3\t100\t3\n330022\tBrazil\tBIGO LIVE\t3\t100\t3\n330024\tBrazil\tSignal\t3\t100\t3\n330025\tBrazil\tBlizzard\t30\t100\t3\n330050\tBrazil\tHappn\t2\t100\t3\n330052\tBrazil\tEBay\t8\t100\t3\n",
+  "stderr": "",
+  "execution_time_ms": 66
+}

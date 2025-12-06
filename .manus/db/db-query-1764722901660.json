@@ -1,0 +1,9 @@
+{
+  "query": "CREATE INDEX IF NOT EXISTS `session_customer_idx` ON `customer_sessions` (`customerId`);\nCREATE INDEX IF NOT EXISTS `session_is_active_idx` ON `customer_sessions` (`isActive`);\nCREATE INDEX IF NOT EXISTS `session_login_at_idx` ON `customer_sessions` (`loginAt`);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute CREATE INDEX IF NOT EXISTS `session_customer_idx` ON `customer_sessions` (`customerId`);\nCREATE INDEX IF NOT EXISTS `session_is_active_idx` ON `customer_sessions` (`isActive`);\nCREATE INDEX IF NOT EXISTS `session_login_at_idx` ON `customer_sessions` (`loginAt`);",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 1362
+}

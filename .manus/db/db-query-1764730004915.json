@@ -1,0 +1,70 @@
+{
+  "query": "SELECT * FROM prices WHERE apiId = 60001 LIMIT 5",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT * FROM prices WHERE apiId = 60001 LIMIT 5",
+  "rows": [
+    {
+      "id": "210002",
+      "apiId": "60001",
+      "countryId": "24",
+      "serviceId": "60222",
+      "smshubPrice": "30",
+      "ourPrice": "60",
+      "quantityAvailable": "584203",
+      "lastSync": "2025-12-03 02:44:01",
+      "createdAt": "2025-12-03 02:44:01",
+      "active": "1"
+    },
+    {
+      "id": "210003",
+      "apiId": "60001",
+      "countryId": "24",
+      "serviceId": "60223",
+      "smshubPrice": "22",
+      "ourPrice": "44",
+      "quantityAvailable": "583324",
+      "lastSync": "2025-12-03 02:44:01",
+      "createdAt": "2025-12-03 02:44:01",
+      "active": "1"
+    },
+    {
+      "id": "210004",
+      "apiId": "60001",
+      "countryId": "24",
+      "serviceId": "60307",
+      "smshubPrice": "32",
+      "ourPrice": "64",
+      "quantityAvailable": "582851",
+      "lastSync": "2025-12-03 02:44:01",
+      "createdAt": "2025-12-03 02:44:01",
+      "active": "1"
+    },
+    {
+      "id": "210005",
+      "apiId": "60001",
+      "countryId": "24",
+      "serviceId": "60107",
+      "smshubPrice": "2",
+      "ourPrice": "4",
+      "quantityAvailable": "48541",
+      "lastSync": "2025-12-03 02:44:01",
+      "createdAt": "2025-12-03 02:44:01",
+      "active": "1"
+    },
+    {
+      "id": "210006",
+      "apiId": "60001",
+      "countryId": "24",
+      "serviceId": "60011",
+      "smshubPrice": "1",
+      "ourPrice": "2",
+      "quantityAvailable": "32837",
+      "lastSync": "2025-12-03 02:44:01",
+      "createdAt": "2025-12-03 02:44:01",
+      "active": "1"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tapiId\tcountryId\tserviceId\tsmshubPrice\tourPrice\tquantityAvailable\tlastSync\tcreatedAt\tactive\n210002\t60001\t24\t60222\t30\t60\t584203\t2025-12-03 02:44:01\t2025-12-03 02:44:01\t1\n210003\t60001\t24\t60223\t22\t44\t583324\t2025-12-03 02:44:01\t2025-12-03 02:44:01\t1\n210004\t60001\t24\t60307\t32\t64\t582851\t2025-12-03 02:44:01\t2025-12-03 02:44:01\t1\n210005\t60001\t24\t60107\t2\t4\t48541\t2025-12-03 02:44:01\t2025-12-03 02:44:01\t1\n210006\t60001\t24\t60011\t1\t2\t32837\t2025-12-03 02:44:01\t2025-12-03 02:44:01\t1\n",
+  "stderr": "",
+  "execution_time_ms": 58
+}

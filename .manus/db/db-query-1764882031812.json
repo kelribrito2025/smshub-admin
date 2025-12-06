@@ -1,0 +1,50 @@
+{
+  "query": "SELECT c.name as pais, s.name as servico, p.smshubPrice as preco_api_centavos, p.ourPrice as nosso_preco_centavos, ROUND(p.smshubPrice/100, 2) as preco_api_reais, ROUND(p.ourPrice/100, 2) as nosso_preco_reais FROM prices p JOIN countries c ON p.countryId = c.id JOIN services s ON p.serviceId = s.id WHERE p.apiId = 3 ORDER BY p.id LIMIT 5",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT c.name as pais, s.name as servico, p.smshubPrice as preco_api_centavos, p.ourPrice as nosso_preco_centavos, ROUND(p.smshubPrice/100, 2) as preco_api_reais, ROUND(p.ourPrice/100, 2) as nosso_preco_reais FROM prices p JOIN countries c ON p.countryId = c.id JOIN services s ON p.serviceId = s.id WHERE p.apiId = 3 ORDER BY p.id LIMIT 5",
+  "rows": [
+    {
+      "pais": "Brazil",
+      "servico": "Wirex",
+      "preco_api_centavos": "180",
+      "nosso_preco_centavos": "450",
+      "preco_api_reais": "1.80",
+      "nosso_preco_reais": "4.50"
+    },
+    {
+      "pais": "Brazil",
+      "servico": "Bipa",
+      "preco_api_centavos": "132",
+      "nosso_preco_centavos": "330",
+      "preco_api_reais": "1.32",
+      "nosso_preco_reais": "3.30"
+    },
+    {
+      "pais": "Brazil",
+      "servico": "Cruzeiro",
+      "preco_api_centavos": "192",
+      "nosso_preco_centavos": "480",
+      "preco_api_reais": "1.92",
+      "nosso_preco_reais": "4.80"
+    },
+    {
+      "pais": "Brazil",
+      "servico": "Probo",
+      "preco_api_centavos": "12",
+      "nosso_preco_centavos": "100",
+      "preco_api_reais": "0.12",
+      "nosso_preco_reais": "1.00"
+    },
+    {
+      "pais": "Brazil",
+      "servico": "DoorDash",
+      "preco_api_centavos": "6",
+      "nosso_preco_centavos": "100",
+      "preco_api_reais": "0.06",
+      "nosso_preco_reais": "1.00"
+    }
+  ],
+  "messages": [],
+  "stdout": "pais\tservico\tpreco_api_centavos\tnosso_preco_centavos\tpreco_api_reais\tnosso_preco_reais\nBrazil\tWirex\t180\t450\t1.80\t4.50\nBrazil\tBipa\t132\t330\t1.32\t3.30\nBrazil\tCruzeiro\t192\t480\t1.92\t4.80\nBrazil\tProbo\t12\t100\t0.12\t1.00\nBrazil\tDoorDash\t6\t100\t0.06\t1.00\n",
+  "stderr": "",
+  "execution_time_ms": 63
+}

@@ -1,0 +1,135 @@
+{
+  "query": "SELECT id, name, totalSales FROM services WHERE active = 1 ORDER BY totalSales DESC, name ASC LIMIT 25",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, name, totalSales FROM services WHERE active = 1 ORDER BY totalSales DESC, name ASC LIMIT 25",
+  "rows": [
+    {
+      "id": "60009",
+      "name": "Outros apps/Site",
+      "totalSales": "21"
+    },
+    {
+      "id": "60323",
+      "name": "Picpay",
+      "totalSales": "20"
+    },
+    {
+      "id": "60383",
+      "name": "Lotus",
+      "totalSales": "19"
+    },
+    {
+      "id": "60243",
+      "name": "Betlive",
+      "totalSales": "18"
+    },
+    {
+      "id": "60124",
+      "name": "Frizza",
+      "totalSales": "17"
+    },
+    {
+      "id": "60356",
+      "name": "SpatenOktoberfest",
+      "totalSales": "16"
+    },
+    {
+      "id": "60076",
+      "name": "Hezzl",
+      "totalSales": "15"
+    },
+    {
+      "id": "60052",
+      "name": "Careem",
+      "totalSales": "14"
+    },
+    {
+      "id": "60252",
+      "name": "Wise",
+      "totalSales": "13"
+    },
+    {
+      "id": "60220",
+      "name": "Crystalbet",
+      "totalSales": "12"
+    },
+    {
+      "id": "60053",
+      "name": "Olacabs",
+      "totalSales": "11"
+    },
+    {
+      "id": "60218",
+      "name": "Eventbrite",
+      "totalSales": "10"
+    },
+    {
+      "id": "60346",
+      "name": "Celcoin",
+      "totalSales": "9"
+    },
+    {
+      "id": "60005",
+      "name": "RelicDAO",
+      "totalSales": "8"
+    },
+    {
+      "id": "60226",
+      "name": "TrueMoney",
+      "totalSales": "7"
+    },
+    {
+      "id": "60010",
+      "name": "BeBoo",
+      "totalSales": "6"
+    },
+    {
+      "id": "60238",
+      "name": "Dil Mil",
+      "totalSales": "5"
+    },
+    {
+      "id": "60411",
+      "name": "Allegro",
+      "totalSales": "4"
+    },
+    {
+      "id": "60364",
+      "name": "Transfergo",
+      "totalSales": "3"
+    },
+    {
+      "id": "60362",
+      "name": "Winmasters",
+      "totalSales": "2"
+    },
+    {
+      "id": "60204",
+      "name": "3Fun",
+      "totalSales": "1"
+    },
+    {
+      "id": "60233",
+      "name": "Webmotors",
+      "totalSales": "1"
+    },
+    {
+      "id": "60051",
+      "name": "888casino",
+      "totalSales": "0"
+    },
+    {
+      "id": "60351",
+      "name": "99app",
+      "totalSales": "0"
+    },
+    {
+      "id": "210003",
+      "name": "AAA Low Service",
+      "totalSales": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\ttotalSales\n60009\tOutros apps/Site\t21\n60323\tPicpay\t20\n60383\tLotus\t19\n60243\tBetlive\t18\n60124\tFrizza\t17\n60356\tSpatenOktoberfest\t16\n60076\tHezzl\t15\n60052\tCareem\t14\n60252\tWise\t13\n60220\tCrystalbet\t12\n60053\tOlacabs\t11\n60218\tEventbrite\t10\n60346\tCelcoin\t9\n60005\tRelicDAO\t8\n60226\tTrueMoney\t7\n60010\tBeBoo\t6\n60238\tDil Mil\t5\n60411\tAllegro\t4\n60364\tTransfergo\t3\n60362\tWinmasters\t2\n60204\t3Fun\t1\n60233\tWebmotors\t1\n60051\t888casino\t0\n60351\t99app\t0\n210003\tAAA Low Service\t0\n",
+  "stderr": "",
+  "execution_time_ms": 116
+}

@@ -1,0 +1,21 @@
+{
+  "query": "\nSELECT \n  a.id,\n  a.userId,\n  a.serviceId,\n  s.name as serviceName,\n  a.phoneNumber,\n  a.status,\n  a.smsCode,\n  a.smshubActivationId,\n  a.createdAt\nFROM activations a\nJOIN services s ON a.serviceId = s.id\nWHERE s.name LIKE '%Outros%'\nORDER BY a.createdAt DESC\nLIMIT 1;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  a.id,\n  a.userId,\n  a.serviceId,\n  s.name as serviceName,\n  a.phoneNumber,\n  a.status,\n  a.smsCode,\n  a.smshubActivationId,\n  a.createdAt\nFROM activations a\nJOIN services s ON a.serviceId = s.id\nWHERE s.name LIKE '%Outros%'\nORDER BY a.createdAt DESC\nLIMIT 1;\n",
+  "rows": [
+    {
+      "id": "90020",
+      "userId": "90007",
+      "serviceId": "60009",
+      "serviceName": "Outros App/Site",
+      "phoneNumber": "5531933035401",
+      "status": "active",
+      "smsCode": "NULL",
+      "smshubActivationId": "3948796",
+      "createdAt": "2025-12-01 23:34:02"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tuserId\tserviceId\tserviceName\tphoneNumber\tstatus\tsmsCode\tsmshubActivationId\tcreatedAt\n90020\t90007\t60009\tOutros App/Site\t5531933035401\tactive\tNULL\t3948796\t2025-12-01 23:34:02\n",
+  "stderr": "",
+  "execution_time_ms": 54
+}

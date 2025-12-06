@@ -1,0 +1,17 @@
+{
+  "query": "SELECT \n  TABLE_NAME,\n  CONSTRAINT_NAME,\n  COLUMN_NAME,\n  REFERENCED_TABLE_NAME,\n  REFERENCED_COLUMN_NAME\nFROM\n  INFORMATION_SCHEMA.KEY_COLUMN_USAGE\nWHERE\n  TABLE_SCHEMA = DATABASE()\n  AND TABLE_NAME = 'prices'\n  AND REFERENCED_TABLE_NAME IS NOT NULL;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT \n  TABLE_NAME,\n  CONSTRAINT_NAME,\n  COLUMN_NAME,\n  REFERENCED_TABLE_NAME,\n  REFERENCED_COLUMN_NAME\nFROM\n  INFORMATION_SCHEMA.KEY_COLUMN_USAGE\nWHERE\n  TABLE_SCHEMA = DATABASE()\n  AND TABLE_NAME = 'prices'\n  AND REFERENCED_TABLE_NAME IS NOT NULL;",
+  "rows": [
+    {
+      "TABLE_NAME": "prices",
+      "CONSTRAINT_NAME": "prices_apiId_sms_apis_id_fk",
+      "COLUMN_NAME": "apiId",
+      "REFERENCED_TABLE_NAME": "sms_apis",
+      "REFERENCED_COLUMN_NAME": "id"
+    }
+  ],
+  "messages": [],
+  "stdout": "TABLE_NAME\tCONSTRAINT_NAME\tCOLUMN_NAME\tREFERENCED_TABLE_NAME\tREFERENCED_COLUMN_NAME\nprices\tprices_apiId_sms_apis_id_fk\tapiId\tsms_apis\tid\n",
+  "stderr": "",
+  "execution_time_ms": 57
+}

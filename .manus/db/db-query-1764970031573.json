@@ -1,0 +1,142 @@
+{
+  "query": "SELECT \n  r.id,\n  r.amount,\n  r.paymentMethod,\n  r.status,\n  DATE_FORMAT(r.createdAt, '%d/%m/%Y') as data,\n  DATE_FORMAT(r.createdAt, '%H:%i') as horario,\n  r.createdAt as created_timestamp,\n  c.email,\n  c.pin\nFROM recharges r\nJOIN customers c ON r.customerId = c.id\nWHERE c.email = 'xkelrix@gmail.com'\nORDER BY r.createdAt DESC",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT \n  r.id,\n  r.amount,\n  r.paymentMethod,\n  r.status,\n  DATE_FORMAT(r.createdAt, '%d/%m/%Y') as data,\n  DATE_FORMAT(r.createdAt, '%H:%i') as horario,\n  r.createdAt as created_timestamp,\n  c.email,\n  c.pin\nFROM recharges r\nJOIN customers c ON r.customerId = c.id\nWHERE c.email = 'xkelrix@gmail.com'\nORDER BY r.createdAt DESC",
+  "rows": [
+    {
+      "id": "30002",
+      "amount": "233",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "data": "05/12/2025",
+      "horario": "21:17",
+      "created_timestamp": "2025-12-05 21:17:30",
+      "email": "xkelrix@gmail.com",
+      "pin": "7"
+    },
+    {
+      "id": "30001",
+      "amount": "233",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "data": "05/12/2025",
+      "horario": "20:42",
+      "created_timestamp": "2025-12-05 20:42:59",
+      "email": "xkelrix@gmail.com",
+      "pin": "7"
+    },
+    {
+      "id": "20",
+      "amount": "20000",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "data": "05/12/2025",
+      "horario": "19:12",
+      "created_timestamp": "2025-12-05 19:12:04",
+      "email": "xkelrix@gmail.com",
+      "pin": "7"
+    },
+    {
+      "id": "19",
+      "amount": "3000",
+      "paymentMethod": "picpay",
+      "status": "pending",
+      "data": "05/12/2025",
+      "horario": "18:12",
+      "created_timestamp": "2025-12-05 18:12:04",
+      "email": "xkelrix@gmail.com",
+      "pin": "7"
+    },
+    {
+      "id": "18",
+      "amount": "15000",
+      "paymentMethod": "crypto",
+      "status": "completed",
+      "data": "05/12/2025",
+      "horario": "08:12",
+      "created_timestamp": "2025-12-05 08:12:04",
+      "email": "xkelrix@gmail.com",
+      "pin": "7"
+    },
+    {
+      "id": "17",
+      "amount": "7500",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "data": "04/12/2025",
+      "horario": "20:12",
+      "created_timestamp": "2025-12-04 20:12:04",
+      "email": "xkelrix@gmail.com",
+      "pin": "7"
+    },
+    {
+      "id": "16",
+      "amount": "2500",
+      "paymentMethod": "picpay",
+      "status": "completed",
+      "data": "03/12/2025",
+      "horario": "20:12",
+      "created_timestamp": "2025-12-03 20:12:04",
+      "email": "xkelrix@gmail.com",
+      "pin": "7"
+    },
+    {
+      "id": "15",
+      "amount": "10000",
+      "paymentMethod": "crypto",
+      "status": "completed",
+      "data": "02/12/2025",
+      "horario": "20:12",
+      "created_timestamp": "2025-12-02 20:12:04",
+      "email": "xkelrix@gmail.com",
+      "pin": "7"
+    },
+    {
+      "id": "22",
+      "amount": "8000",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "data": "01/12/2025",
+      "horario": "20:12",
+      "created_timestamp": "2025-12-01 20:12:04",
+      "email": "xkelrix@gmail.com",
+      "pin": "7"
+    },
+    {
+      "id": "14",
+      "amount": "5000",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "data": "30/11/2025",
+      "horario": "20:12",
+      "created_timestamp": "2025-11-30 20:12:04",
+      "email": "xkelrix@gmail.com",
+      "pin": "7"
+    },
+    {
+      "id": "21",
+      "amount": "12500",
+      "paymentMethod": "card",
+      "status": "completed",
+      "data": "29/11/2025",
+      "horario": "20:12",
+      "created_timestamp": "2025-11-29 20:12:04",
+      "email": "xkelrix@gmail.com",
+      "pin": "7"
+    },
+    {
+      "id": "23",
+      "amount": "5500",
+      "paymentMethod": "crypto",
+      "status": "expired",
+      "data": "28/11/2025",
+      "horario": "20:12",
+      "created_timestamp": "2025-11-28 20:12:04",
+      "email": "xkelrix@gmail.com",
+      "pin": "7"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tamount\tpaymentMethod\tstatus\tdata\thorario\tcreated_timestamp\temail\tpin\n30002\t233\tpix\tcompleted\t05/12/2025\t21:17\t2025-12-05 21:17:30\txkelrix@gmail.com\t7\n30001\t233\tpix\tcompleted\t05/12/2025\t20:42\t2025-12-05 20:42:59\txkelrix@gmail.com\t7\n20\t20000\tpix\tcompleted\t05/12/2025\t19:12\t2025-12-05 19:12:04\txkelrix@gmail.com\t7\n19\t3000\tpicpay\tpending\t05/12/2025\t18:12\t2025-12-05 18:12:04\txkelrix@gmail.com\t7\n18\t15000\tcrypto\tcompleted\t05/12/2025\t08:12\t2025-12-05 08:12:04\txkelrix@gmail.com\t7\n17\t7500\tpix\tcompleted\t04/12/2025\t20:12\t2025-12-04 20:12:04\txkelrix@gmail.com\t7\n16\t2500\tpicpay\tcompleted\t03/12/2025\t20:12\t2025-12-03 20:12:04\txkelrix@gmail.com\t7\n15\t10000\tcrypto\tcompleted\t02/12/2025\t20:12\t2025-12-02 20:12:04\txkelrix@gmail.com\t7\n22\t8000\tpix\tcompleted\t01/12/2025\t20:12\t2025-12-01 20:12:04\txkelrix@gmail.com\t7\n14\t5000\tpix\tcompleted\t30/11/2025\t20:12\t2025-11-30 20:12:04\txkelrix@gmail.com\t7\n21\t12500\tcard\tcompleted\t29/11/2025\t20:12\t2025-11-29 20:12:04\txkelrix@gmail.com\t7\n23\t5500\tcrypto\texpired\t28/11/2025\t20:12\t2025-11-28 20:12:04\txkelrix@gmail.com\t7\n",
+  "stderr": "",
+  "execution_time_ms": 59
+}

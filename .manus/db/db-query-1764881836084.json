@@ -1,0 +1,18 @@
+{
+  "query": "SELECT id, name, currency, exchange_rate, profit_percentage, minimum_price FROM sms_apis WHERE id = 3",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, name, currency, exchange_rate, profit_percentage, minimum_price FROM sms_apis WHERE id = 3",
+  "rows": [
+    {
+      "id": "3",
+      "name": "Opção 3",
+      "currency": "USD",
+      "exchange_rate": "5.32",
+      "profit_percentage": "100.00",
+      "minimum_price": "100"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tcurrency\texchange_rate\tprofit_percentage\tminimum_price\n3\tOpção 3\tUSD\t5.32\t100.00\t100\n",
+  "stderr": "",
+  "execution_time_ms": 57
+}

@@ -1,0 +1,70 @@
+{
+  "query": "SELECT id, name, createdAt, DATEDIFF(NOW(), createdAt) as days_old FROM services ORDER BY createdAt DESC LIMIT 10",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, name, createdAt, DATEDIFF(NOW(), createdAt) as days_old FROM services ORDER BY createdAt DESC LIMIT 10",
+  "rows": [
+    {
+      "id": "210003",
+      "name": "AAA Low Service",
+      "createdAt": "2025-12-05 16:11:39",
+      "days_old": "0"
+    },
+    {
+      "id": "210002",
+      "name": "AAA Top Service",
+      "createdAt": "2025-12-05 16:11:39",
+      "days_old": "0"
+    },
+    {
+      "id": "210004",
+      "name": "ZZZ Low Service",
+      "createdAt": "2025-12-05 16:11:39",
+      "days_old": "0"
+    },
+    {
+      "id": "210001",
+      "name": "ZZZ Top Service",
+      "createdAt": "2025-12-05 16:11:38",
+      "days_old": "0"
+    },
+    {
+      "id": "120007",
+      "name": "Simply",
+      "createdAt": "2025-12-03 01:45:21",
+      "days_old": "2"
+    },
+    {
+      "id": "120008",
+      "name": "WorldRemit",
+      "createdAt": "2025-12-03 01:45:21",
+      "days_old": "2"
+    },
+    {
+      "id": "120006",
+      "name": "NETELLER",
+      "createdAt": "2025-12-03 01:45:21",
+      "days_old": "2"
+    },
+    {
+      "id": "120005",
+      "name": "Cryptonow",
+      "createdAt": "2025-12-03 01:45:21",
+      "days_old": "2"
+    },
+    {
+      "id": "120004",
+      "name": "Blackcatcard",
+      "createdAt": "2025-12-03 01:45:20",
+      "days_old": "2"
+    },
+    {
+      "id": "120003",
+      "name": "Service AHE",
+      "createdAt": "2025-12-03 01:45:18",
+      "days_old": "2"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tcreatedAt\tdays_old\n210003\tAAA Low Service\t2025-12-05 16:11:39\t0\n210002\tAAA Top Service\t2025-12-05 16:11:39\t0\n210004\tZZZ Low Service\t2025-12-05 16:11:39\t0\n210001\tZZZ Top Service\t2025-12-05 16:11:38\t0\n120007\tSimply\t2025-12-03 01:45:21\t2\n120008\tWorldRemit\t2025-12-03 01:45:21\t2\n120006\tNETELLER\t2025-12-03 01:45:21\t2\n120005\tCryptonow\t2025-12-03 01:45:21\t2\n120004\tBlackcatcard\t2025-12-03 01:45:20\t2\n120003\tService AHE\t2025-12-03 01:45:18\t2\n",
+  "stderr": "",
+  "execution_time_ms": 104
+}

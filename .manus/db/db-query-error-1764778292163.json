@@ -1,0 +1,8 @@
+{
+  "query": "SELECT a.id, a.phoneNumber, a.service_id, a.status, \n       COUNT(sm.id) as sms_count,\n       GROUP_CONCAT(sm.code ORDER BY sm.receivedAt SEPARATOR ' | ') as all_codes,\n       GROUP_CONCAT(sm.receivedAt ORDER BY sm.receivedAt SEPARATOR ' | ') as all_dates\nFROM activations a\nLEFT JOIN sms_messages sm ON sm.activationId = a.id\nWHERE a.phoneNumber = '5568933002785'\nGROUP BY a.id\nORDER BY a.createdAt DESC\nLIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT a.id, a.phoneNumber, a.service_id, a.status, \n       COUNT(sm.id) as sms_count,\n       GROUP_CONCAT(sm.code ORDER BY sm.receivedAt SEPARATOR ' | ') as all_codes,\n       GROUP_CONCAT(sm.receivedAt ORDER BY sm.receivedAt SEPARATOR ' | ') as all_dates\nFROM activations a\nLEFT JOIN sms_messages sm ON sm.activationId = a.id\nWHERE a.phoneNumber = '5568933002785'\nGROUP BY a.id\nORDER BY a.createdAt DESC\nLIMIT 5;",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1054 (42S22) at line 1: Unknown column 'a.service_id' in 'field list'"
+  ]
+}

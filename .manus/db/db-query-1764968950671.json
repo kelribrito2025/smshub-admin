@@ -1,0 +1,80 @@
+{
+  "query": "\nSELECT \n  r.id,\n  r.amount / 100 as amount_reais,\n  r.status,\n  r.createdAt,\n  DATE_FORMAT(r.createdAt, '%d/%m/%Y %H:%i') as formatted_date\nFROM recharges r\nJOIN customers c ON r.customerId = c.id\nWHERE c.email = 'xkelrix@gmail.com'\nORDER BY r.createdAt DESC;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  r.id,\n  r.amount / 100 as amount_reais,\n  r.status,\n  r.createdAt,\n  DATE_FORMAT(r.createdAt, '%d/%m/%Y %H:%i') as formatted_date\nFROM recharges r\nJOIN customers c ON r.customerId = c.id\nWHERE c.email = 'xkelrix@gmail.com'\nORDER BY r.createdAt DESC;\n",
+  "rows": [
+    {
+      "id": "20",
+      "amount_reais": "200.0000",
+      "status": "completed",
+      "createdAt": "2025-12-05 19:12:04",
+      "formatted_date": "05/12/2025 19:12"
+    },
+    {
+      "id": "19",
+      "amount_reais": "30.0000",
+      "status": "pending",
+      "createdAt": "2025-12-05 18:12:04",
+      "formatted_date": "05/12/2025 18:12"
+    },
+    {
+      "id": "18",
+      "amount_reais": "150.0000",
+      "status": "completed",
+      "createdAt": "2025-12-05 08:12:04",
+      "formatted_date": "05/12/2025 08:12"
+    },
+    {
+      "id": "17",
+      "amount_reais": "75.0000",
+      "status": "completed",
+      "createdAt": "2025-12-04 20:12:04",
+      "formatted_date": "04/12/2025 20:12"
+    },
+    {
+      "id": "16",
+      "amount_reais": "25.0000",
+      "status": "completed",
+      "createdAt": "2025-12-03 20:12:04",
+      "formatted_date": "03/12/2025 20:12"
+    },
+    {
+      "id": "15",
+      "amount_reais": "100.0000",
+      "status": "completed",
+      "createdAt": "2025-12-02 20:12:04",
+      "formatted_date": "02/12/2025 20:12"
+    },
+    {
+      "id": "22",
+      "amount_reais": "80.0000",
+      "status": "completed",
+      "createdAt": "2025-12-01 20:12:04",
+      "formatted_date": "01/12/2025 20:12"
+    },
+    {
+      "id": "14",
+      "amount_reais": "50.0000",
+      "status": "completed",
+      "createdAt": "2025-11-30 20:12:04",
+      "formatted_date": "30/11/2025 20:12"
+    },
+    {
+      "id": "21",
+      "amount_reais": "125.0000",
+      "status": "completed",
+      "createdAt": "2025-11-29 20:12:04",
+      "formatted_date": "29/11/2025 20:12"
+    },
+    {
+      "id": "23",
+      "amount_reais": "55.0000",
+      "status": "expired",
+      "createdAt": "2025-11-28 20:12:04",
+      "formatted_date": "28/11/2025 20:12"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tamount_reais\tstatus\tcreatedAt\tformatted_date\n20\t200.0000\tcompleted\t2025-12-05 19:12:04\t05/12/2025 19:12\n19\t30.0000\tpending\t2025-12-05 18:12:04\t05/12/2025 18:12\n18\t150.0000\tcompleted\t2025-12-05 08:12:04\t05/12/2025 08:12\n17\t75.0000\tcompleted\t2025-12-04 20:12:04\t04/12/2025 20:12\n16\t25.0000\tcompleted\t2025-12-03 20:12:04\t03/12/2025 20:12\n15\t100.0000\tcompleted\t2025-12-02 20:12:04\t02/12/2025 20:12\n22\t80.0000\tcompleted\t2025-12-01 20:12:04\t01/12/2025 20:12\n14\t50.0000\tcompleted\t2025-11-30 20:12:04\t30/11/2025 20:12\n21\t125.0000\tcompleted\t2025-11-29 20:12:04\t29/11/2025 20:12\n23\t55.0000\texpired\t2025-11-28 20:12:04\t28/11/2025 20:12\n",
+  "stderr": "",
+  "execution_time_ms": 62
+}

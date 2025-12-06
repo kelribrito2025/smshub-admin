@@ -1,0 +1,90 @@
+{
+  "query": "SELECT id, customerId, amount, paymentMethod, status, createdAt FROM recharges ORDER BY createdAt DESC LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, customerId, amount, paymentMethod, status, createdAt FROM recharges ORDER BY createdAt DESC LIMIT 10;",
+  "rows": [
+    {
+      "id": "20",
+      "customerId": "180002",
+      "amount": "20000",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "createdAt": "2025-12-05 19:12:04"
+    },
+    {
+      "id": "3",
+      "customerId": "270001",
+      "amount": "2000",
+      "paymentMethod": "pix",
+      "status": "pending",
+      "createdAt": "2025-12-05 18:52:14"
+    },
+    {
+      "id": "19",
+      "customerId": "180002",
+      "amount": "3000",
+      "paymentMethod": "picpay",
+      "status": "pending",
+      "createdAt": "2025-12-05 18:12:04"
+    },
+    {
+      "id": "18",
+      "customerId": "180002",
+      "amount": "15000",
+      "paymentMethod": "crypto",
+      "status": "completed",
+      "createdAt": "2025-12-05 08:12:04"
+    },
+    {
+      "id": "17",
+      "customerId": "180002",
+      "amount": "7500",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "createdAt": "2025-12-04 20:12:04"
+    },
+    {
+      "id": "6",
+      "customerId": "270001",
+      "amount": "7500",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "createdAt": "2025-12-04 19:52:14"
+    },
+    {
+      "id": "16",
+      "customerId": "180002",
+      "amount": "2500",
+      "paymentMethod": "picpay",
+      "status": "completed",
+      "createdAt": "2025-12-03 20:12:04"
+    },
+    {
+      "id": "1",
+      "customerId": "270001",
+      "amount": "5000",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "createdAt": "2025-12-03 19:52:14"
+    },
+    {
+      "id": "15",
+      "customerId": "180002",
+      "amount": "10000",
+      "paymentMethod": "crypto",
+      "status": "completed",
+      "createdAt": "2025-12-02 20:12:04"
+    },
+    {
+      "id": "5",
+      "customerId": "270001",
+      "amount": "3000",
+      "paymentMethod": "picpay",
+      "status": "expired",
+      "createdAt": "2025-12-02 19:52:14"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\tamount\tpaymentMethod\tstatus\tcreatedAt\n20\t180002\t20000\tpix\tcompleted\t2025-12-05 19:12:04\n3\t270001\t2000\tpix\tpending\t2025-12-05 18:52:14\n19\t180002\t3000\tpicpay\tpending\t2025-12-05 18:12:04\n18\t180002\t15000\tcrypto\tcompleted\t2025-12-05 08:12:04\n17\t180002\t7500\tpix\tcompleted\t2025-12-04 20:12:04\n6\t270001\t7500\tpix\tcompleted\t2025-12-04 19:52:14\n16\t180002\t2500\tpicpay\tcompleted\t2025-12-03 20:12:04\n1\t270001\t5000\tpix\tcompleted\t2025-12-03 19:52:14\n15\t180002\t10000\tcrypto\tcompleted\t2025-12-02 20:12:04\n5\t270001\t3000\tpicpay\texpired\t2025-12-02 19:52:14\n",
+  "stderr": "",
+  "execution_time_ms": 53
+}

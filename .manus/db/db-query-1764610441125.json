@@ -1,0 +1,15 @@
+{
+  "query": "\nSELECT id, name, smshubId FROM countries WHERE name = 'Brazil' OR smshubId = 12 LIMIT 1\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT id, name, smshubId FROM countries WHERE name = 'Brazil' OR smshubId = 12 LIMIT 1\n",
+  "rows": [
+    {
+      "id": "24",
+      "name": "Brazil",
+      "smshubId": "73"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tsmshubId\n24\tBrazil\t73\n",
+  "stderr": "",
+  "execution_time_ms": 54
+}

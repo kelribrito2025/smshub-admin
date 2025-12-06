@@ -1,0 +1,210 @@
+{
+  "query": "SELECT id, countryId, serviceId, apiId, smshubPrice, ourPrice, quantityAvailable, active \nFROM prices \nWHERE apiId = 3 \nLIMIT 20",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, countryId, serviceId, apiId, smshubPrice, ourPrice, quantityAvailable, active \nFROM prices \nWHERE apiId = 3 \nLIMIT 20",
+  "rows": [
+    {
+      "id": "210002",
+      "countryId": "24",
+      "serviceId": "60222",
+      "apiId": "3",
+      "smshubPrice": "0",
+      "ourPrice": "1",
+      "quantityAvailable": "584203",
+      "active": "1"
+    },
+    {
+      "id": "210003",
+      "countryId": "24",
+      "serviceId": "60223",
+      "apiId": "3",
+      "smshubPrice": "0",
+      "ourPrice": "0",
+      "quantityAvailable": "583324",
+      "active": "1"
+    },
+    {
+      "id": "210004",
+      "countryId": "24",
+      "serviceId": "60307",
+      "apiId": "3",
+      "smshubPrice": "0",
+      "ourPrice": "1",
+      "quantityAvailable": "582851",
+      "active": "1"
+    },
+    {
+      "id": "210005",
+      "countryId": "24",
+      "serviceId": "60107",
+      "apiId": "3",
+      "smshubPrice": "0",
+      "ourPrice": "0",
+      "quantityAvailable": "48541",
+      "active": "1"
+    },
+    {
+      "id": "210006",
+      "countryId": "24",
+      "serviceId": "60011",
+      "apiId": "3",
+      "smshubPrice": "0",
+      "ourPrice": "0",
+      "quantityAvailable": "32837",
+      "active": "1"
+    },
+    {
+      "id": "210007",
+      "countryId": "24",
+      "serviceId": "60122",
+      "apiId": "3",
+      "smshubPrice": "0",
+      "ourPrice": "0",
+      "quantityAvailable": "812122",
+      "active": "1"
+    },
+    {
+      "id": "210008",
+      "countryId": "24",
+      "serviceId": "60015",
+      "apiId": "3",
+      "smshubPrice": "0",
+      "ourPrice": "0",
+      "quantityAvailable": "33638",
+      "active": "1"
+    },
+    {
+      "id": "210009",
+      "countryId": "24",
+      "serviceId": "60148",
+      "apiId": "3",
+      "smshubPrice": "0",
+      "ourPrice": "0",
+      "quantityAvailable": "29547",
+      "active": "1"
+    },
+    {
+      "id": "210010",
+      "countryId": "24",
+      "serviceId": "60224",
+      "apiId": "3",
+      "smshubPrice": "0",
+      "ourPrice": "0",
+      "quantityAvailable": "585694",
+      "active": "1"
+    },
+    {
+      "id": "210011",
+      "countryId": "24",
+      "serviceId": "60155",
+      "apiId": "3",
+      "smshubPrice": "0",
+      "ourPrice": "0",
+      "quantityAvailable": "33697",
+      "active": "1"
+    },
+    {
+      "id": "210012",
+      "countryId": "24",
+      "serviceId": "60019",
+      "apiId": "3",
+      "smshubPrice": "0",
+      "ourPrice": "0",
+      "quantityAvailable": "783605",
+      "active": "1"
+    },
+    {
+      "id": "210013",
+      "countryId": "24",
+      "serviceId": "60226",
+      "apiId": "3",
+      "smshubPrice": "0",
+      "ourPrice": "0",
+      "quantityAvailable": "32839",
+      "active": "1"
+    },
+    {
+      "id": "210014",
+      "countryId": "24",
+      "serviceId": "60225",
+      "apiId": "3",
+      "smshubPrice": "0",
+      "ourPrice": "0",
+      "quantityAvailable": "585706",
+      "active": "1"
+    },
+    {
+      "id": "210015",
+      "countryId": "24",
+      "serviceId": "60171",
+      "apiId": "3",
+      "smshubPrice": "0",
+      "ourPrice": "1",
+      "quantityAvailable": "33688",
+      "active": "1"
+    },
+    {
+      "id": "210016",
+      "countryId": "24",
+      "serviceId": "60184",
+      "apiId": "3",
+      "smshubPrice": "0",
+      "ourPrice": "1",
+      "quantityAvailable": "33696",
+      "active": "1"
+    },
+    {
+      "id": "210017",
+      "countryId": "24",
+      "serviceId": "60194",
+      "apiId": "3",
+      "smshubPrice": "0",
+      "ourPrice": "0",
+      "quantityAvailable": "32959",
+      "active": "1"
+    },
+    {
+      "id": "210018",
+      "countryId": "24",
+      "serviceId": "60215",
+      "apiId": "3",
+      "smshubPrice": "0",
+      "ourPrice": "0",
+      "quantityAvailable": "738687",
+      "active": "1"
+    },
+    {
+      "id": "210019",
+      "countryId": "24",
+      "serviceId": "60221",
+      "apiId": "3",
+      "smshubPrice": "0",
+      "ourPrice": "0",
+      "quantityAvailable": "33688",
+      "active": "1"
+    },
+    {
+      "id": "210020",
+      "countryId": "24",
+      "serviceId": "60108",
+      "apiId": "3",
+      "smshubPrice": "0",
+      "ourPrice": "1",
+      "quantityAvailable": "510483",
+      "active": "1"
+    },
+    {
+      "id": "210021",
+      "countryId": "24",
+      "serviceId": "60109",
+      "apiId": "3",
+      "smshubPrice": "0",
+      "ourPrice": "0",
+      "quantityAvailable": "33645",
+      "active": "1"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcountryId\tserviceId\tapiId\tsmshubPrice\tourPrice\tquantityAvailable\tactive\n210002\t24\t60222\t3\t0\t1\t584203\t1\n210003\t24\t60223\t3\t0\t0\t583324\t1\n210004\t24\t60307\t3\t0\t1\t582851\t1\n210005\t24\t60107\t3\t0\t0\t48541\t1\n210006\t24\t60011\t3\t0\t0\t32837\t1\n210007\t24\t60122\t3\t0\t0\t812122\t1\n210008\t24\t60015\t3\t0\t0\t33638\t1\n210009\t24\t60148\t3\t0\t0\t29547\t1\n210010\t24\t60224\t3\t0\t0\t585694\t1\n210011\t24\t60155\t3\t0\t0\t33697\t1\n210012\t24\t60019\t3\t0\t0\t783605\t1\n210013\t24\t60226\t3\t0\t0\t32839\t1\n210014\t24\t60225\t3\t0\t0\t585706\t1\n210015\t24\t60171\t3\t0\t1\t33688\t1\n210016\t24\t60184\t3\t0\t1\t33696\t1\n210017\t24\t60194\t3\t0\t0\t32959\t1\n210018\t24\t60215\t3\t0\t0\t738687\t1\n210019\t24\t60221\t3\t0\t0\t33688\t1\n210020\t24\t60108\t3\t0\t1\t510483\t1\n210021\t24\t60109\t3\t0\t0\t33645\t1\n",
+  "stderr": "",
+  "execution_time_ms": 55
+}

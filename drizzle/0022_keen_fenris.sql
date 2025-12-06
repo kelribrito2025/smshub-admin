@@ -1,0 +1,1 @@
+ALTER TABLE `prices` ADD `active` boolean DEFAULT true NOT NULL;

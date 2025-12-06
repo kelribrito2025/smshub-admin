@@ -1,0 +1,80 @@
+{
+  "query": "SELECT \n  p.id,\n  s.name as service_name,\n  p.smshubPrice,\n  p.ourPrice,\n  a.name as api_name\nFROM prices p\nJOIN services s ON p.serviceId = s.id\nJOIN sms_apis a ON p.apiId = a.id\nWHERE p.apiId = 1\nLIMIT 10",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT \n  p.id,\n  s.name as service_name,\n  p.smshubPrice,\n  p.ourPrice,\n  a.name as api_name\nFROM prices p\nJOIN services s ON p.serviceId = s.id\nJOIN sms_apis a ON p.apiId = a.id\nWHERE p.apiId = 1\nLIMIT 10",
+  "rows": [
+    {
+      "id": "150251",
+      "service_name": "Google,youtube,Gmail",
+      "smshubPrice": "1",
+      "ourPrice": "2",
+      "api_name": "Opção 1"
+    },
+    {
+      "id": "150215",
+      "service_name": "Vk.com",
+      "smshubPrice": "1",
+      "ourPrice": "1",
+      "api_name": "Opção 1"
+    },
+    {
+      "id": "150247",
+      "service_name": "Outros App/Site",
+      "smshubPrice": "1",
+      "ourPrice": "1",
+      "api_name": "Opção 1"
+    },
+    {
+      "id": "150187",
+      "service_name": "EBay",
+      "smshubPrice": "0",
+      "ourPrice": "0",
+      "api_name": "Opção 1"
+    },
+    {
+      "id": "150193",
+      "service_name": "Discord",
+      "smshubPrice": "0",
+      "ourPrice": "0",
+      "api_name": "Opção 1"
+    },
+    {
+      "id": "150206",
+      "service_name": "Temu",
+      "smshubPrice": "1",
+      "ourPrice": "1",
+      "api_name": "Opção 1"
+    },
+    {
+      "id": "150212",
+      "service_name": "Nike",
+      "smshubPrice": "0",
+      "ourPrice": "0",
+      "api_name": "Opção 1"
+    },
+    {
+      "id": "150219",
+      "service_name": "Mamba",
+      "smshubPrice": "1",
+      "ourPrice": "1",
+      "api_name": "Opção 1"
+    },
+    {
+      "id": "150229",
+      "service_name": "Snapchat",
+      "smshubPrice": "0",
+      "ourPrice": "1",
+      "api_name": "Opção 1"
+    },
+    {
+      "id": "150252",
+      "service_name": "Ticketmaster",
+      "smshubPrice": "1",
+      "ourPrice": "2",
+      "api_name": "Opção 1"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tservice_name\tsmshubPrice\tourPrice\tapi_name\n150251\tGoogle,youtube,Gmail\t1\t2\tOpção 1\n150215\tVk.com\t1\t1\tOpção 1\n150247\tOutros App/Site\t1\t1\tOpção 1\n150187\tEBay\t0\t0\tOpção 1\n150193\tDiscord\t0\t0\tOpção 1\n150206\tTemu\t1\t1\tOpção 1\n150212\tNike\t0\t0\tOpção 1\n150219\tMamba\t1\t1\tOpção 1\n150229\tSnapchat\t0\t1\tOpção 1\n150252\tTicketmaster\t1\t2\tOpção 1\n",
+  "stderr": "",
+  "execution_time_ms": 64
+}

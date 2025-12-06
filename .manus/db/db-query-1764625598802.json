@@ -1,0 +1,90 @@
+{
+  "query": "SELECT \n  p.id,\n  s.name as service_name,\n  c.name as country_name,\n  a.id as api_id,\n  a.name as api_name,\n  p.ourPrice\nFROM prices p\nINNER JOIN services s ON p.serviceId = s.id\nINNER JOIN countries c ON p.countryId = c.id\nINNER JOIN sms_apis a ON p.apiId = a.id\nWHERE a.active = 1\nLIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT \n  p.id,\n  s.name as service_name,\n  c.name as country_name,\n  a.id as api_id,\n  a.name as api_name,\n  p.ourPrice\nFROM prices p\nINNER JOIN services s ON p.serviceId = s.id\nINNER JOIN countries c ON p.countryId = c.id\nINNER JOIN sms_apis a ON p.apiId = a.id\nWHERE a.active = 1\nLIMIT 10;",
+  "rows": [
+    {
+      "id": "1",
+      "service_name": "Service TEST_SERVICE",
+      "country_name": "Updated Name",
+      "api_id": "1",
+      "api_name": "Opção 1",
+      "ourPrice": "200"
+    },
+    {
+      "id": "60006",
+      "service_name": "Google,youtube,Gmail",
+      "country_name": "Brazil",
+      "api_id": "1",
+      "api_name": "Opção 1",
+      "ourPrice": "44"
+    },
+    {
+      "id": "60007",
+      "service_name": "TenChat",
+      "country_name": "Brazil",
+      "api_id": "1",
+      "api_name": "Opção 1",
+      "ourPrice": "200"
+    },
+    {
+      "id": "60008",
+      "service_name": "RelicDAO",
+      "country_name": "Brazil",
+      "api_id": "1",
+      "api_name": "Opção 1",
+      "ourPrice": "38"
+    },
+    {
+      "id": "60009",
+      "service_name": "Vk.com",
+      "country_name": "Brazil",
+      "api_id": "1",
+      "api_name": "Opção 1",
+      "ourPrice": "8"
+    },
+    {
+      "id": "60010",
+      "service_name": "Telegram",
+      "country_name": "Brazil",
+      "api_id": "1",
+      "api_name": "Opção 1",
+      "ourPrice": "150"
+    },
+    {
+      "id": "60011",
+      "service_name": "Service ICQ",
+      "country_name": "Brazil",
+      "api_id": "1",
+      "api_name": "Opção 1",
+      "ourPrice": "5"
+    },
+    {
+      "id": "60012",
+      "service_name": "Outros App/Site",
+      "country_name": "Brazil",
+      "api_id": "1",
+      "api_name": "Opção 1",
+      "ourPrice": "36"
+    },
+    {
+      "id": "60015",
+      "service_name": "BeBoo",
+      "country_name": "Brazil",
+      "api_id": "1",
+      "api_name": "Opção 1",
+      "ourPrice": "112"
+    },
+    {
+      "id": "60016",
+      "service_name": "DoorDash",
+      "country_name": "Brazil",
+      "api_id": "1",
+      "api_name": "Opção 1",
+      "ourPrice": "2"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tservice_name\tcountry_name\tapi_id\tapi_name\tourPrice\n1\tService TEST_SERVICE\tUpdated Name\t1\tOpção 1\t200\n60006\tGoogle,youtube,Gmail\tBrazil\t1\tOpção 1\t44\n60007\tTenChat\tBrazil\t1\tOpção 1\t200\n60008\tRelicDAO\tBrazil\t1\tOpção 1\t38\n60009\tVk.com\tBrazil\t1\tOpção 1\t8\n60010\tTelegram\tBrazil\t1\tOpção 1\t150\n60011\tService ICQ\tBrazil\t1\tOpção 1\t5\n60012\tOutros App/Site\tBrazil\t1\tOpção 1\t36\n60015\tBeBoo\tBrazil\t1\tOpção 1\t112\n60016\tDoorDash\tBrazil\t1\tOpção 1\t2\n",
+  "stderr": "",
+  "execution_time_ms": 65
+}

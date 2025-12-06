@@ -1,0 +1,9 @@
+{
+  "query": "CREATE TABLE IF NOT EXISTS `stripe_transactions` (\n\t`id` int AUTO_INCREMENT NOT NULL,\n\t`customerId` int NOT NULL,\n\t`sessionId` varchar(255) NOT NULL,\n\t`paymentIntentId` varchar(255),\n\t`amount` int NOT NULL,\n\t`status` enum('pending','completed','expired','cancelled') NOT NULL DEFAULT 'pending',\n\t`createdAt` timestamp NOT NULL DEFAULT (now()),\n\t`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,\n\tCONSTRAINT `stripe_transactions_id` PRIMARY KEY(`id`),\n\tCONSTRAINT `stripe_transactions_sessionId_unique` UNIQUE(`sessionId`),\n\tCONSTRAINT `stripe_session_id_idx` UNIQUE(`sessionId`)\n)",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute CREATE TABLE IF NOT EXISTS `stripe_transactions` (\n\t`id` int AUTO_INCREMENT NOT NULL,\n\t`customerId` int NOT NULL,\n\t`sessionId` varchar(255) NOT NULL,\n\t`paymentIntentId` varchar(255),\n\t`amount` int NOT NULL,\n\t`status` enum('pending','completed','expired','cancelled') NOT NULL DEFAULT 'pending',\n\t`createdAt` timestamp NOT NULL DEFAULT (now()),\n\t`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,\n\tCONSTRAINT `stripe_transactions_id` PRIMARY KEY(`id`),\n\tCONSTRAINT `stripe_transactions_sessionId_unique` UNIQUE(`sessionId`),\n\tCONSTRAINT `stripe_session_id_idx` UNIQUE(`sessionId`)\n)",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 214
+}

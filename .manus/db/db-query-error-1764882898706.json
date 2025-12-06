@@ -1,0 +1,8 @@
+{
+  "query": "\nSELECT \n  p.id,\n  s.name as service_name,\n  s.code as service_code,\n  c.name as country_name,\n  a.name as api_name,\n  a.currency,\n  a.exchange_rate,\n  a.profit_percentage,\n  p.smshubPrice as custo_original_centavos,\n  p.ourPrice as preco_final_centavos\nFROM prices p\nJOIN services s ON p.serviceId = s.id\nJOIN countries c ON p.countryId = c.id\nJOIN sms_apis a ON p.apiId = a.id\nWHERE s.code = 'ot' AND a.id = 2\nLIMIT 1\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  p.id,\n  s.name as service_name,\n  s.code as service_code,\n  c.name as country_name,\n  a.name as api_name,\n  a.currency,\n  a.exchange_rate,\n  a.profit_percentage,\n  p.smshubPrice as custo_original_centavos,\n  p.ourPrice as preco_final_centavos\nFROM prices p\nJOIN services s ON p.serviceId = s.id\nJOIN countries c ON p.countryId = c.id\nJOIN sms_apis a ON p.apiId = a.id\nWHERE s.code = 'ot' AND a.id = 2\nLIMIT 1\n",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1054 (42S22) at line 2: Unknown column 's.code' in 'where clause'"
+  ]
+}

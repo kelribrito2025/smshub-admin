@@ -1,0 +1,9 @@
+{
+  "query": "INSERT INTO sms_messages (activationId, code, receivedAt) VALUES\n(180004, 'Teste sms 122355467890', '2025-12-03 07:30:00'),\n(180004, 'Teste sms 0004', '2025-12-03 07:35:00');",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute INSERT INTO sms_messages (activationId, code, receivedAt) VALUES\n(180004, 'Teste sms 122355467890', '2025-12-03 07:30:00'),\n(180004, 'Teste sms 0004', '2025-12-03 07:35:00');",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 75
+}

@@ -1,0 +1,9 @@
+{
+  "query": "CREATE TABLE IF NOT EXISTS `sms_apis` (\n  `id` int AUTO_INCREMENT PRIMARY KEY,\n  `name` varchar(255) NOT NULL,\n  `url` varchar(500) NOT NULL,\n  `token` varchar(500) NOT NULL,\n  `active` boolean DEFAULT true NOT NULL,\n  `priority` int DEFAULT 0 NOT NULL,\n  `createdAt` timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,\n  `updatedAt` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,\n  INDEX `priority_idx` (`priority`),\n  INDEX `active_idx` (`active`)\n);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute CREATE TABLE IF NOT EXISTS `sms_apis` (\n  `id` int AUTO_INCREMENT PRIMARY KEY,\n  `name` varchar(255) NOT NULL,\n  `url` varchar(500) NOT NULL,\n  `token` varchar(500) NOT NULL,\n  `active` boolean DEFAULT true NOT NULL,\n  `priority` int DEFAULT 0 NOT NULL,\n  `createdAt` timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,\n  `updatedAt` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,\n  INDEX `priority_idx` (`priority`),\n  INDEX `active_idx` (`active`)\n);",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 225
+}

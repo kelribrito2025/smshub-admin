@@ -1,0 +1,50 @@
+{
+  "query": "SELECT id, customerId, amount, type, description, createdAt FROM balance_transactions WHERE description LIKE '%PIX%' ORDER BY createdAt DESC LIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, customerId, amount, type, description, createdAt FROM balance_transactions WHERE description LIKE '%PIX%' ORDER BY createdAt DESC LIMIT 5;",
+  "rows": [
+    {
+      "id": "750005",
+      "customerId": "180002",
+      "amount": "222",
+      "type": "credit",
+      "description": "Recarga via PIX - f8ce93924f3841a4b18ca24629b551e7",
+      "createdAt": "2025-12-05 20:47:51"
+    },
+    {
+      "id": "750004",
+      "customerId": "180002",
+      "amount": "150",
+      "type": "credit",
+      "description": "Recarga via PIX - 9c95460d6fff41afb1e4edad5dffb480",
+      "createdAt": "2025-12-05 20:44:40"
+    },
+    {
+      "id": "750003",
+      "customerId": "180002",
+      "amount": "233",
+      "type": "credit",
+      "description": "Recarga via PIX - 054b2bfe547d4ccd9ed690cc30ea2529",
+      "createdAt": "2025-12-05 20:43:08"
+    },
+    {
+      "id": "750002",
+      "customerId": "180002",
+      "amount": "220",
+      "type": "credit",
+      "description": "Recarga via PIX - 40ec3dc7cf6e4684b638e1302a20bc80",
+      "createdAt": "2025-12-05 20:41:10"
+    },
+    {
+      "id": "750001",
+      "customerId": "180002",
+      "amount": "122",
+      "type": "credit",
+      "description": "Recarga via PIX - f15eb7b7f2c3440aa803ef2cf7301e68",
+      "createdAt": "2025-12-05 20:30:53"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\tamount\ttype\tdescription\tcreatedAt\n750005\t180002\t222\tcredit\tRecarga via PIX - f8ce93924f3841a4b18ca24629b551e7\t2025-12-05 20:47:51\n750004\t180002\t150\tcredit\tRecarga via PIX - 9c95460d6fff41afb1e4edad5dffb480\t2025-12-05 20:44:40\n750003\t180002\t233\tcredit\tRecarga via PIX - 054b2bfe547d4ccd9ed690cc30ea2529\t2025-12-05 20:43:08\n750002\t180002\t220\tcredit\tRecarga via PIX - 40ec3dc7cf6e4684b638e1302a20bc80\t2025-12-05 20:41:10\n750001\t180002\t122\tcredit\tRecarga via PIX - f15eb7b7f2c3440aa803ef2cf7301e68\t2025-12-05 20:30:53\n",
+  "stderr": "",
+  "execution_time_ms": 58
+}

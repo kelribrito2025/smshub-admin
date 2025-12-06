@@ -1,0 +1,31 @@
+{
+  "query": "SHOW CREATE TABLE prices",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SHOW CREATE TABLE prices",
+  "rows": [
+    {
+      "Table": "prices",
+      "Create Table": "CREATE TABLE `prices` ("
+    }
+  ],
+  "messages": [
+    "  `id` int(11) NOT NULL AUTO_INCREMENT,",
+    "  `apiId` int(11) DEFAULT NULL,",
+    "  `countryId` int(11) NOT NULL,",
+    "  `serviceId` int(11) NOT NULL,",
+    "  `smshubPrice` int(11) NOT NULL,",
+    "  `ourPrice` int(11) NOT NULL,",
+    "  `quantityAvailable` int(11) NOT NULL DEFAULT '0',",
+    "  `lastSync` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,",
+    "  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,",
+    "  `active` tinyint(1) NOT NULL DEFAULT '1',",
+    "  PRIMARY KEY (`id`) /*T![clustered_index] CLUSTERED */,",
+    "  UNIQUE KEY `country_service_idx` (`countryId`,`serviceId`),",
+    "  KEY `last_sync_idx` (`lastSync`),",
+    "  KEY `idx_prices_country_service` (`countryId`,`serviceId`),",
+    "  KEY `api_idx` (`apiId`)",
+    ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin AUTO_INCREMENT=180001"
+  ],
+  "stdout": "Table\tCreate Table\nprices\tCREATE TABLE `prices` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `apiId` int(11) DEFAULT NULL,\n  `countryId` int(11) NOT NULL,\n  `serviceId` int(11) NOT NULL,\n  `smshubPrice` int(11) NOT NULL,\n  `ourPrice` int(11) NOT NULL,\n  `quantityAvailable` int(11) NOT NULL DEFAULT '0',\n  `lastSync` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  `active` tinyint(1) NOT NULL DEFAULT '1',\n  PRIMARY KEY (`id`) /*T![clustered_index] CLUSTERED */,\n  UNIQUE KEY `country_service_idx` (`countryId`,`serviceId`),\n  KEY `last_sync_idx` (`lastSync`),\n  KEY `idx_prices_country_service` (`countryId`,`serviceId`),\n  KEY `api_idx` (`apiId`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin AUTO_INCREMENT=180001\n",
+  "stderr": "",
+  "execution_time_ms": 52
+}

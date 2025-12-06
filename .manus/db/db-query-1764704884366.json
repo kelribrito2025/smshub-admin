@@ -1,0 +1,28 @@
+{
+  "query": "SELECT id, txid, customerId, amount, status, createdAt, paidAt FROM pix_transactions WHERE status = 'pending' ORDER BY createdAt DESC LIMIT 5",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, txid, customerId, amount, status, createdAt, paidAt FROM pix_transactions WHERE status = 'pending' ORDER BY createdAt DESC LIMIT 5",
+  "rows": [
+    {
+      "id": "3",
+      "txid": "6296bf5107b24b3ebc3972a8c038f001",
+      "customerId": "90007",
+      "amount": "100",
+      "status": "pending",
+      "createdAt": "2025-12-02 19:46:33",
+      "paidAt": "NULL"
+    },
+    {
+      "id": "2",
+      "txid": "d359a931fba34f658f2b69218230880b",
+      "customerId": "90007",
+      "amount": "100",
+      "status": "pending",
+      "createdAt": "2025-12-02 19:33:37",
+      "paidAt": "NULL"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttxid\tcustomerId\tamount\tstatus\tcreatedAt\tpaidAt\n3\t6296bf5107b24b3ebc3972a8c038f001\t90007\t100\tpending\t2025-12-02 19:46:33\tNULL\n2\td359a931fba34f658f2b69218230880b\t90007\t100\tpending\t2025-12-02 19:33:37\tNULL\n",
+  "stderr": "",
+  "execution_time_ms": 107
+}

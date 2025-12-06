@@ -1,0 +1,19 @@
+{
+  "query": "\nSELECT \n  p.id,\n  p.apiId,\n  p.ourPrice,\n  p.quantityAvailable,\n  s.name as serviceName,\n  c.name as countryName,\n  a.name as apiName\nFROM prices p\nJOIN services s ON p.serviceId = s.id\nJOIN countries c ON p.countryId = c.id\nJOIN sms_apis a ON p.apiId = a.id\nWHERE s.smshubCode = 'wa'\n  AND c.id = 1\n  AND p.apiId = 1\nLIMIT 1;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  p.id,\n  p.apiId,\n  p.ourPrice,\n  p.quantityAvailable,\n  s.name as serviceName,\n  c.name as countryName,\n  a.name as apiName\nFROM prices p\nJOIN services s ON p.serviceId = s.id\nJOIN countries c ON p.countryId = c.id\nJOIN sms_apis a ON p.apiId = a.id\nWHERE s.smshubCode = 'wa'\n  AND c.id = 1\n  AND p.apiId = 1\nLIMIT 1;\n",
+  "rows": [
+    {
+      "id": "150008",
+      "apiId": "1",
+      "ourPrice": "1000",
+      "quantityAvailable": "100",
+      "serviceName": "Whatsapp",
+      "countryName": "Updated Name",
+      "apiName": "Opção 1"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tapiId\tourPrice\tquantityAvailable\tserviceName\tcountryName\tapiName\n150008\t1\t1000\t100\tWhatsapp\tUpdated Name\tOpção 1\n",
+  "stderr": "",
+  "execution_time_ms": 58
+}

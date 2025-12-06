@@ -1,0 +1,50 @@
+{
+  "query": "SELECT a.id, a.name, COUNT(p.id) as total_prices\nFROM sms_apis a\nLEFT JOIN prices p ON a.id = p.apiId\nGROUP BY a.id, a.name\nORDER BY a.id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT a.id, a.name, COUNT(p.id) as total_prices\nFROM sms_apis a\nLEFT JOIN prices p ON a.id = p.apiId\nGROUP BY a.id, a.name\nORDER BY a.id;",
+  "rows": [
+    {
+      "id": "1",
+      "name": "Opção 1",
+      "total_prices": "416"
+    },
+    {
+      "id": "2",
+      "name": "Opcao 2",
+      "total_prices": "2"
+    },
+    {
+      "id": "30001",
+      "name": "Test API 1",
+      "total_prices": "0"
+    },
+    {
+      "id": "30002",
+      "name": "Test API 2",
+      "total_prices": "0"
+    },
+    {
+      "id": "30003",
+      "name": "Test API 1",
+      "total_prices": "0"
+    },
+    {
+      "id": "30004",
+      "name": "Test API 2",
+      "total_prices": "0"
+    },
+    {
+      "id": "30005",
+      "name": "Test API 1",
+      "total_prices": "0"
+    },
+    {
+      "id": "30006",
+      "name": "Test API 2",
+      "total_prices": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\ttotal_prices\n1\tOpção 1\t416\n2\tOpcao 2\t2\n30001\tTest API 1\t0\n30002\tTest API 2\t0\n30003\tTest API 1\t0\n30004\tTest API 2\t0\n30005\tTest API 1\t0\n30006\tTest API 2\t0\n",
+  "stderr": "",
+  "execution_time_ms": 53
+}

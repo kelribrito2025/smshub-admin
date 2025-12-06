@@ -1,0 +1,16 @@
+{
+  "query": "SELECT id, name, profit_percentage, minimum_price FROM sms_apis WHERE id = 1;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, name, profit_percentage, minimum_price FROM sms_apis WHERE id = 1;",
+  "rows": [
+    {
+      "id": "1",
+      "name": "Opção 1 ",
+      "profit_percentage": "200.00",
+      "minimum_price": "90"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tprofit_percentage\tminimum_price\n1\tOpção 1 \t200.00\t90\n",
+  "stderr": "",
+  "execution_time_ms": 76
+}

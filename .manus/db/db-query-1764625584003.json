@@ -1,0 +1,9 @@
+{
+  "query": "SELECT \n  s.id,\n  s.name,\n  COUNT(DISTINCT p.apiId) as api_count\nFROM prices p\nINNER JOIN services s ON p.serviceId = s.id\nINNER JOIN sms_apis a ON p.apiId = a.id\nWHERE p.countryId = 1\n  AND a.active = 1\nGROUP BY s.id, s.name\nHAVING COUNT(DISTINCT p.apiId) > 1\nORDER BY api_count DESC\nLIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT \n  s.id,\n  s.name,\n  COUNT(DISTINCT p.apiId) as api_count\nFROM prices p\nINNER JOIN services s ON p.serviceId = s.id\nINNER JOIN sms_apis a ON p.apiId = a.id\nWHERE p.countryId = 1\n  AND a.active = 1\nGROUP BY s.id, s.name\nHAVING COUNT(DISTINCT p.apiId) > 1\nORDER BY api_count DESC\nLIMIT 10;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 64
+}

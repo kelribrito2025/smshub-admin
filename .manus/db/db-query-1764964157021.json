@@ -1,0 +1,9 @@
+{
+  "query": "CREATE TABLE `recharges` (\n  `id` int AUTO_INCREMENT NOT NULL,\n  `customerId` int NOT NULL,\n  `amount` int NOT NULL,\n  `paymentMethod` enum('pix','card','crypto','picpay') NOT NULL,\n  `status` enum('completed','pending','expired') NOT NULL DEFAULT 'pending',\n  `transactionId` varchar(255),\n  `metadata` text,\n  `createdAt` timestamp NOT NULL DEFAULT (now()),\n  `updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,\n  `completedAt` timestamp,\n  `expiresAt` timestamp,\n  CONSTRAINT `recharges_id` PRIMARY KEY(`id`)\n);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute CREATE TABLE `recharges` (\n  `id` int AUTO_INCREMENT NOT NULL,\n  `customerId` int NOT NULL,\n  `amount` int NOT NULL,\n  `paymentMethod` enum('pix','card','crypto','picpay') NOT NULL,\n  `status` enum('completed','pending','expired') NOT NULL DEFAULT 'pending',\n  `transactionId` varchar(255),\n  `metadata` text,\n  `createdAt` timestamp NOT NULL DEFAULT (now()),\n  `updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,\n  `completedAt` timestamp,\n  `expiresAt` timestamp,\n  CONSTRAINT `recharges_id` PRIMARY KEY(`id`)\n);",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 215
+}

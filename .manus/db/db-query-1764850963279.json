@@ -1,0 +1,60 @@
+{
+  "query": "SELECT id, smshubPrice, ourPrice FROM prices ORDER BY smshubPrice DESC LIMIT 10",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, smshubPrice, ourPrice FROM prices ORDER BY smshubPrice DESC LIMIT 10",
+  "rows": [
+    {
+      "id": "60094",
+      "smshubPrice": "908951",
+      "ourPrice": "1817902"
+    },
+    {
+      "id": "60090",
+      "smshubPrice": "800379",
+      "ourPrice": "1600758"
+    },
+    {
+      "id": "60033",
+      "smshubPrice": "788773",
+      "ourPrice": "1577546"
+    },
+    {
+      "id": "60061",
+      "smshubPrice": "775234",
+      "ourPrice": "1550468"
+    },
+    {
+      "id": "60107",
+      "smshubPrice": "761112",
+      "ourPrice": "1522224"
+    },
+    {
+      "id": "60082",
+      "smshubPrice": "760693",
+      "ourPrice": "1521386"
+    },
+    {
+      "id": "60071",
+      "smshubPrice": "759315",
+      "ourPrice": "1518630"
+    },
+    {
+      "id": "60088",
+      "smshubPrice": "754330",
+      "ourPrice": "1508660"
+    },
+    {
+      "id": "60051",
+      "smshubPrice": "753062",
+      "ourPrice": "1506124"
+    },
+    {
+      "id": "60102",
+      "smshubPrice": "752998",
+      "ourPrice": "1505996"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tsmshubPrice\tourPrice\n60094\t908951\t1817902\n60090\t800379\t1600758\n60033\t788773\t1577546\n60061\t775234\t1550468\n60107\t761112\t1522224\n60082\t760693\t1521386\n60071\t759315\t1518630\n60088\t754330\t1508660\n60051\t753062\t1506124\n60102\t752998\t1505996\n",
+  "stderr": "",
+  "execution_time_ms": 56
+}

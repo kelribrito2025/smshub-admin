@@ -1,4 +1,5 @@
 import { useAuth } from "@/_core/hooks/useAuth";
+import { trpc } from "@/lib/trpc";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -21,19 +22,36 @@ import {
 } from "@/components/ui/sidebar";
 import { getLoginUrl } from "@/const";
 import { useIsMobile } from "@/hooks/useMobile";
-import { LayoutDashboard, LogOut, PanelLeft, Users, MessageSquare, DollarSign, Settings } from "lucide-react";
+import { LayoutDashboard, LogOut, PanelLeft, Settings, RefreshCw, Globe, Package, Key, LineChart, Users, BookOpen, Cloud, BarChart3, CreditCard, FileText, Gift, GripVertical, LucideIcon } from "lucide-react";
+import * as LucideIcons from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { DashboardLayoutSkeleton } from './DashboardLayoutSkeleton';
 import { Button } from "./ui/button";
+import { MenuReorderDialog } from "./MenuReorderDialog";
+import { MenuManagementDialog } from "./MenuManagementDialog";
 
-const menuItems = [
-  { icon: LayoutDashboard, label: "Dashboard", path: "/" },
-  { icon: Users, label: "Clientes", path: "/clients" },
-  { icon: MessageSquare, label: "Campanhas", path: "/campaigns" },
-  { icon: DollarSign, label: "Vendas", path: "/sales" },
+// Fallback menu items (used if database menus are not available)
+const fallbackMenuItems = [
+  { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
+  { icon: LineChart, label: "Relatórios", path: "/relatorios" },
+  { icon: FileText, label: "Auditoria de Saldo", path: "/auditoria" },
   { icon: Settings, label: "Configurações", path: "/settings" },
+  { icon: CreditCard, label: "Pagamentos", path: "/payment-settings" },
+  { icon: Cloud, label: "APIs", path: "/apis" },
+  { icon: BarChart3, label: "Performance de APIs", path: "/api-performance" },
+  { icon: Globe, label: "Países", path: "/countries" },
+  { icon: BookOpen, label: "Catálogo", path: "/catalogo" },
+  { icon: Users, label: "Clientes", path: "/clientes" },
+  { icon: Gift, label: "Afiliados", path: "/affiliates" },
 ];
+
+// Helper function to get icon component from string name
+function getIconComponent(iconName: string | null): LucideIcon {
+  if (!iconName) return LayoutDashboard;
+  const IconComponent = (LucideIcons as any)[iconName];
+  return IconComponent || LayoutDashboard;
+}
 
 const SIDEBAR_WIDTH_KEY = "sidebar-width";
 const DEFAULT_WIDTH = 280;
@@ -115,8 +133,23 @@ function DashboardLayoutContent({
   const isCollapsed = state === "collapsed";
   const [isResizing, setIsResizing] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
-  const activeMenuItem = menuItems.find(item => item.path === location);
   const isMobile = useIsMobile();
+  const [reorderDialogOpen, setReorderDialogOpen] = useState(false);
+  const [manageDialogOpen, setManageDialogOpen] = useState(false);
+
+  // Fetch menus from database
+  const { data: dbMenus } = trpc.adminMenus.getAll.useQuery();
+
+  // Convert database menus to menu items with icons
+  const menuItems = dbMenus
+    ? dbMenus.map(menu => ({
+        icon: getIconComponent(menu.icon),
+        label: menu.label,
+        path: menu.path,
+      }))
+    : fallbackMenuItems;
+
+  const activeMenuItem = menuItems.find(item => item.path === location);
 
   useEffect(() => {
     if (isCollapsed) {
@@ -174,7 +207,7 @@ function DashboardLayoutContent({
               {!isCollapsed ? (
                 <div className="flex items-center gap-2 min-w-0">
                   <span className="font-semibold tracking-tight truncate">
-                    SMS Hub Admin
+                    Navigation
                   </span>
                 </div>
               ) : null}
@@ -225,6 +258,20 @@ function DashboardLayoutContent({
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
                 <DropdownMenuItem
+                  onClick={() => setManageDialogOpen(true)}
+                  className="cursor-pointer"
+                >
+                  <Settings className="mr-2 h-4 w-4" />
+                  <span>Gerir Menus</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => setReorderDialogOpen(true)}
+                  className="cursor-pointer"
+                >
+                  <GripVertical className="mr-2 h-4 w-4" />
+                  <span>Reorganizar Menus</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem
                   onClick={logout}
                   className="cursor-pointer text-destructive focus:text-destructive"
                 >
@@ -262,6 +309,15 @@ function DashboardLayoutContent({
         )}
         <main className="flex-1 p-4">{children}</main>
       </SidebarInset>
+
+      <MenuReorderDialog
+        open={reorderDialogOpen}
+        onOpenChange={setReorderDialogOpen}
+      />
+      <MenuManagementDialog
+        open={manageDialogOpen}
+        onOpenChange={setManageDialogOpen}
+      />
     </>
   );
 }

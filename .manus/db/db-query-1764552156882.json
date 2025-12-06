@@ -1,0 +1,16 @@
+{
+  "query": "SELECT * FROM customer_favorites ORDER BY createdAt DESC LIMIT 5",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT * FROM customer_favorites ORDER BY createdAt DESC LIMIT 5",
+  "rows": [
+    {
+      "id": "6",
+      "customerId": "1",
+      "serviceId": "60001",
+      "createdAt": "2025-12-01 01:22:03"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\tserviceId\tcreatedAt\n6\t1\t60001\t2025-12-01 01:22:03\n",
+  "stderr": "",
+  "execution_time_ms": 58
+}

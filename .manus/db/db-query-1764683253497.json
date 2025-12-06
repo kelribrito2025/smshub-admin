@@ -1,0 +1,34 @@
+{
+  "query": "SELECT id, smshubActivationId, phoneNumber, smsCode, status, createdAt \nFROM activations \nWHERE apiId = 2 AND smshubActivationId != phoneNumber \nORDER BY id DESC \nLIMIT 3",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, smshubActivationId, phoneNumber, smsCode, status, createdAt \nFROM activations \nWHERE apiId = 2 AND smshubActivationId != phoneNumber \nORDER BY id DESC \nLIMIT 3",
+  "rows": [
+    {
+      "id": "210001",
+      "smshubActivationId": "4036846",
+      "phoneNumber": "5521920245807",
+      "smsCode": "NULL",
+      "status": "active",
+      "createdAt": "2025-12-02 13:35:36"
+    },
+    {
+      "id": "180006",
+      "smshubActivationId": "4032445",
+      "phoneNumber": "5531920033958",
+      "smsCode": "NULL",
+      "status": "cancelled",
+      "createdAt": "2025-12-02 12:53:52"
+    },
+    {
+      "id": "150002",
+      "smshubActivationId": "4029285",
+      "phoneNumber": "5522920179213",
+      "smsCode": "NULL",
+      "status": "cancelled",
+      "createdAt": "2025-12-02 12:23:32"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tsmshubActivationId\tphoneNumber\tsmsCode\tstatus\tcreatedAt\n210001\t4036846\t5521920245807\tNULL\tactive\t2025-12-02 13:35:36\n180006\t4032445\t5531920033958\tNULL\tcancelled\t2025-12-02 12:53:52\n150002\t4029285\t5522920179213\tNULL\tcancelled\t2025-12-02 12:23:32\n",
+  "stderr": "",
+  "execution_time_ms": 49
+}

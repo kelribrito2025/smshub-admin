@@ -1,0 +1,30 @@
+{
+  "query": "SELECT pt.id, pt.customerId, pt.amount, pt.status, pt.txid, pt.createdAt, pt.paidAt, c.pin \nFROM pix_transactions pt \nJOIN customers c ON pt.customerId = c.id \nWHERE c.pin = 7 AND pt.amount = 233\nORDER BY pt.createdAt DESC",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT pt.id, pt.customerId, pt.amount, pt.status, pt.txid, pt.createdAt, pt.paidAt, c.pin \nFROM pix_transactions pt \nJOIN customers c ON pt.customerId = c.id \nWHERE c.pin = 7 AND pt.amount = 233\nORDER BY pt.createdAt DESC",
+  "rows": [
+    {
+      "id": "240011",
+      "customerId": "180002",
+      "amount": "233",
+      "status": "paid",
+      "txid": "56882da4dbce43ceb7e464e59ab81ada",
+      "createdAt": "2025-12-05 21:17:30",
+      "paidAt": "2025-12-05 21:18:06",
+      "pin": "7"
+    },
+    {
+      "id": "240003",
+      "customerId": "180002",
+      "amount": "233",
+      "status": "paid",
+      "txid": "054b2bfe547d4ccd9ed690cc30ea2529",
+      "createdAt": "2025-12-05 20:42:59",
+      "paidAt": "2025-12-05 20:43:07",
+      "pin": "7"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\tamount\tstatus\ttxid\tcreatedAt\tpaidAt\tpin\n240011\t180002\t233\tpaid\t56882da4dbce43ceb7e464e59ab81ada\t2025-12-05 21:17:30\t2025-12-05 21:18:06\t7\n240003\t180002\t233\tpaid\t054b2bfe547d4ccd9ed690cc30ea2529\t2025-12-05 20:42:59\t2025-12-05 20:43:07\t7\n",
+  "stderr": "",
+  "execution_time_ms": 64
+}

@@ -1,0 +1,8 @@
+{
+  "query": "\nSELECT \n  p.id,\n  c.name as country,\n  s.name as service,\n  s.smshubCode,\n  a.name as api,\n  p.smshubPrice,\n  p.ourPrice,\n  p.quantity\nFROM prices p\nJOIN countries c ON p.countryId = c.id\nJOIN services s ON p.serviceId = s.id\nJOIN sms_apis a ON p.apiId = a.id\nWHERE s.smshubCode = 'ot'\nORDER BY a.id;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  p.id,\n  c.name as country,\n  s.name as service,\n  s.smshubCode,\n  a.name as api,\n  p.smshubPrice,\n  p.ourPrice,\n  p.quantity\nFROM prices p\nJOIN countries c ON p.countryId = c.id\nJOIN services s ON p.serviceId = s.id\nJOIN sms_apis a ON p.apiId = a.id\nWHERE s.smshubCode = 'ot'\nORDER BY a.id;\n",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1054 (42S22) at line 2: Unknown column 'p.quantity' in 'field list'"
+  ]
+}

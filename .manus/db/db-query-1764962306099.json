@@ -1,0 +1,9 @@
+{
+  "query": "CREATE TABLE IF NOT EXISTS `admin_menus` (\n  `id` int AUTO_INCREMENT NOT NULL,\n  `label` varchar(100) NOT NULL,\n  `path` varchar(255) NOT NULL,\n  `icon` varchar(50),\n  `position` int NOT NULL,\n  `active` boolean NOT NULL DEFAULT true,\n  `createdAt` timestamp NOT NULL DEFAULT (now()),\n  `updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,\n  CONSTRAINT `admin_menus_id` PRIMARY KEY(`id`),\n  CONSTRAINT `path_idx` UNIQUE(`path`)\n);\nCREATE INDEX IF NOT EXISTS `position_idx` ON `admin_menus` (`position`);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute CREATE TABLE IF NOT EXISTS `admin_menus` (\n  `id` int AUTO_INCREMENT NOT NULL,\n  `label` varchar(100) NOT NULL,\n  `path` varchar(255) NOT NULL,\n  `icon` varchar(50),\n  `position` int NOT NULL,\n  `active` boolean NOT NULL DEFAULT true,\n  `createdAt` timestamp NOT NULL DEFAULT (now()),\n  `updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,\n  CONSTRAINT `admin_menus_id` PRIMARY KEY(`id`),\n  CONSTRAINT `path_idx` UNIQUE(`path`)\n);\nCREATE INDEX IF NOT EXISTS `position_idx` ON `admin_menus` (`position`);",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 638
+}

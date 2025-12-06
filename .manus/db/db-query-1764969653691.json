@@ -1,0 +1,17 @@
+{
+  "query": "SELECT id, pin, email, name, balance FROM customers WHERE pin = 7",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, pin, email, name, balance FROM customers WHERE pin = 7",
+  "rows": [
+    {
+      "id": "180002",
+      "pin": "7",
+      "email": "xkelrix@gmail.com",
+      "name": "xkelrix",
+      "balance": "3561"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tpin\temail\tname\tbalance\n180002\t7\txkelrix@gmail.com\txkelrix\t3561\n",
+  "stderr": "",
+  "execution_time_ms": 59
+}

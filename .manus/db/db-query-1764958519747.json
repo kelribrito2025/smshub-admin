@@ -1,0 +1,22 @@
+{
+  "query": "SELECT DISTINCT p.apiId, a.name as api_name FROM prices p LEFT JOIN sms_apis a ON p.apiId = a.id ORDER BY p.apiId",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT DISTINCT p.apiId, a.name as api_name FROM prices p LEFT JOIN sms_apis a ON p.apiId = a.id ORDER BY p.apiId",
+  "rows": [
+    {
+      "apiId": "1",
+      "api_name": "Opção 1 "
+    },
+    {
+      "apiId": "2",
+      "api_name": "Opção 2"
+    },
+    {
+      "apiId": "3",
+      "api_name": "Opção 3"
+    }
+  ],
+  "messages": [],
+  "stdout": "apiId\tapi_name\n1\tOpção 1 \n2\tOpção 2\n3\tOpção 3\n",
+  "stderr": "",
+  "execution_time_ms": 64
+}

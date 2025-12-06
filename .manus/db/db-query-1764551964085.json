@@ -1,0 +1,9 @@
+{
+  "query": "SELECT cf.*, c.email, s.name as serviceName \nFROM customer_favorites cf \nJOIN customers c ON cf.customerId = c.id \nJOIN services s ON cf.serviceId = s.id \nORDER BY cf.createdAt DESC LIMIT 10",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT cf.*, c.email, s.name as serviceName \nFROM customer_favorites cf \nJOIN customers c ON cf.customerId = c.id \nJOIN services s ON cf.serviceId = s.id \nORDER BY cf.createdAt DESC LIMIT 10",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 121
+}

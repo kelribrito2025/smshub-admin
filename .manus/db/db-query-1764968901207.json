@@ -1,0 +1,37 @@
+{
+  "query": "\nSELECT \n  pt.id,\n  pt.txid,\n  pt.amount,\n  pt.status,\n  pt.createdAt,\n  pt.paidAt,\n  c.email\nFROM pix_transactions pt\nJOIN customers c ON pt.customerId = c.id\nWHERE c.email = 'xkelrix@gmail.com'\nORDER BY pt.createdAt DESC\nLIMIT 3;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  pt.id,\n  pt.txid,\n  pt.amount,\n  pt.status,\n  pt.createdAt,\n  pt.paidAt,\n  c.email\nFROM pix_transactions pt\nJOIN customers c ON pt.customerId = c.id\nWHERE c.email = 'xkelrix@gmail.com'\nORDER BY pt.createdAt DESC\nLIMIT 3;\n",
+  "rows": [
+    {
+      "id": "240009",
+      "txid": "fb678ab22c61498fa6d26c4225ff70f4",
+      "amount": "300",
+      "status": "paid",
+      "createdAt": "2025-12-05 20:58:20",
+      "paidAt": "2025-12-05 20:58:30",
+      "email": "xkelrix@gmail.com"
+    },
+    {
+      "id": "240008",
+      "txid": "4a901276912e4c8c938a29b065f167a0",
+      "amount": "123",
+      "status": "paid",
+      "createdAt": "2025-12-05 20:56:11",
+      "paidAt": "2025-12-05 20:56:29",
+      "email": "xkelrix@gmail.com"
+    },
+    {
+      "id": "240007",
+      "txid": "25cc2fc21de64559a8908dd86e4b79a3",
+      "amount": "111",
+      "status": "paid",
+      "createdAt": "2025-12-05 20:52:16",
+      "paidAt": "2025-12-05 20:52:38",
+      "email": "xkelrix@gmail.com"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttxid\tamount\tstatus\tcreatedAt\tpaidAt\temail\n240009\tfb678ab22c61498fa6d26c4225ff70f4\t300\tpaid\t2025-12-05 20:58:20\t2025-12-05 20:58:30\txkelrix@gmail.com\n240008\t4a901276912e4c8c938a29b065f167a0\t123\tpaid\t2025-12-05 20:56:11\t2025-12-05 20:56:29\txkelrix@gmail.com\n240007\t25cc2fc21de64559a8908dd86e4b79a3\t111\tpaid\t2025-12-05 20:52:16\t2025-12-05 20:52:38\txkelrix@gmail.com\n",
+  "stderr": "",
+  "execution_time_ms": 55
+}

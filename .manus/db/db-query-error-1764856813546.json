@@ -1,0 +1,8 @@
+{
+  "query": "SELECT id, countryId, serviceId, apiId, smshubPrice, ourPrice, available, active \nFROM prices \nWHERE apiId = 3 \nLIMIT 20",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, countryId, serviceId, apiId, smshubPrice, ourPrice, available, active \nFROM prices \nWHERE apiId = 3 \nLIMIT 20",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1054 (42S22) at line 1: Unknown column 'available' in 'field list'"
+  ]
+}

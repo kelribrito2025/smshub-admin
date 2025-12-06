@@ -1,0 +1,9 @@
+{
+  "query": "SELECT \n  a.id as api_id,\n  a.name as api_name,\n  p.ourPrice,\n  p.quantityAvailable,\n  a.priority\nFROM prices p\nINNER JOIN sms_apis a ON p.apiId = a.id\nINNER JOIN services s ON p.serviceId = s.id\nWHERE s.id = 60002 \n  AND p.countryId = 1\n  AND a.active = 1\nORDER BY a.id ASC;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT \n  a.id as api_id,\n  a.name as api_name,\n  p.ourPrice,\n  p.quantityAvailable,\n  a.priority\nFROM prices p\nINNER JOIN sms_apis a ON p.apiId = a.id\nINNER JOIN services s ON p.serviceId = s.id\nWHERE s.id = 60002 \n  AND p.countryId = 1\n  AND a.active = 1\nORDER BY a.id ASC;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 99
+}

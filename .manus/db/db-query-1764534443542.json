@@ -1,0 +1,70 @@
+{
+  "query": "SELECT id, name, code, active FROM countries WHERE active = 1 LIMIT 10",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, name, code, active FROM countries WHERE active = 1 LIMIT 10",
+  "rows": [
+    {
+      "id": "1",
+      "name": "Updated Name",
+      "code": "TC",
+      "active": "1"
+    },
+    {
+      "id": "2",
+      "name": "Update Test",
+      "code": "UT",
+      "active": "1"
+    },
+    {
+      "id": "7",
+      "name": "Ukraine",
+      "code": "ukraine",
+      "active": "1"
+    },
+    {
+      "id": "8",
+      "name": "Kazakhstan",
+      "code": "kazakhstan",
+      "active": "1"
+    },
+    {
+      "id": "9",
+      "name": "China",
+      "code": "china",
+      "active": "1"
+    },
+    {
+      "id": "10",
+      "name": "Philippines",
+      "code": "philippines",
+      "active": "1"
+    },
+    {
+      "id": "11",
+      "name": "Myanmar",
+      "code": "myanmar",
+      "active": "1"
+    },
+    {
+      "id": "12",
+      "name": "Indonesia",
+      "code": "indonesia",
+      "active": "1"
+    },
+    {
+      "id": "13",
+      "name": "Malaysia",
+      "code": "malaysia",
+      "active": "1"
+    },
+    {
+      "id": "14",
+      "name": "Kenya",
+      "code": "kenya",
+      "active": "1"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tcode\tactive\n1\tUpdated Name\tTC\t1\n2\tUpdate Test\tUT\t1\n7\tUkraine\tukraine\t1\n8\tKazakhstan\tkazakhstan\t1\n9\tChina\tchina\t1\n10\tPhilippines\tphilippines\t1\n11\tMyanmar\tmyanmar\t1\n12\tIndonesia\tindonesia\t1\n13\tMalaysia\tmalaysia\t1\n14\tKenya\tkenya\t1\n",
+  "stderr": "",
+  "execution_time_ms": 50
+}

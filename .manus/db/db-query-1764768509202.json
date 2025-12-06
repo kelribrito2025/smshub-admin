@@ -1,0 +1,50 @@
+{
+  "query": "SELECT * FROM stripe_transactions ORDER BY createdAt DESC LIMIT 5",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT * FROM stripe_transactions ORDER BY createdAt DESC LIMIT 5",
+  "rows": [
+    {
+      "id": "30001",
+      "customerId": "180002",
+      "sessionId": "cs_live_b1l5PYz8ezSWv89bPblPMK7WWX8xyw57JKomvHbFnGgQUVLdSBkZrisLwO",
+      "paymentIntentId": "NULL",
+      "amount": "2000",
+      "status": "pending",
+      "createdAt": "2025-12-03 13:25:16",
+      "updatedAt": "2025-12-03 13:25:16"
+    },
+    {
+      "id": "3",
+      "customerId": "90007",
+      "sessionId": "cs_live_b1RZF2JfKfQRqK0Qd2kIsgJ9mVesmjUoMm47sSTWdGOlKXU3KG2EmuPOij",
+      "paymentIntentId": "NULL",
+      "amount": "2000",
+      "status": "pending",
+      "createdAt": "2025-12-02 21:54:34",
+      "updatedAt": "2025-12-02 21:54:34"
+    },
+    {
+      "id": "2",
+      "customerId": "90007",
+      "sessionId": "cs_test_b1lPBILtzxbXbc5MX4v3gxYezTTpmXm7ghMZrrDUUJ842hTYFUuFiGpD9u",
+      "paymentIntentId": "NULL",
+      "amount": "2000",
+      "status": "pending",
+      "createdAt": "2025-12-02 21:08:57",
+      "updatedAt": "2025-12-02 21:08:57"
+    },
+    {
+      "id": "1",
+      "customerId": "90007",
+      "sessionId": "cs_test_b1v66mKPKmyP4sQ3C4yh3rK9yAXC7KmuLkKqgWWw9gvMee2FUdjMqORhzc",
+      "paymentIntentId": "NULL",
+      "amount": "2000",
+      "status": "pending",
+      "createdAt": "2025-12-02 20:59:27",
+      "updatedAt": "2025-12-02 20:59:27"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\tsessionId\tpaymentIntentId\tamount\tstatus\tcreatedAt\tupdatedAt\n30001\t180002\tcs_live_b1l5PYz8ezSWv89bPblPMK7WWX8xyw57JKomvHbFnGgQUVLdSBkZrisLwO\tNULL\t2000\tpending\t2025-12-03 13:25:16\t2025-12-03 13:25:16\n3\t90007\tcs_live_b1RZF2JfKfQRqK0Qd2kIsgJ9mVesmjUoMm47sSTWdGOlKXU3KG2EmuPOij\tNULL\t2000\tpending\t2025-12-02 21:54:34\t2025-12-02 21:54:34\n2\t90007\tcs_test_b1lPBILtzxbXbc5MX4v3gxYezTTpmXm7ghMZrrDUUJ842hTYFUuFiGpD9u\tNULL\t2000\tpending\t2025-12-02 21:08:57\t2025-12-02 21:08:57\n1\t90007\tcs_test_b1v66mKPKmyP4sQ3C4yh3rK9yAXC7KmuLkKqgWWw9gvMee2FUdjMqORhzc\tNULL\t2000\tpending\t2025-12-02 20:59:27\t2025-12-02 20:59:27\n",
+  "stderr": "",
+  "execution_time_ms": 87
+}

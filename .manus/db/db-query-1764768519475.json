@@ -1,0 +1,50 @@
+{
+  "query": "SELECT id, customerId, sessionId, amount, status, createdAt, updatedAt, paymentIntentId FROM stripe_transactions ORDER BY createdAt DESC",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, customerId, sessionId, amount, status, createdAt, updatedAt, paymentIntentId FROM stripe_transactions ORDER BY createdAt DESC",
+  "rows": [
+    {
+      "id": "30001",
+      "customerId": "180002",
+      "sessionId": "cs_live_b1l5PYz8ezSWv89bPblPMK7WWX8xyw57JKomvHbFnGgQUVLdSBkZrisLwO",
+      "amount": "2000",
+      "status": "pending",
+      "createdAt": "2025-12-03 13:25:16",
+      "updatedAt": "2025-12-03 13:25:16",
+      "paymentIntentId": "NULL"
+    },
+    {
+      "id": "3",
+      "customerId": "90007",
+      "sessionId": "cs_live_b1RZF2JfKfQRqK0Qd2kIsgJ9mVesmjUoMm47sSTWdGOlKXU3KG2EmuPOij",
+      "amount": "2000",
+      "status": "pending",
+      "createdAt": "2025-12-02 21:54:34",
+      "updatedAt": "2025-12-02 21:54:34",
+      "paymentIntentId": "NULL"
+    },
+    {
+      "id": "2",
+      "customerId": "90007",
+      "sessionId": "cs_test_b1lPBILtzxbXbc5MX4v3gxYezTTpmXm7ghMZrrDUUJ842hTYFUuFiGpD9u",
+      "amount": "2000",
+      "status": "pending",
+      "createdAt": "2025-12-02 21:08:57",
+      "updatedAt": "2025-12-02 21:08:57",
+      "paymentIntentId": "NULL"
+    },
+    {
+      "id": "1",
+      "customerId": "90007",
+      "sessionId": "cs_test_b1v66mKPKmyP4sQ3C4yh3rK9yAXC7KmuLkKqgWWw9gvMee2FUdjMqORhzc",
+      "amount": "2000",
+      "status": "pending",
+      "createdAt": "2025-12-02 20:59:27",
+      "updatedAt": "2025-12-02 20:59:27",
+      "paymentIntentId": "NULL"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\tsessionId\tamount\tstatus\tcreatedAt\tupdatedAt\tpaymentIntentId\n30001\t180002\tcs_live_b1l5PYz8ezSWv89bPblPMK7WWX8xyw57JKomvHbFnGgQUVLdSBkZrisLwO\t2000\tpending\t2025-12-03 13:25:16\t2025-12-03 13:25:16\tNULL\n3\t90007\tcs_live_b1RZF2JfKfQRqK0Qd2kIsgJ9mVesmjUoMm47sSTWdGOlKXU3KG2EmuPOij\t2000\tpending\t2025-12-02 21:54:34\t2025-12-02 21:54:34\tNULL\n2\t90007\tcs_test_b1lPBILtzxbXbc5MX4v3gxYezTTpmXm7ghMZrrDUUJ842hTYFUuFiGpD9u\t2000\tpending\t2025-12-02 21:08:57\t2025-12-02 21:08:57\tNULL\n1\t90007\tcs_test_b1v66mKPKmyP4sQ3C4yh3rK9yAXC7KmuLkKqgWWw9gvMee2FUdjMqORhzc\t2000\tpending\t2025-12-02 20:59:27\t2025-12-02 20:59:27\tNULL\n",
+  "stderr": "",
+  "execution_time_ms": 98
+}

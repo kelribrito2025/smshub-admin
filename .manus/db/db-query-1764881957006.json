@@ -1,0 +1,14 @@
+{
+  "query": "SELECT MIN(createdAt) as primeira_importacao, MAX(lastSync) as ultima_sync FROM prices WHERE apiId = 3",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT MIN(createdAt) as primeira_importacao, MAX(lastSync) as ultima_sync FROM prices WHERE apiId = 3",
+  "rows": [
+    {
+      "primeira_importacao": "2025-12-04 14:35:51",
+      "ultima_sync": "2025-12-04 20:50:56"
+    }
+  ],
+  "messages": [],
+  "stdout": "primeira_importacao\tultima_sync\n2025-12-04 14:35:51\t2025-12-04 20:50:56\n",
+  "stderr": "",
+  "execution_time_ms": 60
+}

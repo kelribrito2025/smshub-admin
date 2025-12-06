@@ -1,0 +1,9 @@
+{
+  "query": "INSERT INTO recharges (customerId, amount, paymentMethod, status, createdAt, completedAt) VALUES\n(1, 5000, 'pix', 'completed', DATE_SUB(NOW(), INTERVAL 2 DAY), DATE_SUB(NOW(), INTERVAL 2 DAY)),\n(1, 10000, 'card', 'completed', DATE_SUB(NOW(), INTERVAL 5 DAY), DATE_SUB(NOW(), INTERVAL 5 DAY)),\n(1, 2000, 'pix', 'pending', DATE_SUB(NOW(), INTERVAL 1 HOUR), NULL),\n(1, 15000, 'crypto', 'completed', DATE_SUB(NOW(), INTERVAL 10 DAY), DATE_SUB(NOW(), INTERVAL 10 DAY)),\n(1, 3000, 'picpay', 'expired', DATE_SUB(NOW(), INTERVAL 3 DAY), NULL),\n(1, 7500, 'pix', 'completed', DATE_SUB(NOW(), INTERVAL 1 DAY), DATE_SUB(NOW(), INTERVAL 1 DAY));",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute INSERT INTO recharges (customerId, amount, paymentMethod, status, createdAt, completedAt) VALUES\n(1, 5000, 'pix', 'completed', DATE_SUB(NOW(), INTERVAL 2 DAY), DATE_SUB(NOW(), INTERVAL 2 DAY)),\n(1, 10000, 'card', 'completed', DATE_SUB(NOW(), INTERVAL 5 DAY), DATE_SUB(NOW(), INTERVAL 5 DAY)),\n(1, 2000, 'pix', 'pending', DATE_SUB(NOW(), INTERVAL 1 HOUR), NULL),\n(1, 15000, 'crypto', 'completed', DATE_SUB(NOW(), INTERVAL 10 DAY), DATE_SUB(NOW(), INTERVAL 10 DAY)),\n(1, 3000, 'picpay', 'expired', DATE_SUB(NOW(), INTERVAL 3 DAY), NULL),\n(1, 7500, 'pix', 'completed', DATE_SUB(NOW(), INTERVAL 1 DAY), DATE_SUB(NOW(), INTERVAL 1 DAY));",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 77
+}

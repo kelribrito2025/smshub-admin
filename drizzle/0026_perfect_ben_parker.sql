@@ -1,0 +1,1 @@
+DROP INDEX `active_idx` ON `prices`;

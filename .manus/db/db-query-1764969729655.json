@@ -1,0 +1,9 @@
+{
+  "query": "INSERT INTO recharges (customerId, amount, paymentMethod, status, transactionId, completedAt, createdAt, updatedAt)\nSELECT \n  customerId,\n  amount,\n  'pix' as paymentMethod,\n  'completed' as status,\n  txid as transactionId,\n  paidAt as completedAt,\n  createdAt,\n  NOW() as updatedAt\nFROM pix_transactions \nWHERE customerId = (SELECT id FROM customers WHERE pin = 7) \n  AND amount = 233\n  AND status = 'paid'\n  AND txid NOT IN (SELECT transactionId FROM recharges WHERE transactionId IS NOT NULL)",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute INSERT INTO recharges (customerId, amount, paymentMethod, status, transactionId, completedAt, createdAt, updatedAt)\nSELECT \n  customerId,\n  amount,\n  'pix' as paymentMethod,\n  'completed' as status,\n  txid as transactionId,\n  paidAt as completedAt,\n  createdAt,\n  NOW() as updatedAt\nFROM pix_transactions \nWHERE customerId = (SELECT id FROM customers WHERE pin = 7) \n  AND amount = 233\n  AND status = 'paid'\n  AND txid NOT IN (SELECT transactionId FROM recharges WHERE transactionId IS NOT NULL)",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 90
+}

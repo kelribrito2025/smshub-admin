@@ -1,0 +1,80 @@
+{
+  "query": "SELECT id, customerId, amount, status, createdAt FROM pix_transactions ORDER BY createdAt DESC LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, customerId, amount, status, createdAt FROM pix_transactions ORDER BY createdAt DESC LIMIT 10;",
+  "rows": [
+    {
+      "id": "210002",
+      "customerId": "180002",
+      "amount": "200",
+      "status": "paid",
+      "createdAt": "2025-12-05 20:13:39"
+    },
+    {
+      "id": "210001",
+      "customerId": "180002",
+      "amount": "110",
+      "status": "paid",
+      "createdAt": "2025-12-05 20:08:06"
+    },
+    {
+      "id": "180001",
+      "customerId": "180002",
+      "amount": "2000",
+      "status": "pending",
+      "createdAt": "2025-12-05 12:20:20"
+    },
+    {
+      "id": "150006",
+      "customerId": "180002",
+      "amount": "2000",
+      "status": "pending",
+      "createdAt": "2025-12-05 03:26:11"
+    },
+    {
+      "id": "150005",
+      "customerId": "180002",
+      "amount": "300",
+      "status": "paid",
+      "createdAt": "2025-12-05 02:49:41"
+    },
+    {
+      "id": "150004",
+      "customerId": "180002",
+      "amount": "2000",
+      "status": "pending",
+      "createdAt": "2025-12-05 02:49:27"
+    },
+    {
+      "id": "150003",
+      "customerId": "180002",
+      "amount": "2000",
+      "status": "pending",
+      "createdAt": "2025-12-05 01:32:01"
+    },
+    {
+      "id": "150002",
+      "customerId": "180002",
+      "amount": "2000",
+      "status": "pending",
+      "createdAt": "2025-12-05 01:31:20"
+    },
+    {
+      "id": "150001",
+      "customerId": "180002",
+      "amount": "2000",
+      "status": "pending",
+      "createdAt": "2025-12-05 01:26:32"
+    },
+    {
+      "id": "120001",
+      "customerId": "180002",
+      "amount": "2000",
+      "status": "pending",
+      "createdAt": "2025-12-04 22:28:57"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\tamount\tstatus\tcreatedAt\n210002\t180002\t200\tpaid\t2025-12-05 20:13:39\n210001\t180002\t110\tpaid\t2025-12-05 20:08:06\n180001\t180002\t2000\tpending\t2025-12-05 12:20:20\n150006\t180002\t2000\tpending\t2025-12-05 03:26:11\n150005\t180002\t300\tpaid\t2025-12-05 02:49:41\n150004\t180002\t2000\tpending\t2025-12-05 02:49:27\n150003\t180002\t2000\tpending\t2025-12-05 01:32:01\n150002\t180002\t2000\tpending\t2025-12-05 01:31:20\n150001\t180002\t2000\tpending\t2025-12-05 01:26:32\n120001\t180002\t2000\tpending\t2025-12-04 22:28:57\n",
+  "stderr": "",
+  "execution_time_ms": 57
+}

@@ -1,0 +1,21 @@
+{
+  "query": "\nSELECT \n  a.id,\n  a.smshubActivationId,\n  a.phoneNumber,\n  a.serviceId,\n  s.name as serviceName,\n  s.smshubCode,\n  a.countryId,\n  c.name as countryName,\n  a.createdAt\nFROM activations a\nLEFT JOIN services s ON a.serviceId = s.id\nLEFT JOIN countries c ON a.countryId = c.id\nWHERE a.id = 18;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  a.id,\n  a.smshubActivationId,\n  a.phoneNumber,\n  a.serviceId,\n  s.name as serviceName,\n  s.smshubCode,\n  a.countryId,\n  c.name as countryName,\n  a.createdAt\nFROM activations a\nLEFT JOIN services s ON a.serviceId = s.id\nLEFT JOIN countries c ON a.countryId = c.id\nWHERE a.id = 18;\n",
+  "rows": [
+    {
+      "id": "18",
+      "smshubActivationId": "851366389",
+      "phoneNumber": "64204769984",
+      "serviceId": "60006",
+      "serviceName": "Vk.com",
+      "smshubCode": "vk",
+      "countryId": "24",
+      "countryName": "Brazil",
+      "createdAt": "2025-12-01 00:24:33"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tsmshubActivationId\tphoneNumber\tserviceId\tserviceName\tsmshubCode\tcountryId\tcountryName\tcreatedAt\n18\t851366389\t64204769984\t60006\tVk.com\tvk\t24\tBrazil\t2025-12-01 00:24:33\n",
+  "stderr": "",
+  "execution_time_ms": 86
+}

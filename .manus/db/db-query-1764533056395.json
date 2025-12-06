@@ -1,0 +1,466 @@
+{
+  "query": "SELECT id, pin, name, email, balance, createdAt FROM customers ORDER BY id",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, pin, name, email, balance, createdAt FROM customers ORDER BY id",
+  "rows": [
+    {
+      "id": "1",
+      "pin": "1",
+      "name": "Test Customer",
+      "email": "test1764523218416@example.com",
+      "balance": "1050",
+      "createdAt": "2025-11-30 17:20:18"
+    },
+    {
+      "id": "2",
+      "pin": "2",
+      "name": "First Customer",
+      "email": "duplicate1764523218555@example.com",
+      "balance": "0",
+      "createdAt": "2025-11-30 17:20:18"
+    },
+    {
+      "id": "3",
+      "pin": "3",
+      "name": "Balance Test",
+      "email": "balance1764523218600@example.com",
+      "balance": "5000",
+      "createdAt": "2025-11-30 17:20:18"
+    },
+    {
+      "id": "4",
+      "pin": "4",
+      "name": "Debit Test",
+      "email": "debit1764523218652@example.com",
+      "balance": "7000",
+      "createdAt": "2025-11-30 17:20:18"
+    },
+    {
+      "id": "5",
+      "pin": "5",
+      "name": "Transaction Test",
+      "email": "transactions1764523218694@example.com",
+      "balance": "4000",
+      "createdAt": "2025-11-30 17:20:18"
+    },
+    {
+      "id": "6",
+      "pin": "6",
+      "name": "Updated Name",
+      "email": "update1764523218763@example.com",
+      "balance": "0",
+      "createdAt": "2025-11-30 17:20:18"
+    },
+    {
+      "id": "8",
+      "pin": "7",
+      "name": "Test Customer",
+      "email": "test1764524387714@example.com",
+      "balance": "1050",
+      "createdAt": "2025-11-30 17:39:47"
+    },
+    {
+      "id": "9",
+      "pin": "8",
+      "name": "First Customer",
+      "email": "duplicate1764524387866@example.com",
+      "balance": "0",
+      "createdAt": "2025-11-30 17:39:47"
+    },
+    {
+      "id": "10",
+      "pin": "9",
+      "name": "Balance Test",
+      "email": "balance1764524387934@example.com",
+      "balance": "5000",
+      "createdAt": "2025-11-30 17:39:47"
+    },
+    {
+      "id": "11",
+      "pin": "10",
+      "name": "Debit Test",
+      "email": "debit1764524387995@example.com",
+      "balance": "7000",
+      "createdAt": "2025-11-30 17:39:48"
+    },
+    {
+      "id": "12",
+      "pin": "11",
+      "name": "Transaction Test",
+      "email": "transactions1764524388052@example.com",
+      "balance": "4000",
+      "createdAt": "2025-11-30 17:39:48"
+    },
+    {
+      "id": "13",
+      "pin": "12",
+      "name": "Updated Name",
+      "email": "update1764524388148@example.com",
+      "balance": "0",
+      "createdAt": "2025-11-30 17:39:48"
+    },
+    {
+      "id": "14",
+      "pin": "13",
+      "name": "Toggle Test",
+      "email": "toggle1764524388201@example.com",
+      "balance": "0",
+      "createdAt": "2025-11-30 17:39:48"
+    },
+    {
+      "id": "15",
+      "pin": "14",
+      "name": "Test Customer",
+      "email": "test1764524417405@example.com",
+      "balance": "1050",
+      "createdAt": "2025-11-30 17:40:17"
+    },
+    {
+      "id": "16",
+      "pin": "15",
+      "name": "First Customer",
+      "email": "duplicate1764524417547@example.com",
+      "balance": "0",
+      "createdAt": "2025-11-30 17:40:17"
+    },
+    {
+      "id": "17",
+      "pin": "16",
+      "name": "Balance Test",
+      "email": "balance1764524417612@example.com",
+      "balance": "5000",
+      "createdAt": "2025-11-30 17:40:17"
+    },
+    {
+      "id": "18",
+      "pin": "17",
+      "name": "Debit Test",
+      "email": "debit1764524417678@example.com",
+      "balance": "7000",
+      "createdAt": "2025-11-30 17:40:17"
+    },
+    {
+      "id": "19",
+      "pin": "18",
+      "name": "Transaction Test",
+      "email": "transactions1764524417740@example.com",
+      "balance": "4000",
+      "createdAt": "2025-11-30 17:40:17"
+    },
+    {
+      "id": "20",
+      "pin": "19",
+      "name": "Updated Name",
+      "email": "update1764524417854@example.com",
+      "balance": "0",
+      "createdAt": "2025-11-30 17:40:17"
+    },
+    {
+      "id": "21",
+      "pin": "20",
+      "name": "Toggle Test",
+      "email": "toggle1764524417903@example.com",
+      "balance": "0",
+      "createdAt": "2025-11-30 17:40:17"
+    },
+    {
+      "id": "22",
+      "pin": "21",
+      "name": "Test Customer",
+      "email": "test1764524443224@example.com",
+      "balance": "10000",
+      "createdAt": "2025-11-30 17:40:43"
+    },
+    {
+      "id": "23",
+      "pin": "22",
+      "name": "Test Customer",
+      "email": "test1764524443355@example.com",
+      "balance": "5000",
+      "createdAt": "2025-11-30 17:40:43"
+    },
+    {
+      "id": "24",
+      "pin": "23",
+      "name": "Test Customer",
+      "email": "test1764524443380@example.com",
+      "balance": "7500",
+      "createdAt": "2025-11-30 17:40:43"
+    },
+    {
+      "id": "25",
+      "pin": "24",
+      "name": "Test Customer",
+      "email": "test1764524443419@example.com",
+      "balance": "0",
+      "createdAt": "2025-11-30 17:40:43"
+    },
+    {
+      "id": "26",
+      "pin": "25",
+      "name": "Test Customer",
+      "email": "test1764524443647@example.com",
+      "balance": "1050",
+      "createdAt": "2025-11-30 17:40:43"
+    },
+    {
+      "id": "27",
+      "pin": "26",
+      "name": "First Customer",
+      "email": "duplicate1764524443780@example.com",
+      "balance": "0",
+      "createdAt": "2025-11-30 17:40:43"
+    },
+    {
+      "id": "28",
+      "pin": "27",
+      "name": "Balance Test",
+      "email": "balance1764524443836@example.com",
+      "balance": "5000",
+      "createdAt": "2025-11-30 17:40:43"
+    },
+    {
+      "id": "29",
+      "pin": "28",
+      "name": "Debit Test",
+      "email": "debit1764524443906@example.com",
+      "balance": "7000",
+      "createdAt": "2025-11-30 17:40:43"
+    },
+    {
+      "id": "30",
+      "pin": "29",
+      "name": "Transaction Test",
+      "email": "transactions1764524443983@example.com",
+      "balance": "4000",
+      "createdAt": "2025-11-30 17:40:43"
+    },
+    {
+      "id": "31",
+      "pin": "30",
+      "name": "Updated Name",
+      "email": "update1764524444090@example.com",
+      "balance": "0",
+      "createdAt": "2025-11-30 17:40:44"
+    },
+    {
+      "id": "32",
+      "pin": "31",
+      "name": "Toggle Test",
+      "email": "toggle1764524444144@example.com",
+      "balance": "0",
+      "createdAt": "2025-11-30 17:40:44"
+    },
+    {
+      "id": "33",
+      "pin": "32",
+      "name": "Test Customer",
+      "email": "test1764524450311@example.com",
+      "balance": "10000",
+      "createdAt": "2025-11-30 17:40:50"
+    },
+    {
+      "id": "34",
+      "pin": "33",
+      "name": "Test Customer",
+      "email": "test1764524450449@example.com",
+      "balance": "5000",
+      "createdAt": "2025-11-30 17:40:50"
+    },
+    {
+      "id": "35",
+      "pin": "34",
+      "name": "Test Customer",
+      "email": "test1764524450485@example.com",
+      "balance": "7500",
+      "createdAt": "2025-11-30 17:40:50"
+    },
+    {
+      "id": "36",
+      "pin": "35",
+      "name": "Test Customer",
+      "email": "test1764524450538@example.com",
+      "balance": "0",
+      "createdAt": "2025-11-30 17:40:50"
+    },
+    {
+      "id": "37",
+      "pin": "36",
+      "name": "Test Customer",
+      "email": "test1764524450781@example.com",
+      "balance": "1050",
+      "createdAt": "2025-11-30 17:40:50"
+    },
+    {
+      "id": "38",
+      "pin": "37",
+      "name": "First Customer",
+      "email": "duplicate1764524450925@example.com",
+      "balance": "0",
+      "createdAt": "2025-11-30 17:40:50"
+    },
+    {
+      "id": "39",
+      "pin": "38",
+      "name": "Balance Test",
+      "email": "balance1764524450987@example.com",
+      "balance": "5000",
+      "createdAt": "2025-11-30 17:40:50"
+    },
+    {
+      "id": "40",
+      "pin": "39",
+      "name": "Debit Test",
+      "email": "debit1764524451056@example.com",
+      "balance": "7000",
+      "createdAt": "2025-11-30 17:40:51"
+    },
+    {
+      "id": "41",
+      "pin": "40",
+      "name": "Transaction Test",
+      "email": "transactions1764524451119@example.com",
+      "balance": "4000",
+      "createdAt": "2025-11-30 17:40:51"
+    },
+    {
+      "id": "42",
+      "pin": "41",
+      "name": "Updated Name",
+      "email": "update1764524451211@example.com",
+      "balance": "0",
+      "createdAt": "2025-11-30 17:40:51"
+    },
+    {
+      "id": "43",
+      "pin": "42",
+      "name": "Toggle Test",
+      "email": "toggle1764524451254@example.com",
+      "balance": "0",
+      "createdAt": "2025-11-30 17:40:51"
+    },
+    {
+      "id": "30001",
+      "pin": "43",
+      "name": "Test Customer",
+      "email": "test1764526913211@example.com",
+      "balance": "10000",
+      "createdAt": "2025-11-30 18:21:53"
+    },
+    {
+      "id": "30003",
+      "pin": "44",
+      "name": "Test Customer",
+      "email": "test1764526913362@example.com",
+      "balance": "5000",
+      "createdAt": "2025-11-30 18:21:53"
+    },
+    {
+      "id": "30004",
+      "pin": "45",
+      "name": "Test Customer",
+      "email": "test1764526913398@example.com",
+      "balance": "7500",
+      "createdAt": "2025-11-30 18:21:53"
+    },
+    {
+      "id": "30005",
+      "pin": "46",
+      "name": "Test Customer 2",
+      "email": "test-1764526913444@example.com",
+      "balance": "4000",
+      "createdAt": "2025-11-30 18:21:53"
+    },
+    {
+      "id": "30007",
+      "pin": "47",
+      "name": "Test Customer 3",
+      "email": "test-1764526913511@example.com",
+      "balance": "500",
+      "createdAt": "2025-11-30 18:21:53"
+    },
+    {
+      "id": "30008",
+      "pin": "48",
+      "name": "Test Customer",
+      "email": "test1764526913625@example.com",
+      "balance": "1050",
+      "createdAt": "2025-11-30 18:21:53"
+    },
+    {
+      "id": "30009",
+      "pin": "49",
+      "name": "First Customer",
+      "email": "duplicate1764526913774@example.com",
+      "balance": "0",
+      "createdAt": "2025-11-30 18:21:53"
+    },
+    {
+      "id": "30010",
+      "pin": "50",
+      "name": "Balance Test",
+      "email": "balance1764526913840@example.com",
+      "balance": "5000",
+      "createdAt": "2025-11-30 18:21:53"
+    },
+    {
+      "id": "30011",
+      "pin": "51",
+      "name": "Debit Test",
+      "email": "debit1764526913907@example.com",
+      "balance": "7000",
+      "createdAt": "2025-11-30 18:21:53"
+    },
+    {
+      "id": "30012",
+      "pin": "52",
+      "name": "Transaction Test",
+      "email": "transactions1764526913973@example.com",
+      "balance": "4000",
+      "createdAt": "2025-11-30 18:21:53"
+    },
+    {
+      "id": "30013",
+      "pin": "53",
+      "name": "Updated Name",
+      "email": "update1764526914075@example.com",
+      "balance": "0",
+      "createdAt": "2025-11-30 18:21:54"
+    },
+    {
+      "id": "30014",
+      "pin": "54",
+      "name": "Toggle Test",
+      "email": "toggle1764526914129@example.com",
+      "balance": "0",
+      "createdAt": "2025-11-30 18:21:54"
+    },
+    {
+      "id": "60001",
+      "pin": "55",
+      "name": "Cliente Teste Bolt",
+      "email": "teste-bolt@example.com",
+      "balance": "0",
+      "createdAt": "2025-11-30 19:06:25"
+    },
+    {
+      "id": "60002",
+      "pin": "56",
+      "name": "kelri ",
+      "email": "kelribrito@icloud.com",
+      "balance": "0",
+      "createdAt": "2025-11-30 19:17:06"
+    },
+    {
+      "id": "90001",
+      "pin": "57",
+      "name": "fffff",
+      "email": "testef@gmail.com",
+      "balance": "200",
+      "createdAt": "2025-11-30 20:02:41"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tpin\tname\temail\tbalance\tcreatedAt\n1\t1\tTest Customer\ttest1764523218416@example.com\t1050\t2025-11-30 17:20:18\n2\t2\tFirst Customer\tduplicate1764523218555@example.com\t0\t2025-11-30 17:20:18\n3\t3\tBalance Test\tbalance1764523218600@example.com\t5000\t2025-11-30 17:20:18\n4\t4\tDebit Test\tdebit1764523218652@example.com\t7000\t2025-11-30 17:20:18\n5\t5\tTransaction Test\ttransactions1764523218694@example.com\t4000\t2025-11-30 17:20:18\n6\t6\tUpdated Name\tupdate1764523218763@example.com\t0\t2025-11-30 17:20:18\n8\t7\tTest Customer\ttest1764524387714@example.com\t1050\t2025-11-30 17:39:47\n9\t8\tFirst Customer\tduplicate1764524387866@example.com\t0\t2025-11-30 17:39:47\n10\t9\tBalance Test\tbalance1764524387934@example.com\t5000\t2025-11-30 17:39:47\n11\t10\tDebit Test\tdebit1764524387995@example.com\t7000\t2025-11-30 17:39:48\n12\t11\tTransaction Test\ttransactions1764524388052@example.com\t4000\t2025-11-30 17:39:48\n13\t12\tUpdated Name\tupdate1764524388148@example.com\t0\t2025-11-30 17:39:48\n14\t13\tToggle Test\ttoggle1764524388201@example.com\t0\t2025-11-30 17:39:48\n15\t14\tTest Customer\ttest1764524417405@example.com\t1050\t2025-11-30 17:40:17\n16\t15\tFirst Customer\tduplicate1764524417547@example.com\t0\t2025-11-30 17:40:17\n17\t16\tBalance Test\tbalance1764524417612@example.com\t5000\t2025-11-30 17:40:17\n18\t17\tDebit Test\tdebit1764524417678@example.com\t7000\t2025-11-30 17:40:17\n19\t18\tTransaction Test\ttransactions1764524417740@example.com\t4000\t2025-11-30 17:40:17\n20\t19\tUpdated Name\tupdate1764524417854@example.com\t0\t2025-11-30 17:40:17\n21\t20\tToggle Test\ttoggle1764524417903@example.com\t0\t2025-11-30 17:40:17\n22\t21\tTest Customer\ttest1764524443224@example.com\t10000\t2025-11-30 17:40:43\n23\t22\tTest Customer\ttest1764524443355@example.com\t5000\t2025-11-30 17:40:43\n24\t23\tTest Customer\ttest1764524443380@example.com\t7500\t2025-11-30 17:40:43\n25\t24\tTest Customer\ttest1764524443419@example.com\t0\t2025-11-30 17:40:43\n26\t25\tTest Customer\ttest1764524443647@example.com\t1050\t2025-11-30 17:40:43\n27\t26\tFirst Customer\tduplicate1764524443780@example.com\t0\t2025-11-30 17:40:43\n28\t27\tBalance Test\tbalance1764524443836@example.com\t5000\t2025-11-30 17:40:43\n29\t28\tDebit Test\tdebit1764524443906@example.com\t7000\t2025-11-30 17:40:43\n30\t29\tTransaction Test\ttransactions1764524443983@example.com\t4000\t2025-11-30 17:40:43\n31\t30\tUpdated Name\tupdate1764524444090@example.com\t0\t2025-11-30 17:40:44\n32\t31\tToggle Test\ttoggle1764524444144@example.com\t0\t2025-11-30 17:40:44\n33\t32\tTest Customer\ttest1764524450311@example.com\t10000\t2025-11-30 17:40:50\n34\t33\tTest Customer\ttest1764524450449@example.com\t5000\t2025-11-30 17:40:50\n35\t34\tTest Customer\ttest1764524450485@example.com\t7500\t2025-11-30 17:40:50\n36\t35\tTest Customer\ttest1764524450538@example.com\t0\t2025-11-30 17:40:50\n37\t36\tTest Customer\ttest1764524450781@example.com\t1050\t2025-11-30 17:40:50\n38\t37\tFirst Customer\tduplicate1764524450925@example.com\t0\t2025-11-30 17:40:50\n39\t38\tBalance Test\tbalance1764524450987@example.com\t5000\t2025-11-30 17:40:50\n40\t39\tDebit Test\tdebit1764524451056@example.com\t7000\t2025-11-30 17:40:51\n41\t40\tTransaction Test\ttransactions1764524451119@example.com\t4000\t2025-11-30 17:40:51\n42\t41\tUpdated Name\tupdate1764524451211@example.com\t0\t2025-11-30 17:40:51\n43\t42\tToggle Test\ttoggle1764524451254@example.com\t0\t2025-11-30 17:40:51\n30001\t43\tTest Customer\ttest1764526913211@example.com\t10000\t2025-11-30 18:21:53\n30003\t44\tTest Customer\ttest1764526913362@example.com\t5000\t2025-11-30 18:21:53\n30004\t45\tTest Customer\ttest1764526913398@example.com\t7500\t2025-11-30 18:21:53\n30005\t46\tTest Customer 2\ttest-1764526913444@example.com\t4000\t2025-11-30 18:21:53\n30007\t47\tTest Customer 3\ttest-1764526913511@example.com\t500\t2025-11-30 18:21:53\n30008\t48\tTest Customer\ttest1764526913625@example.com\t1050\t2025-11-30 18:21:53\n30009\t49\tFirst Customer\tduplicate1764526913774@example.com\t0\t2025-11-30 18:21:53\n30010\t50\tBalance Test\tbalance1764526913840@example.com\t5000\t2025-11-30 18:21:53\n30011\t51\tDebit Test\tdebit1764526913907@example.com\t7000\t2025-11-30 18:21:53\n30012\t52\tTransaction Test\ttransactions1764526913973@example.com\t4000\t2025-11-30 18:21:53\n30013\t53\tUpdated Name\tupdate1764526914075@example.com\t0\t2025-11-30 18:21:54\n30014\t54\tToggle Test\ttoggle1764526914129@example.com\t0\t2025-11-30 18:21:54\n60001\t55\tCliente Teste Bolt\tteste-bolt@example.com\t0\t2025-11-30 19:06:25\n60002\t56\tkelri \tkelribrito@icloud.com\t0\t2025-11-30 19:17:06\n90001\t57\tfffff\ttestef@gmail.com\t200\t2025-11-30 20:02:41\n",
+  "stderr": "",
+  "execution_time_ms": 57
+}

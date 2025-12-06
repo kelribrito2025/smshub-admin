@@ -1,0 +1,16 @@
+{
+  "query": "SELECT COUNT(*) as total, MIN(smshubPrice) as min_price, MAX(smshubPrice) as max_price, AVG(smshubPrice) as avg_price FROM prices",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT COUNT(*) as total, MIN(smshubPrice) as min_price, MAX(smshubPrice) as max_price, AVG(smshubPrice) as avg_price FROM prices",
+  "rows": [
+    {
+      "total": "972",
+      "min_price": "1",
+      "max_price": "908951",
+      "avg_price": "82302.0412"
+    }
+  ],
+  "messages": [],
+  "stdout": "total\tmin_price\tmax_price\tavg_price\n972\t1\t908951\t82302.0412\n",
+  "stderr": "",
+  "execution_time_ms": 57
+}

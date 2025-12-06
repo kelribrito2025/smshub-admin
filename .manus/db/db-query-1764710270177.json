@@ -1,0 +1,9 @@
+{
+  "query": "CREATE TABLE IF NOT EXISTS `payment_settings` (\n\t`id` int AUTO_INCREMENT NOT NULL,\n\t`pix_enabled` boolean NOT NULL DEFAULT true,\n\t`stripe_enabled` boolean NOT NULL DEFAULT true,\n\t`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,\n\tCONSTRAINT `payment_settings_id` PRIMARY KEY(`id`)\n);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute CREATE TABLE IF NOT EXISTS `payment_settings` (\n\t`id` int AUTO_INCREMENT NOT NULL,\n\t`pix_enabled` boolean NOT NULL DEFAULT true,\n\t`stripe_enabled` boolean NOT NULL DEFAULT true,\n\t`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,\n\tCONSTRAINT `payment_settings_id` PRIMARY KEY(`id`)\n);",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 224
+}

@@ -1,0 +1,19 @@
+{
+  "query": "\nSELECT \n  a.id,\n  a.apiId,\n  a.smshubActivationId,\n  a.phoneNumber,\n  a.status,\n  api.name as api_name,\n  api.url as api_url\nFROM activations a\nLEFT JOIN sms_apis api ON a.apiId = api.id\nWHERE a.phoneNumber = '5531920033958'\nORDER BY a.id DESC\nLIMIT 1;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  a.id,\n  a.apiId,\n  a.smshubActivationId,\n  a.phoneNumber,\n  a.status,\n  api.name as api_name,\n  api.url as api_url\nFROM activations a\nLEFT JOIN sms_apis api ON a.apiId = api.id\nWHERE a.phoneNumber = '5531920033958'\nORDER BY a.id DESC\nLIMIT 1;\n",
+  "rows": [
+    {
+      "id": "180006",
+      "apiId": "2",
+      "smshubActivationId": "4032445",
+      "phoneNumber": "5531920033958",
+      "status": "active",
+      "api_name": "Opcao 2",
+      "api_url": "https://api.sms24h.org/stubs/handler_api"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tapiId\tsmshubActivationId\tphoneNumber\tstatus\tapi_name\tapi_url\n180006\t2\t4032445\t5531920033958\tactive\tOpcao 2\thttps://api.sms24h.org/stubs/handler_api\n",
+  "stderr": "",
+  "execution_time_ms": 59
+}

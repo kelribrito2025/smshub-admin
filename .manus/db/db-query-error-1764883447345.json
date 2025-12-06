@@ -1,0 +1,8 @@
+{
+  "query": "SELECT s.id, s.name, p.id as price_id, p.apiId, p.smshubPrice, p.ourPrice, p.currency \nFROM services s \nJOIN prices p ON s.id = p.serviceId \nWHERE s.name LIKE '%Outros%' AND p.apiId = 2 \nLIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT s.id, s.name, p.id as price_id, p.apiId, p.smshubPrice, p.ourPrice, p.currency \nFROM services s \nJOIN prices p ON s.id = p.serviceId \nWHERE s.name LIKE '%Outros%' AND p.apiId = 2 \nLIMIT 5;",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1054 (42S22) at line 1: Unknown column 'p.currency' in 'field list'"
+  ]
+}

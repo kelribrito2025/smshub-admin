@@ -1,0 +1,100 @@
+{
+  "query": "SELECT \n  id,\n  customerId,\n  txid,\n  amount,\n  status,\n  paidAt,\n  createdAt\nFROM pix_transactions \nWHERE status = 'paid'\nORDER BY paidAt DESC\nLIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT \n  id,\n  customerId,\n  txid,\n  amount,\n  status,\n  paidAt,\n  createdAt\nFROM pix_transactions \nWHERE status = 'paid'\nORDER BY paidAt DESC\nLIMIT 10;",
+  "rows": [
+    {
+      "id": "240012",
+      "customerId": "180002",
+      "txid": "bec8392e7e8d4f20a316e41637e929ad",
+      "amount": "333",
+      "status": "paid",
+      "paidAt": "2025-12-05 21:30:08",
+      "createdAt": "2025-12-05 21:29:53"
+    },
+    {
+      "id": "240011",
+      "customerId": "180002",
+      "txid": "56882da4dbce43ceb7e464e59ab81ada",
+      "amount": "233",
+      "status": "paid",
+      "paidAt": "2025-12-05 21:18:06",
+      "createdAt": "2025-12-05 21:17:30"
+    },
+    {
+      "id": "240010",
+      "customerId": "270001",
+      "txid": "b4168cc8d681475492e2f3d6b451ad5b",
+      "amount": "200",
+      "status": "paid",
+      "paidAt": "2025-12-05 21:07:45",
+      "createdAt": "2025-12-05 21:07:32"
+    },
+    {
+      "id": "240009",
+      "customerId": "180002",
+      "txid": "fb678ab22c61498fa6d26c4225ff70f4",
+      "amount": "300",
+      "status": "paid",
+      "paidAt": "2025-12-05 20:58:30",
+      "createdAt": "2025-12-05 20:58:20"
+    },
+    {
+      "id": "240008",
+      "customerId": "180002",
+      "txid": "4a901276912e4c8c938a29b065f167a0",
+      "amount": "123",
+      "status": "paid",
+      "paidAt": "2025-12-05 20:56:29",
+      "createdAt": "2025-12-05 20:56:11"
+    },
+    {
+      "id": "240007",
+      "customerId": "180002",
+      "txid": "25cc2fc21de64559a8908dd86e4b79a3",
+      "amount": "111",
+      "status": "paid",
+      "paidAt": "2025-12-05 20:52:38",
+      "createdAt": "2025-12-05 20:52:16"
+    },
+    {
+      "id": "240005",
+      "customerId": "180002",
+      "txid": "f8ce93924f3841a4b18ca24629b551e7",
+      "amount": "222",
+      "status": "paid",
+      "paidAt": "2025-12-05 20:47:50",
+      "createdAt": "2025-12-05 20:47:41"
+    },
+    {
+      "id": "240004",
+      "customerId": "180002",
+      "txid": "9c95460d6fff41afb1e4edad5dffb480",
+      "amount": "150",
+      "status": "paid",
+      "paidAt": "2025-12-05 20:44:38",
+      "createdAt": "2025-12-05 20:44:27"
+    },
+    {
+      "id": "240003",
+      "customerId": "180002",
+      "txid": "054b2bfe547d4ccd9ed690cc30ea2529",
+      "amount": "233",
+      "status": "paid",
+      "paidAt": "2025-12-05 20:43:07",
+      "createdAt": "2025-12-05 20:42:59"
+    },
+    {
+      "id": "240002",
+      "customerId": "180002",
+      "txid": "40ec3dc7cf6e4684b638e1302a20bc80",
+      "amount": "220",
+      "status": "paid",
+      "paidAt": "2025-12-05 20:41:09",
+      "createdAt": "2025-12-05 20:40:23"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\ttxid\tamount\tstatus\tpaidAt\tcreatedAt\n240012\t180002\tbec8392e7e8d4f20a316e41637e929ad\t333\tpaid\t2025-12-05 21:30:08\t2025-12-05 21:29:53\n240011\t180002\t56882da4dbce43ceb7e464e59ab81ada\t233\tpaid\t2025-12-05 21:18:06\t2025-12-05 21:17:30\n240010\t270001\tb4168cc8d681475492e2f3d6b451ad5b\t200\tpaid\t2025-12-05 21:07:45\t2025-12-05 21:07:32\n240009\t180002\tfb678ab22c61498fa6d26c4225ff70f4\t300\tpaid\t2025-12-05 20:58:30\t2025-12-05 20:58:20\n240008\t180002\t4a901276912e4c8c938a29b065f167a0\t123\tpaid\t2025-12-05 20:56:29\t2025-12-05 20:56:11\n240007\t180002\t25cc2fc21de64559a8908dd86e4b79a3\t111\tpaid\t2025-12-05 20:52:38\t2025-12-05 20:52:16\n240005\t180002\tf8ce93924f3841a4b18ca24629b551e7\t222\tpaid\t2025-12-05 20:47:50\t2025-12-05 20:47:41\n240004\t180002\t9c95460d6fff41afb1e4edad5dffb480\t150\tpaid\t2025-12-05 20:44:38\t2025-12-05 20:44:27\n240003\t180002\t054b2bfe547d4ccd9ed690cc30ea2529\t233\tpaid\t2025-12-05 20:43:07\t2025-12-05 20:42:59\n240002\t180002\t40ec3dc7cf6e4684b638e1302a20bc80\t220\tpaid\t2025-12-05 20:41:09\t2025-12-05 20:40:23\n",
+  "stderr": "",
+  "execution_time_ms": 55
+}

@@ -1,0 +1,18 @@
+{
+  "query": "\nSELECT \n  id,\n  name,\n  url,\n  token,\n  active,\n  priority\nFROM sms_apis\nWHERE name LIKE '%2%' OR name LIKE '%Opção 2%' OR name LIKE '%Opcao 2%'\nORDER BY id;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  id,\n  name,\n  url,\n  token,\n  active,\n  priority\nFROM sms_apis\nWHERE name LIKE '%2%' OR name LIKE '%Opção 2%' OR name LIKE '%Opcao 2%'\nORDER BY id;\n",
+  "rows": [
+    {
+      "id": "2",
+      "name": "Opcao 2",
+      "url": "https://api.sms24h.org/stubs/handler_api",
+      "token": "5115b2c78832b7f8a5150084c81f8734",
+      "active": "1",
+      "priority": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\turl\ttoken\tactive\tpriority\n2\tOpcao 2\thttps://api.sms24h.org/stubs/handler_api\t5115b2c78832b7f8a5150084c81f8734\t1\t0\n",
+  "stderr": "",
+  "execution_time_ms": 68
+}

@@ -1,0 +1,22 @@
+{
+  "query": "SELECT \n  p.id,\n  p.countryId,\n  p.serviceId,\n  p.apiId,\n  p.ourPrice,\n  c.name as countryName,\n  c.active as countryActive,\n  s.name as serviceName,\n  s.active as serviceActive,\n  a.name as apiName\nFROM prices p\nLEFT JOIN countries c ON p.countryId = c.id\nLEFT JOIN services s ON p.serviceId = s.id\nLEFT JOIN sms_apis a ON p.apiId = a.id\nWHERE s.smshubCode = 'wa'\n  AND c.active = true\n  AND s.active = true\nORDER BY p.apiId;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT \n  p.id,\n  p.countryId,\n  p.serviceId,\n  p.apiId,\n  p.ourPrice,\n  c.name as countryName,\n  c.active as countryActive,\n  s.name as serviceName,\n  s.active as serviceActive,\n  a.name as apiName\nFROM prices p\nLEFT JOIN countries c ON p.countryId = c.id\nLEFT JOIN services s ON p.serviceId = s.id\nLEFT JOIN sms_apis a ON p.apiId = a.id\nWHERE s.smshubCode = 'wa'\n  AND c.active = true\n  AND s.active = true\nORDER BY p.apiId;",
+  "rows": [
+    {
+      "id": "60005",
+      "countryId": "24",
+      "serviceId": "60001",
+      "apiId": "1",
+      "ourPrice": "200",
+      "countryName": "Brazil",
+      "countryActive": "1",
+      "serviceName": "Whatsapp",
+      "serviceActive": "1",
+      "apiName": "Opção 1"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcountryId\tserviceId\tapiId\tourPrice\tcountryName\tcountryActive\tserviceName\tserviceActive\tapiName\n60005\t24\t60001\t1\t200\tBrazil\t1\tWhatsapp\t1\tOpção 1\n",
+  "stderr": "",
+  "execution_time_ms": 57
+}

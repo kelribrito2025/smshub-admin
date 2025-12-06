@@ -1,0 +1,55 @@
+{
+  "query": "SELECT r.id, r.customerId, r.amount, r.paymentMethod, r.status, r.transactionId, r.createdAt FROM recharges r ORDER BY r.createdAt DESC LIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT r.id, r.customerId, r.amount, r.paymentMethod, r.status, r.transactionId, r.createdAt FROM recharges r ORDER BY r.createdAt DESC LIMIT 5;",
+  "rows": [
+    {
+      "id": "20",
+      "customerId": "180002",
+      "amount": "20000",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "NULL",
+      "createdAt": "2025-12-05 19:12:04"
+    },
+    {
+      "id": "3",
+      "customerId": "270001",
+      "amount": "2000",
+      "paymentMethod": "pix",
+      "status": "pending",
+      "transactionId": "NULL",
+      "createdAt": "2025-12-05 18:52:14"
+    },
+    {
+      "id": "19",
+      "customerId": "180002",
+      "amount": "3000",
+      "paymentMethod": "picpay",
+      "status": "pending",
+      "transactionId": "NULL",
+      "createdAt": "2025-12-05 18:12:04"
+    },
+    {
+      "id": "18",
+      "customerId": "180002",
+      "amount": "15000",
+      "paymentMethod": "crypto",
+      "status": "completed",
+      "transactionId": "NULL",
+      "createdAt": "2025-12-05 08:12:04"
+    },
+    {
+      "id": "17",
+      "customerId": "180002",
+      "amount": "7500",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "NULL",
+      "createdAt": "2025-12-04 20:12:04"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\tamount\tpaymentMethod\tstatus\ttransactionId\tcreatedAt\n20\t180002\t20000\tpix\tcompleted\tNULL\t2025-12-05 19:12:04\n3\t270001\t2000\tpix\tpending\tNULL\t2025-12-05 18:52:14\n19\t180002\t3000\tpicpay\tpending\tNULL\t2025-12-05 18:12:04\n18\t180002\t15000\tcrypto\tcompleted\tNULL\t2025-12-05 08:12:04\n17\t180002\t7500\tpix\tcompleted\tNULL\t2025-12-04 20:12:04\n",
+  "stderr": "",
+  "execution_time_ms": 65
+}

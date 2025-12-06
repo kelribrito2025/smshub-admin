@@ -1,0 +1,30 @@
+{
+  "query": "\nSELECT * FROM sms_apis ORDER BY id\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT * FROM sms_apis ORDER BY id\n",
+  "rows": [
+    {
+      "id": "1",
+      "name": "Opção 1",
+      "url": "https://api.sms24h.org/stubs/handler_api.php",
+      "token": "test_token_12345678",
+      "active": "1",
+      "priority": "0",
+      "createdAt": "2025-12-01 15:52:41",
+      "updatedAt": "2025-12-01 15:53:22"
+    },
+    {
+      "id": "2",
+      "name": "Opcao 2",
+      "url": "https://api.sms24h.org/stubs/handler_api",
+      "token": "5115b2c78832b7f8a5150084c81f8734",
+      "active": "1",
+      "priority": "0",
+      "createdAt": "2025-12-01 15:55:34",
+      "updatedAt": "2025-12-01 15:55:34"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\turl\ttoken\tactive\tpriority\tcreatedAt\tupdatedAt\n1\tOpção 1\thttps://api.sms24h.org/stubs/handler_api.php\ttest_token_12345678\t1\t0\t2025-12-01 15:52:41\t2025-12-01 15:53:22\n2\tOpcao 2\thttps://api.sms24h.org/stubs/handler_api\t5115b2c78832b7f8a5150084c81f8734\t1\t0\t2025-12-01 15:55:34\t2025-12-01 15:55:34\n",
+  "stderr": "",
+  "execution_time_ms": 53
+}

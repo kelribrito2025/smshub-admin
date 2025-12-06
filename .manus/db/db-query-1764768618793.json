@@ -1,0 +1,31 @@
+{
+  "query": "SELECT id, email, name, balance, pin FROM customers ORDER BY id DESC LIMIT 10",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, email, name, balance, pin FROM customers ORDER BY id DESC LIMIT 10",
+  "rows": [
+    {
+      "id": "180002",
+      "email": "xkelrix@gmail.com",
+      "name": "xkelrix",
+      "balance": "1720",
+      "pin": "7"
+    },
+    {
+      "id": "180001",
+      "email": "teste@animation.com",
+      "name": "teste",
+      "balance": "0",
+      "pin": "6"
+    },
+    {
+      "id": "90007",
+      "email": "kelribrito@icloud.com",
+      "name": "gdfgd",
+      "balance": "1406",
+      "pin": "5"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\temail\tname\tbalance\tpin\n180002\txkelrix@gmail.com\txkelrix\t1720\t7\n180001\tteste@animation.com\tteste\t0\t6\n90007\tkelribrito@icloud.com\tgdfgd\t1406\t5\n",
+  "stderr": "",
+  "execution_time_ms": 60
+}

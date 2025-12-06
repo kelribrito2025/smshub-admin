@@ -1,0 +1,9 @@
+{
+  "query": "\nUPDATE services \nSET totalSales = CASE \n  WHEN id = 1 THEN 186\n  WHEN id = 2 THEN 150\n  WHEN id = 3 THEN 120\n  WHEN id = 4 THEN 100\n  WHEN id = 5 THEN 95\n  WHEN id = 6 THEN 90\n  WHEN id = 7 THEN 85\n  WHEN id = 8 THEN 80\n  WHEN id = 9 THEN 75\n  WHEN id = 10 THEN 70\n  WHEN id = 11 THEN 65\n  WHEN id = 12 THEN 60\n  WHEN id = 13 THEN 55\n  WHEN id = 14 THEN 50\n  WHEN id = 15 THEN 45\n  WHEN id = 16 THEN 40\n  WHEN id = 17 THEN 35\n  WHEN id = 18 THEN 30\n  WHEN id = 19 THEN 25\n  WHEN id = 20 THEN 20\n  ELSE totalSales\nEND\nWHERE id BETWEEN 1 AND 20\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nUPDATE services \nSET totalSales = CASE \n  WHEN id = 1 THEN 186\n  WHEN id = 2 THEN 150\n  WHEN id = 3 THEN 120\n  WHEN id = 4 THEN 100\n  WHEN id = 5 THEN 95\n  WHEN id = 6 THEN 90\n  WHEN id = 7 THEN 85\n  WHEN id = 8 THEN 80\n  WHEN id = 9 THEN 75\n  WHEN id = 10 THEN 70\n  WHEN id = 11 THEN 65\n  WHEN id = 12 THEN 60\n  WHEN id = 13 THEN 55\n  WHEN id = 14 THEN 50\n  WHEN id = 15 THEN 45\n  WHEN id = 16 THEN 40\n  WHEN id = 17 THEN 35\n  WHEN id = 18 THEN 30\n  WHEN id = 19 THEN 25\n  WHEN id = 20 THEN 20\n  ELSE totalSales\nEND\nWHERE id BETWEEN 1 AND 20\n",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 82
+}

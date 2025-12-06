@@ -1,0 +1,1 @@
+ALTER TABLE `activations` ADD `smshubStatus` varchar(50);

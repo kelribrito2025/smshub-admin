@@ -1,0 +1,19 @@
+{
+  "query": "SELECT DISTINCT apiId FROM prices ORDER BY apiId",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT DISTINCT apiId FROM prices ORDER BY apiId",
+  "rows": [
+    {
+      "apiId": "1"
+    },
+    {
+      "apiId": "2"
+    },
+    {
+      "apiId": "3"
+    }
+  ],
+  "messages": [],
+  "stdout": "apiId\n1\n2\n3\n",
+  "stderr": "",
+  "execution_time_ms": 57
+}

@@ -1,0 +1,15 @@
+{
+  "query": "SELECT \n  COUNT(CASE WHEN smshubActivationId = phoneNumber THEN 1 END) as invalidos,\n  COUNT(CASE WHEN smshubActivationId != phoneNumber THEN 1 END) as validos,\n  COUNT(*) as total\nFROM activations \nWHERE apiId = 2",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT \n  COUNT(CASE WHEN smshubActivationId = phoneNumber THEN 1 END) as invalidos,\n  COUNT(CASE WHEN smshubActivationId != phoneNumber THEN 1 END) as validos,\n  COUNT(*) as total\nFROM activations \nWHERE apiId = 2",
+  "rows": [
+    {
+      "invalidos": "0",
+      "validos": "13",
+      "total": "13"
+    }
+  ],
+  "messages": [],
+  "stdout": "invalidos\tvalidos\ttotal\n0\t13\t13\n",
+  "stderr": "",
+  "execution_time_ms": 50
+}

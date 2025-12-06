@@ -1,0 +1,9 @@
+{
+  "query": "SELECT sm.*, a.phoneNumber \nFROM sms_messages sm\nJOIN activations a ON a.id = sm.activationId\nWHERE a.phoneNumber = '5568933002785'\nORDER BY sm.receivedAt DESC;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT sm.*, a.phoneNumber \nFROM sms_messages sm\nJOIN activations a ON a.id = sm.activationId\nWHERE a.phoneNumber = '5568933002785'\nORDER BY sm.receivedAt DESC;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 57
+}

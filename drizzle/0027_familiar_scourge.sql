@@ -1,0 +1,1 @@
+ALTER TABLE `balance_transactions` MODIFY COLUMN `type` enum('credit','debit','purchase','refund','withdrawal','hold') NOT NULL;

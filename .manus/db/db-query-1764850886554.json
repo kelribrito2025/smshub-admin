@@ -1,0 +1,150 @@
+{
+  "query": "SELECT p.id, c.name as country, s.name as service, p.smshubPrice, p.ourPrice FROM prices p JOIN countries c ON p.countryId = c.id JOIN services s ON p.serviceId = s.id LIMIT 20",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT p.id, c.name as country, s.name as service, p.smshubPrice, p.ourPrice FROM prices p JOIN countries c ON p.countryId = c.id JOIN services s ON p.serviceId = s.id LIMIT 20",
+  "rows": [
+    {
+      "id": "1",
+      "country": "Updated Name",
+      "service": "Service TEST_SERVICE",
+      "smshubPrice": "100",
+      "ourPrice": "200"
+    },
+    {
+      "id": "210331",
+      "country": "Brazil",
+      "service": "WhatsApp",
+      "smshubPrice": "110",
+      "ourPrice": "220"
+    },
+    {
+      "id": "210001",
+      "country": "Brazil",
+      "service": "WhatsApp",
+      "smshubPrice": "100",
+      "ourPrice": "200"
+    },
+    {
+      "id": "150013",
+      "country": "Brazil",
+      "service": "WhatsApp",
+      "smshubPrice": "800",
+      "ourPrice": "1600"
+    },
+    {
+      "id": "150012",
+      "country": "Brazil",
+      "service": "WhatsApp",
+      "smshubPrice": "500",
+      "ourPrice": "1000"
+    },
+    {
+      "id": "210101",
+      "country": "Brazil",
+      "service": "Google,youtube,Gmail",
+      "smshubPrice": "24",
+      "ourPrice": "48"
+    },
+    {
+      "id": "150251",
+      "country": "Brazil",
+      "service": "Google,youtube,Gmail",
+      "smshubPrice": "100",
+      "ourPrice": "200"
+    },
+    {
+      "id": "60006",
+      "country": "Brazil",
+      "service": "Google,youtube,Gmail",
+      "smshubPrice": "1400",
+      "ourPrice": "2800"
+    },
+    {
+      "id": "60007",
+      "country": "Brazil",
+      "service": "TenChat",
+      "smshubPrice": "100",
+      "ourPrice": "200"
+    },
+    {
+      "id": "210267",
+      "country": "Brazil",
+      "service": "RelicDAO",
+      "smshubPrice": "25",
+      "ourPrice": "50"
+    },
+    {
+      "id": "60008",
+      "country": "Brazil",
+      "service": "RelicDAO",
+      "smshubPrice": "672500",
+      "ourPrice": "1345000"
+    },
+    {
+      "id": "210320",
+      "country": "Brazil",
+      "service": "Vk.com",
+      "smshubPrice": "5",
+      "ourPrice": "10"
+    },
+    {
+      "id": "150215",
+      "country": "Brazil",
+      "service": "Vk.com",
+      "smshubPrice": "50",
+      "ourPrice": "100"
+    },
+    {
+      "id": "60009",
+      "country": "Brazil",
+      "service": "Vk.com",
+      "smshubPrice": "57436800",
+      "ourPrice": "114873600"
+    },
+    {
+      "id": "210291",
+      "country": "Brazil",
+      "service": "Telegram",
+      "smshubPrice": "80",
+      "ourPrice": "160"
+    },
+    {
+      "id": "150177",
+      "country": "Brazil",
+      "service": "Telegram",
+      "smshubPrice": "600",
+      "ourPrice": "1200"
+    },
+    {
+      "id": "60010",
+      "country": "Brazil",
+      "service": "Telegram",
+      "smshubPrice": "61893800",
+      "ourPrice": "123787600"
+    },
+    {
+      "id": "60011",
+      "country": "Brazil",
+      "service": "Service ICQ",
+      "smshubPrice": "2",
+      "ourPrice": "5"
+    },
+    {
+      "id": "210215",
+      "country": "Brazil",
+      "service": "Outros App/Site",
+      "smshubPrice": "20",
+      "ourPrice": "40"
+    },
+    {
+      "id": "180002",
+      "country": "Brazil",
+      "service": "Outros App/Site",
+      "smshubPrice": "18",
+      "ourPrice": "300"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcountry\tservice\tsmshubPrice\tourPrice\n1\tUpdated Name\tService TEST_SERVICE\t100\t200\n210331\tBrazil\tWhatsApp\t110\t220\n210001\tBrazil\tWhatsApp\t100\t200\n150013\tBrazil\tWhatsApp\t800\t1600\n150012\tBrazil\tWhatsApp\t500\t1000\n210101\tBrazil\tGoogle,youtube,Gmail\t24\t48\n150251\tBrazil\tGoogle,youtube,Gmail\t100\t200\n60006\tBrazil\tGoogle,youtube,Gmail\t1400\t2800\n60007\tBrazil\tTenChat\t100\t200\n210267\tBrazil\tRelicDAO\t25\t50\n60008\tBrazil\tRelicDAO\t672500\t1345000\n210320\tBrazil\tVk.com\t5\t10\n150215\tBrazil\tVk.com\t50\t100\n60009\tBrazil\tVk.com\t57436800\t114873600\n210291\tBrazil\tTelegram\t80\t160\n150177\tBrazil\tTelegram\t600\t1200\n60010\tBrazil\tTelegram\t61893800\t123787600\n60011\tBrazil\tService ICQ\t2\t5\n210215\tBrazil\tOutros App/Site\t20\t40\n180002\tBrazil\tOutros App/Site\t18\t300\n",
+  "stderr": "",
+  "execution_time_ms": 119
+}

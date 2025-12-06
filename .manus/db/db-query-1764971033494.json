@@ -1,0 +1,75 @@
+{
+  "query": "SELECT * FROM recharges WHERE customerId = 180002 ORDER BY createdAt DESC LIMIT 5",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT * FROM recharges WHERE customerId = 180002 ORDER BY createdAt DESC LIMIT 5",
+  "rows": [
+    {
+      "id": "30025",
+      "customerId": "180002",
+      "amount": "333",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "bec8392e7e8d4f20a316e41637e929ad",
+      "metadata": "NULL",
+      "createdAt": "2025-12-05 21:29:53",
+      "updatedAt": "2025-12-05 16:36:47",
+      "completedAt": "2025-12-05 21:30:08",
+      "expiresAt": "NULL"
+    },
+    {
+      "id": "30002",
+      "customerId": "180002",
+      "amount": "233",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "56882da4dbce43ceb7e464e59ab81ada",
+      "metadata": "NULL",
+      "createdAt": "2025-12-05 21:17:30",
+      "updatedAt": "2025-12-05 21:22:09",
+      "completedAt": "2025-12-05 21:18:06",
+      "expiresAt": "NULL"
+    },
+    {
+      "id": "30023",
+      "customerId": "180002",
+      "amount": "300",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "fb678ab22c61498fa6d26c4225ff70f4",
+      "metadata": "NULL",
+      "createdAt": "2025-12-05 20:58:20",
+      "updatedAt": "2025-12-05 16:36:47",
+      "completedAt": "2025-12-05 20:58:30",
+      "expiresAt": "NULL"
+    },
+    {
+      "id": "30022",
+      "customerId": "180002",
+      "amount": "123",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "4a901276912e4c8c938a29b065f167a0",
+      "metadata": "NULL",
+      "createdAt": "2025-12-05 20:56:11",
+      "updatedAt": "2025-12-05 16:36:47",
+      "completedAt": "2025-12-05 20:56:29",
+      "expiresAt": "NULL"
+    },
+    {
+      "id": "30021",
+      "customerId": "180002",
+      "amount": "111",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "25cc2fc21de64559a8908dd86e4b79a3",
+      "metadata": "NULL",
+      "createdAt": "2025-12-05 20:52:16",
+      "updatedAt": "2025-12-05 16:36:47",
+      "completedAt": "2025-12-05 20:52:38",
+      "expiresAt": "NULL"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\tamount\tpaymentMethod\tstatus\ttransactionId\tmetadata\tcreatedAt\tupdatedAt\tcompletedAt\texpiresAt\n30025\t180002\t333\tpix\tcompleted\tbec8392e7e8d4f20a316e41637e929ad\tNULL\t2025-12-05 21:29:53\t2025-12-05 16:36:47\t2025-12-05 21:30:08\tNULL\n30002\t180002\t233\tpix\tcompleted\t56882da4dbce43ceb7e464e59ab81ada\tNULL\t2025-12-05 21:17:30\t2025-12-05 21:22:09\t2025-12-05 21:18:06\tNULL\n30023\t180002\t300\tpix\tcompleted\tfb678ab22c61498fa6d26c4225ff70f4\tNULL\t2025-12-05 20:58:20\t2025-12-05 16:36:47\t2025-12-05 20:58:30\tNULL\n30022\t180002\t123\tpix\tcompleted\t4a901276912e4c8c938a29b065f167a0\tNULL\t2025-12-05 20:56:11\t2025-12-05 16:36:47\t2025-12-05 20:56:29\tNULL\n30021\t180002\t111\tpix\tcompleted\t25cc2fc21de64559a8908dd86e4b79a3\tNULL\t2025-12-05 20:52:16\t2025-12-05 16:36:47\t2025-12-05 20:52:38\tNULL\n",
+  "stderr": "",
+  "execution_time_ms": 68
+}

@@ -1,0 +1,38 @@
+{
+  "query": "\nSELECT p.*, s.name as serviceName, s.smshubCode\nFROM prices p\nJOIN services s ON p.serviceId = s.id\nWHERE s.smshubCode = 'wa'\nORDER BY p.apiId\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT p.*, s.name as serviceName, s.smshubCode\nFROM prices p\nJOIN services s ON p.serviceId = s.id\nWHERE s.smshubCode = 'wa'\nORDER BY p.apiId\n",
+  "rows": [
+    {
+      "id": "60005",
+      "apiId": "1",
+      "countryId": "24",
+      "serviceId": "60001",
+      "smshubPrice": "100",
+      "ourPrice": "200",
+      "quantityAvailable": "2999",
+      "lastSync": "2025-12-01 17:25:37",
+      "createdAt": "2025-11-30 21:22:19",
+      "active": "1",
+      "serviceName": "Whatsapp",
+      "smshubCode": "wa"
+    },
+    {
+      "id": "150008",
+      "apiId": "1",
+      "countryId": "1",
+      "serviceId": "60001",
+      "smshubPrice": "500",
+      "ourPrice": "1000",
+      "quantityAvailable": "100",
+      "lastSync": "2025-12-01 17:31:44",
+      "createdAt": "2025-12-01 17:31:44",
+      "active": "1",
+      "serviceName": "Whatsapp",
+      "smshubCode": "wa"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tapiId\tcountryId\tserviceId\tsmshubPrice\tourPrice\tquantityAvailable\tlastSync\tcreatedAt\tactive\tserviceName\tsmshubCode\n60005\t1\t24\t60001\t100\t200\t2999\t2025-12-01 17:25:37\t2025-11-30 21:22:19\t1\tWhatsapp\twa\n150008\t1\t1\t60001\t500\t1000\t100\t2025-12-01 17:31:44\t2025-12-01 17:31:44\t1\tWhatsapp\twa\n",
+  "stderr": "",
+  "execution_time_ms": 54
+}

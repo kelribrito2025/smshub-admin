@@ -1,0 +1,9 @@
+{
+  "query": "SELECT r.id, r.customerId, r.amount, r.paymentMethod, r.status, r.createdAt, c.email FROM recharges r LEFT JOIN customers c ON r.customerId = c.id WHERE r.amount = 233 ORDER BY r.createdAt DESC LIMIT 1;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT r.id, r.customerId, r.amount, r.paymentMethod, r.status, r.createdAt, c.email FROM recharges r LEFT JOIN customers c ON r.customerId = c.id WHERE r.amount = 233 ORDER BY r.createdAt DESC LIMIT 1;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 95
+}

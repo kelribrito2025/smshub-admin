@@ -1,0 +1,17 @@
+{
+  "query": "\nSELECT \n  id,\n  smshubActivationId,\n  phoneNumber,\n  LENGTH(smshubActivationId) as id_len,\n  LENGTH(phoneNumber) as phone_len\nFROM activations\nWHERE id >= 90021\nLIMIT 5;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  id,\n  smshubActivationId,\n  phoneNumber,\n  LENGTH(smshubActivationId) as id_len,\n  LENGTH(phoneNumber) as phone_len\nFROM activations\nWHERE id >= 90021\nLIMIT 5;\n",
+  "rows": [
+    {
+      "id": "90021",
+      "smshubActivationId": "3952839",
+      "phoneNumber": "5577920073828",
+      "id_len": "7",
+      "phone_len": "13"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tsmshubActivationId\tphoneNumber\tid_len\tphone_len\n90021\t3952839\t5577920073828\t7\t13\n",
+  "stderr": "",
+  "execution_time_ms": 48
+}

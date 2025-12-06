@@ -1,0 +1,35 @@
+{
+  "query": "SELECT \n  s.id,\n  s.name,\n  GROUP_CONCAT(CONCAT(a.id, ':', a.name, ':', p.ourPrice) ORDER BY a.id SEPARATOR ' | ') as apis\nFROM prices p\nINNER JOIN services s ON p.serviceId = s.id\nINNER JOIN sms_apis a ON p.apiId = a.id\nINNER JOIN countries c ON p.countryId = c.id\nWHERE c.code = 'brazil'\n  AND a.active = 1\nGROUP BY s.id, s.name\nHAVING COUNT(DISTINCT p.apiId) > 1\nLIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT \n  s.id,\n  s.name,\n  GROUP_CONCAT(CONCAT(a.id, ':', a.name, ':', p.ourPrice) ORDER BY a.id SEPARATOR ' | ') as apis\nFROM prices p\nINNER JOIN services s ON p.serviceId = s.id\nINNER JOIN sms_apis a ON p.apiId = a.id\nINNER JOIN countries c ON p.countryId = c.id\nWHERE c.code = 'brazil'\n  AND a.active = 1\nGROUP BY s.id, s.name\nHAVING COUNT(DISTINCT p.apiId) > 1\nLIMIT 5;",
+  "rows": [
+    {
+      "id": "60003",
+      "name": "Google,youtube,Gmail",
+      "apis": "1:Opção 1:44 | 2:Opcao 2:200"
+    },
+    {
+      "id": "60006",
+      "name": "Vk.com",
+      "apis": "1:Opção 1:8 | 2:Opcao 2:100"
+    },
+    {
+      "id": "60007",
+      "name": "Telegram",
+      "apis": "1:Opção 1:150 | 2:Opcao 2:1200"
+    },
+    {
+      "id": "60009",
+      "name": "Outros App/Site",
+      "apis": "1:Opção 1:36 | 2:Opcao 2:140"
+    },
+    {
+      "id": "60010",
+      "name": "BeBoo",
+      "apis": "1:Opção 1:112 | 2:Opcao 2:200"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tapis\n60003\tGoogle,youtube,Gmail\t1:Opção 1:44 | 2:Opcao 2:200\n60006\tVk.com\t1:Opção 1:8 | 2:Opcao 2:100\n60007\tTelegram\t1:Opção 1:150 | 2:Opcao 2:1200\n60009\tOutros App/Site\t1:Opção 1:36 | 2:Opcao 2:140\n60010\tBeBoo\t1:Opção 1:112 | 2:Opcao 2:200\n",
+  "stderr": "",
+  "execution_time_ms": 65
+}

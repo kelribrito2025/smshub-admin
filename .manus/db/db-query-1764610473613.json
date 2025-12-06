@@ -1,0 +1,22 @@
+{
+  "query": "\nSELECT id, name, active, priority FROM sms_apis ORDER BY id\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT id, name, active, priority FROM sms_apis ORDER BY id\n",
+  "rows": [
+    {
+      "id": "1",
+      "name": "Opção 1",
+      "active": "1",
+      "priority": "0"
+    },
+    {
+      "id": "2",
+      "name": "Opcao 2",
+      "active": "1",
+      "priority": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tactive\tpriority\n1\tOpção 1\t1\t0\n2\tOpcao 2\t1\t0\n",
+  "stderr": "",
+  "execution_time_ms": 57
+}

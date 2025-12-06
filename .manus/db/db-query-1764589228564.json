@@ -1,0 +1,210 @@
+{
+  "query": "SELECT smshubCode, name FROM services ORDER BY name LIMIT 50;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT smshubCode, name FROM services ORDER BY name LIMIT 50;",
+  "rows": [
+    {
+      "smshubCode": "aa",
+      "name": "AA"
+    },
+    {
+      "smshubCode": "aaa",
+      "name": "AAA"
+    },
+    {
+      "smshubCode": "aab",
+      "name": "AAB"
+    },
+    {
+      "smshubCode": "aba",
+      "name": "ABA"
+    },
+    {
+      "smshubCode": "abd",
+      "name": "ABD"
+    },
+    {
+      "smshubCode": "abf",
+      "name": "ABF"
+    },
+    {
+      "smshubCode": "abg",
+      "name": "ABG"
+    },
+    {
+      "smshubCode": "abh",
+      "name": "ABH"
+    },
+    {
+      "smshubCode": "abj",
+      "name": "ABJ"
+    },
+    {
+      "smshubCode": "abk",
+      "name": "ABK"
+    },
+    {
+      "smshubCode": "abo",
+      "name": "ABO"
+    },
+    {
+      "smshubCode": "abp",
+      "name": "ABP"
+    },
+    {
+      "smshubCode": "abt",
+      "name": "ABT"
+    },
+    {
+      "smshubCode": "ac",
+      "name": "AC"
+    },
+    {
+      "smshubCode": "ace",
+      "name": "ACE"
+    },
+    {
+      "smshubCode": "acm",
+      "name": "ACM"
+    },
+    {
+      "smshubCode": "acn",
+      "name": "ACN"
+    },
+    {
+      "smshubCode": "acz",
+      "name": "ACZ"
+    },
+    {
+      "smshubCode": "ad",
+      "name": "AD"
+    },
+    {
+      "smshubCode": "ada",
+      "name": "ADA"
+    },
+    {
+      "smshubCode": "adh",
+      "name": "ADH"
+    },
+    {
+      "smshubCode": "adi",
+      "name": "ADI"
+    },
+    {
+      "smshubCode": "adt",
+      "name": "ADT"
+    },
+    {
+      "smshubCode": "ael",
+      "name": "AEL"
+    },
+    {
+      "smshubCode": "aex",
+      "name": "AEX"
+    },
+    {
+      "smshubCode": "aey",
+      "name": "AEY"
+    },
+    {
+      "smshubCode": "aez",
+      "name": "AEZ"
+    },
+    {
+      "smshubCode": "afe",
+      "name": "AFE"
+    },
+    {
+      "smshubCode": "aff",
+      "name": "AFF"
+    },
+    {
+      "smshubCode": "afi",
+      "name": "AFI"
+    },
+    {
+      "smshubCode": "afm",
+      "name": "AFM"
+    },
+    {
+      "smshubCode": "afp",
+      "name": "AFP"
+    },
+    {
+      "smshubCode": "afq",
+      "name": "AFQ"
+    },
+    {
+      "smshubCode": "afr",
+      "name": "AFR"
+    },
+    {
+      "smshubCode": "afs",
+      "name": "AFS"
+    },
+    {
+      "smshubCode": "aft",
+      "name": "AFT"
+    },
+    {
+      "smshubCode": "agb",
+      "name": "AGB"
+    },
+    {
+      "smshubCode": "age",
+      "name": "AGE"
+    },
+    {
+      "smshubCode": "agg",
+      "name": "AGG"
+    },
+    {
+      "smshubCode": "agh",
+      "name": "AGH"
+    },
+    {
+      "smshubCode": "agi",
+      "name": "AGI"
+    },
+    {
+      "smshubCode": "agj",
+      "name": "AGJ"
+    },
+    {
+      "smshubCode": "agq",
+      "name": "AGQ"
+    },
+    {
+      "smshubCode": "agy",
+      "name": "AGY"
+    },
+    {
+      "smshubCode": "ah",
+      "name": "AH"
+    },
+    {
+      "smshubCode": "ahb",
+      "name": "AHB"
+    },
+    {
+      "smshubCode": "ahh",
+      "name": "AHH"
+    },
+    {
+      "smshubCode": "ahi",
+      "name": "AHI"
+    },
+    {
+      "smshubCode": "ai",
+      "name": "AI"
+    },
+    {
+      "smshubCode": "aik",
+      "name": "AIK"
+    }
+  ],
+  "messages": [],
+  "stdout": "smshubCode\tname\naa\tAA\naaa\tAAA\naab\tAAB\naba\tABA\nabd\tABD\nabf\tABF\nabg\tABG\nabh\tABH\nabj\tABJ\nabk\tABK\nabo\tABO\nabp\tABP\nabt\tABT\nac\tAC\nace\tACE\nacm\tACM\nacn\tACN\nacz\tACZ\nad\tAD\nada\tADA\nadh\tADH\nadi\tADI\nadt\tADT\nael\tAEL\naex\tAEX\naey\tAEY\naez\tAEZ\nafe\tAFE\naff\tAFF\nafi\tAFI\nafm\tAFM\nafp\tAFP\nafq\tAFQ\nafr\tAFR\nafs\tAFS\naft\tAFT\nagb\tAGB\nage\tAGE\nagg\tAGG\nagh\tAGH\nagi\tAGI\nagj\tAGJ\nagq\tAGQ\nagy\tAGY\nah\tAH\nahb\tAHB\nahh\tAHH\nahi\tAHI\nai\tAI\naik\tAIK\n",
+  "stderr": "",
+  "execution_time_ms": 88
+}

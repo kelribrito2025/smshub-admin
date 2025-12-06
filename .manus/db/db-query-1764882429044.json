@@ -1,0 +1,70 @@
+{
+  "query": "SELECT id, smshubPrice, ourPrice, smshubPrice * 5.32 * 2 as calculated FROM prices WHERE apiId = 3 LIMIT 10",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, smshubPrice, ourPrice, smshubPrice * 5.32 * 2 as calculated FROM prices WHERE apiId = 3 LIMIT 10",
+  "rows": [
+    {
+      "id": "330001",
+      "smshubPrice": "180",
+      "ourPrice": "1915",
+      "calculated": "1915.20"
+    },
+    {
+      "id": "330002",
+      "smshubPrice": "132",
+      "ourPrice": "1404",
+      "calculated": "1404.48"
+    },
+    {
+      "id": "330003",
+      "smshubPrice": "192",
+      "ourPrice": "2043",
+      "calculated": "2042.88"
+    },
+    {
+      "id": "330004",
+      "smshubPrice": "12",
+      "ourPrice": "128",
+      "calculated": "127.68"
+    },
+    {
+      "id": "330005",
+      "smshubPrice": "6",
+      "ourPrice": "100",
+      "calculated": "63.84"
+    },
+    {
+      "id": "330006",
+      "smshubPrice": "6",
+      "ourPrice": "100",
+      "calculated": "63.84"
+    },
+    {
+      "id": "330007",
+      "smshubPrice": "30",
+      "ourPrice": "319",
+      "calculated": "319.20"
+    },
+    {
+      "id": "330008",
+      "smshubPrice": "6",
+      "ourPrice": "100",
+      "calculated": "63.84"
+    },
+    {
+      "id": "330009",
+      "smshubPrice": "132",
+      "ourPrice": "1404",
+      "calculated": "1404.48"
+    },
+    {
+      "id": "330010",
+      "smshubPrice": "12",
+      "ourPrice": "128",
+      "calculated": "127.68"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tsmshubPrice\tourPrice\tcalculated\n330001\t180\t1915\t1915.20\n330002\t132\t1404\t1404.48\n330003\t192\t2043\t2042.88\n330004\t12\t128\t127.68\n330005\t6\t100\t63.84\n330006\t6\t100\t63.84\n330007\t30\t319\t319.20\n330008\t6\t100\t63.84\n330009\t132\t1404\t1404.48\n330010\t12\t128\t127.68\n",
+  "stderr": "",
+  "execution_time_ms": 54
+}

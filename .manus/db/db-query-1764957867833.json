@@ -1,0 +1,17 @@
+{
+  "query": "SELECT id, name, smshubCode, createdAt, DATEDIFF(NOW(), createdAt) as dias_desde_criacao FROM services WHERE name LIKE '%Betlive%'",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, name, smshubCode, createdAt, DATEDIFF(NOW(), createdAt) as dias_desde_criacao FROM services WHERE name LIKE '%Betlive%'",
+  "rows": [
+    {
+      "id": "60243",
+      "name": "Betlive",
+      "smshubCode": "bkn",
+      "createdAt": "2025-11-25 18:04:24",
+      "dias_desde_criacao": "10"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tsmshubCode\tcreatedAt\tdias_desde_criacao\n60243\tBetlive\tbkn\t2025-11-25 18:04:24\t10\n",
+  "stderr": "",
+  "execution_time_ms": 60
+}

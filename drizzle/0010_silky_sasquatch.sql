@@ -1,0 +1,1 @@
+ALTER TABLE `activations` ADD `apiId` int;

@@ -1,0 +1,18 @@
+{
+  "query": "SELECT id, customerId, amount, type, description, DATE_FORMAT(createdAt, '%Y-%m-%d %H:%i:%s') as created FROM balance_transactions WHERE amount = 123 ORDER BY createdAt DESC LIMIT 1;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, customerId, amount, type, description, DATE_FORMAT(createdAt, '%Y-%m-%d %H:%i:%s') as created FROM balance_transactions WHERE amount = 123 ORDER BY createdAt DESC LIMIT 1;",
+  "rows": [
+    {
+      "id": "750007",
+      "customerId": "180002",
+      "amount": "123",
+      "type": "credit",
+      "description": "Recarga via PIX - 4a901276912e4c8c938a29b065f167a0",
+      "created": "2025-12-05 20:56:30"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\tamount\ttype\tdescription\tcreated\n750007\t180002\t123\tcredit\tRecarga via PIX - 4a901276912e4c8c938a29b065f167a0\t2025-12-05 20:56:30\n",
+  "stderr": "",
+  "execution_time_ms": 56
+}

@@ -1,0 +1,1 @@
+ALTER TABLE `activations` MODIFY COLUMN `smsCode` varchar(100);

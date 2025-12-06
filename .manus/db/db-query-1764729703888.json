@@ -1,0 +1,9 @@
+{
+  "query": "UPDATE sms_apis SET token = 'b9202b2bd66bf510e10d08f0A485fd27' WHERE id = 60001",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute UPDATE sms_apis SET token = 'b9202b2bd66bf510e10d08f0A485fd27' WHERE id = 60001",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 50
+}

@@ -1,0 +1,210 @@
+import { z } from 'zod';
+import { router } from '../_core/trpc';
+import { adminProcedure } from '../admin-middleware';
+import {
+  getAllCustomers,
+  getCustomerById,
+  getCustomerByEmail,
+  createCustomer,
+  updateCustomer,
+  deleteCustomer,
+  addBalance,
+  getCustomerTransactions,
+  getAllTransactions,
+  getCustomerStats,
+} from '../customers-helpers';
+
+export const customersRouter = router({
+  /**
+   * Get all customers
+   */
+  getAll: adminProcedure
+    .input(z.object({ activeOnly: z.boolean().optional() }).optional())
+    .query(async ({ input }) => {
+      return getAllCustomers(input?.activeOnly || false);
+    }),
+
+  /**
+   * Get customer by ID
+   */
+  getById: adminProcedure
+    .input(z.object({ id: z.number() }))
+    .query(async ({ input }) => {
+      return getCustomerById(input.id);
+    }),
+
+  /**
+   * Get customer by email
+   */
+  getByEmail: adminProcedure
+    .input(z.object({ email: z.string().email() }))
+    .query(async ({ input }) => {
+      return getCustomerByEmail(input.email);
+    }),
+
+  /**
+   * Create a new customer
+   */
+  create: adminProcedure
+    .input(
+      z.object({
+        name: z.string().min(1),
+        email: z.string().email(),
+        balance: z.number().default(0),
+        active: z.boolean().default(true),
+      })
+    )
+    .mutation(async ({ input }) => {
+      // Check if email already exists
+      const existing = await getCustomerByEmail(input.email);
+      if (existing) {
+        throw new Error('Email already registered');
+      }
+
+      await createCustomer({
+        name: input.name,
+        email: input.email,
+        balance: Math.round(input.balance * 100), // Convert to cents
+        active: input.active,
+      });
+
+      return { success: true };
+    }),
+
+  /**
+   * Update customer
+   */
+  update: adminProcedure
+    .input(
+      z.object({
+        id: z.number(),
+        name: z.string().min(1).optional(),
+        email: z.string().email().optional(),
+        active: z.boolean().optional(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const { id, ...data } = input;
+
+      // If email is being changed, check if it's already in use
+      if (data.email) {
+        const existing = await getCustomerByEmail(data.email);
+        if (existing && existing.id !== id) {
+          throw new Error('Email already in use by another customer');
+        }
+      }
+
+      await updateCustomer(id, data);
+      return { success: true };
+    }),
+
+  /**
+   * Toggle customer active status
+   */
+  toggleActive: adminProcedure
+    .input(z.object({ id: z.number() }))
+    .mutation(async ({ input }) => {
+      const customer = await getCustomerById(input.id);
+      if (!customer) {
+        throw new Error('Customer not found');
+      }
+
+      await updateCustomer(input.id, { active: !customer.active });
+      return { success: true, active: !customer.active };
+    }),
+
+  /**
+   * Delete customer
+   */
+  delete: adminProcedure
+    .input(z.object({ id: z.number() }))
+    .mutation(async ({ input }) => {
+      await deleteCustomer(input.id);
+      return { success: true };
+    }),
+
+  /**
+   * Add balance to customer
+   */
+  addBalance: adminProcedure
+    .input(
+      z.object({
+        customerId: z.number(),
+        amount: z.number(),
+        type: z.enum(['credit', 'debit', 'purchase', 'refund', 'withdrawal', 'hold']),
+        description: z.string(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const result = await addBalance(
+        input.customerId,
+        Math.round(input.amount * 100), // Convert to cents
+        input.type,
+        input.description,
+        ctx.user?.id
+      );
+
+      return {
+        success: true,
+        balanceBefore: result.balanceBefore / 100,
+        balanceAfter: result.balanceAfter / 100,
+      };
+    }),
+
+  /**
+   * Get customer transactions
+   */
+  getTransactions: adminProcedure
+    .input(
+      z.object({
+        customerId: z.number(),
+        limit: z.number().default(50),
+      })
+    )
+    .query(async ({ input }) => {
+      const transactions = await getCustomerTransactions(input.customerId, input.limit);
+      
+      // Convert cents to reais
+      return transactions.map(t => ({
+        ...t,
+        amount: t.amount / 100,
+        balanceBefore: t.balanceBefore / 100,
+        balanceAfter: t.balanceAfter / 100,
+      }));
+    }),
+
+  /**
+   * Get all transactions (admin view)
+   */
+  getAllTransactions: adminProcedure
+    .input(z.object({ limit: z.number().default(100) }).optional())
+    .query(async ({ input }) => {
+      const transactions = await getAllTransactions(input?.limit || 100);
+      
+      // Convert cents to reais
+      return transactions.map(t => ({
+        ...t,
+        transaction: {
+          ...t.transaction,
+          amount: t.transaction.amount / 100,
+          balanceBefore: t.transaction.balanceBefore / 100,
+          balanceAfter: t.transaction.balanceAfter / 100,
+        },
+      }));
+    }),
+
+  /**
+   * Get customer statistics
+   */
+  getStats: adminProcedure.query(async () => {
+    const stats = await getCustomerStats();
+    
+    return {
+      totalCustomers: stats.totalCustomers,
+      activeCustomers: stats.activeCustomers,
+      activeCustomersLast30Days: stats.activeCustomersLast30Days,
+      totalBalance: stats.totalBalance / 100, // Convert to reais
+      averageBalance: stats.averageBalance / 100, // Convert to reais
+    };
+  }),
+});

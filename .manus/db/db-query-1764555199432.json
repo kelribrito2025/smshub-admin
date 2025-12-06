@@ -1,0 +1,38 @@
+{
+  "query": "SELECT p.id, s.name as service_name, c.name as country_name, p.smshubPrice, p.ourPrice FROM prices p JOIN services s ON p.serviceId = s.id JOIN countries c ON p.countryId = c.id WHERE s.name IN ('whatsapp', 'google', 'telegram', 'Vk.com') ORDER BY s.name LIMIT 10",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT p.id, s.name as service_name, c.name as country_name, p.smshubPrice, p.ourPrice FROM prices p JOIN services s ON p.serviceId = s.id JOIN countries c ON p.countryId = c.id WHERE s.name IN ('whatsapp', 'google', 'telegram', 'Vk.com') ORDER BY s.name LIMIT 10",
+  "rows": [
+    {
+      "id": "60009",
+      "service_name": "Vk.com",
+      "country_name": "Brazil",
+      "smshubPrice": "200",
+      "ourPrice": "400"
+    },
+    {
+      "id": "60006",
+      "service_name": "google",
+      "country_name": "Brazil",
+      "smshubPrice": "100",
+      "ourPrice": "200"
+    },
+    {
+      "id": "60010",
+      "service_name": "telegram",
+      "country_name": "Brazil",
+      "smshubPrice": "100",
+      "ourPrice": "200"
+    },
+    {
+      "id": "60005",
+      "service_name": "whatsapp",
+      "country_name": "Brazil",
+      "smshubPrice": "100",
+      "ourPrice": "200"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tservice_name\tcountry_name\tsmshubPrice\tourPrice\n60009\tVk.com\tBrazil\t200\t400\n60006\tgoogle\tBrazil\t100\t200\n60010\ttelegram\tBrazil\t100\t200\n60005\twhatsapp\tBrazil\t100\t200\n",
+  "stderr": "",
+  "execution_time_ms": 56
+}

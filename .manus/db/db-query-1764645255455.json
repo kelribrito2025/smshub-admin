@@ -1,0 +1,15 @@
+{
+  "query": "\nSELECT \n  (SELECT COUNT(*) FROM prices) as total_prices,\n  (SELECT COUNT(*) FROM sms_apis) as total_apis,\n  (SELECT COUNT(DISTINCT apiId) FROM prices) as distinct_apis_in_prices;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  (SELECT COUNT(*) FROM prices) as total_prices,\n  (SELECT COUNT(*) FROM sms_apis) as total_apis,\n  (SELECT COUNT(DISTINCT apiId) FROM prices) as distinct_apis_in_prices;\n",
+  "rows": [
+    {
+      "total_prices": "1063",
+      "total_apis": "2",
+      "distinct_apis_in_prices": "2"
+    }
+  ],
+  "messages": [],
+  "stdout": "total_prices\ttotal_apis\tdistinct_apis_in_prices\n1063\t2\t2\n",
+  "stderr": "",
+  "execution_time_ms": 89
+}

@@ -1,0 +1,16 @@
+{
+  "query": "SELECT \n  COUNT(*) as total_prices,\n  COUNT(DISTINCT serviceId) as unique_services,\n  COUNT(DISTINCT countryId) as unique_countries,\n  COUNT(DISTINCT apiId) as unique_apis\nFROM prices;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT \n  COUNT(*) as total_prices,\n  COUNT(DISTINCT serviceId) as unique_services,\n  COUNT(DISTINCT countryId) as unique_countries,\n  COUNT(DISTINCT apiId) as unique_apis\nFROM prices;",
+  "rows": [
+    {
+      "total_prices": "572",
+      "unique_services": "421",
+      "unique_countries": "2",
+      "unique_apis": "2"
+    }
+  ],
+  "messages": [],
+  "stdout": "total_prices\tunique_services\tunique_countries\tunique_apis\n572\t421\t2\t2\n",
+  "stderr": "",
+  "execution_time_ms": 55
+}

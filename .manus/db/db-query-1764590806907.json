@@ -1,0 +1,16 @@
+{
+  "query": "SELECT \n  COUNT(DISTINCT s.id) as total_services,\n  COUNT(DISTINCT p.id) as total_prices,\n  c.name as country_name,\n  c.code as country_code\nFROM countries c\nLEFT JOIN prices p ON p.countryId = c.id\nLEFT JOIN services s ON p.serviceId = s.id\nWHERE c.code = 'brazil'\nGROUP BY c.id, c.name, c.code;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT \n  COUNT(DISTINCT s.id) as total_services,\n  COUNT(DISTINCT p.id) as total_prices,\n  c.name as country_name,\n  c.code as country_code\nFROM countries c\nLEFT JOIN prices p ON p.countryId = c.id\nLEFT JOIN services s ON p.serviceId = s.id\nWHERE c.code = 'brazil'\nGROUP BY c.id, c.name, c.code;",
+  "rows": [
+    {
+      "total_services": "414",
+      "total_prices": "414",
+      "country_name": "Brazil",
+      "country_code": "brazil"
+    }
+  ],
+  "messages": [],
+  "stdout": "total_services\ttotal_prices\tcountry_name\tcountry_code\n414\t414\tBrazil\tbrazil\n",
+  "stderr": "",
+  "execution_time_ms": 60
+}

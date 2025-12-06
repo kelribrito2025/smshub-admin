@@ -1,0 +1,8 @@
+{
+  "query": "SELECT id, userId, amount, method, status, createdAt FROM recharges WHERE amount BETWEEN 200 AND 300 ORDER BY createdAt DESC",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, userId, amount, method, status, createdAt FROM recharges WHERE amount BETWEEN 200 AND 300 ORDER BY createdAt DESC",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1054 (42S22) at line 1: Unknown column 'userid' in 'field list'"
+  ]
+}

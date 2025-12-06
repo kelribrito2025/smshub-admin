@@ -1,0 +1,8 @@
+{
+  "query": "\nSELECT \n  p.id,\n  p.countryId,\n  c.name as country_name,\n  p.serviceId,\n  s.name as service_name,\n  s.smshubCode,\n  p.apiId,\n  a.name as api_name,\n  p.retailPrice,\n  p.active\nFROM prices p\nJOIN countries c ON p.countryId = c.id\nJOIN services s ON p.serviceId = s.id\nLEFT JOIN sms_apis a ON p.apiId = a.id\nWHERE s.smshubCode = 'wa'\nORDER BY p.countryId, p.serviceId, p.apiId;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  p.id,\n  p.countryId,\n  c.name as country_name,\n  p.serviceId,\n  s.name as service_name,\n  s.smshubCode,\n  p.apiId,\n  a.name as api_name,\n  p.retailPrice,\n  p.active\nFROM prices p\nJOIN countries c ON p.countryId = c.id\nJOIN services s ON p.serviceId = s.id\nLEFT JOIN sms_apis a ON p.apiId = a.id\nWHERE s.smshubCode = 'wa'\nORDER BY p.countryId, p.serviceId, p.apiId;\n",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1054 (42S22) at line 2: Unknown column 'p.retailprice' in 'field list'"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "query": "\nSELECT \n  id,\n  name,\n  url,\n  priority,\n  active\nFROM sms_apis\nORDER BY id ASC;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  id,\n  name,\n  url,\n  priority,\n  active\nFROM sms_apis\nORDER BY id ASC;\n",
+  "rows": [
+    {
+      "id": "1",
+      "name": "Opção 1",
+      "url": "https://smshub.org/stubs/handler_api.php",
+      "priority": "1",
+      "active": "1"
+    },
+    {
+      "id": "2",
+      "name": "Opcao 2",
+      "url": "https://api.sms24h.org/stubs/handler_api",
+      "priority": "0",
+      "active": "1"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\turl\tpriority\tactive\n1\tOpção 1\thttps://smshub.org/stubs/handler_api.php\t1\t1\n2\tOpcao 2\thttps://api.sms24h.org/stubs/handler_api\t0\t1\n",
+  "stderr": "",
+  "execution_time_ms": 55
+}

@@ -1,0 +1,25 @@
+{
+  "query": "SELECT \n  COALESCE(a.name, 'Sem API') as api_name,\n  COUNT(DISTINCT s.id) as total_services,\n  SUM(CASE WHEN s.active = 1 THEN 1 ELSE 0 END) as active_services\nFROM services s\nLEFT JOIN prices p ON s.id = p.serviceId\nLEFT JOIN sms_apis a ON p.apiId = a.id\nGROUP BY a.name\nORDER BY total_services DESC;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT \n  COALESCE(a.name, 'Sem API') as api_name,\n  COUNT(DISTINCT s.id) as total_services,\n  SUM(CASE WHEN s.active = 1 THEN 1 ELSE 0 END) as active_services\nFROM services s\nLEFT JOIN prices p ON s.id = p.serviceId\nLEFT JOIN sms_apis a ON p.apiId = a.id\nGROUP BY a.name\nORDER BY total_services DESC;",
+  "rows": [
+    {
+      "api_name": "Opção 2",
+      "total_services": "416",
+      "active_services": "413"
+    },
+    {
+      "api_name": "Opçao 1",
+      "total_services": "154",
+      "active_services": "154"
+    },
+    {
+      "api_name": "Sem API",
+      "total_services": "9",
+      "active_services": "10"
+    }
+  ],
+  "messages": [],
+  "stdout": "api_name\ttotal_services\tactive_services\nOpção 2\t416\t413\nOpçao 1\t154\t154\nSem API\t9\t10\n",
+  "stderr": "",
+  "execution_time_ms": 389
+}

@@ -1,0 +1,18 @@
+{
+  "query": "\nSELECT \n  total_records,\n  COUNT(*) as combinations_count\nFROM (\n  SELECT \n    countryId,\n    serviceId,\n    COUNT(*) as total_records\n  FROM prices\n  GROUP BY countryId, serviceId\n) as subquery\nGROUP BY total_records\nORDER BY total_records;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  total_records,\n  COUNT(*) as combinations_count\nFROM (\n  SELECT \n    countryId,\n    serviceId,\n    COUNT(*) as total_records\n  FROM prices\n  GROUP BY countryId, serviceId\n) as subquery\nGROUP BY total_records\nORDER BY total_records;\n",
+  "rows": [
+    {
+      "total_records": "1",
+      "combinations_count": "272"
+    },
+    {
+      "total_records": "2",
+      "combinations_count": "149"
+    }
+  ],
+  "messages": [],
+  "stdout": "total_records\tcombinations_count\n1\t272\n2\t149\n",
+  "stderr": "",
+  "execution_time_ms": 63
+}

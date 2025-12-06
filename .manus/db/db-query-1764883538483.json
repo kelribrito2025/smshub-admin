@@ -1,0 +1,18 @@
+{
+  "query": "SELECT p.id, s.name as service_name, c.name as country_name, p.apiId, p.smshubPrice, p.ourPrice\nFROM prices p\nJOIN services s ON p.serviceId = s.id\nJOIN countries c ON p.countryId = c.id\nWHERE s.name LIKE '%Outros%' AND p.apiId = 2\nLIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT p.id, s.name as service_name, c.name as country_name, p.apiId, p.smshubPrice, p.ourPrice\nFROM prices p\nJOIN services s ON p.serviceId = s.id\nJOIN countries c ON p.countryId = c.id\nWHERE s.name LIKE '%Outros%' AND p.apiId = 2\nLIMIT 5;",
+  "rows": [
+    {
+      "id": "60012",
+      "service_name": "Outros apps/Site",
+      "country_name": "Brazil",
+      "apiId": "2",
+      "smshubPrice": "18",
+      "ourPrice": "97"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tservice_name\tcountry_name\tapiId\tsmshubPrice\tourPrice\n60012\tOutros apps/Site\tBrazil\t2\t18\t97\n",
+  "stderr": "",
+  "execution_time_ms": 59
+}

@@ -1,0 +1,45 @@
+{
+  "query": "SELECT a.id, a.phoneNumber, a.status, a.createdAt, COUNT(sm.id) as sms_count\nFROM activations a\nLEFT JOIN sms_messages sm ON sm.activationId = a.id\nWHERE a.userId = 90007\nGROUP BY a.id\nORDER BY a.createdAt DESC\nLIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT a.id, a.phoneNumber, a.status, a.createdAt, COUNT(sm.id) as sms_count\nFROM activations a\nLEFT JOIN sms_messages sm ON sm.activationId = a.id\nWHERE a.userId = 90007\nGROUP BY a.id\nORDER BY a.createdAt DESC\nLIMIT 5;",
+  "rows": [
+    {
+      "id": "420001",
+      "phoneNumber": "5568933002785",
+      "status": "completed",
+      "createdAt": "2025-12-03 16:04:21",
+      "sms_count": "0"
+    },
+    {
+      "id": "360002",
+      "phoneNumber": "5516988458647",
+      "status": "cancelled",
+      "createdAt": "2025-12-03 12:37:04",
+      "sms_count": "0"
+    },
+    {
+      "id": "360001",
+      "phoneNumber": "5592920016924",
+      "status": "completed",
+      "createdAt": "2025-12-03 12:09:46",
+      "sms_count": "1"
+    },
+    {
+      "id": "330012",
+      "phoneNumber": "5517981300348",
+      "status": "cancelled",
+      "createdAt": "2025-12-03 03:30:04",
+      "sms_count": "0"
+    },
+    {
+      "id": "330011",
+      "phoneNumber": "5521965138284",
+      "status": "cancelled",
+      "createdAt": "2025-12-03 02:47:39",
+      "sms_count": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tphoneNumber\tstatus\tcreatedAt\tsms_count\n420001\t5568933002785\tcompleted\t2025-12-03 16:04:21\t0\n360002\t5516988458647\tcancelled\t2025-12-03 12:37:04\t0\n360001\t5592920016924\tcompleted\t2025-12-03 12:09:46\t1\n330012\t5517981300348\tcancelled\t2025-12-03 03:30:04\t0\n330011\t5521965138284\tcancelled\t2025-12-03 02:47:39\t0\n",
+  "stderr": "",
+  "execution_time_ms": 63
+}

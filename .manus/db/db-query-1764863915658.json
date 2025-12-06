@@ -1,0 +1,15 @@
+{
+  "query": "SELECT id, name, smshubCode FROM services WHERE name LIKE '%outro%' OR name LIKE '%App/Site%' LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, name, smshubCode FROM services WHERE name LIKE '%outro%' OR name LIKE '%App/Site%' LIMIT 10;",
+  "rows": [
+    {
+      "id": "60009",
+      "name": "Outros App/Site",
+      "smshubCode": "ot"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tsmshubCode\n60009\tOutros App/Site\tot\n",
+  "stderr": "",
+  "execution_time_ms": 79
+}

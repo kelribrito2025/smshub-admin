@@ -1,0 +1,30 @@
+{
+  "query": "SELECT \n  r.id,\n  r.amount / 100.0 as valor_reais,\n  r.paymentMethod,\n  r.status,\n  r.transactionId,\n  DATE_FORMAT(r.createdAt, '%d/%m/%Y %H:%i:%s') as data_hora,\n  c.email,\n  c.pin\nFROM recharges r\nJOIN customers c ON r.customerId = c.id\nWHERE c.email = 'xkelrix@gmail.com' AND r.amount = 233\nORDER BY r.createdAt DESC",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT \n  r.id,\n  r.amount / 100.0 as valor_reais,\n  r.paymentMethod,\n  r.status,\n  r.transactionId,\n  DATE_FORMAT(r.createdAt, '%d/%m/%Y %H:%i:%s') as data_hora,\n  c.email,\n  c.pin\nFROM recharges r\nJOIN customers c ON r.customerId = c.id\nWHERE c.email = 'xkelrix@gmail.com' AND r.amount = 233\nORDER BY r.createdAt DESC",
+  "rows": [
+    {
+      "id": "30002",
+      "valor_reais": "2.3300",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "56882da4dbce43ceb7e464e59ab81ada",
+      "data_hora": "05/12/2025 21:17:30",
+      "email": "xkelrix@gmail.com",
+      "pin": "7"
+    },
+    {
+      "id": "30001",
+      "valor_reais": "2.3300",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "054b2bfe547d4ccd9ed690cc30ea2529",
+      "data_hora": "05/12/2025 20:42:59",
+      "email": "xkelrix@gmail.com",
+      "pin": "7"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tvalor_reais\tpaymentMethod\tstatus\ttransactionId\tdata_hora\temail\tpin\n30002\t2.3300\tpix\tcompleted\t56882da4dbce43ceb7e464e59ab81ada\t05/12/2025 21:17:30\txkelrix@gmail.com\t7\n30001\t2.3300\tpix\tcompleted\t054b2bfe547d4ccd9ed690cc30ea2529\t05/12/2025 20:42:59\txkelrix@gmail.com\t7\n",
+  "stderr": "",
+  "execution_time_ms": 65
+}

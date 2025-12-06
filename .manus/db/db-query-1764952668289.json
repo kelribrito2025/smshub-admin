@@ -1,0 +1,17 @@
+{
+  "query": "SELECT c.id, c.pin, c.name, c.email, COUNT(a.id) as total_activations FROM customers c LEFT JOIN activations a ON c.id = a.userId WHERE c.balance = 0 GROUP BY c.id LIMIT 5",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT c.id, c.pin, c.name, c.email, COUNT(a.id) as total_activations FROM customers c LEFT JOIN activations a ON c.id = a.userId WHERE c.balance = 0 GROUP BY c.id LIMIT 5",
+  "rows": [
+    {
+      "id": "270001",
+      "pin": "8",
+      "name": "teste.tooltip",
+      "email": "teste.tooltip@test.com",
+      "total_activations": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tpin\tname\temail\ttotal_activations\n270001\t8\tteste.tooltip\tteste.tooltip@test.com\t0\n",
+  "stderr": "",
+  "execution_time_ms": 63
+}

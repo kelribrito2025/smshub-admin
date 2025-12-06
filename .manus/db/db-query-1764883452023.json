@@ -1,0 +1,18 @@
+{
+  "query": "SELECT s.id, s.name, p.id as price_id, p.apiId, p.smshubPrice, p.ourPrice \nFROM services s \nJOIN prices p ON s.id = p.serviceId \nWHERE s.name LIKE '%Outros%' AND p.apiId = 2 \nLIMIT 3;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT s.id, s.name, p.id as price_id, p.apiId, p.smshubPrice, p.ourPrice \nFROM services s \nJOIN prices p ON s.id = p.serviceId \nWHERE s.name LIKE '%Outros%' AND p.apiId = 2 \nLIMIT 3;",
+  "rows": [
+    {
+      "id": "60009",
+      "name": "Outros apps/Site",
+      "price_id": "60012",
+      "apiId": "2",
+      "smshubPrice": "18",
+      "ourPrice": "97"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tprice_id\tapiId\tsmshubPrice\tourPrice\n60009\tOutros apps/Site\t60012\t2\t18\t97\n",
+  "stderr": "",
+  "execution_time_ms": 67
+}

@@ -1,0 +1,9 @@
+{
+  "query": "CREATE TABLE IF NOT EXISTS `pix_transactions` (\n  `id` INT AUTO_INCREMENT PRIMARY KEY,\n  `customerId` INT NOT NULL,\n  `txid` VARCHAR(100) NOT NULL UNIQUE,\n  `amount` INT NOT NULL,\n  `status` ENUM('pending', 'paid', 'expired', 'cancelled') DEFAULT 'pending' NOT NULL,\n  `pixCopyPaste` TEXT,\n  `qrCodeUrl` VARCHAR(500),\n  `expiresAt` TIMESTAMP NOT NULL,\n  `paidAt` TIMESTAMP NULL,\n  `createdAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,\n  `updatedAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,\n  INDEX `pix_customer_idx` (`customerId`),\n  INDEX `pix_status_idx` (`status`),\n  UNIQUE INDEX `pix_txid_idx` (`txid`),\n  INDEX `pix_created_at_idx` (`createdAt`)\n);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute CREATE TABLE IF NOT EXISTS `pix_transactions` (\n  `id` INT AUTO_INCREMENT PRIMARY KEY,\n  `customerId` INT NOT NULL,\n  `txid` VARCHAR(100) NOT NULL UNIQUE,\n  `amount` INT NOT NULL,\n  `status` ENUM('pending', 'paid', 'expired', 'cancelled') DEFAULT 'pending' NOT NULL,\n  `pixCopyPaste` TEXT,\n  `qrCodeUrl` VARCHAR(500),\n  `expiresAt` TIMESTAMP NOT NULL,\n  `paidAt` TIMESTAMP NULL,\n  `createdAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,\n  `updatedAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,\n  INDEX `pix_customer_idx` (`customerId`),\n  INDEX `pix_status_idx` (`status`),\n  UNIQUE INDEX `pix_txid_idx` (`txid`),\n  INDEX `pix_created_at_idx` (`createdAt`)\n);",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 725
+}

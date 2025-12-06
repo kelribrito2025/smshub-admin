@@ -1,0 +1,33 @@
+import express from "express";
+import { notificationsManager } from "./notifications-manager";
+
+const router = express.Router();
+
+/**
+ * SSE endpoint for real-time notifications
+ * Clients connect to this endpoint to receive push notifications
+ */
+router.get("/stream/:customerId", (req, res) => {
+  const customerId = parseInt(req.params.customerId);
+
+  if (isNaN(customerId)) {
+    return res.status(400).json({ error: "Invalid customer ID" });
+  }
+
+  console.log(`[SSE] New connection request from customer ${customerId}`);
+
+  // Add client to notifications manager
+  notificationsManager.addClient(customerId, res);
+
+  // Connection will be kept alive by the notifications manager
+});
+
+/**
+ * Get SSE statistics (for debugging)
+ */
+router.get("/stats", (req, res) => {
+  const stats = notificationsManager.getStats();
+  res.json(stats);
+});
+
+export default router;

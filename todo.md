@@ -33,3 +33,14 @@
 - [ ] Configurações gerais do sistema
 - [ ] Gestão de usuários e permissões
 - [ ] Templates de mensagens SMS
+
+## Integração e Deploy
+- [x] Sincronizar código com repositório GitHub
+
+## Configuração de Credenciais
+- [x] Verificar credenciais existentes nas chaves secretas
+- [x] Configurar credenciais faltantes (Stripe)
+- [x] Testar inicialização do servidor com todas as credenciais
+
+## Limpeza do Banco de Dados
+- [x] Remover tabelas do projeto inicial (sales, messages, campaigns, clients)

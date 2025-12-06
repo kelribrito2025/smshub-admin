@@ -1,0 +1,19 @@
+{
+  "query": "SELECT id, phoneNumber, smsCode, status, smshubActivationId, apiId, createdAt FROM activations WHERE phoneNumber = '5521920394469' ORDER BY createdAt DESC LIMIT 1",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, phoneNumber, smsCode, status, smshubActivationId, apiId, createdAt FROM activations WHERE phoneNumber = '5521920394469' ORDER BY createdAt DESC LIMIT 1",
+  "rows": [
+    {
+      "id": "240001",
+      "phoneNumber": "5521920394469",
+      "smsCode": "NULL",
+      "status": "active",
+      "smshubActivationId": "4044979",
+      "apiId": "2",
+      "createdAt": "2025-12-02 14:27:11"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tphoneNumber\tsmsCode\tstatus\tsmshubActivationId\tapiId\tcreatedAt\n240001\t5521920394469\tNULL\tactive\t4044979\t2\t2025-12-02 14:27:11\n",
+  "stderr": "",
+  "execution_time_ms": 55
+}

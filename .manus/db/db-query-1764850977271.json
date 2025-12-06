@@ -1,0 +1,80 @@
+{
+  "query": "SELECT p.id, c.name as country, s.name as service, p.smshubPrice, p.ourPrice FROM prices p JOIN countries c ON p.countryId = c.id JOIN services s ON p.serviceId = s.id ORDER BY p.smshubPrice DESC LIMIT 10",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT p.id, c.name as country, s.name as service, p.smshubPrice, p.ourPrice FROM prices p JOIN countries c ON p.countryId = c.id JOIN services s ON p.serviceId = s.id ORDER BY p.smshubPrice DESC LIMIT 10",
+  "rows": [
+    {
+      "id": "60094",
+      "country": "Brazil",
+      "service": "Viber",
+      "smshubPrice": "9090",
+      "ourPrice": "18179"
+    },
+    {
+      "id": "60090",
+      "country": "Brazil",
+      "service": "Uber",
+      "smshubPrice": "8004",
+      "ourPrice": "16008"
+    },
+    {
+      "id": "60033",
+      "country": "Brazil",
+      "service": "EBay",
+      "smshubPrice": "7888",
+      "ourPrice": "15775"
+    },
+    {
+      "id": "60061",
+      "country": "Brazil",
+      "service": "Yahoo",
+      "smshubPrice": "7752",
+      "ourPrice": "15505"
+    },
+    {
+      "id": "60107",
+      "country": "Brazil",
+      "service": "Yalla",
+      "smshubPrice": "7611",
+      "ourPrice": "15222"
+    },
+    {
+      "id": "60082",
+      "country": "Brazil",
+      "service": "OLX",
+      "smshubPrice": "7607",
+      "ourPrice": "15214"
+    },
+    {
+      "id": "60071",
+      "country": "Brazil",
+      "service": "Pof.com",
+      "smshubPrice": "7593",
+      "ourPrice": "15186"
+    },
+    {
+      "id": "60088",
+      "country": "Brazil",
+      "service": "Twitter",
+      "smshubPrice": "7543",
+      "ourPrice": "15087"
+    },
+    {
+      "id": "60051",
+      "country": "Brazil",
+      "service": "Shopee",
+      "smshubPrice": "7531",
+      "ourPrice": "15061"
+    },
+    {
+      "id": "60102",
+      "country": "Brazil",
+      "service": "Apple",
+      "smshubPrice": "7530",
+      "ourPrice": "15060"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcountry\tservice\tsmshubPrice\tourPrice\n60094\tBrazil\tViber\t9090\t18179\n60090\tBrazil\tUber\t8004\t16008\n60033\tBrazil\tEBay\t7888\t15775\n60061\tBrazil\tYahoo\t7752\t15505\n60107\tBrazil\tYalla\t7611\t15222\n60082\tBrazil\tOLX\t7607\t15214\n60071\tBrazil\tPof.com\t7593\t15186\n60088\tBrazil\tTwitter\t7543\t15087\n60051\tBrazil\tShopee\t7531\t15061\n60102\tBrazil\tApple\t7530\t15060\n",
+  "stderr": "",
+  "execution_time_ms": 61
+}

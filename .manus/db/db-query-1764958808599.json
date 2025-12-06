@@ -1,0 +1,26 @@
+{
+  "query": "SELECT s.id, s.name, s.smshubCode, s.active, s.totalSales, COUNT(p.id) as price_count FROM services s LEFT JOIN prices p ON s.id = p.serviceId WHERE s.name IN ('Whatsapp', 'Picpay') GROUP BY s.id, s.name, s.smshubCode, s.active, s.totalSales",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT s.id, s.name, s.smshubCode, s.active, s.totalSales, COUNT(p.id) as price_count FROM services s LEFT JOIN prices p ON s.id = p.serviceId WHERE s.name IN ('Whatsapp', 'Picpay') GROUP BY s.id, s.name, s.smshubCode, s.active, s.totalSales",
+  "rows": [
+    {
+      "id": "60001",
+      "name": "Whatsapp",
+      "smshubCode": "wa",
+      "active": "0",
+      "totalSales": "187",
+      "price_count": "3"
+    },
+    {
+      "id": "60323",
+      "name": "Picpay",
+      "smshubCode": "ev",
+      "active": "1",
+      "totalSales": "20",
+      "price_count": "3"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tsmshubCode\tactive\ttotalSales\tprice_count\n60001\tWhatsapp\twa\t0\t187\t3\n60323\tPicpay\tev\t1\t20\t3\n",
+  "stderr": "",
+  "execution_time_ms": 104
+}

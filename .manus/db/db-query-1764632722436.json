@@ -1,0 +1,90 @@
+{
+  "query": "\nSELECT \n  id,\n  smshubActivationId,\n  phoneNumber,\n  LENGTH(smshubActivationId) as id_length,\n  LENGTH(phoneNumber) as phone_length,\n  createdAt\nFROM activations\nORDER BY id DESC\nLIMIT 10;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  id,\n  smshubActivationId,\n  phoneNumber,\n  LENGTH(smshubActivationId) as id_length,\n  LENGTH(phoneNumber) as phone_length,\n  createdAt\nFROM activations\nORDER BY id DESC\nLIMIT 10;\n",
+  "rows": [
+    {
+      "id": "90020",
+      "smshubActivationId": "3948796",
+      "phoneNumber": "5531933035401",
+      "id_length": "7",
+      "phone_length": "13",
+      "createdAt": "2025-12-01 23:34:02"
+    },
+    {
+      "id": "90019",
+      "smshubActivationId": "851692252",
+      "phoneNumber": "5583996820310",
+      "id_length": "9",
+      "phone_length": "13",
+      "createdAt": "2025-12-01 23:09:13"
+    },
+    {
+      "id": "90018",
+      "smshubActivationId": "851691626",
+      "phoneNumber": "5519982700395",
+      "id_length": "9",
+      "phone_length": "13",
+      "createdAt": "2025-12-01 23:05:55"
+    },
+    {
+      "id": "90017",
+      "smshubActivationId": "851688240",
+      "phoneNumber": "5511950132269",
+      "id_length": "9",
+      "phone_length": "13",
+      "createdAt": "2025-12-01 22:45:58"
+    },
+    {
+      "id": "90016",
+      "smshubActivationId": "851685320",
+      "phoneNumber": "5511998194222",
+      "id_length": "9",
+      "phone_length": "13",
+      "createdAt": "2025-12-01 22:28:38"
+    },
+    {
+      "id": "90015",
+      "smshubActivationId": "851684158",
+      "phoneNumber": "5511958049871",
+      "id_length": "9",
+      "phone_length": "13",
+      "createdAt": "2025-12-01 22:22:43"
+    },
+    {
+      "id": "90014",
+      "smshubActivationId": "851682833",
+      "phoneNumber": "5521965801576",
+      "id_length": "9",
+      "phone_length": "13",
+      "createdAt": "2025-12-01 22:14:58"
+    },
+    {
+      "id": "90013",
+      "smshubActivationId": "851681652",
+      "phoneNumber": "5513981382564",
+      "id_length": "9",
+      "phone_length": "13",
+      "createdAt": "2025-12-01 22:08:07"
+    },
+    {
+      "id": "90012",
+      "smshubActivationId": "851681511",
+      "phoneNumber": "5519982297875",
+      "id_length": "9",
+      "phone_length": "13",
+      "createdAt": "2025-12-01 22:07:03"
+    },
+    {
+      "id": "90011",
+      "smshubActivationId": "851678776",
+      "phoneNumber": "5562999818387",
+      "id_length": "9",
+      "phone_length": "13",
+      "createdAt": "2025-12-01 21:52:52"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tsmshubActivationId\tphoneNumber\tid_length\tphone_length\tcreatedAt\n90020\t3948796\t5531933035401\t7\t13\t2025-12-01 23:34:02\n90019\t851692252\t5583996820310\t9\t13\t2025-12-01 23:09:13\n90018\t851691626\t5519982700395\t9\t13\t2025-12-01 23:05:55\n90017\t851688240\t5511950132269\t9\t13\t2025-12-01 22:45:58\n90016\t851685320\t5511998194222\t9\t13\t2025-12-01 22:28:38\n90015\t851684158\t5511958049871\t9\t13\t2025-12-01 22:22:43\n90014\t851682833\t5521965801576\t9\t13\t2025-12-01 22:14:58\n90013\t851681652\t5513981382564\t9\t13\t2025-12-01 22:08:07\n90012\t851681511\t5519982297875\t9\t13\t2025-12-01 22:07:03\n90011\t851678776\t5562999818387\t9\t13\t2025-12-01 21:52:52\n",
+  "stderr": "",
+  "execution_time_ms": 54
+}

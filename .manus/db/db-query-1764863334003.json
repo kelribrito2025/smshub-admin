@@ -1,0 +1,22 @@
+{
+  "query": "SELECT id, name FROM sms_apis ORDER BY id",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, name FROM sms_apis ORDER BY id",
+  "rows": [
+    {
+      "id": "1",
+      "name": "Opção 1 - SMS24h"
+    },
+    {
+      "id": "2",
+      "name": "Opção 2 - SMSHub"
+    },
+    {
+      "id": "3",
+      "name": "Opção 3 - SMSActivate"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\n1\tOpção 1 - SMS24h\n2\tOpção 2 - SMSHub\n3\tOpção 3 - SMSActivate\n",
+  "stderr": "",
+  "execution_time_ms": 56
+}

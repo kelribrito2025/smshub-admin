@@ -1,0 +1,28 @@
+{
+  "query": "SELECT id, name, currency, exchange_rate FROM sms_apis ORDER BY id",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, name, currency, exchange_rate FROM sms_apis ORDER BY id",
+  "rows": [
+    {
+      "id": "1",
+      "name": "Opção 1 ",
+      "currency": "BRL",
+      "exchange_rate": "1.00"
+    },
+    {
+      "id": "2",
+      "name": "Opção 2",
+      "currency": "USD",
+      "exchange_rate": "5.32"
+    },
+    {
+      "id": "3",
+      "name": "Opção 3",
+      "currency": "USD",
+      "exchange_rate": "5.32"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tcurrency\texchange_rate\n1\tOpção 1 \tBRL\t1.00\n2\tOpção 2\tUSD\t5.32\n3\tOpção 3\tUSD\t5.32\n",
+  "stderr": "",
+  "execution_time_ms": 53
+}

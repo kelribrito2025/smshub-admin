@@ -1,0 +1,9 @@
+{
+  "query": "\nUPDATE activations \nSET apiId = 2\nWHERE id = 180006 AND status = 'active';\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nUPDATE activations \nSET apiId = 2\nWHERE id = 180006 AND status = 'active';\n",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 58
+}

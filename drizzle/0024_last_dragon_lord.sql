@@ -1,0 +1,1 @@
+ALTER TABLE `prices` ADD `fixedPrice` boolean DEFAULT false NOT NULL;

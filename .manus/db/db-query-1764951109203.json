@@ -1,0 +1,135 @@
+{
+  "query": "\nSELECT id, name, totalSales \nFROM services \nWHERE active = 1\nORDER BY totalSales DESC, name ASC\nLIMIT 25\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT id, name, totalSales \nFROM services \nWHERE active = 1\nORDER BY totalSales DESC, name ASC\nLIMIT 25\n",
+  "rows": [
+    {
+      "id": "210001",
+      "name": "ZZZ Top Service",
+      "totalSales": "200"
+    },
+    {
+      "id": "210002",
+      "name": "AAA Top Service",
+      "totalSales": "150"
+    },
+    {
+      "id": "210003",
+      "name": "AAA Low Service",
+      "totalSales": "5"
+    },
+    {
+      "id": "210004",
+      "name": "ZZZ Low Service",
+      "totalSales": "3"
+    },
+    {
+      "id": "60204",
+      "name": "3Fun",
+      "totalSales": "0"
+    },
+    {
+      "id": "60051",
+      "name": "888casino",
+      "totalSales": "0"
+    },
+    {
+      "id": "60351",
+      "name": "99app",
+      "totalSales": "0"
+    },
+    {
+      "id": "60384",
+      "name": "AGIBANK",
+      "totalSales": "0"
+    },
+    {
+      "id": "60219",
+      "name": "AIS PLAY",
+      "totalSales": "0"
+    },
+    {
+      "id": "60065",
+      "name": "AOL",
+      "totalSales": "0"
+    },
+    {
+      "id": "60259",
+      "name": "ASAAS",
+      "totalSales": "0"
+    },
+    {
+      "id": "60165",
+      "name": "Abastece-aí",
+      "totalSales": "0"
+    },
+    {
+      "id": "60279",
+      "name": "Acordo Certo",
+      "totalSales": "0"
+    },
+    {
+      "id": "60284",
+      "name": "Adobe",
+      "totalSales": "0"
+    },
+    {
+      "id": "60299",
+      "name": "Adspay",
+      "totalSales": "0"
+    },
+    {
+      "id": "60265",
+      "name": "Ahlan",
+      "totalSales": "0"
+    },
+    {
+      "id": "60224",
+      "name": "Aiqfome",
+      "totalSales": "0"
+    },
+    {
+      "id": "60083",
+      "name": "Airbnb",
+      "totalSales": "0"
+    },
+    {
+      "id": "60413",
+      "name": "Airtel",
+      "totalSales": "0"
+    },
+    {
+      "id": "60040",
+      "name": "AliExpress",
+      "totalSales": "0"
+    },
+    {
+      "id": "60039",
+      "name": "Alipay/Alibaba",
+      "totalSales": "0"
+    },
+    {
+      "id": "60411",
+      "name": "Allegro",
+      "totalSales": "0"
+    },
+    {
+      "id": "60019",
+      "name": "Amazon",
+      "totalSales": "0"
+    },
+    {
+      "id": "60133",
+      "name": "Ame Digital",
+      "totalSales": "0"
+    },
+    {
+      "id": "60172",
+      "name": "Anthropic",
+      "totalSales": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\ttotalSales\n210001\tZZZ Top Service\t200\n210002\tAAA Top Service\t150\n210003\tAAA Low Service\t5\n210004\tZZZ Low Service\t3\n60204\t3Fun\t0\n60051\t888casino\t0\n60351\t99app\t0\n60384\tAGIBANK\t0\n60219\tAIS PLAY\t0\n60065\tAOL\t0\n60259\tASAAS\t0\n60165\tAbastece-aí\t0\n60279\tAcordo Certo\t0\n60284\tAdobe\t0\n60299\tAdspay\t0\n60265\tAhlan\t0\n60224\tAiqfome\t0\n60083\tAirbnb\t0\n60413\tAirtel\t0\n60040\tAliExpress\t0\n60039\tAlipay/Alibaba\t0\n60411\tAllegro\t0\n60019\tAmazon\t0\n60133\tAme Digital\t0\n60172\tAnthropic\t0\n",
+  "stderr": "",
+  "execution_time_ms": 59
+}

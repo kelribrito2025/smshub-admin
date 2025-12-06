@@ -1,0 +1,31 @@
+{
+  "query": "SELECT \n  p.id,\n  p.apiId,\n  c.active as countryActive,\n  s.active as serviceActive,\n  a.active as apiActive\nFROM prices p\nLEFT JOIN countries c ON p.countryId = c.id\nLEFT JOIN services s ON p.serviceId = s.id\nLEFT JOIN sms_apis a ON p.apiId = a.id\nWHERE s.smshubCode = 'wa'\nORDER BY p.apiId;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT \n  p.id,\n  p.apiId,\n  c.active as countryActive,\n  s.active as serviceActive,\n  a.active as apiActive\nFROM prices p\nLEFT JOIN countries c ON p.countryId = c.id\nLEFT JOIN services s ON p.serviceId = s.id\nLEFT JOIN sms_apis a ON p.apiId = a.id\nWHERE s.smshubCode = 'wa'\nORDER BY p.apiId;",
+  "rows": [
+    {
+      "id": "60005",
+      "apiId": "1",
+      "countryActive": "1",
+      "serviceActive": "1",
+      "apiActive": "1"
+    },
+    {
+      "id": "150008",
+      "apiId": "1",
+      "countryActive": "0",
+      "serviceActive": "1",
+      "apiActive": "1"
+    },
+    {
+      "id": "150009",
+      "apiId": "2",
+      "countryActive": "0",
+      "serviceActive": "1",
+      "apiActive": "1"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tapiId\tcountryActive\tserviceActive\tapiActive\n60005\t1\t1\t1\t1\n150008\t1\t0\t1\t1\n150009\t2\t0\t1\t1\n",
+  "stderr": "",
+  "execution_time_ms": 64
+}

@@ -1,0 +1,1 @@
+ALTER TABLE `prices` DROP COLUMN `active`;

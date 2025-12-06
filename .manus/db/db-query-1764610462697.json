@@ -1,0 +1,22 @@
+{
+  "query": "\nSELECT \n  p.apiId,\n  a.name as apiName,\n  p.serviceId,\n  s.name as serviceName,\n  s.smshubCode,\n  p.countryId,\n  c.name as countryName,\n  p.ourPrice as price,\n  p.quantityAvailable as available,\n  a.priority\nFROM prices p\nINNER JOIN sms_apis a ON p.apiId = a.id\nINNER JOIN services s ON p.serviceId = s.id\nINNER JOIN countries c ON p.countryId = c.id\nWHERE p.serviceId = (SELECT id FROM services WHERE smshubCode = 'wa' LIMIT 1)\n  AND p.countryId = 1\n  AND p.apiId IS NOT NULL\n  AND a.active = 1\nORDER BY a.priority\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  p.apiId,\n  a.name as apiName,\n  p.serviceId,\n  s.name as serviceName,\n  s.smshubCode,\n  p.countryId,\n  c.name as countryName,\n  p.ourPrice as price,\n  p.quantityAvailable as available,\n  a.priority\nFROM prices p\nINNER JOIN sms_apis a ON p.apiId = a.id\nINNER JOIN services s ON p.serviceId = s.id\nINNER JOIN countries c ON p.countryId = c.id\nWHERE p.serviceId = (SELECT id FROM services WHERE smshubCode = 'wa' LIMIT 1)\n  AND p.countryId = 1\n  AND p.apiId IS NOT NULL\n  AND a.active = 1\nORDER BY a.priority\n",
+  "rows": [
+    {
+      "apiId": "1",
+      "apiName": "Opção 1",
+      "serviceId": "60001",
+      "serviceName": "Whatsapp",
+      "smshubCode": "wa",
+      "countryId": "1",
+      "countryName": "Updated Name",
+      "price": "1000",
+      "available": "100",
+      "priority": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "apiId\tapiName\tserviceId\tserviceName\tsmshubCode\tcountryId\tcountryName\tprice\tavailable\tpriority\n1\tOpção 1\t60001\tWhatsapp\twa\t1\tUpdated Name\t1000\t100\t0\n",
+  "stderr": "",
+  "execution_time_ms": 94
+}

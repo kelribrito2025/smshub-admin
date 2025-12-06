@@ -1,0 +1,8 @@
+{
+  "query": "UPDATE countries SET smshubId = 73 WHERE id = 23",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute UPDATE countries SET smshubId = 73 WHERE id = 23",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1062 (23000) at line 1: Duplicate entry '?' for key 'countries.countries_smshubId_unique'"
+  ]
+}

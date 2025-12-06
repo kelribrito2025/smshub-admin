@@ -1,0 +1,18 @@
+{
+  "query": "\nSELECT \n  p.id,\n  p.apiId,\n  a.name as apiName,\n  s.name as serviceName,\n  s.smshubCode,\n  p.ourPrice\nFROM prices p\nLEFT JOIN sms_apis a ON p.apiId = a.id\nLEFT JOIN services s ON p.serviceId = s.id\nWHERE p.countryId = 1 AND p.apiId = 1 AND p.active = 1\nLIMIT 5;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  p.id,\n  p.apiId,\n  a.name as apiName,\n  s.name as serviceName,\n  s.smshubCode,\n  p.ourPrice\nFROM prices p\nLEFT JOIN sms_apis a ON p.apiId = a.id\nLEFT JOIN services s ON p.serviceId = s.id\nWHERE p.countryId = 1 AND p.apiId = 1 AND p.active = 1\nLIMIT 5;\n",
+  "rows": [
+    {
+      "id": "1",
+      "apiId": "1",
+      "apiName": "Opção 1",
+      "serviceName": "Service TEST_SERVICE",
+      "smshubCode": "test_service",
+      "ourPrice": "200"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tapiId\tapiName\tserviceName\tsmshubCode\tourPrice\n1\t1\tOpção 1\tService TEST_SERVICE\ttest_service\t200\n",
+  "stderr": "",
+  "execution_time_ms": 4123
+}

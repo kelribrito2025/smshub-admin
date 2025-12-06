@@ -1,0 +1,9 @@
+{
+  "query": "UPDATE countries SET smshubId = 73 WHERE name = 'Brazil' OR code = 'brazil';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute UPDATE countries SET smshubId = 73 WHERE name = 'Brazil' OR code = 'brazil';",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 130
+}

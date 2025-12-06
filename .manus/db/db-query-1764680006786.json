@@ -1,0 +1,55 @@
+{
+  "query": "\nSELECT \n  id,\n  smshubActivationId,\n  phoneNumber,\n  apiId,\n  status,\n  smsCode,\n  createdAt\nFROM activations\nORDER BY id DESC\nLIMIT 5;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  id,\n  smshubActivationId,\n  phoneNumber,\n  apiId,\n  status,\n  smsCode,\n  createdAt\nFROM activations\nORDER BY id DESC\nLIMIT 5;\n",
+  "rows": [
+    {
+      "id": "180005",
+      "smshubActivationId": "851906087",
+      "phoneNumber": "5561981043043",
+      "apiId": "1",
+      "status": "active",
+      "smsCode": "NULL",
+      "createdAt": "2025-12-02 12:50:26"
+    },
+    {
+      "id": "180004",
+      "smshubActivationId": "851904702",
+      "phoneNumber": "5516990484775",
+      "apiId": "1",
+      "status": "active",
+      "smsCode": "NULL",
+      "createdAt": "2025-12-02 12:47:14"
+    },
+    {
+      "id": "180003",
+      "smshubActivationId": "851904075",
+      "phoneNumber": "5511973969002",
+      "apiId": "1",
+      "status": "active",
+      "smsCode": "NULL",
+      "createdAt": "2025-12-02 12:46:00"
+    },
+    {
+      "id": "180002",
+      "smshubActivationId": "851902380",
+      "phoneNumber": "5562991855817",
+      "apiId": "1",
+      "status": "active",
+      "smsCode": "NULL",
+      "createdAt": "2025-12-02 12:43:11"
+    },
+    {
+      "id": "180001",
+      "smshubActivationId": "851901112",
+      "phoneNumber": "5541999543307",
+      "apiId": "1",
+      "status": "active",
+      "smsCode": "NULL",
+      "createdAt": "2025-12-02 12:40:42"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tsmshubActivationId\tphoneNumber\tapiId\tstatus\tsmsCode\tcreatedAt\n180005\t851906087\t5561981043043\t1\tactive\tNULL\t2025-12-02 12:50:26\n180004\t851904702\t5516990484775\t1\tactive\tNULL\t2025-12-02 12:47:14\n180003\t851904075\t5511973969002\t1\tactive\tNULL\t2025-12-02 12:46:00\n180002\t851902380\t5562991855817\t1\tactive\tNULL\t2025-12-02 12:43:11\n180001\t851901112\t5541999543307\t1\tactive\tNULL\t2025-12-02 12:40:42\n",
+  "stderr": "",
+  "execution_time_ms": 71
+}

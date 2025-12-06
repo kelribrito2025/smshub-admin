@@ -1,0 +1,15 @@
+{
+  "query": "SELECT id, name, active FROM sms_apis WHERE id = 2;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, name, active FROM sms_apis WHERE id = 2;",
+  "rows": [
+    {
+      "id": "2",
+      "name": "Opção 2",
+      "active": "1"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tactive\n2\tOpção 2\t1\n",
+  "stderr": "",
+  "execution_time_ms": 61
+}

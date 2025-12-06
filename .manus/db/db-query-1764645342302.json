@@ -1,0 +1,15 @@
+{
+  "query": "\nSELECT \n  COUNT(*) as total_prices,\n  COUNT(DISTINCT CONCAT(countryId, '-', serviceId)) as unique_combinations,\n  COUNT(DISTINCT apiId) as distinct_apis\nFROM prices;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  COUNT(*) as total_prices,\n  COUNT(DISTINCT CONCAT(countryId, '-', serviceId)) as unique_combinations,\n  COUNT(DISTINCT apiId) as distinct_apis\nFROM prices;\n",
+  "rows": [
+    {
+      "total_prices": "570",
+      "unique_combinations": "421",
+      "distinct_apis": "2"
+    }
+  ],
+  "messages": [],
+  "stdout": "total_prices\tunique_combinations\tdistinct_apis\n570\t421\t2\n",
+  "stderr": "",
+  "execution_time_ms": 56
+}

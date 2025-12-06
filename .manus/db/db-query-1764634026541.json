@@ -1,0 +1,20 @@
+{
+  "query": "\nSELECT \n  id,\n  smshubActivationId,\n  phoneNumber,\n  apiId,\n  status,\n  smsCode,\n  createdAt,\n  CASE \n    WHEN smshubActivationId = phoneNumber THEN 'INVALID_FORMAT'\n    ELSE 'VALID_FORMAT'\n  END as format_status\nFROM activations\nWHERE phoneNumber = '5521920388058'\nORDER BY createdAt DESC\nLIMIT 1;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  id,\n  smshubActivationId,\n  phoneNumber,\n  apiId,\n  status,\n  smsCode,\n  createdAt,\n  CASE \n    WHEN smshubActivationId = phoneNumber THEN 'INVALID_FORMAT'\n    ELSE 'VALID_FORMAT'\n  END as format_status\nFROM activations\nWHERE phoneNumber = '5521920388058'\nORDER BY createdAt DESC\nLIMIT 1;\n",
+  "rows": [
+    {
+      "id": "90022",
+      "smshubActivationId": "3956804",
+      "phoneNumber": "5521920388058",
+      "apiId": "2",
+      "status": "active",
+      "smsCode": "NULL",
+      "createdAt": "2025-12-02 00:06:14",
+      "format_status": "VALID_FORMAT"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tsmshubActivationId\tphoneNumber\tapiId\tstatus\tsmsCode\tcreatedAt\tformat_status\n90022\t3956804\t5521920388058\t2\tactive\tNULL\t2025-12-02 00:06:14\tVALID_FORMAT\n",
+  "stderr": "",
+  "execution_time_ms": 56
+}

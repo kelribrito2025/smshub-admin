@@ -1,0 +1,18 @@
+{
+  "query": "SHOW COLUMNS FROM prices LIKE 'api%'",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SHOW COLUMNS FROM prices LIKE 'api%'",
+  "rows": [
+    {
+      "Field": "apiId",
+      "Type": "int(11)",
+      "Null": "YES",
+      "Key": "MUL",
+      "Default": "NULL",
+      "Extra": ""
+    }
+  ],
+  "messages": [],
+  "stdout": "Field\tType\tNull\tKey\tDefault\tExtra\napiId\tint(11)\tYES\tMUL\tNULL\t\n",
+  "stderr": "",
+  "execution_time_ms": 61
+}

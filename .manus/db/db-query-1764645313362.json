@@ -1,0 +1,22 @@
+{
+  "query": "\nSELECT \n  apiId,\n  COUNT(*) as total_records\nFROM prices\nGROUP BY apiId\nORDER BY apiId;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  apiId,\n  COUNT(*) as total_records\nFROM prices\nGROUP BY apiId\nORDER BY apiId;\n",
+  "rows": [
+    {
+      "apiId": "NULL",
+      "total_records": "493"
+    },
+    {
+      "apiId": "1",
+      "total_records": "416"
+    },
+    {
+      "apiId": "2",
+      "total_records": "154"
+    }
+  ],
+  "messages": [],
+  "stdout": "apiId\ttotal_records\nNULL\t493\n1\t416\n2\t154\n",
+  "stderr": "",
+  "execution_time_ms": 57
+}

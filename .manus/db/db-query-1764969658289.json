@@ -1,0 +1,130 @@
+{
+  "query": "SELECT r.id, r.customerId, r.amount, r.paymentMethod, r.status, r.transactionId, r.createdAt, r.completedAt, c.pin, c.email \nFROM recharges r \nJOIN customers c ON r.customerId = c.id \nWHERE c.pin = 7 \nORDER BY r.createdAt DESC",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT r.id, r.customerId, r.amount, r.paymentMethod, r.status, r.transactionId, r.createdAt, r.completedAt, c.pin, c.email \nFROM recharges r \nJOIN customers c ON r.customerId = c.id \nWHERE c.pin = 7 \nORDER BY r.createdAt DESC",
+  "rows": [
+    {
+      "id": "20",
+      "customerId": "180002",
+      "amount": "20000",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "NULL",
+      "createdAt": "2025-12-05 19:12:04",
+      "completedAt": "2025-12-05 19:12:04",
+      "pin": "7",
+      "email": "xkelrix@gmail.com"
+    },
+    {
+      "id": "19",
+      "customerId": "180002",
+      "amount": "3000",
+      "paymentMethod": "picpay",
+      "status": "pending",
+      "transactionId": "NULL",
+      "createdAt": "2025-12-05 18:12:04",
+      "completedAt": "NULL",
+      "pin": "7",
+      "email": "xkelrix@gmail.com"
+    },
+    {
+      "id": "18",
+      "customerId": "180002",
+      "amount": "15000",
+      "paymentMethod": "crypto",
+      "status": "completed",
+      "transactionId": "NULL",
+      "createdAt": "2025-12-05 08:12:04",
+      "completedAt": "2025-12-05 08:12:04",
+      "pin": "7",
+      "email": "xkelrix@gmail.com"
+    },
+    {
+      "id": "17",
+      "customerId": "180002",
+      "amount": "7500",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "NULL",
+      "createdAt": "2025-12-04 20:12:04",
+      "completedAt": "2025-12-04 20:12:04",
+      "pin": "7",
+      "email": "xkelrix@gmail.com"
+    },
+    {
+      "id": "16",
+      "customerId": "180002",
+      "amount": "2500",
+      "paymentMethod": "picpay",
+      "status": "completed",
+      "transactionId": "NULL",
+      "createdAt": "2025-12-03 20:12:04",
+      "completedAt": "2025-12-03 20:12:04",
+      "pin": "7",
+      "email": "xkelrix@gmail.com"
+    },
+    {
+      "id": "15",
+      "customerId": "180002",
+      "amount": "10000",
+      "paymentMethod": "crypto",
+      "status": "completed",
+      "transactionId": "NULL",
+      "createdAt": "2025-12-02 20:12:04",
+      "completedAt": "2025-12-02 20:12:04",
+      "pin": "7",
+      "email": "xkelrix@gmail.com"
+    },
+    {
+      "id": "22",
+      "customerId": "180002",
+      "amount": "8000",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "NULL",
+      "createdAt": "2025-12-01 20:12:04",
+      "completedAt": "2025-12-01 20:12:04",
+      "pin": "7",
+      "email": "xkelrix@gmail.com"
+    },
+    {
+      "id": "14",
+      "customerId": "180002",
+      "amount": "5000",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "NULL",
+      "createdAt": "2025-11-30 20:12:04",
+      "completedAt": "2025-11-30 20:12:04",
+      "pin": "7",
+      "email": "xkelrix@gmail.com"
+    },
+    {
+      "id": "21",
+      "customerId": "180002",
+      "amount": "12500",
+      "paymentMethod": "card",
+      "status": "completed",
+      "transactionId": "NULL",
+      "createdAt": "2025-11-29 20:12:04",
+      "completedAt": "2025-11-29 20:12:04",
+      "pin": "7",
+      "email": "xkelrix@gmail.com"
+    },
+    {
+      "id": "23",
+      "customerId": "180002",
+      "amount": "5500",
+      "paymentMethod": "crypto",
+      "status": "expired",
+      "transactionId": "NULL",
+      "createdAt": "2025-11-28 20:12:04",
+      "completedAt": "NULL",
+      "pin": "7",
+      "email": "xkelrix@gmail.com"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\tamount\tpaymentMethod\tstatus\ttransactionId\tcreatedAt\tcompletedAt\tpin\temail\n20\t180002\t20000\tpix\tcompleted\tNULL\t2025-12-05 19:12:04\t2025-12-05 19:12:04\t7\txkelrix@gmail.com\n19\t180002\t3000\tpicpay\tpending\tNULL\t2025-12-05 18:12:04\tNULL\t7\txkelrix@gmail.com\n18\t180002\t15000\tcrypto\tcompleted\tNULL\t2025-12-05 08:12:04\t2025-12-05 08:12:04\t7\txkelrix@gmail.com\n17\t180002\t7500\tpix\tcompleted\tNULL\t2025-12-04 20:12:04\t2025-12-04 20:12:04\t7\txkelrix@gmail.com\n16\t180002\t2500\tpicpay\tcompleted\tNULL\t2025-12-03 20:12:04\t2025-12-03 20:12:04\t7\txkelrix@gmail.com\n15\t180002\t10000\tcrypto\tcompleted\tNULL\t2025-12-02 20:12:04\t2025-12-02 20:12:04\t7\txkelrix@gmail.com\n22\t180002\t8000\tpix\tcompleted\tNULL\t2025-12-01 20:12:04\t2025-12-01 20:12:04\t7\txkelrix@gmail.com\n14\t180002\t5000\tpix\tcompleted\tNULL\t2025-11-30 20:12:04\t2025-11-30 20:12:04\t7\txkelrix@gmail.com\n21\t180002\t12500\tcard\tcompleted\tNULL\t2025-11-29 20:12:04\t2025-11-29 20:12:04\t7\txkelrix@gmail.com\n23\t180002\t5500\tcrypto\texpired\tNULL\t2025-11-28 20:12:04\tNULL\t7\txkelrix@gmail.com\n",
+  "stderr": "",
+  "execution_time_ms": 77
+}

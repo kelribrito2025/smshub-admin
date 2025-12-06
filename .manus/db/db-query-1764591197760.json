@@ -1,0 +1,30 @@
+{
+  "query": "SELECT smshubCode, name FROM services WHERE smshubCode IN ('dh', 'dr', 'ds', 'ew', 'fs') ORDER BY smshubCode;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT smshubCode, name FROM services WHERE smshubCode IN ('dh', 'dr', 'ds', 'ew', 'fs') ORDER BY smshubCode;",
+  "rows": [
+    {
+      "smshubCode": "dh",
+      "name": "DH"
+    },
+    {
+      "smshubCode": "dr",
+      "name": "DR"
+    },
+    {
+      "smshubCode": "ds",
+      "name": "DS"
+    },
+    {
+      "smshubCode": "ew",
+      "name": "EW"
+    },
+    {
+      "smshubCode": "fs",
+      "name": "FS"
+    }
+  ],
+  "messages": [],
+  "stdout": "smshubCode\tname\ndh\tDH\ndr\tDR\nds\tDS\new\tEW\nfs\tFS\n",
+  "stderr": "",
+  "execution_time_ms": 56
+}

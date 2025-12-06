@@ -1,0 +1,22 @@
+{
+  "query": "SELECT p.id, p.apiId, p.smshubPrice, p.ourPrice, p.quantityAvailable, p.active,\n       s.smshubCode, s.name as service_name, \n       c.name as country_name,\n       a.name as api_name\nFROM prices p \nJOIN services s ON p.serviceId = s.id \nJOIN countries c ON p.countryId = c.id \nLEFT JOIN sms_apis a ON p.apiId = a.id\nWHERE s.smshubCode = 'test_api'",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT p.id, p.apiId, p.smshubPrice, p.ourPrice, p.quantityAvailable, p.active,\n       s.smshubCode, s.name as service_name, \n       c.name as country_name,\n       a.name as api_name\nFROM prices p \nJOIN services s ON p.serviceId = s.id \nJOIN countries c ON p.countryId = c.id \nLEFT JOIN sms_apis a ON p.apiId = a.id\nWHERE s.smshubCode = 'test_api'",
+  "rows": [
+    {
+      "id": "150001",
+      "apiId": "1",
+      "smshubPrice": "150",
+      "ourPrice": "300",
+      "quantityAvailable": "100",
+      "active": "1",
+      "smshubCode": "test_api",
+      "service_name": "Serviço Teste API",
+      "country_name": "Brazil",
+      "api_name": "Opção 1"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tapiId\tsmshubPrice\tourPrice\tquantityAvailable\tactive\tsmshubCode\tservice_name\tcountry_name\tapi_name\n150001\t1\t150\t300\t100\t1\ttest_api\tServiço Teste API\tBrazil\tOpção 1\n",
+  "stderr": "",
+  "execution_time_ms": 56
+}

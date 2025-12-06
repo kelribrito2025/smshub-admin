@@ -1,0 +1,100 @@
+{
+  "query": "SELECT \n  p.id,\n  p.apiId,\n  a.name as api_name,\n  c.name as country_name,\n  s.name as service_name,\n  p.smshubPrice,\n  p.ourPrice\nFROM prices p\nLEFT JOIN sms_apis a ON p.apiId = a.id\nLEFT JOIN countries c ON p.countryId = c.id\nLEFT JOIN services s ON p.serviceId = s.id\nWHERE p.apiId IS NOT NULL\nORDER BY p.createdAt DESC\nLIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT \n  p.id,\n  p.apiId,\n  a.name as api_name,\n  c.name as country_name,\n  s.name as service_name,\n  p.smshubPrice,\n  p.ourPrice\nFROM prices p\nLEFT JOIN sms_apis a ON p.apiId = a.id\nLEFT JOIN countries c ON p.countryId = c.id\nLEFT JOIN services s ON p.serviceId = s.id\nWHERE p.apiId IS NOT NULL\nORDER BY p.createdAt DESC\nLIMIT 10;",
+  "rows": [
+    {
+      "id": "150261",
+      "apiId": "2",
+      "api_name": "Opçao 1",
+      "country_name": "Brazil",
+      "service_name": "Casino/bet/gambling",
+      "smshubPrice": "100",
+      "ourPrice": "200"
+    },
+    {
+      "id": "150255",
+      "apiId": "2",
+      "api_name": "Opçao 1",
+      "country_name": "Brazil",
+      "service_name": "Ultragaz",
+      "smshubPrice": "64",
+      "ourPrice": "128"
+    },
+    {
+      "id": "150260",
+      "apiId": "2",
+      "api_name": "Opçao 1",
+      "country_name": "Brazil",
+      "service_name": "Service xj",
+      "smshubPrice": "50",
+      "ourPrice": "100"
+    },
+    {
+      "id": "150257",
+      "apiId": "2",
+      "api_name": "Opçao 1",
+      "country_name": "Brazil",
+      "service_name": "FastEarn",
+      "smshubPrice": "60",
+      "ourPrice": "120"
+    },
+    {
+      "id": "150254",
+      "apiId": "2",
+      "api_name": "Opçao 1",
+      "country_name": "Brazil",
+      "service_name": "Premmia",
+      "smshubPrice": "65",
+      "ourPrice": "130"
+    },
+    {
+      "id": "150253",
+      "apiId": "2",
+      "api_name": "Opçao 1",
+      "country_name": "Brazil",
+      "service_name": "InfinitePay",
+      "smshubPrice": "64",
+      "ourPrice": "128"
+    },
+    {
+      "id": "150259",
+      "apiId": "2",
+      "api_name": "Opçao 1",
+      "country_name": "Brazil",
+      "service_name": "Natura Avon",
+      "smshubPrice": "100",
+      "ourPrice": "200"
+    },
+    {
+      "id": "150258",
+      "apiId": "2",
+      "api_name": "Opçao 1",
+      "country_name": "Brazil",
+      "service_name": "Privalia",
+      "smshubPrice": "61",
+      "ourPrice": "122"
+    },
+    {
+      "id": "150256",
+      "apiId": "2",
+      "api_name": "Opçao 1",
+      "country_name": "Brazil",
+      "service_name": "MagaLu",
+      "smshubPrice": "65",
+      "ourPrice": "130"
+    },
+    {
+      "id": "150262",
+      "apiId": "2",
+      "api_name": "Opçao 1",
+      "country_name": "Brazil",
+      "service_name": "NGCASH",
+      "smshubPrice": "50",
+      "ourPrice": "100"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tapiId\tapi_name\tcountry_name\tservice_name\tsmshubPrice\tourPrice\n150261\t2\tOpçao 1\tBrazil\tCasino/bet/gambling\t100\t200\n150255\t2\tOpçao 1\tBrazil\tUltragaz\t64\t128\n150260\t2\tOpçao 1\tBrazil\tService xj\t50\t100\n150257\t2\tOpçao 1\tBrazil\tFastEarn\t60\t120\n150254\t2\tOpçao 1\tBrazil\tPremmia\t65\t130\n150253\t2\tOpçao 1\tBrazil\tInfinitePay\t64\t128\n150259\t2\tOpçao 1\tBrazil\tNatura Avon\t100\t200\n150258\t2\tOpçao 1\tBrazil\tPrivalia\t61\t122\n150256\t2\tOpçao 1\tBrazil\tMagaLu\t65\t130\n150262\t2\tOpçao 1\tBrazil\tNGCASH\t50\t100\n",
+  "stderr": "",
+  "execution_time_ms": 57
+}

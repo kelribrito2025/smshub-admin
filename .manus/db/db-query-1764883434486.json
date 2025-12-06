@@ -1,0 +1,24 @@
+{
+  "query": "SELECT * FROM sms_apis WHERE id = 2;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT * FROM sms_apis WHERE id = 2;",
+  "rows": [
+    {
+      "id": "2",
+      "name": "Opção 2",
+      "url": "https://smshub.org/stubs/handler_api.php",
+      "token": "107241Ud056a935ea159b3887c2b8b6f3922322",
+      "active": "0",
+      "priority": "2",
+      "createdAt": "2025-12-01 15:52:41",
+      "updatedAt": "2025-12-04 21:23:06",
+      "profit_percentage": "155.00",
+      "minimum_price": "97",
+      "currency": "USD",
+      "exchange_rate": "5.32"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\turl\ttoken\tactive\tpriority\tcreatedAt\tupdatedAt\tprofit_percentage\tminimum_price\tcurrency\texchange_rate\n2\tOpção 2\thttps://smshub.org/stubs/handler_api.php\t107241Ud056a935ea159b3887c2b8b6f3922322\t0\t2\t2025-12-01 15:52:41\t2025-12-04 21:23:06\t155.00\t97\tUSD\t5.32\n",
+  "stderr": "",
+  "execution_time_ms": 61
+}

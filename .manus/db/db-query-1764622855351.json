@@ -1,0 +1,26 @@
+{
+  "query": "SELECT id, name, url, token, priority, active FROM sms_apis WHERE id IN (1, 2) ORDER BY id",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, name, url, token, priority, active FROM sms_apis WHERE id IN (1, 2) ORDER BY id",
+  "rows": [
+    {
+      "id": "1",
+      "name": "Opção 1",
+      "url": "https://api.sms24h.org/stubs/handler_api.php",
+      "token": "107241Ud056a935ea159b3887c2b8b6f3922322",
+      "priority": "1",
+      "active": "1"
+    },
+    {
+      "id": "2",
+      "name": "Opcao 2",
+      "url": "https://api.sms24h.org/stubs/handler_api",
+      "token": "5115b2c78832b7f8a5150084c81f8734",
+      "priority": "0",
+      "active": "1"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\turl\ttoken\tpriority\tactive\n1\tOpção 1\thttps://api.sms24h.org/stubs/handler_api.php\t107241Ud056a935ea159b3887c2b8b6f3922322\t1\t1\n2\tOpcao 2\thttps://api.sms24h.org/stubs/handler_api\t5115b2c78832b7f8a5150084c81f8734\t0\t1\n",
+  "stderr": "",
+  "execution_time_ms": 94
+}

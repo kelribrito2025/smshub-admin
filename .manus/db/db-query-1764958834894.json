@@ -1,0 +1,9 @@
+{
+  "query": "SELECT id, name, smshubCode, active FROM services WHERE active = 1 AND smshubCode = 'wa'",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, name, smshubCode, active FROM services WHERE active = 1 AND smshubCode = 'wa'",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 57
+}

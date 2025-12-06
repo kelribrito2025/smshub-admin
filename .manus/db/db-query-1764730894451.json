@@ -1,0 +1,38 @@
+{
+  "query": "SELECT \n  p.apiId,\n  a.name as apiName,\n  a.priority,\n  p.ourPrice,\n  s.name as serviceName\nFROM prices p\nLEFT JOIN sms_apis a ON p.apiId = a.id\nLEFT JOIN services s ON p.serviceId = s.id\nWHERE s.name LIKE '%WhatsApp%'\nORDER BY a.priority ASC\nLIMIT 10",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT \n  p.apiId,\n  a.name as apiName,\n  a.priority,\n  p.ourPrice,\n  s.name as serviceName\nFROM prices p\nLEFT JOIN sms_apis a ON p.apiId = a.id\nLEFT JOIN services s ON p.serviceId = s.id\nWHERE s.name LIKE '%WhatsApp%'\nORDER BY a.priority ASC\nLIMIT 10",
+  "rows": [
+    {
+      "apiId": "26",
+      "apiName": "NULL",
+      "priority": "NULL",
+      "ourPrice": "200",
+      "serviceName": "WhatsApp"
+    },
+    {
+      "apiId": "2",
+      "apiName": "Opçao 1",
+      "priority": "1",
+      "ourPrice": "1600",
+      "serviceName": "WhatsApp"
+    },
+    {
+      "apiId": "1",
+      "apiName": "Opção 2",
+      "priority": "2",
+      "ourPrice": "200",
+      "serviceName": "WhatsApp"
+    },
+    {
+      "apiId": "60001",
+      "apiName": "Opção 3",
+      "priority": "3",
+      "ourPrice": "220",
+      "serviceName": "WhatsApp"
+    }
+  ],
+  "messages": [],
+  "stdout": "apiId\tapiName\tpriority\tourPrice\tserviceName\n26\tNULL\tNULL\t200\tWhatsApp\n2\tOpçao 1\t1\t1600\tWhatsApp\n1\tOpção 2\t2\t200\tWhatsApp\n60001\tOpção 3\t3\t220\tWhatsApp\n",
+  "stderr": "",
+  "execution_time_ms": 62
+}

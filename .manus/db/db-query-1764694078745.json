@@ -1,0 +1,18 @@
+{
+  "query": "SELECT id, apiId, smshubActivationId, phoneNumber, smsCode, smshubStatus FROM activations WHERE id = 240021",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT id, apiId, smshubActivationId, phoneNumber, smsCode, smshubStatus FROM activations WHERE id = 240021",
+  "rows": [
+    {
+      "id": "240021",
+      "apiId": "1",
+      "smshubActivationId": "851978300",
+      "phoneNumber": "5561982920066",
+      "smsCode": "Codigo de verificacao Ã©:  093453",
+      "smshubStatus": "received"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tapiId\tsmshubActivationId\tphoneNumber\tsmsCode\tsmshubStatus\n240021\t1\t851978300\t5561982920066\tCodigo de verificacao Ã©:  093453\treceived\n",
+  "stderr": "",
+  "execution_time_ms": 105
+}

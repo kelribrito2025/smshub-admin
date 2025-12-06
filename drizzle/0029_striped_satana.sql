@@ -1,0 +1,1 @@
+ALTER TABLE `prices` ADD CONSTRAINT `prices_apiId_sms_apis_id_fk` FOREIGN KEY (`apiId`) REFERENCES `sms_apis`(`id`) ON DELETE cascade ON UPDATE no action;

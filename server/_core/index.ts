@@ -7,6 +7,11 @@ import { registerOAuthRoutes } from "./oauth";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
+import restApiRouter from "../rest-api";
+import pixWebhookRouter from "../webhook-pix";
+import stripeWebhookRouter from "../stripe-webhook";
+import notificationsSseRouter from "../notifications-sse";
+import { initExchangeRateCron } from "../exchange-rate";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -30,11 +35,36 @@ async function findAvailablePort(startPort: number = 3000): Promise<number> {
 async function startServer() {
   const app = express();
   const server = createServer(app);
+  
+  // CORS middleware for public API
+  app.use("/api/public", (req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Content-Type, X-API-Key, Authorization");
+    
+    // Handle preflight requests
+    if (req.method === "OPTIONS") {
+      return res.sendStatus(200);
+    }
+    
+    next();
+  });
+  
+  // Stripe Webhook (MUST be registered BEFORE express.json() middleware to receive raw body)
+  app.use("/api/stripe", express.raw({ type: "application/json" }), stripeWebhookRouter);
+  
   // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
+  
   // OAuth callback under /api/oauth/callback
   registerOAuthRoutes(app);
+  // REST API for public endpoints
+  app.use("/api/public", restApiRouter);
+  // PIX Webhook
+  app.use("/api", pixWebhookRouter);
+  // SSE Notifications
+  app.use("/api/notifications", notificationsSseRouter);
   // tRPC API
   app.use(
     "/api/trpc",
@@ -59,6 +89,9 @@ async function startServer() {
 
   server.listen(port, () => {
     console.log(`Server running on http://localhost:${port}/`);
+    
+    // Initialize exchange rate cron job
+    initExchangeRateCron();
   });
 }
 

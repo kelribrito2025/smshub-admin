@@ -1,0 +1,38 @@
+{
+  "query": "SELECT r.*, pt.txid \nFROM pix_transactions pt\nLEFT JOIN recharges r ON r.transactionId = pt.txid\nWHERE pt.customerId = (SELECT id FROM customers WHERE pin = 7) \n  AND pt.amount = 233\nORDER BY pt.createdAt DESC",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT r.*, pt.txid \nFROM pix_transactions pt\nLEFT JOIN recharges r ON r.transactionId = pt.txid\nWHERE pt.customerId = (SELECT id FROM customers WHERE pin = 7) \n  AND pt.amount = 233\nORDER BY pt.createdAt DESC",
+  "rows": [
+    {
+      "id": "30002",
+      "customerId": "180002",
+      "amount": "233",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "56882da4dbce43ceb7e464e59ab81ada",
+      "metadata": "NULL",
+      "createdAt": "2025-12-05 21:17:30",
+      "updatedAt": "2025-12-05 21:22:09",
+      "completedAt": "2025-12-05 21:18:06",
+      "expiresAt": "NULL",
+      "txid": "56882da4dbce43ceb7e464e59ab81ada"
+    },
+    {
+      "id": "30001",
+      "customerId": "180002",
+      "amount": "233",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "054b2bfe547d4ccd9ed690cc30ea2529",
+      "metadata": "NULL",
+      "createdAt": "2025-12-05 20:42:59",
+      "updatedAt": "2025-12-05 21:22:09",
+      "completedAt": "2025-12-05 20:43:07",
+      "expiresAt": "NULL",
+      "txid": "054b2bfe547d4ccd9ed690cc30ea2529"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\tamount\tpaymentMethod\tstatus\ttransactionId\tmetadata\tcreatedAt\tupdatedAt\tcompletedAt\texpiresAt\ttxid\n30002\t180002\t233\tpix\tcompleted\t56882da4dbce43ceb7e464e59ab81ada\tNULL\t2025-12-05 21:17:30\t2025-12-05 21:22:09\t2025-12-05 21:18:06\tNULL\t56882da4dbce43ceb7e464e59ab81ada\n30001\t180002\t233\tpix\tcompleted\t054b2bfe547d4ccd9ed690cc30ea2529\tNULL\t2025-12-05 20:42:59\t2025-12-05 21:22:09\t2025-12-05 20:43:07\tNULL\t054b2bfe547d4ccd9ed690cc30ea2529\n",
+  "stderr": "",
+  "execution_time_ms": 74
+}

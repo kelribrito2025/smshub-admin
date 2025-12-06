@@ -1,0 +1,170 @@
+{
+  "query": "\nSELECT \n  countryId,\n  serviceId,\n  COUNT(*) as total_records,\n  COUNT(DISTINCT apiId) as distinct_apis,\n  GROUP_CONCAT(DISTINCT apiId ORDER BY apiId) as api_ids,\n  GROUP_CONCAT(id ORDER BY id) as price_ids\nFROM prices\nGROUP BY countryId, serviceId\nHAVING COUNT(*) > 2\nORDER BY total_records DESC\nLIMIT 20;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  countryId,\n  serviceId,\n  COUNT(*) as total_records,\n  COUNT(DISTINCT apiId) as distinct_apis,\n  GROUP_CONCAT(DISTINCT apiId ORDER BY apiId) as api_ids,\n  GROUP_CONCAT(id ORDER BY id) as price_ids\nFROM prices\nGROUP BY countryId, serviceId\nHAVING COUNT(*) > 2\nORDER BY total_records DESC\nLIMIT 20;\n",
+  "rows": [
+    {
+      "countryId": "24",
+      "serviceId": "60001",
+      "total_records": "3",
+      "distinct_apis": "2",
+      "api_ids": "1,2",
+      "price_ids": "150012,150013,150631"
+    },
+    {
+      "countryId": "24",
+      "serviceId": "60003",
+      "total_records": "3",
+      "distinct_apis": "2",
+      "api_ids": "1,2",
+      "price_ids": "60006,150251,150519"
+    },
+    {
+      "countryId": "24",
+      "serviceId": "60006",
+      "total_records": "3",
+      "distinct_apis": "2",
+      "api_ids": "1,2",
+      "price_ids": "60009,150215,150626"
+    },
+    {
+      "countryId": "24",
+      "serviceId": "60007",
+      "total_records": "3",
+      "distinct_apis": "2",
+      "api_ids": "1,2",
+      "price_ids": "60010,150177,150607"
+    },
+    {
+      "countryId": "24",
+      "serviceId": "60009",
+      "total_records": "3",
+      "distinct_apis": "2",
+      "api_ids": "1,2",
+      "price_ids": "60012,150247,150581"
+    },
+    {
+      "countryId": "24",
+      "serviceId": "60010",
+      "total_records": "3",
+      "distinct_apis": "2",
+      "api_ids": "1,2",
+      "price_ids": "60015,150168,150273"
+    },
+    {
+      "countryId": "24",
+      "serviceId": "60016",
+      "total_records": "3",
+      "distinct_apis": "2",
+      "api_ids": "1,2",
+      "price_ids": "60021,150131,150313"
+    },
+    {
+      "countryId": "24",
+      "serviceId": "60019",
+      "total_records": "3",
+      "distinct_apis": "2",
+      "api_ids": "1,2",
+      "price_ids": "60024,150143,150329"
+    },
+    {
+      "countryId": "24",
+      "serviceId": "60021",
+      "total_records": "3",
+      "distinct_apis": "2",
+      "api_ids": "1,2",
+      "price_ids": "60026,150149,150389"
+    },
+    {
+      "countryId": "24",
+      "serviceId": "60028",
+      "total_records": "3",
+      "distinct_apis": "2",
+      "api_ids": "1,2",
+      "price_ids": "60033,150187,150491"
+    },
+    {
+      "countryId": "24",
+      "serviceId": "60030",
+      "total_records": "3",
+      "distinct_apis": "2",
+      "api_ids": "1,2",
+      "price_ids": "60035,150193,150497"
+    },
+    {
+      "countryId": "24",
+      "serviceId": "60031",
+      "total_records": "3",
+      "distinct_apis": "2",
+      "api_ids": "1,2",
+      "price_ids": "60036,150206,150501"
+    },
+    {
+      "countryId": "24",
+      "serviceId": "60032",
+      "total_records": "3",
+      "distinct_apis": "2",
+      "api_ids": "1,2",
+      "price_ids": "60037,150212,150504"
+    },
+    {
+      "countryId": "24",
+      "serviceId": "60033",
+      "total_records": "3",
+      "distinct_apis": "2",
+      "api_ids": "1,2",
+      "price_ids": "60038,150014,150507"
+    },
+    {
+      "countryId": "24",
+      "serviceId": "60034",
+      "total_records": "3",
+      "distinct_apis": "2",
+      "api_ids": "1,2",
+      "price_ids": "60039,150219,150508"
+    },
+    {
+      "countryId": "24",
+      "serviceId": "60036",
+      "total_records": "3",
+      "distinct_apis": "2",
+      "api_ids": "1,2",
+      "price_ids": "60041,150229,150512"
+    },
+    {
+      "countryId": "24",
+      "serviceId": "60037",
+      "total_records": "3",
+      "distinct_apis": "2",
+      "api_ids": "1,2",
+      "price_ids": "60043,150252,150520"
+    },
+    {
+      "countryId": "24",
+      "serviceId": "60039",
+      "total_records": "3",
+      "distinct_apis": "2",
+      "api_ids": "1,2",
+      "price_ids": "60045,150126,150529"
+    },
+    {
+      "countryId": "24",
+      "serviceId": "60040",
+      "total_records": "3",
+      "distinct_apis": "2",
+      "api_ids": "1,2",
+      "price_ids": "60046,150127,150530"
+    },
+    {
+      "countryId": "24",
+      "serviceId": "60041",
+      "total_records": "3",
+      "distinct_apis": "2",
+      "api_ids": "1,2",
+      "price_ids": "60047,150134,150532"
+    }
+  ],
+  "messages": [],
+  "stdout": "countryId\tserviceId\ttotal_records\tdistinct_apis\tapi_ids\tprice_ids\n24\t60001\t3\t2\t1,2\t150012,150013,150631\n24\t60003\t3\t2\t1,2\t60006,150251,150519\n24\t60006\t3\t2\t1,2\t60009,150215,150626\n24\t60007\t3\t2\t1,2\t60010,150177,150607\n24\t60009\t3\t2\t1,2\t60012,150247,150581\n24\t60010\t3\t2\t1,2\t60015,150168,150273\n24\t60016\t3\t2\t1,2\t60021,150131,150313\n24\t60019\t3\t2\t1,2\t60024,150143,150329\n24\t60021\t3\t2\t1,2\t60026,150149,150389\n24\t60028\t3\t2\t1,2\t60033,150187,150491\n24\t60030\t3\t2\t1,2\t60035,150193,150497\n24\t60031\t3\t2\t1,2\t60036,150206,150501\n24\t60032\t3\t2\t1,2\t60037,150212,150504\n24\t60033\t3\t2\t1,2\t60038,150014,150507\n24\t60034\t3\t2\t1,2\t60039,150219,150508\n24\t60036\t3\t2\t1,2\t60041,150229,150512\n24\t60037\t3\t2\t1,2\t60043,150252,150520\n24\t60039\t3\t2\t1,2\t60045,150126,150529\n24\t60040\t3\t2\t1,2\t60046,150127,150530\n24\t60041\t3\t2\t1,2\t60047,150134,150532\n",
+  "stderr": "",
+  "execution_time_ms": 63
+}

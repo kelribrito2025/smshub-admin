@@ -1,0 +1,17 @@
+{
+  "query": "\nSELECT \n  c.name as country,\n  s.name as service,\n  s.smshubCode,\n  COUNT(*) as total_records,\n  GROUP_CONCAT(DISTINCT p.apiId ORDER BY p.apiId) as api_ids\nFROM prices p\nJOIN countries c ON p.countryId = c.id\nJOIN services s ON p.serviceId = s.id\nGROUP BY c.id, s.id\nHAVING COUNT(*) > 3\nORDER BY total_records DESC\nLIMIT 20;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  c.name as country,\n  s.name as service,\n  s.smshubCode,\n  COUNT(*) as total_records,\n  GROUP_CONCAT(DISTINCT p.apiId ORDER BY p.apiId) as api_ids\nFROM prices p\nJOIN countries c ON p.countryId = c.id\nJOIN services s ON p.serviceId = s.id\nGROUP BY c.id, s.id\nHAVING COUNT(*) > 3\nORDER BY total_records DESC\nLIMIT 20;\n",
+  "rows": [
+    {
+      "country": "Brazil",
+      "service": "WhatsApp",
+      "smshubCode": "wa",
+      "total_records": "4",
+      "api_ids": "1,2,3,26"
+    }
+  ],
+  "messages": [],
+  "stdout": "country\tservice\tsmshubCode\ttotal_records\tapi_ids\nBrazil\tWhatsApp\twa\t4\t1,2,3,26\n",
+  "stderr": "",
+  "execution_time_ms": 59
+}

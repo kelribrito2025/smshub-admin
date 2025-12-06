@@ -1,8 +1,31 @@
 import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
-import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
-import { z } from "zod";
+import { publicProcedure, router } from "./_core/trpc";
+import { settingsRouter } from "./routers/settings";
+import { countriesRouter } from "./routers/countries";
+import { servicesRouter } from "./routers/services";
+
+import { syncRouter } from "./routers/sync";
+import { statsRouter } from "./routers/stats";
+import { pricesRouter } from './routers/prices';
+import { customersRouter } from './routers/customers';
+import { apiKeysRouter } from "./routers/apiKeys";
+import { publicRouter } from "./routers/public";
+import { financialRouter } from "./routers/financial";
+import { storeRouter } from "./routers/store";
+import { apisRouter } from "./routers/apis";
+import { apiMetricsRouter } from "./routers/api-metrics";
+import { pixRouter } from "./routers/pix";
+import { stripeRouter } from "./stripe-router";
+import { paymentSettingsRouter } from "./routers/paymentSettings";
+import { securityRouter } from "./routers/security";
+import { auditRouter } from "./routers/audit";
+import { affiliateRouter } from "./routers/affiliateRouter";
+import { affiliateAdminRouter } from "./routers/affiliateAdminRouter";
+import { exchangeRateRouter } from "./routers/exchange-rate";
+import { adminMenusRouter } from "./routers/adminMenus";
+import { rechargesRouter } from "./routers/recharges";
 
 export const appRouter = router({
     // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
@@ -18,131 +41,35 @@ export const appRouter = router({
     }),
   }),
 
-  clients: router({
-    list: protectedProcedure.query(async () => {
-      const { getAllClients } = await import('./db');
-      return await getAllClients();
-    }),
-    getById: protectedProcedure.input(z.object({ id: z.number() })).query(async ({ input }) => {
-      const { getClientById } = await import('./db');
-      return await getClientById(input.id);
-    }),
-    create: protectedProcedure.input(z.object({
-      name: z.string(),
-      email: z.string().email().optional(),
-      phone: z.string().optional(),
-      company: z.string().optional(),
-    })).mutation(async ({ input }) => {
-      const { createClient } = await import('./db');
-      return await createClient(input);
-    }),
-    update: protectedProcedure.input(z.object({
-      id: z.number(),
-      name: z.string().optional(),
-      email: z.string().email().optional(),
-      phone: z.string().optional(),
-      company: z.string().optional(),
-      status: z.enum(['active', 'inactive']).optional(),
-    })).mutation(async ({ input }) => {
-      const { updateClient } = await import('./db');
-      const { id, ...data } = input;
-      return await updateClient(id, data);
-    }),
-  }),
+  // Admin routers
+  settings: settingsRouter,
+  countries: countriesRouter,
+  services: servicesRouter,
 
-  campaigns: router({
-    list: protectedProcedure.query(async () => {
-      const { getAllCampaigns } = await import('./db');
-      return await getAllCampaigns();
-    }),
-    getById: protectedProcedure.input(z.object({ id: z.number() })).query(async ({ input }) => {
-      const { getCampaignById } = await import('./db');
-      return await getCampaignById(input.id);
-    }),
-    getByClient: protectedProcedure.input(z.object({ clientId: z.number() })).query(async ({ input }) => {
-      const { getCampaignsByClient } = await import('./db');
-      return await getCampaignsByClient(input.clientId);
-    }),
-    create: protectedProcedure.input(z.object({
-      clientId: z.number(),
-      name: z.string(),
-      message: z.string(),
-      scheduledAt: z.date().optional(),
-      totalRecipients: z.number().default(0),
-    })).mutation(async ({ input, ctx }) => {
-      const { createCampaign } = await import('./db');
-      return await createCampaign({
-        ...input,
-        createdBy: ctx.user.id,
-      });
-    }),
-    update: protectedProcedure.input(z.object({
-      id: z.number(),
-      name: z.string().optional(),
-      message: z.string().optional(),
-      status: z.enum(['draft', 'scheduled', 'sending', 'completed', 'failed']).optional(),
-      scheduledAt: z.date().optional(),
-      totalRecipients: z.number().optional(),
-      successCount: z.number().optional(),
-      failedCount: z.number().optional(),
-    })).mutation(async ({ input }) => {
-      const { updateCampaign } = await import('./db');
-      const { id, ...data } = input;
-      return await updateCampaign(id, data);
-    }),
-  }),
+  prices: pricesRouter,
+  customers: customersRouter,
+  sync: syncRouter,
+  stats: statsRouter,
+  apiKeys: apiKeysRouter,
+  financial: financialRouter,
+  apis: apisRouter,
+  apiMetrics: apiMetricsRouter,
+  paymentSettings: paymentSettingsRouter,
+  audit: auditRouter,
+  affiliateAdmin: affiliateAdminRouter,
+  exchangeRate: exchangeRateRouter,
+  adminMenus: adminMenusRouter,
 
-  messages: router({
-    getByCampaign: protectedProcedure.input(z.object({ campaignId: z.number() })).query(async ({ input }) => {
-      const { getMessagesByCampaign } = await import('./db');
-      return await getMessagesByCampaign(input.campaignId);
-    }),
-    create: protectedProcedure.input(z.object({
-      campaignId: z.number(),
-      recipient: z.string(),
-      message: z.string(),
-    })).mutation(async ({ input }) => {
-      const { createMessage } = await import('./db');
-      return await createMessage(input);
-    }),
-  }),
+  // Public API (for sales dashboard)
+  public: publicRouter,
 
-  sales: router({
-    list: protectedProcedure.query(async () => {
-      const { getAllSales } = await import('./db');
-      return await getAllSales();
-    }),
-    getByClient: protectedProcedure.input(z.object({ clientId: z.number() })).query(async ({ input }) => {
-      const { getSalesByClient } = await import('./db');
-      return await getSalesByClient(input.clientId);
-    }),
-    getBySeller: protectedProcedure.input(z.object({ sellerId: z.number() })).query(async ({ input }) => {
-      const { getSalesBySeller } = await import('./db');
-      return await getSalesBySeller(input.sellerId);
-    }),
-    create: protectedProcedure.input(z.object({
-      clientId: z.number(),
-      amount: z.number(),
-      smsCredits: z.number(),
-      paymentMethod: z.string().optional(),
-      notes: z.string().optional(),
-    })).mutation(async ({ input, ctx }) => {
-      const { createSale } = await import('./db');
-      return await createSale({
-        ...input,
-        sellerId: ctx.user.id,
-      });
-    }),
-    update: protectedProcedure.input(z.object({
-      id: z.number(),
-      status: z.enum(['pending', 'completed', 'cancelled']).optional(),
-      notes: z.string().optional(),
-    })).mutation(async ({ input }) => {
-      const { updateSale } = await import('./db');
-      const { id, ...data } = input;
-      return await updateSale(id, data);
-    }),
-  }),
+  // Store API (for customer-facing sales panel)
+  store: storeRouter,
+  pix: pixRouter,
+  stripe: stripeRouter,
+  security: securityRouter,
+  affiliate: affiliateRouter,
+  recharges: rechargesRouter,
 });
 
 export type AppRouter = typeof appRouter;

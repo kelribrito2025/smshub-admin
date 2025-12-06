@@ -1,0 +1,16 @@
+{
+  "query": "SELECT COUNT(*) as total_recharges, \n       SUM(CASE WHEN paymentMethod = 'pix' THEN 1 ELSE 0 END) as pix_recharges,\n       SUM(CASE WHEN paymentMethod = 'card' THEN 1 ELSE 0 END) as card_recharges,\n       SUM(CASE WHEN paymentMethod = 'crypto' THEN 1 ELSE 0 END) as crypto_recharges\nFROM recharges;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute SELECT COUNT(*) as total_recharges, \n       SUM(CASE WHEN paymentMethod = 'pix' THEN 1 ELSE 0 END) as pix_recharges,\n       SUM(CASE WHEN paymentMethod = 'card' THEN 1 ELSE 0 END) as card_recharges,\n       SUM(CASE WHEN paymentMethod = 'crypto' THEN 1 ELSE 0 END) as crypto_recharges\nFROM recharges;",
+  "rows": [
+    {
+      "total_recharges": "18",
+      "pix_recharges": "9",
+      "card_recharges": "2",
+      "crypto_recharges": "4"
+    }
+  ],
+  "messages": [],
+  "stdout": "total_recharges\tpix_recharges\tcard_recharges\tcrypto_recharges\n18\t9\t2\t4\n",
+  "stderr": "",
+  "execution_time_ms": 102
+}

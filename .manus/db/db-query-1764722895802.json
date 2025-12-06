@@ -1,0 +1,9 @@
+{
+  "query": "CREATE TABLE IF NOT EXISTS `customer_sessions` (\n\t`id` int AUTO_INCREMENT NOT NULL,\n\t`customerId` int NOT NULL,\n\t`sessionToken` varchar(255) NOT NULL,\n\t`ipAddress` varchar(45),\n\t`deviceType` varchar(100),\n\t`location` varchar(255),\n\t`userAgent` text,\n\t`loginAt` timestamp NOT NULL DEFAULT (now()),\n\t`lastActivityAt` timestamp NOT NULL DEFAULT (now()),\n\t`isActive` boolean NOT NULL DEFAULT true,\n\t`terminatedAt` timestamp,\n\tCONSTRAINT `customer_sessions_id` PRIMARY KEY(`id`),\n\tCONSTRAINT `customer_sessions_sessionToken_unique` UNIQUE(`sessionToken`)\n);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute CREATE TABLE IF NOT EXISTS `customer_sessions` (\n\t`id` int AUTO_INCREMENT NOT NULL,\n\t`customerId` int NOT NULL,\n\t`sessionToken` varchar(255) NOT NULL,\n\t`ipAddress` varchar(45),\n\t`deviceType` varchar(100),\n\t`location` varchar(255),\n\t`userAgent` text,\n\t`loginAt` timestamp NOT NULL DEFAULT (now()),\n\t`lastActivityAt` timestamp NOT NULL DEFAULT (now()),\n\t`isActive` boolean NOT NULL DEFAULT true,\n\t`terminatedAt` timestamp,\n\tCONSTRAINT `customer_sessions_id` PRIMARY KEY(`id`),\n\tCONSTRAINT `customer_sessions_sessionToken_unique` UNIQUE(`sessionToken`)\n);",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 215
+}

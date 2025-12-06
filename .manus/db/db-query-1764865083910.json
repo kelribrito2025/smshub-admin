@@ -1,0 +1,50 @@
+{
+  "query": "\nSELECT \n  p.id,\n  c.name as country,\n  s.name as service,\n  s.smshubCode,\n  a.id as apiId,\n  a.name as api,\n  p.smshubPrice,\n  p.ourPrice\nFROM prices p\nJOIN countries c ON p.countryId = c.id\nJOIN services s ON p.serviceId = s.id\nLEFT JOIN sms_apis a ON p.apiId = a.id\nWHERE s.smshubCode IN ('auw', 'bi')\nORDER BY s.smshubCode, a.id;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute \nSELECT \n  p.id,\n  c.name as country,\n  s.name as service,\n  s.smshubCode,\n  a.id as apiId,\n  a.name as api,\n  p.smshubPrice,\n  p.ourPrice\nFROM prices p\nJOIN countries c ON p.countryId = c.id\nJOIN services s ON p.serviceId = s.id\nLEFT JOIN sms_apis a ON p.apiId = a.id\nWHERE s.smshubCode IN ('auw', 'bi')\nORDER BY s.smshubCode, a.id;\n",
+  "rows": [
+    {
+      "id": "60423",
+      "country": "Brazil",
+      "service": "3Fun",
+      "smshubCode": "auw",
+      "apiId": "2",
+      "api": "SMSHub",
+      "smshubPrice": "17",
+      "ourPrice": "34"
+    },
+    {
+      "id": "330324",
+      "country": "Brazil",
+      "service": "3Fun",
+      "smshubCode": "auw",
+      "apiId": "3",
+      "api": "SMSActivate",
+      "smshubPrice": "22",
+      "ourPrice": "44"
+    },
+    {
+      "id": "60459",
+      "country": "Brazil",
+      "service": "勇仕网络Ys4fun",
+      "smshubCode": "bi",
+      "apiId": "2",
+      "api": "SMSHub",
+      "smshubPrice": "1",
+      "ourPrice": "2"
+    },
+    {
+      "id": "330021",
+      "country": "Brazil",
+      "service": "勇仕网络Ys4fun",
+      "smshubCode": "bi",
+      "apiId": "3",
+      "api": "SMSActivate",
+      "smshubPrice": "2",
+      "ourPrice": "4"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcountry\tservice\tsmshubCode\tapiId\tapi\tsmshubPrice\tourPrice\n60423\tBrazil\t3Fun\tauw\t2\tSMSHub\t17\t34\n330324\tBrazil\t3Fun\tauw\t3\tSMSActivate\t22\t44\n60459\tBrazil\t勇仕网络Ys4fun\tbi\t2\tSMSHub\t1\t2\n330021\tBrazil\t勇仕网络Ys4fun\tbi\t3\tSMSActivate\t2\t4\n",
+  "stderr": "",
+  "execution_time_ms": 72
+}

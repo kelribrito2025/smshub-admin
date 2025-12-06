@@ -1,0 +1,9 @@
+{
+  "query": "INSERT INTO recharges (customerId, amount, paymentMethod, status, transactionId, completedAt, createdAt, updatedAt) VALUES\n(1, 5000, 'pix', 'completed', 'PIX-2025-12-05-001', NOW() - INTERVAL 2 DAY, NOW() - INTERVAL 2 DAY, NOW() - INTERVAL 2 DAY),\n(1, 10000, 'crypto', 'completed', 'CRYPTO-2025-12-05-002', NOW() - INTERVAL 5 DAY, NOW() - INTERVAL 5 DAY, NOW() - INTERVAL 5 DAY),\n(1, 2500, 'picpay', 'completed', 'PICPAY-2025-12-05-003', NOW() - INTERVAL 1 DAY, NOW() - INTERVAL 1 DAY, NOW() - INTERVAL 1 DAY);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.root --database 2KeMNLvGvAyUJv9AEWkrsw --execute INSERT INTO recharges (customerId, amount, paymentMethod, status, transactionId, completedAt, createdAt, updatedAt) VALUES\n(1, 5000, 'pix', 'completed', 'PIX-2025-12-05-001', NOW() - INTERVAL 2 DAY, NOW() - INTERVAL 2 DAY, NOW() - INTERVAL 2 DAY),\n(1, 10000, 'crypto', 'completed', 'CRYPTO-2025-12-05-002', NOW() - INTERVAL 5 DAY, NOW() - INTERVAL 5 DAY, NOW() - INTERVAL 5 DAY),\n(1, 2500, 'picpay', 'completed', 'PICPAY-2025-12-05-003', NOW() - INTERVAL 1 DAY, NOW() - INTERVAL 1 DAY, NOW() - INTERVAL 1 DAY);",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 63
+}
