@@ -690,3 +690,8 @@
 - [x] Localizar todas as referências ao domínio antigo (numero-virtual.com)
 - [x] Atualizar para novo domínio (app.numero-virtual.com)
 - [x] Verificar se links de afiliados estão funcionando corretamente
+
+## Correção de Movimento da Página ao Abrir Dropdowns
+- [x] Botão admin agora está fixo, mas página inteira se move da direita para esquerda
+- [x] Testar solução alternativa: overflow-y: scroll no html (força scrollbar sempre visível)
+- [x] Prevenir que Radix UI cause layout shift ao manipular scrollbar
