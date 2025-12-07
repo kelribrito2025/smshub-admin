@@ -283,3 +283,10 @@
 - [x] Inverter ordem: AwesomeAPI como primária, ExchangeRate-API como backup
 - [x] Atualizar comentários no código
 - [x] Testar nova configuração (10 testes passaram, cotação R$ 6,08)
+
+## Mudar Cotação para PTAX (Banco Central)
+- [x] Atualizar endpoint de USD-BRL para USD-BRLPTAX
+- [x] Ajustar parsing da resposta (USDBRL → USDBRLPTAX)
+- [x] Atualizar testes para usar PTAX (exchange-rate.test.ts + awesomeapi-token.test.ts)
+- [x] Testar nova configuração (13 testes passaram)
+- [x] Cotação PTAX validada: R$ 5,34 (Banco Central oficial)

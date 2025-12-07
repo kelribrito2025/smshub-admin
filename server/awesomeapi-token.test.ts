@@ -11,9 +11,9 @@ describe('AwesomeAPI Token Validation', () => {
     expect(process.env.AWESOMEAPI_TOKEN?.length).toBeGreaterThan(10);
   });
 
-  it('should successfully fetch USD/BRL rate with token', async () => {
+  it('should successfully fetch USD/BRL PTAX rate with token', async () => {
     const token = process.env.AWESOMEAPI_TOKEN;
-    const url = `https://economia.awesomeapi.com.br/json/last/USD-BRL?token=${token}`;
+    const url = `https://economia.awesomeapi.com.br/json/last/USD-BRLPTAX?token=${token}`;
     
     const response = await fetch(url);
     
@@ -22,25 +22,25 @@ describe('AwesomeAPI Token Validation', () => {
     
     const data = await response.json();
     
-    expect(data).toHaveProperty('USDBRL');
-    expect(data.USDBRL).toHaveProperty('bid');
-    expect(data.USDBRL).toHaveProperty('ask');
-    expect(data.USDBRL).toHaveProperty('create_date');
+    expect(data).toHaveProperty('USDBRLPTAX');
+    expect(data.USDBRLPTAX).toHaveProperty('bid');
+    expect(data.USDBRLPTAX).toHaveProperty('ask');
+    expect(data.USDBRLPTAX).toHaveProperty('create_date');
     
-    const rate = parseFloat(data.USDBRL.bid);
+    const rate = parseFloat(data.USDBRLPTAX.bid);
     expect(rate).toBeGreaterThan(0);
     expect(rate).toBeLessThan(20); // Reasonable upper bound
     
-    console.log(`[Test] AwesomeAPI rate: R$ ${rate} (${data.USDBRL.create_date})`);
+    console.log(`[Test] AwesomeAPI PTAX rate: R$ ${rate} (${data.USDBRLPTAX.create_date})`);
   }, 10000); // 10s timeout for API call
 
   it('should return valid exchange rate format', async () => {
     const token = process.env.AWESOMEAPI_TOKEN;
-    const url = `https://economia.awesomeapi.com.br/json/last/USD-BRL?token=${token}`;
+    const url = `https://economia.awesomeapi.com.br/json/last/USD-BRLPTAX?token=${token}`;
     
     const response = await fetch(url);
     const data = await response.json();
-    const rate = parseFloat(data.USDBRL.bid);
+    const rate = parseFloat(data.USDBRLPTAX.bid);
     
     // Should have at most 4 decimal places
     const decimals = (rate.toString().split('.')[1] || '').length;

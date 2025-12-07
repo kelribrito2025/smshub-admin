@@ -16,16 +16,16 @@ describe('Exchange Rate System', () => {
     (global.fetch as any).mockResolvedValue({
       ok: true,
       json: async () => ({
-        USDBRL: {
+        USDBRLPTAX: {
           code: 'USD',
           codein: 'BRL',
-          name: 'Dólar Americano/Real Brasileiro',
-          high: '6.10',
-          low: '6.05',
-          varBid: '0.05',
-          pctChange: '0.82',
-          bid: '6.08',
-          ask: '6.09',
+          name: 'Dólar Americano/Real Brasileiro PTAX',
+          high: '5.35',
+          low: '5.30',
+          varBid: '0.02',
+          pctChange: '0.37',
+          bid: '5.34',
+          ask: '5.35',
           timestamp: Date.now().toString(),
           create_date: new Date().toISOString()
         }

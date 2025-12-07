@@ -12,16 +12,16 @@ import { prices, smsApis } from '../drizzle/schema';
 import { eq } from 'drizzle-orm';
 
 interface AwesomeAPIResponse {
-  USDBRL: {
+  USDBRLPTAX: {
     code: string;
     codein: string;
     name: string;
     high: string;
     low: string;
-    varBid: string;
-    pctChange: string;
     bid: string;
     ask: string;
+    varBid: string;
+    pctChange: string;
     timestamp: string;
     create_date: string;
   };
@@ -37,13 +37,14 @@ interface ExchangeRateAPIResponse {
 }
 
 /**
- * Fetch USD/BRL from AwesomeAPI (primary source with API token)
+ * Fetch USD/BRL PTAX from AwesomeAPI (primary source with API token)
+ * PTAX is the official exchange rate from Banco Central do Brasil
  */
 async function fetchFromAwesomeAPI(): Promise<number> {
   const token = process.env.AWESOMEAPI_TOKEN;
   const url = token 
-    ? `https://economia.awesomeapi.com.br/json/last/USD-BRL?token=${token}`
-    : 'https://economia.awesomeapi.com.br/json/last/USD-BRL';
+    ? `https://economia.awesomeapi.com.br/json/last/USD-BRLPTAX?token=${token}`
+    : 'https://economia.awesomeapi.com.br/json/last/USD-BRLPTAX';
   
   const response = await fetch(url);
   
@@ -52,13 +53,13 @@ async function fetchFromAwesomeAPI(): Promise<number> {
   }
 
   const data = await response.json() as AwesomeAPIResponse;
-  const rate = parseFloat(data.USDBRL.bid);
+  const rate = parseFloat(data.USDBRLPTAX.bid);
   
   if (isNaN(rate) || rate <= 0) {
-    throw new Error(`Invalid exchange rate: ${data.USDBRL.bid}`);
+    throw new Error(`Invalid exchange rate: ${data.USDBRLPTAX.bid}`);
   }
 
-  console.log(`[Exchange Rate] ✅ AwesomeAPI: ${rate} (${data.USDBRL.create_date})`);
+  console.log(`[Exchange Rate] ✅ AwesomeAPI PTAX: ${rate} (${data.USDBRLPTAX.create_date})`);
   return rate;
 }
 
@@ -85,7 +86,7 @@ async function fetchFromExchangeRateAPI(): Promise<number> {
 
 /**
  * Fetch current USD/BRL exchange rate with automatic fallback
- * 1. AwesomeAPI (primary) - Brazilian API with token for better rate limits
+ * 1. AwesomeAPI PTAX (primary) - Official Banco Central rate with token
  * 2. ExchangeRate-API (backup) - International API, 1500 req/month free
  */
 export async function fetchExchangeRate(): Promise<number> {
