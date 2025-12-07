@@ -348,3 +348,4 @@
 - [x] Criar testes unitários (4 testes passaram)
 - [x] Ajustar alinhamento dos textos secundários nos cards (Total de Ativações, Receita Total, Lucro Total)
 - [x] Remover espaçamento vertical excessivo - textos agora ficam próximos aos números como antes
+- [x] Alinhar valores e descrições na parte inferior (final) do card usando padding-top (pt-8)
