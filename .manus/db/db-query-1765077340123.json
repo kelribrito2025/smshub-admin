@@ -1,0 +1,178 @@
+{
+  "query": "SELECT id, customerId, amount, txid, status, createdAt FROM pix_transactions WHERE status = 'pending' ORDER BY createdAt ASC",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT id, customerId, amount, txid, status, createdAt FROM pix_transactions WHERE status = 'pending' ORDER BY createdAt ASC",
+  "rows": [
+    {
+      "id": "5",
+      "customerId": "90007",
+      "amount": "200",
+      "txid": "98c214f4fd214cad96a8256b2a4f945c",
+      "status": "pending",
+      "createdAt": "2025-12-02 19:56:50"
+    },
+    {
+      "id": "30003",
+      "customerId": "90007",
+      "amount": "2000",
+      "txid": "0d265591992e4a1fa29c7ea2f6c27ba8",
+      "status": "pending",
+      "createdAt": "2025-12-02 21:44:45"
+    },
+    {
+      "id": "30004",
+      "customerId": "90007",
+      "amount": "2000",
+      "txid": "9b7114d8613f48e98ff2fc0d9468333c",
+      "status": "pending",
+      "createdAt": "2025-12-02 22:08:59"
+    },
+    {
+      "id": "90001",
+      "customerId": "180002",
+      "amount": "390",
+      "txid": "a9e5dee0d3494fd0acf335c423e96c03",
+      "status": "pending",
+      "createdAt": "2025-12-03 13:40:29"
+    },
+    {
+      "id": "120001",
+      "customerId": "180002",
+      "amount": "2000",
+      "txid": "03cb5e868d1f45cb9f2324c49fcce9a5",
+      "status": "pending",
+      "createdAt": "2025-12-04 22:28:57"
+    },
+    {
+      "id": "150001",
+      "customerId": "180002",
+      "amount": "2000",
+      "txid": "5096feb4fae24c8fb0d67319c60091ec",
+      "status": "pending",
+      "createdAt": "2025-12-05 01:26:32"
+    },
+    {
+      "id": "150002",
+      "customerId": "180002",
+      "amount": "2000",
+      "txid": "5442acb1493a406db28ad7d8c0e2e583",
+      "status": "pending",
+      "createdAt": "2025-12-05 01:31:20"
+    },
+    {
+      "id": "150003",
+      "customerId": "180002",
+      "amount": "2000",
+      "txid": "de5c875a98dc478494dc3daf28738653",
+      "status": "pending",
+      "createdAt": "2025-12-05 01:32:01"
+    },
+    {
+      "id": "150004",
+      "customerId": "180002",
+      "amount": "2000",
+      "txid": "f1390265b6de4d4f807074089866ca71",
+      "status": "pending",
+      "createdAt": "2025-12-05 02:49:27"
+    },
+    {
+      "id": "150006",
+      "customerId": "180002",
+      "amount": "2000",
+      "txid": "4e3b4026949a47f3811709049740f821",
+      "status": "pending",
+      "createdAt": "2025-12-05 03:26:11"
+    },
+    {
+      "id": "180001",
+      "customerId": "180002",
+      "amount": "2000",
+      "txid": "3c6d99b4f12648cab0e44cda6aa2554c",
+      "status": "pending",
+      "createdAt": "2025-12-05 12:20:20"
+    },
+    {
+      "id": "240006",
+      "customerId": "180002",
+      "amount": "216",
+      "txid": "4820d742e8044b3aac70263d08ca1ae0",
+      "status": "pending",
+      "createdAt": "2025-12-05 20:50:36"
+    },
+    {
+      "id": "330001",
+      "customerId": "330001",
+      "amount": "200",
+      "txid": "612700ac774342789e1da89c0545310c",
+      "status": "pending",
+      "createdAt": "2025-12-06 02:37:36"
+    },
+    {
+      "id": "330002",
+      "customerId": "330001",
+      "amount": "122",
+      "txid": "a0b9c5390426408199856896961dac83",
+      "status": "pending",
+      "createdAt": "2025-12-06 02:39:08"
+    },
+    {
+      "id": "330003",
+      "customerId": "180002",
+      "amount": "110",
+      "txid": "679611a00dd34b62be09f7e0ac8f29f3",
+      "status": "pending",
+      "createdAt": "2025-12-06 02:46:04"
+    },
+    {
+      "id": "360001",
+      "customerId": "180002",
+      "amount": "444",
+      "txid": "3ac4849795f44bc1be050533e609d742",
+      "status": "pending",
+      "createdAt": "2025-12-06 11:13:44"
+    },
+    {
+      "id": "390001",
+      "customerId": "180002",
+      "amount": "133",
+      "txid": "ceb295390f2f4ec8aa90596e71130355",
+      "status": "pending",
+      "createdAt": "2025-12-06 20:02:19"
+    },
+    {
+      "id": "450001",
+      "customerId": "180002",
+      "amount": "333",
+      "txid": "c608471e4c1948459c03288fb9d24fe8",
+      "status": "pending",
+      "createdAt": "2025-12-07 02:23:47"
+    },
+    {
+      "id": "450003",
+      "customerId": "180002",
+      "amount": "100",
+      "txid": "478f04083dc54e6984e8cb7939ffb7ad",
+      "status": "pending",
+      "createdAt": "2025-12-07 02:51:54"
+    },
+    {
+      "id": "450004",
+      "customerId": "180002",
+      "amount": "233",
+      "txid": "a67a755572834dcb85d0f22f0dbf0181",
+      "status": "pending",
+      "createdAt": "2025-12-07 02:55:02"
+    },
+    {
+      "id": "450005",
+      "customerId": "180002",
+      "amount": "222",
+      "txid": "ceb5a2d465f24f278782c789bd52f97a",
+      "status": "pending",
+      "createdAt": "2025-12-07 03:05:00"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\tamount\ttxid\tstatus\tcreatedAt\n5\t90007\t200\t98c214f4fd214cad96a8256b2a4f945c\tpending\t2025-12-02 19:56:50\n30003\t90007\t2000\t0d265591992e4a1fa29c7ea2f6c27ba8\tpending\t2025-12-02 21:44:45\n30004\t90007\t2000\t9b7114d8613f48e98ff2fc0d9468333c\tpending\t2025-12-02 22:08:59\n90001\t180002\t390\ta9e5dee0d3494fd0acf335c423e96c03\tpending\t2025-12-03 13:40:29\n120001\t180002\t2000\t03cb5e868d1f45cb9f2324c49fcce9a5\tpending\t2025-12-04 22:28:57\n150001\t180002\t2000\t5096feb4fae24c8fb0d67319c60091ec\tpending\t2025-12-05 01:26:32\n150002\t180002\t2000\t5442acb1493a406db28ad7d8c0e2e583\tpending\t2025-12-05 01:31:20\n150003\t180002\t2000\tde5c875a98dc478494dc3daf28738653\tpending\t2025-12-05 01:32:01\n150004\t180002\t2000\tf1390265b6de4d4f807074089866ca71\tpending\t2025-12-05 02:49:27\n150006\t180002\t2000\t4e3b4026949a47f3811709049740f821\tpending\t2025-12-05 03:26:11\n180001\t180002\t2000\t3c6d99b4f12648cab0e44cda6aa2554c\tpending\t2025-12-05 12:20:20\n240006\t180002\t216\t4820d742e8044b3aac70263d08ca1ae0\tpending\t2025-12-05 20:50:36\n330001\t330001\t200\t612700ac774342789e1da89c0545310c\tpending\t2025-12-06 02:37:36\n330002\t330001\t122\ta0b9c5390426408199856896961dac83\tpending\t2025-12-06 02:39:08\n330003\t180002\t110\t679611a00dd34b62be09f7e0ac8f29f3\tpending\t2025-12-06 02:46:04\n360001\t180002\t444\t3ac4849795f44bc1be050533e609d742\tpending\t2025-12-06 11:13:44\n390001\t180002\t133\tceb295390f2f4ec8aa90596e71130355\tpending\t2025-12-06 20:02:19\n450001\t180002\t333\tc608471e4c1948459c03288fb9d24fe8\tpending\t2025-12-07 02:23:47\n450003\t180002\t100\t478f04083dc54e6984e8cb7939ffb7ad\tpending\t2025-12-07 02:51:54\n450004\t180002\t233\ta67a755572834dcb85d0f22f0dbf0181\tpending\t2025-12-07 02:55:02\n450005\t180002\t222\tceb5a2d465f24f278782c789bd52f97a\tpending\t2025-12-07 03:05:00\n",
+  "stderr": "",
+  "execution_time_ms": 55
+}

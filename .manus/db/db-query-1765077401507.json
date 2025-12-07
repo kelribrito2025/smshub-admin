@@ -1,0 +1,16 @@
+{
+  "query": "SELECT id, email, balance, updatedAt FROM customers WHERE id = 180002",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT id, email, balance, updatedAt FROM customers WHERE id = 180002",
+  "rows": [
+    {
+      "id": "180002",
+      "email": "xkelrix@gmail.com",
+      "balance": "13892",
+      "updatedAt": "2025-12-07 03:16:26"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\temail\tbalance\tupdatedAt\n180002\txkelrix@gmail.com\t13892\t2025-12-07 03:16:26\n",
+  "stderr": "",
+  "execution_time_ms": 53
+}

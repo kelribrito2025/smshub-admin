@@ -1,0 +1,14 @@
+{
+  "query": "SELECT COUNT(*) as paid_count, SUM(amount) as total_amount FROM pix_transactions WHERE customerId = 180002 AND status = 'paid'",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT COUNT(*) as paid_count, SUM(amount) as total_amount FROM pix_transactions WHERE customerId = 180002 AND status = 'paid'",
+  "rows": [
+    {
+      "paid_count": "36",
+      "total_amount": "22584"
+    }
+  ],
+  "messages": [],
+  "stdout": "paid_count\ttotal_amount\n36\t22584\n",
+  "stderr": "",
+  "execution_time_ms": 52
+}

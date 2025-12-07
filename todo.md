@@ -245,3 +245,13 @@
 - [x] Verificar se domínio publicado está acessível - OK (HTTP 200)
 - [x] Webhook reconfigurado na EfiPay com sucesso
 - [ ] Fazer nova recarga PIX de teste para validar
+
+## Crédito Manual de Transações Pendentes
+- [x] Buscar 21 transações PIX pendentes (não 5)
+- [x] Creditar cada transação manualmente (21 transações, R$ 44,52)
+- [x] Criar registros em recharges (21 registros)
+- [x] Verificar saldos atualizados (R$ 94,40 → R$ 138,92)
+
+## Problema de Domínio
+- [x] Explicar erro "Custom domain is already bound to another project"
+- [x] Fornecer solução para desvincular domínio do projeto antigo
