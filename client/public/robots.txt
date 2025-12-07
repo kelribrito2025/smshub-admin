@@ -1,0 +1,21 @@
+# robots.txt for Número Virtual
+# Allow all search engines to crawl public pages
+
+User-agent: *
+Allow: /
+Allow: /history
+Allow: /account
+Allow: /recharges
+Allow: /affiliate
+Allow: /security
+Allow: /settings
+
+# Disallow admin pages (require authentication)
+Disallow: /admin/
+Disallow: /admin/*
+
+# Disallow API endpoints
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://app.numero-virtual.com/sitemap.xml

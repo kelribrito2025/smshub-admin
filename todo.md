@@ -778,3 +778,12 @@
 
 ## Otimização SEO - Meta Description
 - [x] Adicionar meta description no index.html para melhorar ranking no Google
+
+## Otimizações Completas de SEO
+- [x] Mudar lang="en" para lang="pt-BR" no HTML
+- [x] Adicionar Structured Data (JSON-LD) - Organization, WebSite e Service schemas
+- [x] Adicionar meta keywords
+- [x] Adicionar canonical URL
+- [x] Criar sitemap.xml
+- [x] Criar robots.txt
+- [x] Otimizar headings (h1) na página principal (StoreCatalog)
