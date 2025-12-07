@@ -370,3 +370,12 @@
 - [x] Adicionar paginação na página de Clientes (20 usuários por página)
 - [x] Implementar controles de navegação (Primeira, Anterior, Página X de Y, Próxima, Última)
 - [x] Corrigir erro de HTML aninhado no BannedAccountModal (substituir DialogDescription por div)
+
+## Modificação do Fluxo de Banimento
+- [x] Remover botão "Entendi" do BannedAccountModal (modal não pode ser fechado manualmente)
+- [x] Adicionar timer de 10 segundos no BannedAccountModal
+- [x] Exibir contador regressivo visual (10, 9, 8... 1) em fonte grande vermelha
+- [x] Auto-fechar modal após 10 segundos
+- [x] Implementar logout automático após modal fechar (já existia no handleBannedModalClose)
+- [x] Bloquear todas as ações do usuário enquanto modal está aberto (onPointerDownOutside + onEscapeKeyDown)
+- [x] Testar fluxo completo: login → modal → 10s → logout
