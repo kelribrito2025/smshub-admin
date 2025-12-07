@@ -361,3 +361,12 @@
 - [x] Adicionar botão "Banir conta permanentemente" no formulário de edição de cliente
 - [x] Criar testes para funcionalidade de banimento (4 testes passaram)
 - [x] Adicionar campo `bannedReason` para armazenar motivo do banimento
+
+## Melhorias de UI e Paginação
+- [x] Redesenhar UI de banimento no formulário de edição de cliente (substituir botão por toggle)
+- [x] Criar caixa com fundo levemente vermelho para seção de banimento (`bg-red-500/5 border-red-500/20`)
+- [x] Adicionar título "Banimento Permanente" e descrição curta
+- [x] Implementar toggle para ativar/desativar banimento
+- [x] Adicionar paginação na página de Clientes (20 usuários por página)
+- [x] Implementar controles de navegação (Primeira, Anterior, Página X de Y, Próxima, Última)
+- [x] Corrigir erro de HTML aninhado no BannedAccountModal (substituir DialogDescription por div)

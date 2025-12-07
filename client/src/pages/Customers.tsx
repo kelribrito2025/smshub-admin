@@ -24,6 +24,8 @@ import { format } from "date-fns";
 export default function Customers() {
   const utils = trpc.useUtils();
   const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize] = useState(20);
   const [addDialogOpen, setAddDialogOpen] = useState(false);
   const [editCustomer, setEditCustomer] = useState<any>(null);
   const [balanceCustomer, setBalanceCustomer] = useState<any>(null);
@@ -60,6 +62,19 @@ export default function Customers() {
       customer.id.toString().includes(searchTerm) ||
       customer.pin?.toString().includes(searchTerm)
   );
+
+  // Pagination calculations
+  const totalItems = filteredCustomers?.length || 0;
+  const totalPages = Math.ceil(totalItems / pageSize);
+  const startIndex = (currentPage - 1) * pageSize;
+  const endIndex = startIndex + pageSize;
+  const paginatedCustomers = filteredCustomers?.slice(startIndex, endIndex);
+
+  // Reset to page 1 when search term changes
+  const handleSearchChange = (value: string) => {
+    setSearchTerm(value);
+    setCurrentPage(1);
+  };
 
   const handleDelete = (customer: any) => {
     if (confirm(`Tem certeza que deseja excluir o cliente ${customer.name}?`)) {
@@ -177,7 +192,7 @@ export default function Customers() {
               <Input
                 placeholder="Buscar por PIN, ID, nome ou email..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e) => handleSearchChange(e.target.value)}
                 className="pl-10"
               />
             </div>
@@ -197,8 +212,8 @@ export default function Customers() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {filteredCustomers && filteredCustomers.length > 0 ? (
-                    filteredCustomers.map((customer) => (
+                  {paginatedCustomers && paginatedCustomers.length > 0 ? (
+                    paginatedCustomers.map((customer) => (
                       <TableRow 
                         key={customer.id}
                         className={customer.banned ? "border-2 border-red-500/50 animate-pulse" : ""}
@@ -273,6 +288,66 @@ export default function Customers() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Pagination Controls */}
+        {!isLoading && totalPages > 1 && (
+          <div className="flex items-center justify-between px-4 py-3 bg-black/50 border border-border rounded-lg">
+            <div className="text-sm text-gray-400">
+              Página {currentPage} de {totalPages} • Total: {totalItems} clientes
+            </div>
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setCurrentPage(1)}
+                disabled={currentPage === 1}
+              >
+                Primeira
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setCurrentPage(currentPage - 1)}
+                disabled={currentPage === 1}
+              >
+                Anterior
+              </Button>
+              <div className="flex items-center gap-2 px-3">
+                <span className="text-sm text-gray-400">Página</span>
+                <Input
+                  type="number"
+                  min={1}
+                  max={totalPages}
+                  value={currentPage}
+                  onChange={(e) => {
+                    const page = parseInt(e.target.value);
+                    if (page >= 1 && page <= totalPages) {
+                      setCurrentPage(page);
+                    }
+                  }}
+                  className="w-16 text-center bg-black/30 border-border text-white"
+                />
+                <span className="text-sm text-gray-400">de {totalPages}</span>
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setCurrentPage(currentPage + 1)}
+                disabled={currentPage === totalPages}
+              >
+                Próxima
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setCurrentPage(totalPages)}
+                disabled={currentPage === totalPages}
+              >
+                Última
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Add Customer Dialog */}

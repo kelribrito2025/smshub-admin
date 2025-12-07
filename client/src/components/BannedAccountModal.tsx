@@ -25,7 +25,7 @@ export default function BannedAccountModal({ open, onClose }: BannedAccountModal
             </div>
             <DialogTitle className="text-xl font-bold">Conta desativada</DialogTitle>
           </div>
-          <DialogDescription className="text-base leading-relaxed pt-4 space-y-4">
+          <div className="text-base leading-relaxed pt-4 space-y-4 text-muted-foreground">
             <p>
               Detectamos ações que violam de forma grave os nossos termos de serviço e, por isso, 
               esta conta foi <strong className="text-red-500">banida permanentemente</strong>.
@@ -33,10 +33,10 @@ export default function BannedAccountModal({ open, onClose }: BannedAccountModal
             <p>
               O uso da plataforma não será mais permitido a partir deste momento.
             </p>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm">
               Para esclarecimentos adicionais, fale com o suporte.
             </p>
-          </DialogDescription>
+          </div>
         </DialogHeader>
         <div className="flex justify-end mt-4">
           <Button

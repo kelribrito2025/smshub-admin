@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
 import { trpc } from "@/lib/trpc";
-import { Loader2, Save, Ban, ShieldCheck } from "lucide-react";
+import { Loader2, Save } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -28,6 +28,7 @@ export function CustomerDialog({ open, onOpenChange, customer, onSuccess }: Cust
   const [email, setEmail] = useState("");
   const [balance, setBalance] = useState(0);
   const [active, setActive] = useState(true);
+  const [banned, setBanned] = useState(false);
 
   useEffect(() => {
     if (customer) {
@@ -35,11 +36,13 @@ export function CustomerDialog({ open, onOpenChange, customer, onSuccess }: Cust
       setEmail(customer.email || "");
       setBalance((customer.balance || 0) / 100);
       setActive(customer.active !== false);
+      setBanned(customer.banned || false);
     } else {
       setName("");
       setEmail("");
       setBalance(0);
       setActive(true);
+      setBanned(false);
     }
   }, [customer]);
 
@@ -99,6 +102,16 @@ export function CustomerDialog({ open, onOpenChange, customer, onSuccess }: Cust
     }
 
     if (customer) {
+      // If banning/unbanning, use specific mutations
+      if (banned !== customer.banned) {
+        if (banned) {
+          banMutation.mutate({ id: customer.id });
+        } else {
+          unbanMutation.mutate({ id: customer.id });
+        }
+        return;
+      }
+      
       updateMutation.mutate({
         id: customer.id,
         name,
@@ -115,21 +128,7 @@ export function CustomerDialog({ open, onOpenChange, customer, onSuccess }: Cust
     }
   };
 
-  const handleBan = () => {
-    if (!customer) return;
-    
-    if (confirm(`Tem certeza que deseja BANIR PERMANENTEMENTE o cliente ${customer.name}? Esta ação é irreversível e o cliente não poderá mais acessar o sistema.`)) {
-      banMutation.mutate({ id: customer.id });
-    }
-  };
 
-  const handleUnban = () => {
-    if (!customer) return;
-    
-    if (confirm(`Tem certeza que deseja REMOVER O BANIMENTO do cliente ${customer.name}?`)) {
-      unbanMutation.mutate({ id: customer.id });
-    }
-  };
 
   const isPending = createMutation.isPending || updateMutation.isPending || banMutation.isPending || unbanMutation.isPending;
 
@@ -202,45 +201,23 @@ export function CustomerDialog({ open, onOpenChange, customer, onSuccess }: Cust
           {customer && (
             <>
               <Separator className="my-4" />
-              <div className="space-y-3">
-                <Label className="text-sm font-semibold text-red-500">
-                  Zona de Perigo
-                </Label>
-                {customer.banned ? (
-                  <div className="space-y-2">
-                    <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-md">
-                      <p className="text-sm text-red-500 font-medium">
-                        ⚠️ Esta conta está BANIDA PERMANENTEMENTE
-                      </p>
-                      {customer.bannedReason && (
-                        <p className="text-xs text-muted-foreground mt-1">
-                          Motivo: {customer.bannedReason}
-                        </p>
-                      )}
-                    </div>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      className="w-full border-green-500/50 text-green-500 hover:bg-green-500/10"
-                      onClick={handleUnban}
-                      disabled={isPending}
-                    >
-                      <ShieldCheck className="mr-2 h-4 w-4" />
-                      Remover Banimento
-                    </Button>
+              <div className="p-4 bg-red-500/5 border border-red-500/20 rounded-lg">
+                <div className="flex items-center justify-between">
+                  <div className="space-y-1">
+                    <Label htmlFor="banned" className="text-base font-semibold">
+                      Banimento Permanente
+                    </Label>
+                    <p className="text-sm text-muted-foreground">
+                      Quando ativo, o cliente não poderá acessar o sistema
+                    </p>
                   </div>
-                ) : (
-                  <Button
-                    type="button"
-                    variant="outline"
-                    className="w-full border-red-500/50 text-red-500 hover:bg-red-500/10"
-                    onClick={handleBan}
+                  <Switch
+                    id="banned"
+                    checked={banned}
+                    onCheckedChange={setBanned}
                     disabled={isPending}
-                  >
-                    <Ban className="mr-2 h-4 w-4" />
-                    Banir Conta Permanentemente
-                  </Button>
-                )}
+                  />
+                </div>
               </div>
             </>
           )}
