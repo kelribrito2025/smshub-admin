@@ -528,3 +528,11 @@
 - [x] Remover ícone global do toast.promise()
 - [x] Usar ícones padrão do Sonner (loading spinner, check verde, X vermelho)
 - [x] Testar notificações de compra e cancelamento
+
+## Bug: Notificação "Cancelamento em andamento..." Aparece Após Cancelamento Concluído
+- [x] Investigar código de cancelamento em StoreCatalog.tsx
+- [x] Verificar se há chamadas duplicadas de toast
+- [x] Verificar se invalidação de queries está causando re-render
+- [x] Identificar causa raiz da notificação duplicada (invalidação dentro da Promise)
+- [x] Corrigir problema (mover invalidação para depois do toast.promise)
+- [x] Testar fluxo completo de cancelamento

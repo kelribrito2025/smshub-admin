@@ -100,10 +100,6 @@ export default function StoreCatalog() {
           new Promise(resolve => setTimeout(resolve, 5000)) // Delay mínimo de 5 segundos
         ]);
         
-        // Invalidate queries to update balance and activations in real-time
-        await utils.store.getCustomer.invalidate();
-        await utils.store.getMyActivations.invalidate();
-        
         return result;
       } finally {
         // Desativar estado global de cancelamento após conclusão
@@ -115,6 +111,16 @@ export default function StoreCatalog() {
       loading: 'Cancelamento em andamento...',
       success: 'Pedido cancelado com sucesso!',
       error: (err) => err.message || 'Erro ao cancelar ativação',
+    });
+    
+    // Invalidate queries AFTER toast.promise resolves to avoid re-render interference
+    cancelPromise.then(() => {
+      utils.store.getCustomer.invalidate();
+      utils.store.getMyActivations.invalidate();
+    }).catch(() => {
+      // Still invalidate on error to refresh state
+      utils.store.getCustomer.invalidate();
+      utils.store.getMyActivations.invalidate();
     });
   };
 
