@@ -695,3 +695,8 @@
 - [x] Botão admin agora está fixo, mas página inteira se move da direita para esquerda
 - [x] Testar solução alternativa: overflow-y: scroll no html (força scrollbar sempre visível)
 - [x] Prevenir que Radix UI cause layout shift ao manipular scrollbar
+
+## Correção Persistente de Movimento ao Abrir Menu
+- [x] overflow-y: scroll não resolveu completamente
+- [x] Testar no browser para identificar causa exata
+- [x] Aplicar solução CSS mais robusta: body[style*="padding-right"] { padding-right: 0 !important; }
