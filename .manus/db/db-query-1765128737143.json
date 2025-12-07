@@ -1,0 +1,150 @@
+{
+  "query": "SELECT \n  cl.id,\n  cl.customerId,\n  cl.apiId,\n  cl.activationId,\n  cl.timestamp,\n  c.name as customerName,\n  c.email as customerEmail,\n  sa.name as apiName\nFROM cancellation_logs cl\nJOIN customers c ON cl.customerId = c.id\nJOIN sms_apis sa ON cl.apiId = sa.id\nORDER BY cl.timestamp DESC\nLIMIT 20;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT \n  cl.id,\n  cl.customerId,\n  cl.apiId,\n  cl.activationId,\n  cl.timestamp,\n  c.name as customerName,\n  c.email as customerEmail,\n  sa.name as apiName\nFROM cancellation_logs cl\nJOIN customers c ON cl.customerId = c.id\nJOIN sms_apis sa ON cl.apiId = sa.id\nORDER BY cl.timestamp DESC\nLIMIT 20;",
+  "rows": [
+    {
+      "id": "33",
+      "customerId": "180002",
+      "apiId": "1",
+      "activationId": "660041",
+      "timestamp": "2025-12-07 17:31:08",
+      "customerName": "xkelrix",
+      "customerEmail": "xkelrix@gmail.com",
+      "apiName": "Opção 1 "
+    },
+    {
+      "id": "32",
+      "customerId": "180002",
+      "apiId": "1",
+      "activationId": "660042",
+      "timestamp": "2025-12-07 17:31:01",
+      "customerName": "xkelrix",
+      "customerEmail": "xkelrix@gmail.com",
+      "apiName": "Opção 1 "
+    },
+    {
+      "id": "31",
+      "customerId": "180002",
+      "apiId": "1",
+      "activationId": "660037",
+      "timestamp": "2025-12-07 17:30:44",
+      "customerName": "xkelrix",
+      "customerEmail": "xkelrix@gmail.com",
+      "apiName": "Opção 1 "
+    },
+    {
+      "id": "30",
+      "customerId": "180002",
+      "apiId": "1",
+      "activationId": "660038",
+      "timestamp": "2025-12-07 17:30:38",
+      "customerName": "xkelrix",
+      "customerEmail": "xkelrix@gmail.com",
+      "apiName": "Opção 1 "
+    },
+    {
+      "id": "29",
+      "customerId": "180002",
+      "apiId": "1",
+      "activationId": "660039",
+      "timestamp": "2025-12-07 17:30:32",
+      "customerName": "xkelrix",
+      "customerEmail": "xkelrix@gmail.com",
+      "apiName": "Opção 1 "
+    },
+    {
+      "id": "28",
+      "customerId": "180002",
+      "apiId": "1",
+      "activationId": "660040",
+      "timestamp": "2025-12-07 17:30:26",
+      "customerName": "xkelrix",
+      "customerEmail": "xkelrix@gmail.com",
+      "apiName": "Opção 1 "
+    },
+    {
+      "id": "27",
+      "customerId": "180002",
+      "apiId": "1",
+      "activationId": "660033",
+      "timestamp": "2025-12-07 17:23:55",
+      "customerName": "xkelrix",
+      "customerEmail": "xkelrix@gmail.com",
+      "apiName": "Opção 1 "
+    },
+    {
+      "id": "26",
+      "customerId": "180002",
+      "apiId": "1",
+      "activationId": "660034",
+      "timestamp": "2025-12-07 17:23:48",
+      "customerName": "xkelrix",
+      "customerEmail": "xkelrix@gmail.com",
+      "apiName": "Opção 1 "
+    },
+    {
+      "id": "25",
+      "customerId": "180002",
+      "apiId": "1",
+      "activationId": "660035",
+      "timestamp": "2025-12-07 17:23:41",
+      "customerName": "xkelrix",
+      "customerEmail": "xkelrix@gmail.com",
+      "apiName": "Opção 1 "
+    },
+    {
+      "id": "24",
+      "customerId": "180002",
+      "apiId": "1",
+      "activationId": "660036",
+      "timestamp": "2025-12-07 17:23:20",
+      "customerName": "xkelrix",
+      "customerEmail": "xkelrix@gmail.com",
+      "apiName": "Opção 1 "
+    },
+    {
+      "id": "23",
+      "customerId": "180002",
+      "apiId": "1",
+      "activationId": "660029",
+      "timestamp": "2025-12-07 17:16:59",
+      "customerName": "xkelrix",
+      "customerEmail": "xkelrix@gmail.com",
+      "apiName": "Opção 1 "
+    },
+    {
+      "id": "22",
+      "customerId": "180002",
+      "apiId": "1",
+      "activationId": "660030",
+      "timestamp": "2025-12-07 17:16:52",
+      "customerName": "xkelrix",
+      "customerEmail": "xkelrix@gmail.com",
+      "apiName": "Opção 1 "
+    },
+    {
+      "id": "21",
+      "customerId": "180002",
+      "apiId": "1",
+      "activationId": "660031",
+      "timestamp": "2025-12-07 17:16:44",
+      "customerName": "xkelrix",
+      "customerEmail": "xkelrix@gmail.com",
+      "apiName": "Opção 1 "
+    },
+    {
+      "id": "20",
+      "customerId": "180002",
+      "apiId": "1",
+      "activationId": "660032",
+      "timestamp": "2025-12-07 17:16:33",
+      "customerName": "xkelrix",
+      "customerEmail": "xkelrix@gmail.com",
+      "apiName": "Opção 1 "
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\tapiId\tactivationId\ttimestamp\tcustomerName\tcustomerEmail\tapiName\n33\t180002\t1\t660041\t2025-12-07 17:31:08\txkelrix\txkelrix@gmail.com\tOpção 1 \n32\t180002\t1\t660042\t2025-12-07 17:31:01\txkelrix\txkelrix@gmail.com\tOpção 1 \n31\t180002\t1\t660037\t2025-12-07 17:30:44\txkelrix\txkelrix@gmail.com\tOpção 1 \n30\t180002\t1\t660038\t2025-12-07 17:30:38\txkelrix\txkelrix@gmail.com\tOpção 1 \n29\t180002\t1\t660039\t2025-12-07 17:30:32\txkelrix\txkelrix@gmail.com\tOpção 1 \n28\t180002\t1\t660040\t2025-12-07 17:30:26\txkelrix\txkelrix@gmail.com\tOpção 1 \n27\t180002\t1\t660033\t2025-12-07 17:23:55\txkelrix\txkelrix@gmail.com\tOpção 1 \n26\t180002\t1\t660034\t2025-12-07 17:23:48\txkelrix\txkelrix@gmail.com\tOpção 1 \n25\t180002\t1\t660035\t2025-12-07 17:23:41\txkelrix\txkelrix@gmail.com\tOpção 1 \n24\t180002\t1\t660036\t2025-12-07 17:23:20\txkelrix\txkelrix@gmail.com\tOpção 1 \n23\t180002\t1\t660029\t2025-12-07 17:16:59\txkelrix\txkelrix@gmail.com\tOpção 1 \n22\t180002\t1\t660030\t2025-12-07 17:16:52\txkelrix\txkelrix@gmail.com\tOpção 1 \n21\t180002\t1\t660031\t2025-12-07 17:16:44\txkelrix\txkelrix@gmail.com\tOpção 1 \n20\t180002\t1\t660032\t2025-12-07 17:16:33\txkelrix\txkelrix@gmail.com\tOpção 1 \n",
+  "stderr": "",
+  "execution_time_ms": 56
+}

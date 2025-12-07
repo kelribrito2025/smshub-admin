@@ -604,3 +604,15 @@
 - [x] Verificar se admin deveria ser isento do limite (sim, deveria)
 - [x] Corrigir lógica de validação (admins agora isentos)
 - [x] Testar fluxo de compra e cancelamento
+
+## Bug: Sistema de Bloqueio por Cancelamentos Não Está Funcionando
+- [ ] Verificar se cancelamentos estão sendo registrados na tabela cancellation_logs
+- [ ] Verificar se validação de bloqueio está sendo chamada em compras
+- [ ] Testar bloqueio com usuário não-admin (criar conta de teste)
+- [ ] Verificar lógica de contagem de cancelamentos
+- [ ] Corrigir problema identificado
+
+## Avatar Admin no Painel de Vendas
+- [x] Substituir avatar padrão por ícone Shield (escudo roxo) quando usuário for admin
+- [x] Alterar nome exibido de nome do usuário para "Admin"
+- [x] Aplicar no DashboardLayout (painel de vendas)
