@@ -337,9 +337,23 @@
   color: #fde047 !important;
 }
 
-/* Hide Close Button */
-[data-sonner-toast] [data-close-button] {
+/* Hide Close Button - Aggressive Rules */
+[data-sonner-toast] [data-close-button],
+[data-sonner-toast] button[data-close-button],
+[data-sonner-toast] [data-button],
+[data-sonner-toast] button[aria-label="Close toast"],
+[data-sonner-toast] button[data-dismiss],
+[data-sonner-toast]:hover [data-close-button],
+[data-sonner-toast]:hover button,
+[data-sonner-toast]:hover [data-button],
+[data-sonner-toast] button {
   display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
 }
 
 /* Unread Badge */

@@ -536,3 +536,8 @@
 - [x] Identificar causa raiz da notificação duplicada (invalidação dentro da Promise)
 - [x] Corrigir problema (mover invalidação para depois do toast.promise)
 - [x] Testar fluxo completo de cancelamento
+
+## UX: Remover Botão de Fechar (Bolinha) no Hover das Notificações
+- [x] Adicionar CSS para ocultar botão de fechar [data-close-button]
+- [x] Adicionar regras CSS agressivas para ocultar todos os botões
+- [x] Testar hover em notificações
