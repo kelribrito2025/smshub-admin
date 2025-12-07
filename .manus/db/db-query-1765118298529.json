@@ -1,0 +1,90 @@
+{
+  "query": "SELECT id, userId, apiId, status, phoneNumber, createdAt FROM activations WHERE userId = 180002 ORDER BY createdAt DESC LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT id, userId, apiId, status, phoneNumber, createdAt FROM activations WHERE userId = 180002 ORDER BY createdAt DESC LIMIT 10;",
+  "rows": [
+    {
+      "id": "660003",
+      "userId": "180002",
+      "apiId": "1",
+      "status": "cancelled",
+      "phoneNumber": "5577933018669",
+      "createdAt": "2025-12-07 14:25:53"
+    },
+    {
+      "id": "660002",
+      "userId": "180002",
+      "apiId": "2",
+      "status": "cancelled",
+      "phoneNumber": "5531976145692",
+      "createdAt": "2025-12-07 14:25:46"
+    },
+    {
+      "id": "660001",
+      "userId": "180002",
+      "apiId": "1",
+      "status": "cancelled",
+      "phoneNumber": "5577920078164",
+      "createdAt": "2025-12-07 14:25:35"
+    },
+    {
+      "id": "630002",
+      "userId": "180002",
+      "apiId": "2",
+      "status": "cancelled",
+      "phoneNumber": "5511968418317",
+      "createdAt": "2025-12-07 03:31:09"
+    },
+    {
+      "id": "630001",
+      "userId": "180002",
+      "apiId": "1",
+      "status": "cancelled",
+      "phoneNumber": "5522920082218",
+      "createdAt": "2025-12-07 03:30:41"
+    },
+    {
+      "id": "570043",
+      "userId": "180002",
+      "apiId": "2",
+      "status": "cancelled",
+      "phoneNumber": "5521965128961",
+      "createdAt": "2025-12-05 16:41:15"
+    },
+    {
+      "id": "510019",
+      "userId": "180002",
+      "apiId": "2",
+      "status": "cancelled",
+      "phoneNumber": "5531976135263",
+      "createdAt": "2025-12-03 21:31:06"
+    },
+    {
+      "id": "510018",
+      "userId": "180002",
+      "apiId": "2",
+      "status": "cancelled",
+      "phoneNumber": "5511920212062",
+      "createdAt": "2025-12-03 21:05:59"
+    },
+    {
+      "id": "510017",
+      "userId": "180002",
+      "apiId": "2",
+      "status": "cancelled",
+      "phoneNumber": "5577920088120",
+      "createdAt": "2025-12-03 21:05:47"
+    },
+    {
+      "id": "510016",
+      "userId": "180002",
+      "apiId": "2",
+      "status": "cancelled",
+      "phoneNumber": "5521920251297",
+      "createdAt": "2025-12-03 20:58:30"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tuserId\tapiId\tstatus\tphoneNumber\tcreatedAt\n660003\t180002\t1\tcancelled\t5577933018669\t2025-12-07 14:25:53\n660002\t180002\t2\tcancelled\t5531976145692\t2025-12-07 14:25:46\n660001\t180002\t1\tcancelled\t5577920078164\t2025-12-07 14:25:35\n630002\t180002\t2\tcancelled\t5511968418317\t2025-12-07 03:31:09\n630001\t180002\t1\tcancelled\t5522920082218\t2025-12-07 03:30:41\n570043\t180002\t2\tcancelled\t5521965128961\t2025-12-05 16:41:15\n510019\t180002\t2\tcancelled\t5531976135263\t2025-12-03 21:31:06\n510018\t180002\t2\tcancelled\t5511920212062\t2025-12-03 21:05:59\n510017\t180002\t2\tcancelled\t5577920088120\t2025-12-03 21:05:47\n510016\t180002\t2\tcancelled\t5521920251297\t2025-12-03 20:58:30\n",
+  "stderr": "",
+  "execution_time_ms": 60
+}

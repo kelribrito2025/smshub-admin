@@ -1,0 +1,9 @@
+{
+  "query": "SELECT id, userId, apiId, status, phoneNumber, createdAt FROM activations WHERE userId = 180002 AND apiId = 1 AND status IN ('pending', 'active') ORDER BY createdAt DESC LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT id, userId, apiId, status, phoneNumber, createdAt FROM activations WHERE userId = 180002 AND apiId = 1 AND status IN ('pending', 'active') ORDER BY createdAt DESC LIMIT 10;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 53
+}

@@ -449,3 +449,13 @@
 
 ## Campo de Descrição Opcional
 - [x] Remover validação obrigatória do campo "Descrição" no modal de adicionar/remover saldo
+
+## Bug: Limite de Pedidos Simultâneos Não Funcionando
+- [x] Investigar por que cliente conseguiu 3 pedidos quando limite era 2
+- [x] Verificar configuração da API 1 no banco de dados
+- [x] Analisar lógica de validação no código
+- [x] Corrigir bug e adicionar proteção contra race condition
+- [x] Testar correção com múltiplas compras simultâneas
+
+## Simplificar Mensagem de Erro
+- [x] Editar mensagem de erro para: "Limite de pedidos simultâneos atingido para Opção 1"

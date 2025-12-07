@@ -244,11 +244,7 @@ export const storeRouter = router({
             // Log tentativa bloqueada
             console.warn(`[ABUSE CONTROL] Customer ${input.customerId} exceeded simultaneous orders limit for API ${targetApi.name} (${currentActiveCount}/${targetApi.maxSimultaneousOrders})`);
             
-            throw new Error(
-              `Limite de pedidos simultâneos atingido para ${targetApi.name}. ` +
-              `Você tem ${currentActiveCount} pedidos ativos e o limite é ${targetApi.maxSimultaneousOrders}. ` +
-              `Aguarde a conclusão ou cancelamento de pedidos existentes.`
-            );
+            throw new Error(`Limite de pedidos simultâneos atingido para ${targetApi.name}`);
           }
           
           console.log(`[ABUSE CONTROL] Customer ${input.customerId} has ${currentActiveCount}/${targetApi.maxSimultaneousOrders} active orders on API ${targetApi.name}`);
