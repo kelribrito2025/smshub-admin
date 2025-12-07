@@ -1,0 +1,23 @@
+{
+  "query": "SELECT * FROM pix_transactions WHERE amount = 212 ORDER BY createdAt DESC LIMIT 1",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT * FROM pix_transactions WHERE amount = 212 ORDER BY createdAt DESC LIMIT 1",
+  "rows": [
+    {
+      "id": "450002",
+      "customerId": "180002",
+      "txid": "9664ee42580a44fe91f98ee790b85e27",
+      "amount": "212",
+      "status": "pending",
+      "pixCopyPaste": "00020101021226830014BR.GOV.BCB.PIX2561qrcodespix.sejaefi.com.br/v2/de12392c590745c3b0cc863481a227805204000053039865802BR5905EFISA6008SAOPAULO62070503***6304151E",
+      "qrCodeUrl": "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=00020101021226830014BR.GOV.BCB.PIX2561qrcodespix.sejaefi.com.br%2Fv2%2Fde12392c590745c3b0cc863481a227805204000053039865802BR5905EFISA6008SAOPAULO62070503***6304151E",
+      "expiresAt": "2025-12-07 03:40:27",
+      "paidAt": "NULL",
+      "createdAt": "2025-12-07 02:40:27",
+      "updatedAt": "2025-12-07 02:40:27"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\ttxid\tamount\tstatus\tpixCopyPaste\tqrCodeUrl\texpiresAt\tpaidAt\tcreatedAt\tupdatedAt\n450002\t180002\t9664ee42580a44fe91f98ee790b85e27\t212\tpending\t00020101021226830014BR.GOV.BCB.PIX2561qrcodespix.sejaefi.com.br/v2/de12392c590745c3b0cc863481a227805204000053039865802BR5905EFISA6008SAOPAULO62070503***6304151E\thttps://api.qrserver.com/v1/create-qr-code/?size=300x300&data=00020101021226830014BR.GOV.BCB.PIX2561qrcodespix.sejaefi.com.br%2Fv2%2Fde12392c590745c3b0cc863481a227805204000053039865802BR5905EFISA6008SAOPAULO62070503***6304151E\t2025-12-07 03:40:27\tNULL\t2025-12-07 02:40:27\t2025-12-07 02:40:27\n",
+  "stderr": "",
+  "execution_time_ms": 57
+}

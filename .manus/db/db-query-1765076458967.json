@@ -1,0 +1,49 @@
+{
+  "query": "SELECT * FROM pix_transactions ORDER BY createdAt DESC LIMIT 3",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT * FROM pix_transactions ORDER BY createdAt DESC LIMIT 3",
+  "rows": [
+    {
+      "id": "450004",
+      "customerId": "180002",
+      "txid": "a67a755572834dcb85d0f22f0dbf0181",
+      "amount": "233",
+      "status": "pending",
+      "pixCopyPaste": "00020101021226830014BR.GOV.BCB.PIX2561qrcodespix.sejaefi.com.br/v2/60964475593543328d862dc462847c445204000053039865802BR5905EFISA6008SAOPAULO62070503***63044525",
+      "qrCodeUrl": "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=00020101021226830014BR.GOV.BCB.PIX2561qrcodespix.sejaefi.com.br%2Fv2%2F60964475593543328d862dc462847c445204000053039865802BR5905EFISA6008SAOPAULO62070503***63044525",
+      "expiresAt": "2025-12-07 03:55:02",
+      "paidAt": "NULL",
+      "createdAt": "2025-12-07 02:55:02",
+      "updatedAt": "2025-12-07 02:55:02"
+    },
+    {
+      "id": "450003",
+      "customerId": "180002",
+      "txid": "478f04083dc54e6984e8cb7939ffb7ad",
+      "amount": "100",
+      "status": "pending",
+      "pixCopyPaste": "00020101021226830014BR.GOV.BCB.PIX2561qrcodespix.sejaefi.com.br/v2/fdd0a1d279534ea982adce284a12a9075204000053039865802BR5905EFISA6008SAOPAULO62070503***6304C06A",
+      "qrCodeUrl": "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=00020101021226830014BR.GOV.BCB.PIX2561qrcodespix.sejaefi.com.br%2Fv2%2Ffdd0a1d279534ea982adce284a12a9075204000053039865802BR5905EFISA6008SAOPAULO62070503***6304C06A",
+      "expiresAt": "2025-12-07 03:51:54",
+      "paidAt": "NULL",
+      "createdAt": "2025-12-07 02:51:54",
+      "updatedAt": "2025-12-07 02:51:54"
+    },
+    {
+      "id": "450002",
+      "customerId": "180002",
+      "txid": "9664ee42580a44fe91f98ee790b85e27",
+      "amount": "212",
+      "status": "paid",
+      "pixCopyPaste": "00020101021226830014BR.GOV.BCB.PIX2561qrcodespix.sejaefi.com.br/v2/de12392c590745c3b0cc863481a227805204000053039865802BR5905EFISA6008SAOPAULO62070503***6304151E",
+      "qrCodeUrl": "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=00020101021226830014BR.GOV.BCB.PIX2561qrcodespix.sejaefi.com.br%2Fv2%2Fde12392c590745c3b0cc863481a227805204000053039865802BR5905EFISA6008SAOPAULO62070503***6304151E",
+      "expiresAt": "2025-12-07 03:40:27",
+      "paidAt": "2025-12-07 02:50:11",
+      "createdAt": "2025-12-07 02:40:27",
+      "updatedAt": "2025-12-07 02:50:11"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\ttxid\tamount\tstatus\tpixCopyPaste\tqrCodeUrl\texpiresAt\tpaidAt\tcreatedAt\tupdatedAt\n450004\t180002\ta67a755572834dcb85d0f22f0dbf0181\t233\tpending\t00020101021226830014BR.GOV.BCB.PIX2561qrcodespix.sejaefi.com.br/v2/60964475593543328d862dc462847c445204000053039865802BR5905EFISA6008SAOPAULO62070503***63044525\thttps://api.qrserver.com/v1/create-qr-code/?size=300x300&data=00020101021226830014BR.GOV.BCB.PIX2561qrcodespix.sejaefi.com.br%2Fv2%2F60964475593543328d862dc462847c445204000053039865802BR5905EFISA6008SAOPAULO62070503***63044525\t2025-12-07 03:55:02\tNULL\t2025-12-07 02:55:02\t2025-12-07 02:55:02\n450003\t180002\t478f04083dc54e6984e8cb7939ffb7ad\t100\tpending\t00020101021226830014BR.GOV.BCB.PIX2561qrcodespix.sejaefi.com.br/v2/fdd0a1d279534ea982adce284a12a9075204000053039865802BR5905EFISA6008SAOPAULO62070503***6304C06A\thttps://api.qrserver.com/v1/create-qr-code/?size=300x300&data=00020101021226830014BR.GOV.BCB.PIX2561qrcodespix.sejaefi.com.br%2Fv2%2Ffdd0a1d279534ea982adce284a12a9075204000053039865802BR5905EFISA6008SAOPAULO62070503***6304C06A\t2025-12-07 03:51:54\tNULL\t2025-12-07 02:51:54\t2025-12-07 02:51:54\n450002\t180002\t9664ee42580a44fe91f98ee790b85e27\t212\tpaid\t00020101021226830014BR.GOV.BCB.PIX2561qrcodespix.sejaefi.com.br/v2/de12392c590745c3b0cc863481a227805204000053039865802BR5905EFISA6008SAOPAULO62070503***6304151E\thttps://api.qrserver.com/v1/create-qr-code/?size=300x300&data=00020101021226830014BR.GOV.BCB.PIX2561qrcodespix.sejaefi.com.br%2Fv2%2Fde12392c590745c3b0cc863481a227805204000053039865802BR5905EFISA6008SAOPAULO62070503***6304151E\t2025-12-07 03:40:27\t2025-12-07 02:50:11\t2025-12-07 02:40:27\t2025-12-07 02:50:11\n",
+  "stderr": "",
+  "execution_time_ms": 57
+}

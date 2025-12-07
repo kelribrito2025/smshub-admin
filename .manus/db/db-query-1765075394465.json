@@ -1,0 +1,60 @@
+{
+  "query": "SELECT id, customerId, amount, status, txid, paidAt, createdAt, updatedAt FROM pix_transactions ORDER BY createdAt DESC LIMIT 5",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT id, customerId, amount, status, txid, paidAt, createdAt, updatedAt FROM pix_transactions ORDER BY createdAt DESC LIMIT 5",
+  "rows": [
+    {
+      "id": "450002",
+      "customerId": "180002",
+      "amount": "212",
+      "status": "pending",
+      "txid": "9664ee42580a44fe91f98ee790b85e27",
+      "paidAt": "NULL",
+      "createdAt": "2025-12-07 02:40:27",
+      "updatedAt": "2025-12-07 02:40:27"
+    },
+    {
+      "id": "450001",
+      "customerId": "180002",
+      "amount": "333",
+      "status": "pending",
+      "txid": "c608471e4c1948459c03288fb9d24fe8",
+      "paidAt": "NULL",
+      "createdAt": "2025-12-07 02:23:47",
+      "updatedAt": "2025-12-07 02:23:47"
+    },
+    {
+      "id": "390001",
+      "customerId": "180002",
+      "amount": "133",
+      "status": "pending",
+      "txid": "ceb295390f2f4ec8aa90596e71130355",
+      "paidAt": "NULL",
+      "createdAt": "2025-12-06 20:02:19",
+      "updatedAt": "2025-12-06 20:02:19"
+    },
+    {
+      "id": "360001",
+      "customerId": "180002",
+      "amount": "444",
+      "status": "pending",
+      "txid": "3ac4849795f44bc1be050533e609d742",
+      "paidAt": "NULL",
+      "createdAt": "2025-12-06 11:13:44",
+      "updatedAt": "2025-12-06 11:13:44"
+    },
+    {
+      "id": "330003",
+      "customerId": "180002",
+      "amount": "110",
+      "status": "pending",
+      "txid": "679611a00dd34b62be09f7e0ac8f29f3",
+      "paidAt": "NULL",
+      "createdAt": "2025-12-06 02:46:04",
+      "updatedAt": "2025-12-06 02:46:04"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\tamount\tstatus\ttxid\tpaidAt\tcreatedAt\tupdatedAt\n450002\t180002\t212\tpending\t9664ee42580a44fe91f98ee790b85e27\tNULL\t2025-12-07 02:40:27\t2025-12-07 02:40:27\n450001\t180002\t333\tpending\tc608471e4c1948459c03288fb9d24fe8\tNULL\t2025-12-07 02:23:47\t2025-12-07 02:23:47\n390001\t180002\t133\tpending\tceb295390f2f4ec8aa90596e71130355\tNULL\t2025-12-06 20:02:19\t2025-12-06 20:02:19\n360001\t180002\t444\tpending\t3ac4849795f44bc1be050533e609d742\tNULL\t2025-12-06 11:13:44\t2025-12-06 11:13:44\n330003\t180002\t110\tpending\t679611a00dd34b62be09f7e0ac8f29f3\tNULL\t2025-12-06 02:46:04\t2025-12-06 02:46:04\n",
+  "stderr": "",
+  "execution_time_ms": 52
+}

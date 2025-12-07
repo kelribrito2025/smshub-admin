@@ -220,3 +220,28 @@
 - [x] Verificar webhook-pix.ts para bug de timestamps
 - [x] Garantir que recargas apareçam no histórico /store/recharges
 - [x] Validar campos createdAt e updatedAt explícitos
+
+## Diagnóstico Completo Sistema PIX
+- [x] Verificar logs do servidor para erros de webhook
+- [x] Verificar configuração do EfiPay client (credenciais) - OK
+- [x] Verificar se webhook está registrado na EfiPay - URL ANTIGA
+- [x] Verificar tabela pix_transactions no banco - OK
+- [x] Verificar tabela recharges no banco - OK
+- [x] Verificar router PIX e rotas Express - OK
+- [ ] Problema identificado: Webhook configurado para URL antiga
+
+## Configuração Webhook PIX
+- [x] Verificar domínio publicado do projeto - https://smshubadm-sokyccse.manus.space
+- [x] Atualizar script setup-webhook.ts com URL correta
+- [x] Verificar recarga pendente de R$ 2,12 no banco - Encontrada
+- [x] Creditar recarga pendente manualmente - CONCLUÍDO (R$ 92,28 → R$ 94,40)
+- [x] Executar script para configurar webhook na EfiPay - CONCLUÍDO
+- [ ] Testar nova recarga PIX
+
+## Diagnóstico Webhook Não Funcionando
+- [x] Verificar logs do servidor para chamadas de webhook - Nenhuma chamada recebida
+- [x] Verificar nova transação PIX no banco - 5 transações pendentes encontradas
+- [x] Testar webhook manualmente com curl - Webhook funcionando corretamente
+- [x] Verificar se domínio publicado está acessível - OK (HTTP 200)
+- [x] Webhook reconfigurado na EfiPay com sucesso
+- [ ] Fazer nova recarga PIX de teste para validar

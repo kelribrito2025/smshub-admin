@@ -1,0 +1,60 @@
+{
+  "query": "SELECT p.id, p.customerId, c.email, p.amount, p.status, p.txid, p.paidAt, p.createdAt FROM pix_transactions p LEFT JOIN customers c ON p.customerId = c.id ORDER BY p.createdAt DESC LIMIT 5",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT p.id, p.customerId, c.email, p.amount, p.status, p.txid, p.paidAt, p.createdAt FROM pix_transactions p LEFT JOIN customers c ON p.customerId = c.id ORDER BY p.createdAt DESC LIMIT 5",
+  "rows": [
+    {
+      "id": "450004",
+      "customerId": "180002",
+      "email": "xkelrix@gmail.com",
+      "amount": "233",
+      "status": "pending",
+      "txid": "a67a755572834dcb85d0f22f0dbf0181",
+      "paidAt": "NULL",
+      "createdAt": "2025-12-07 02:55:02"
+    },
+    {
+      "id": "450003",
+      "customerId": "180002",
+      "email": "xkelrix@gmail.com",
+      "amount": "100",
+      "status": "pending",
+      "txid": "478f04083dc54e6984e8cb7939ffb7ad",
+      "paidAt": "NULL",
+      "createdAt": "2025-12-07 02:51:54"
+    },
+    {
+      "id": "450002",
+      "customerId": "180002",
+      "email": "xkelrix@gmail.com",
+      "amount": "212",
+      "status": "paid",
+      "txid": "9664ee42580a44fe91f98ee790b85e27",
+      "paidAt": "2025-12-07 02:50:11",
+      "createdAt": "2025-12-07 02:40:27"
+    },
+    {
+      "id": "450001",
+      "customerId": "180002",
+      "email": "xkelrix@gmail.com",
+      "amount": "333",
+      "status": "pending",
+      "txid": "c608471e4c1948459c03288fb9d24fe8",
+      "paidAt": "NULL",
+      "createdAt": "2025-12-07 02:23:47"
+    },
+    {
+      "id": "390001",
+      "customerId": "180002",
+      "email": "xkelrix@gmail.com",
+      "amount": "133",
+      "status": "pending",
+      "txid": "ceb295390f2f4ec8aa90596e71130355",
+      "paidAt": "NULL",
+      "createdAt": "2025-12-06 20:02:19"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\temail\tamount\tstatus\ttxid\tpaidAt\tcreatedAt\n450004\t180002\txkelrix@gmail.com\t233\tpending\ta67a755572834dcb85d0f22f0dbf0181\tNULL\t2025-12-07 02:55:02\n450003\t180002\txkelrix@gmail.com\t100\tpending\t478f04083dc54e6984e8cb7939ffb7ad\tNULL\t2025-12-07 02:51:54\n450002\t180002\txkelrix@gmail.com\t212\tpaid\t9664ee42580a44fe91f98ee790b85e27\t2025-12-07 02:50:11\t2025-12-07 02:40:27\n450001\t180002\txkelrix@gmail.com\t333\tpending\tc608471e4c1948459c03288fb9d24fe8\tNULL\t2025-12-07 02:23:47\n390001\t180002\txkelrix@gmail.com\t133\tpending\tceb295390f2f4ec8aa90596e71130355\tNULL\t2025-12-06 20:02:19\n",
+  "stderr": "",
+  "execution_time_ms": 54
+}

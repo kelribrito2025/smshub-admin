@@ -1,0 +1,60 @@
+{
+  "query": "SELECT id, customerId, amount, paymentMethod, status, transactionId, createdAt, updatedAt FROM recharges ORDER BY createdAt DESC LIMIT 5",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT id, customerId, amount, paymentMethod, status, transactionId, createdAt, updatedAt FROM recharges ORDER BY createdAt DESC LIMIT 5",
+  "rows": [
+    {
+      "id": "90001",
+      "customerId": "180002",
+      "amount": "199",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "6f7c397fa5454799aa4e9f280d5ffbb8",
+      "createdAt": "2025-12-06 02:05:28",
+      "updatedAt": "2025-12-06 02:05:27"
+    },
+    {
+      "id": "60001",
+      "customerId": "180002",
+      "amount": "444",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "5f8df1b4e4e24e188c10a476afe6fed0",
+      "createdAt": "2025-12-06 01:00:38",
+      "updatedAt": "2025-12-06 01:00:38"
+    },
+    {
+      "id": "30035",
+      "customerId": "180002",
+      "amount": "555",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "123e7213769f45f4a1921c5055475b95",
+      "createdAt": "2025-12-05 21:39:46",
+      "updatedAt": "2025-12-05 21:39:46"
+    },
+    {
+      "id": "30025",
+      "customerId": "180002",
+      "amount": "333",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "bec8392e7e8d4f20a316e41637e929ad",
+      "createdAt": "2025-12-05 21:29:53",
+      "updatedAt": "2025-12-05 16:36:47"
+    },
+    {
+      "id": "30002",
+      "customerId": "180002",
+      "amount": "233",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "56882da4dbce43ceb7e464e59ab81ada",
+      "createdAt": "2025-12-05 21:17:30",
+      "updatedAt": "2025-12-05 21:22:09"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\tamount\tpaymentMethod\tstatus\ttransactionId\tcreatedAt\tupdatedAt\n90001\t180002\t199\tpix\tcompleted\t6f7c397fa5454799aa4e9f280d5ffbb8\t2025-12-06 02:05:28\t2025-12-06 02:05:27\n60001\t180002\t444\tpix\tcompleted\t5f8df1b4e4e24e188c10a476afe6fed0\t2025-12-06 01:00:38\t2025-12-06 01:00:38\n30035\t180002\t555\tpix\tcompleted\t123e7213769f45f4a1921c5055475b95\t2025-12-05 21:39:46\t2025-12-05 21:39:46\n30025\t180002\t333\tpix\tcompleted\tbec8392e7e8d4f20a316e41637e929ad\t2025-12-05 21:29:53\t2025-12-05 16:36:47\n30002\t180002\t233\tpix\tcompleted\t56882da4dbce43ceb7e464e59ab81ada\t2025-12-05 21:17:30\t2025-12-05 21:22:09\n",
+  "stderr": "",
+  "execution_time_ms": 52
+}

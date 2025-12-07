@@ -1,0 +1,90 @@
+{
+  "query": "SELECT id, customerId, amount, status, txid, createdAt FROM pix_transactions ORDER BY createdAt DESC LIMIT 10",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT id, customerId, amount, status, txid, createdAt FROM pix_transactions ORDER BY createdAt DESC LIMIT 10",
+  "rows": [
+    {
+      "id": "450002",
+      "customerId": "180002",
+      "amount": "212",
+      "status": "pending",
+      "txid": "9664ee42580a44fe91f98ee790b85e27",
+      "createdAt": "2025-12-07 02:40:27"
+    },
+    {
+      "id": "450001",
+      "customerId": "180002",
+      "amount": "333",
+      "status": "pending",
+      "txid": "c608471e4c1948459c03288fb9d24fe8",
+      "createdAt": "2025-12-07 02:23:47"
+    },
+    {
+      "id": "390001",
+      "customerId": "180002",
+      "amount": "133",
+      "status": "pending",
+      "txid": "ceb295390f2f4ec8aa90596e71130355",
+      "createdAt": "2025-12-06 20:02:19"
+    },
+    {
+      "id": "360001",
+      "customerId": "180002",
+      "amount": "444",
+      "status": "pending",
+      "txid": "3ac4849795f44bc1be050533e609d742",
+      "createdAt": "2025-12-06 11:13:44"
+    },
+    {
+      "id": "330003",
+      "customerId": "180002",
+      "amount": "110",
+      "status": "pending",
+      "txid": "679611a00dd34b62be09f7e0ac8f29f3",
+      "createdAt": "2025-12-06 02:46:04"
+    },
+    {
+      "id": "330002",
+      "customerId": "330001",
+      "amount": "122",
+      "status": "pending",
+      "txid": "a0b9c5390426408199856896961dac83",
+      "createdAt": "2025-12-06 02:39:08"
+    },
+    {
+      "id": "330001",
+      "customerId": "330001",
+      "amount": "200",
+      "status": "pending",
+      "txid": "612700ac774342789e1da89c0545310c",
+      "createdAt": "2025-12-06 02:37:36"
+    },
+    {
+      "id": "300001",
+      "customerId": "180002",
+      "amount": "199",
+      "status": "paid",
+      "txid": "6f7c397fa5454799aa4e9f280d5ffbb8",
+      "createdAt": "2025-12-06 02:04:56"
+    },
+    {
+      "id": "270001",
+      "customerId": "180002",
+      "amount": "444",
+      "status": "paid",
+      "txid": "5f8df1b4e4e24e188c10a476afe6fed0",
+      "createdAt": "2025-12-06 00:50:15"
+    },
+    {
+      "id": "240015",
+      "customerId": "180002",
+      "amount": "337",
+      "status": "paid",
+      "txid": "38818a6d2e7f4052ac3ddb60366f6397",
+      "createdAt": "2025-12-05 22:01:33"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\tamount\tstatus\ttxid\tcreatedAt\n450002\t180002\t212\tpending\t9664ee42580a44fe91f98ee790b85e27\t2025-12-07 02:40:27\n450001\t180002\t333\tpending\tc608471e4c1948459c03288fb9d24fe8\t2025-12-07 02:23:47\n390001\t180002\t133\tpending\tceb295390f2f4ec8aa90596e71130355\t2025-12-06 20:02:19\n360001\t180002\t444\tpending\t3ac4849795f44bc1be050533e609d742\t2025-12-06 11:13:44\n330003\t180002\t110\tpending\t679611a00dd34b62be09f7e0ac8f29f3\t2025-12-06 02:46:04\n330002\t330001\t122\tpending\ta0b9c5390426408199856896961dac83\t2025-12-06 02:39:08\n330001\t330001\t200\tpending\t612700ac774342789e1da89c0545310c\t2025-12-06 02:37:36\n300001\t180002\t199\tpaid\t6f7c397fa5454799aa4e9f280d5ffbb8\t2025-12-06 02:04:56\n270001\t180002\t444\tpaid\t5f8df1b4e4e24e188c10a476afe6fed0\t2025-12-06 00:50:15\n240015\t180002\t337\tpaid\t38818a6d2e7f4052ac3ddb60366f6397\t2025-12-05 22:01:33\n",
+  "stderr": "",
+  "execution_time_ms": 55
+}

@@ -1,0 +1,15 @@
+{
+  "query": "SELECT id, email, balance FROM customers WHERE email = 'xkelrix@gmail.com'",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT id, email, balance FROM customers WHERE email = 'xkelrix@gmail.com'",
+  "rows": [
+    {
+      "id": "180002",
+      "email": "xkelrix@gmail.com",
+      "balance": "9228"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\temail\tbalance\n180002\txkelrix@gmail.com\t9228\n",
+  "stderr": "",
+  "execution_time_ms": 56
+}
