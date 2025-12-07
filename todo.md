@@ -202,8 +202,8 @@
 - [x] Testar sistema de notificações (componentes e backend OK)
 - [x] Testar webhooks (router e setup OK)
 - [x] Verificar se nada ficou faltando (100% migrado)
-- [ ] Criar checkpoint final
-- [ ] Documentar mudanças
+- [x] Criar checkpoint final (d68a152e)
+- [x] Documentar mudanças
 
 ---
 
@@ -212,3 +212,6 @@
 - Projeto atual: /home/ubuntu/smshub-admin
 - Total de arquivos a migrar: ~100+
 - Tempo estimado: 3-5 dias
+
+## Melhorias de UX
+- [x] Remover efeitos de transição do tooltip (aparecer instantaneamente)

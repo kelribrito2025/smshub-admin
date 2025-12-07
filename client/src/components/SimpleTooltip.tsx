@@ -42,7 +42,7 @@ export function SimpleTooltip({ content, children }: SimpleTooltipProps) {
 
   const tooltipContent = isVisible && createPortal(
     <div 
-      className="fixed z-[9999] animate-in fade-in-0 zoom-in-95 duration-200"
+      className="fixed z-[9999]"
       style={{
         top: `${position.top}px`,
         left: `${position.left}px`,
