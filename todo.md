@@ -767,3 +767,8 @@
 - [ ] Verificar regras de redirect no painel de hospedagem
 - [ ] Limpar cache do CDN (Cloudflare, etc.)
 - [ ] Verificar variáveis de ambiente em produção
+
+## Bug: Redirect Automático para Login OAuth em Rotas Públicas
+- [x] Corrigir lógica de redirect no main.tsx para não redirecionar em rotas públicas do painel de vendas
+- [x] Modificar redirectToLoginIfUnauthorized para verificar se a rota atual é pública antes de redirecionar
+- [ ] Testar em aba anônima: acessar https://app.numero-virtual.com/ deve mostrar painel de vendas sem redirect

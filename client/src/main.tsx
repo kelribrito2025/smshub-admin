@@ -28,7 +28,14 @@ const redirectToLoginIfUnauthorized = (error: unknown) => {
 
   if (!isUnauthorized) return;
 
-  window.location.href = getLoginUrl();
+  // Check if current route is a public store route (not admin)
+  const currentPath = window.location.pathname;
+  const isPublicRoute = !currentPath.startsWith('/admin');
+  
+  // Only redirect to login if we're in an admin route
+  if (!isPublicRoute) {
+    window.location.href = getLoginUrl();
+  }
 };
 
 queryClient.getQueryCache().subscribe(event => {
