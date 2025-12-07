@@ -775,3 +775,6 @@
 
 ## Atualização de Título da Página
 - [x] Atualizar título no index.html para "Número virtual sem chip, 100% seguro. Receba SMS online com segurança, privacidade e entrega instantânea."
+
+## Otimização SEO - Meta Description
+- [x] Adicionar meta description no index.html para melhorar ranking no Google
