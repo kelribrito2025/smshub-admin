@@ -669,3 +669,7 @@
 ## Atualizar URL do Botão Painel de Vendas
 - [x] Mudar URL de https://numero-virtual.com/store para https://app.numero-virtual.com/store
 - [x] Aplicar no botão "Painel de Vendas" do Dashboard
+
+## Cor da Borda do Campo de Pesquisa
+- [x] Alterar cor da borda focus de azul para verde
+- [x] Aplicar no campo "Pesquisar serviços" do painel de vendas
