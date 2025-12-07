@@ -546,3 +546,7 @@
 - [x] Identificar CSS do badge/bolinha piscante (::after pseudo-elemento)
 - [x] Remover badge completamente (display: none + content: none)
 - [x] Testar hover em notificações
+
+## UX: Remover Borda das Notificações
+- [x] Alterar border de 2px solid para 0 no CSS das notificações
+- [x] Testar visual das notificações sem borda
