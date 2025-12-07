@@ -298,3 +298,10 @@
 - [x] Permitir apagar (campo vazio → 0,00)
 - [x] Permitir digitar novo valor (ex: 3.00 → R$ 3,00)
 - [x] Servidor recarregado com as mudanças (pronto para testar)
+
+## Formatação Brasileira no Campo Nosso Preço
+- [x] Implementar máscara de moeda brasileira (vírgula em vez de ponto)
+- [x] Digitar "090" deve resultar em "0,90" (remove não-dígitos, converte centavos)
+- [x] Digitar "300" deve resultar em "3,00" (300 centavos = R$ 3,00)
+- [x] Apagar deve resultar em "0,00" (toLocaleString com minimumFractionDigits: 2)
+- [x] Servidor recarregado com formatação brasileira (pronto para testar)

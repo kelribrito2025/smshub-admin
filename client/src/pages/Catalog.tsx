@@ -1012,19 +1012,20 @@ export default function Catalog() {
                   <Label htmlFor="edit-ourPrice">Nosso Preço *</Label>
                   <Input
                     id="edit-ourPrice"
-                    type="number"
-                    step="0.01"
-                    value={editingItem.ourPrice / 100}
+                    type="text"
+                    inputMode="numeric"
+                    value={(editingItem.ourPrice / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     onChange={(e) => {
-                      const value = e.target.value;
-                      // Permite campo vazio (será 0)
-                      if (value === '' || value === null) {
-                        setEditingItem({ ...editingItem, ourPrice: 0 });
-                      } else {
-                        setEditingItem({ ...editingItem, ourPrice: Math.round(parseFloat(value) * 100) });
-                      }
+                      let value = e.target.value;
+                      // Remove tudo exceto dígitos
+                      value = value.replace(/\D/g, '');
+                      
+                      // Converte para número (em centavos)
+                      const cents = parseInt(value) || 0;
+                      
+                      setEditingItem({ ...editingItem, ourPrice: cents });
                     }}
-                    placeholder="0.00"
+                    placeholder="0,00"
                     className="bg-black/30 border-border"
                   />
                 </div>
