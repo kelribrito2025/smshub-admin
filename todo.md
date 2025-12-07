@@ -585,3 +585,15 @@
 - [x] Verificar se procedure existe no backend (todos existem)
 - [x] Corrigir erro (adicionar skip para rotas /api/* no Vite fallback)
 - [x] Testar página /apis (agora retorna JSON)
+
+## Investigação: Tabela api_keys
+- [x] Verificar schema da tabela api_keys no banco
+- [x] Buscar referências no código backend (routers, db helpers)
+- [x] Buscar referências no código frontend (queries, mutations)
+- [x] Verificar relações com outras tabelas (foreign keys)
+- [x] Conclusão: Tabela é essencial para autenticação da REST API pública - NÃO REMOVER
+
+## Limpeza: Remover APIs de Teste
+- [x] Identificar IDs das APIs de teste (10 APIs encontradas)
+- [x] Remover APIs de teste do banco de dados (DELETE FROM sms_apis WHERE name LIKE 'Test API%')
+- [x] Verificar página /apis após remoção (apenas Opção 1, 2, 3 restantes)

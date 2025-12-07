@@ -1,0 +1,9 @@
+{
+  "query": "DELETE FROM sms_apis WHERE name LIKE 'Test API%';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute DELETE FROM sms_apis WHERE name LIKE 'Test API%';",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 61
+}

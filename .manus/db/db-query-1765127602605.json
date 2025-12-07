@@ -1,0 +1,60 @@
+{
+  "query": "SELECT id, name, url FROM sms_apis WHERE name LIKE 'Test API%' ORDER BY id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT id, name, url FROM sms_apis WHERE name LIKE 'Test API%' ORDER BY id;",
+  "rows": [
+    {
+      "id": "270001",
+      "name": "Test API Cancel 1765125401999",
+      "url": "https://test-api-cancel.example.com"
+    },
+    {
+      "id": "270002",
+      "name": "Test API Cancel 1765125402062",
+      "url": "https://test-api-cancel.example.com"
+    },
+    {
+      "id": "270003",
+      "name": "Test API Cancel 1765125402100",
+      "url": "https://test-api-cancel.example.com"
+    },
+    {
+      "id": "270004",
+      "name": "Test API Cancel 1765125402134",
+      "url": "https://test-api-cancel.example.com"
+    },
+    {
+      "id": "270005",
+      "name": "Test API Cancel 1765125402166",
+      "url": "https://test-api-cancel.example.com"
+    },
+    {
+      "id": "270006",
+      "name": "Test API Cancel 1765125402196",
+      "url": "https://test-api-cancel.example.com"
+    },
+    {
+      "id": "270007",
+      "name": "Test API 2 Cancel 1765125402210",
+      "url": "https://test-api-2-cancel.example.com"
+    },
+    {
+      "id": "270008",
+      "name": "Test API Cancel 1765125402241",
+      "url": "https://test-api-cancel.example.com"
+    },
+    {
+      "id": "270009",
+      "name": "Test API Cancel 1765125402272",
+      "url": "https://test-api-cancel.example.com"
+    },
+    {
+      "id": "270010",
+      "name": "Test API Cancel 1765125402302",
+      "url": "https://test-api-cancel.example.com"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\turl\n270001\tTest API Cancel 1765125401999\thttps://test-api-cancel.example.com\n270002\tTest API Cancel 1765125402062\thttps://test-api-cancel.example.com\n270003\tTest API Cancel 1765125402100\thttps://test-api-cancel.example.com\n270004\tTest API Cancel 1765125402134\thttps://test-api-cancel.example.com\n270005\tTest API Cancel 1765125402166\thttps://test-api-cancel.example.com\n270006\tTest API Cancel 1765125402196\thttps://test-api-cancel.example.com\n270007\tTest API 2 Cancel 1765125402210\thttps://test-api-2-cancel.example.com\n270008\tTest API Cancel 1765125402241\thttps://test-api-cancel.example.com\n270009\tTest API Cancel 1765125402272\thttps://test-api-cancel.example.com\n270010\tTest API Cancel 1765125402302\thttps://test-api-cancel.example.com\n",
+  "stderr": "",
+  "execution_time_ms": 70
+}
