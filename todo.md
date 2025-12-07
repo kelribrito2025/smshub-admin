@@ -652,3 +652,7 @@
 - [x] Mudar cor da animação de amarelo para verde (cor do sistema)
 - [x] Corrigir z-index para animação ficar visível (não atrás do conteúdo)
 - [x] Testar animação no browser e confirmar que está funcionando
+
+## Ajuste de Espessura da Borda Verde
+- [x] Diminuir espessura da borda verde em 20% (de 2px para ~1.6px)
+- [x] Testar no browser e confirmar visual mais delicado
