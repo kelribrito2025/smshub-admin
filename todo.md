@@ -255,3 +255,10 @@
 ## Problema de Domínio
 - [x] Explicar erro "Custom domain is already bound to another project"
 - [x] Fornecer solução para desvincular domínio do projeto antigo
+
+## Edições Visuais - Página de Afiliados
+- [x] Atualizar regras do programa no backend (affiliateRouter.ts)
+- [x] Remover regra "Não há limite de indicações"
+- [x] Alterar "Quando" para "Após" na regra 2
+- [x] Simplificar regra 3 removendo "de bônus"
+- [x] Servidor recarregado com as mudanças

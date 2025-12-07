@@ -122,11 +122,10 @@ export const affiliateRouter = router({
       bonusPercentage: settings.bonusPercentage,
       rules: [
         "Compartilhe seu link de indicação único com amigos e familiares",
-        `Quando alguém se cadastrar pelo seu link e fizer a primeira recarga, você ganha ${settings.bonusPercentage}% do valor como bônus`,
-        "O bônus é creditado automaticamente no seu saldo de bônus",
+        `Após alguém se cadastrar pelo seu link e fizer a primeira recarga, você ganha ${settings.bonusPercentage}% do valor como bônus`,
+        "O bônus é creditado automaticamente no seu saldo",
         "O saldo de bônus pode ser usado para comprar serviços dentro da plataforma",
         "O saldo de bônus não pode ser sacado, apenas utilizado para compras",
-        "Não há limite de indicações - quanto mais você indicar, mais você ganha!",
       ],
     };
   }),
