@@ -129,8 +129,21 @@ export default function StoreAffiliate() {
         </p>
 
         {/* (A) Link de Indicação */}
-        <Card className="bg-black/50 border-green-900/50">
-          <CardHeader>
+        <Card className="bg-black border border-green-900/30 relative overflow-hidden">
+          {/* Grid cyber background */}
+          <div className="absolute inset-0 pointer-events-none" style={{
+            backgroundImage: `
+              linear-gradient(to right, #22c55e 1px, transparent 1px),
+              linear-gradient(to bottom, #22c55e 1px, transparent 1px)
+            `,
+            backgroundSize: '20px 20px',
+            opacity: 0.05
+          }} />
+          
+          {/* Header gradient */}
+          <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-green-950/50 to-transparent pointer-events-none" />
+          
+          <CardHeader className="relative z-10">
             <CardTitle className="text-green-400 flex items-center gap-2">
               <Share2 className="w-5 h-5" />
               Seu Link de Indicação
@@ -139,7 +152,7 @@ export default function StoreAffiliate() {
               Compartilhe este link com seus amigos para ganhar bônus
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-4 relative z-10">
             <div className="flex gap-2">
               <input
                 type="text"

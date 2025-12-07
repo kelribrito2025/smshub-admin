@@ -656,3 +656,8 @@
 ## Ajuste de Espessura da Borda Verde
 - [x] Diminuir espessura da borda verde em 20% (de 2px para ~1.6px)
 - [x] Testar no browser e confirmar visual mais delicado
+
+## Background do Card de Link de Afiliado
+- [x] Localizar background gradiente do card de saldo
+- [x] Aplicar mesmo background no card "Seu Link de Indicação"
+- [x] Testar visual no browser
