@@ -477,3 +477,8 @@
 - [x] Atualizar visual dos ícones seguindo identidade do RechargeNotification
 - [x] Ajustar som padrão para sound2-bright.wav (Brilhante)
 - [x] Ajustar volume padrão para 35%
+
+## Remover Página Webhook-Setup
+- [x] Localizar e remover arquivo da página webhook-setup
+- [x] Remover rota do App.tsx
+- [x] Remover links de navegação (se houver)

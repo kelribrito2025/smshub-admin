@@ -24,7 +24,7 @@ import StoreSecurity from "./pages/StoreSecurity";
 import StoreSettings from "./pages/StoreSettings";
 import StoreAffiliate from "./pages/StoreAffiliate";
 import StoreRecharges from "./pages/StoreRecharges";
-import WebhookSetup from "./pages/WebhookSetup";
+
 import Affiliates from "./pages/admin/Affiliates";
 import { StoreAuthProvider } from "./contexts/StoreAuthContext";
 
@@ -50,7 +50,7 @@ function Router() {
       <Route path="/store/settings" component={StoreSettings} />
       <Route path="/store/affiliate" component={StoreAffiliate} />
       <Route path="/store/recharges" component={StoreRecharges} />
-      <Route path="/webhook-setup" component={WebhookSetup} />
+
       <Route path="/affiliates" component={Affiliates} />
       
       <Route path={"/404"} component={NotFound} />
