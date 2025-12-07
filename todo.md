@@ -712,3 +712,8 @@
 - [x] Localizar geração do link no backend (server/routers/affiliateRouter.ts)
 - [x] Atualizar VITE_FRONTEND_URL para https://app.numero-virtual.com
 - [x] Validar com teste automatizado (affiliate.url.test.ts)
+
+## Remover Scrollbar Desnecessária em Páginas Vazias
+- [x] Páginas /store e /store/history mostram scrollbar mesmo sem conteúdo suficiente
+- [x] Mudar overflow-y: scroll para overflow-y: auto no HTML
+- [x] Manter modal={false} nos dropdowns para prevenir layout shift
