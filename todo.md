@@ -379,3 +379,13 @@
 - [x] Implementar logout automático após modal fechar (já existia no handleBannedModalClose)
 - [x] Bloquear todas as ações do usuário enquanto modal está aberto (onPointerDownOutside + onEscapeKeyDown)
 - [x] Testar fluxo completo: login → modal → 10s → logout
+
+## Remodelação Visual do Modal de Banimento
+- [x] Analisar visual do LoginModal para entender identidade visual do sistema
+- [x] Aplicar novo visual ao BannedAccountModal (borda vermelha 4px, gradiente, sombra neon)
+- [x] Manter funcionalidades existentes (timer 10s, contador regressivo, logout automático)
+- [x] Remover botão "ENTENDI" (substituído por contador regressivo)
+- [x] Adicionar botão X no header (bloqueado, apenas visual)
+- [x] Aplicar fonte mono em todo o modal
+- [x] Criar 3 caixas separadas para mensagens
+- [x] Adicionar padrão diagonal no header (linear-gradient 45deg)
