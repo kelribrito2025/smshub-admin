@@ -407,3 +407,6 @@
 
 ## Alteração do Timer do Modal
 - [x] Alterar timer de 10 para 20 segundos
+
+## Substituição do Áudio do Modal
+- [x] Substituir ban-alert.wav pela nova música (TL_AR_105_Bass_Loop_Sub_Dangerous_Dm.wav, 4.7MB)
