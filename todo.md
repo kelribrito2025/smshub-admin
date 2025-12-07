@@ -647,3 +647,8 @@
 - [x] Adicionar 3 opções de API para Whatsapp (Brasil)
 - [x] Executar seed e verificar animação de borda circulante
 - [x] Confirmar que opção recomendada mostra efeito amarelo
+
+## Correção da Animação de Borda Circulante
+- [x] Mudar cor da animação de amarelo para verde (cor do sistema)
+- [x] Corrigir z-index para animação ficar visível (não atrás do conteúdo)
+- [x] Testar animação no browser e confirmar que está funcionando
