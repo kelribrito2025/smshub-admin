@@ -755,3 +755,15 @@
 - [x] Detectar contexto pela URL (/admin/* vs outras rotas)
 - [x] Adicionar botões de retorno contextuais (Admin vs Painel de Vendas)
 - [x] Já integrado no App.tsx como fallback de rotas
+
+## Corrigir Acesso Público ao Painel de Vendas
+- [x] Problema: app.numero-virtual.com redireciona para login Manus em aba anônima
+- [x] Investigar StoreLayout - CÓDIGO ESTÁ CORRETO (não exige autenticação)
+- [x] Investigar StoreAuthContext - CÓDIGO ESTÁ CORRETO (não força login)
+- [x] Investigar App.tsx - CÓDIGO ESTÁ CORRETO (rotas públicas sem proteção)
+- [x] Testar em ambiente de desenvolvimento - FUNCIONA PERFEITAMENTE sem autenticação
+- [ ] CONCLUSÃO: Problema está na INFRAESTRUTURA/DEPLOY, não no código
+- [ ] Verificar configurações do servidor web (Nginx/Apache/Vercel)
+- [ ] Verificar regras de redirect no painel de hospedagem
+- [ ] Limpar cache do CDN (Cloudflare, etc.)
+- [ ] Verificar variáveis de ambiente em produção
