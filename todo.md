@@ -794,3 +794,7 @@
 ## Adicionar Campo Nome no Cadastro
 - [x] Adicionar campo Nome no LoginModal (frontend)
 - [x] Atualizar backend para aceitar e salvar nome do cliente
+
+## Bug: Erro 404 ao Navegar no Admin
+- [x] Investigar problema de roteamento ao clicar em links do menu lateral (causado por Umami Analytics)
+- [x] Adicionar data-auto-track="false" no script Umami para desabilitar tracking automático de navegação
