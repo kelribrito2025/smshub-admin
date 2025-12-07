@@ -579,3 +579,9 @@
 - [x] Aplicar registro de cancelamento no procedure cancelActivation
 - [x] Testar fluxo completo (cancelar X vezes, tentar comprar, verificar bloqueio)
 - [x] Escrever testes unitários (6 testes passaram)
+
+## Bug: Erro tRPC na Página /apis
+- [x] Identificar qual query tRPC está falhando (Vite fallback capturando /api/trpc)
+- [x] Verificar se procedure existe no backend (todos existem)
+- [x] Corrigir erro (adicionar skip para rotas /api/* no Vite fallback)
+- [x] Testar página /apis (agora retorna JSON)
