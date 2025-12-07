@@ -705,3 +705,10 @@
 - [x] Soluções CSS anteriores não resolveram
 - [x] Adicionar modal={false} em todos DropdownMenu do StoreLayout
 - [x] Prevenir Radix UI de manipular body/scrollbar completamente
+
+## Atualização de URL de Link de Afiliados (Backend)
+- [x] Link atual: https://numero-virtual.com/store?ref=180002
+- [x] Atualizar para: https://app.numero-virtual.com/store?ref=180002
+- [x] Localizar geração do link no backend (server/routers/affiliateRouter.ts)
+- [x] Atualizar VITE_FRONTEND_URL para https://app.numero-virtual.com
+- [x] Validar com teste automatizado (affiliate.url.test.ts)
