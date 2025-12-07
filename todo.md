@@ -541,3 +541,8 @@
 - [x] Adicionar CSS para ocultar botão de fechar [data-close-button]
 - [x] Adicionar regras CSS agressivas para ocultar todos os botões
 - [x] Testar hover em notificações
+
+## Bug: Bolinha Piscante Verde Ainda Aparece no Hover das Notificações
+- [x] Identificar CSS do badge/bolinha piscante (::after pseudo-elemento)
+- [x] Remover badge completamente (display: none + content: none)
+- [x] Testar hover em notificações

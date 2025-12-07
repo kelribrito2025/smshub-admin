@@ -356,18 +356,10 @@
   overflow: hidden !important;
 }
 
-/* Unread Badge */
+/* Unread Badge - REMOVED (user doesn't want it) */
 [data-sonner-toast]::after {
-  content: '' !important;
-  position: absolute !important;
-  top: 10px !important;
-  right: 10px !important;
-  width: 8px !important;
-  height: 8px !important;
-  background: #4ade80 !important;
-  border-radius: 50% !important;
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite !important;
-  z-index: 10 !important;
+  display: none !important;
+  content: none !important;
 }
 
 [data-sonner-toast] [data-close-button]:hover {
