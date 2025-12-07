@@ -313,3 +313,12 @@
 - [x] Adicionar contador de preços fixos pulados
 - [x] Atualizar log para mostrar quantos foram pulados
 - [x] Testar sincronização (9/10 testes passaram, 1 preço fixo pulado corretamente)
+
+## Proteção Contra Saldo Negativo
+- [x] Investigar código de débito (customers-helpers.ts linha 108-165)
+- [x] Adicionar lógica: se débito > saldo, debitar apenas saldo disponível
+- [x] Registrar auditoria completa em metadata (requestedAmount vs appliedAmount)
+- [x] Preservar description original para auditoria
+- [x] Retornar flag adjusted para frontend
+- [x] Saldo do xkelrix@gmail.com verificado (R$ 1,39 - já positivo)
+- [x] Implementação concluída (pronta para teste manual no navegador)

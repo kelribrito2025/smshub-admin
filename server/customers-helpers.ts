@@ -120,24 +120,48 @@ export async function addBalance(
   if (!customer) throw new Error("Customer not found");
 
   const balanceBefore = customer.balance;
-  const balanceAfter = balanceBefore + amount;
+  const requestedAmount = amount;
+  let appliedAmount = amount;
+  let balanceAfter = balanceBefore + amount;
+  let adjusted = false;
+  let metadata: any = null;
+
+  // Prevent negative balance for debit operations
+  if (amount < 0 && balanceAfter < 0) {
+    // Limit debit to available balance
+    appliedAmount = -balanceBefore; // Debit only what's available
+    balanceAfter = 0;
+    adjusted = true;
+    
+    // Store audit information in metadata (preserves original request)
+    metadata = {
+      requestedAmount,
+      appliedAmount,
+      adjusted: true,
+      reason: "insufficient_balance",
+      message: `Débito ajustado: solicitado ${(requestedAmount / 100).toFixed(2)} BRL, aplicado ${(appliedAmount / 100).toFixed(2)} BRL`
+    };
+    
+    console.warn(`[Balance] Debit adjusted for customer ${customerId}: requested ${requestedAmount}, applied ${appliedAmount} (prevented negative balance)`);
+  }
 
   // Update customer balance
   await updateCustomer(customerId, { balance: balanceAfter });
 
-  // Create transaction record
+  // Create transaction record with audit trail in metadata
   await db.insert(balanceTransactions).values({
     customerId,
-    amount,
+    amount: appliedAmount, // Applied amount (may be adjusted)
     type,
-    description,
+    description, // Keep original description unchanged for audit
     balanceBefore,
     balanceAfter,
     relatedActivationId,
     createdBy,
+    metadata: metadata ? JSON.stringify(metadata) : null,
   });
 
-  return { balanceBefore, balanceAfter };
+  return { balanceBefore, balanceAfter, requestedAmount, appliedAmount, adjusted };
 }
 
 /**
