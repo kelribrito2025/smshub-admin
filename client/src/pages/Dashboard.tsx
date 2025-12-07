@@ -60,7 +60,7 @@ export default function Dashboard() {
               Visão geral do seu painel administrativo SMSHub
             </p>
           </div>
-          <a href="https://app.numero-virtual.com/store" target="_blank" rel="noopener noreferrer">
+          <a href="https://app.numero-virtual.com" target="_blank" rel="noopener noreferrer">
             <Button className="gap-2">
               <ShoppingCart className="h-4 w-4" />
               Painel de Vendas

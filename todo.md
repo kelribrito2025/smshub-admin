@@ -729,3 +729,11 @@
 - [x] Localizar componente StoreLayout que envolve todas as páginas
 - [x] Mudar container principal para h-screen overflow-hidden
 - [x] Adicionar overflow-y-auto apenas no <main> para scroll interno do conteúdo
+
+## Reorganização de Rotas: Separar Admin e Painel de Vendas
+- [x] Problema: / está mostrando login de admin quando deveria ser painel de vendas
+- [x] Analisar estrutura atual de rotas no App.tsx
+- [x] Inverter lógica: / → Painel de Vendas (público), /admin → Dashboard Admin
+- [x] Atualizar todos os links internos (App.tsx, StoreLayout, DashboardLayout, StoreAccount, Dashboard)
+- [x] Atualizar fallbackMenuItems no DashboardLayout para usar /admin/*
+- [x] Testar acesso público em / e acesso restrito em /admin

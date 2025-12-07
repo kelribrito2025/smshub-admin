@@ -308,13 +308,13 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
 
   const handleProfile = () => {
     requireAuth(() => {
-      setLocation('/store/account');
+      setLocation('/account');
     });
   };
 
   const handleHistory = () => {
     requireAuth(() => {
-      setLocation('/store/history');
+      setLocation('/history');
     });
   };
 
@@ -374,7 +374,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
           </Button>
 
           <button 
-            onClick={() => setLocation('/store')}
+            onClick={() => setLocation('/')}
             className="flex items-center gap-2 text-lg md:text-xl font-bold"
           >
             {/* Logo N - oculto no mobile, visível no desktop */}
@@ -386,9 +386,9 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
 
           <nav className="hidden lg:flex items-center gap-2">
             <Button
-              onClick={() => setLocation('/store')}
+              onClick={() => setLocation('/')}
               variant="ghost"
-              className={`${isActive('/store') ? 'bg-green-500 text-black hover:bg-green-500 hover:brightness-110' : 'text-green-600 hover:text-green-400 hover:bg-green-900/20'} font-mono flex items-center gap-2`}
+              className={`${isActive('/') ? 'bg-green-500 text-black hover:bg-green-500 hover:brightness-110' : 'text-green-600 hover:text-green-400 hover:bg-green-900/20'} font-mono flex items-center gap-2`}
             >
               <LayoutDashboard className="w-4 h-4" />
               Dashboard
@@ -396,15 +396,15 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
             <Button
               onClick={handleHistory}
               variant="ghost"
-              className={`${isActive('/store/history') ? 'bg-green-500 text-black hover:bg-green-500 hover:brightness-110' : 'text-green-600 hover:text-green-400 hover:bg-green-900/20'} font-mono flex items-center gap-2`}
+              className={`${isActive('/history') ? 'bg-green-500 text-black hover:bg-green-500 hover:brightness-110' : 'text-green-600 hover:text-green-400 hover:bg-green-900/20'} font-mono flex items-center gap-2`}
             >
               <History className="w-4 h-4" />
               Histórico
             </Button>
             <Button
-              onClick={() => setLocation('/store/affiliate')}
+              onClick={() => setLocation('/affiliate')}
               variant="ghost"
-              className={`${isActive('/store/affiliate') ? 'bg-green-500 text-black hover:bg-green-500 hover:brightness-110' : 'text-green-600 hover:text-green-400 hover:bg-green-900/20'} font-mono flex items-center gap-2`}
+              className={`${isActive('/affiliate') ? 'bg-green-500 text-black hover:bg-green-500 hover:brightness-110' : 'text-green-600 hover:text-green-400 hover:bg-green-900/20'} font-mono flex items-center gap-2`}
             >
               <Gift className="w-4 h-4" />
               Afiliados
@@ -506,21 +506,21 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
               {isAuthenticated && (
                 <>
                   <DropdownMenuItem 
-                    onClick={() => setLocation('/store/account')}
+                    onClick={() => setLocation('/account')}
                     className="text-green-400 hover:text-green-300 hover:bg-green-900/20 cursor-pointer"
                   >
                     <User className="w-4 h-4 mr-2" />
                     Perfil
                   </DropdownMenuItem>
                   <DropdownMenuItem 
-                    onClick={() => setLocation('/store/recharges')}
+                    onClick={() => setLocation('/recharges')}
                     className="text-green-400 hover:text-green-300 hover:bg-green-900/20 cursor-pointer"
                   >
                     <Wallet className="w-4 h-4 mr-2" />
                     Recargas
                   </DropdownMenuItem>
                   <DropdownMenuItem 
-                    onClick={() => setLocation('/store')}
+                    onClick={() => setLocation('/')}
                     className="lg:hidden text-green-400 hover:text-green-300 hover:bg-green-900/20 cursor-pointer"
                   >
                     <LayoutDashboard className="w-4 h-4 mr-2" />
@@ -534,21 +534,21 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
                     Histórico
                   </DropdownMenuItem>
                   <DropdownMenuItem 
-                    onClick={() => setLocation('/store/security')}
+                    onClick={() => setLocation('/security')}
                     className="text-green-400 hover:text-green-300 hover:bg-green-900/20 cursor-pointer"
                   >
                     <Shield className="w-4 h-4 mr-2" />
                     Segurança
                   </DropdownMenuItem>
                   <DropdownMenuItem 
-                    onClick={() => setLocation('/store/settings')}
+                    onClick={() => setLocation('/settings')}
                     className="text-green-400 hover:text-green-300 hover:bg-green-900/20 cursor-pointer"
                   >
                     <Settings className="w-4 h-4 mr-2" />
                     Configurações
                   </DropdownMenuItem>
                   <DropdownMenuItem 
-                    onClick={() => setLocation('/store/affiliate')}
+                    onClick={() => setLocation('/affiliate')}
                     className="lg:hidden text-green-400 hover:text-green-300 hover:bg-green-900/20 cursor-pointer"
                   >
                     <Gift className="w-4 h-4 mr-2" />
@@ -561,7 +561,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
                   onClick={() => {
                     logout(); // Limpa estado do contexto e localStorage
                     toast.success('Logout realizado com sucesso!');
-                    setLocation('/store'); // Redireciona para página inicial
+                    setLocation('/'); // Redireciona para página inicial
                   }}
                   className="text-green-400 hover:text-green-300 hover:bg-green-900/20 cursor-pointer"
                 >

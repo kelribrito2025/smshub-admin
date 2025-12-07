@@ -32,17 +32,17 @@ import { MenuReorderDialog } from "./MenuReorderDialog";
 
 // Fallback menu items (used if database menus are not available)
 const fallbackMenuItems = [
-  { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
-  { icon: LineChart, label: "Relatórios", path: "/relatorios" },
-  { icon: FileText, label: "Auditoria de Saldo", path: "/auditoria" },
-  { icon: Settings, label: "Configurações", path: "/settings" },
-  { icon: CreditCard, label: "Pagamentos", path: "/payment-settings" },
-  { icon: Cloud, label: "APIs", path: "/apis" },
-  { icon: BarChart3, label: "Performance de APIs", path: "/api-performance" },
-  { icon: Globe, label: "Países", path: "/countries" },
-  { icon: BookOpen, label: "Catálogo", path: "/catalogo" },
-  { icon: Users, label: "Clientes", path: "/clientes" },
-  { icon: Gift, label: "Afiliados", path: "/affiliates" },
+  { icon: LayoutDashboard, label: "Dashboard", path: "/admin/dashboard" },
+  { icon: LineChart, label: "Relatórios", path: "/admin/relatorios" },
+  { icon: FileText, label: "Auditoria de Saldo", path: "/admin/auditoria" },
+  { icon: Settings, label: "Configurações", path: "/admin/settings" },
+  { icon: CreditCard, label: "Pagamentos", path: "/admin/payment-settings" },
+  { icon: Cloud, label: "APIs", path: "/admin/apis" },
+  { icon: BarChart3, label: "Performance de APIs", path: "/admin/api-performance" },
+  { icon: Globe, label: "Países", path: "/admin/countries" },
+  { icon: BookOpen, label: "Catálogo", path: "/admin/catalogo" },
+  { icon: Users, label: "Clientes", path: "/admin/clientes" },
+  { icon: Gift, label: "Afiliados", path: "/admin/affiliates" },
 ];
 
 // Helper function to get icon component from string name

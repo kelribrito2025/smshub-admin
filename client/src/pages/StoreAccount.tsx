@@ -24,7 +24,7 @@ export default function StoreAccount() {
   // Redirect to /store if not authenticated
   React.useEffect(() => {
     if (!customer) {
-      setLocation('/store');
+      setLocation('/');
     }
   }, [customer, setLocation]);
 

@@ -31,27 +31,28 @@ import { StoreAuthProvider } from "./contexts/StoreAuthContext";
 function Router() {
   return (
     <Switch>
-      <Route path={"/"} component={Home} />
-      <Route path={"/dashboard"} component={Dashboard} />
-      <Route path={"/settings"} component={Settings} />
+      {/* Painel de Vendas (Público) */}
+      <Route path={"/"} component={StoreCatalog} />
+      <Route path="/history" component={StoreActivations} />
+      <Route path="/account" component={StoreAccount} />
+      <Route path="/security" component={StoreSecurity} />
+      <Route path="/settings" component={StoreSettings} />
+      <Route path="/affiliate" component={StoreAffiliate} />
+      <Route path="/recharges" component={StoreRecharges} />
 
-      <Route path={"/countries"} component={Countries} />
-      <Route path="/relatorios" component={Financial} />
-      <Route path="/clientes" component={Customers} />
-      <Route path={"/catalogo"} component={Catalog} />
-      <Route path={"/apis"} component={Apis} />
-      <Route path="/api-performance" component={ApiPerformance} />
-      <Route path="/payment-settings" component={PaymentSettings} />
-      <Route path="/auditoria" component={Audit} />
-            <Route path="/store" component={StoreCatalog} />
-      <Route path="/store/history" component={StoreActivations} />
-      <Route path="/store/account" component={StoreAccount} />
-      <Route path="/store/security" component={StoreSecurity} />
-      <Route path="/store/settings" component={StoreSettings} />
-      <Route path="/store/affiliate" component={StoreAffiliate} />
-      <Route path="/store/recharges" component={StoreRecharges} />
-
-      <Route path="/affiliates" component={Affiliates} />
+      {/* Área Administrativa (Requer Login Manus) */}
+      <Route path={"/admin"} component={Dashboard} />
+      <Route path={"/admin/dashboard"} component={Dashboard} />
+      <Route path={"/admin/settings"} component={Settings} />
+      <Route path={"/admin/countries"} component={Countries} />
+      <Route path="/admin/relatorios" component={Financial} />
+      <Route path="/admin/clientes" component={Customers} />
+      <Route path={"/admin/catalogo"} component={Catalog} />
+      <Route path={"/admin/apis"} component={Apis} />
+      <Route path="/admin/api-performance" component={ApiPerformance} />
+      <Route path="/admin/payment-settings" component={PaymentSettings} />
+      <Route path="/admin/auditoria" component={Audit} />
+      <Route path="/admin/affiliates" component={Affiliates} />
       
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
