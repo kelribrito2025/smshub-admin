@@ -193,13 +193,35 @@
 }
 
 [data-sonner-toast] {
-  background: #000000 !important;
-  border: 1px solid #00ff00 !important;
-  border-radius: 16px !important;
+  background: linear-gradient(135deg, rgba(0, 50, 0, 0.9), rgba(0, 0, 0, 0.9)) !important;
+  border: 2px solid #00ff00 !important;
+  border-radius: 12px !important;
   padding: 16px 20px !important;
   box-shadow: 0 8px 24px rgba(0, 255, 0, 0.3) !important;
-  min-width: 400px !important;
+  min-width: 360px !important;
   max-width: 500px !important;
+  position: relative !important;
+  overflow: hidden !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+/* Cyber Grid Pattern */
+[data-sonner-toast]::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background-image: linear-gradient(#22c55e 1px, transparent 1px), linear-gradient(90deg, #22c55e 1px, transparent 1px) !important;
+  background-size: 12px 12px !important;
+  opacity: 0.05 !important;
+  pointer-events: none !important;
+  border-radius: 12px !important;
+  z-index: 0 !important;
+}
+
+/* Ensure content is above grid */
+[data-sonner-toast] > * {
+  position: relative !important;
+  z-index: 1 !important;
 }
 
 [data-sonner-toast][data-type="success"] {

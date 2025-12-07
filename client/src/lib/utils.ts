@@ -23,11 +23,11 @@ const SOUND_SETTINGS_KEY = 'store_sound_settings';
 // Configurações padrão
 const DEFAULT_SOUND_SETTINGS: SoundSettings = {
   enabled: true,
-  volume: 40,
+  volume: 35,
   playOnSms: true,
   playOnRecharge: false,
   playOnPurchase: false,
-  selectedSound: 'sound5-classic.mp3',
+  selectedSound: 'sound2-bright.wav',
 };
 
 // Carregar configurações do localStorage

@@ -471,3 +471,9 @@
 - [x] Copiar novo arquivo WAV como sound2-bright.wav
 - [x] Atualizar referência em StoreSettings.tsx
 - [x] Adicionar migração automática em utils.ts
+
+## Atualizar Visual de Notificações e Configurações de Som
+- [x] Localizar componentes de notificação do painel de vendas
+- [x] Atualizar visual dos ícones seguindo identidade do RechargeNotification
+- [x] Ajustar som padrão para sound2-bright.wav (Brilhante)
+- [x] Ajustar volume padrão para 35%
