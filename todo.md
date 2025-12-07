@@ -623,3 +623,9 @@
 - [x] Implementar animação de borda circulante (border animation)
 - [x] Criar keyframes CSS para movimento circular
 - [x] Testar animação no navegador
+
+## Avatar Admin no Painel de Vendas (StoreLayout)
+- [x] Localizar componente de avatar no StoreLayout (header do painel de vendas)
+- [x] Verificar como obter role do usuário no contexto do Store
+- [x] Aplicar mesma lógica condicional do DashboardLayout (Shield roxo + "Admin")
+- [x] Testar no navegador com login de admin (xkelrix@gmail.com)

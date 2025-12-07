@@ -35,7 +35,7 @@ import {
   getCachedRecommendation, 
   setCachedRecommendation 
 } from '../recommendation-helpers';
-import { operators as operatorsTable, smsApis } from '../../drizzle/schema';
+import { operators as operatorsTable, smsApis, users } from '../../drizzle/schema';
 import { eq } from 'drizzle-orm';
 
 export const storeRouter = router({
@@ -85,7 +85,24 @@ export const storeRouter = router({
       // ✅ CORREÇÃO: Retornar null ao invés de erro quando cliente não existe
       // Isso permite que admins acessem /store sem erro (mas sem autenticação)
       const customer = await getCustomerById(input.customerId);
-      return customer || null;
+      
+      if (!customer) return null;
+      
+      // Check if customer is admin by looking up in users table
+      const db = await getDb();
+      if (!db) {
+        return {
+          ...customer,
+          role: 'user' as const,
+        };
+      }
+      
+      const [userAccount] = await db.select().from(users).where(eq(users.email, customer.email)).limit(1);
+      
+      return {
+        ...customer,
+        role: userAccount?.role || 'user', // Add role field from users table
+      };
     }),
 
   // Listar serviços disponíveis

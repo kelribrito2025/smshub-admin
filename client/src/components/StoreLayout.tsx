@@ -489,7 +489,13 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
                 size="icon"
                 className="text-green-600 hover:text-green-400" style={{width: '40px', height: '40px'}}
               >
-                <User className="w-5 h-5" />
+                {customer?.role === 'admin' ? (
+                  <div className="w-9 h-9 rounded-full bg-purple-500/10 flex items-center justify-center">
+                    <Shield className="w-5 h-5 text-purple-500" />
+                  </div>
+                ) : (
+                  <User className="w-5 h-5" />
+                )}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="bg-black border-green-900/50">

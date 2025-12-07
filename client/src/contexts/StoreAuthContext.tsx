@@ -13,6 +13,7 @@ interface Customer {
   banned?: boolean;
   bannedAt?: Date | null;
   bannedReason?: string | null;
+  role?: 'admin' | 'user'; // Role from users table (if customer has admin account)
 }
 
 interface StoreAuthContextType {
