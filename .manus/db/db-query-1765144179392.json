@@ -1,0 +1,54 @@
+{
+  "query": "SELECT label, path FROM admin_menus ORDER BY position",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT label, path FROM admin_menus ORDER BY position",
+  "rows": [
+    {
+      "label": "Dashboard",
+      "path": "/admin/dashboard"
+    },
+    {
+      "label": "Clientes",
+      "path": "/admin/clientes"
+    },
+    {
+      "label": "Países",
+      "path": "/admin/countries"
+    },
+    {
+      "label": "Catálogo",
+      "path": "/admin/catalogo"
+    },
+    {
+      "label": "APIs",
+      "path": "/admin/apis"
+    },
+    {
+      "label": "Relatórios",
+      "path": "/admin/relatorios"
+    },
+    {
+      "label": "Auditoria de Saldo",
+      "path": "/admin/auditoria"
+    },
+    {
+      "label": "Pagamentos",
+      "path": "/admin/payment-settings"
+    },
+    {
+      "label": "Configurações",
+      "path": "/admin/settings"
+    },
+    {
+      "label": "Performance de APIs",
+      "path": "/admin/api-performance"
+    },
+    {
+      "label": "Afiliados",
+      "path": "/admin/affiliates"
+    }
+  ],
+  "messages": [],
+  "stdout": "label\tpath\nDashboard\t/admin/dashboard\nClientes\t/admin/clientes\nPaíses\t/admin/countries\nCatálogo\t/admin/catalogo\nAPIs\t/admin/apis\nRelatórios\t/admin/relatorios\nAuditoria de Saldo\t/admin/auditoria\nPagamentos\t/admin/payment-settings\nConfigurações\t/admin/settings\nPerformance de APIs\t/admin/api-performance\nAfiliados\t/admin/affiliates\n",
+  "stderr": "",
+  "execution_time_ms": 56
+}

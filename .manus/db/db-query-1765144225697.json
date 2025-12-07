@@ -1,0 +1,9 @@
+{
+  "query": "UPDATE admin_menus SET path = CASE \n  WHEN path = '/dashboard' THEN '/admin/dashboard'\n  WHEN path = '/countries' THEN '/admin/countries'\n  WHEN path = '/catalogo' THEN '/admin/catalogo'\n  WHEN path = '/clientes' THEN '/admin/clientes'\n  WHEN path = '/affiliates' THEN '/admin/affiliates'\n  WHEN path = '/apis' THEN '/admin/apis'\n  WHEN path = '/api-performance' THEN '/admin/api-performance'\n  WHEN path = '/payment-settings' THEN '/admin/payment-settings'\n  WHEN path = '/auditoria' THEN '/admin/auditoria'\n  WHEN path = '/financial' THEN '/admin/financial'\n  WHEN path = '/settings' THEN '/admin/settings'\n  ELSE path\nEND\nWHERE path NOT LIKE '/admin/%'",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute UPDATE admin_menus SET path = CASE \n  WHEN path = '/dashboard' THEN '/admin/dashboard'\n  WHEN path = '/countries' THEN '/admin/countries'\n  WHEN path = '/catalogo' THEN '/admin/catalogo'\n  WHEN path = '/clientes' THEN '/admin/clientes'\n  WHEN path = '/affiliates' THEN '/admin/affiliates'\n  WHEN path = '/apis' THEN '/admin/apis'\n  WHEN path = '/api-performance' THEN '/admin/api-performance'\n  WHEN path = '/payment-settings' THEN '/admin/payment-settings'\n  WHEN path = '/auditoria' THEN '/admin/auditoria'\n  WHEN path = '/financial' THEN '/admin/financial'\n  WHEN path = '/settings' THEN '/admin/settings'\n  ELSE path\nEND\nWHERE path NOT LIKE '/admin/%'",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 98
+}

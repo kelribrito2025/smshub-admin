@@ -7,7 +7,7 @@ export default function Home() {
 
   useEffect(() => {
     // Redirect to dashboard
-    setLocation("/dashboard");
+    setLocation("/admin/dashboard");
   }, [setLocation]);
 
   return (

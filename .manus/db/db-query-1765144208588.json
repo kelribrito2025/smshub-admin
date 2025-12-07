@@ -1,0 +1,98 @@
+{
+  "query": "SELECT id, label, path, icon, position, active FROM admin_menus ORDER BY position",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT id, label, path, icon, position, active FROM admin_menus ORDER BY position",
+  "rows": [
+    {
+      "id": "16",
+      "label": "Dashboard",
+      "path": "/admin/dashboard",
+      "icon": "LayoutDashboard",
+      "position": "1",
+      "active": "1"
+    },
+    {
+      "id": "25",
+      "label": "Clientes",
+      "path": "/admin/clientes",
+      "icon": "Users",
+      "position": "2",
+      "active": "1"
+    },
+    {
+      "id": "23",
+      "label": "Países",
+      "path": "/admin/countries",
+      "icon": "Globe",
+      "position": "3",
+      "active": "1"
+    },
+    {
+      "id": "24",
+      "label": "Catálogo",
+      "path": "/admin/catalogo",
+      "icon": "BookOpen",
+      "position": "4",
+      "active": "1"
+    },
+    {
+      "id": "21",
+      "label": "APIs",
+      "path": "/admin/apis",
+      "icon": "Cloud",
+      "position": "5",
+      "active": "1"
+    },
+    {
+      "id": "17",
+      "label": "Relatórios",
+      "path": "/admin/relatorios",
+      "icon": "LineChart",
+      "position": "6",
+      "active": "1"
+    },
+    {
+      "id": "18",
+      "label": "Auditoria de Saldo",
+      "path": "/admin/auditoria",
+      "icon": "FileText",
+      "position": "7",
+      "active": "1"
+    },
+    {
+      "id": "20",
+      "label": "Pagamentos",
+      "path": "/admin/payment-settings",
+      "icon": "CreditCard",
+      "position": "8",
+      "active": "1"
+    },
+    {
+      "id": "19",
+      "label": "Configurações",
+      "path": "/admin/settings",
+      "icon": "Settings",
+      "position": "9",
+      "active": "1"
+    },
+    {
+      "id": "22",
+      "label": "Performance de APIs",
+      "path": "/admin/api-performance",
+      "icon": "BarChart3",
+      "position": "10",
+      "active": "1"
+    },
+    {
+      "id": "26",
+      "label": "Afiliados",
+      "path": "/admin/affiliates",
+      "icon": "Gift",
+      "position": "11",
+      "active": "1"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tlabel\tpath\ticon\tposition\tactive\n16\tDashboard\t/admin/dashboard\tLayoutDashboard\t1\t1\n25\tClientes\t/admin/clientes\tUsers\t2\t1\n23\tPaíses\t/admin/countries\tGlobe\t3\t1\n24\tCatálogo\t/admin/catalogo\tBookOpen\t4\t1\n21\tAPIs\t/admin/apis\tCloud\t5\t1\n17\tRelatórios\t/admin/relatorios\tLineChart\t6\t1\n18\tAuditoria de Saldo\t/admin/auditoria\tFileText\t7\t1\n20\tPagamentos\t/admin/payment-settings\tCreditCard\t8\t1\n19\tConfigurações\t/admin/settings\tSettings\t9\t1\n22\tPerformance de APIs\t/admin/api-performance\tBarChart3\t10\t1\n26\tAfiliados\t/admin/affiliates\tGift\t11\t1\n",
+  "stderr": "",
+  "execution_time_ms": 63
+}

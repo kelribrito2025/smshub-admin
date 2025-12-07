@@ -1,0 +1,18 @@
+{
+  "query": "SELECT id, label, path, icon, position, active FROM admin_menus WHERE label LIKE '%Dashboard%' OR label LIKE '%dashboard%'",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT id, label, path, icon, position, active FROM admin_menus WHERE label LIKE '%Dashboard%' OR label LIKE '%dashboard%'",
+  "rows": [
+    {
+      "id": "16",
+      "label": "Dashboard",
+      "path": "/admin/dashboard",
+      "icon": "LayoutDashboard",
+      "position": "1",
+      "active": "1"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tlabel\tpath\ticon\tposition\tactive\n16\tDashboard\t/admin/dashboard\tLayoutDashboard\t1\t1\n",
+  "stderr": "",
+  "execution_time_ms": 56
+}

@@ -798,3 +798,10 @@
 ## Bug: Erro 404 ao Navegar no Admin
 - [x] Investigar problema de roteamento ao clicar em links do menu lateral (causado por Umami Analytics)
 - [x] Adicionar data-auto-track="false" no script Umami para desabilitar tracking automático de navegação
+
+
+## Bug: Links do Menu Admin Sem Prefixo /admin/
+- [x] Identificar todos os links no DashboardLayout que estão sem /admin/
+- [x] Corrigir link do Dashboard (/dashboard → /admin/dashboard) no Home.tsx
+- [x] Verificar e corrigir outros links do menu lateral (todos corretos no banco)
+- [x] Testar navegação completa no admin
