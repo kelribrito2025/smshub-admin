@@ -21,7 +21,7 @@ interface StoreAuthContextType {
   isLoading: boolean;
   isAuthenticated: boolean;
   login: (email: string, password?: string) => Promise<void>;
-  register: (email: string, password: string) => Promise<void>;
+  register: (email: string, password: string, name: string) => Promise<void>;
   logout: () => void;
   refreshCustomer: () => Promise<void>;
   requireAuth: (action: () => void) => void;
@@ -91,9 +91,9 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const register = async (email: string, password: string) => {
+  const register = async (email: string, password: string, name: string) => {
     try {
-      const result = await registerMutation.mutateAsync({ email, password });
+      const result = await registerMutation.mutateAsync({ email, password, name });
       setCustomer(result);
       localStorage.setItem('store_customer', JSON.stringify(result));
       

@@ -13,6 +13,7 @@ export default function StoreLogin() {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -30,7 +31,12 @@ export default function StoreLogin() {
           setIsLoading(false);
           return;
         }
-        await register(email, name);
+        if (!password || password.length < 8) {
+          setError('Senha deve ter no mínimo 8 caracteres');
+          setIsLoading(false);
+          return;
+        }
+        await register(email, password, name);
       }
       setLocation('/store');
     } catch (err: any) {

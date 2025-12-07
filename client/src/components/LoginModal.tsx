@@ -6,11 +6,12 @@ interface LoginModalProps {
   isOpen: boolean;
   onClose: () => void;
   onLogin: (email: string, password?: string) => Promise<void>;
-  onRegister?: (email: string, password: string) => Promise<void>;
+  onRegister?: (email: string, password: string, name: string) => Promise<void>;
 }
 
 export default function LoginModal({ isOpen, onClose, onLogin, onRegister }: LoginModalProps) {
   const [isRegisterMode, setIsRegisterMode] = useState(false);
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [confirmEmail, setConfirmEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -33,6 +34,11 @@ export default function LoginModal({ isOpen, onClose, onLogin, onRegister }: Log
 
     if (isRegisterMode) {
       // Validações de registro
+      if (!name || name.trim().length < 3) {
+        toast.error('Digite seu nome completo (mínimo 3 caracteres)');
+        return;
+      }
+
       if (!confirmEmail) {
         toast.error('Confirme seu email');
         return;
@@ -60,7 +66,8 @@ export default function LoginModal({ isOpen, onClose, onLogin, onRegister }: Log
 
       setIsLoading(true);
       try {
-        await onRegister(email, password);
+        await onRegister(email, password, name);
+        setName('');
         setEmail('');
         setConfirmEmail('');
         setPassword('');
@@ -88,6 +95,7 @@ export default function LoginModal({ isOpen, onClose, onLogin, onRegister }: Log
 
   const toggleMode = () => {
     setIsRegisterMode(!isRegisterMode);
+    setName('');
     setEmail('');
     setConfirmEmail('');
     setPassword('');
@@ -205,6 +213,31 @@ export default function LoginModal({ isOpen, onClose, onLogin, onRegister }: Log
 
               {/* Form */}
               <form onSubmit={handleSubmit} className="space-y-5">
+                {/* Name Field (only for register) */}
+                {isRegisterMode && (
+                  <div>
+                    <label className="block text-green-400 text-sm font-bold mb-2 font-mono">
+                      NOME
+                    </label>
+                    <div className="relative">
+                      <User
+                        className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-green-500/50"
+                        strokeWidth={2}
+                      />
+                      <input
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Seu nome completo"
+                        className="w-full bg-black border-2 border-green-500/30 rounded-lg px-12 py-3 text-white placeholder-gray-600 focus:border-green-500 focus:outline-none transition-colors font-mono"
+                        required
+                        disabled={isLoading}
+                        minLength={3}
+                      />
+                    </div>
+                  </div>
+                )}
+
                 {/* Email Field */}
                 <div>
                   <label className="block text-green-400 text-sm font-bold mb-2 font-mono">

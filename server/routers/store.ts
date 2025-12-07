@@ -56,6 +56,7 @@ export const storeRouter = router({
     .input(z.object({
       email: z.string().email(),
       password: z.string().min(8),
+      name: z.string().min(3),
     }))
     .mutation(async ({ input }) => {
       // Verificar se já existe
@@ -67,10 +68,10 @@ export const storeRouter = router({
       // Hash da senha
       const hashedPassword = await bcrypt.hash(input.password, 10);
 
-      // Criar novo cliente com senha
+      // Criar novo cliente com senha e nome
       const customer = await createCustomer({ 
         email: input.email, 
-        name: input.email.split('@')[0], // Usa parte do email como nome inicial
+        name: input.name.trim(),
         password: hashedPassword,
       });
       return customer;

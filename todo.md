@@ -790,3 +790,7 @@
 
 ## Google Analytics
 - [x] Adicionar Google Analytics (gtag) no index.html
+
+## Adicionar Campo Nome no Cadastro
+- [x] Adicionar campo Nome no LoginModal (frontend)
+- [x] Atualizar backend para aceitar e salvar nome do cliente
