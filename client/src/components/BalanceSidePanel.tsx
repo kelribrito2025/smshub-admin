@@ -82,7 +82,7 @@ export function BalanceSidePanel({ open, onOpenChange, customer, onSuccess }: Ba
   const addBalanceMutation = trpc.customers.addBalance.useMutation({
     onSuccess: (data) => {
       toast.success(
-        `Saldo ${type === "credit" ? "adicionado" : "removido"} com sucesso! Novo saldo: R$ ${(data.balanceAfter / 100).toFixed(2)}`
+        `Saldo ${type === "credit" ? "adicionado" : "removido"} com sucesso! Novo saldo: R$ ${data.balanceAfter.toFixed(2)}`
       );
       onSuccess();
       setAmount(0);

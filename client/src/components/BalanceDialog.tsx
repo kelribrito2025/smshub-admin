@@ -77,9 +77,8 @@ export function BalanceDialog({ open, onOpenChange, customer, onSuccess }: Balan
       return;
     }
 
-    // Converter centavos para reais (amount já está em centavos do CurrencyInput)
-    const amountInReais = amount / 100;
-    const finalAmount = (type === "credit" || type === "refund") ? amountInReais : -amountInReais;
+    // amount já está em centavos do CurrencyInput, backend espera centavos
+    const finalAmount = (type === "credit" || type === "refund") ? amount : -amount;
 
     addBalanceMutation.mutate({
       customerId: customer.id,

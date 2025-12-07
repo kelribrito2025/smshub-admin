@@ -489,3 +489,9 @@
 - [x] Ajustar duração para 1 segundo
 - [x] Adicionar badge de não lida
 - [x] Adicionar timestamp com ícone de relógio
+
+## Bug: Notificação de Saldo Incorreta
+- [x] Investigar código de adição de saldo (backend)
+- [x] Identificar onde notificação é enviada
+- [x] Corrigir cálculo/formatação do saldo
+- [ ] Testar com valores diferentes (R$ 1,00, R$ 10,00, R$ 100,00)
