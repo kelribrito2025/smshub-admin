@@ -1014,8 +1014,16 @@ export default function Catalog() {
                     id="edit-ourPrice"
                     type="number"
                     step="0.01"
-                    value={(editingItem.ourPrice / 100).toFixed(2)}
-                    onChange={(e) => setEditingItem({ ...editingItem, ourPrice: Math.round(parseFloat(e.target.value) * 100) })}
+                    value={editingItem.ourPrice / 100}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      // Permite campo vazio (será 0)
+                      if (value === '' || value === null) {
+                        setEditingItem({ ...editingItem, ourPrice: 0 });
+                      } else {
+                        setEditingItem({ ...editingItem, ourPrice: Math.round(parseFloat(value) * 100) });
+                      }
+                    }}
                     placeholder="0.00"
                     className="bg-black/30 border-border"
                   />

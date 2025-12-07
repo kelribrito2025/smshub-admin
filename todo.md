@@ -290,3 +290,11 @@
 - [x] Atualizar testes para usar PTAX (exchange-rate.test.ts + awesomeapi-token.test.ts)
 - [x] Testar nova configuração (13 testes passaram)
 - [x] Cotação PTAX validada: R$ 5,34 (Banco Central oficial)
+
+## Bug: Campo "Nosso Preço" Não Editável
+- [x] Investigar modal de edição de serviço (Catalog.tsx linha 1011-1030)
+- [x] Encontrar campo "Nosso Preço" bloqueado (.toFixed(2) tornava string)
+- [x] Permitir edição livre do campo (removido .toFixed(2))
+- [x] Permitir apagar (campo vazio → 0,00)
+- [x] Permitir digitar novo valor (ex: 3.00 → R$ 3,00)
+- [x] Servidor recarregado com as mudanças (pronto para testar)
