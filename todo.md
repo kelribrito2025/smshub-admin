@@ -641,3 +641,9 @@
 ## Borda Preta no Botão Admin
 - [x] Corrigir atributos style duplicados (bug do editor visual)
 - [x] Adicionar borda preta (#000000) ao botão admin no header
+
+## Seed de Dados para Testar Animação
+- [x] Criar script seed-prices.mjs para popular tabela prices
+- [x] Adicionar 3 opções de API para Whatsapp (Brasil)
+- [x] Executar seed e verificar animação de borda circulante
+- [x] Confirmar que opção recomendada mostra efeito amarelo
