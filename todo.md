@@ -446,3 +446,6 @@
 ## Ajustes de UX - Cooldown e Modal de API
 - [x] Alterar mensagem de erro do toast para: "Nesta opção, os pedidos só podem ser cancelados após 2 minutos. Aguarde X segundos."
 - [x] Reorganizar modal de edição de API: Nome, Posição e Limite na mesma linha horizontal
+
+## Campo de Descrição Opcional
+- [x] Remover validação obrigatória do campo "Descrição" no modal de adicionar/remover saldo

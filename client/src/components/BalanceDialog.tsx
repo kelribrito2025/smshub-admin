@@ -77,11 +77,6 @@ export function BalanceDialog({ open, onOpenChange, customer, onSuccess }: Balan
       return;
     }
 
-    if (!description.trim()) {
-      toast.error("Descrição é obrigatória");
-      return;
-    }
-
     // Converter centavos para reais (amount já está em centavos do CurrencyInput)
     const amountInReais = amount / 100;
     const finalAmount = (type === "credit" || type === "refund") ? amountInReais : -amountInReais;

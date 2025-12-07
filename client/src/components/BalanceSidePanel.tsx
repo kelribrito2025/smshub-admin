@@ -100,11 +100,6 @@ export function BalanceSidePanel({ open, onOpenChange, customer, onSuccess }: Ba
       return;
     }
 
-    if (!description.trim()) {
-      toast.error("Descrição é obrigatória");
-      return;
-    }
-
     // amount já está em centavos, não precisa converter
     const finalAmount = (type === "credit" || type === "refund") ? amount : -amount;
 
