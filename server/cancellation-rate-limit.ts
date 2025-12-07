@@ -1,5 +1,5 @@
 import { getDb } from './db';
-import { cancellationLogs, smsApis } from '../drizzle/schema';
+import { cancellationLogs, smsApis, customers, users } from '../drizzle/schema';
 import { and, eq, gte, sql } from 'drizzle-orm';
 
 /**
@@ -15,6 +15,16 @@ export async function checkCancellationBlock(customerId: number, apiId: number):
 }> {
   const db = await getDb();
   if (!db) throw new Error('Database connection failed');
+
+  // Admins are exempt from cancellation limits
+  // Get customer's user account to check role
+  const [customer] = await db.select().from(customers).where(eq(customers.id, customerId)).limit(1);
+  if (customer) {
+    const [userAccount] = await db.select().from(users).where(eq(users.email, customer.email)).limit(1);
+    if (userAccount?.role === 'admin') {
+      return { isBlocked: false, remainingMinutes: 0 };
+    }
+  }
 
   // Get API configuration
   const [api] = await db.select().from(smsApis).where(eq(smsApis.id, apiId)).limit(1);

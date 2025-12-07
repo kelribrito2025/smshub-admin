@@ -597,3 +597,10 @@
 - [x] Identificar IDs das APIs de teste (10 APIs encontradas)
 - [x] Remover APIs de teste do banco de dados (DELETE FROM sms_apis WHERE name LIKE 'Test API%')
 - [x] Verificar página /apis após remoção (apenas Opção 1, 2, 3 restantes)
+
+## Bug: Limite de Cancelamentos Disparando Incorretamente
+- [x] Investigar quando erro "Você atingiu o limite de cancelamentos" está sendo disparado (em compra, correto)
+- [x] Verificar se validação está sendo chamada em compra (sim, correto)
+- [x] Verificar se admin deveria ser isento do limite (sim, deveria)
+- [x] Corrigir lógica de validação (admins agora isentos)
+- [x] Testar fluxo de compra e cancelamento

@@ -1,0 +1,8 @@
+{
+  "query": "SELECT \n  cl.id,\n  cl.customerId,\n  cl.apiId,\n  cl.activationId,\n  cl.timestamp,\n  sa.name as apiName,\n  sa.cancelLimit,\n  sa.cancelWindowMinutes,\n  sa.blockDurationMinutes\nFROM cancellation_logs cl\nJOIN sms_apis sa ON cl.apiId = sa.id\nWHERE cl.customerId = 180002\nORDER BY cl.timestamp DESC\nLIMIT 20;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT \n  cl.id,\n  cl.customerId,\n  cl.apiId,\n  cl.activationId,\n  cl.timestamp,\n  sa.name as apiName,\n  sa.cancelLimit,\n  sa.cancelWindowMinutes,\n  sa.blockDurationMinutes\nFROM cancellation_logs cl\nJOIN sms_apis sa ON cl.apiId = sa.id\nWHERE cl.customerId = 180002\nORDER BY cl.timestamp DESC\nLIMIT 20;",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1054 (42S22) at line 1: Unknown column 'sa.cancellimit' in 'field list'"
+  ]
+}

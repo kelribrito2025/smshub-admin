@@ -1,0 +1,98 @@
+{
+  "query": "SELECT \n  cl.id,\n  cl.customerId,\n  cl.apiId,\n  cl.activationId,\n  cl.timestamp,\n  sa.name as apiName,\n  sa.cancel_limit,\n  sa.cancel_window_minutes,\n  sa.block_duration_minutes\nFROM cancellation_logs cl\nJOIN sms_apis sa ON cl.apiId = sa.id\nWHERE cl.customerId = 180002\nORDER BY cl.timestamp DESC\nLIMIT 20;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT \n  cl.id,\n  cl.customerId,\n  cl.apiId,\n  cl.activationId,\n  cl.timestamp,\n  sa.name as apiName,\n  sa.cancel_limit,\n  sa.cancel_window_minutes,\n  sa.block_duration_minutes\nFROM cancellation_logs cl\nJOIN sms_apis sa ON cl.apiId = sa.id\nWHERE cl.customerId = 180002\nORDER BY cl.timestamp DESC\nLIMIT 20;",
+  "rows": [
+    {
+      "id": "27",
+      "customerId": "180002",
+      "apiId": "1",
+      "activationId": "660033",
+      "timestamp": "2025-12-07 17:23:55",
+      "apiName": "Opção 1 ",
+      "cancel_limit": "3",
+      "cancel_window_minutes": "10",
+      "block_duration_minutes": "2"
+    },
+    {
+      "id": "26",
+      "customerId": "180002",
+      "apiId": "1",
+      "activationId": "660034",
+      "timestamp": "2025-12-07 17:23:48",
+      "apiName": "Opção 1 ",
+      "cancel_limit": "3",
+      "cancel_window_minutes": "10",
+      "block_duration_minutes": "2"
+    },
+    {
+      "id": "25",
+      "customerId": "180002",
+      "apiId": "1",
+      "activationId": "660035",
+      "timestamp": "2025-12-07 17:23:41",
+      "apiName": "Opção 1 ",
+      "cancel_limit": "3",
+      "cancel_window_minutes": "10",
+      "block_duration_minutes": "2"
+    },
+    {
+      "id": "24",
+      "customerId": "180002",
+      "apiId": "1",
+      "activationId": "660036",
+      "timestamp": "2025-12-07 17:23:20",
+      "apiName": "Opção 1 ",
+      "cancel_limit": "3",
+      "cancel_window_minutes": "10",
+      "block_duration_minutes": "2"
+    },
+    {
+      "id": "23",
+      "customerId": "180002",
+      "apiId": "1",
+      "activationId": "660029",
+      "timestamp": "2025-12-07 17:16:59",
+      "apiName": "Opção 1 ",
+      "cancel_limit": "3",
+      "cancel_window_minutes": "10",
+      "block_duration_minutes": "2"
+    },
+    {
+      "id": "22",
+      "customerId": "180002",
+      "apiId": "1",
+      "activationId": "660030",
+      "timestamp": "2025-12-07 17:16:52",
+      "apiName": "Opção 1 ",
+      "cancel_limit": "3",
+      "cancel_window_minutes": "10",
+      "block_duration_minutes": "2"
+    },
+    {
+      "id": "21",
+      "customerId": "180002",
+      "apiId": "1",
+      "activationId": "660031",
+      "timestamp": "2025-12-07 17:16:44",
+      "apiName": "Opção 1 ",
+      "cancel_limit": "3",
+      "cancel_window_minutes": "10",
+      "block_duration_minutes": "2"
+    },
+    {
+      "id": "20",
+      "customerId": "180002",
+      "apiId": "1",
+      "activationId": "660032",
+      "timestamp": "2025-12-07 17:16:33",
+      "apiName": "Opção 1 ",
+      "cancel_limit": "3",
+      "cancel_window_minutes": "10",
+      "block_duration_minutes": "2"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\tapiId\tactivationId\ttimestamp\tapiName\tcancel_limit\tcancel_window_minutes\tblock_duration_minutes\n27\t180002\t1\t660033\t2025-12-07 17:23:55\tOpção 1 \t3\t10\t2\n26\t180002\t1\t660034\t2025-12-07 17:23:48\tOpção 1 \t3\t10\t2\n25\t180002\t1\t660035\t2025-12-07 17:23:41\tOpção 1 \t3\t10\t2\n24\t180002\t1\t660036\t2025-12-07 17:23:20\tOpção 1 \t3\t10\t2\n23\t180002\t1\t660029\t2025-12-07 17:16:59\tOpção 1 \t3\t10\t2\n22\t180002\t1\t660030\t2025-12-07 17:16:52\tOpção 1 \t3\t10\t2\n21\t180002\t1\t660031\t2025-12-07 17:16:44\tOpção 1 \t3\t10\t2\n20\t180002\t1\t660032\t2025-12-07 17:16:33\tOpção 1 \t3\t10\t2\n",
+  "stderr": "",
+  "execution_time_ms": 61
+}
