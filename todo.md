@@ -389,3 +389,7 @@
 - [x] Aplicar fonte mono em todo o modal
 - [x] Criar 3 caixas separadas para mensagens
 - [x] Adicionar padrão diagonal no header (linear-gradient 45deg)
+
+## Correção de Erro React - BannedAccountModal
+- [x] Corrigir erro "Cannot update a component while rendering a different component"
+- [x] Mover chamada onClose() para fora do ciclo de render usando setTimeout(onClose, 0)

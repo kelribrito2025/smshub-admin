@@ -20,7 +20,8 @@ export default function BannedAccountModal({ open, onClose }: BannedAccountModal
       setCountdown((prev) => {
         if (prev <= 1) {
           clearInterval(interval);
-          onClose(); // Auto-close after 10 seconds
+          // Use setTimeout to avoid setState during render
+          setTimeout(() => onClose(), 0);
           return 0;
         }
         return prev - 1;
