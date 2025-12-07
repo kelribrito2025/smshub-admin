@@ -49,6 +49,9 @@ interface ApiFormData {
   profitPercentage: number;
   minimumPrice: number;
   maxSimultaneousOrders: number;
+  cancelLimit: number;
+  cancelWindowMinutes: number;
+  blockDurationMinutes: number;
 }
 
 export default function Apis() {
@@ -65,6 +68,9 @@ export default function Apis() {
     profitPercentage: 0,
     minimumPrice: 0,
     maxSimultaneousOrders: 0,
+    cancelLimit: 5,
+    cancelWindowMinutes: 10,
+    blockDurationMinutes: 30,
   });
 
   const apisQuery = trpc.apis.list.useQuery();
@@ -146,6 +152,9 @@ export default function Apis() {
       profitPercentage: 0,
       minimumPrice: 0,
       maxSimultaneousOrders: 0,
+      cancelLimit: 5,
+      cancelWindowMinutes: 10,
+      blockDurationMinutes: 30,
     });
     setEditingApi(null);
   };
@@ -163,6 +172,9 @@ export default function Apis() {
         profitPercentage: typeof api.profitPercentage === 'string' ? parseFloat(api.profitPercentage) : (api.profitPercentage || 0),
         minimumPrice: api.minimumPrice || 0,
         maxSimultaneousOrders: api.maxSimultaneousOrders || 0,
+        cancelLimit: api.cancelLimit || 5,
+        cancelWindowMinutes: api.cancelWindowMinutes || 10,
+        blockDurationMinutes: api.blockDurationMinutes || 30,
       });
     } else {
       resetForm();
@@ -492,6 +504,89 @@ export default function Apis() {
                       placeholder="0"
                       value={formData.maxSimultaneousOrders}
                       onChange={(e) => setFormData({ ...formData, maxSimultaneousOrders: parseInt(e.target.value) || 0 })}
+                    />
+                  </div>
+                </div>
+              </TooltipProvider>
+
+              {/* Limite de Cancelamentos */}
+              <TooltipProvider>
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-1.5">
+                      <Label htmlFor="cancelLimit">
+                        Limite de Cancelamentos (X)
+                      </Label>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
+                        </TooltipTrigger>
+                        <TooltipContent className="max-w-xs">
+                          <p>Quantidade máxima de cancelamentos permitidos dentro da janela de tempo. Ex: 5 cancelamentos.</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </div>
+                    <Input
+                      id="cancelLimit"
+                      type="number"
+                      min="1"
+                      max="50"
+                      step="1"
+                      placeholder="5"
+                      value={formData.cancelLimit}
+                      onChange={(e) => setFormData({ ...formData, cancelLimit: parseInt(e.target.value) || 5 })}
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-1.5">
+                      <Label htmlFor="cancelWindowMinutes">
+                        Janela de Tempo (Y min)
+                      </Label>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
+                        </TooltipTrigger>
+                        <TooltipContent className="max-w-xs">
+                          <p>Período em minutos usado para contabilizar os cancelamentos. Ex: últimos 10 minutos.</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </div>
+                    <Input
+                      id="cancelWindowMinutes"
+                      type="number"
+                      min="1"
+                      max="1440"
+                      step="1"
+                      placeholder="10"
+                      value={formData.cancelWindowMinutes}
+                      onChange={(e) => setFormData({ ...formData, cancelWindowMinutes: parseInt(e.target.value) || 10 })}
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-1.5">
+                      <Label htmlFor="blockDurationMinutes">
+                        Tempo de Bloqueio (Z min)
+                      </Label>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
+                        </TooltipTrigger>
+                        <TooltipContent className="max-w-xs">
+                          <p>Duração em minutos que o usuário ficará bloqueado ao atingir o limite. Ex: 30 minutos.</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </div>
+                    <Input
+                      id="blockDurationMinutes"
+                      type="number"
+                      min="1"
+                      max="10080"
+                      step="1"
+                      placeholder="30"
+                      value={formData.blockDurationMinutes}
+                      onChange={(e) => setFormData({ ...formData, blockDurationMinutes: parseInt(e.target.value) || 30 })}
                     />
                   </div>
                 </div>

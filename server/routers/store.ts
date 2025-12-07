@@ -211,9 +211,21 @@ export const storeRouter = router({
         throw new Error('Saldo insuficiente');
       }
 
+      // 2.4. Check cancellation rate limit block
+      let targetApiId = input.apiId || price.price.apiId;
+      
+      if (targetApiId) {
+        const { checkCancellationBlock } = await import('../cancellation-rate-limit');
+        const blockStatus = await checkCancellationBlock(input.customerId, targetApiId);
+        
+        if (blockStatus.isBlocked) {
+          console.warn(`[CANCELLATION BLOCK] Customer ${input.customerId} is blocked from purchasing on API ${targetApiId} for ${blockStatus.remainingMinutes} more minutes`);
+          throw new Error(blockStatus.message || 'Você está temporariamente bloqueado de fazer novas compras');
+        }
+      }
+
       // 2.5. Validar limite de pedidos simultâneos por API
       // Determinar qual API será usada para validação
-      let targetApiId = input.apiId || price.price.apiId;
       
       if (targetApiId) {
         const { getApiById } = await import('../apis-helpers');
@@ -958,6 +970,12 @@ export const storeRouter = router({
           'refund',
           `Reembolso de ativação cancelada #${activation.id}`
         );
+
+        // Record cancellation for rate limiting
+        const { recordCancellation } = await import('../cancellation-rate-limit');
+        if (activation.apiId) {
+          await recordCancellation(input.customerId, activation.apiId, activation.id);
+        }
 
         // Broadcast operation completed
         notificationsManager.sendToCustomer(input.customerId, {

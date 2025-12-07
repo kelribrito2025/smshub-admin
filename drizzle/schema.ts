@@ -291,6 +291,9 @@ export const smsApis = mysqlTable("sms_apis", {
   profitPercentage: decimal("profit_percentage", { precision: 5, scale: 2 }).default("0.00").notNull(), // Profit margin percentage (e.g., 150.00 for 150%)
   minimumPrice: int("minimum_price").default(0).notNull(), // Minimum price in cents (e.g., 300 for R$ 3.00)
   maxSimultaneousOrders: int("max_simultaneous_orders").default(0).notNull(), // Maximum simultaneous active orders per customer per API (0 = unlimited)
+  cancelLimit: int("cancel_limit").default(5).notNull(), // Maximum cancellations allowed within time window (X)
+  cancelWindowMinutes: int("cancel_window_minutes").default(10).notNull(), // Time window in minutes to count cancellations (Y)
+  blockDurationMinutes: int("block_duration_minutes").default(30).notNull(), // Duration in minutes to block user after reaching limit (Z)
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 }, (table) => ({
@@ -502,3 +505,20 @@ export const recharges = mysqlTable("recharges", {
 
 export type Recharge = typeof recharges.$inferSelect;
 export type InsertRecharge = typeof recharges.$inferInsert;
+
+/**
+ * Cancellation Logs table - tracks user cancellations for rate limiting
+ */
+export const cancellationLogs = mysqlTable("cancellation_logs", {
+  id: int("id").autoincrement().primaryKey(),
+  customerId: int("customerId").notNull(), // Customer who cancelled
+  apiId: int("apiId").notNull(), // API where cancellation occurred
+  activationId: int("activationId"), // Optional: reference to cancelled activation
+  timestamp: timestamp("timestamp").defaultNow().notNull(), // When cancellation occurred
+}, (table) => ({
+  customerApiIdx: index("cancellation_customer_api_idx").on(table.customerId, table.apiId),
+  timestampIdx: index("cancellation_timestamp_idx").on(table.timestamp),
+}));
+
+export type CancellationLog = typeof cancellationLogs.$inferSelect;
+export type InsertCancellationLog = typeof cancellationLogs.$inferInsert;

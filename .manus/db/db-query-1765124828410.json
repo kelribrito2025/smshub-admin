@@ -1,0 +1,9 @@
+{
+  "query": "CREATE TABLE IF NOT EXISTS cancellation_logs (\n  id INT AUTO_INCREMENT PRIMARY KEY,\n  customerId INT NOT NULL,\n  apiId INT NOT NULL,\n  activationId INT,\n  timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  INDEX cancellation_customer_api_idx (customerId, apiId),\n  INDEX cancellation_timestamp_idx (timestamp)\n);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute CREATE TABLE IF NOT EXISTS cancellation_logs (\n  id INT AUTO_INCREMENT PRIMARY KEY,\n  customerId INT NOT NULL,\n  apiId INT NOT NULL,\n  activationId INT,\n  timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  INDEX cancellation_customer_api_idx (customerId, apiId),\n  INDEX cancellation_timestamp_idx (timestamp)\n);",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 192
+}

@@ -559,3 +559,23 @@
 ## UX: Ajustar Border-radius das Notificações para 11px
 - [x] Alterar border-radius de 0 para 11px
 - [x] Testar visual com cantos mais arredondados
+
+## Feature: Sistema de Limite de Cancelamentos + Bloqueio Automático
+- [ ] Adicionar campos no schema da API (cancelLimit, cancelWindowMinutes, blockDurationMinutes)
+- [ ] Criar tabela cancellationLogs (userId, apiId, timestamp)
+- [ ] Adicionar campos no modal de editar API em /apis
+- [ ] Implementar helper de validação de cancelamentos no backend
+- [ ] Aplicar validação antes de cancelamento
+- [ ] Aplicar validação antes de compra (bloquear se usuário estiver bloqueado)
+- [ ] Exibir mensagem de bloqueio com tempo restante
+- [ ] Testar fluxo completo (cancelar, bloquear, desbloquear)
+
+## Feature: Sistema de Limite de Cancelamentos + Bloqueio Automático
+- [x] Adicionar campos de configuração no schema da API (cancelLimit, cancelWindowMinutes, blockDurationMinutes)
+- [x] Criar tabela cancellation_logs (customerId, apiId, activationId, timestamp)
+- [x] Adicionar campos no modal de editar API em /apis
+- [x] Implementar helper de validação (checkCancellationBlock, recordCancellation, validateCancellation)
+- [x] Aplicar validação de bloqueio no procedure purchaseNumber
+- [x] Aplicar registro de cancelamento no procedure cancelActivation
+- [x] Testar fluxo completo (cancelar X vezes, tentar comprar, verificar bloqueio)
+- [x] Escrever testes unitários (6 testes passaram)

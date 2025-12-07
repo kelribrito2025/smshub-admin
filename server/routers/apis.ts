@@ -47,6 +47,9 @@ export const apisRouter = router({
       profitPercentage: z.number().min(0).max(999.99).default(0), // 0% to 999.99%
       minimumPrice: z.number().min(0).default(0), // in cents
       maxSimultaneousOrders: z.number().min(0).max(100).default(0), // 0 = unlimited
+      cancelLimit: z.number().min(1).max(50).default(5), // Maximum cancellations allowed
+      cancelWindowMinutes: z.number().min(1).max(1440).default(10), // Time window in minutes
+      blockDurationMinutes: z.number().min(1).max(10080).default(30), // Block duration in minutes
     }))
     .mutation(async ({ input }) => {
       const { profitPercentage, ...rest } = input;
@@ -71,6 +74,9 @@ export const apisRouter = router({
       profitPercentage: z.number().min(0).max(999.99).optional(), // 0% to 999.99%
       minimumPrice: z.number().min(0).optional(), // in cents
       maxSimultaneousOrders: z.number().min(0).max(100).optional(), // 0 = unlimited
+      cancelLimit: z.number().min(1).max(50).optional(), // Maximum cancellations allowed
+      cancelWindowMinutes: z.number().min(1).max(1440).optional(), // Time window in minutes
+      blockDurationMinutes: z.number().min(1).max(10080).optional(), // Block duration in minutes
     }))
     .mutation(async ({ input }) => {
       const { id, profitPercentage, ...rest } = input;
