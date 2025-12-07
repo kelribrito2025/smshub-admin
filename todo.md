@@ -442,3 +442,7 @@
 - [x] Adicionar mensagem de erro clara quando bloqueado
 - [x] Criar testes unitários para validação da regra
 - [x] Testar fluxo completo: criar pedido, tentar cancelar antes/depois de 2min
+
+## Ajustes de UX - Cooldown e Modal de API
+- [x] Alterar mensagem de erro do toast para: "Nesta opção, os pedidos só podem ser cancelados após 2 minutos. Aguarde X segundos."
+- [x] Reorganizar modal de edição de API: Nome, Posição e Limite na mesma linha horizontal

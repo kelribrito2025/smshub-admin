@@ -336,7 +336,7 @@ export default function StoreCatalog() {
                             <Button
                               onClick={() => {
                                 if (!allowed) {
-                                  toast.error(`Este pedido só pode ser cancelado após 2 minutos. Aguarde mais ${remainingSeconds} segundos.`);
+                                  toast.error(`Nesta opção, os pedidos só podem ser cancelados após 2 minutos. Aguarde ${remainingSeconds} segundos.`);
                                   return;
                                 }
                                 handleCancelActivation(activation.id);
@@ -407,7 +407,7 @@ export default function StoreCatalog() {
                             <Button
                               onClick={() => {
                                 if (!allowed) {
-                                  toast.error(`Este pedido só pode ser cancelado após 2 minutos. Aguarde mais ${remainingSeconds} segundos.`);
+                                  toast.error(`Nesta opção, os pedidos só podem ser cancelados após 2 minutos. Aguarde ${remainingSeconds} segundos.`);
                                   return;
                                 }
                                 handleCancelActivation(activation.id);

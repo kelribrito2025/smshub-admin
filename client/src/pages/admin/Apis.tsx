@@ -442,31 +442,60 @@ export default function Apis() {
             </DialogHeader>
 
             <div className="space-y-4 py-4">
-              {/* Nome e Prioridade na mesma linha */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="name">Nome</Label>
-                  <Input
-                    id="name"
-                    placeholder="Ex: Opção 1"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  />
-                </div>
+              {/* Nome, Posição e Limite na mesma linha */}
+              <TooltipProvider>
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="name">Nome</Label>
+                    <Input
+                      id="name"
+                      placeholder="Ex: Opção 1"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    />
+                  </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="priority">
-                    Posição da API
-                  </Label>
-                  <Input
-                    id="priority"
-                    type="number"
-                    min="0"
-                    value={formData.priority}
-                    onChange={(e) => setFormData({ ...formData, priority: parseInt(e.target.value) || 0 })}
-                  />
+                  <div className="space-y-2">
+                    <Label htmlFor="priority">
+                      Posição da API
+                    </Label>
+                    <Input
+                      id="priority"
+                      type="number"
+                      min="0"
+                      value={formData.priority}
+                      onChange={(e) => setFormData({ ...formData, priority: parseInt(e.target.value) || 0 })}
+                    />
+                  </div>
+
+                  {/* Limite de Pedidos Simultâneos */}
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-1.5">
+                      <Label htmlFor="maxSimultaneousOrders">
+                        Limite de Pedidos
+                      </Label>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
+                        </TooltipTrigger>
+                        <TooltipContent className="max-w-xs">
+                          <p>Máximo de pedidos ativos por cliente nesta API. 0 = sem limite.</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </div>
+                    <Input
+                      id="maxSimultaneousOrders"
+                      type="number"
+                      min="0"
+                      max="100"
+                      step="1"
+                      placeholder="0"
+                      value={formData.maxSimultaneousOrders}
+                      onChange={(e) => setFormData({ ...formData, maxSimultaneousOrders: parseInt(e.target.value) || 0 })}
+                    />
+                  </div>
                 </div>
-              </div>
+              </TooltipProvider>
 
               <div className="space-y-2">
                 <Label htmlFor="url">URL da API</Label>
@@ -570,32 +599,7 @@ export default function Apis() {
                     />
                   </div>
 
-                  {/* Limite de Pedidos Simultâneos */}
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-1.5">
-                      <Label htmlFor="maxSimultaneousOrders">
-                        Limite de Pedidos Simultâneos
-                      </Label>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
-                        </TooltipTrigger>
-                        <TooltipContent className="max-w-xs">
-                          <p>Máximo de pedidos ativos por cliente nesta API. 0 = sem limite.</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </div>
-                    <Input
-                      id="maxSimultaneousOrders"
-                      type="number"
-                      min="0"
-                      max="100"
-                      step="1"
-                      placeholder="0 (sem limite)"
-                      value={formData.maxSimultaneousOrders}
-                      onChange={(e) => setFormData({ ...formData, maxSimultaneousOrders: parseInt(e.target.value) || 0 })}
-                    />
-                  </div>
+
                 </div>
               </TooltipProvider>
 
