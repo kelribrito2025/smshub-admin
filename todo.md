@@ -723,3 +723,9 @@
 - [x] Scrollbar ainda aparece em /store e /store/history devido à lista de serviços
 - [x] Investigar elementos que podem estar causando overflow (lista lateral)
 - [x] Removido overflow-y do HTML completamente, confiando em modal={false} para prevenir layout shift
+
+## Corrigir Scrollbar da Lista de Serviços
+- [x] Scrollbar ainda aparece devido à lista de serviços ultrapassar viewport
+- [x] Localizar componente StoreLayout que envolve todas as páginas
+- [x] Mudar container principal para h-screen overflow-hidden
+- [x] Adicionar overflow-y-auto apenas no <main> para scroll interno do conteúdo

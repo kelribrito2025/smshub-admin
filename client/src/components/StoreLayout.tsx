@@ -350,7 +350,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
   const isLowBalance = isAuthenticated && displayBalance < 700;
 
   return (
-    <div className="min-h-screen bg-black text-green-400 font-mono">
+    <div className="h-screen overflow-hidden bg-black text-green-400 font-mono">
       {/* Matrix Background */}
       <div className="fixed inset-0 opacity-5 pointer-events-none">
         <div className="absolute inset-0" style={{
@@ -825,7 +825,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 lg:ml-[364px] mt-16 p-4 md:p-8">
+      <main className="flex-1 lg:ml-[364px] mt-16 p-4 md:p-8 overflow-y-auto h-[calc(100vh-4rem)]">
         <div className="relative z-10">
           {children}
         </div>
