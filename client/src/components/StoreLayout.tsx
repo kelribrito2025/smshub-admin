@@ -484,19 +484,22 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
           {/* Profile Menu Dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-green-600 hover:text-green-400" style={{width: '40px', height: '40px'}}
-              >
-                {customer?.role === 'admin' ? (
-                  <div className="w-9 h-9 rounded-full bg-purple-500/10 flex items-center justify-center">
+              {customer?.role === 'admin' ? (
+                <button className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-green-900/20 transition-colors">
+                  <div className="w-9 h-9 rounded-full bg-purple-500/10 flex items-center justify-center shrink-0">
                     <Shield className="w-5 h-5 text-purple-500" />
                   </div>
-                ) : (
+                  <span className="text-sm font-medium text-purple-400 hidden sm:block">Administrador</span>
+                </button>
+              ) : (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-green-600 hover:text-green-400" style={{width: '40px', height: '40px'}}
+                >
                   <User className="w-5 h-5" />
-                )}
-              </Button>
+                </Button>
+              )}
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="bg-black border-green-900/50">
               {/* Mostrar Perfil e Sair quando logado, apenas Entrar quando deslogado */}

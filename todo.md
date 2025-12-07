@@ -629,3 +629,8 @@
 - [x] Verificar como obter role do usuário no contexto do Store
 - [x] Aplicar mesma lógica condicional do DashboardLayout (Shield roxo + "Admin")
 - [x] Testar no navegador com login de admin (xkelrix@gmail.com)
+
+## Texto "Administrador" no Header do Painel de Vendas
+- [x] Modificar botão de perfil no StoreLayout para incluir texto
+- [x] Adicionar "Administrador" ao lado do ícone Shield quando admin
+- [x] Ajustar layout para mobile (esconder texto em telas pequenas)
