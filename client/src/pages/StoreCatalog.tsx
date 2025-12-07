@@ -87,31 +87,35 @@ export default function StoreCatalog() {
     
     // Ativar estado global de cancelamento
     setIsCancelling(true);
-    toast.info('Cancelamento em andamento...', {
-      duration: 5000,
-    });
     
-    try {
-      // Executar cancelamento com delay mínimo de 5 segundos
-      const [result] = await Promise.all([
-        cancelMutation.mutateAsync({
-          activationId,
-          customerId: customer.id,
-        }),
-        new Promise(resolve => setTimeout(resolve, 5000)) // Delay mínimo de 5 segundos
-      ]);
-      
-      // Invalidate queries to update balance and activations in real-time
-      await utils.store.getCustomer.invalidate();
-      await utils.store.getMyActivations.invalidate();
-      
-      toast.success('Pedido cancelado com sucesso!');
-    } catch (err: any) {
-      toast.error(err.message || 'Erro ao cancelar ativação');
-    } finally {
-      // Desativar estado global de cancelamento após conclusão
-      setIsCancelling(false);
-    }
+    // Usar toast.promise para gerenciar loading → success/error automaticamente
+    const cancelPromise = (async () => {
+      try {
+        // Executar cancelamento com delay mínimo de 5 segundos
+        const [result] = await Promise.all([
+          cancelMutation.mutateAsync({
+            activationId,
+            customerId: customer.id,
+          }),
+          new Promise(resolve => setTimeout(resolve, 5000)) // Delay mínimo de 5 segundos
+        ]);
+        
+        // Invalidate queries to update balance and activations in real-time
+        await utils.store.getCustomer.invalidate();
+        await utils.store.getMyActivations.invalidate();
+        
+        return result;
+      } finally {
+        // Desativar estado global de cancelamento após conclusão
+        setIsCancelling(false);
+      }
+    })();
+    
+    toast.promise(cancelPromise, {
+      loading: 'Cancelamento em andamento...',
+      success: 'Pedido cancelado com sucesso!',
+      error: (err) => err.message || 'Erro ao cancelar ativação',
+    });
   };
 
   const formatTime = (date: Date) => {

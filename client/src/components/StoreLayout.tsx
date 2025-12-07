@@ -264,40 +264,39 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
         setLoadingApiId(apiId);
       }
       
-      toast.info('Processando compra...', {
-        duration: 4000,
-      });
+      // Usar toast.promise para gerenciar loading → success/error automaticamente
+      const purchasePromise = (async () => {
+        try {
+          // Executar compra com delay mínimo de 4 segundos
+          const [result] = await Promise.all([
+            purchaseMutation.mutateAsync({
+              customerId: customer!.id,
+              countryId: service.countryId,
+              serviceId: service.id,
+              operator: selectedOperator !== 'any' ? selectedOperator : undefined,
+              apiId, // Pass API ID if provided
+            }),
+            new Promise(resolve => setTimeout(resolve, 4000)) // Delay mínimo de 4 segundos
+          ]);
+          
+          // Invalidate queries to refresh data
+          await utils.store.getCustomer.invalidate();
+          await utils.store.getMyActivations.invalidate();
+          
+          return result;
+        } finally {
+          // Desativar estado global de compra após conclusão
+          setIsPurchasing(false);
+          setBuyingServiceKey(null);
+          setLoadingApiId(null);
+        }
+      })();
       
-      try {
-        // Executar compra com delay mínimo de 4 segundos
-        const [result] = await Promise.all([
-          purchaseMutation.mutateAsync({
-            customerId: customer!.id,
-            countryId: service.countryId,
-            serviceId: service.id,
-            operator: selectedOperator !== 'any' ? selectedOperator : undefined,
-            apiId, // Pass API ID if provided
-          }),
-          new Promise(resolve => setTimeout(resolve, 4000)) // Delay mínimo de 4 segundos
-        ]);
-        
-        toast.success('Serviço adquirido com sucesso!', {
-          description: `Número: ${result.phoneNumber}`,
-        });
-        
-        // Invalidate queries to refresh data
-        await utils.store.getCustomer.invalidate();
-        await utils.store.getMyActivations.invalidate();
-      } catch (error: any) {
-        toast.error('Erro ao comprar número', {
-          description: error.message,
-        });
-      } finally {
-        // Desativar estado global de compra após conclusão
-        setIsPurchasing(false);
-        setBuyingServiceKey(null);
-        setLoadingApiId(null);
-      }
+      toast.promise(purchasePromise, {
+        loading: 'Processando compra...',
+        success: (result) => `Serviço adquirido com sucesso! Número: ${result.phoneNumber}`,
+        error: (error) => `Erro ao comprar número: ${error.message}`,
+      });
     });
   };
 

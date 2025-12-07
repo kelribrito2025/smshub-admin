@@ -502,3 +502,16 @@
 ## Implementar Fila de Notificações
 - [x] Configurar Toaster para exibir apenas 1 notificação por vez
 - [x] Adicionar delay entre notificações (evitar sobreposição)
+
+## Bug: Flash de Notificações Duplicadas
+- [ ] Investigar código de compra/cancelamento
+- [ ] Identificar notificações redundantes (loading + success)
+- [ ] Remover ou consolidar notificações duplicadas
+
+## Bug: Flash de Notificações Duplicadas ao Comprar/Cancelar
+- [x] Investigar código de compra em StoreLayout.tsx (linha 267)
+- [x] Identificar notificação de loading redundante causando flash visual
+- [x] Substituir toast.info + toast.success por toast.promise() no fluxo de compra
+- [x] Substituir toast.info + toast.success por toast.promise() no fluxo de cancelamento
+- [x] Verificar compilação TypeScript (sem erros)
+- [x] Servidor rodando sem erros
