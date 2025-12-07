@@ -435,3 +435,10 @@
 - [x] Adicionar logging de tentativas bloqueadas para auditoria
 - [x] Criar testes unitários para validação de limite
 - [x] Testar fluxo completo com múltiplos pedidos simultâneos
+
+## Regra de Cancelamento da Opção 3 (SMSActivate)
+- [x] Implementar validação no backend: bloqueio de 2 minutos após criação
+- [x] Atualizar frontend: desabilitar botão de cancelamento até 2 minutos
+- [x] Adicionar mensagem de erro clara quando bloqueado
+- [x] Criar testes unitários para validação da regra
+- [x] Testar fluxo completo: criar pedido, tentar cancelar antes/depois de 2min

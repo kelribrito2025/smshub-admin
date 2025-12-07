@@ -66,6 +66,22 @@ export default function StoreCatalog() {
     setTimeout(() => setCopiedId(null), 2000);
   };
 
+  // Helper para calcular se pode cancelar (API 3 = 2 minutos)
+  const canCancel = (activation: any) => {
+    if (activation.apiId !== 3) return { allowed: true, remainingSeconds: 0 };
+    
+    const createdAt = new Date(activation.createdAt).getTime();
+    const now = Date.now();
+    const elapsedMinutes = (now - createdAt) / (1000 * 60);
+    
+    if (elapsedMinutes >= 2) {
+      return { allowed: true, remainingSeconds: 0 };
+    }
+    
+    const remainingSeconds = Math.ceil((2 - elapsedMinutes) * 60);
+    return { allowed: false, remainingSeconds };
+  };
+
   const handleCancelActivation = async (activationId: number) => {
     if (!customer || isCancelling) return;
     
@@ -314,13 +330,22 @@ export default function StoreCatalog() {
                         <div className="flex items-center gap-2">
                           {/* Antes do SMS: Apenas botão Cancelar (polling automático já verifica) */}
                           {/* Só mostrar Cancelar se NUNCA teve SMS (smshubStatus === null) */}
-                          {!activation.smsCode && !activation.smshubStatus && (
+                          {!activation.smsCode && !activation.smshubStatus && (() => {
+                            const { allowed, remainingSeconds } = canCancel(activation);
+                            return (
                             <Button
-                              onClick={() => handleCancelActivation(activation.id)}
+                              onClick={() => {
+                                if (!allowed) {
+                                  toast.error(`Este pedido só pode ser cancelado após 2 minutos. Aguarde mais ${remainingSeconds} segundos.`);
+                                  return;
+                                }
+                                handleCancelActivation(activation.id);
+                              }}
                               variant="outline"
                               size="sm"
                               className="border-red-900/50 text-red-400 hover:bg-red-900/20 hover:text-red-300 hover:border-red-500/50 text-xs md:text-sm px-2 md:px-3"
-                              disabled={isCancelling || isLocked}
+                              disabled={isCancelling || isLocked || !allowed}
+                              title={!allowed ? `Aguarde ${remainingSeconds} segundos` : ''}
                             >
                               {(isCancelling || isLocked) ? (
                                 <Loader2 className="w-3 h-3 md:w-4 md:h-4 animate-spin md:mr-1" />
@@ -329,7 +354,8 @@ export default function StoreCatalog() {
                               )}
                               <span className="hidden md:inline">Cancelar</span>
                             </Button>
-                          )}
+                            );
+                          })()}
                           {activation.smshubStatus && (
                             <>
                               <Button
@@ -375,13 +401,22 @@ export default function StoreCatalog() {
                       {/* Mobile: AÇÃO → REST → STATUS */}
                       <td className="md:hidden px-3 md:px-6 py-3 md:py-4">
                         <div className="flex items-center gap-2">
-                          {!activation.smsCode && !activation.smshubStatus && (
+                          {!activation.smsCode && !activation.smshubStatus && (() => {
+                            const { allowed, remainingSeconds } = canCancel(activation);
+                            return (
                             <Button
-                              onClick={() => handleCancelActivation(activation.id)}
+                              onClick={() => {
+                                if (!allowed) {
+                                  toast.error(`Este pedido só pode ser cancelado após 2 minutos. Aguarde mais ${remainingSeconds} segundos.`);
+                                  return;
+                                }
+                                handleCancelActivation(activation.id);
+                              }}
                               variant="outline"
                               size="sm"
                               className="border-red-900/50 text-red-400 hover:bg-red-900/20 hover:text-red-300 hover:border-red-500/50 text-xs md:text-sm px-2 md:px-3"
-                              disabled={isCancelling || isLocked}
+                              disabled={isCancelling || isLocked || !allowed}
+                              title={!allowed ? `Aguarde ${remainingSeconds} segundos` : ''}
                             >
                               {(isCancelling || isLocked) ? (
                                 <Loader2 className="w-3 h-3 md:w-4 md:h-4 animate-spin md:mr-1" />
@@ -390,7 +425,8 @@ export default function StoreCatalog() {
                               )}
                               <span className="hidden md:inline">Cancelar</span>
                             </Button>
-                          )}
+                            );
+                          })()}
                           {activation.smshubStatus && (
                             <>
                               <Button

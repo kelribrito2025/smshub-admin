@@ -916,6 +916,23 @@ export const storeRouter = router({
         throw new Error('Ativação não pode ser cancelada');
       }
 
+      // Validar regra de 2 minutos para API 3 (SMSActivate)
+      if (activation.apiId === 3) {
+        const createdAt = new Date(activation.createdAt);
+        const now = new Date();
+        const elapsedMinutes = (now.getTime() - createdAt.getTime()) / (1000 * 60);
+        
+        if (elapsedMinutes < 2) {
+          const remainingSeconds = Math.ceil((2 - elapsedMinutes) * 60);
+          throw new Error(
+            `Este pedido só pode ser cancelado após 2 minutos. ` +
+            `Aguarde mais ${remainingSeconds} segundos.`
+          );
+        }
+        
+        console.log(`[cancelActivation] API 3 cooldown passed: ${elapsedMinutes.toFixed(2)} minutes elapsed`);
+      }
+
       // Cancelar na API SMSHub
       try {
         // Detectar formato inválido: smshubActivationId == phoneNumber
