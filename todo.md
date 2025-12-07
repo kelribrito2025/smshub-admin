@@ -678,3 +678,8 @@
 - [x] Remover efeito duplo (borda + ring)
 - [x] Deixar apenas ring verde com opacidade suave
 - [x] Manter mesmo efeito visual do azul anterior, mas em verde
+
+## Correção de Layout Shift do Avatar Admin
+- [x] Investigar por que botão admin "anda para a direita" quando dropdown abre
+- [x] Remover causa do layout shift (borda preta adicionada via editor visual)
+- [x] Garantir que botão permaneça fixo ao abrir menu

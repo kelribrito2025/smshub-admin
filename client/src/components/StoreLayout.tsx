@@ -485,7 +485,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               {customer?.role === 'admin' ? (
-                <button className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-green-900/20 transition-colors border" style={{borderColor: '#000000'}}>
+                <button className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-green-900/20 transition-colors">
                   <div className="w-9 h-9 rounded-full bg-purple-500/10 flex items-center justify-center shrink-0">
                     <Shield className="w-5 h-5 text-purple-500" />
                   </div>
