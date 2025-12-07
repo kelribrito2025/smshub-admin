@@ -117,7 +117,7 @@ export default function StoreActivations() {
           </p>
         </div>
 
-        <Card className="bg-black/50 border-green-900/50 overflow-hidden">
+        <Card className="bg-black/50 border-green-900/50 overflow-hidden" style={{paddingTop: '0px', paddingBottom: '15px'}}>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
