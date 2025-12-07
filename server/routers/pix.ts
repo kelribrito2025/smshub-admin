@@ -52,10 +52,7 @@ export const pixRouter = router({
 
         // Create PIX charge via EfiPay
         if (!efiPayClient) {
-          throw new TRPCError({
-            code: 'INTERNAL_SERVER_ERROR',
-            message: 'Payment system not configured',
-          });
+          throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: 'EfiPay client not initialized' });
         }
         const charge = await efiPayClient.createCharge({
           amount: input.amount,
@@ -64,7 +61,10 @@ export const pixRouter = router({
         });
 
         // Generate QR Code image URL
-        const qrCodeUrl = efiPayClient!.generateQRCodeImageUrl(charge.pixCopyPaste);
+        if (!efiPayClient) {
+          throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: 'EfiPay client not initialized' });
+        }
+        const qrCodeUrl = efiPayClient.generateQRCodeImageUrl(charge.pixCopyPaste);
 
         // Save transaction to database
         await db.insert(pixTransactions).values({
@@ -173,10 +173,7 @@ export const pixRouter = router({
     .mutation(async ({ input }) => {
       try {
         if (!efiPayClient) {
-          throw new TRPCError({
-            code: 'INTERNAL_SERVER_ERROR',
-            message: 'Payment system not configured',
-          });
+          throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: 'EfiPay client not initialized' });
         }
         const response = await efiPayClient.configureWebhook(input.webhookUrl);
         
@@ -224,10 +221,7 @@ export const pixRouter = router({
 
         // Parse webhook payload
         if (!efiPayClient) {
-          throw new TRPCError({
-            code: 'INTERNAL_SERVER_ERROR',
-            message: 'Payment system not configured',
-          });
+          throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: 'EfiPay client not initialized' });
         }
         const pixData = efiPayClient.parseWebhookPayload(input);
 
