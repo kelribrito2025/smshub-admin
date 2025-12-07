@@ -322,3 +322,11 @@
 - [x] Retornar flag adjusted para frontend
 - [x] Saldo do xkelrix@gmail.com verificado (R$ 1,39 - já positivo)
 - [x] Implementação concluída (pronta para teste manual no navegador)
+
+## Remover Opção "Gerir Menus"
+- [x] Encontrar componente do menu de administrador (DashboardLayout.tsx linha 259-266)
+- [x] Remover opção "Gerir Menus" do dropdown
+- [x] Remover estado manageDialogOpen
+- [x] Remover componente MenuManagementDialog
+- [x] Remover import do MenuManagementDialog
+- [x] Menu agora tem apenas "Reorganizar Menus" e "Sign out"

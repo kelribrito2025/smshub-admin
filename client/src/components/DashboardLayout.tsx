@@ -29,7 +29,6 @@ import { useLocation } from "wouter";
 import { DashboardLayoutSkeleton } from './DashboardLayoutSkeleton';
 import { Button } from "./ui/button";
 import { MenuReorderDialog } from "./MenuReorderDialog";
-import { MenuManagementDialog } from "./MenuManagementDialog";
 
 // Fallback menu items (used if database menus are not available)
 const fallbackMenuItems = [
@@ -135,7 +134,6 @@ function DashboardLayoutContent({
   const sidebarRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
   const [reorderDialogOpen, setReorderDialogOpen] = useState(false);
-  const [manageDialogOpen, setManageDialogOpen] = useState(false);
 
   // Fetch menus from database
   const { data: dbMenus } = trpc.adminMenus.getAll.useQuery();
@@ -258,13 +256,6 @@ function DashboardLayoutContent({
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
                 <DropdownMenuItem
-                  onClick={() => setManageDialogOpen(true)}
-                  className="cursor-pointer"
-                >
-                  <Settings className="mr-2 h-4 w-4" />
-                  <span>Gerir Menus</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem
                   onClick={() => setReorderDialogOpen(true)}
                   className="cursor-pointer"
                 >
@@ -313,10 +304,6 @@ function DashboardLayoutContent({
       <MenuReorderDialog
         open={reorderDialogOpen}
         onOpenChange={setReorderDialogOpen}
-      />
-      <MenuManagementDialog
-        open={manageDialogOpen}
-        onOpenChange={setManageDialogOpen}
       />
     </>
   );
