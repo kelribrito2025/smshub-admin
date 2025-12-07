@@ -7,13 +7,20 @@ interface BannedAccountModalProps {
 }
 
 export default function BannedAccountModal({ open, onClose }: BannedAccountModalProps) {
-  const [countdown, setCountdown] = useState(10);
+  const [countdown, setCountdown] = useState(20);
 
   useEffect(() => {
     if (!open) {
-      setCountdown(10);
+      setCountdown(20);
       return;
     }
+
+    // Play alert sound when modal opens
+    const audio = new Audio('/ban-alert.wav');
+    audio.volume = 0.7; // 70% volume
+    audio.play().catch((error) => {
+      console.warn('Failed to play ban alert sound:', error);
+    });
 
     // Start countdown
     const interval = setInterval(() => {
@@ -41,7 +48,7 @@ export default function BannedAccountModal({ open, onClose }: BannedAccountModal
       {/* Modal */}
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
         <div className="w-full max-w-2xl pointer-events-auto">
-          <div className="bg-black border-4 border-red-500 rounded-lg shadow-[0_0_30px_rgba(239,68,68,0.5)] overflow-hidden animate-in zoom-in-95 duration-300">
+          <div className="bg-black border-red-500 rounded-lg shadow-[0_0_30px_rgba(239,68,68,0.5)] overflow-hidden animate-in zoom-in-95 duration-300" style={{borderWidth: '2px'}}>
 
             {/* Header */}
             <div className="relative bg-gradient-to-r from-red-500/20 to-red-600/20 border-b-2 border-red-500/30 p-6">

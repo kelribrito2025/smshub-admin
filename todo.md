@@ -399,3 +399,11 @@
 
 ## Limpeza do Modal de Banimento
 - [x] Remover segunda caixa vazia (usuário removeu texto via editor visual)
+
+## Efeito Sonoro no Modal de Banimento
+- [x] Copiar arquivo de áudio (TSP_SDDB_174_bass_disco_danger_Gmin.wav) para client/public
+- [x] Implementar reprodução automática de áudio quando modal abrir
+- [x] Adicionar tratamento de erro caso áudio não carregue
+
+## Alteração do Timer do Modal
+- [x] Alterar timer de 10 para 20 segundos
