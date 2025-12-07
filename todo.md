@@ -396,3 +396,6 @@
 
 ## Edição Visual do Modal de Banimento
 - [x] Juntar as duas primeiras mensagens em uma única caixa (reduzir de 3 para 2 caixas)
+
+## Limpeza do Modal de Banimento
+- [x] Remover segunda caixa vazia (usuário removeu texto via editor visual)

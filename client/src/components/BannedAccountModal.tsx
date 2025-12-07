@@ -81,12 +81,6 @@ export default function BannedAccountModal({ open, onClose }: BannedAccountModal
                     O uso da plataforma não será mais permitido a partir deste momento.
                   </p>
                 </div>
-
-                <div className="bg-red-500/10 border-2 border-red-500/30 rounded-lg p-6">
-                  <p className="text-gray-400 font-mono text-sm leading-relaxed">
-                    Para esclarecimentos adicionais, fale com o suporte.
-                  </p>
-                </div>
               </div>
 
               {/* Countdown Timer */}
