@@ -772,3 +772,6 @@
 - [x] Corrigir lógica de redirect no main.tsx para não redirecionar em rotas públicas do painel de vendas
 - [x] Modificar redirectToLoginIfUnauthorized para verificar se a rota atual é pública antes de redirecionar
 - [ ] Testar em aba anônima: acessar https://app.numero-virtual.com/ deve mostrar painel de vendas sem redirect
+
+## Atualização de Título da Página
+- [x] Atualizar título no index.html para "Número virtual sem chip, 100% seguro. Receba SMS online com segurança, privacidade e entrega instantânea."
