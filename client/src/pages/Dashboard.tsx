@@ -106,7 +106,7 @@ export default function Dashboard() {
               <CardTitle className="text-sm font-medium">Total de Ativações</CardTitle>
               <Activity className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
-            <CardContent>
+            <CardContent className="flex flex-col justify-between min-h-[80px]">
               <div className="text-2xl font-bold">{stats?.total || 0}</div>
               <p className="text-xs text-muted-foreground">
                 {stats?.completed || 0} concluídas
@@ -119,7 +119,7 @@ export default function Dashboard() {
               <CardTitle className="text-sm font-medium">Receita Total</CardTitle>
               <TrendingUp className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
-            <CardContent>
+            <CardContent className="flex flex-col justify-between min-h-[80px]">
               <div className="text-2xl font-bold">
                 {formatCurrency(Number(stats?.totalRevenue) || 0)}
               </div>
@@ -132,7 +132,7 @@ export default function Dashboard() {
               <CardTitle className="text-sm font-medium">Lucro Total</CardTitle>
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
-            <CardContent>
+            <CardContent className="flex flex-col justify-between min-h-[80px]">
               <div className="text-2xl font-bold text-green-600">
                 {formatCurrency(Number(stats?.totalProfit) || 0)}
               </div>

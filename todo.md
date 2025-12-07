@@ -346,3 +346,4 @@
 - [x] Criar endpoint settings.getAllBalances no backend
 - [x] Atualizar UI do Dashboard para exibir 3 saldos
 - [x] Criar testes unitários (4 testes passaram)
+- [x] Ajustar alinhamento dos textos secundários nos cards (Total de Ativações, Receita Total, Lucro Total)
