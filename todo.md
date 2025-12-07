@@ -685,3 +685,8 @@
 - [x] Identificar mudança de estado/estilo quando dropdown abre (Radix UI remove scrollbar)
 - [x] Aplicar scrollbar-gutter: stable para compensar largura da scrollbar
 - [x] Testar se layout permanece fixo ao abrir dropdown
+
+## Atualização de Domínio de Afiliados
+- [x] Localizar todas as referências ao domínio antigo (numero-virtual.com)
+- [x] Atualizar para novo domínio (app.numero-virtual.com)
+- [x] Verificar se links de afiliados estão funcionando corretamente

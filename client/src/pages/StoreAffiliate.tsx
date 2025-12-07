@@ -39,7 +39,7 @@ export default function StoreAffiliate() {
   );
 
   // Link genérico para usuários deslogados
-  const GENERIC_LINK = "https://numero-virtual.com/link_de_indicação";
+  const GENERIC_LINK = "https://app.numero-virtual.com/link_de_indicação";
 
   const handleCopyLink = () => {
     const linkToCopy = customer ? (referralLink?.referralLink || GENERIC_LINK) : GENERIC_LINK;
