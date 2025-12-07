@@ -498,3 +498,7 @@
 
 ## Ajustar Duração das Notificações
 - [x] Alterar duração de 1000ms para 2300ms no Toaster
+
+## Implementar Fila de Notificações
+- [x] Configurar Toaster para exibir apenas 1 notificação por vez
+- [x] Adicionar delay entre notificações (evitar sobreposição)
