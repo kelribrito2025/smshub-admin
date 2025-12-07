@@ -269,3 +269,17 @@
 - [x] Corrigir conversão duplicada no backend (linha 141 de customers.ts)
 - [x] Corrigir saldo do cliente conta1@gmail.com (R$ 190,00 → R$ 100,90)
 - [x] Bug corrigido: frontend já envia em centavos, backend não deve multiplicar
+
+## Problema: Cotação USD/BRL Parou de Atualizar
+- [x] Investigar cron job de atualização (configurado corretamente para rodar de 2 em 2 horas)
+- [x] Verificar logs do servidor (servidor reiniciou às 06:41, próximo update será às 08:00)
+- [x] Verificar API de cotação (ExchangeRate-API primária + AwesomeAPI backup)
+- [x] Entender valor incorreto: APIs gratuitas têm delay, mostram cotação de fechamento
+- [x] Cron job funcionando corretamente, problema é delay das APIs gratuitas
+- [ ] Decidir: manter APIs gratuitas com delay OU trocar para API do Banco Central
+
+## Inverter Ordem das APIs de Cotação
+- [x] Token da AwesomeAPI adicionado (d71e3b5ba355...)
+- [x] Inverter ordem: AwesomeAPI como primária, ExchangeRate-API como backup
+- [x] Atualizar comentários no código
+- [x] Testar nova configuração (10 testes passaram, cotação R$ 6,08)

@@ -37,10 +37,15 @@ interface ExchangeRateAPIResponse {
 }
 
 /**
- * Fetch USD/BRL from AwesomeAPI (backup source)
+ * Fetch USD/BRL from AwesomeAPI (primary source with API token)
  */
 async function fetchFromAwesomeAPI(): Promise<number> {
-  const response = await fetch('https://economia.awesomeapi.com.br/json/last/USD-BRL');
+  const token = process.env.AWESOMEAPI_TOKEN;
+  const url = token 
+    ? `https://economia.awesomeapi.com.br/json/last/USD-BRL?token=${token}`
+    : 'https://economia.awesomeapi.com.br/json/last/USD-BRL';
+  
+  const response = await fetch(url);
   
   if (!response.ok) {
     throw new Error(`AwesomeAPI returned ${response.status}`);
@@ -58,7 +63,7 @@ async function fetchFromAwesomeAPI(): Promise<number> {
 }
 
 /**
- * Fetch USD/BRL from ExchangeRate-API (primary source)
+ * Fetch USD/BRL from ExchangeRate-API (backup source)
  */
 async function fetchFromExchangeRateAPI(): Promise<number> {
   const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
@@ -80,23 +85,23 @@ async function fetchFromExchangeRateAPI(): Promise<number> {
 
 /**
  * Fetch current USD/BRL exchange rate with automatic fallback
- * 1. ExchangeRate-API (primary) - International API, 1500 req/month free
- * 2. AwesomeAPI (backup) - Brazilian API, free tier
+ * 1. AwesomeAPI (primary) - Brazilian API with token for better rate limits
+ * 2. ExchangeRate-API (backup) - International API, 1500 req/month free
  */
 export async function fetchExchangeRate(): Promise<number> {
-  // Try ExchangeRate-API first (primary)
+  // Try AwesomeAPI first (primary with token)
   try {
-    return await fetchFromExchangeRateAPI();
-  } catch (exchangeRateError) {
-    console.warn('[Exchange Rate] ⚠️ ExchangeRate-API failed, trying backup...', exchangeRateError);
+    return await fetchFromAwesomeAPI();
+  } catch (awesomeError) {
+    console.warn('[Exchange Rate] ⚠️ AwesomeAPI failed, trying backup...', awesomeError);
     
-    // Fallback to AwesomeAPI
+    // Fallback to ExchangeRate-API
     try {
-      return await fetchFromAwesomeAPI();
+      return await fetchFromExchangeRateAPI();
     } catch (backupError) {
       console.error('[Exchange Rate] ❌ All APIs failed!');
-      console.error('  - ExchangeRate-API:', exchangeRateError);
-      console.error('  - AwesomeAPI:', backupError);
+      console.error('  - AwesomeAPI:', awesomeError);
+      console.error('  - ExchangeRate-API:', backupError);
       throw new Error('Failed to fetch exchange rate from all sources');
     }
   }
