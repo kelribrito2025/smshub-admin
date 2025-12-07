@@ -515,3 +515,10 @@
 - [x] Substituir toast.info + toast.success por toast.promise() no fluxo de cancelamento
 - [x] Verificar compilação TypeScript (sem erros)
 - [x] Servidor rodando sem erros
+
+## Customização de Ícone de Loading nas Notificações
+- [x] Investigar como customizar ícone de loading no toast.promise()
+- [x] Adicionar ícone Loader2 (spinner verde animado) nas notificações de loading
+- [x] Aplicar em fluxo de compra (StoreLayout.tsx)
+- [x] Aplicar em fluxo de cancelamento (StoreCatalog.tsx)
+- [x] Testar visualmente

@@ -115,6 +115,7 @@ export default function StoreCatalog() {
       loading: 'Cancelamento em andamento...',
       success: 'Pedido cancelado com sucesso!',
       error: (err) => err.message || 'Erro ao cancelar ativação',
+      icon: <Loader2 className="w-5 h-5 animate-spin text-green-500" />,
     });
   };
 

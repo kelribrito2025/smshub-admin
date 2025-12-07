@@ -296,6 +296,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
         loading: 'Processando compra...',
         success: (result) => `Serviço adquirido com sucesso! Número: ${result.phoneNumber}`,
         error: (error) => `Erro ao comprar número: ${error.message}`,
+        icon: <Loader2 className="w-5 h-5 animate-spin text-green-500" />,
       });
     });
   };
