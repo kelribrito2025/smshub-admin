@@ -665,3 +665,7 @@
 ## Ajuste de Espessura de Borda dos Cards
 - [x] Aumentar borderWidth de 1px para 2px no card de saldo
 - [x] Aumentar borderWidth de 1px para 2px no card de link de afiliado
+
+## Atualizar URL do Botão Painel de Vendas
+- [x] Mudar URL de https://numero-virtual.com/store para https://app.numero-virtual.com/store
+- [x] Aplicar no botão "Painel de Vendas" do Dashboard
