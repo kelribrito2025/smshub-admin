@@ -634,3 +634,6 @@
 - [x] Modificar botão de perfil no StoreLayout para incluir texto
 - [x] Adicionar "Administrador" ao lado do ícone Shield quando admin
 - [x] Ajustar layout para mobile (esconder texto em telas pequenas)
+
+## Ajuste de Texto Admin no Header
+- [x] Alterar "Administrador" para "Admin" no header do painel de vendas

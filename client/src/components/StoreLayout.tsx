@@ -489,7 +489,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
                   <div className="w-9 h-9 rounded-full bg-purple-500/10 flex items-center justify-center shrink-0">
                     <Shield className="w-5 h-5 text-purple-500" />
                   </div>
-                  <span className="text-sm font-medium text-purple-400 hidden sm:block">Administrador</span>
+                  <span className="text-sm font-medium text-purple-400 hidden sm:block">Admin</span>
                 </button>
               ) : (
                 <Button
