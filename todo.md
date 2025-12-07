@@ -305,3 +305,11 @@
 - [x] Digitar "300" deve resultar em "3,00" (300 centavos = R$ 3,00)
 - [x] Apagar deve resultar em "0,00" (toLocaleString com minimumFractionDigits: 2)
 - [x] Servidor recarregado com formatação brasileira (pronto para testar)
+
+## Bug Crítico: Preço Fixo Sendo Ignorado
+- [x] Investigar código de atualização automática (exchange-rate.ts linha 193-222)
+- [x] Encontrar onde os preços são recalculados (recalculatePricesForAPI)
+- [x] Adicionar filtro if (price.fixedPrice) { skip }
+- [x] Adicionar contador de preços fixos pulados
+- [x] Atualizar log para mostrar quantos foram pulados
+- [x] Testar sincronização (9/10 testes passaram, 1 preço fixo pulado corretamente)

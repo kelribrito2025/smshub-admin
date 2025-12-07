@@ -179,7 +179,7 @@ export async function recalculatePricesForAPI(apiId: number): Promise<number> {
       throw new Error(`Invalid exchange rate for API ${apiId}: ${rate}`);
     }
 
-    // Get all prices for this API
+    // Get all prices for this API (excluding fixed prices)
     const apiPrices = await db
       .select()
       .from(prices)
@@ -190,9 +190,16 @@ export async function recalculatePricesForAPI(apiId: number): Promise<number> {
       return 0;
     }
 
-    // Recalculate each price
+    // Recalculate each price (skip fixed prices)
     let updated = 0;
+    let skipped = 0;
     for (const price of apiPrices) {
+      // Skip prices with fixedPrice = true
+      if (price.fixedPrice) {
+        skipped++;
+        continue;
+      }
+      
       // smshubPrice is in USD (cents), convert to BRL (cents)
       const smshubPriceBRL = Math.round(price.smshubPrice * rate);
       
@@ -214,7 +221,7 @@ export async function recalculatePricesForAPI(apiId: number): Promise<number> {
       updated++;
     }
 
-    console.log(`[Exchange Rate] Recalculated ${updated} prices for API ${apiId} with rate ${rate}`);
+    console.log(`[Exchange Rate] Recalculated ${updated} prices for API ${apiId} with rate ${rate} (${skipped} fixed prices skipped)`);
     return updated;
   } catch (error) {
     console.error(`[Exchange Rate] Failed to recalculate prices for API ${apiId}:`, error);
