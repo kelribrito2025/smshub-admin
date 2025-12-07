@@ -44,6 +44,13 @@ export function getSoundSettings(): SoundSettings {
         console.log('[Sound Migration] Updated sound3-ping.mp3 to sound3-ping.wav');
       }
       
+      // Migração automática: sound2-bright.mp3 → sound2-bright.wav
+      if (settings.selectedSound === 'sound2-bright.mp3') {
+        settings.selectedSound = 'sound2-bright.wav';
+        saveSoundSettings(settings); // Salvar migração
+        console.log('[Sound Migration] Updated sound2-bright.mp3 to sound2-bright.wav');
+      }
+      
       return settings;
     }
   } catch (error) {

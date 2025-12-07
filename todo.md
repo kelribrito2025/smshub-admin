@@ -465,3 +465,9 @@
 - [x] Substituir pelo novo arquivo WAV fornecido
 - [x] Atualizar referências no código se necessário
 - [ ] Testar som de notificação
+
+## Substituir Som "Brilhante"
+- [x] Fazer backup do sound2-bright.mp3 atual
+- [x] Copiar novo arquivo WAV como sound2-bright.wav
+- [x] Atualizar referência em StoreSettings.tsx
+- [x] Adicionar migração automática em utils.ts
