@@ -550,3 +550,8 @@
 ## UX: Remover Borda das Notificações
 - [x] Alterar border de 2px solid para 0 no CSS das notificações
 - [x] Testar visual das notificações sem borda
+
+## Correção: Border-radius das Notificações
+- [x] Reverter border de 0 para 2px solid #22c55e
+- [x] Alterar border-radius de 8px para 0 (remover cantos arredondados)
+- [x] Testar visual das notificações com cantos retos
