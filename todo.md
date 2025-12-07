@@ -787,3 +787,6 @@
 - [x] Criar sitemap.xml
 - [x] Criar robots.txt
 - [x] Otimizar headings (h1) na página principal (StoreCatalog)
+
+## Google Analytics
+- [x] Adicionar Google Analytics (gtag) no index.html
