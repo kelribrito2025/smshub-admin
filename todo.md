@@ -522,3 +522,9 @@
 - [x] Aplicar em fluxo de compra (StoreLayout.tsx)
 - [x] Aplicar em fluxo de cancelamento (StoreCatalog.tsx)
 - [x] Testar visualmente
+
+## Bug: Ícones Duplicados nas Notificações de Sucesso
+- [x] Investigar por que Loader2 aparece em success (deveria aparecer apenas em loading)
+- [x] Remover ícone global do toast.promise()
+- [x] Usar ícones padrão do Sonner (loading spinner, check verde, X vermelho)
+- [x] Testar notificações de compra e cancelamento
