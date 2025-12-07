@@ -71,7 +71,7 @@ function App() {
         defaultTheme="dark"
         // switchable
       >
-        <Toaster />
+        <Toaster duration={1000} closeButton={false} />
         <TooltipProvider>
           <StoreAuthProvider>
             <Router />

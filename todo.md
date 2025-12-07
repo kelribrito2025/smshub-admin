@@ -482,3 +482,10 @@
 - [x] Localizar e remover arquivo da página webhook-setup
 - [x] Remover rota do App.tsx
 - [x] Remover links de navegação (se houver)
+
+## Atualizar Visual das Notificações Toast
+- [x] Atualizar CSS para ícones circulares e layout especificado
+- [x] Remover botão X de fechar
+- [x] Ajustar duração para 1 segundo
+- [x] Adicionar badge de não lida
+- [x] Adicionar timestamp com ícone de relógio
