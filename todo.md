@@ -495,3 +495,6 @@
 - [x] Identificar onde notificação é enviada
 - [x] Corrigir cálculo/formatação do saldo
 - [ ] Testar com valores diferentes (R$ 1,00, R$ 10,00, R$ 100,00)
+
+## Ajustar Duração das Notificações
+- [x] Alterar duração de 1000ms para 2300ms no Toaster
