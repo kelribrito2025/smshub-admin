@@ -330,3 +330,19 @@
 - [x] Remover componente MenuManagementDialog
 - [x] Remover import do MenuManagementDialog
 - [x] Menu agora tem apenas "Reorganizar Menus" e "Sign out"
+
+## Análise: PIN vs ID - Unificação de Identificadores
+- [x] Analisar schema das tabelas customers e customer_pins
+- [x] Varrer uso de PIN em todo o projeto (backend + frontend)
+- [x] Varrer uso de ID em todo o projeto (backend + frontend)
+- [x] Identificar dependências críticas (webhooks, APIs externas, joins, relations)
+- [x] Avaliar razão técnica para manter dois identificadores
+- [x] Recomendar solução: unificar ou manter separado
+- [x] Documento técnico criado: docs/id-vs-pin-analysis.md
+- [x] CONCLUSÃO: Manter arquitetura atual (Surrogate Key + Natural Key)
+
+## Card de Saldo no Dashboard Admin
+- [x] Modificar card "Saldo SMSHub" para exibir saldos das 3 APIs (SMS24H, SMSHub, SMSActivate)
+- [x] Criar endpoint settings.getAllBalances no backend
+- [x] Atualizar UI do Dashboard para exibir 3 saldos
+- [x] Criar testes unitários (4 testes passaram)

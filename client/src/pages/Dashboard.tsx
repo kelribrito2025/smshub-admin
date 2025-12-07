@@ -11,13 +11,8 @@ import { toast } from "sonner";
 export default function Dashboard() {
   const { user, loading } = useAuth();
   const { data: dashboardData, isLoading, error } = trpc.stats.getDashboard.useQuery();
-  const { data: apiKeySetting } = trpc.settings.get.useQuery(
-    { key: "smshub_api_key" },
-    { retry: false }
-  );
-
-  const { data: balance } = trpc.settings.getBalance.useQuery(undefined, {
-    enabled: !!apiKeySetting?.value,
+  // Fetch balances from all APIs
+  const { data: allBalances, isLoading: isLoadingBalances } = trpc.settings.getAllBalances.useQuery(undefined, {
     retry: false,
     refetchOnWindowFocus: false,
   });
@@ -77,14 +72,32 @@ export default function Dashboard() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Saldo SMSHub</CardTitle>
+              <CardTitle className="text-sm font-medium">Saldo das APIs</CardTitle>
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
-                {balance ? formatCurrency(balance.balance * 100) : '---'}
-              </div>
-              <p className="text-xs text-muted-foreground">Saldo disponível na API</p>
+              {isLoadingBalances ? (
+                <div className="text-sm text-muted-foreground">Carregando...</div>
+              ) : allBalances && allBalances.length > 0 ? (
+                <div className="space-y-2">
+                  {allBalances.map((api) => (
+                    <div key={api.id} className="flex items-center justify-between">
+                      <span className="text-xs font-medium text-muted-foreground">{api.name}</span>
+                      <span className="text-sm font-bold">
+                        {api.error ? (
+                          <span className="text-red-500 text-xs">Erro</span>
+                        ) : (
+                          <span>
+                            {api.currency === 'BRL' ? 'R$' : '$'} {api.balance.toFixed(2)}
+                          </span>
+                        )}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-sm text-muted-foreground">Nenhuma API configurada</div>
+              )}
             </CardContent>
           </Card>
 

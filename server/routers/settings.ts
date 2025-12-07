@@ -3,6 +3,9 @@ import { router } from '../_core/trpc';
 import { adminProcedure } from '../admin-middleware';
 import { getSetting, upsertSetting, getAllSettings } from '../db-helpers';
 import { SMSHubClient } from '../smshub-client';
+import { getDb } from '../db';
+import { smsApis } from '../../drizzle/schema';
+import { eq } from 'drizzle-orm';
 
 export const settingsRouter = router({
   /**
@@ -90,6 +93,52 @@ export const settingsRouter = router({
     const balance = await client.getBalance();
 
     return balance;
+  }),
+
+  /**
+   * Get balances from all active APIs
+   */
+  getAllBalances: adminProcedure.query(async () => {
+    const db = await getDb();
+    if (!db) {
+      throw new Error('Database not available');
+    }
+
+    // Get all active APIs ordered by priority
+    const apis = await db
+      .select()
+      .from(smsApis)
+      .where(eq(smsApis.active, true))
+      .orderBy(smsApis.priority);
+
+    // Fetch balance for each API
+    const balances = await Promise.all(
+      apis.map(async (api) => {
+        try {
+          const client = new SMSHubClient(api.token, api.url);
+          const balanceResponse = await client.getBalance();
+          
+          return {
+            id: api.id,
+            name: api.name,
+            balance: balanceResponse.balance,
+            currency: api.currency,
+            error: null,
+          };
+        } catch (error: any) {
+          console.error(`[getAllBalances] Error fetching balance for ${api.name}:`, error.message);
+          return {
+            id: api.id,
+            name: api.name,
+            balance: 0,
+            currency: api.currency,
+            error: error.message || 'Erro ao buscar saldo',
+          };
+        }
+      })
+    );
+
+    return balances;
   }),
 
   /**
