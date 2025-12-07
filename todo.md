@@ -262,3 +262,10 @@
 - [x] Alterar "Quando" para "Após" na regra 2
 - [x] Simplificar regra 3 removendo "de bônus"
 - [x] Servidor recarregado com as mudanças
+
+## Bug: Conversão de Valores na Página de Clientes
+- [x] Investigar código da página Customers.tsx
+- [x] Encontrar onde o saldo é adicionado/editado (BalanceSidePanel + router)
+- [x] Corrigir conversão duplicada no backend (linha 141 de customers.ts)
+- [x] Corrigir saldo do cliente conta1@gmail.com (R$ 190,00 → R$ 100,90)
+- [x] Bug corrigido: frontend já envia em centavos, backend não deve multiplicar

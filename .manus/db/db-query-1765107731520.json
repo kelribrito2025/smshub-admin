@@ -1,0 +1,16 @@
+{
+  "query": "SELECT id, email, balance, pin FROM customers WHERE email = 'conta1@gmail.com'",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT id, email, balance, pin FROM customers WHERE email = 'conta1@gmail.com'",
+  "rows": [
+    {
+      "id": "330001",
+      "email": "conta1@gmail.com",
+      "balance": "19000",
+      "pin": "8"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\temail\tbalance\tpin\n330001\tconta1@gmail.com\t19000\t8\n",
+  "stderr": "",
+  "execution_time_ms": 52
+}

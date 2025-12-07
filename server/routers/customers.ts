@@ -138,7 +138,7 @@ export const customersRouter = router({
     .mutation(async ({ input, ctx }) => {
       const result = await addBalance(
         input.customerId,
-        Math.round(input.amount * 100), // Convert to cents
+        input.amount, // Already in cents from frontend
         input.type,
         input.description,
         ctx.user?.id
