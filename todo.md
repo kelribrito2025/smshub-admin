@@ -673,3 +673,8 @@
 ## Cor da Borda do Campo de Pesquisa
 - [x] Alterar cor da borda focus de azul para verde
 - [x] Aplicar no campo "Pesquisar serviços" do painel de vendas
+
+## Ajuste de Borda Verde do Campo de Pesquisa
+- [x] Remover efeito duplo (borda + ring)
+- [x] Deixar apenas ring verde com opacidade suave
+- [x] Manter mesmo efeito visual do azul anterior, mas em verde

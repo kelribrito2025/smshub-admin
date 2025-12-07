@@ -723,7 +723,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Pesquisar serviços"
-                className="w-full bg-gray-900 border-green-900/50 pl-10 text-green-400 font-mono focus:border-green-500 focus-visible:ring-green-500"
+                className="w-full bg-gray-900 border-green-900/50 pl-10 text-green-400 font-mono focus-visible:ring-2 focus-visible:ring-green-500/50 focus-visible:ring-offset-0 focus-visible:border-green-900/50"
               />
             </div>
           </div>
