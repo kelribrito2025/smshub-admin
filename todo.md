@@ -679,8 +679,9 @@
 - [x] Deixar apenas ring verde com opacidade suave
 - [x] Manter mesmo efeito visual do azul anterior, mas em verde
 
-## Correção de Layout Shift do Avatar Admin
-- [x] Investigar causa real do movimento (outline global no index.css linha 118)
+## Correção de Layout Shif## Correção de Layout Shift do Avatar Admin
+- [x] Investigar causa real do movimento (scrollbar desaparece ao clicar)
 - [x] Restaurar borda preta no botão admin
-- [x] Identificar mudança de estado/estilo quando dropdown abre (outline-ring/50)
-- [x] Aplicar correção para manter botão fixo (focus:outline-none)
+- [x] Identificar mudança de estado/estilo quando dropdown abre (Radix UI remove scrollbar)
+- [x] Aplicar scrollbar-gutter: stable para compensar largura da scrollbar
+- [x] Testar se layout permanece fixo ao abrir dropdown
