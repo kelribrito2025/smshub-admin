@@ -1,5 +1,6 @@
 import { z } from 'zod';
-import { router, protectedProcedure } from '../_core/trpc';
+import { router } from '../_core/trpc';
+import { adminProcedure } from '../admin-middleware';
 import { 
   fetchExchangeRate, 
   updateExchangeRateForAPIs, 
@@ -13,7 +14,7 @@ export const exchangeRateRouter = router({
   /**
    * Get current exchange rate info (rate, last update, next update)
    */
-  getInfo: protectedProcedure.query(async () => {
+  getInfo: adminProcedure.query(async () => {
     try {
       const info = await getExchangeRateInfo();
       
@@ -38,7 +39,7 @@ export const exchangeRateRouter = router({
   /**
    * Manually fetch current exchange rate from AwesomeAPI
    */
-  fetchCurrent: protectedProcedure.mutation(async () => {
+  fetchCurrent: adminProcedure.mutation(async () => {
     try {
       const rate = await fetchExchangeRate();
       return {
@@ -57,7 +58,7 @@ export const exchangeRateRouter = router({
   /**
    * Update exchange rate for all USD APIs
    */
-  updateAPIs: protectedProcedure.mutation(async () => {
+  updateAPIs: adminProcedure.mutation(async () => {
     try {
       const count = await updateExchangeRateForAPIs();
       return {
@@ -76,7 +77,7 @@ export const exchangeRateRouter = router({
   /**
    * Recalculate prices for a specific API
    */
-  recalculatePrices: protectedProcedure
+  recalculatePrices: adminProcedure
     .input(z.object({
       apiId: z.number()
     }))
@@ -99,7 +100,7 @@ export const exchangeRateRouter = router({
   /**
    * Full sync: update exchange rates and recalculate all prices
    */
-  fullSync: protectedProcedure.mutation(async () => {
+  fullSync: adminProcedure.mutation(async () => {
     try {
       const result = await syncExchangeRateAndPrices();
       return {

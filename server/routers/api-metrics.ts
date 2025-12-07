@@ -1,4 +1,5 @@
-import { router, protectedProcedure } from '../_core/trpc';
+import { router } from '../_core/trpc';
+import { adminProcedure } from '../admin-middleware';
 import { getDb } from '../db';
 import { activations, prices, smsApis, services, countries } from '../../drizzle/schema';
 import { eq, and, sql, desc } from 'drizzle-orm';
@@ -9,7 +10,7 @@ export const apiMetricsRouter = router({
    * Get performance metrics for all APIs
    * Returns: sales count, revenue, profit, and availability for each API
    */
-  getPerformanceMetrics: protectedProcedure
+  getPerformanceMetrics: adminProcedure
     .input(
       z.object({
         startDate: z.string().optional(),
@@ -120,7 +121,7 @@ export const apiMetricsRouter = router({
   /**
    * Get top services by API
    */
-  getTopServicesByApi: protectedProcedure
+  getTopServicesByApi: adminProcedure
     .input(
       z.object({
         apiId: z.number(),

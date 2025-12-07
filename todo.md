@@ -737,3 +737,21 @@
 - [x] Atualizar todos os links internos (App.tsx, StoreLayout, DashboardLayout, StoreAccount, Dashboard)
 - [x] Atualizar fallbackMenuItems no DashboardLayout para usar /admin/*
 - [x] Testar acesso público em / e acesso restrito em /admin
+
+## Proteção de Rotas Admin no Servidor
+- [x] Middleware tRPC `adminProcedure` já existe no projeto
+- [x] Atualizar routers que usavam protectedProcedure/publicProcedure para adminProcedure
+- [x] Routers atualizados: affiliateAdminRouter, api-metrics, exchange-rate, audit, paymentSettings.update
+- [x] Testar bloqueio de acesso via API sem autenticação (teste automatizado criado e passou)
+
+## Breadcrumbs de Navegação
+- [x] Criar componente reutilizável `<Breadcrumbs />`
+- [x] Integrar breadcrumbs no DashboardLayout
+- [x] Adicionar prop `breadcrumbs` opcional no DashboardLayout
+- [ ] Exemplo de uso em páginas admin (opcional, pode ser adicionado conforme necessário)
+
+## Página 404 Personalizada
+- [x] Atualizar componente NotFound existente
+- [x] Detectar contexto pela URL (/admin/* vs outras rotas)
+- [x] Adicionar botões de retorno contextuais (Admin vs Painel de Vendas)
+- [x] Já integrado no App.tsx como fallback de rotas

@@ -1,5 +1,6 @@
 import { z } from 'zod';
-import { publicProcedure, router } from '../_core/trpc';
+import { router } from '../_core/trpc';
+import { adminProcedure } from '../admin-middleware';
 import { getDb } from '../db';
 import { balanceTransactions, customers, activations, services, countries } from '../../drizzle/schema';
 import { eq, and, gte, lte, desc, or, like, sql } from 'drizzle-orm';
@@ -18,7 +19,7 @@ export const auditRouter = router({
   /**
    * Listar transações com filtros avançados
    */
-  getTransactions: publicProcedure
+  getTransactions: adminProcedure
     .input(z.object({
       customerId: z.number().optional(),
       activationId: z.number().optional(),
@@ -157,7 +158,7 @@ export const auditRouter = router({
   /**
    * Obter estatísticas de auditoria
    */
-  getStats: publicProcedure
+  getStats: adminProcedure
     .input(z.object({
       customerId: z.number().optional(),
       startDate: z.string().optional(),
@@ -228,7 +229,7 @@ export const auditRouter = router({
    * Exportar histórico de transações para análise
    * Retorna dados formatados prontos para PDF
    */
-  exportTransactions: publicProcedure
+  exportTransactions: adminProcedure
     .input(z.object({
       customerId: z.number(),
       startDate: z.string().optional(),
@@ -315,7 +316,7 @@ export const auditRouter = router({
    * Compara saldo calculado (soma de transações) com saldo real do cliente
    * Detecção passiva - sem overhead, usa dados já carregados
    */
-  checkInconsistencies: publicProcedure
+  checkInconsistencies: adminProcedure
     .input(z.object({
       customerId: z.number().optional(), // Se não fornecido, verifica todos os clientes
     }))
@@ -388,7 +389,7 @@ export const auditRouter = router({
    * Ajusta o saldo real para corresponder ao saldo esperado (soma das transações)
    * Cria uma transação de ajuste para manter auditoria completa
    */
-  fixBalance: publicProcedure
+  fixBalance: adminProcedure
     .input(z.object({
       customerId: z.number(),
     }))

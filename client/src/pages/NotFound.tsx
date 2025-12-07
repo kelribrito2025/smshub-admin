@@ -1,13 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { AlertCircle, Home } from "lucide-react";
+import { AlertCircle, Home, ShoppingCart } from "lucide-react";
 import { useLocation } from "wouter";
 
 export default function NotFound() {
-  const [, setLocation] = useLocation();
+  const [location, setLocation] = useLocation();
+  
+  // Detect context based on URL
+  const isAdminRoute = location.startsWith('/admin');
 
   const handleGoHome = () => {
-    setLocation("/");
+    if (isAdminRoute) {
+      setLocation('/admin');
+    } else {
+      setLocation('/');
+    }
   };
 
   return (
@@ -24,13 +31,11 @@ export default function NotFound() {
           <h1 className="text-4xl font-bold text-slate-900 mb-2">404</h1>
 
           <h2 className="text-xl font-semibold text-slate-700 mb-4">
-            Page Not Found
+            Página não encontrada
           </h2>
 
           <p className="text-slate-600 mb-8 leading-relaxed">
-            Sorry, the page you are looking for doesn't exist.
-            <br />
-            It may have been moved or deleted.
+            A página que você está procurando não existe ou foi movida.
           </p>
 
           <div
@@ -41,8 +46,17 @@ export default function NotFound() {
               onClick={handleGoHome}
               className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
             >
-              <Home className="w-4 h-4 mr-2" />
-              Go Home
+              {isAdminRoute ? (
+                <>
+                  <Home className="w-4 h-4 mr-2" />
+                  Voltar ao Painel Admin
+                </>
+              ) : (
+                <>
+                  <ShoppingCart className="w-4 h-4 mr-2" />
+                  Voltar ao Painel de Vendas
+                </>
+              )}
             </Button>
           </div>
         </CardContent>

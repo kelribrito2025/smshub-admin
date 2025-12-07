@@ -1,5 +1,6 @@
 import { z } from "zod";
-import { protectedProcedure, publicProcedure, router } from "../_core/trpc";
+import { publicProcedure, router } from "../_core/trpc";
+import { adminProcedure } from "../admin-middleware";
 import { getPaymentSettings, updatePaymentSettings } from "../db";
 
 export const paymentSettingsRouter = router({
@@ -22,7 +23,7 @@ export const paymentSettingsRouter = router({
   }),
 
   // Update payment settings (admin only)
-  update: protectedProcedure
+  update: adminProcedure
     .input(z.object({
       pixEnabled: z.boolean(),
       stripeEnabled: z.boolean(),

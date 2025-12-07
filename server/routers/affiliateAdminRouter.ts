@@ -1,5 +1,6 @@
 import { z } from "zod";
-import { protectedProcedure, router } from "../_core/trpc";
+import { router } from "../_core/trpc";
+import { adminProcedure } from "../admin-middleware";
 import {
   getAffiliateSettings,
   updateAffiliateSettings,
@@ -14,7 +15,7 @@ export const affiliateAdminRouter = router({
   /**
    * Get current affiliate program settings
    */
-  getSettings: protectedProcedure.query(async () => {
+  getSettings: adminProcedure.query(async () => {
     const settings = await getAffiliateSettings();
     return settings;
   }),
@@ -22,7 +23,7 @@ export const affiliateAdminRouter = router({
   /**
    * Update affiliate program settings
    */
-  updateSettings: protectedProcedure
+  updateSettings: adminProcedure
     .input(
       z.object({
         bonusPercentage: z.number().min(0).max(100).optional(),
@@ -37,7 +38,7 @@ export const affiliateAdminRouter = router({
   /**
    * Get all affiliates with their statistics
    */
-  getAllAffiliates: protectedProcedure.query(async () => {
+  getAllAffiliates: adminProcedure.query(async () => {
     const affiliates = await getAllAffiliatesWithStats();
     return affiliates;
   }),
@@ -45,7 +46,7 @@ export const affiliateAdminRouter = router({
   /**
    * Get all referrals with full details
    */
-  getAllReferrals: protectedProcedure.query(async () => {
+  getAllReferrals: adminProcedure.query(async () => {
     const referrals = await getAllReferralsWithDetails();
     return referrals;
   }),

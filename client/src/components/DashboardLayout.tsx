@@ -57,10 +57,14 @@ const DEFAULT_WIDTH = 280;
 const MIN_WIDTH = 200;
 const MAX_WIDTH = 480;
 
+import { Breadcrumbs, BreadcrumbItem } from './Breadcrumbs';
+
 export default function DashboardLayout({
   children,
+  breadcrumbs,
 }: {
   children: React.ReactNode;
+  breadcrumbs?: BreadcrumbItem[];
 }) {
   const [sidebarWidth, setSidebarWidth] = useState(() => {
     const saved = localStorage.getItem(SIDEBAR_WIDTH_KEY);
@@ -110,7 +114,7 @@ export default function DashboardLayout({
         } as CSSProperties
       }
     >
-      <DashboardLayoutContent setSidebarWidth={setSidebarWidth}>
+      <DashboardLayoutContent setSidebarWidth={setSidebarWidth} breadcrumbs={breadcrumbs}>
         {children}
       </DashboardLayoutContent>
     </SidebarProvider>
@@ -120,11 +124,13 @@ export default function DashboardLayout({
 type DashboardLayoutContentProps = {
   children: React.ReactNode;
   setSidebarWidth: (width: number) => void;
+  breadcrumbs?: BreadcrumbItem[];
 };
 
 function DashboardLayoutContent({
   children,
   setSidebarWidth,
+  breadcrumbs,
 }: DashboardLayoutContentProps) {
   const { user, logout } = useAuth();
   const [location, setLocation] = useLocation();
@@ -316,7 +322,12 @@ function DashboardLayoutContent({
             </div>
           </div>
         )}
-        <main className="flex-1 p-4">{children}</main>
+        <main className="flex-1 p-4">
+          {breadcrumbs && breadcrumbs.length > 0 && (
+            <Breadcrumbs items={breadcrumbs} />
+          )}
+          {children}
+        </main>
       </SidebarInset>
 
       <MenuReorderDialog
