@@ -15,7 +15,7 @@ import {
 const SOUND_LIBRARY = [
   { id: 'sound1-digital.mp3', name: 'Digital', description: 'Som digital moderno e curto' },
   { id: 'sound2-bright.mp3', name: 'Brilhante', description: 'Tom claro e vibrante' },
-  { id: 'sound3-ping.mp3', name: 'Ping', description: 'Ping suave e discreto' },
+  { id: 'sound3-ping.wav', name: 'Ping', description: 'Ping suave e discreto' },
   { id: 'sound4-soft.mp3', name: 'Suave', description: 'Notificação suave e agradável' },
   { id: 'sound5-classic.mp3', name: 'Clássico', description: 'Som de notificação tradicional' },
 ];

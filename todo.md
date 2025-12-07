@@ -459,3 +459,9 @@
 
 ## Simplificar Mensagem de Erro
 - [x] Editar mensagem de erro para: "Limite de pedidos simultâneos atingido para Opção 1"
+
+## Substituir Som de Notificação
+- [x] Localizar arquivo de som "ping" atual no projeto
+- [x] Substituir pelo novo arquivo WAV fornecido
+- [x] Atualizar referências no código se necessário
+- [ ] Testar som de notificação

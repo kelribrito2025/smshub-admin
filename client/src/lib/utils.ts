@@ -35,7 +35,16 @@ export function getSoundSettings(): SoundSettings {
   try {
     const stored = localStorage.getItem(SOUND_SETTINGS_KEY);
     if (stored) {
-      return { ...DEFAULT_SOUND_SETTINGS, ...JSON.parse(stored) };
+      const settings = { ...DEFAULT_SOUND_SETTINGS, ...JSON.parse(stored) };
+      
+      // Migração automática: sound3-ping.mp3 → sound3-ping.wav
+      if (settings.selectedSound === 'sound3-ping.mp3') {
+        settings.selectedSound = 'sound3-ping.wav';
+        saveSoundSettings(settings); // Salvar migração
+        console.log('[Sound Migration] Updated sound3-ping.mp3 to sound3-ping.wav');
+      }
+      
+      return settings;
     }
   } catch (error) {
     console.error('Erro ao carregar configurações de som:', error);
