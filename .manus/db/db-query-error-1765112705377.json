@@ -1,0 +1,8 @@
+{
+  "query": "ALTER TABLE customers \nADD COLUMN banned BOOLEAN NOT NULL DEFAULT FALSE AFTER active,\nADD COLUMN bannedAt TIMESTAMP NULL AFTER banned,\nADD COLUMN bannedReason TEXT NULL AFTER bannedAt",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute ALTER TABLE customers \nADD COLUMN banned BOOLEAN NOT NULL DEFAULT FALSE AFTER active,\nADD COLUMN bannedAt TIMESTAMP NULL AFTER banned,\nADD COLUMN bannedReason TEXT NULL AFTER bannedAt",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1054 (42S22) at line 1: Unknown column 'banned' in 'customers'"
+  ]
+}

@@ -199,7 +199,10 @@ export default function Customers() {
                 <TableBody>
                   {filteredCustomers && filteredCustomers.length > 0 ? (
                     filteredCustomers.map((customer) => (
-                      <TableRow key={customer.id}>
+                      <TableRow 
+                        key={customer.id}
+                        className={customer.banned ? "border-2 border-red-500/50 animate-pulse" : ""}
+                      >
                         <TableCell>
                           <Badge variant="outline" className="font-mono font-bold">
                             #{customer.pin}

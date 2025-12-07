@@ -10,8 +10,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { Separator } from "@/components/ui/separator";
 import { trpc } from "@/lib/trpc";
-import { Loader2, Save } from "lucide-react";
+import { Loader2, Save, Ban, ShieldCheck } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -64,6 +65,28 @@ export function CustomerDialog({ open, onOpenChange, customer, onSuccess }: Cust
     },
   });
 
+  const banMutation = trpc.customers.banCustomer.useMutation({
+    onSuccess: () => {
+      toast.success("Cliente banido permanentemente");
+      onOpenChange(false);
+      onSuccess();
+    },
+    onError: (error) => {
+      toast.error(`Erro ao banir cliente: ${error.message}`);
+    },
+  });
+
+  const unbanMutation = trpc.customers.unbanCustomer.useMutation({
+    onSuccess: () => {
+      toast.success("Banimento removido com sucesso");
+      onOpenChange(false);
+      onSuccess();
+    },
+    onError: (error) => {
+      toast.error(`Erro ao remover banimento: ${error.message}`);
+    },
+  });
+
   const handleSubmit = () => {
     if (!name.trim()) {
       toast.error("Nome é obrigatório");
@@ -92,7 +115,23 @@ export function CustomerDialog({ open, onOpenChange, customer, onSuccess }: Cust
     }
   };
 
-  const isPending = createMutation.isPending || updateMutation.isPending;
+  const handleBan = () => {
+    if (!customer) return;
+    
+    if (confirm(`Tem certeza que deseja BANIR PERMANENTEMENTE o cliente ${customer.name}? Esta ação é irreversível e o cliente não poderá mais acessar o sistema.`)) {
+      banMutation.mutate({ id: customer.id });
+    }
+  };
+
+  const handleUnban = () => {
+    if (!customer) return;
+    
+    if (confirm(`Tem certeza que deseja REMOVER O BANIMENTO do cliente ${customer.name}?`)) {
+      unbanMutation.mutate({ id: customer.id });
+    }
+  };
+
+  const isPending = createMutation.isPending || updateMutation.isPending || banMutation.isPending || unbanMutation.isPending;
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -158,6 +197,53 @@ export function CustomerDialog({ open, onOpenChange, customer, onSuccess }: Cust
               disabled={isPending}
             />
           </div>
+
+          {/* Ban Section - Only for editing existing customers */}
+          {customer && (
+            <>
+              <Separator className="my-4" />
+              <div className="space-y-3">
+                <Label className="text-sm font-semibold text-red-500">
+                  Zona de Perigo
+                </Label>
+                {customer.banned ? (
+                  <div className="space-y-2">
+                    <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-md">
+                      <p className="text-sm text-red-500 font-medium">
+                        ⚠️ Esta conta está BANIDA PERMANENTEMENTE
+                      </p>
+                      {customer.bannedReason && (
+                        <p className="text-xs text-muted-foreground mt-1">
+                          Motivo: {customer.bannedReason}
+                        </p>
+                      )}
+                    </div>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="w-full border-green-500/50 text-green-500 hover:bg-green-500/10"
+                      onClick={handleUnban}
+                      disabled={isPending}
+                    >
+                      <ShieldCheck className="mr-2 h-4 w-4" />
+                      Remover Banimento
+                    </Button>
+                  </div>
+                ) : (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-full border-red-500/50 text-red-500 hover:bg-red-500/10"
+                    onClick={handleBan}
+                    disabled={isPending}
+                  >
+                    <Ban className="mr-2 h-4 w-4" />
+                    Banir Conta Permanentemente
+                  </Button>
+                )}
+              </div>
+            </>
+          )}
         </div>
 
         <DialogFooter>

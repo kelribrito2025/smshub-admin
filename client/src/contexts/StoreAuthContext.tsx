@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { trpc } from '../lib/trpc';
 import LoginModal from '../components/LoginModal';
+import BannedAccountModal from '../components/BannedAccountModal';
 
 interface Customer {
   id: number;
@@ -9,6 +10,9 @@ interface Customer {
   balance: number;
   pin: number;
   active: boolean;
+  banned?: boolean;
+  bannedAt?: Date | null;
+  bannedReason?: string | null;
 }
 
 interface StoreAuthContextType {
@@ -28,6 +32,7 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
   const [customer, setCustomer] = useState<Customer | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isBannedModalOpen, setIsBannedModalOpen] = useState(false);
   const [pendingAction, setPendingAction] = useState<(() => void) | null>(null);
 
   const loginMutation = trpc.store.login.useMutation();
@@ -56,6 +61,11 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
     if (getCustomerQuery.data) {
       setCustomer(getCustomerQuery.data);
       localStorage.setItem('store_customer', JSON.stringify(getCustomerQuery.data));
+      
+      // Check if customer is banned
+      if (getCustomerQuery.data.banned) {
+        setIsBannedModalOpen(true);
+      }
     } else if (getCustomerQuery.data === null && customer) {
       // ✅ CORREÇÃO: Se query retornar null, limpar estado (cliente não existe mais)
       setCustomer(null);
@@ -124,6 +134,11 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
     setPendingAction(null);
   };
 
+  const handleBannedModalClose = () => {
+    setIsBannedModalOpen(false);
+    logout(); // Force logout when banned modal is closed
+  };
+
   return (
     <StoreAuthContext.Provider
       value={{
@@ -143,6 +158,10 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
         onClose={handleLoginModalClose}
         onLogin={login}
         onRegister={register}
+      />
+      <BannedAccountModal
+        open={isBannedModalOpen}
+        onClose={handleBannedModalClose}
       />
     </StoreAuthContext.Provider>
   );

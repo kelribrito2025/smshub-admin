@@ -349,3 +349,15 @@
 - [x] Ajustar alinhamento dos textos secundários nos cards (Total de Ativações, Receita Total, Lucro Total)
 - [x] Remover espaçamento vertical excessivo - textos agora ficam próximos aos números como antes
 - [x] Alinhar valores e descrições na parte inferior (final) do card usando padding-top (pt-8)
+
+## Sistema de Banimento Permanente de Usuários
+- [x] Adicionar campo `banned` (boolean) e `bannedAt` (timestamp) na tabela customers
+- [x] Criar migration para adicionar campos de banimento (ALTER TABLE via SQL)
+- [x] Criar endpoint `customers.banCustomer` para banir usuário
+- [x] Criar endpoint `customers.unbanCustomer` para desbanir usuário
+- [x] Implementar modal de alerta "Conta desativada" no frontend (BannedAccountModal)
+- [x] Adicionar verificação de banimento no StoreAuthContext (auto-logout)
+- [x] Adicionar indicador visual (borda vermelha pulsante) na tabela de clientes
+- [x] Adicionar botão "Banir conta permanentemente" no formulário de edição de cliente
+- [x] Criar testes para funcionalidade de banimento (4 testes passaram)
+- [x] Adicionar campo `bannedReason` para armazenar motivo do banimento

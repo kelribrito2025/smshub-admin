@@ -194,6 +194,59 @@ export const customersRouter = router({
     }),
 
   /**
+   * Ban customer permanently
+   */
+  banCustomer: adminProcedure
+    .input(
+      z.object({
+        id: z.number(),
+        reason: z.string().optional(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const customer = await getCustomerById(input.id);
+      if (!customer) {
+        throw new Error('Customer not found');
+      }
+
+      if (customer.banned) {
+        throw new Error('Customer is already banned');
+      }
+
+      await updateCustomer(input.id, {
+        banned: true,
+        bannedAt: new Date(),
+        bannedReason: input.reason || 'Violação dos termos de serviço',
+      });
+
+      return { success: true };
+    }),
+
+  /**
+   * Unban customer
+   */
+  unbanCustomer: adminProcedure
+    .input(z.object({ id: z.number() }))
+    .mutation(async ({ input }) => {
+      const customer = await getCustomerById(input.id);
+      if (!customer) {
+        throw new Error('Customer not found');
+      }
+
+      if (!customer.banned) {
+        throw new Error('Customer is not banned');
+      }
+
+      await updateCustomer(input.id, {
+        banned: false,
+        bannedAt: null,
+        bannedReason: null,
+      });
+
+      return { success: true };
+    }),
+
+  /**
    * Get customer statistics
    */
   getStats: adminProcedure.query(async () => {

@@ -220,6 +220,9 @@ export const customers = mysqlTable("customers", {
   bonusBalance: int("bonusBalance").default(0).notNull(), // Bonus balance in cents (non-withdrawable, can only be used for purchases)
   referredBy: int("referredBy"), // ID of the customer who referred this customer (nullable)
   active: boolean("active").default(true).notNull(),
+  banned: boolean("banned").default(false).notNull(), // Permanent ban flag
+  bannedAt: timestamp("bannedAt"), // Timestamp when the account was banned
+  bannedReason: text("bannedReason"), // Reason for the ban (optional)
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 }, (table) => ({
