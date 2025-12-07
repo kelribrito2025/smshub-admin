@@ -393,3 +393,6 @@
 ## Correção de Erro React - BannedAccountModal
 - [x] Corrigir erro "Cannot update a component while rendering a different component"
 - [x] Mover chamada onClose() para fora do ciclo de render usando setTimeout(onClose, 0)
+
+## Edição Visual do Modal de Banimento
+- [x] Juntar as duas primeiras mensagens em uma única caixa (reduzir de 3 para 2 caixas)

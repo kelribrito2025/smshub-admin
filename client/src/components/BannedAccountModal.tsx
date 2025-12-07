@@ -77,10 +77,7 @@ export default function BannedAccountModal({ open, onClose }: BannedAccountModal
                     Detectamos ações que violam de forma grave os nossos termos de serviço e, por isso, esta conta foi{' '}
                     <span className="text-red-400 font-bold">banida permanentemente</span>.
                   </p>
-                </div>
-
-                <div className="bg-red-500/10 border-2 border-red-500/30 rounded-lg p-6">
-                  <p className="text-gray-300 font-mono text-base leading-relaxed">
+                  <p className="text-gray-300 font-mono text-base leading-relaxed mt-4">
                     O uso da plataforma não será mais permitido a partir deste momento.
                   </p>
                 </div>
