@@ -661,3 +661,7 @@
 - [x] Localizar background gradiente do card de saldo
 - [x] Aplicar mesmo background no card "Seu Link de Indicação"
 - [x] Testar visual no browser
+
+## Ajuste de Espessura de Borda dos Cards
+- [x] Aumentar borderWidth de 1px para 2px no card de saldo
+- [x] Aumentar borderWidth de 1px para 2px no card de link de afiliado

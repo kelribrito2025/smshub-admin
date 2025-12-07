@@ -603,7 +603,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
             isLowBalance ? 'border-red-500 animate-pulse' : 'border-green-900/30'
           } ${
             balanceFlash === 'green' ? 'balance-flash-green' : balanceFlash === 'red' ? 'balance-flash-red' : ''
-          }`}>
+          }`} style={{borderWidth: '2px'}}>
             {/* Grid cyber background */}
             <div className="absolute inset-0 pointer-events-none" style={{
               backgroundImage: `

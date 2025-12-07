@@ -129,7 +129,7 @@ export default function StoreAffiliate() {
         </p>
 
         {/* (A) Link de Indicação */}
-        <Card className="bg-black border border-green-900/30 relative overflow-hidden">
+        <Card className="bg-black border border-green-900/30 relative overflow-hidden" style={{borderWidth: '2px'}}>
           {/* Grid cyber background */}
           <div className="absolute inset-0 pointer-events-none" style={{
             backgroundImage: `
