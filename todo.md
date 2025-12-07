@@ -555,3 +555,7 @@
 - [x] Reverter border de 0 para 2px solid #22c55e
 - [x] Alterar border-radius de 8px para 0 (remover cantos arredondados)
 - [x] Testar visual das notificações com cantos retos
+
+## UX: Ajustar Border-radius das Notificações para 11px
+- [x] Alterar border-radius de 0 para 11px
+- [x] Testar visual com cantos mais arredondados
