@@ -451,7 +451,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
           )}
 
           {/* Language Selector Dropdown (hidden on mobile) */}
-          <DropdownMenu>
+          <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
               <Button
                 variant="ghost"
@@ -482,7 +482,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
           </Button>
 
           {/* Profile Menu Dropdown */}
-          <DropdownMenu>
+          <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
               {customer?.role === 'admin' ? (
                 <button className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-green-900/20 transition-colors border border-black focus:outline-none focus-visible:outline-none">

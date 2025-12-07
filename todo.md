@@ -700,3 +700,8 @@
 - [x] overflow-y: scroll não resolveu completamente
 - [x] Testar no browser para identificar causa exata
 - [x] Aplicar solução CSS mais robusta: body[style*="padding-right"] { padding-right: 0 !important; }
+
+## Correção Final com modal={false}
+- [x] Soluções CSS anteriores não resolveram
+- [x] Adicionar modal={false} em todos DropdownMenu do StoreLayout
+- [x] Prevenir Radix UI de manipular body/scrollbar completamente
