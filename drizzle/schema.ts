@@ -290,6 +290,7 @@ export const smsApis = mysqlTable("sms_apis", {
   exchangeRate: decimal("exchange_rate", { precision: 6, scale: 2 }).default("1.00").notNull(), // Exchange rate USD to BRL (e.g., 6.00 for $1 = R$6)
   profitPercentage: decimal("profit_percentage", { precision: 5, scale: 2 }).default("0.00").notNull(), // Profit margin percentage (e.g., 150.00 for 150%)
   minimumPrice: int("minimum_price").default(0).notNull(), // Minimum price in cents (e.g., 300 for R$ 3.00)
+  maxSimultaneousOrders: int("max_simultaneous_orders").default(0).notNull(), // Maximum simultaneous active orders per customer per API (0 = unlimited)
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 }, (table) => ({

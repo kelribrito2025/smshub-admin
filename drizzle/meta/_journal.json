@@ -15,6 +15,13 @@
       "when": 1765112699615,
       "tag": "0001_bent_iron_fist",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1765116441452,
+      "tag": "0002_harsh_layla_miller",
+      "breakpoints": true
     }
   ]
 }

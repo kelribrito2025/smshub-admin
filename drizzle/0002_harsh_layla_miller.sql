@@ -1,0 +1,1 @@
+ALTER TABLE `sms_apis` ADD `max_simultaneous_orders` int DEFAULT 0 NOT NULL;

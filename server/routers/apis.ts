@@ -46,6 +46,7 @@ export const apisRouter = router({
       currency: z.enum(["BRL", "USD"]).default("USD"),
       profitPercentage: z.number().min(0).max(999.99).default(0), // 0% to 999.99%
       minimumPrice: z.number().min(0).default(0), // in cents
+      maxSimultaneousOrders: z.number().min(0).max(100).default(0), // 0 = unlimited
     }))
     .mutation(async ({ input }) => {
       const { profitPercentage, ...rest } = input;
@@ -69,6 +70,7 @@ export const apisRouter = router({
       currency: z.enum(["BRL", "USD"]).optional(),
       profitPercentage: z.number().min(0).max(999.99).optional(), // 0% to 999.99%
       minimumPrice: z.number().min(0).optional(), // in cents
+      maxSimultaneousOrders: z.number().min(0).max(100).optional(), // 0 = unlimited
     }))
     .mutation(async ({ input }) => {
       const { id, profitPercentage, ...rest } = input;

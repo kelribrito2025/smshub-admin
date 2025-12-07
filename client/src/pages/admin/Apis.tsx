@@ -48,6 +48,7 @@ interface ApiFormData {
   currency: 'BRL' | 'USD';
   profitPercentage: number;
   minimumPrice: number;
+  maxSimultaneousOrders: number;
 }
 
 export default function Apis() {
@@ -63,6 +64,7 @@ export default function Apis() {
     currency: 'USD',
     profitPercentage: 0,
     minimumPrice: 0,
+    maxSimultaneousOrders: 0,
   });
 
   const apisQuery = trpc.apis.list.useQuery();
@@ -143,6 +145,7 @@ export default function Apis() {
       currency: 'USD',
       profitPercentage: 0,
       minimumPrice: 0,
+      maxSimultaneousOrders: 0,
     });
     setEditingApi(null);
   };
@@ -159,6 +162,7 @@ export default function Apis() {
         currency: api.currency || 'USD',
         profitPercentage: typeof api.profitPercentage === 'string' ? parseFloat(api.profitPercentage) : (api.profitPercentage || 0),
         minimumPrice: api.minimumPrice || 0,
+        maxSimultaneousOrders: api.maxSimultaneousOrders || 0,
       });
     } else {
       resetForm();
@@ -563,6 +567,33 @@ export default function Apis() {
                       placeholder="R$ 0,00"
                       value={formData.minimumPrice}
                       onChange={(cents) => setFormData({ ...formData, minimumPrice: cents })}
+                    />
+                  </div>
+
+                  {/* Limite de Pedidos Simultâneos */}
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-1.5">
+                      <Label htmlFor="maxSimultaneousOrders">
+                        Limite de Pedidos Simultâneos
+                      </Label>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
+                        </TooltipTrigger>
+                        <TooltipContent className="max-w-xs">
+                          <p>Máximo de pedidos ativos por cliente nesta API. 0 = sem limite.</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </div>
+                    <Input
+                      id="maxSimultaneousOrders"
+                      type="number"
+                      min="0"
+                      max="100"
+                      step="1"
+                      placeholder="0 (sem limite)"
+                      value={formData.maxSimultaneousOrders}
+                      onChange={(e) => setFormData({ ...formData, maxSimultaneousOrders: parseInt(e.target.value) || 0 })}
                     />
                   </div>
                 </div>

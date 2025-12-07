@@ -414,3 +414,24 @@
 ## Ocultação de Cards de Segurança em Mobile
 - [x] Ocultar 3 cards de segurança/benefícios (Transação 100% segura, Acesso instantâneo, Dados criptografados) na versão mobile
 - [x] Adicionar classe `hidden md:block` na seção de features do LoginModal
+
+## Controle de Abuso - Limite de Pedidos Simultâneos
+- [ ] Verificar lógicas existentes de rate limit, throttling, locks no sistema
+- [ ] Adicionar campo `maxSimultaneousOrders` (int, nullable) na tabela `sms_apis`
+- [ ] Criar migração para adicionar campo no banco
+- [ ] Atualizar UI do admin (/apis) para configurar limite por API
+- [ ] Implementar função `countActivePendingOrders(customerId, apiId)` no backend
+- [ ] Criar validação antes de criar pedido (comparar count vs limite)
+- [ ] Adicionar lock/transação para evitar race conditions
+- [ ] Retornar erro "Limite de pedidos simultâneos atingido" quando exceder
+- [ ] Adicionar logging de tentativas acima do limite para auditoria
+- [ ] Criar testes unitários para validação de limite
+- [ ] Testar fluxo: criar pedidos até limite, tentar exceder, cancelar, criar novamente
+
+## Controle de Abuso - Limite de Pedidos Simultâneos
+- [x] Adicionar campo maxSimultaneousOrders na tabela sms_apis (schema + migração)
+- [x] Atualizar UI do admin (/apis) com campo de configuração de limite
+- [x] Implementar validação no backend antes de criar pedido (contar pedidos ativos)
+- [x] Adicionar logging de tentativas bloqueadas para auditoria
+- [x] Criar testes unitários para validação de limite
+- [x] Testar fluxo completo com múltiplos pedidos simultâneos

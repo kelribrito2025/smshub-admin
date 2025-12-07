@@ -211,6 +211,50 @@ export const storeRouter = router({
         throw new Error('Saldo insuficiente');
       }
 
+      // 2.5. Validar limite de pedidos simultâneos por API
+      // Determinar qual API será usada para validação
+      let targetApiId = input.apiId || price.price.apiId;
+      
+      if (targetApiId) {
+        const { getApiById } = await import('../apis-helpers');
+        const targetApi = await getApiById(targetApiId);
+        
+        if (targetApi && targetApi.maxSimultaneousOrders > 0) {
+          // Contar pedidos ativos do cliente nesta API
+          const db = await getDb();
+          if (!db) throw new Error('Database not available');
+          
+          const { activations } = await import('../../drizzle/schema');
+          const { eq, and, inArray } = await import('drizzle-orm');
+          
+          const activeOrders = await db
+            .select()
+            .from(activations)
+            .where(
+              and(
+                eq(activations.userId, input.customerId),
+                eq(activations.apiId, targetApiId),
+                inArray(activations.status, ['pending', 'active'])
+              )
+            );
+          
+          const currentActiveCount = activeOrders.length;
+          
+          if (currentActiveCount >= targetApi.maxSimultaneousOrders) {
+            // Log tentativa bloqueada
+            console.warn(`[ABUSE CONTROL] Customer ${input.customerId} exceeded simultaneous orders limit for API ${targetApi.name} (${currentActiveCount}/${targetApi.maxSimultaneousOrders})`);
+            
+            throw new Error(
+              `Limite de pedidos simultâneos atingido para ${targetApi.name}. ` +
+              `Você tem ${currentActiveCount} pedidos ativos e o limite é ${targetApi.maxSimultaneousOrders}. ` +
+              `Aguarde a conclusão ou cancelamento de pedidos existentes.`
+            );
+          }
+          
+          console.log(`[ABUSE CONTROL] Customer ${input.customerId} has ${currentActiveCount}/${targetApi.maxSimultaneousOrders} active orders on API ${targetApi.name}`);
+        }
+      }
+
       // 3. Obter API para usar (específica ou da tabela de preços)
       let client: SMSHubClient | SMS24hClient;
       let selectedApiId = input.apiId;
