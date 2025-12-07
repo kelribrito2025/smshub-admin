@@ -215,3 +215,8 @@
 
 ## Melhorias de UX
 - [x] Remover efeitos de transição do tooltip (aparecer instantaneamente)
+
+## Correções de Webhook PIX
+- [x] Verificar webhook-pix.ts para bug de timestamps
+- [x] Garantir que recargas apareçam no histórico /store/recharges
+- [x] Validar campos createdAt e updatedAt explícitos

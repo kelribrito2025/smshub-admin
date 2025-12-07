@@ -113,12 +113,14 @@ router.post("/webhook/pix", async (req, res) => {
 
     // Create recharge record for history (CRITICAL - must succeed)
     try {
+      const now = new Date(); // Create single timestamp for consistency
       console.log("[PIX Webhook] Creating recharge record:", {
         customerId: transaction.customerId,
         amount: transaction.amount,
         paymentMethod: "pix",
         status: "completed",
         transactionId: pixData.txid,
+        timestamp: now,
       });
       
       const rechargeResult = await db.insert(recharges).values({
@@ -128,7 +130,8 @@ router.post("/webhook/pix", async (req, res) => {
         status: "completed",
         transactionId: pixData.txid,
         completedAt: pixData.paidAt,
-        createdAt: new Date(),
+        createdAt: now,
+        updatedAt: now, // Explicitly set updatedAt to avoid schema conflicts
       });
       
       console.log("[PIX Webhook] ✅ Recharge record created successfully:", rechargeResult);
