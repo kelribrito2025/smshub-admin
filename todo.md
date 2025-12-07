@@ -717,3 +717,9 @@
 - [x] Páginas /store e /store/history mostram scrollbar mesmo sem conteúdo suficiente
 - [x] Mudar overflow-y: scroll para overflow-y: auto no HTML
 - [x] Manter modal={false} nos dropdowns para prevenir layout shift
+
+## Investigação de Scrollbar Persistente
+- [x] overflow-y: auto não resolveu completamente
+- [x] Scrollbar ainda aparece em /store e /store/history devido à lista de serviços
+- [x] Investigar elementos que podem estar causando overflow (lista lateral)
+- [x] Removido overflow-y do HTML completamente, confiando em modal={false} para prevenir layout shift
