@@ -410,3 +410,7 @@
 
 ## Substituição do Áudio do Modal
 - [x] Substituir ban-alert.wav pela nova música (TL_AR_105_Bass_Loop_Sub_Dangerous_Dm.wav, 4.7MB)
+
+## Ocultação de Cards de Segurança em Mobile
+- [x] Ocultar 3 cards de segurança/benefícios (Transação 100% segura, Acesso instantâneo, Dados criptografados) na versão mobile
+- [x] Adicionar classe `hidden md:block` na seção de features do LoginModal

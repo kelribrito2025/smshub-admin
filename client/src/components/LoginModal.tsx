@@ -128,7 +128,7 @@ export default function LoginModal({ isOpen, onClose, onLogin, onRegister }: Log
               </div>
 
               {/* Features */}
-              <div className="space-y-6">
+              <div className="hidden md:block space-y-6">
                 <div className="flex items-start gap-4 bg-black/30 p-4 rounded-lg border border-green-500/20">
                   <div className="w-12 h-12 bg-green-500/10 rounded-full flex items-center justify-center flex-shrink-0">
                     <Shield className="w-6 h-6 text-green-400" strokeWidth={2} />
