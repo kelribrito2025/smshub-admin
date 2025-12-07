@@ -637,3 +637,7 @@
 
 ## Ajuste de Texto Admin no Header
 - [x] Alterar "Administrador" para "Admin" no header do painel de vendas
+
+## Borda Preta no Botão Admin
+- [x] Corrigir atributos style duplicados (bug do editor visual)
+- [x] Adicionar borda preta (#000000) ao botão admin no header
