@@ -616,3 +616,10 @@
 - [x] Substituir avatar padrão por ícone Shield (escudo roxo) quando usuário for admin
 - [x] Alterar nome exibido de nome do usuário para "Admin"
 - [x] Aplicar no DashboardLayout (painel de vendas)
+
+## Animação de Borda Circulante na Opção Recomendada
+- [x] Localizar componente da opção recomendada no StoreCatalog
+- [x] Remover efeito amarelo estático atual
+- [x] Implementar animação de borda circulante (border animation)
+- [x] Criar keyframes CSS para movimento circular
+- [x] Testar animação no navegador

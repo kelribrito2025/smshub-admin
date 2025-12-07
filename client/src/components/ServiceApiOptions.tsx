@@ -92,9 +92,9 @@ export default function ServiceApiOptions({ serviceId, countryId, customerId, on
           return (
             <div
               key={option.apiId}
-              className={`flex items-center justify-between p-3 bg-gray-800 border rounded transition-colors ${
+              className={`flex items-center justify-between p-3 bg-gray-800 border rounded transition-colors relative ${
                 isRecommended 
-                  ? 'border-yellow-500/50 ring-2 ring-yellow-500/20' 
+                  ? 'border-transparent recommended-border-animation' 
                   : 'border-green-900/30 hover:border-green-500/50'
               }`}
             >
