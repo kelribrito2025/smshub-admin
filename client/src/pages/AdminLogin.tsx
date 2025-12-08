@@ -59,7 +59,7 @@ export default function AdminLogin() {
               <Shield className="w-8 h-8 text-green-400" strokeWidth={2} />
             </div>
             <h1 className="text-3xl font-bold text-green-400 font-mono mb-2">
-              ADMIN LOGIN kkk
+              ADMIN LOGIN
             </h1>
             <p className="text-gray-500 font-mono text-sm">
               Acesso restrito a administradores
