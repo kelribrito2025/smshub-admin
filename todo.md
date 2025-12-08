@@ -1004,3 +1004,13 @@
 - [x] Criar documento de teste manual (docs/TESTE-SOM-DINHEIRO.md)
 - [x] Executar teste manual - SOM FUNCIONANDO!
 - [x] Logs detalhados ajudaram a identificar e resolver o problema
+
+
+## ✅ Bug Resolvido: Som Funciona em Dev mas Não em Produção
+- [x] Verificar se arquivo money-received.wav está sendo servido em produção (HTTP 200 OK)
+- [x] Testar URL do arquivo em produção (https://smshubadm-sokyccse.manus.space/sounds/money-received.wav)
+- [x] Identificar causa: Política de autoplay do navegador em HTTPS
+- [x] Implementar solução: Toast clicável quando autoplay bloqueado
+- [x] Adicionar tratamento de erro NotAllowedError
+- [x] Permitir reprodução após interação do usuário
+- [ ] Testar em produção (aguardando checkpoint)

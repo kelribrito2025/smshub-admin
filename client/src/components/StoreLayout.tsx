@@ -96,9 +96,31 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
         console.log('[Store] ✅ playSound flag is TRUE - attempting to play money sound');
         const audio = new Audio('/sounds/money-received.wav');
         audio.volume = 0.5;
+        
+        // Try to play, handle autoplay policy errors
         audio.play()
-          .then(() => console.log('[Store] ✅ Money sound played successfully'))
-          .catch(err => console.error('[Store] ❌ Failed to play sound:', err));
+          .then(() => {
+            console.log('[Store] ✅ Money sound played successfully');
+          })
+          .catch(err => {
+            console.error('[Store] ❌ Failed to play sound:', err);
+            
+            // If autoplay is blocked (common in production/HTTPS), show a toast
+            if (err.name === 'NotAllowedError') {
+              console.warn('[Store] ⚠️ Autoplay blocked by browser. User interaction required.');
+              toast.info('💰 Novo saldo adicionado! (Clique para ativar som)', {
+                duration: 5000,
+                onClick: () => {
+                  // Play sound when user clicks the toast
+                  const retryAudio = new Audio('/sounds/money-received.wav');
+                  retryAudio.volume = 0.5;
+                  retryAudio.play()
+                    .then(() => console.log('[Store] ✅ Sound played after user interaction'))
+                    .catch(e => console.error('[Store] ❌ Still failed:', e));
+                },
+              });
+            }
+          });
       } else {
         console.log('[Store] ❌ playSound flag is FALSE or undefined - not playing money sound');
       }
