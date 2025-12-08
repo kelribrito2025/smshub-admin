@@ -45,6 +45,15 @@ class NotificationsManager {
       "Connection": "keep-alive",
       "X-Accel-Buffering": "no", // Disable nginx buffering
     });
+    
+    // Force flush headers immediately (critical for production SSE)
+    response.flushHeaders();
+    
+    // Disable TCP buffering (Nagle's algorithm) for immediate delivery
+    // This is CRITICAL for SSE to work in production environments
+    if (response.socket) {
+      response.socket.setNoDelay(true);
+    }
 
     // Connection established - no need to send confirmation toast
 
@@ -135,7 +144,14 @@ class NotificationsManager {
       timestamp: new Date().toISOString(),
     });
 
+    // Write data and force flush immediately (critical for production SSE)
     response.write(`data: ${data}\n\n`);
+    
+    // Force flush if available (Node.js HTTP response doesn't have flush() by default,
+    // but we can use the socket directly to ensure immediate delivery)
+    if ('flush' in response && typeof (response as any).flush === 'function') {
+      (response as any).flush();
+    }
   }
 
   /**

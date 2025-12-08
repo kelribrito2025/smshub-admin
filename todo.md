@@ -964,3 +964,15 @@
 - [ ] Testar: Admin remove saldo → som NÃO toca
 - [ ] Testar: Usuário faz recarga PIX → som NÃO toca
 - [ ] Validar com usuário que funcionalidade está correta
+
+
+## Problema: SSE Não Funciona em Produção (Delay de 60s)
+- [x] Investigar endpoint /api/notifications/stream/:customerId
+- [x] Verificar headers HTTP de SSE (Cache-Control, Connection, Content-Type, X-Accel-Buffering)
+- [x] Verificar se há buffering no servidor Express
+- [x] Verificar timeout de conexão SSE
+- [x] Verificar heartbeat (30s) vs timeout de proxy (60s?)
+- [x] Identificar causa raiz do delay de 60 segundos (falta de flush + TCP buffering)
+- [x] Implementar correções necessárias (flushHeaders + setNoDelay)
+- [ ] Testar notificações em tempo real na produção
+- [ ] Validar que som toca imediatamente quando admin adiciona saldo
