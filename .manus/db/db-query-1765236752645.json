@@ -1,0 +1,42 @@
+{
+  "query": "DESCRIBE payment_settings",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute DESCRIBE payment_settings",
+  "rows": [
+    {
+      "Field": "id",
+      "Type": "int(11)",
+      "Null": "NO",
+      "Key": "PRI",
+      "Default": "NULL",
+      "Extra": "auto_increment"
+    },
+    {
+      "Field": "pix_enabled",
+      "Type": "tinyint(1)",
+      "Null": "NO",
+      "Key": "",
+      "Default": "1",
+      "Extra": ""
+    },
+    {
+      "Field": "stripe_enabled",
+      "Type": "tinyint(1)",
+      "Null": "NO",
+      "Key": "",
+      "Default": "1",
+      "Extra": ""
+    },
+    {
+      "Field": "updatedAt",
+      "Type": "timestamp",
+      "Null": "NO",
+      "Key": "",
+      "Default": "CURRENT_TIMESTAMP",
+      "Extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP"
+    }
+  ],
+  "messages": [],
+  "stdout": "Field\tType\tNull\tKey\tDefault\tExtra\nid\tint(11)\tNO\tPRI\tNULL\tauto_increment\npix_enabled\ttinyint(1)\tNO\t\t1\t\nstripe_enabled\ttinyint(1)\tNO\t\t1\t\nupdatedAt\ttimestamp\tNO\t\tCURRENT_TIMESTAMP\tDEFAULT_GENERATED on update CURRENT_TIMESTAMP\n",
+  "stderr": "",
+  "execution_time_ms": 51
+}

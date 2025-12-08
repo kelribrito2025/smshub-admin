@@ -1,0 +1,130 @@
+{
+  "query": "SELECT id, customerId, txid, amount, status, createdAt FROM pix_transactions WHERE status = 'pending' ORDER BY createdAt DESC LIMIT 15",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT id, customerId, txid, amount, status, createdAt FROM pix_transactions WHERE status = 'pending' ORDER BY createdAt DESC LIMIT 15",
+  "rows": [
+    {
+      "id": "510013",
+      "customerId": "480001",
+      "txid": "ce7a35f6d88d457d82e89abf2b7e76c5",
+      "amount": "133",
+      "status": "pending",
+      "createdAt": "2025-12-08 23:39:08"
+    },
+    {
+      "id": "510012",
+      "customerId": "480001",
+      "txid": "45f33b0fc78443b49e7d24676ebf23ab",
+      "amount": "255",
+      "status": "pending",
+      "createdAt": "2025-12-08 23:37:36"
+    },
+    {
+      "id": "510011",
+      "customerId": "480001",
+      "txid": "0c7261b78dd94da687d64316ceb72a49",
+      "amount": "155",
+      "status": "pending",
+      "createdAt": "2025-12-08 23:19:44"
+    },
+    {
+      "id": "510010",
+      "customerId": "480001",
+      "txid": "0d66cc940e054377a382ba44056d7e22",
+      "amount": "140",
+      "status": "pending",
+      "createdAt": "2025-12-08 23:14:39"
+    },
+    {
+      "id": "510009",
+      "customerId": "480001",
+      "txid": "d30fa47ec103421e8c55bedf1bbf2400",
+      "amount": "200",
+      "status": "pending",
+      "createdAt": "2025-12-08 21:37:50"
+    },
+    {
+      "id": "510008",
+      "customerId": "480001",
+      "txid": "3af11d5c587140869edd2f9c87897e77",
+      "amount": "222",
+      "status": "pending",
+      "createdAt": "2025-12-08 21:36:56"
+    },
+    {
+      "id": "510007",
+      "customerId": "480001",
+      "txid": "df433801abf2485bb4c6f8d4a5ad3779",
+      "amount": "333",
+      "status": "pending",
+      "createdAt": "2025-12-08 21:30:34"
+    },
+    {
+      "id": "510004",
+      "customerId": "180002",
+      "txid": "c03380d62164422fa3c4eab23ceff95f",
+      "amount": "222",
+      "status": "pending",
+      "createdAt": "2025-12-08 20:07:37"
+    },
+    {
+      "id": "510003",
+      "customerId": "180002",
+      "txid": "665b07b8c4b14a8d9cc2ee3b38b31a89",
+      "amount": "100",
+      "status": "pending",
+      "createdAt": "2025-12-08 19:54:56"
+    },
+    {
+      "id": "510002",
+      "customerId": "180002",
+      "txid": "b59c98fb630e4039920257928e5846b0",
+      "amount": "100",
+      "status": "pending",
+      "createdAt": "2025-12-08 18:52:55"
+    },
+    {
+      "id": "330002",
+      "customerId": "330001",
+      "txid": "a0b9c5390426408199856896961dac83",
+      "amount": "122",
+      "status": "pending",
+      "createdAt": "2025-12-06 02:39:08"
+    },
+    {
+      "id": "330001",
+      "customerId": "330001",
+      "txid": "612700ac774342789e1da89c0545310c",
+      "amount": "200",
+      "status": "pending",
+      "createdAt": "2025-12-06 02:37:36"
+    },
+    {
+      "id": "30004",
+      "customerId": "90007",
+      "txid": "9b7114d8613f48e98ff2fc0d9468333c",
+      "amount": "2000",
+      "status": "pending",
+      "createdAt": "2025-12-02 22:08:59"
+    },
+    {
+      "id": "30003",
+      "customerId": "90007",
+      "txid": "0d265591992e4a1fa29c7ea2f6c27ba8",
+      "amount": "2000",
+      "status": "pending",
+      "createdAt": "2025-12-02 21:44:45"
+    },
+    {
+      "id": "5",
+      "customerId": "90007",
+      "txid": "98c214f4fd214cad96a8256b2a4f945c",
+      "amount": "200",
+      "status": "pending",
+      "createdAt": "2025-12-02 19:56:50"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\ttxid\tamount\tstatus\tcreatedAt\n510013\t480001\tce7a35f6d88d457d82e89abf2b7e76c5\t133\tpending\t2025-12-08 23:39:08\n510012\t480001\t45f33b0fc78443b49e7d24676ebf23ab\t255\tpending\t2025-12-08 23:37:36\n510011\t480001\t0c7261b78dd94da687d64316ceb72a49\t155\tpending\t2025-12-08 23:19:44\n510010\t480001\t0d66cc940e054377a382ba44056d7e22\t140\tpending\t2025-12-08 23:14:39\n510009\t480001\td30fa47ec103421e8c55bedf1bbf2400\t200\tpending\t2025-12-08 21:37:50\n510008\t480001\t3af11d5c587140869edd2f9c87897e77\t222\tpending\t2025-12-08 21:36:56\n510007\t480001\tdf433801abf2485bb4c6f8d4a5ad3779\t333\tpending\t2025-12-08 21:30:34\n510004\t180002\tc03380d62164422fa3c4eab23ceff95f\t222\tpending\t2025-12-08 20:07:37\n510003\t180002\t665b07b8c4b14a8d9cc2ee3b38b31a89\t100\tpending\t2025-12-08 19:54:56\n510002\t180002\tb59c98fb630e4039920257928e5846b0\t100\tpending\t2025-12-08 18:52:55\n330002\t330001\ta0b9c5390426408199856896961dac83\t122\tpending\t2025-12-06 02:39:08\n330001\t330001\t612700ac774342789e1da89c0545310c\t200\tpending\t2025-12-06 02:37:36\n30004\t90007\t9b7114d8613f48e98ff2fc0d9468333c\t2000\tpending\t2025-12-02 22:08:59\n30003\t90007\t0d265591992e4a1fa29c7ea2f6c27ba8\t2000\tpending\t2025-12-02 21:44:45\n5\t90007\t98c214f4fd214cad96a8256b2a4f945c\t200\tpending\t2025-12-02 19:56:50\n",
+  "stderr": "",
+  "execution_time_ms": 56
+}

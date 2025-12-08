@@ -1172,3 +1172,12 @@
 - [x] Validar customer diretamente no banco via getCustomerById
 - [x] Verificar se customer existe, está ativo e não está banido
 - [x] Manter localStorage para dados do cliente (sem mudanças no frontend)
+
+## BUG CRÍTICO: Sistema PIX Não Funciona em Produção
+- [x] Verificar certificado de produção EfiPay (validade, permissões)
+- [x] Testar conexão real com API EfiPay
+- [x] Verificar URL do webhook configurada na EfiPay
+- [x] Analisar logs de erro do servidor
+- [x] Webhook reconfigurado na EfiPay
+- [x] Creditadas 10 transações pendentes (R$ 18,60)
+- [ ] Fazer teste real de pagamento PIX para validar webhook
