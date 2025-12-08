@@ -71,54 +71,21 @@ export default function DashboardLayout({
     return saved ? parseInt(saved, 10) : DEFAULT_WIDTH;
   });
   const { loading, user } = useAuth();
-  const [location, setLocation] = useLocation();
 
   useEffect(() => {
     localStorage.setItem(SIDEBAR_WIDTH_KEY, sidebarWidth.toString());
   }, [sidebarWidth]);
-
-  // Redirect to login if not authenticated
-  // But don't redirect if we just came from login (to avoid race condition)
-  useEffect(() => {
-    if (!loading && !user && location !== "/admin/login") {
-      // Add small delay to allow cookie to be processed
-      const timer = setTimeout(() => {
-        setLocation("/admin/login");
-      }, 200);
-      return () => clearTimeout(timer);
-    }
-  }, [loading, user, location, setLocation]);
 
   if (loading) {
     return <DashboardLayoutSkeleton />
   }
 
   if (!user) {
-    // Show loading state while redirecting
-
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="flex flex-col items-center gap-8 p-8 max-w-md w-full">
-          <div className="flex flex-col items-center gap-6">
-            <h1 className="text-2xl font-semibold tracking-tight text-center">
-              Redirecionando...
-            </h1>
-            <p className="text-sm text-muted-foreground text-center max-w-sm">
-              Você será redirecionado para a página de login.
-            </p>
-          </div>
-          <Button
-            onClick={() => {
-              setLocation("/admin/login");
-            }}
-            size="lg"
-            className="w-full shadow-lg hover:shadow-xl transition-all"
-          >
-            Sign in
-          </Button>
-        </div>
-      </div>
-    );
+    // Redirect to admin login page
+    if (typeof window !== 'undefined') {
+      window.location.href = '/admin/login';
+    }
+    return <DashboardLayoutSkeleton />;
   }
 
   return (

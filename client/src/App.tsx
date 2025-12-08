@@ -26,8 +26,8 @@ import StoreAffiliate from "./pages/StoreAffiliate";
 import StoreRecharges from "./pages/StoreRecharges";
 
 import Affiliates from "./pages/admin/Affiliates";
-import AdminLogin from "./pages/AdminLogin";
 import { StoreAuthProvider } from "./contexts/StoreAuthContext";
+import AdminLogin from "./pages/AdminLogin";
 
 function Router() {
   return (
@@ -41,7 +41,7 @@ function Router() {
       <Route path="/affiliate" component={StoreAffiliate} />
       <Route path="/recharges" component={StoreRecharges} />
 
-      {/* Área Administrativa (Requer Login Tradicional) */}
+      {/* Área Administrativa (Requer Login Manus) */}
       <Route path={"/admin/login"} component={AdminLogin} />
       <Route path={"/admin"} component={Dashboard} />
       <Route path={"/admin/dashboard"} component={Dashboard} />

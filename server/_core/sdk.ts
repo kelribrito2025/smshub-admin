@@ -232,52 +232,6 @@ class SDKServer {
     }
   }
 
-  /**
-   * Verify admin JWT token (from adminAuth.login)
-   * Returns User if valid, null otherwise
-   */
-  async verifyAdminJWT(
-    cookieValue: string | undefined | null
-  ): Promise<User | null> {
-    if (!cookieValue) {
-      return null;
-    }
-
-    try {
-      const secretKey = this.getSessionSecret();
-      const { payload } = await jwtVerify(cookieValue, secretKey, {
-        algorithms: ["HS256"],
-      });
-      const { userId, email, role } = payload as Record<string, unknown>;
-
-      // Check if this is an admin JWT (has userId instead of openId)
-      if (!userId) {
-        return null; // Not an admin JWT
-      }
-
-      // Convert userId to number (can be string or number from JWT)
-      const userIdNum = typeof userId === "number" ? userId : parseInt(String(userId), 10);
-      if (isNaN(userIdNum)) {
-        console.warn("[Auth] Invalid userId in admin JWT:", userId);
-        return null;
-      }
-
-      // Fetch user from database by ID
-      const user = await db.getUserById(userIdNum);
-      if (!user) {
-        console.warn("[Auth] Admin user not found:", userIdNum);
-        return null;
-      }
-
-      console.log("[Auth] Admin JWT verified for user:", user.email);
-      return user;
-    } catch (error) {
-      // Not an admin JWT, will fallback to OAuth
-      console.log("[Auth] Not an admin JWT, will try OAuth");
-      return null;
-    }
-  }
-
   async getUserInfoWithJwt(
     jwtToken: string
   ): Promise<GetUserInfoWithJwtResponse> {
@@ -303,16 +257,9 @@ class SDKServer {
   }
 
   async authenticateRequest(req: Request): Promise<User> {
+    // Regular authentication flow
     const cookies = this.parseCookies(req.headers.cookie);
     const sessionCookie = cookies.get(COOKIE_NAME);
-
-    // Try to verify as admin JWT first (from adminAuth.login)
-    const adminUser = await this.verifyAdminJWT(sessionCookie);
-    if (adminUser) {
-      return adminUser;
-    }
-
-    // Fallback to regular OAuth authentication flow
     const session = await this.verifySession(sessionCookie);
 
     if (!session) {

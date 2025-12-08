@@ -818,66 +818,35 @@
 - [x] Manter apenas: Nome, Email e Senha
 
 
-## Sistema de Autenticação Admin Tradicional (Email + Senha)
-- [x] Adicionar campo passwordHash na tabela users (VARCHAR 255, nullable)
-- [x] Instalar dependências: bcrypt, jsonwebtoken, @types/bcrypt, @types/jsonwebtoken
-- [x] Criar router adminAuth com procedures: login, me, logout, setPassword
-- [x] Implementar hash de senha com bcrypt (10 rounds)
-- [x] Implementar geração de token JWT (validade 7 dias)
-- [x] Criar página AdminLogin.tsx com design cyber verde
-- [x] Adicionar rota /admin/login no App.tsx
-- [x] Atualizar DashboardLayout para redirecionar para /admin/login quando não autenticado
-- [x] Criar script set-admin-password.mjs para definir senha via CLI
-- [x] Criar testes unitários para adminAuth (login, falha de senha, email inexistente, setPassword)
-- [x] Testar fluxo completo: /admin → redirect /admin/login → login → /admin/dashboard
+## Adicionar Toggle de Visibilidade de Senha
+- [x] Adicionar estado showPassword no LoginModal
+- [x] Adicionar botão com ícone Eye/EyeOff no campo de senha
+- [x] Alternar tipo do input entre "password" e "text"
 
 
-## Correção de Erro de Hooks no DashboardLayout
-- [x] Mover useLocation() para o topo do componente (antes de condicionais)
-- [x] Usar useEffect para redirecionamento em vez de chamada condicional
-- [x] Testar login e redirecionamento
+## Checklist Visual de Requisitos de Senha
+- [x] Criar validações individuais (8+ caracteres, maiúscula, minúscula, número, especial)
+- [x] Adicionar componente visual de checklist abaixo do campo de senha
+- [x] Mostrar ícone de check/x para cada requisito
+- [x] Atualizar cores dinamicamente (verde=atendido, vermelho=não atendido)
+- [x] Exibir apenas quando usuário começar a digitar
 
 
-## Corrigir Autenticação Admin (useAuth vs adminAuth)
-- [x] Investigar hook useAuth atual (verifica OAuth do Manus)
-- [x] Modificar useAuth para verificar adminAuth.me primeiro
-- [x] Atualizar context de autenticação para suportar ambos os métodos
-- [x] Testar login admin → dashboard sem redirecionamento para Manus OAuth
+## Simplificar Requisitos de Senha
+- [x] Remover validações de maiúscula, minúscula, número e caractere especial
+- [x] Manter apenas validação de 8 caracteres mínimo
+- [x] Remover checklist visual completa
+- [x] Voltar para mensagem simples de erro
 
 
-## Modificar sdk.authenticateRequest para JWT Admin
-- [x] Adicionar verificação de JWT admin no sdk.authenticateRequest
-- [x] Verificar app_session cookie para JWT admin (gerado por adminAuth.login)
-- [x] Se JWT admin válido, buscar usuário por ID em vez de openId
-- [x] Manter fallback para OAuth do Manus se não for JWT admin
-- [x] Testar login admin → context reconhece usuário
-
-
-## Corrigir Verificação de JWT Admin (userId string vs number)
-- [x] Verificar payload do JWT gerado em adminAuth.login
-- [x] Corrigir verifyAdminJWT para aceitar userId como string
-- [x] Converter userId string para number ao buscar no banco
-- [x] Testar login admin → verificação de sessão funciona
-
-
-## Corrigir adminAuth.me para reconhecer ctx.user
-- [x] Verificar implementação atual de adminAuth.me
-- [x] Corrigir para retornar ctx.user (já populado pelo verifyAdminJWT)
-- [x] Corrigir useAuth: aguardar adminMeQuery terminar antes de tentar OAuth
-- [x] Testar: login → adminAuth.me retorna usuário → não redireciona
-
-
-## Corrigir Redirecionamento Após Login Admin
-- [x] Verificar onSuccess do loginMutation em AdminLogin.tsx
-- [x] Adicionar invalidação do cache adminAuth.me após login
-- [x] Adicionar redirecionamento para /admin/dashboard após login
-- [x] Testar: login → mensagem de sucesso → redireciona para dashboard
-
-
-## Diagnóstico Completo do Fluxo de Login Admin
-- [x] Criar teste que simula login completo (7/7 testes passaram)
-- [x] Verificar se cookie está sendo setado corretamente (backend OK)
-- [x] Verificar se verifyAdminJWT está sendo chamado (funciona perfeitamente)
-- [x] Verificar se adminAuth.me está retornando usuário (backend OK)
-- [x] Identificar ponto exato de falha (race condition no frontend)
-- [x] Aplicar correção definitiva (delays + verificação de location)
+## Sistema de Autenticação Admin Tradicional
+- [x] Adicionar campo `passwordHash` na tabela users (nullable)
+- [x] Instalar e configurar bcrypt para hash de senhas
+- [x] Criar endpoint `adminAuth.login` (email + senha)
+- [x] Criar endpoint `adminAuth.logout`
+- [x] Criar endpoint `adminAuth.me` (verificar sessão)
+- [x] Criar página `/admin/login` com formulário
+- [x] Implementar JWT para sessão admin
+- [x] Atualizar DashboardLayout para aceitar ambas autenticações
+- [x] Criar script para adicionar senha ao admin existente
+- [x] Testar fluxo completo de login/logout

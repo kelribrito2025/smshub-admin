@@ -1,4 +1,4 @@
-import { X, Shield, Zap, Lock, Mail, User } from 'lucide-react';
+import { X, Shield, Zap, Lock, Mail, User, Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
@@ -14,6 +14,7 @@ export default function LoginModal({ isOpen, onClose, onLogin, onRegister }: Log
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   if (!isOpen) return null;
@@ -260,11 +261,11 @@ export default function LoginModal({ isOpen, onClose, onLogin, onRegister }: Log
                         strokeWidth={2}
                       />
                       <input
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="mínimo 8 caracteres"
-                        className={`w-full bg-black border-2 rounded-lg px-12 py-3 text-white placeholder-gray-600 focus:outline-none transition-colors font-mono ${
+                        className={`w-full bg-black border-2 rounded-lg px-12 pr-12 py-3 text-white placeholder-gray-600 focus:outline-none transition-colors font-mono ${
                           password && !isPasswordStrong
                             ? 'border-red-500 focus:border-red-500'
                             : password && isPasswordStrong
@@ -274,6 +275,18 @@ export default function LoginModal({ isOpen, onClose, onLogin, onRegister }: Log
                         required
                         disabled={isLoading}
                       />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-green-500/50 hover:text-green-400 transition-colors focus:outline-none"
+                        tabIndex={-1}
+                      >
+                        {showPassword ? (
+                          <EyeOff className="w-5 h-5" strokeWidth={2} />
+                        ) : (
+                          <Eye className="w-5 h-5" strokeWidth={2} />
+                        )}
+                      </button>
                     </div>
                     {password && !isPasswordStrong && (
                       <p className="text-red-400 text-xs mt-1 font-mono">

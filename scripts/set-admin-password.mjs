@@ -1,71 +1,50 @@
-#!/usr/bin/env node
-import mysql from 'mysql2/promise';
 import bcrypt from 'bcrypt';
-import 'dotenv/config';
+import mysql from 'mysql2/promise';
+import { config } from 'dotenv';
 
-/**
- * Script to set password for admin user
- * Usage: node scripts/set-admin-password.mjs <email> <password>
- */
+config();
 
-const [,, email, password] = process.argv;
+const SALT_ROUNDS = 10;
 
-if (!email || !password) {
-  console.error('❌ Usage: node scripts/set-admin-password.mjs <email> <password>');
-  console.error('   Example: node scripts/set-admin-password.mjs admin@exemplo.com SenhaSegura123');
-  process.exit(1);
-}
+async function setAdminPassword() {
+  const email = process.argv[2];
+  const password = process.argv[3];
 
-if (password.length < 8) {
-  console.error('❌ Senha deve ter no mínimo 8 caracteres');
-  process.exit(1);
-}
+  if (!email || !password) {
+    console.error('Usage: node scripts/set-admin-password.mjs <email> <password>');
+    process.exit(1);
+  }
 
-(async () => {
-  let conn;
+  if (password.length < 8) {
+    console.error('Password must be at least 8 characters');
+    process.exit(1);
+  }
+
   try {
     // Connect to database
-    conn = await mysql.createConnection(process.env.DATABASE_URL);
-    
-    // Find user
-    const [users] = await conn.execute(
-      'SELECT id, email, role FROM users WHERE email = ?',
-      [email]
-    );
-
-    if (users.length === 0) {
-      console.error(`❌ Usuário com email "${email}" não encontrado`);
-      process.exit(1);
-    }
-
-    const user = users[0];
-
-    // Check if user is admin
-    if (user.role !== 'admin') {
-      console.error(`❌ Usuário "${email}" não é admin (role: ${user.role})`);
-      process.exit(1);
-    }
+    const connection = await mysql.createConnection(process.env.DATABASE_URL);
 
     // Hash password
-    console.log('🔐 Gerando hash da senha...');
-    const passwordHash = await bcrypt.hash(password, 10);
+    const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
 
     // Update user
-    await conn.execute(
-      'UPDATE users SET passwordHash = ? WHERE id = ?',
-      [passwordHash, user.id]
+    const [result] = await connection.execute(
+      'UPDATE users SET passwordHash = ? WHERE email = ? AND role = "admin"',
+      [passwordHash, email]
     );
 
-    console.log('✅ Senha definida com sucesso!');
-    console.log(`   Email: ${email}`);
-    console.log(`   Role: ${user.role}`);
-    console.log('');
-    console.log('Agora você pode fazer login em /admin/login');
+    if (result.affectedRows === 0) {
+      console.error(`No admin user found with email: ${email}`);
+      process.exit(1);
+    }
 
+    console.log(`✅ Password set successfully for admin: ${email}`);
+    
+    await connection.end();
   } catch (error) {
-    console.error('❌ Erro:', error.message);
+    console.error('Error setting password:', error);
     process.exit(1);
-  } finally {
-    if (conn) await conn.end();
   }
-})();
+}
+
+setAdminPassword();

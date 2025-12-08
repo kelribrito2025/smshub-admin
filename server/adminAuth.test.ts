@@ -1,179 +1,168 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it, beforeAll } from "vitest";
 import { appRouter } from "./routers";
+import type { Context } from "./_core/context";
+import bcrypt from "bcrypt";
 import { getDb } from "./db";
 import { users } from "../drizzle/schema";
 import { eq } from "drizzle-orm";
-import bcrypt from "bcrypt";
 
 describe("Admin Authentication", () => {
-  it("should login with correct credentials", async () => {
+  const testEmail = "admin@test.com";
+  const testPassword = "TestPassword123";
+  let testUserId: number;
+
+  // Setup: Create test admin user with password
+  beforeAll(async () => {
     const db = await getDb();
     if (!db) throw new Error("Database not available");
 
-    // Find an admin user
-    const [admin] = await db
+    // Create or update test admin user
+    const passwordHash = await bcrypt.hash(testPassword, 10);
+    
+    // Check if user exists
+    const [existingUser] = await db
       .select()
       .from(users)
-      .where(eq(users.role, "admin"))
+      .where(eq(users.email, testEmail))
       .limit(1);
 
-    if (!admin) {
-      console.log("⚠️  No admin user found, skipping test");
-      return;
+    if (existingUser) {
+      // Update existing user
+      await db
+        .update(users)
+        .set({ passwordHash, role: "admin" })
+        .where(eq(users.id, existingUser.id));
+      testUserId = existingUser.id;
+    } else {
+      // Create new user
+      const [result] = await db
+        .insert(users)
+        .values({
+          openId: `test-admin-${Date.now()}`,
+          email: testEmail,
+          name: "Test Admin",
+          passwordHash,
+          role: "admin",
+          loginMethod: "password",
+        })
+        .$returningId();
+      testUserId = result.id;
     }
+  });
 
-    // Set a test password
-    const testPassword = "TestPassword123";
-    const passwordHash = await bcrypt.hash(testPassword, 10);
-    await db
-      .update(users)
-      .set({ passwordHash })
-      .where(eq(users.id, admin.id));
-
-    // Create a mock context
+  it("should login with correct credentials", async () => {
     const mockReq = {
-      protocol: "https",
       headers: {},
+      protocol: "https",
     } as any;
     const mockRes = {
       cookie: () => {},
       clearCookie: () => {},
     } as any;
 
-    const caller = appRouter.createCaller({
+    const ctx: Context = {
       req: mockReq,
       res: mockRes,
       user: null,
-    });
+    };
 
-    // Test login
+    const caller = appRouter.createCaller(ctx);
+
     const result = await caller.adminAuth.login({
-      email: admin.email!,
+      email: testEmail,
       password: testPassword,
     });
 
-    expect(result).toHaveProperty("id");
-    expect(result).toHaveProperty("email");
-    expect(result.role).toBe("admin");
+    expect(result.success).toBe(true);
+    expect(result.user).toBeDefined();
+    expect(result.user.email).toBe(testEmail);
+    expect(result.user.role).toBe("admin");
   });
 
   it("should fail login with incorrect password", async () => {
-    const db = await getDb();
-    if (!db) throw new Error("Database not available");
-
-    // Find an admin user
-    const [admin] = await db
-      .select()
-      .from(users)
-      .where(eq(users.role, "admin"))
-      .limit(1);
-
-    if (!admin) {
-      console.log("⚠️  No admin user found, skipping test");
-      return;
-    }
-
-    // Create a mock context
     const mockReq = {
-      protocol: "https",
       headers: {},
+      protocol: "https",
     } as any;
     const mockRes = {
       cookie: () => {},
       clearCookie: () => {},
     } as any;
 
-    const caller = appRouter.createCaller({
+    const ctx: Context = {
       req: mockReq,
       res: mockRes,
       user: null,
-    });
+    };
 
-    // Test login with wrong password
+    const caller = appRouter.createCaller(ctx);
+
     await expect(
       caller.adminAuth.login({
-        email: admin.email!,
+        email: testEmail,
         password: "WrongPassword123",
       })
-    ).rejects.toThrow();
+    ).rejects.toThrow("Email ou senha inválidos");
   });
 
   it("should fail login with non-existent email", async () => {
     const mockReq = {
-      protocol: "https",
       headers: {},
+      protocol: "https",
     } as any;
     const mockRes = {
       cookie: () => {},
       clearCookie: () => {},
     } as any;
 
-    const caller = appRouter.createCaller({
+    const ctx: Context = {
       req: mockReq,
       res: mockRes,
       user: null,
-    });
+    };
 
-    // Test login with non-existent email
+    const caller = appRouter.createCaller(ctx);
+
     await expect(
       caller.adminAuth.login({
-        email: "nonexistent@example.com",
-        password: "SomePassword123",
+        email: "nonexistent@test.com",
+        password: testPassword,
       })
-    ).rejects.toThrow();
+    ).rejects.toThrow("Email ou senha inválidos");
   });
 
   it("should set password for admin user", async () => {
-    const db = await getDb();
-    if (!db) throw new Error("Database not available");
-
-    // Find an admin user
-    const [admin] = await db
-      .select()
-      .from(users)
-      .where(eq(users.role, "admin"))
-      .limit(1);
-
-    if (!admin) {
-      console.log("⚠️  No admin user found, skipping test");
-      return;
-    }
-
     const mockReq = {
-      protocol: "https",
       headers: {},
+      protocol: "https",
     } as any;
     const mockRes = {
       cookie: () => {},
       clearCookie: () => {},
     } as any;
 
-    const caller = appRouter.createCaller({
+    const ctx: Context = {
       req: mockReq,
       res: mockRes,
       user: null,
-    });
+    };
 
-    // Set password
-    const newPassword = "NewPassword123";
+    const caller = appRouter.createCaller(ctx);
+    const newPassword = "NewPassword456";
+
     const result = await caller.adminAuth.setPassword({
-      email: admin.email!,
+      userId: testUserId,
       password: newPassword,
     });
 
     expect(result.success).toBe(true);
 
-    // Verify password was set correctly
-    const [updatedUser] = await db
-      .select()
-      .from(users)
-      .where(eq(users.id, admin.id))
-      .limit(1);
+    // Verify new password works
+    const loginResult = await caller.adminAuth.login({
+      email: testEmail,
+      password: newPassword,
+    });
 
-    expect(updatedUser.passwordHash).toBeTruthy();
-    
-    // Verify password hash is valid
-    const isValid = await bcrypt.compare(newPassword, updatedUser.passwordHash!);
-    expect(isValid).toBe(true);
+    expect(loginResult.success).toBe(true);
   });
 });
