@@ -805,3 +805,8 @@
 - [x] Corrigir link do Dashboard (/dashboard → /admin/dashboard) no Home.tsx
 - [x] Verificar e corrigir outros links do menu lateral (todos corretos no banco)
 - [x] Testar navegação completa no admin
+
+
+## Ajuste de Título - Página de Ativações
+- [x] Remover "Receba SMS Online -" do título da página de ativações
+- [x] Deixar apenas "Ativações em Andamento"
