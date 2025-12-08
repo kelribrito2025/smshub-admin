@@ -850,3 +850,7 @@
 - [x] Atualizar DashboardLayout para aceitar ambas autenticações
 - [x] Criar script para adicionar senha ao admin existente
 - [x] Testar fluxo completo de login/logout
+
+
+## Ajuste de Texto - Catálogo
+- [x] Alterar "Preço SMSHub" para "custo" no cabeçalho da tabela de catálogo
