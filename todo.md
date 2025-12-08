@@ -1025,3 +1025,28 @@
 - [x] Reiniciar servidor para aplicar mudanças
 - [ ] Testar em produção (aguardando checkpoint)
 - [ ] Validar que apenas 1 conexão SSE permanece aberta por cliente
+
+
+## ✅ Bug Resolvido: Erro 429 (Too Many Requests) em Produção
+- [x] Analisar logs: múltiplos erros 429 em requisições tRPC
+- [x] Identificar endpoints: getServices, getOperators, getMyActivations
+- [x] Causa: refetchOnWindowFocus causando requisições excessivas
+- [x] Desativar refetchOnWindowFocus em todas as queries
+- [x] Adicionar staleTime apropriado para cada tipo de dado
+- [x] Configurar polling conservador (10s) apenas para ativações
+- [ ] Testar em produção (aguardando checkpoint)
+
+## Bug Crítico: SSE Connection Error em Produção
+- [ ] Analisar erro: readyState 2, eventType: 'error'
+- [ ] Verificar se servidor SSE está respondendo corretamente
+- [ ] Verificar headers de SSE (Content-Type, Cache-Control)
+- [ ] Verificar se há timeout de proxy/CDN
+- [ ] Implementar tratamento de erro robusto
+- [ ] Testar reconexão após erro
+
+## Bug: CORS Error em Produção
+- [ ] Analisar erro: Access-Control-Allow-Origin bloqueado
+- [ ] Verificar configuração de CORS no servidor Express
+- [ ] Verificar domínio de origem (https://app.numero-virtual.com)
+- [ ] Adicionar domínio à whitelist de CORS se necessário
+- [ ] Testar em produção

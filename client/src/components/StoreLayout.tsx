@@ -54,27 +54,54 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
   const [balanceFlash, setBalanceFlash] = useState<'green' | 'red' | null>(null);
   const previousBalance = useRef<number | null>(null);
 
-  const servicesQuery = trpc.store.getServices.useQuery();
-  const countriesQuery = trpc.store.getCountries.useQuery();
-  const pricesQuery = trpc.store.getPrices.useQuery({});
+  // Configure conservative refetch to avoid 429 (Too Many Requests)
+  const servicesQuery = trpc.store.getServices.useQuery(undefined, {
+    refetchOnWindowFocus: false,
+    staleTime: 5 * 60 * 1000, // 5 minutes
+  });
+  const countriesQuery = trpc.store.getCountries.useQuery(undefined, {
+    refetchOnWindowFocus: false,
+    staleTime: 10 * 60 * 1000, // 10 minutes
+  });
+  const pricesQuery = trpc.store.getPrices.useQuery({}, {
+    refetchOnWindowFocus: false,
+    staleTime: 2 * 60 * 1000, // 2 minutes
+  });
   const operatorsQuery = trpc.store.getOperators.useQuery(
-    { countryId: selectedCountry || undefined }
+    { countryId: selectedCountry || undefined },
+    {
+      refetchOnWindowFocus: false,
+      staleTime: 5 * 60 * 1000, // 5 minutes
+    }
   );
 
   // Only query customer data if authenticated
   const customerQuery = trpc.store.getCustomer.useQuery(
     { customerId: customer?.id || 0 },
-    { enabled: !!customer?.id }
+    { 
+      enabled: !!customer?.id,
+      refetchOnWindowFocus: false,
+      staleTime: 30 * 1000, // 30 seconds (balance updates via SSE)
+    }
   );
   
   const favoritesQuery = trpc.store.getFavorites.useQuery(
     { customerId: customer?.id || 0 },
-    { enabled: !!customer?.id }
+    { 
+      enabled: !!customer?.id,
+      refetchOnWindowFocus: false,
+      staleTime: 60 * 1000, // 1 minute
+    }
   );
   
   const activationsQuery = trpc.store.getMyActivations.useQuery(
     { customerId: customer?.id || 0 },
-    { enabled: !!customer?.id }
+    { 
+      enabled: !!customer?.id,
+      refetchOnWindowFocus: false,
+      refetchInterval: 10 * 1000, // Poll every 10 seconds for active activations
+      staleTime: 5 * 1000, // 5 seconds
+    }
   );
   
   const utils = trpc.useUtils();
