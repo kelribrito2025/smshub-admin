@@ -830,3 +830,9 @@
 - [x] Criar script set-admin-password.mjs para definir senha via CLI
 - [x] Criar testes unitários para adminAuth (login, falha de senha, email inexistente, setPassword)
 - [x] Testar fluxo completo: /admin → redirect /admin/login → login → /admin/dashboard
+
+
+## Correção de Erro de Hooks no DashboardLayout
+- [x] Mover useLocation() para o topo do componente (antes de condicionais)
+- [x] Usar useEffect para redirecionamento em vez de chamada condicional
+- [x] Testar login e redirecionamento

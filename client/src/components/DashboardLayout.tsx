@@ -71,22 +71,25 @@ export default function DashboardLayout({
     return saved ? parseInt(saved, 10) : DEFAULT_WIDTH;
   });
   const { loading, user } = useAuth();
+  const [, setLocation] = useLocation();
 
   useEffect(() => {
     localStorage.setItem(SIDEBAR_WIDTH_KEY, sidebarWidth.toString());
   }, [sidebarWidth]);
 
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (!loading && !user) {
+      setLocation("/admin/login");
+    }
+  }, [loading, user, setLocation]);
+
   if (loading) {
     return <DashboardLayoutSkeleton />
   }
 
-  const [, setLocation] = useLocation();
-
   if (!user) {
-    // Redirect to admin login page
-    useEffect(() => {
-      setLocation("/admin/login");
-    }, [setLocation]);
+    // Show loading state while redirecting
 
     return (
       <div className="flex items-center justify-center min-h-screen">
