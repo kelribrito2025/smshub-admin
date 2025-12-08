@@ -1054,6 +1054,21 @@
 - [ ] Implementar tratamento de erro robusto
 - [ ] Testar reconexão após erro
 
+## ✅ Bug Crítico: Rate Limiting 429 em Produção (Corrigido)
+- [x] Analisar erro: múltiplos 429 (Too Many Requests)
+- [x] Identificar endpoints afetados: store.getCustomer, store.getMyActivations
+- [x] Encontrar origem: polling de 30s (getCustomer) e 7s (getMyActivations)
+- [x] Reduzir polling de getCustomer: 30s → 2 minutos
+- [x] Adicionar staleTime de 1 minuto em getCustomer
+- [x] Reduzir polling de getMyActivations: 7s → 15s
+- [ ] Testar em produção
+
+## 🚨 Bug: Erro de JSON Parse (Rate Exceeded)
+- [ ] Analisar erro: "Rate exceeded." is not valid JSON
+- [ ] Servidor retorna texto em vez de JSON quando rate limit é atingido
+- [ ] Adicionar tratamento de erro no cliente tRPC
+- [ ] Exibir mensagem amigável ao usuário
+
 ## Bug: CORS Error em Produção
 - [ ] Analisar erro: Access-Control-Allow-Origin bloqueado
 - [ ] Verificar configuração de CORS no servidor Express

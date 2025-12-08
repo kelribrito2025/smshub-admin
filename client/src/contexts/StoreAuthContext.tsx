@@ -40,7 +40,11 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
   const registerMutation = trpc.store.register.useMutation();
   const getCustomerQuery = trpc.store.getCustomer.useQuery(
     { customerId: customer?.id || 0 },
-    { enabled: !!customer?.id, refetchInterval: 30000 } // Refresh every 30s
+    { 
+      enabled: !!customer?.id, 
+      refetchInterval: 2 * 60 * 1000, // Refresh every 2 minutes (reduced from 30s to avoid 429)
+      staleTime: 1 * 60 * 1000, // Consider fresh for 1 minute
+    }
   );
 
   // Load customer from localStorage on mount

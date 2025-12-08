@@ -204,7 +204,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
     }
   }, [isAuthenticated, showFavorites]);
 
-  // Auto-refresh activations every 7 seconds to check for new SMS codes (only if authenticated)
+  // Auto-refresh activations every 15 seconds to check for new SMS codes (only if authenticated)
   useEffect(() => {
     if (!isAuthenticated) return;
     
@@ -213,7 +213,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
       if (document.visibilityState === 'visible') {
         utils.store.getMyActivations.invalidate();
       }
-    }, 7000); // 7 seconds
+    }, 15000); // 15 seconds (reduced from 7s to avoid 429)
 
     return () => clearInterval(interval);
   }, [utils, isAuthenticated]);
