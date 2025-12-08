@@ -382,12 +382,27 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
             onClick={() => setLocation('/')}
             className="flex items-center gap-2 text-lg md:text-xl font-bold"
           >
-            {/* Logo N - oculto no mobile, visível no desktop */}
-            <img 
-              src="/logo-header.png" 
-              alt="Logo Número Virtual" 
-              className="hidden sm:block w-8 h-8 rounded"
-            />
+            {/* Logo N - SVG inline com fundo transparente */}
+            <svg 
+              className="hidden sm:block w-8 h-8" 
+              viewBox="0 0 100 100" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect width="100" height="100" rx="12" fill="#00D26A"/>
+              <text 
+                x="50" 
+                y="50" 
+                fontSize="60" 
+                fontWeight="bold" 
+                fontFamily="sans-serif" 
+                fill="#000000" 
+                textAnchor="middle" 
+                dominantBaseline="central"
+              >
+                N
+              </text>
+            </svg>
             <span className="text-green-400 hidden sm:inline">Número Virtual</span>
           </button>
 

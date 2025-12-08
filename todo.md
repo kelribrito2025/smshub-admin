@@ -866,3 +866,8 @@
 ## Remover Container de Total de Notificações
 - [x] Remover container "Total: X notificações" da barra lateral
 - [x] Testar visual da barra lateral sem o container
+
+## Substituir Logo PNG por SVG
+- [x] Criar logo SVG inline no StoreLayout (verde #00D26A, letra N preta)
+- [x] Remover referência ao logo-header.png
+- [x] Testar logo SVG sem fundo branco
