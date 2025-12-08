@@ -822,3 +822,11 @@
 - [x] Adicionar estado showPassword no LoginModal
 - [x] Adicionar botão com ícone Eye/EyeOff no campo de senha
 - [x] Alternar tipo do input entre "password" e "text"
+
+
+## Checklist Visual de Requisitos de Senha
+- [x] Criar validações individuais (8+ caracteres, maiúscula, minúscula, número, especial)
+- [x] Adicionar componente visual de checklist abaixo do campo de senha
+- [x] Mostrar ícone de check/x para cada requisito
+- [x] Atualizar cores dinamicamente (verde=atendido, vermelho=não atendido)
+- [x] Exibir apenas quando usuário começar a digitar
