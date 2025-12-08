@@ -21,9 +21,9 @@ import {
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
 
-// Reset to default title for store pages
+// Set SEO-optimized title for store pages
 if (typeof document !== 'undefined') {
-  document.title = 'Número Virtual';
+  document.title = 'Número virtual - Receba SMS online sem precisar de chip físico. Números virtuais para criação e verificação de contas e proteção de privacidade.';
 }
 
 

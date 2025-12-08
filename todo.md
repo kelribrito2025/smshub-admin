@@ -827,3 +827,8 @@
 - [x] Simplificar título do painel admin
 - [x] Remover título longo de SEO do admin (não precisa ranquear)
 - [x] Testar títulos em ambas as páginas
+
+## Atualizar Título do Painel de Vendas
+- [x] Alterar título do StoreLayout para incluir descrição de SEO
+- [x] Manter título curto do admin (Admin - Número Virtual)
+- [x] Testar título no painel de vendas
