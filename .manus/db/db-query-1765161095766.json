@@ -1,0 +1,9 @@
+{
+  "query": "ALTER TABLE users ADD COLUMN passwordHash VARCHAR(255) NULL AFTER email",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute ALTER TABLE users ADD COLUMN passwordHash VARCHAR(255) NULL AFTER email",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 463
+}

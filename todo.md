@@ -837,3 +837,16 @@
 - [x] Manter apenas validação de 8 caracteres mínimo
 - [x] Remover checklist visual completa
 - [x] Voltar para mensagem simples de erro
+
+
+## Sistema de Autenticação Admin Tradicional
+- [x] Adicionar campo `passwordHash` na tabela users (nullable)
+- [x] Instalar e configurar bcrypt para hash de senhas
+- [x] Criar endpoint `adminAuth.login` (email + senha)
+- [x] Criar endpoint `adminAuth.logout`
+- [x] Criar endpoint `adminAuth.me` (verificar sessão)
+- [x] Criar página `/admin/login` com formulário
+- [x] Implementar JWT para sessão admin
+- [x] Atualizar DashboardLayout para aceitar ambas autenticações
+- [x] Criar script para adicionar senha ao admin existente
+- [x] Testar fluxo completo de login/logout
