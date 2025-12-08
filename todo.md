@@ -982,3 +982,13 @@
 - [x] Remover regra "Compartilhe seu link de indicação único com amigos e familiares"
 - [x] Atualizar backend (affiliateRouter.ts)
 - [ ] Criar checkpoint
+
+
+## Problema: Vazamento de Conexões SSE (EventSource)
+- [x] Investigar hook useNotifications para identificar causa
+- [x] Verificar cleanup de EventSource no useEffect
+- [x] Verificar se há múltiplas instâncias do hook sendo criadas
+- [x] Implementar correção de cleanup (useRef para callbacks)
+- [x] Remover onNotification e autoToast das dependências do useEffect
+- [ ] Testar que apenas uma conexão SSE é mantida por cliente
+- [ ] Validar que conexões antigas são fechadas corretamente

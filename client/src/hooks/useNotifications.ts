@@ -24,6 +24,16 @@ export function useNotifications(options: UseNotificationsOptions) {
   const [isConnected, setIsConnected] = useState(false);
   const [lastNotification, setLastNotification] = useState<Notification | null>(null);
   const eventSourceRef = useRef<EventSource | null>(null);
+  
+  // Store callbacks in refs to avoid recreating EventSource on every render
+  const onNotificationRef = useRef(onNotification);
+  const autoToastRef = useRef(autoToast);
+  
+  // Update refs when callbacks change (without triggering reconnection)
+  useEffect(() => {
+    onNotificationRef.current = onNotification;
+    autoToastRef.current = autoToast;
+  }, [onNotification, autoToast]);
 
   useEffect(() => {
     // ✅ CORREÇÃO: Não conectar se não houver customer autenticado
@@ -50,13 +60,13 @@ export function useNotifications(options: UseNotificationsOptions) {
 
         setLastNotification(notification);
 
-        // Call custom handler if provided
-        if (onNotification) {
-          onNotification(notification);
+        // Call custom handler if provided (using ref to avoid reconnection)
+        if (onNotificationRef.current) {
+          onNotificationRef.current(notification);
         }
 
-        // Auto-show toast if enabled
-        if (autoToast) {
+        // Auto-show toast if enabled (using ref to avoid reconnection)
+        if (autoToastRef.current) {
           showNotificationToast(notification);
         }
       } catch (error) {
@@ -87,7 +97,7 @@ export function useNotifications(options: UseNotificationsOptions) {
       eventSourceRef.current = null;
       setIsConnected(false);
     };
-  }, [customerId, onNotification, autoToast]);
+  }, [customerId]); // Only reconnect when customerId changes
 
   return {
     isConnected,
