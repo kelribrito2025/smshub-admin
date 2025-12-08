@@ -1,0 +1,24 @@
+{
+  "query": "\nSELECT \n  pt.id,\n  pt.txid,\n  pt.amount,\n  pt.status,\n  pt.createdAt,\n  pt.paidAt,\n  pt.updatedAt,\n  c.id as customerId,\n  c.email,\n  c.balance,\n  TIMESTAMPDIFF(MINUTE, pt.createdAt, NOW()) as minutes_ago,\n  (SELECT COUNT(*) FROM recharges r WHERE r.transactionId = pt.txid) as has_recharge\nFROM pix_transactions pt\nJOIN customers c ON pt.customerId = c.id\nWHERE c.email = 'xkelrix@gmail.com'\n  AND pt.amount = 100\n  AND TIMESTAMPDIFF(MINUTE, pt.createdAt, NOW()) < 30\nORDER BY pt.createdAt DESC\nLIMIT 1;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute \nSELECT \n  pt.id,\n  pt.txid,\n  pt.amount,\n  pt.status,\n  pt.createdAt,\n  pt.paidAt,\n  pt.updatedAt,\n  c.id as customerId,\n  c.email,\n  c.balance,\n  TIMESTAMPDIFF(MINUTE, pt.createdAt, NOW()) as minutes_ago,\n  (SELECT COUNT(*) FROM recharges r WHERE r.transactionId = pt.txid) as has_recharge\nFROM pix_transactions pt\nJOIN customers c ON pt.customerId = c.id\nWHERE c.email = 'xkelrix@gmail.com'\n  AND pt.amount = 100\n  AND TIMESTAMPDIFF(MINUTE, pt.createdAt, NOW()) < 30\nORDER BY pt.createdAt DESC\nLIMIT 1;\n",
+  "rows": [
+    {
+      "id": "510003",
+      "txid": "665b07b8c4b14a8d9cc2ee3b38b31a89",
+      "amount": "100",
+      "status": "pending",
+      "createdAt": "2025-12-08 19:54:56",
+      "paidAt": "NULL",
+      "updatedAt": "2025-12-08 19:54:56",
+      "customerId": "180002",
+      "email": "xkelrix@gmail.com",
+      "balance": "129065",
+      "minutes_ago": "5",
+      "has_recharge": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttxid\tamount\tstatus\tcreatedAt\tpaidAt\tupdatedAt\tcustomerId\temail\tbalance\tminutes_ago\thas_recharge\n510003\t665b07b8c4b14a8d9cc2ee3b38b31a89\t100\tpending\t2025-12-08 19:54:56\tNULL\t2025-12-08 19:54:56\t180002\txkelrix@gmail.com\t129065\t5\t0\n",
+  "stderr": "",
+  "execution_time_ms": 56
+}

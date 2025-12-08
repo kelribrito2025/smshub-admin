@@ -1060,3 +1060,15 @@
 - [ ] Verificar domínio de origem (https://app.numero-virtual.com)
 - [ ] Adicionar domínio à whitelist de CORS se necessário
 - [ ] Testar em produção
+
+
+## ✅ Bug Crítico: Webhook PIX Não Processa Pagamentos (Corrigido)
+- [x] Verificar logs do servidor no horário do teste
+- [x] Verificar se transação foi registrada em pix_transactions
+- [x] Verificar se registro foi criado em recharges
+- [x] Analisar código do webhook PIX (server/webhook-pix.ts)
+- [x] Identificar problema: updatedAt sendo passado manualmente conflita com .onUpdateNow()
+- [x] Remover updatedAt do insert de recharges (deixar MySQL gerenciar)
+- [ ] Testar novamente em produção
+- [ ] Validar que saldo é creditado corretamente
+- [ ] Validar que notificação aparece no painel

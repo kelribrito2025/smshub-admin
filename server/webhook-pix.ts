@@ -131,7 +131,7 @@ router.post("/webhook/pix", async (req, res) => {
         transactionId: pixData.txid,
         completedAt: pixData.paidAt,
         createdAt: now,
-        updatedAt: now, // Explicitly set updatedAt to avoid schema conflicts
+        // updatedAt is auto-managed by .onUpdateNow() in schema - do NOT pass manually
       });
       
       console.log("[PIX Webhook] ✅ Recharge record created successfully:", rechargeResult);

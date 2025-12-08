@@ -1,0 +1,26 @@
+{
+  "query": "\nSELECT \n  pt.*,\n  c.email,\n  c.name,\n  c.balance as current_balance\nFROM pix_transactions pt\nJOIN customers c ON pt.customerId = c.id\nWHERE c.email = 'xkelrix@gmail.com'\nORDER BY pt.createdAt DESC\nLIMIT 1;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute \nSELECT \n  pt.*,\n  c.email,\n  c.name,\n  c.balance as current_balance\nFROM pix_transactions pt\nJOIN customers c ON pt.customerId = c.id\nWHERE c.email = 'xkelrix@gmail.com'\nORDER BY pt.createdAt DESC\nLIMIT 1;\n",
+  "rows": [
+    {
+      "id": "510003",
+      "customerId": "180002",
+      "txid": "665b07b8c4b14a8d9cc2ee3b38b31a89",
+      "amount": "100",
+      "status": "pending",
+      "pixCopyPaste": "00020101021226830014BR.GOV.BCB.PIX2561qrcodespix.sejaefi.com.br/v2/9ff3ec9da66d4b6f8e6a3fd5c7940e9f5204000053039865802BR5905EFISA6008SAOPAULO62070503***6304AFD0",
+      "qrCodeUrl": "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=00020101021226830014BR.GOV.BCB.PIX2561qrcodespix.sejaefi.com.br%2Fv2%2F9ff3ec9da66d4b6f8e6a3fd5c7940e9f5204000053039865802BR5905EFISA6008SAOPAULO62070503***6304AFD0",
+      "expiresAt": "2025-12-08 20:54:57",
+      "paidAt": "NULL",
+      "createdAt": "2025-12-08 19:54:56",
+      "updatedAt": "2025-12-08 19:54:56",
+      "email": "xkelrix@gmail.com",
+      "name": "xkelrix",
+      "current_balance": "129065"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\ttxid\tamount\tstatus\tpixCopyPaste\tqrCodeUrl\texpiresAt\tpaidAt\tcreatedAt\tupdatedAt\temail\tname\tcurrent_balance\n510003\t180002\t665b07b8c4b14a8d9cc2ee3b38b31a89\t100\tpending\t00020101021226830014BR.GOV.BCB.PIX2561qrcodespix.sejaefi.com.br/v2/9ff3ec9da66d4b6f8e6a3fd5c7940e9f5204000053039865802BR5905EFISA6008SAOPAULO62070503***6304AFD0\thttps://api.qrserver.com/v1/create-qr-code/?size=300x300&data=00020101021226830014BR.GOV.BCB.PIX2561qrcodespix.sejaefi.com.br%2Fv2%2F9ff3ec9da66d4b6f8e6a3fd5c7940e9f5204000053039865802BR5905EFISA6008SAOPAULO62070503***6304AFD0\t2025-12-08 20:54:57\tNULL\t2025-12-08 19:54:56\t2025-12-08 19:54:56\txkelrix@gmail.com\txkelrix\t129065\n",
+  "stderr": "",
+  "execution_time_ms": 62
+}

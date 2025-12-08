@@ -1,0 +1,15 @@
+{
+  "query": "\nSELECT pt.txid, pt.status, pt.createdAt\nFROM pix_transactions pt\nJOIN customers c ON pt.customerId = c.id\nWHERE c.email = 'xkelrix@gmail.com'\n  AND pt.amount = 100\n  AND pt.status = 'pending'\nORDER BY pt.createdAt DESC\nLIMIT 1;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute \nSELECT pt.txid, pt.status, pt.createdAt\nFROM pix_transactions pt\nJOIN customers c ON pt.customerId = c.id\nWHERE c.email = 'xkelrix@gmail.com'\n  AND pt.amount = 100\n  AND pt.status = 'pending'\nORDER BY pt.createdAt DESC\nLIMIT 1;\n",
+  "rows": [
+    {
+      "txid": "665b07b8c4b14a8d9cc2ee3b38b31a89",
+      "status": "pending",
+      "createdAt": "2025-12-08 19:54:56"
+    }
+  ],
+  "messages": [],
+  "stdout": "txid\tstatus\tcreatedAt\n665b07b8c4b14a8d9cc2ee3b38b31a89\tpending\t2025-12-08 19:54:56\n",
+  "stderr": "",
+  "execution_time_ms": 53
+}
