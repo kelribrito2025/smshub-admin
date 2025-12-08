@@ -816,3 +816,9 @@
 - [x] Remover campo "Confirmar Email" do LoginModal
 - [x] Remover validação de confirmação de email
 - [x] Manter apenas: Nome, Email e Senha
+
+
+## Adicionar Toggle de Visibilidade de Senha
+- [x] Adicionar estado showPassword no LoginModal
+- [x] Adicionar botão com ícone Eye/EyeOff no campo de senha
+- [x] Alternar tipo do input entre "password" e "text"
