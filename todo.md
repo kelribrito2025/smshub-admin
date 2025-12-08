@@ -843,3 +843,11 @@
 - [x] Modificar useAuth para verificar adminAuth.me primeiro
 - [x] Atualizar context de autenticação para suportar ambos os métodos
 - [x] Testar login admin → dashboard sem redirecionamento para Manus OAuth
+
+
+## Modificar sdk.authenticateRequest para JWT Admin
+- [x] Adicionar verificação de JWT admin no sdk.authenticateRequest
+- [x] Verificar app_session cookie para JWT admin (gerado por adminAuth.login)
+- [x] Se JWT admin válido, buscar usuário por ID em vez de openId
+- [x] Manter fallback para OAuth do Manus se não for JWT admin
+- [x] Testar login admin → context reconhece usuário

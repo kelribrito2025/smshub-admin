@@ -232,6 +232,43 @@ class SDKServer {
     }
   }
 
+  /**
+   * Verify admin JWT token (from adminAuth.login)
+   * Returns User if valid, null otherwise
+   */
+  async verifyAdminJWT(
+    cookieValue: string | undefined | null
+  ): Promise<User | null> {
+    if (!cookieValue) {
+      return null;
+    }
+
+    try {
+      const secretKey = this.getSessionSecret();
+      const { payload } = await jwtVerify(cookieValue, secretKey, {
+        algorithms: ["HS256"],
+      });
+      const { userId, email, role } = payload as Record<string, unknown>;
+
+      // Check if this is an admin JWT (has userId instead of openId)
+      if (!userId || typeof userId !== "number") {
+        return null; // Not an admin JWT
+      }
+
+      // Fetch user from database by ID
+      const user = await db.getUserById(userId as number);
+      if (!user) {
+        console.warn("[Auth] Admin user not found:", userId);
+        return null;
+      }
+
+      return user;
+    } catch (error) {
+      // Not an admin JWT, will fallback to OAuth
+      return null;
+    }
+  }
+
   async getUserInfoWithJwt(
     jwtToken: string
   ): Promise<GetUserInfoWithJwtResponse> {
@@ -257,9 +294,16 @@ class SDKServer {
   }
 
   async authenticateRequest(req: Request): Promise<User> {
-    // Regular authentication flow
     const cookies = this.parseCookies(req.headers.cookie);
     const sessionCookie = cookies.get(COOKIE_NAME);
+
+    // Try to verify as admin JWT first (from adminAuth.login)
+    const adminUser = await this.verifyAdminJWT(sessionCookie);
+    if (adminUser) {
+      return adminUser;
+    }
+
+    // Fallback to regular OAuth authentication flow
     const session = await this.verifySession(sessionCookie);
 
     if (!session) {
