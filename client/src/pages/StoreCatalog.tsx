@@ -198,7 +198,7 @@ export default function StoreCatalog() {
         <div className="mb-4">
           <h1 className="text-2xl font-bold text-green-400 mb-2 flex items-center gap-2">
             <Activity className="w-6 h-6" />
-            Ativações em Andamento
+            Ativações em Andamento teste
           </h1>
           <p className="text-green-600 text-sm">
             {totalEntries > 0 
