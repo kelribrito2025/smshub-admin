@@ -1,4 +1,4 @@
-import { X, Shield, Zap, Lock, Mail, User, Eye, EyeOff, Check } from 'lucide-react';
+import { X, Shield, Zap, Lock, Mail, User, Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
@@ -21,17 +21,7 @@ export default function LoginModal({ isOpen, onClose, onLogin, onRegister }: Log
 
   // Validações
   const isEmailValid = email.includes('@') && email.includes('.');
-  
-  // Validações detalhadas de senha
-  const passwordRequirements = {
-    minLength: password.length >= 8,
-    hasUpperCase: /[A-Z]/.test(password),
-    hasLowerCase: /[a-z]/.test(password),
-    hasNumber: /[0-9]/.test(password),
-    hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password),
-  };
-  
-  const isPasswordStrong = Object.values(passwordRequirements).every(req => req);
+  const isPasswordStrong = password.length >= 8;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -298,102 +288,10 @@ export default function LoginModal({ isOpen, onClose, onLogin, onRegister }: Log
                         )}
                       </button>
                     </div>
-                    {password && (
-                      <div className="mt-3 space-y-2 bg-black/30 border border-green-500/20 rounded-lg p-3">
-                        <p className="text-green-400 text-xs font-bold font-mono mb-2">REQUISITOS DA SENHA:</p>
-                        
-                        <div className="space-y-1.5">
-                          {/* Mínimo 8 caracteres */}
-                          <div className="flex items-center gap-2">
-                            <div className={`w-4 h-4 rounded-full flex items-center justify-center ${
-                              passwordRequirements.minLength 
-                                ? 'bg-green-500/20 border border-green-500' 
-                                : 'bg-red-500/20 border border-red-500/50'
-                            }`}>
-                              {passwordRequirements.minLength && (
-                                <Check className="w-3 h-3 text-green-400" strokeWidth={3} />
-                              )}
-                            </div>
-                            <span className={`text-xs font-mono ${
-                              passwordRequirements.minLength ? 'text-green-400' : 'text-red-400/70'
-                            }`}>
-                              Mínimo 8 caracteres
-                            </span>
-                          </div>
-
-                          {/* Letra maiúscula */}
-                          <div className="flex items-center gap-2">
-                            <div className={`w-4 h-4 rounded-full flex items-center justify-center ${
-                              passwordRequirements.hasUpperCase 
-                                ? 'bg-green-500/20 border border-green-500' 
-                                : 'bg-red-500/20 border border-red-500/50'
-                            }`}>
-                              {passwordRequirements.hasUpperCase && (
-                                <Check className="w-3 h-3 text-green-400" strokeWidth={3} />
-                              )}
-                            </div>
-                            <span className={`text-xs font-mono ${
-                              passwordRequirements.hasUpperCase ? 'text-green-400' : 'text-red-400/70'
-                            }`}>
-                              Letra maiúscula (A-Z)
-                            </span>
-                          </div>
-
-                          {/* Letra minúscula */}
-                          <div className="flex items-center gap-2">
-                            <div className={`w-4 h-4 rounded-full flex items-center justify-center ${
-                              passwordRequirements.hasLowerCase 
-                                ? 'bg-green-500/20 border border-green-500' 
-                                : 'bg-red-500/20 border border-red-500/50'
-                            }`}>
-                              {passwordRequirements.hasLowerCase && (
-                                <Check className="w-3 h-3 text-green-400" strokeWidth={3} />
-                              )}
-                            </div>
-                            <span className={`text-xs font-mono ${
-                              passwordRequirements.hasLowerCase ? 'text-green-400' : 'text-red-400/70'
-                            }`}>
-                              Letra minúscula (a-z)
-                            </span>
-                          </div>
-
-                          {/* Número */}
-                          <div className="flex items-center gap-2">
-                            <div className={`w-4 h-4 rounded-full flex items-center justify-center ${
-                              passwordRequirements.hasNumber 
-                                ? 'bg-green-500/20 border border-green-500' 
-                                : 'bg-red-500/20 border border-red-500/50'
-                            }`}>
-                              {passwordRequirements.hasNumber && (
-                                <Check className="w-3 h-3 text-green-400" strokeWidth={3} />
-                              )}
-                            </div>
-                            <span className={`text-xs font-mono ${
-                              passwordRequirements.hasNumber ? 'text-green-400' : 'text-red-400/70'
-                            }`}>
-                              Número (0-9)
-                            </span>
-                          </div>
-
-                          {/* Caractere especial */}
-                          <div className="flex items-center gap-2">
-                            <div className={`w-4 h-4 rounded-full flex items-center justify-center ${
-                              passwordRequirements.hasSpecialChar 
-                                ? 'bg-green-500/20 border border-green-500' 
-                                : 'bg-red-500/20 border border-red-500/50'
-                            }`}>
-                              {passwordRequirements.hasSpecialChar && (
-                                <Check className="w-3 h-3 text-green-400" strokeWidth={3} />
-                              )}
-                            </div>
-                            <span className={`text-xs font-mono ${
-                              passwordRequirements.hasSpecialChar ? 'text-green-400' : 'text-red-400/70'
-                            }`}>
-                              Caractere especial (!@#$%...)
-                            </span>
-                          </div>
-                        </div>
-                      </div>
+                    {password && !isPasswordStrong && (
+                      <p className="text-red-400 text-xs mt-1 font-mono">
+                        A senha deve ter no mínimo 8 caracteres
+                      </p>
                     )}
                   </div>
                 )}

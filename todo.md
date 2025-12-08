@@ -830,3 +830,10 @@
 - [x] Mostrar ícone de check/x para cada requisito
 - [x] Atualizar cores dinamicamente (verde=atendido, vermelho=não atendido)
 - [x] Exibir apenas quando usuário começar a digitar
+
+
+## Simplificar Requisitos de Senha
+- [x] Remover validações de maiúscula, minúscula, número e caractere especial
+- [x] Manter apenas validação de 8 caracteres mínimo
+- [x] Remover checklist visual completa
+- [x] Voltar para mensagem simples de erro
