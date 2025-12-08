@@ -836,3 +836,10 @@
 - [x] Mover useLocation() para o topo do componente (antes de condicionais)
 - [x] Usar useEffect para redirecionamento em vez de chamada condicional
 - [x] Testar login e redirecionamento
+
+
+## Corrigir Autenticação Admin (useAuth vs adminAuth)
+- [x] Investigar hook useAuth atual (verifica OAuth do Manus)
+- [x] Modificar useAuth para verificar adminAuth.me primeiro
+- [x] Atualizar context de autenticação para suportar ambos os métodos
+- [x] Testar login admin → dashboard sem redirecionamento para Manus OAuth

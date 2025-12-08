@@ -13,10 +13,21 @@ export function useAuth(options?: UseAuthOptions) {
     options ?? {};
   const utils = trpc.useUtils();
 
-  const meQuery = trpc.auth.me.useQuery(undefined, {
+  // Try admin auth first
+  const adminMeQuery = trpc.adminAuth.me.useQuery(undefined, {
     retry: false,
     refetchOnWindowFocus: false,
   });
+
+  // Fallback to Manus OAuth if admin auth returns null
+  const oauthMeQuery = trpc.auth.me.useQuery(undefined, {
+    retry: false,
+    refetchOnWindowFocus: false,
+    enabled: !adminMeQuery.data, // Only run if admin auth returned null
+  });
+
+  // Use admin auth if available, otherwise use OAuth
+  const meQuery = adminMeQuery.data ? adminMeQuery : oauthMeQuery;
 
   const logoutMutation = trpc.auth.logout.useMutation({
     onSuccess: () => {
@@ -24,9 +35,25 @@ export function useAuth(options?: UseAuthOptions) {
     },
   });
 
+  const adminLogoutMutation = trpc.adminAuth.logout.useMutation({
+    onSuccess: () => {
+      utils.adminAuth.me.setData(undefined, null);
+    },
+  });
+
   const logout = useCallback(async () => {
     try {
-      await logoutMutation.mutateAsync();
+      // Try admin logout first
+      if (adminMeQuery.data) {
+        await adminLogoutMutation.mutateAsync();
+        utils.adminAuth.me.setData(undefined, null);
+        await utils.adminAuth.me.invalidate();
+      } else {
+        // Fallback to OAuth logout
+        await logoutMutation.mutateAsync();
+        utils.auth.me.setData(undefined, null);
+        await utils.auth.me.invalidate();
+      }
     } catch (error: unknown) {
       if (
         error instanceof TRPCClientError &&
@@ -35,11 +62,8 @@ export function useAuth(options?: UseAuthOptions) {
         return;
       }
       throw error;
-    } finally {
-      utils.auth.me.setData(undefined, null);
-      await utils.auth.me.invalidate();
     }
-  }, [logoutMutation, utils]);
+  }, [adminMeQuery.data, adminLogoutMutation, logoutMutation, utils]);
 
   const state = useMemo(() => {
     localStorage.setItem(
@@ -48,8 +72,8 @@ export function useAuth(options?: UseAuthOptions) {
     );
     return {
       user: meQuery.data ?? null,
-      loading: meQuery.isLoading || logoutMutation.isPending,
-      error: meQuery.error ?? logoutMutation.error ?? null,
+      loading: meQuery.isLoading || logoutMutation.isPending || adminLogoutMutation.isPending,
+      error: meQuery.error ?? logoutMutation.error ?? adminLogoutMutation.error ?? null,
       isAuthenticated: Boolean(meQuery.data),
     };
   }, [
@@ -58,11 +82,13 @@ export function useAuth(options?: UseAuthOptions) {
     meQuery.isLoading,
     logoutMutation.error,
     logoutMutation.isPending,
+    adminLogoutMutation.error,
+    adminLogoutMutation.isPending,
   ]);
 
   useEffect(() => {
     if (!redirectOnUnauthenticated) return;
-    if (meQuery.isLoading || logoutMutation.isPending) return;
+    if (meQuery.isLoading || logoutMutation.isPending || adminLogoutMutation.isPending) return;
     if (state.user) return;
     if (typeof window === "undefined") return;
     if (window.location.pathname === redirectPath) return;
@@ -72,6 +98,7 @@ export function useAuth(options?: UseAuthOptions) {
     redirectOnUnauthenticated,
     redirectPath,
     logoutMutation.isPending,
+    adminLogoutMutation.isPending,
     meQuery.isLoading,
     state.user,
   ]);
