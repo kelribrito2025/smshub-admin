@@ -816,3 +816,17 @@
 - [x] Remover campo "Confirmar Email" do LoginModal
 - [x] Remover validação de confirmação de email
 - [x] Manter apenas: Nome, Email e Senha
+
+
+## Sistema de Autenticação Admin Tradicional (Email + Senha)
+- [x] Adicionar campo passwordHash na tabela users (VARCHAR 255, nullable)
+- [x] Instalar dependências: bcrypt, jsonwebtoken, @types/bcrypt, @types/jsonwebtoken
+- [x] Criar router adminAuth com procedures: login, me, logout, setPassword
+- [x] Implementar hash de senha com bcrypt (10 rounds)
+- [x] Implementar geração de token JWT (validade 7 dias)
+- [x] Criar página AdminLogin.tsx com design cyber verde
+- [x] Adicionar rota /admin/login no App.tsx
+- [x] Atualizar DashboardLayout para redirecionar para /admin/login quando não autenticado
+- [x] Criar script set-admin-password.mjs para definir senha via CLI
+- [x] Criar testes unitários para adminAuth (login, falha de senha, email inexistente, setPassword)
+- [x] Testar fluxo completo: /admin → redirect /admin/login → login → /admin/dashboard
