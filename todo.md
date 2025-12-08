@@ -810,3 +810,9 @@
 ## Ajuste de Título - Página de Ativações
 - [x] Remover "Receba SMS Online -" do título da página de ativações
 - [x] Deixar apenas "Ativações em Andamento"
+
+
+## Melhorias no Modal de Criar Conta
+- [x] Remover campo "CONFIRMAR EMAIL"
+- [x] Adicionar ícone de mostrar/ocultar senha no campo "SENHA"
+- [x] Testar modal de criar conta
