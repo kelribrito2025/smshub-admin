@@ -121,7 +121,6 @@ export const affiliateRouter = router({
       isActive: settings.isActive,
       bonusPercentage: settings.bonusPercentage,
       rules: [
-        "Compartilhe seu link de indicação único com amigos e familiares",
         `Após alguém se cadastrar pelo seu link e fizer a primeira recarga, você ganha ${settings.bonusPercentage}% do valor como bônus`,
         "O bônus é creditado automaticamente no seu saldo",
         "O saldo de bônus pode ser usado para comprar serviços dentro da plataforma",

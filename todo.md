@@ -976,3 +976,9 @@
 - [x] Implementar correções necessárias (flushHeaders + setNoDelay)
 - [ ] Testar notificações em tempo real na produção
 - [ ] Validar que som toca imediatamente quando admin adiciona saldo
+
+
+## Edição Visual: Remover Regra de Afiliados
+- [x] Remover regra "Compartilhe seu link de indicação único com amigos e familiares"
+- [x] Atualizar backend (affiliateRouter.ts)
+- [ ] Criar checkpoint
