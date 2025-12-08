@@ -36,7 +36,41 @@ async function startServer() {
   const app = express();
   const server = createServer(app);
   
-  // CORS middleware for public API
+  // Global CORS middleware for all routes
+  app.use((req, res, next) => {
+    // Get origin from request or use wildcard for development
+    const origin = req.headers.origin || "*";
+    
+    // In production, allow specific domains
+    const allowedOrigins = [
+      "https://app.numero-virtual.com",
+      "https://smshubadm-sokyccse.manus.space",
+      "http://localhost:3000",
+      "http://localhost:5173",
+    ];
+    
+    // Check if origin is allowed
+    const isAllowed = origin === "*" || allowedOrigins.includes(origin);
+    
+    if (isAllowed) {
+      res.header("Access-Control-Allow-Origin", origin);
+      res.header("Access-Control-Allow-Credentials", "true");
+    }
+    
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-API-Key, Cookie, Set-Cookie, x-trpc-source");
+    res.header("Access-Control-Expose-Headers", "Set-Cookie");
+    res.header("Access-Control-Max-Age", "86400"); // 24 hours cache for preflight
+    
+    // Handle preflight OPTIONS requests
+    if (req.method === "OPTIONS") {
+      return res.status(204).send();
+    }
+    
+    next();
+  });
+  
+  // Legacy CORS middleware for public API (kept for compatibility)
   app.use("/api/public", (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");

@@ -1106,3 +1106,29 @@
 - [x] Remover polling manual duplicado em StoreLayout (evitar double polling)
 - [x] Adicionar staleTime adequado para cada query
 - [ ] Testar em produção e validar que erro 429 desapareceu
+
+## Correção de Erros CORS no Console
+- [x] Investigar configuração CORS atual no servidor Express
+- [x] Verificar headers CORS retornados pelo servidor (curl -I)
+- [x] Configurar Access-Control-Allow-Origin com domínio correto
+- [x] Configurar Access-Control-Allow-Methods (GET, POST, PUT, DELETE, OPTIONS)
+- [x] Configurar Access-Control-Allow-Headers (Content-Type, Authorization, etc)
+- [x] Configurar Access-Control-Allow-Credentials (true para cookies)
+- [x] Adicionar handler para preflight OPTIONS requests
+- [x] Adicionar middleware CORS global antes de todas as rotas
+- [x] Configurar Access-Control-Max-Age (24h cache para preflight)
+- [x] Adicionar Access-Control-Expose-Headers (Set-Cookie)
+- [ ] Testar em produção e confirmar que erros CORS desapareceram
+
+## Correção Erro 401 SSE "no customer authenticated"
+- [x] Investigar código do hook useNotifications (EventSource)
+- [x] Substituir EventSource por fetch + ReadableStream (suporta credentials)
+- [x] Adicionar credentials: 'include' para enviar cookies
+- [x] Investigar backend SSE (notifications-sse.ts)
+- [x] Adicionar validação de autenticação no endpoint SSE
+- [x] Adicionar autorização (verificar se user.id === customerId)
+- [x] Adicionar logs de debug para rastrear autenticação
+- [x] Implementar parser SSE manual para ReadableStream
+- [x] Manter retry exponencial (1s, 2s, 4s... 32s)
+- [ ] Testar conexão SSE com autenticação funcionando em produção
+- [ ] Confirmar que notificações chegam em tempo real

@@ -134,16 +134,9 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
           // If autoplay is blocked (common in production/HTTPS), show a toast
           if (err.name === 'NotAllowedError') {
             console.warn('[Store] ⚠️ Autoplay blocked by browser. User interaction required.');
-            toast.info('💰 Novo saldo adicionado! (Clique para ativar som)', {
+            toast.info('💰 Novo saldo adicionado!', {
               duration: 5000,
-              onClick: () => {
-                // Play sound when user clicks the toast
-                const retryAudio = new Audio('/sounds/money-received.wav');
-                retryAudio.volume = 0.5;
-                retryAudio.play()
-                  .then(() => console.log('[Store] ✅ Sound played after user interaction'))
-                  .catch(e => console.error('[Store] ❌ Still failed:', e));
-              },
+              description: 'Som de notificação bloqueado pelo navegador. Ative o som nas configurações se desejar.',
             });
           }
         });
