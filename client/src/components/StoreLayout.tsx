@@ -468,18 +468,20 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {/* Notifications Button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setNotificationsSidebarOpen(true)}
-            className="relative text-green-600 hover:text-green-400" 
-            style={{width: '40px', height: '40px'}}
-          >
-            <Bell className="w-5 h-5" />
-            {/* Badge de notificações não lidas */}
-            <span className="absolute top-1 right-1 w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-          </Button>
+          {/* Notifications Button - Only show when logged in */}
+          {customer && (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setNotificationsSidebarOpen(true)}
+              className="relative text-green-600 hover:text-green-400" 
+              style={{width: '40px', height: '40px'}}
+            >
+              <Bell className="w-5 h-5" />
+              {/* Badge de notificações não lidas */}
+              <span className="absolute top-1 right-1 w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+            </Button>
+          )}
 
           {/* Profile Menu Dropdown */}
           <DropdownMenu modal={false}>

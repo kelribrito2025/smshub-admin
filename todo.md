@@ -816,3 +816,8 @@
 - [x] Remover campo "CONFIRMAR EMAIL"
 - [x] Adicionar ícone de mostrar/ocultar senha no campo "SENHA"
 - [x] Testar modal de criar conta
+
+## Ícone de Notificações - Ocultar quando não logado
+- [x] Localizar componente do header com ícone de notificações (sino)
+- [x] Adicionar condicional para exibir apenas quando usuário estiver logado
+- [x] Testar comportamento (logado vs não logado)
