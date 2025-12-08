@@ -884,3 +884,83 @@
 - [x] Solicitar credenciais Mailchimp via webdev_request_secrets
 - [x] Criar testes unitários
 - [x] Testar fluxo completo
+
+## Corrigir Erros tRPC (HTML ao invés de JSON)
+- [x] Investigar logs do servidor
+- [x] Corrigir imports faltando (emailVerifications)
+- [x] Verificar erros TypeScript no schema
+- [x] Reiniciar servidor e testar
+
+## Testar Fluxo de Verificação de Email (Mailchimp)
+- [x] Verificar status do domínio numero-virtual.com no Mailchimp
+- [ ] Criar conta de teste com email real
+- [ ] Monitorar logs do servidor durante criação
+- [ ] Verificar se email foi enviado pelo Mailchimp
+- [ ] Validar código de 6 dígitos recebido
+- [ ] Testar verificação de email com código correto
+- [ ] Testar erro com código incorreto
+- [ ] Testar expiração de código (15 minutos)
+- [ ] Testar reenvio de código
+
+## Resolver Erro "unsigned" do Mailchimp
+- [x] Diagnosticar erro "unsigned" (domínio não verificado no Transactional)
+- [x] Adicionar domínio numero-virtual.com no Mailchimp Transactional
+- [x] Configurar registros DNS (SPF, DKIM)
+- [x] Verificar domínio no Mailchimp Transactional (DNS propagado)
+- [ ] Testar envio de email novamente
+- [ ] Validar recebimento de email
+
+## Migrar para SendGrid (Mailchimp não verificando)
+- [ ] Criar conta no SendGrid
+- [ ] Gerar API Key do SendGrid
+- [ ] Adicionar credenciais via webdev_request_secrets
+- [ ] Atualizar email helper para usar SendGrid
+- [ ] Testar envio de email
+- [ ] Validar recebimento
+
+## Testar Sistema de Recargas PIX
+- [x] Verificar webhook configurado na EfiPay
+- [x] Verificar URL do webhook (domínio publicado)
+- [x] Atualizar webhook para https://app.numero-virtual.com/api/webhook/pix
+- [ ] Criar recarga PIX de teste (valor mínimo)
+- [ ] Monitorar logs do servidor em tempo real
+- [ ] Realizar pagamento PIX
+- [ ] Validar webhook recebido
+- [ ] Validar saldo creditado automaticamente
+- [ ] Validar registro em recharges
+
+## Corrigir Erro ao Gerar PIX
+- [x] Investigar erro "Unexpected token 'R', 'Rate exceeded.' is not valid JSON"
+- [x] Corrigir parsing de resposta de erro da EfiPay
+- [x] Implementar tratamento de rate limit
+- [ ] Testar geração de PIX novamente
+
+## Investigar Webhook PIX Não Funcionando
+- [ ] Verificar logs do servidor para chamadas de webhook
+- [ ] Buscar transações PIX pendentes no banco
+- [ ] Verificar se webhook foi chamado pela EfiPay
+- [ ] Creditar saldo manualmente se necessário
+- [ ] Diagnosticar causa raiz do problema
+
+## Diagnóstico Completo do Webhook PIX
+- [x] Verificar se endpoint /api/webhook/pix está acessível publicamente (✅ HTTP 200)
+- [x] Testar webhook com curl (simulação de pagamento) (✅ Funcionando)
+- [x] Verificar logs do servidor para erros de webhook
+- [x] Verificar se URL está correta na EfiPay (✅ Configurada)
+- [x] Verificar certificado SSL do domínio (✅ Válido)
+- [x] Testar com payload real da EfiPay (✅ Processando corretamente)
+- [ ] Verificar webhook no painel da EfiPay (interface web)
+- [ ] Verificar logs de tentativas no painel da EfiPay
+
+
+## Som de "Dinheiro Recebido" no Painel de Vendas
+- [x] Aguardar arquivo de áudio do usuário
+- [x] Adicionar arquivo de áudio em client/public/sounds/ (money-received.wav)
+- [x] Backend: Adicionar flag playSound em notificações de saldo positivo
+- [x] Backend: Modificar router customers.ts para enviar notificação com som
+- [x] Frontend: Detectar flag playSound nas notificações SSE
+- [x] Frontend: Reproduzir som automaticamente quando flag estiver presente (volume 50%)
+- [ ] Testar: Admin adiciona saldo → som toca no painel do usuário
+- [ ] Testar: Admin remove saldo → som NÃO toca
+- [ ] Testar: Usuário faz recarga PIX → som NÃO toca
+- [ ] Validar com usuário que funcionalidade está correta

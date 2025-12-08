@@ -144,6 +144,18 @@ export const customersRouter = router({
         ctx.user?.id
       );
 
+      // Send notification with sound if admin added positive balance
+      const isPositiveCredit = input.amount > 0 && (input.type === 'credit' || input.type === 'refund');
+      if (isPositiveCredit) {
+        const { notificationsManager } = await import('../notifications-manager');
+        notificationsManager.sendToCustomer(input.customerId, {
+          type: 'balance_updated',
+          title: 'Saldo Adicionado',
+          message: `Novo saldo: R$ ${(result.balanceAfter / 100).toFixed(2)}`,
+          playSound: true, // Flag to play money sound
+        });
+      }
+
       return {
         success: true,
         balanceBefore: result.balanceBefore / 100,

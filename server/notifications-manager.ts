@@ -16,6 +16,7 @@ export interface Notification {
   title: string;
   message: string;
   data?: any;
+  playSound?: boolean; // Flag to play sound when admin adds balance
 }
 
 class NotificationsManager {
@@ -130,6 +131,7 @@ class NotificationsManager {
       title: notification.title,
       message: notification.message,
       data: notification.data,
+      playSound: notification.playSound,
       timestamp: new Date().toISOString(),
     });
 

@@ -6,6 +6,7 @@ export interface Notification {
   title: string;
   message: string;
   data?: any;
+  playSound?: boolean; // Flag to play money sound when admin adds balance
   timestamp: string;
 }
 

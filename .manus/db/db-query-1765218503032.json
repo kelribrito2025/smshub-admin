@@ -1,0 +1,18 @@
+{
+  "query": "SHOW COLUMNS FROM recharges LIKE 'status';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SHOW COLUMNS FROM recharges LIKE 'status';",
+  "rows": [
+    {
+      "Field": "status",
+      "Type": "enum('completed','pending','expired')",
+      "Null": "NO",
+      "Key": "MUL",
+      "Default": "pending",
+      "Extra": ""
+    }
+  ],
+  "messages": [],
+  "stdout": "Field\tType\tNull\tKey\tDefault\tExtra\nstatus\tenum('completed','pending','expired')\tNO\tMUL\tpending\t\n",
+  "stderr": "",
+  "execution_time_ms": 64
+}

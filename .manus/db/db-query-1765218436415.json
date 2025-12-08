@@ -1,0 +1,40 @@
+{
+  "query": "\nSELECT \n  pt.*,\n  c.email,\n  c.balance as saldo_atual\nFROM pix_transactions pt\nJOIN customers c ON pt.customerId = c.id\nWHERE c.email = 'xkelrix@gmail.com'\n  AND pt.status = 'pending'\nORDER BY pt.createdAt DESC;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute \nSELECT \n  pt.*,\n  c.email,\n  c.balance as saldo_atual\nFROM pix_transactions pt\nJOIN customers c ON pt.customerId = c.id\nWHERE c.email = 'xkelrix@gmail.com'\n  AND pt.status = 'pending'\nORDER BY pt.createdAt DESC;\n",
+  "rows": [
+    {
+      "id": "510001",
+      "customerId": "180002",
+      "txid": "166a4cc9358f4e349159481e58800458",
+      "amount": "144",
+      "status": "pending",
+      "pixCopyPaste": "00020101021226830014BR.GOV.BCB.PIX2561qrcodespix.sejaefi.com.br/v2/249ded30b0134f10833a403a277d29015204000053039865802BR5905EFISA6008SAOPAULO62070503***630483D7",
+      "qrCodeUrl": "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=00020101021226830014BR.GOV.BCB.PIX2561qrcodespix.sejaefi.com.br%2Fv2%2F249ded30b0134f10833a403a277d29015204000053039865802BR5905EFISA6008SAOPAULO62070503***630483D7",
+      "expiresAt": "2025-12-08 19:24:00",
+      "paidAt": "NULL",
+      "createdAt": "2025-12-08 18:24:00",
+      "updatedAt": "2025-12-08 18:24:00",
+      "email": "xkelrix@gmail.com",
+      "saldo_atual": "3054"
+    },
+    {
+      "id": "480001",
+      "customerId": "180002",
+      "txid": "8465657ebd1f4ef2ad24c2e5e82027b8",
+      "amount": "201",
+      "status": "pending",
+      "pixCopyPaste": "00020101021226830014BR.GOV.BCB.PIX2561qrcodespix.sejaefi.com.br/v2/d0a53e1550b54299964e5390daf997275204000053039865802BR5905EFISA6008SAOPAULO62070503***63042621",
+      "qrCodeUrl": "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=00020101021226830014BR.GOV.BCB.PIX2561qrcodespix.sejaefi.com.br%2Fv2%2Fd0a53e1550b54299964e5390daf997275204000053039865802BR5905EFISA6008SAOPAULO62070503***63042621",
+      "expiresAt": "2025-12-07 04:18:33",
+      "paidAt": "NULL",
+      "createdAt": "2025-12-07 03:18:33",
+      "updatedAt": "2025-12-07 03:18:33",
+      "email": "xkelrix@gmail.com",
+      "saldo_atual": "3054"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\ttxid\tamount\tstatus\tpixCopyPaste\tqrCodeUrl\texpiresAt\tpaidAt\tcreatedAt\tupdatedAt\temail\tsaldo_atual\n510001\t180002\t166a4cc9358f4e349159481e58800458\t144\tpending\t00020101021226830014BR.GOV.BCB.PIX2561qrcodespix.sejaefi.com.br/v2/249ded30b0134f10833a403a277d29015204000053039865802BR5905EFISA6008SAOPAULO62070503***630483D7\thttps://api.qrserver.com/v1/create-qr-code/?size=300x300&data=00020101021226830014BR.GOV.BCB.PIX2561qrcodespix.sejaefi.com.br%2Fv2%2F249ded30b0134f10833a403a277d29015204000053039865802BR5905EFISA6008SAOPAULO62070503***630483D7\t2025-12-08 19:24:00\tNULL\t2025-12-08 18:24:00\t2025-12-08 18:24:00\txkelrix@gmail.com\t3054\n480001\t180002\t8465657ebd1f4ef2ad24c2e5e82027b8\t201\tpending\t00020101021226830014BR.GOV.BCB.PIX2561qrcodespix.sejaefi.com.br/v2/d0a53e1550b54299964e5390daf997275204000053039865802BR5905EFISA6008SAOPAULO62070503***63042621\thttps://api.qrserver.com/v1/create-qr-code/?size=300x300&data=00020101021226830014BR.GOV.BCB.PIX2561qrcodespix.sejaefi.com.br%2Fv2%2Fd0a53e1550b54299964e5390daf997275204000053039865802BR5905EFISA6008SAOPAULO62070503***63042621\t2025-12-07 04:18:33\tNULL\t2025-12-07 03:18:33\t2025-12-07 03:18:33\txkelrix@gmail.com\t3054\n",
+  "stderr": "",
+  "execution_time_ms": 61
+}

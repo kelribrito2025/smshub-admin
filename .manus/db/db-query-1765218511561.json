@@ -1,0 +1,15 @@
+{
+  "query": "\n-- Processar transação 8465657ebd1f4ef2ad24c2e5e82027b8\nUPDATE pix_transactions \nSET status = 'paid', paidAt = NOW(), updatedAt = NOW()\nWHERE txid = '8465657ebd1f4ef2ad24c2e5e82027b8' AND status = 'pending';\n\n-- Creditar saldo (valor já foi creditado, verificar se precisa creditar novamente)\nSELECT id, email, balance FROM customers WHERE email = 'xkelrix@gmail.com';\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute \n-- Processar transação 8465657ebd1f4ef2ad24c2e5e82027b8\nUPDATE pix_transactions \nSET status = 'paid', paidAt = NOW(), updatedAt = NOW()\nWHERE txid = '8465657ebd1f4ef2ad24c2e5e82027b8' AND status = 'pending';\n\n-- Creditar saldo (valor já foi creditado, verificar se precisa creditar novamente)\nSELECT id, email, balance FROM customers WHERE email = 'xkelrix@gmail.com';\n",
+  "rows": [
+    {
+      "id": "180002",
+      "email": "xkelrix@gmail.com",
+      "balance": "3399"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\temail\tbalance\n180002\txkelrix@gmail.com\t3399\n",
+  "stderr": "",
+  "execution_time_ms": 59
+}

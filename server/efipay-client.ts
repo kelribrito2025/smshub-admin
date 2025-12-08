@@ -138,9 +138,33 @@ export class EfiPayClient {
       };
     } catch (error: any) {
       console.error("[EfiPay] Error creating charge:", error);
-      throw new Error(
-        `Failed to create PIX charge: ${error.message || "Unknown error"}`
-      );
+      
+      // Extract error message from different formats
+      let errorMessage = "Unknown error";
+      
+      if (error.message) {
+        errorMessage = error.message;
+      } else if (error.response?.data) {
+        // Try to parse JSON response
+        try {
+          const data = typeof error.response.data === 'string' 
+            ? JSON.parse(error.response.data) 
+            : error.response.data;
+          errorMessage = data.mensagem || data.message || JSON.stringify(data);
+        } catch {
+          // If not JSON, use as string
+          errorMessage = String(error.response.data);
+        }
+      } else if (error.response?.statusText) {
+        errorMessage = error.response.statusText;
+      }
+      
+      // Check for rate limit error
+      if (errorMessage.includes('Rate exceeded') || errorMessage.includes('rate limit')) {
+        throw new Error('Limite de requisições excedido. Aguarde alguns segundos e tente novamente.');
+      }
+      
+      throw new Error(`Erro ao gerar PIX: ${errorMessage}`);
     }
   }
 

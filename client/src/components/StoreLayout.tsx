@@ -84,11 +84,22 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
     customerId: customer?.id || null,
     onNotification: (notification) => {
       console.log('[Store] Received notification:', notification);
+      
+      // Play money sound if admin added balance (flag playSound = true)
+      if (notification.playSound) {
+        console.log('[Store] Playing money received sound');
+        const audio = new Audio('/sounds/money-received.wav');
+        audio.volume = 0.5;
+        audio.play().catch(err => console.warn('[Store] Failed to play sound:', err));
+      }
+      
       // Invalidate queries when balance updated or payment confirmed
       if (notification.type === 'pix_payment_confirmed' || notification.type === 'balance_updated') {
         customerQuery.refetch();
-        // Tocar som de notificação de recarga
-        playNotificationSound('recharge');
+        // Tocar som de notificação de recarga (apenas se não for som de dinheiro)
+        if (!notification.playSound) {
+          playNotificationSound('recharge');
+        }
       }
       // Invalidate recharges cache when recharge is completed
       if (notification.type === 'recharge_completed') {
