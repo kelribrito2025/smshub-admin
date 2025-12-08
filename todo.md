@@ -838,3 +838,8 @@
 - [x] Adicionar tags de favicon no index.html
 - [x] Copiar arquivos para client/public/
 - [x] Testar favicon no navegador
+
+## Corrigir Favicons - Fundo Verde + Letra Preta
+- [x] Regerar favicons com fundo verde (#00D26A)
+- [x] Letra N em preto (#000000)
+- [x] Testar em navegadores
