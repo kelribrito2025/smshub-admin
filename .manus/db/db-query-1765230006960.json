@@ -1,0 +1,100 @@
+{
+  "query": "\nSELECT \n  id,\n  customerId,\n  amount,\n  status,\n  txid,\n  createdAt,\n  paidAt\nFROM pix_transactions \nORDER BY createdAt DESC \nLIMIT 10\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute \nSELECT \n  id,\n  customerId,\n  amount,\n  status,\n  txid,\n  createdAt,\n  paidAt\nFROM pix_transactions \nORDER BY createdAt DESC \nLIMIT 10\n",
+  "rows": [
+    {
+      "id": "510009",
+      "customerId": "480001",
+      "amount": "200",
+      "status": "pending",
+      "txid": "d30fa47ec103421e8c55bedf1bbf2400",
+      "createdAt": "2025-12-08 21:37:50",
+      "paidAt": "NULL"
+    },
+    {
+      "id": "510008",
+      "customerId": "480001",
+      "amount": "222",
+      "status": "pending",
+      "txid": "3af11d5c587140869edd2f9c87897e77",
+      "createdAt": "2025-12-08 21:36:56",
+      "paidAt": "NULL"
+    },
+    {
+      "id": "510007",
+      "customerId": "480001",
+      "amount": "333",
+      "status": "pending",
+      "txid": "df433801abf2485bb4c6f8d4a5ad3779",
+      "createdAt": "2025-12-08 21:30:34",
+      "paidAt": "NULL"
+    },
+    {
+      "id": "510006",
+      "customerId": "480001",
+      "amount": "120",
+      "status": "paid",
+      "txid": "b2597ad58fe24fc7ae3d92ac465846ce",
+      "createdAt": "2025-12-08 21:22:24",
+      "paidAt": "2025-12-08 21:26:32"
+    },
+    {
+      "id": "510005",
+      "customerId": "180002",
+      "amount": "299",
+      "status": "paid",
+      "txid": "e6dafdc1afbc47deaf45cc6372cc41ca",
+      "createdAt": "2025-12-08 20:23:11",
+      "paidAt": "2025-12-08 20:26:34"
+    },
+    {
+      "id": "510004",
+      "customerId": "180002",
+      "amount": "222",
+      "status": "pending",
+      "txid": "c03380d62164422fa3c4eab23ceff95f",
+      "createdAt": "2025-12-08 20:07:37",
+      "paidAt": "NULL"
+    },
+    {
+      "id": "510003",
+      "customerId": "180002",
+      "amount": "100",
+      "status": "pending",
+      "txid": "665b07b8c4b14a8d9cc2ee3b38b31a89",
+      "createdAt": "2025-12-08 19:54:56",
+      "paidAt": "NULL"
+    },
+    {
+      "id": "510002",
+      "customerId": "180002",
+      "amount": "100",
+      "status": "pending",
+      "txid": "b59c98fb630e4039920257928e5846b0",
+      "createdAt": "2025-12-08 18:52:55",
+      "paidAt": "NULL"
+    },
+    {
+      "id": "510001",
+      "customerId": "180002",
+      "amount": "144",
+      "status": "paid",
+      "txid": "166a4cc9358f4e349159481e58800458",
+      "createdAt": "2025-12-08 18:24:00",
+      "paidAt": "2025-12-08 18:27:50"
+    },
+    {
+      "id": "480001",
+      "customerId": "180002",
+      "amount": "201",
+      "status": "paid",
+      "txid": "8465657ebd1f4ef2ad24c2e5e82027b8",
+      "createdAt": "2025-12-07 03:18:33",
+      "paidAt": "2025-12-08 18:28:18"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\tamount\tstatus\ttxid\tcreatedAt\tpaidAt\n510009\t480001\t200\tpending\td30fa47ec103421e8c55bedf1bbf2400\t2025-12-08 21:37:50\tNULL\n510008\t480001\t222\tpending\t3af11d5c587140869edd2f9c87897e77\t2025-12-08 21:36:56\tNULL\n510007\t480001\t333\tpending\tdf433801abf2485bb4c6f8d4a5ad3779\t2025-12-08 21:30:34\tNULL\n510006\t480001\t120\tpaid\tb2597ad58fe24fc7ae3d92ac465846ce\t2025-12-08 21:22:24\t2025-12-08 21:26:32\n510005\t180002\t299\tpaid\te6dafdc1afbc47deaf45cc6372cc41ca\t2025-12-08 20:23:11\t2025-12-08 20:26:34\n510004\t180002\t222\tpending\tc03380d62164422fa3c4eab23ceff95f\t2025-12-08 20:07:37\tNULL\n510003\t180002\t100\tpending\t665b07b8c4b14a8d9cc2ee3b38b31a89\t2025-12-08 19:54:56\tNULL\n510002\t180002\t100\tpending\tb59c98fb630e4039920257928e5846b0\t2025-12-08 18:52:55\tNULL\n510001\t180002\t144\tpaid\t166a4cc9358f4e349159481e58800458\t2025-12-08 18:24:00\t2025-12-08 18:27:50\n480001\t180002\t201\tpaid\t8465657ebd1f4ef2ad24c2e5e82027b8\t2025-12-07 03:18:33\t2025-12-08 18:28:18\n",
+  "stderr": "",
+  "execution_time_ms": 58
+}

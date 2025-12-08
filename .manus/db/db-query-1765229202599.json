@@ -1,0 +1,20 @@
+{
+  "query": "\nSELECT \n  id,\n  customerId,\n  amount,\n  paymentMethod,\n  status,\n  transactionId,\n  createdAt,\n  completedAt\nFROM recharges\nWHERE customerId = 480001 AND amount = 120\nORDER BY createdAt DESC\nLIMIT 1\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute \nSELECT \n  id,\n  customerId,\n  amount,\n  paymentMethod,\n  status,\n  transactionId,\n  createdAt,\n  completedAt\nFROM recharges\nWHERE customerId = 480001 AND amount = 120\nORDER BY createdAt DESC\nLIMIT 1\n",
+  "rows": [
+    {
+      "id": "210002",
+      "customerId": "480001",
+      "amount": "120",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "b2597ad58fe24fc7ae3d92ac465846ce",
+      "createdAt": "2025-12-08 21:26:29",
+      "completedAt": "2025-12-08 21:26:29"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\tamount\tpaymentMethod\tstatus\ttransactionId\tcreatedAt\tcompletedAt\n210002\t480001\t120\tpix\tcompleted\tb2597ad58fe24fc7ae3d92ac465846ce\t2025-12-08 21:26:29\t2025-12-08 21:26:29\n",
+  "stderr": "",
+  "execution_time_ms": 59
+}

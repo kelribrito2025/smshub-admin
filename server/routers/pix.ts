@@ -5,6 +5,7 @@ import { getDb } from "../db";
 import { pixTransactions, balanceTransactions, customers } from "../../drizzle/schema";
 import { eq, and, desc } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
+import { z } from "zod";
 
 /**
  * PIX Payment Router

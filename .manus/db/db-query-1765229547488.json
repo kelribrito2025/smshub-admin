@@ -1,0 +1,30 @@
+{
+  "query": "\nSELECT \n  id,\n  customerId,\n  txid,\n  amount,\n  status,\n  paidAt,\n  createdAt,\n  TIMESTAMPDIFF(SECOND, createdAt, NOW()) as segundos_desde_criacao\nFROM pix_transactions\nWHERE customerId = 480001\nORDER BY createdAt DESC\nLIMIT 5\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute \nSELECT \n  id,\n  customerId,\n  txid,\n  amount,\n  status,\n  paidAt,\n  createdAt,\n  TIMESTAMPDIFF(SECOND, createdAt, NOW()) as segundos_desde_criacao\nFROM pix_transactions\nWHERE customerId = 480001\nORDER BY createdAt DESC\nLIMIT 5\n",
+  "rows": [
+    {
+      "id": "510007",
+      "customerId": "480001",
+      "txid": "df433801abf2485bb4c6f8d4a5ad3779",
+      "amount": "333",
+      "status": "pending",
+      "paidAt": "NULL",
+      "createdAt": "2025-12-08 21:30:34",
+      "segundos_desde_criacao": "113"
+    },
+    {
+      "id": "510006",
+      "customerId": "480001",
+      "txid": "b2597ad58fe24fc7ae3d92ac465846ce",
+      "amount": "120",
+      "status": "paid",
+      "paidAt": "2025-12-08 21:26:32",
+      "createdAt": "2025-12-08 21:22:24",
+      "segundos_desde_criacao": "603"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\ttxid\tamount\tstatus\tpaidAt\tcreatedAt\tsegundos_desde_criacao\n510007\t480001\tdf433801abf2485bb4c6f8d4a5ad3779\t333\tpending\tNULL\t2025-12-08 21:30:34\t113\n510006\t480001\tb2597ad58fe24fc7ae3d92ac465846ce\t120\tpaid\t2025-12-08 21:26:32\t2025-12-08 21:22:24\t603\n",
+  "stderr": "",
+  "execution_time_ms": 68
+}

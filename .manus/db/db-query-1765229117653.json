@@ -1,0 +1,13 @@
+{
+  "query": "\n-- Buscar txid da transação para usar na descrição\nSELECT txid FROM pix_transactions WHERE customerId = 480001 AND amount = 120 ORDER BY createdAt DESC LIMIT 1\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute \n-- Buscar txid da transação para usar na descrição\nSELECT txid FROM pix_transactions WHERE customerId = 480001 AND amount = 120 ORDER BY createdAt DESC LIMIT 1\n",
+  "rows": [
+    {
+      "txid": "b2597ad58fe24fc7ae3d92ac465846ce"
+    }
+  ],
+  "messages": [],
+  "stdout": "txid\nb2597ad58fe24fc7ae3d92ac465846ce\n",
+  "stderr": "",
+  "execution_time_ms": 53
+}

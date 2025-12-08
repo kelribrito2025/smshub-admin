@@ -1,0 +1,28 @@
+{
+  "query": "\nSELECT \n  id, \n  txid, \n  customerId, \n  amount, \n  status, \n  createdAt, \n  paidAt \nFROM pix_transactions \nWHERE amount = 120 \nORDER BY createdAt DESC \nLIMIT 5\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute \nSELECT \n  id, \n  txid, \n  customerId, \n  amount, \n  status, \n  createdAt, \n  paidAt \nFROM pix_transactions \nWHERE amount = 120 \nORDER BY createdAt DESC \nLIMIT 5\n",
+  "rows": [
+    {
+      "id": "510006",
+      "txid": "b2597ad58fe24fc7ae3d92ac465846ce",
+      "customerId": "480001",
+      "amount": "120",
+      "status": "pending",
+      "createdAt": "2025-12-08 21:22:24",
+      "paidAt": "NULL"
+    },
+    {
+      "id": "7",
+      "txid": "7dc6c70606af4907828ebfdfef9e75d1",
+      "customerId": "90007",
+      "amount": "120",
+      "status": "paid",
+      "createdAt": "2025-12-02 20:02:21",
+      "paidAt": "2025-12-02 20:02:30"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttxid\tcustomerId\tamount\tstatus\tcreatedAt\tpaidAt\n510006\tb2597ad58fe24fc7ae3d92ac465846ce\t480001\t120\tpending\t2025-12-08 21:22:24\tNULL\n7\t7dc6c70606af4907828ebfdfef9e75d1\t90007\t120\tpaid\t2025-12-02 20:02:21\t2025-12-02 20:02:30\n",
+  "stderr": "",
+  "execution_time_ms": 213
+}

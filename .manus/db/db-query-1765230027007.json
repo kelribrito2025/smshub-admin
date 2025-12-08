@@ -1,0 +1,110 @@
+{
+  "query": "\nSELECT \n  id,\n  customerId,\n  amount,\n  paymentMethod,\n  status,\n  transactionId,\n  createdAt,\n  completedAt\nFROM recharges \nORDER BY createdAt DESC \nLIMIT 10\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute \nSELECT \n  id,\n  customerId,\n  amount,\n  paymentMethod,\n  status,\n  transactionId,\n  createdAt,\n  completedAt\nFROM recharges \nORDER BY createdAt DESC \nLIMIT 10\n",
+  "rows": [
+    {
+      "id": "210003",
+      "customerId": "480001",
+      "amount": "333",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "NULL",
+      "createdAt": "2025-12-08 21:35:07",
+      "completedAt": "2025-12-08 21:35:07"
+    },
+    {
+      "id": "210002",
+      "customerId": "480001",
+      "amount": "120",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "b2597ad58fe24fc7ae3d92ac465846ce",
+      "createdAt": "2025-12-08 21:26:29",
+      "completedAt": "2025-12-08 21:26:29"
+    },
+    {
+      "id": "210001",
+      "customerId": "180002",
+      "amount": "299",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "e6dafdc1afbc47deaf45cc6372cc41ca",
+      "createdAt": "2025-12-08 20:23:11",
+      "completedAt": "2025-12-08 20:26:46"
+    },
+    {
+      "id": "180036",
+      "customerId": "180002",
+      "amount": "222",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "ceb5a2d465f24f278782c789bd52f97a",
+      "createdAt": "2025-12-07 03:05:00",
+      "completedAt": "2025-12-07 03:16:22"
+    },
+    {
+      "id": "180035",
+      "customerId": "180002",
+      "amount": "233",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "a67a755572834dcb85d0f22f0dbf0181",
+      "createdAt": "2025-12-07 02:55:02",
+      "completedAt": "2025-12-07 03:16:22"
+    },
+    {
+      "id": "180034",
+      "customerId": "180002",
+      "amount": "100",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "478f04083dc54e6984e8cb7939ffb7ad",
+      "createdAt": "2025-12-07 02:51:54",
+      "completedAt": "2025-12-07 03:16:22"
+    },
+    {
+      "id": "150001",
+      "customerId": "180002",
+      "amount": "212",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "9664ee42580a44fe91f98ee790b85e27",
+      "createdAt": "2025-12-07 02:50:11",
+      "completedAt": "2025-12-07 02:50:11"
+    },
+    {
+      "id": "180033",
+      "customerId": "180002",
+      "amount": "212",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "9664ee42580a44fe91f98ee790b85e27",
+      "createdAt": "2025-12-07 02:40:27",
+      "completedAt": "2025-12-07 02:50:11"
+    },
+    {
+      "id": "180032",
+      "customerId": "180002",
+      "amount": "333",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "c608471e4c1948459c03288fb9d24fe8",
+      "createdAt": "2025-12-07 02:23:47",
+      "completedAt": "2025-12-07 03:16:22"
+    },
+    {
+      "id": "180031",
+      "customerId": "180002",
+      "amount": "133",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "ceb295390f2f4ec8aa90596e71130355",
+      "createdAt": "2025-12-06 20:02:19",
+      "completedAt": "2025-12-07 03:16:22"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\tamount\tpaymentMethod\tstatus\ttransactionId\tcreatedAt\tcompletedAt\n210003\t480001\t333\tpix\tcompleted\tNULL\t2025-12-08 21:35:07\t2025-12-08 21:35:07\n210002\t480001\t120\tpix\tcompleted\tb2597ad58fe24fc7ae3d92ac465846ce\t2025-12-08 21:26:29\t2025-12-08 21:26:29\n210001\t180002\t299\tpix\tcompleted\te6dafdc1afbc47deaf45cc6372cc41ca\t2025-12-08 20:23:11\t2025-12-08 20:26:46\n180036\t180002\t222\tpix\tcompleted\tceb5a2d465f24f278782c789bd52f97a\t2025-12-07 03:05:00\t2025-12-07 03:16:22\n180035\t180002\t233\tpix\tcompleted\ta67a755572834dcb85d0f22f0dbf0181\t2025-12-07 02:55:02\t2025-12-07 03:16:22\n180034\t180002\t100\tpix\tcompleted\t478f04083dc54e6984e8cb7939ffb7ad\t2025-12-07 02:51:54\t2025-12-07 03:16:22\n150001\t180002\t212\tpix\tcompleted\t9664ee42580a44fe91f98ee790b85e27\t2025-12-07 02:50:11\t2025-12-07 02:50:11\n180033\t180002\t212\tpix\tcompleted\t9664ee42580a44fe91f98ee790b85e27\t2025-12-07 02:40:27\t2025-12-07 02:50:11\n180032\t180002\t333\tpix\tcompleted\tc608471e4c1948459c03288fb9d24fe8\t2025-12-07 02:23:47\t2025-12-07 03:16:22\n180031\t180002\t133\tpix\tcompleted\tceb295390f2f4ec8aa90596e71130355\t2025-12-06 20:02:19\t2025-12-07 03:16:22\n",
+  "stderr": "",
+  "execution_time_ms": 59
+}

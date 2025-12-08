@@ -1,0 +1,9 @@
+{
+  "query": "\nINSERT INTO balance_transactions (\n  customerId, \n  amount, \n  type, \n  origin, \n  description, \n  balanceBefore, \n  balanceAfter, \n  createdAt\n)\nSELECT \n  480001,\n  120,\n  'credit',\n  'system',\n  CONCAT('Recarga via PIX - ', p.txid),\n  c.balance - 120,\n  c.balance,\n  NOW()\nFROM customers c\nCROSS JOIN pix_transactions p\nWHERE c.id = 480001 \n  AND p.customerId = 480001 \n  AND p.amount = 120\nORDER BY p.createdAt DESC\nLIMIT 1\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute \nINSERT INTO balance_transactions (\n  customerId, \n  amount, \n  type, \n  origin, \n  description, \n  balanceBefore, \n  balanceAfter, \n  createdAt\n)\nSELECT \n  480001,\n  120,\n  'credit',\n  'system',\n  CONCAT('Recarga via PIX - ', p.txid),\n  c.balance - 120,\n  c.balance,\n  NOW()\nFROM customers c\nCROSS JOIN pix_transactions p\nWHERE c.id = 480001 \n  AND p.customerId = 480001 \n  AND p.amount = 120\nORDER BY p.createdAt DESC\nLIMIT 1\n",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 56
+}

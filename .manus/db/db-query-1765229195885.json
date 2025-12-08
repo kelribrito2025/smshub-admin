@@ -1,0 +1,17 @@
+{
+  "query": "\nSELECT \n  id,\n  email,\n  balance,\n  bonusBalance,\n  (balance + bonusBalance) as totalBalance\nFROM customers\nWHERE id = 480001\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute \nSELECT \n  id,\n  email,\n  balance,\n  bonusBalance,\n  (balance + bonusBalance) as totalBalance\nFROM customers\nWHERE id = 480001\n",
+  "rows": [
+    {
+      "id": "480001",
+      "email": "criptomoedazcore@gmail.com",
+      "balance": "130",
+      "bonusBalance": "0",
+      "totalBalance": "130"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\temail\tbalance\tbonusBalance\ttotalBalance\n480001\tcriptomoedazcore@gmail.com\t130\t0\t130\n",
+  "stderr": "",
+  "execution_time_ms": 57
+}
