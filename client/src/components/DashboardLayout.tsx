@@ -26,6 +26,11 @@ import { LayoutDashboard, LogOut, PanelLeft, Settings, RefreshCw, Globe, Package
 import * as LucideIcons from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
+
+// Set admin page title
+if (typeof document !== 'undefined') {
+  document.title = 'Admin - Número Virtual';
+}
 import { DashboardLayoutSkeleton } from './DashboardLayoutSkeleton';
 import { Button } from "./ui/button";
 import { MenuReorderDialog } from "./MenuReorderDialog";

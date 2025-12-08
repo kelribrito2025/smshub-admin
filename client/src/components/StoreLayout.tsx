@@ -21,6 +21,11 @@ import {
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
 
+// Reset to default title for store pages
+if (typeof document !== 'undefined') {
+  document.title = 'Número Virtual';
+}
+
 
 interface StoreLayoutProps {
   children: ReactNode;

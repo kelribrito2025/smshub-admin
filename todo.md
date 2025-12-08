@@ -821,3 +821,9 @@
 - [x] Localizar componente do header com ícone de notificações (sino)
 - [x] Adicionar condicional para exibir apenas quando usuário estiver logado
 - [x] Testar comportamento (logado vs não logado)
+
+## Ajustar Títulos das Páginas
+- [x] Simplificar título do painel de vendas (público)
+- [x] Simplificar título do painel admin
+- [x] Remover título longo de SEO do admin (não precisa ranquear)
+- [x] Testar títulos em ambas as páginas
