@@ -1036,6 +1036,16 @@
 - [x] Configurar polling conservador (10s) apenas para ativações
 - [ ] Testar em produção (aguardando checkpoint)
 
+## ✅ Retry Inteligente para Conexões SSE (Concluído)
+- [x] Implementar backoff exponencial no useNotifications hook
+- [x] Configurar delays progressivos: 1s, 2s, 4s, 8s, 16s, 32s (máximo)
+- [x] Adicionar contador de tentativas de reconexão (retryCountRef)
+- [x] Resetar contador após conexão bem-sucedida
+- [x] Adicionar logs de debug para monitorar reconexões
+- [x] Criar testes unitários (5/5 passaram)
+- [ ] Testar em produção simulando queda de conexão
+- [x] Validar que não sobrecarrega servidor (delays progressivos implementados)
+
 ## Bug Crítico: SSE Connection Error em Produção
 - [ ] Analisar erro: readyState 2, eventType: 'error'
 - [ ] Verificar se servidor SSE está respondendo corretamente

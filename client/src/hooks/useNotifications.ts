@@ -24,6 +24,9 @@ export function useNotifications(options: UseNotificationsOptions) {
   const [isConnected, setIsConnected] = useState(false);
   const [lastNotification, setLastNotification] = useState<Notification | null>(null);
   const eventSourceRef = useRef<EventSource | null>(null);
+  const retryCountRef = useRef(0);
+  const retryTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [reconnectTrigger, setReconnectTrigger] = useState(0);
   
   // Store callbacks in refs to avoid recreating EventSource on every render
   const onNotificationRef = useRef(onNotification);
@@ -51,6 +54,10 @@ export function useNotifications(options: UseNotificationsOptions) {
     eventSource.onopen = () => {
       console.log("[Notifications] SSE connection opened");
       setIsConnected(true);
+      
+      // Reset retry counter on successful connection
+      retryCountRef.current = 0;
+      console.log('[Notifications] Retry counter reset after successful connection');
     };
 
     eventSource.onmessage = (event) => {
@@ -80,24 +87,51 @@ export function useNotifications(options: UseNotificationsOptions) {
         readyState: target.readyState,
         url: target.url,
         eventType: event.type,
+        retryCount: retryCountRef.current,
       });
       setIsConnected(false);
 
-      // EventSource will automatically try to reconnect
-      // Se a conexão falhou completamente, fechar
+      // If connection closed, implement exponential backoff for reconnection
       if (target.readyState === EventSource.CLOSED) {
-        console.log('[Notifications] Connection closed permanently');
+        console.log('[Notifications] Connection closed - will retry with exponential backoff');
+        
+        // Close current connection
+        eventSource.close();
+        eventSourceRef.current = null;
+        
+        // Calculate delay with exponential backoff: 1s, 2s, 4s, 8s, 16s, 32s (max)
+        const delay = Math.min(1000 * Math.pow(2, retryCountRef.current), 32000);
+        retryCountRef.current++;
+        
+        console.log(`[Notifications] Retrying in ${delay}ms (attempt ${retryCountRef.current})`);
+        
+        // Schedule reconnection
+        retryTimeoutRef.current = setTimeout(() => {
+          if (customerId) {
+            console.log(`[Notifications] Reconnecting to SSE for customer ${customerId}`);
+            // Trigger reconnection by updating state (will cause useEffect to re-run)
+            setReconnectTrigger(prev => prev + 1);
+          }
+        }, delay);
       }
     };
 
     // Cleanup on unmount
     return () => {
       console.log("[Notifications] Closing SSE connection");
+      
+      // Clear retry timeout if exists
+      if (retryTimeoutRef.current) {
+        clearTimeout(retryTimeoutRef.current);
+        retryTimeoutRef.current = null;
+      }
+      
+      // Close EventSource
       eventSource.close();
       eventSourceRef.current = null;
       setIsConnected(false);
     };
-  }, [customerId]); // Only reconnect when customerId changes
+  }, [customerId, reconnectTrigger]); // Reconnect when customerId changes or retry triggered
 
   return {
     isConnected,
