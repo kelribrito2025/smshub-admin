@@ -1,0 +1,13 @@
+{
+  "query": "SHOW TABLES LIKE '%balance%';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SHOW TABLES LIKE '%balance%';",
+  "rows": [
+    {
+      "Tables_in_SoKyCCsEmaEjcFkVqbEFR7 (%balance%)": "balance_transactions"
+    }
+  ],
+  "messages": [],
+  "stdout": "Tables_in_SoKyCCsEmaEjcFkVqbEFR7 (%balance%)\nbalance_transactions\n",
+  "stderr": "",
+  "execution_time_ms": 70
+}
