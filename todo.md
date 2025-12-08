@@ -810,3 +810,9 @@
 ## Ajuste de Título - Página de Ativações
 - [x] Remover "Receba SMS Online -" do título da página de ativações
 - [x] Deixar apenas "Ativações em Andamento"
+
+
+## Simplificar Modal de Cadastro
+- [x] Remover campo "Confirmar Email" do LoginModal
+- [x] Remover validação de confirmação de email
+- [x] Manter apenas: Nome, Email e Senha
