@@ -1096,3 +1096,13 @@
 - [x] Adicionar mensagem inicial de conexão
 - [x] Adicionar logs detalhados de heartbeat
 - [x] Adicionar middleware de logging no webhook PIX
+
+## Correção Erro 429 (Rate Exceeded) em Produção
+- [x] Analisar logs do console para identificar endpoints com mais requisições
+- [x] Verificar polling intervals em StoreLayout e StoreAuthContext
+- [x] Reduzir frequência de polling de PixPaymentModal (3s → 10s)
+- [x] Reduzir frequência de polling de getMyActivations (10s → 30s)
+- [x] Reduzir frequência de polling de StoreActivations (30s → 60s)
+- [x] Remover polling manual duplicado em StoreLayout (evitar double polling)
+- [x] Adicionar staleTime adequado para cada query
+- [ ] Testar em produção e validar que erro 429 desapareceu

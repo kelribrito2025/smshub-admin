@@ -48,7 +48,7 @@ export function PixPaymentModal({
     },
     {
       enabled: !!pixData?.txid,
-      refetchInterval: 3000, // Poll every 3 seconds
+      refetchInterval: 10000, // Poll every 10 seconds (reduced from 3s to avoid 429)
     }
   );
 

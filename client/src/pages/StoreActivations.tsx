@@ -22,7 +22,7 @@ export default function StoreActivations() {
     },
     { 
       enabled: !!customer?.id,
-      refetchInterval: 30000,
+      refetchInterval: 60000, // Poll every 60 seconds (reduced from 30s to avoid 429)
     }
   );
 

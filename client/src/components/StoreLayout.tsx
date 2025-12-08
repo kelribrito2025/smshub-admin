@@ -99,8 +99,8 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
     { 
       enabled: !!customer?.id,
       refetchOnWindowFocus: false,
-      refetchInterval: 10 * 1000, // Poll every 10 seconds for active activations
-      staleTime: 5 * 1000, // 5 seconds
+      refetchInterval: 30 * 1000, // Poll every 30 seconds (reduced from 10s to avoid 429)
+      staleTime: 15 * 1000, // 15 seconds
     }
   );
   
@@ -204,19 +204,8 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
     }
   }, [isAuthenticated, showFavorites]);
 
-  // Auto-refresh activations every 15 seconds to check for new SMS codes (only if authenticated)
-  useEffect(() => {
-    if (!isAuthenticated) return;
-    
-    const interval = setInterval(() => {
-      // Only poll if page is visible
-      if (document.visibilityState === 'visible') {
-        utils.store.getMyActivations.invalidate();
-      }
-    }, 15000); // 15 seconds (reduced from 7s to avoid 429)
-
-    return () => clearInterval(interval);
-  }, [utils, isAuthenticated]);
+  // Polling is now handled by refetchInterval in the query (30s)
+  // Removed manual interval to avoid duplicate polling and 429 errors
 
   // Detect new SMS codes and show notification (only if authenticated)
   useEffect(() => {
