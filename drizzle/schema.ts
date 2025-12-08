@@ -223,6 +223,8 @@ export const customers = mysqlTable("customers", {
   banned: boolean("banned").default(false).notNull(), // Permanent ban flag
   bannedAt: timestamp("bannedAt"), // Timestamp when the account was banned
   bannedReason: text("bannedReason"), // Reason for the ban (optional)
+  emailVerified: boolean("emailVerified").default(false).notNull(), // Email verification status
+  emailVerifiedAt: timestamp("emailVerifiedAt"), // Timestamp when email was verified
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 }, (table) => ({
@@ -522,3 +524,21 @@ export const cancellationLogs = mysqlTable("cancellation_logs", {
 
 export type CancellationLog = typeof cancellationLogs.$inferSelect;
 export type InsertCancellationLog = typeof cancellationLogs.$inferInsert;
+
+/**
+ * Email Verifications table - stores verification codes for email confirmation
+ */
+export const emailVerifications = mysqlTable("email_verifications", {
+  id: int("id").autoincrement().primaryKey(),
+  customerId: int("customerId").notNull(), // Customer who needs to verify email
+  code: varchar("code", { length: 6 }).notNull(), // 6-digit verification code
+  expiresAt: timestamp("expiresAt").notNull(), // When the code expires (15 minutes)
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  usedAt: timestamp("usedAt"), // When the code was used (null if not used yet)
+}, (table) => ({
+  customerCodeIdx: index("verification_customer_code_idx").on(table.customerId, table.code),
+  expiresIdx: index("verification_expires_idx").on(table.expiresAt),
+}));
+
+export type EmailVerification = typeof emailVerifications.$inferSelect;
+export type InsertEmailVerification = typeof emailVerifications.$inferInsert;

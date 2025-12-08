@@ -871,3 +871,16 @@
 - [x] Criar logo SVG inline no StoreLayout (verde #00D26A, letra N preta)
 - [x] Remover referência ao logo-header.png
 - [x] Testar logo SVG sem fundo branco
+
+## Integração Mailchimp - Verificação de Email
+- [x] Instalar biblioteca @mailchimp/mailchimp_transactional
+- [x] Atualizar schema do banco (campos emailVerified + tabela email_verifications)
+- [x] Aplicar migration (pnpm db:push)
+- [x] Criar helper de email (server/email.ts)
+- [x] Criar helpers de verificação (server/db.ts)
+- [x] Implementar endpoints tRPC (register, verifyEmail, resendCode)
+- [x] Criar página VerifyEmail.tsx
+- [x] Adicionar rota /verify-email no App.tsx
+- [x] Solicitar credenciais Mailchimp via webdev_request_secrets
+- [x] Criar testes unitários
+- [x] Testar fluxo completo

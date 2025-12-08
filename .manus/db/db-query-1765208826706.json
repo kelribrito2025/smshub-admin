@@ -1,0 +1,9 @@
+{
+  "query": "CREATE TABLE email_verifications (\n  id INT AUTO_INCREMENT PRIMARY KEY,\n  customerId INT NOT NULL,\n  code VARCHAR(6) NOT NULL,\n  expiresAt DATETIME NOT NULL,\n  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,\n  usedAt DATETIME NULL,\n  INDEX verification_customer_code_idx (customerId, code),\n  INDEX verification_expires_idx (expiresAt)\n);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute CREATE TABLE email_verifications (\n  id INT AUTO_INCREMENT PRIMARY KEY,\n  customerId INT NOT NULL,\n  code VARCHAR(6) NOT NULL,\n  expiresAt DATETIME NOT NULL,\n  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,\n  usedAt DATETIME NULL,\n  INDEX verification_customer_code_idx (customerId, code),\n  INDEX verification_expires_idx (expiresAt)\n);",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 180
+}

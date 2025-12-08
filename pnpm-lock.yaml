@@ -34,6 +34,9 @@ importers:
       '@hookform/resolvers':
         specifier: ^5.2.2
         version: 5.2.2(react-hook-form@7.64.0(react@19.2.0))
+      '@mailchimp/mailchimp_transactional':
+        specifier: ^1.1.2
+        version: 1.1.2
       '@radix-ui/react-accordion':
         specifier: ^1.2.12
         version: 1.2.12(@types/react-dom@19.2.1(@types/react@19.2.2))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -248,6 +251,9 @@ importers:
       '@types/google.maps':
         specifier: ^3.58.1
         version: 3.58.1
+      '@types/mailchimp__mailchimp_transactional':
+        specifier: ^1.0.11
+        version: 1.0.11
       '@types/node':
         specifier: ^24.7.0
         version: 24.7.0
@@ -1097,6 +1103,10 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
+
+  '@mailchimp/mailchimp_transactional@1.1.2':
+    resolution: {integrity: sha512-F2sJcTjlaszW6KofGSoKonGbBKOAuqQ5u19bUzvF9+AIOG4WrLdHYh4KYQl0YuBlPn5HnLvRkfJdfTRolvrwHg==}
+    engines: {node: '>=10.0.0'}
 
   '@medv/finder@4.0.2':
     resolution: {integrity: sha512-RraNY9SCcx4KZV0Dh6BEW6XEW2swkqYca74pkFFRw6hHItSHiy+O/xMnpbofjYbzXj0tSpBGthUF1hHTsr3vIQ==}
@@ -2337,6 +2347,9 @@ packages:
 
   '@types/katex@0.16.7':
     resolution: {integrity: sha512-HMwFiRujE5PjrgwHQ25+bsLJgowjGjm5Z8FVSf0N6PwgJrwxH0QxzHYDcKsTfV3wva0vzrpqMTJS2jXPr5BMEQ==}
+
+  '@types/mailchimp__mailchimp_transactional@1.0.11':
+    resolution: {integrity: sha512-xUWPWzLEkx4lTJiEvH6r0fjgNI5sh6WWHl9deMNrfnwjS/GAa1wj0cR/odnuHlVPwdSVGq+xLTkDI9mm+dX58Q==}
 
   '@types/mdast@4.0.4':
     resolution: {integrity: sha512-kGaNbPh1k7AFzgpud/gMdvIm5xuECykRR+JnWKQno9TAXVa6WIVCGTPvYGekIDL4uwCZQSYbUxNBSb1aUo79oA==}
@@ -5355,6 +5368,12 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
+  '@mailchimp/mailchimp_transactional@1.1.2':
+    dependencies:
+      axios: 1.12.2
+    transitivePeerDependencies:
+      - debug
+
   '@medv/finder@4.0.2': {}
 
   '@mermaid-js/parser@0.6.3':
@@ -6741,6 +6760,12 @@ snapshots:
   '@types/http-errors@2.0.5': {}
 
   '@types/katex@0.16.7': {}
+
+  '@types/mailchimp__mailchimp_transactional@1.0.11':
+    dependencies:
+      axios: 1.12.2
+    transitivePeerDependencies:
+      - debug
 
   '@types/mdast@4.0.4':
     dependencies:

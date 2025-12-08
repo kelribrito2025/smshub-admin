@@ -1,6 +1,6 @@
-import { eq } from "drizzle-orm";
+import { eq, and, isNull } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
+import { InsertUser, users, customers, emailVerifications } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -129,4 +129,92 @@ export async function updatePaymentSettings(pixEnabled: boolean, stripeEnabled: 
     await db.insert(paymentSettings).values({ pixEnabled, stripeEnabled });
     return await getPaymentSettings();
   }
+}
+
+// ============================================================
+// Email Verification Helpers
+// ============================================================
+
+/**
+ * Generate a random 6-digit verification code
+ */
+export function generateVerificationCode(): string {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+}
+
+/**
+ * Create a new verification code for a customer
+ */
+export async function createVerificationCode(customerId: number): Promise<string> {
+  const db = await getDb();
+  if (!db) {
+    throw new Error('Database not available');
+  }
+
+  const code = generateVerificationCode();
+  const expiresAt = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes
+
+  await db.insert(emailVerifications).values({
+    customerId,
+    code,
+    expiresAt,
+  });
+
+  console.log('[Email Verification] Code created:', { customerId, code, expiresAt });
+  return code;
+}
+
+/**
+ * Validate a verification code for a customer
+ */
+export async function validateVerificationCode(
+  customerId: number, 
+  code: string
+): Promise<{ valid: boolean; error?: string }> {
+  const db = await getDb();
+  if (!db) {
+    return { valid: false, error: 'Database not available' };
+  }
+
+  // Find verification code
+  const [verification] = await db
+    .select()
+    .from(emailVerifications)
+    .where(
+      and(
+        eq(emailVerifications.customerId, customerId),
+        eq(emailVerifications.code, code),
+        isNull(emailVerifications.usedAt)
+      )
+    )
+    .limit(1);
+
+  if (!verification) {
+    console.log('[Email Verification] Code not found:', { customerId, code });
+    return { valid: false, error: 'Código inválido' };
+  }
+
+  // Check if expired
+  if (new Date() > verification.expiresAt) {
+    console.log('[Email Verification] Code expired:', { customerId, code, expiresAt: verification.expiresAt });
+    return { valid: false, error: 'Código expirado' };
+  }
+
+  // Mark code as used
+  await db
+    .update(emailVerifications)
+    .set({ usedAt: new Date() })
+    .where(eq(emailVerifications.id, verification.id));
+
+  // Mark email as verified
+  await db
+    .update(customers)
+    .set({ 
+      emailVerified: true, 
+      emailVerifiedAt: new Date() 
+    })
+    .where(eq(customers.id, customerId));
+
+  console.log('[Email Verification] Code validated successfully:', { customerId, code });
+  return { valid: true };
 }
