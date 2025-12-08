@@ -1014,3 +1014,14 @@
 - [x] Adicionar tratamento de erro NotAllowedError
 - [x] Permitir reprodução após interação do usuário
 - [ ] Testar em produção (aguardando checkpoint)
+
+
+## ✅ Bug Resolvido: Vazamento de Conexões SSE (Loop Infinito em Produção)
+- [x] Analisar logs: conexões SSE abrindo e fechando constantemente
+- [x] Identificar causa: onNotification sendo recriado a cada render
+- [x] Envolver handleNotification em useCallback
+- [x] Definir dependências estáveis: [customerQuery, utils]
+- [x] Corrigir indentação do código
+- [x] Reiniciar servidor para aplicar mudanças
+- [ ] Testar em produção (aguardando checkpoint)
+- [ ] Validar que apenas 1 conexão SSE permanece aberta por cliente

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ReactNode, useRef } from 'react';
+import React, { useState, useEffect, ReactNode, useRef, useCallback } from 'react';
 import { useLocation } from 'wouter';
 import { trpc } from '../lib/trpc';
 import { Button } from './ui/button';
@@ -80,66 +80,69 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
   const utils = trpc.useUtils();
 
   // Real-time notifications
+  // Wrap onNotification in useCallback to prevent SSE reconnection loops
+  const handleNotification = useCallback((notification: any) => {
+    console.log('[Store] Received notification:', notification);
+    
+    // Play money sound if admin added balance (flag playSound = true)
+    console.log('[Store] Notification received:', {
+      type: notification.type,
+      title: notification.title,
+      playSound: notification.playSound,
+    });
+    
+    if (notification.playSound) {
+      console.log('[Store] ✅ playSound flag is TRUE - attempting to play money sound');
+      const audio = new Audio('/sounds/money-received.wav');
+      audio.volume = 0.5;
+      
+      // Try to play, handle autoplay policy errors
+      audio.play()
+        .then(() => {
+          console.log('[Store] ✅ Money sound played successfully');
+        })
+        .catch(err => {
+          console.error('[Store] ❌ Failed to play sound:', err);
+          
+          // If autoplay is blocked (common in production/HTTPS), show a toast
+          if (err.name === 'NotAllowedError') {
+            console.warn('[Store] ⚠️ Autoplay blocked by browser. User interaction required.');
+            toast.info('💰 Novo saldo adicionado! (Clique para ativar som)', {
+              duration: 5000,
+              onClick: () => {
+                // Play sound when user clicks the toast
+                const retryAudio = new Audio('/sounds/money-received.wav');
+                retryAudio.volume = 0.5;
+                retryAudio.play()
+                  .then(() => console.log('[Store] ✅ Sound played after user interaction'))
+                  .catch(e => console.error('[Store] ❌ Still failed:', e));
+              },
+            });
+          }
+        });
+    } else {
+      console.log('[Store] ❌ playSound flag is FALSE or undefined - not playing money sound');
+    }
+    
+    // Invalidate queries when balance updated or payment confirmed
+    if (notification.type === 'pix_payment_confirmed' || notification.type === 'balance_updated') {
+      customerQuery.refetch();
+      // Tocar som de notificação de recarga (apenas se não for som de dinheiro)
+      if (!notification.playSound) {
+        playNotificationSound('recharge');
+      }
+    }
+    // Invalidate recharges cache when recharge is completed
+    if (notification.type === 'recharge_completed') {
+      console.log('[Store] Invalidating recharges cache after payment confirmation');
+      utils.recharges.getMyRecharges.invalidate();
+      customerQuery.refetch(); // Also refresh balance
+    }
+  }, [customerQuery, utils]); // Dependencies: only recreate if these change
+
   const { isConnected: notificationsConnected } = useNotifications({
     customerId: customer?.id || null,
-    onNotification: (notification) => {
-      console.log('[Store] Received notification:', notification);
-      
-      // Play money sound if admin added balance (flag playSound = true)
-      console.log('[Store] Notification received:', {
-        type: notification.type,
-        title: notification.title,
-        playSound: notification.playSound,
-      });
-      
-      if (notification.playSound) {
-        console.log('[Store] ✅ playSound flag is TRUE - attempting to play money sound');
-        const audio = new Audio('/sounds/money-received.wav');
-        audio.volume = 0.5;
-        
-        // Try to play, handle autoplay policy errors
-        audio.play()
-          .then(() => {
-            console.log('[Store] ✅ Money sound played successfully');
-          })
-          .catch(err => {
-            console.error('[Store] ❌ Failed to play sound:', err);
-            
-            // If autoplay is blocked (common in production/HTTPS), show a toast
-            if (err.name === 'NotAllowedError') {
-              console.warn('[Store] ⚠️ Autoplay blocked by browser. User interaction required.');
-              toast.info('💰 Novo saldo adicionado! (Clique para ativar som)', {
-                duration: 5000,
-                onClick: () => {
-                  // Play sound when user clicks the toast
-                  const retryAudio = new Audio('/sounds/money-received.wav');
-                  retryAudio.volume = 0.5;
-                  retryAudio.play()
-                    .then(() => console.log('[Store] ✅ Sound played after user interaction'))
-                    .catch(e => console.error('[Store] ❌ Still failed:', e));
-                },
-              });
-            }
-          });
-      } else {
-        console.log('[Store] ❌ playSound flag is FALSE or undefined - not playing money sound');
-      }
-      
-      // Invalidate queries when balance updated or payment confirmed
-      if (notification.type === 'pix_payment_confirmed' || notification.type === 'balance_updated') {
-        customerQuery.refetch();
-        // Tocar som de notificação de recarga (apenas se não for som de dinheiro)
-        if (!notification.playSound) {
-          playNotificationSound('recharge');
-        }
-      }
-      // Invalidate recharges cache when recharge is completed
-      if (notification.type === 'recharge_completed') {
-        console.log('[Store] Invalidating recharges cache after payment confirmation');
-        utils.recharges.getMyRecharges.invalidate();
-        customerQuery.refetch(); // Also refresh balance
-      }
-    },
+    onNotification: handleNotification,
   });
   
   const toggleFavoriteMutation = trpc.store.toggleFavorite.useMutation({
