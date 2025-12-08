@@ -854,3 +854,4 @@
 
 ## Ajuste de Texto - Catálogo
 - [x] Alterar "Preço SMSHub" para "custo" no cabeçalho da tabela de catálogo
+- [x] Simplificar "Preço custo" para "Custo"
