@@ -843,3 +843,7 @@
 - [x] Regerar favicons com fundo verde (#00D26A)
 - [x] Letra N em preto (#000000)
 - [x] Testar em navegadores
+
+## Adicionar Theme Color Mobile
+- [x] Adicionar meta tag theme-color com verde da marca (#00D26A)
+- [x] Testar em navegador mobile
