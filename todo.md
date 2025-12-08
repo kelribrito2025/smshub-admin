@@ -832,3 +832,9 @@
 - [x] Alterar título do StoreLayout para incluir descrição de SEO
 - [x] Manter título curto do admin (Admin - Número Virtual)
 - [x] Testar título no painel de vendas
+
+## Criar Favicon Personalizado
+- [x] Gerar favicon em múltiplos tamanhos (16x16, 32x32, 180x180, 192x192, 512x512)
+- [x] Adicionar tags de favicon no index.html
+- [x] Copiar arquivos para client/public/
+- [x] Testar favicon no navegador
