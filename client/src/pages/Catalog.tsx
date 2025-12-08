@@ -789,7 +789,7 @@ export default function Catalog() {
                   API
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider" style={{backgroundColor: '#141417'}}>
-                  Custo
+                  Preço SMSHub
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider" style={{backgroundColor: '#141417'}}>
                   Nosso Preço
