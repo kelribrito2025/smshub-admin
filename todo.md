@@ -857,3 +857,8 @@
 - [x] Adicionar logo verde com "N" ao lado do texto "Número Virtual" no StoreLayout
 - [x] Usar mesmo logo do favicon (fundo verde #00D26A, letra N preta)
 - [x] Testar visual no header
+
+## Remover Bordas Brancas do Logo
+- [x] Gerar novo logo com fundo transparente (sem bordas brancas)
+- [x] Substituir logo-header.png pela nova versão
+- [x] Testar visual no header preto
