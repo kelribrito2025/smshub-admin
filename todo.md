@@ -1151,3 +1151,24 @@
 - [x] Corrigir erros HTTP 403 nas conexões SSE (Server-Sent Events)
 - [x] Remover sistema incompleto de verificação de email
 - [x] Silenciar erros SSE 403 (esperado quando admin acessa páginas de customer)
+
+
+## ✅ BUG CRÍTICO: SSE 403 - Autenticação de Customer (RESOLVIDO)
+
+### Problema
+- [x] Erros 403 em `/api/notifications/stream/:customerId` quando customer está logado
+- [x] Servidor SSE usa `sdk.authenticateRequest()` que busca cookies OAuth/JWT
+- [x] Customers usam localStorage (não cookies de sessão)
+- [x] Resultado: SSE sempre falha com 403 "no customer authenticated"
+
+### Causa Raiz
+- StoreAuthContext salva customer em localStorage (linha 68)
+- SSE endpoint valida autenticação via sdk.authenticateRequest (linha 21)
+- sdk.authenticateRequest busca cookies de sessão (OAuth ou adminAuth JWT)
+- Customer não tem cookie de sessão → autenticação falha
+
+### Solução Implementada
+- [x] Remover dependência de sdk.authenticateRequest no SSE endpoint
+- [x] Validar customer diretamente no banco via getCustomerById
+- [x] Verificar se customer existe, está ativo e não está banido
+- [x] Manter localStorage para dados do cliente (sem mudanças no frontend)

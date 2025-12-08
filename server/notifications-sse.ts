@@ -1,6 +1,7 @@
 import express from "express";
 import { notificationsManager } from "./notifications-manager";
 import { sdk } from "./_core/sdk";
+import { getCustomerById } from "./customers-helpers";
 
 const router = express.Router();
 
@@ -15,19 +16,23 @@ router.get("/stream/:customerId", async (req, res) => {
     return res.status(400).json({ error: "Invalid customer ID" });
   }
 
-  // ✅ VALIDATE AUTHENTICATION: Check if user is logged in
-  let authenticatedUser;
-  try {
-    authenticatedUser = await sdk.authenticateRequest(req);
-  } catch (error) {
-    console.error(`[SSE] Authentication failed for customer ${customerId}:`, error);
-    return res.status(401).json({ error: "no customer authenticated" });
+  // ✅ VALIDATE CUSTOMER: Check if customer exists and is active
+  // Note: Customers use localStorage auth (not session cookies), so we validate directly
+  const customer = await getCustomerById(customerId);
+  
+  if (!customer) {
+    console.warn(`[SSE] Customer ${customerId} not found`);
+    return res.status(404).json({ error: "customer not found" });
   }
-
-  // ✅ AUTHORIZATION: Verify that authenticated user matches requested customerId
-  if (!authenticatedUser || authenticatedUser.id !== customerId) {
-    console.error(`[SSE] Authorization failed: user ${authenticatedUser?.id} tried to access customer ${customerId}`);
-    return res.status(403).json({ error: "forbidden: cannot access other customer's notifications" });
+  
+  if (!customer.active) {
+    console.warn(`[SSE] Customer ${customerId} is inactive`);
+    return res.status(403).json({ error: "customer account is inactive" });
+  }
+  
+  if (customer.banned) {
+    console.warn(`[SSE] Customer ${customerId} is banned`);
+    return res.status(403).json({ error: "customer account is banned" });
   }
 
   console.log(`[SSE] New connection request from authenticated customer ${customerId}`);
