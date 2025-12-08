@@ -858,3 +858,10 @@
 - [x] Corrigir verifyAdminJWT para aceitar userId como string
 - [x] Converter userId string para number ao buscar no banco
 - [x] Testar login admin → verificação de sessão funciona
+
+
+## Corrigir adminAuth.me para reconhecer ctx.user
+- [x] Verificar implementação atual de adminAuth.me
+- [x] Corrigir para retornar ctx.user (já populado pelo verifyAdminJWT)
+- [x] Corrigir useAuth: aguardar adminMeQuery terminar antes de tentar OAuth
+- [x] Testar: login → adminAuth.me retorna usuário → não redireciona

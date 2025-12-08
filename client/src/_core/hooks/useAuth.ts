@@ -19,11 +19,11 @@ export function useAuth(options?: UseAuthOptions) {
     refetchOnWindowFocus: false,
   });
 
-  // Fallback to Manus OAuth if admin auth returns null
+  // Fallback to Manus OAuth ONLY if admin auth finished loading AND returned null
   const oauthMeQuery = trpc.auth.me.useQuery(undefined, {
     retry: false,
     refetchOnWindowFocus: false,
-    enabled: !adminMeQuery.data, // Only run if admin auth returned null
+    enabled: !adminMeQuery.isLoading && !adminMeQuery.data, // Wait for admin query to finish
   });
 
   // Use admin auth if available, otherwise use OAuth
