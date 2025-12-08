@@ -71,18 +71,23 @@ export default function DashboardLayout({
     return saved ? parseInt(saved, 10) : DEFAULT_WIDTH;
   });
   const { loading, user } = useAuth();
-  const [, setLocation] = useLocation();
+  const [location, setLocation] = useLocation();
 
   useEffect(() => {
     localStorage.setItem(SIDEBAR_WIDTH_KEY, sidebarWidth.toString());
   }, [sidebarWidth]);
 
   // Redirect to login if not authenticated
+  // But don't redirect if we just came from login (to avoid race condition)
   useEffect(() => {
-    if (!loading && !user) {
-      setLocation("/admin/login");
+    if (!loading && !user && location !== "/admin/login") {
+      // Add small delay to allow cookie to be processed
+      const timer = setTimeout(() => {
+        setLocation("/admin/login");
+      }, 200);
+      return () => clearTimeout(timer);
     }
-  }, [loading, user, setLocation]);
+  }, [loading, user, location, setLocation]);
 
   if (loading) {
     return <DashboardLayoutSkeleton />

@@ -872,3 +872,12 @@
 - [x] Adicionar invalidação do cache adminAuth.me após login
 - [x] Adicionar redirecionamento para /admin/dashboard após login
 - [x] Testar: login → mensagem de sucesso → redireciona para dashboard
+
+
+## Diagnóstico Completo do Fluxo de Login Admin
+- [x] Criar teste que simula login completo (7/7 testes passaram)
+- [x] Verificar se cookie está sendo setado corretamente (backend OK)
+- [x] Verificar se verifyAdminJWT está sendo chamado (funciona perfeitamente)
+- [x] Verificar se adminAuth.me está retornando usuário (backend OK)
+- [x] Identificar ponto exato de falha (race condition no frontend)
+- [x] Aplicar correção definitiva (delays + verificação de location)

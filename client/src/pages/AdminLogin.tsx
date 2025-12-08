@@ -18,6 +18,8 @@ export default function AdminLogin() {
       toast.success("Login realizado com sucesso!");
       // Invalidate adminAuth.me to force re-fetch with new session
       await utils.adminAuth.me.invalidate();
+      // Small delay to ensure cookie is set before redirect
+      await new Promise(resolve => setTimeout(resolve, 100));
       setLocation("/admin/dashboard");
     },
     onError: (error) => {
