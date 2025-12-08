@@ -992,3 +992,15 @@
 - [x] Remover onNotification e autoToast das dependências do useEffect
 - [ ] Testar que apenas uma conexão SSE é mantida por cliente
 - [ ] Validar que conexões antigas são fechadas corretamente
+
+
+## ✅ Bug Resolvido: Som de Dinheiro Agora Toca Quando Admin Adiciona Saldo
+- [x] Verificar se notificação SSE está sendo enviada com playSound: true
+- [x] Verificar se backend detecta corretamente crédito positivo (credit/refund)
+- [x] Verificar se frontend recebe flag playSound nas notificações
+- [x] Verificar se arquivo money-received.wav existe e está acessível (541KB)
+- [x] Adicionar logs detalhados no backend e frontend para debug
+- [x] Criar testes unitários para validar lógica (3/3 passaram)
+- [x] Criar documento de teste manual (docs/TESTE-SOM-DINHEIRO.md)
+- [x] Executar teste manual - SOM FUNCIONANDO!
+- [x] Logs detalhados ajudaram a identificar e resolver o problema

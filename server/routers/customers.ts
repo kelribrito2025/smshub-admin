@@ -146,7 +146,14 @@ export const customersRouter = router({
 
       // Send notification with sound if admin added positive balance
       const isPositiveCredit = input.amount > 0 && (input.type === 'credit' || input.type === 'refund');
+      console.log('[Balance] Checking if should play sound:', {
+        amount: input.amount,
+        type: input.type,
+        isPositiveCredit,
+      });
+      
       if (isPositiveCredit) {
+        console.log('[Balance] Sending notification with playSound=true to customer', input.customerId);
         const { notificationsManager } = await import('../notifications-manager');
         notificationsManager.sendToCustomer(input.customerId, {
           type: 'balance_updated',
@@ -154,6 +161,7 @@ export const customersRouter = router({
           message: `Novo saldo: R$ ${(result.balanceAfter / 100).toFixed(2)}`,
           playSound: true, // Flag to play money sound
         });
+        console.log('[Balance] Notification sent successfully');
       }
 
       return {

@@ -86,11 +86,21 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
       console.log('[Store] Received notification:', notification);
       
       // Play money sound if admin added balance (flag playSound = true)
+      console.log('[Store] Notification received:', {
+        type: notification.type,
+        title: notification.title,
+        playSound: notification.playSound,
+      });
+      
       if (notification.playSound) {
-        console.log('[Store] Playing money received sound');
+        console.log('[Store] ✅ playSound flag is TRUE - attempting to play money sound');
         const audio = new Audio('/sounds/money-received.wav');
         audio.volume = 0.5;
-        audio.play().catch(err => console.warn('[Store] Failed to play sound:', err));
+        audio.play()
+          .then(() => console.log('[Store] ✅ Money sound played successfully'))
+          .catch(err => console.error('[Store] ❌ Failed to play sound:', err));
+      } else {
+        console.log('[Store] ❌ playSound flag is FALSE or undefined - not playing money sound');
       }
       
       // Invalidate queries when balance updated or payment confirmed
