@@ -862,3 +862,7 @@
 - [x] Gerar novo logo com fundo transparente (sem bordas brancas)
 - [x] Substituir logo-header.png pela nova versão
 - [x] Testar visual no header preto
+
+## Remover Container de Total de Notificações
+- [x] Remover container "Total: X notificações" da barra lateral
+- [x] Testar visual da barra lateral sem o container

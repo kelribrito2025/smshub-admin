@@ -206,14 +206,7 @@ export default function NotificationsSidebar({ isOpen, onClose }: NotificationsS
             ))}
           </div>
 
-          {/* Footer */}
-          <div className="p-6 border-t-2 border-green-500/30">
-            <div className="bg-black/50 border-2 border-green-500/30 rounded-lg p-4 text-center">
-              <p className="text-green-400 text-sm font-mono">
-                Total: {notifications.length} notificações
-              </p>
-            </div>
-          </div>
+
         </div>
       </div>
     </>
