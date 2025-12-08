@@ -251,20 +251,29 @@ class SDKServer {
       const { userId, email, role } = payload as Record<string, unknown>;
 
       // Check if this is an admin JWT (has userId instead of openId)
-      if (!userId || typeof userId !== "number") {
+      if (!userId) {
         return null; // Not an admin JWT
       }
 
-      // Fetch user from database by ID
-      const user = await db.getUserById(userId as number);
-      if (!user) {
-        console.warn("[Auth] Admin user not found:", userId);
+      // Convert userId to number (can be string or number from JWT)
+      const userIdNum = typeof userId === "number" ? userId : parseInt(String(userId), 10);
+      if (isNaN(userIdNum)) {
+        console.warn("[Auth] Invalid userId in admin JWT:", userId);
         return null;
       }
 
+      // Fetch user from database by ID
+      const user = await db.getUserById(userIdNum);
+      if (!user) {
+        console.warn("[Auth] Admin user not found:", userIdNum);
+        return null;
+      }
+
+      console.log("[Auth] Admin JWT verified for user:", user.email);
       return user;
     } catch (error) {
       // Not an admin JWT, will fallback to OAuth
+      console.log("[Auth] Not an admin JWT, will try OAuth");
       return null;
     }
   }

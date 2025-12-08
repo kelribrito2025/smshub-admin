@@ -851,3 +851,10 @@
 - [x] Se JWT admin válido, buscar usuário por ID em vez de openId
 - [x] Manter fallback para OAuth do Manus se não for JWT admin
 - [x] Testar login admin → context reconhece usuário
+
+
+## Corrigir Verificação de JWT Admin (userId string vs number)
+- [x] Verificar payload do JWT gerado em adminAuth.login
+- [x] Corrigir verifyAdminJWT para aceitar userId como string
+- [x] Converter userId string para number ao buscar no banco
+- [x] Testar login admin → verificação de sessão funciona
