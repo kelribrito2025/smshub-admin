@@ -38,12 +38,14 @@ class NotificationsManager {
 
     console.log(`[Notifications] Client connected: customer ${customerId}, total connections: ${existingClients.length}`);
 
-    // Setup SSE headers
+    // Setup SSE headers (optimized for production with proxies)
     response.writeHead(200, {
-      "Content-Type": "text/event-stream",
-      "Cache-Control": "no-cache",
+      "Content-Type": "text/event-stream; charset=utf-8",
+      "Cache-Control": "no-cache, no-transform",
       "Connection": "keep-alive",
       "X-Accel-Buffering": "no", // Disable nginx buffering
+      "Access-Control-Allow-Origin": "*", // CORS for SSE
+      "Transfer-Encoding": "chunked", // Explicit chunked encoding
     });
     
     // Force flush headers immediately (critical for production SSE)
@@ -53,23 +55,39 @@ class NotificationsManager {
     // This is CRITICAL for SSE to work in production environments
     if (response.socket) {
       response.socket.setNoDelay(true);
+      // Set socket timeout to prevent premature closure (2 hours)
+      response.socket.setTimeout(7200000);
     }
 
-    // Connection established - no need to send confirmation toast
+    // Send initial connection confirmation immediately
+    // This helps detect connection issues early
+    try {
+      response.write(`:connected\n\n`);
+      console.log(`[Notifications] Initial connection message sent to customer ${customerId}`);
+    } catch (error) {
+      console.error(`[Notifications] Error sending initial message to customer ${customerId}:`, error);
+    }
 
     // Setup cleanup on connection close
     response.on("close", () => {
       this.removeClient(customerId, response);
     });
 
-    // Send heartbeat every 30 seconds to keep connection alive
+    // Send heartbeat every 15 seconds to keep connection alive
+    // Reduced from 30s to prevent proxy timeouts (Cloudflare/Nginx typically 60s)
     const heartbeatInterval = setInterval(() => {
       if (response.writableEnded) {
         clearInterval(heartbeatInterval);
         return;
       }
-      response.write(":heartbeat\n\n");
-    }, 30000);
+      try {
+        response.write(":heartbeat\n\n");
+        console.log(`[Notifications] Heartbeat sent to customer ${customerId}`);
+      } catch (error) {
+        console.error(`[Notifications] Error sending heartbeat to customer ${customerId}:`, error);
+        clearInterval(heartbeatInterval);
+      }
+    }, 15000);
 
     response.on("close", () => {
       clearInterval(heartbeatInterval);

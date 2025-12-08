@@ -1,0 +1,15 @@
+{
+  "query": "\nSELECT \n  email,\n  balance,\n  name\nFROM customers\nWHERE email = 'xkelrix@gmail.com';\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute \nSELECT \n  email,\n  balance,\n  name\nFROM customers\nWHERE email = 'xkelrix@gmail.com';\n",
+  "rows": [
+    {
+      "email": "xkelrix@gmail.com",
+      "balance": "299",
+      "name": "xkelrix"
+    }
+  ],
+  "messages": [],
+  "stdout": "email\tbalance\tname\nxkelrix@gmail.com\t299\txkelrix\n",
+  "stderr": "",
+  "execution_time_ms": 59
+}

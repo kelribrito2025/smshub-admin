@@ -8,6 +8,22 @@ import { processFirstRechargeBonus } from "./db-helpers/affiliate-helpers";
 
 const router = Router();
 
+// Middleware to log ALL requests to webhook (even if they fail)
+router.use("/webhook/pix", (req, res, next) => {
+  const timestamp = new Date().toISOString();
+  console.log("\n" + "=".repeat(80));
+  console.log(`[${timestamp}] 🔔 WEBHOOK REQUEST RECEIVED`);
+  console.log("=".repeat(80));
+  console.log("Method:", req.method);
+  console.log("URL:", req.url);
+  console.log("Headers:", JSON.stringify(req.headers, null, 2));
+  console.log("Body:", JSON.stringify(req.body, null, 2));
+  console.log("IP:", req.ip || req.connection.remoteAddress);
+  console.log("User-Agent:", req.get("user-agent"));
+  console.log("=".repeat(80) + "\n");
+  next();
+});
+
 /**
  * EfiPay PIX Webhook Endpoint
  * Receives payment confirmation from EfiPay

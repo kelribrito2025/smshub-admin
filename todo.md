@@ -1087,3 +1087,12 @@
 - [ ] Testar novamente em produção
 - [ ] Validar que saldo é creditado corretamente
 - [ ] Validar que notificação aparece no painel
+
+## Correção SSE em Produção
+- [x] Identificar problema: conexões SSE caindo em produção devido a timeout de proxy
+- [x] Reduzir intervalo de heartbeat de 30s para 15s
+- [x] Melhorar headers SSE (charset, no-transform, chunked encoding)
+- [x] Adicionar timeout de socket (2 horas)
+- [x] Adicionar mensagem inicial de conexão
+- [x] Adicionar logs detalhados de heartbeat
+- [x] Adicionar middleware de logging no webhook PIX
