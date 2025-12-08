@@ -383,9 +383,11 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
             className="flex items-center gap-2 text-lg md:text-xl font-bold"
           >
             {/* Logo N - oculto no mobile, visível no desktop */}
-            <div className="hidden sm:flex w-8 h-8 bg-green-500 rounded items-center justify-center text-black">
-              N
-            </div>
+            <img 
+              src="/logo-header.png" 
+              alt="Logo Número Virtual" 
+              className="hidden sm:block w-8 h-8 rounded"
+            />
             <span className="text-green-400 hidden sm:inline">Número Virtual</span>
           </button>
 

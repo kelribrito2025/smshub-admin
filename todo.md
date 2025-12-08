@@ -847,3 +847,13 @@
 ## Adicionar Theme Color Mobile
 - [x] Adicionar meta tag theme-color com verde da marca (#00D26A)
 - [x] Testar em navegador mobile
+
+## Testar Badge NOVO - Atualizar Datas
+- [x] Atualizar createdAt do WhatsApp para 5 dias atrás
+- [x] Atualizar createdAt do Outros apps/Site para 5 dias atrás
+- [x] Verificar se badge NOVO aparece no painel
+
+## Adicionar Logo no Header do Painel de Vendas
+- [x] Adicionar logo verde com "N" ao lado do texto "Número Virtual" no StoreLayout
+- [x] Usar mesmo logo do favicon (fundo verde #00D26A, letra N preta)
+- [x] Testar visual no header

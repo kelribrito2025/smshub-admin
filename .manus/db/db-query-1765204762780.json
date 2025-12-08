@@ -1,0 +1,20 @@
+{
+  "query": "SELECT id, name, createdAt \nFROM services \nWHERE name IN ('Whatsapp', 'Outros apps/Site') \nAND active = 1;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT id, name, createdAt \nFROM services \nWHERE name IN ('Whatsapp', 'Outros apps/Site') \nAND active = 1;",
+  "rows": [
+    {
+      "id": "60001",
+      "name": "Whatsapp",
+      "createdAt": "2025-11-30 20:17:32"
+    },
+    {
+      "id": "60009",
+      "name": "Outros apps/Site",
+      "createdAt": "2025-12-01 02:22:25"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tcreatedAt\n60001\tWhatsapp\t2025-11-30 20:17:32\n60009\tOutros apps/Site\t2025-12-01 02:22:25\n",
+  "stderr": "",
+  "execution_time_ms": 55
+}

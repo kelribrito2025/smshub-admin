@@ -1,0 +1,150 @@
+{
+  "query": "SELECT \n  id,\n  name,\n  createdAt,\n  DATEDIFF(NOW(), createdAt) as dias_desde_criacao,\n  CASE \n    WHEN DATEDIFF(NOW(), createdAt) < 7 THEN 'NOVO'\n    ELSE 'ANTIGO'\n  END as status_badge\nFROM services \nWHERE active = 1\nORDER BY createdAt DESC \nLIMIT 20;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT \n  id,\n  name,\n  createdAt,\n  DATEDIFF(NOW(), createdAt) as dias_desde_criacao,\n  CASE \n    WHEN DATEDIFF(NOW(), createdAt) < 7 THEN 'NOVO'\n    ELSE 'ANTIGO'\n  END as status_badge\nFROM services \nWHERE active = 1\nORDER BY createdAt DESC \nLIMIT 20;",
+  "rows": [
+    {
+      "id": "210004",
+      "name": "ZZZ Low Service",
+      "createdAt": "2025-12-05 16:11:39",
+      "dias_desde_criacao": "3",
+      "status_badge": "NOVO"
+    },
+    {
+      "id": "210003",
+      "name": "AAA Low Service",
+      "createdAt": "2025-12-05 16:11:39",
+      "dias_desde_criacao": "3",
+      "status_badge": "NOVO"
+    },
+    {
+      "id": "210002",
+      "name": "AAA Top Service",
+      "createdAt": "2025-12-05 16:11:39",
+      "dias_desde_criacao": "3",
+      "status_badge": "NOVO"
+    },
+    {
+      "id": "210001",
+      "name": "ZZZ Top Service",
+      "createdAt": "2025-12-05 16:11:38",
+      "dias_desde_criacao": "3",
+      "status_badge": "NOVO"
+    },
+    {
+      "id": "120006",
+      "name": "NETELLER",
+      "createdAt": "2025-12-03 01:45:21",
+      "dias_desde_criacao": "5",
+      "status_badge": "NOVO"
+    },
+    {
+      "id": "120008",
+      "name": "WorldRemit",
+      "createdAt": "2025-12-03 01:45:21",
+      "dias_desde_criacao": "5",
+      "status_badge": "NOVO"
+    },
+    {
+      "id": "120005",
+      "name": "Cryptonow",
+      "createdAt": "2025-12-03 01:45:21",
+      "dias_desde_criacao": "5",
+      "status_badge": "NOVO"
+    },
+    {
+      "id": "120007",
+      "name": "Simply",
+      "createdAt": "2025-12-03 01:45:21",
+      "dias_desde_criacao": "5",
+      "status_badge": "NOVO"
+    },
+    {
+      "id": "120004",
+      "name": "Blackcatcard",
+      "createdAt": "2025-12-03 01:45:20",
+      "dias_desde_criacao": "5",
+      "status_badge": "NOVO"
+    },
+    {
+      "id": "120003",
+      "name": "Service AHE",
+      "createdAt": "2025-12-03 01:45:18",
+      "dias_desde_criacao": "5",
+      "status_badge": "NOVO"
+    },
+    {
+      "id": "120002",
+      "name": "Astropay",
+      "createdAt": "2025-12-03 01:45:17",
+      "dias_desde_criacao": "5",
+      "status_badge": "NOVO"
+    },
+    {
+      "id": "120001",
+      "name": "Bybit",
+      "createdAt": "2025-12-03 01:45:16",
+      "dias_desde_criacao": "5",
+      "status_badge": "NOVO"
+    },
+    {
+      "id": "90007",
+      "name": "White Calling",
+      "createdAt": "2025-12-01 21:23:56",
+      "dias_desde_criacao": "7",
+      "status_badge": "ANTIGO"
+    },
+    {
+      "id": "90006",
+      "name": "Service EML",
+      "createdAt": "2025-12-01 21:23:55",
+      "dias_desde_criacao": "7",
+      "status_badge": "ANTIGO"
+    },
+    {
+      "id": "90004",
+      "name": "Service GMSG",
+      "createdAt": "2025-12-01 21:23:54",
+      "dias_desde_criacao": "7",
+      "status_badge": "ANTIGO"
+    },
+    {
+      "id": "90005",
+      "name": "Service GHT",
+      "createdAt": "2025-12-01 21:23:54",
+      "dias_desde_criacao": "7",
+      "status_badge": "ANTIGO"
+    },
+    {
+      "id": "90003",
+      "name": "Xiaomi",
+      "createdAt": "2025-12-01 21:23:52",
+      "dias_desde_criacao": "7",
+      "status_badge": "ANTIGO"
+    },
+    {
+      "id": "90001",
+      "name": "Service TEST_API",
+      "createdAt": "2025-12-01 17:01:02",
+      "dias_desde_criacao": "7",
+      "status_badge": "ANTIGO"
+    },
+    {
+      "id": "60413",
+      "name": "Airtel",
+      "createdAt": "2025-12-01 03:02:50",
+      "dias_desde_criacao": "7",
+      "status_badge": "ANTIGO"
+    },
+    {
+      "id": "60415",
+      "name": "Budweiser",
+      "createdAt": "2025-12-01 03:02:50",
+      "dias_desde_criacao": "7",
+      "status_badge": "ANTIGO"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tcreatedAt\tdias_desde_criacao\tstatus_badge\n210004\tZZZ Low Service\t2025-12-05 16:11:39\t3\tNOVO\n210003\tAAA Low Service\t2025-12-05 16:11:39\t3\tNOVO\n210002\tAAA Top Service\t2025-12-05 16:11:39\t3\tNOVO\n210001\tZZZ Top Service\t2025-12-05 16:11:38\t3\tNOVO\n120006\tNETELLER\t2025-12-03 01:45:21\t5\tNOVO\n120008\tWorldRemit\t2025-12-03 01:45:21\t5\tNOVO\n120005\tCryptonow\t2025-12-03 01:45:21\t5\tNOVO\n120007\tSimply\t2025-12-03 01:45:21\t5\tNOVO\n120004\tBlackcatcard\t2025-12-03 01:45:20\t5\tNOVO\n120003\tService AHE\t2025-12-03 01:45:18\t5\tNOVO\n120002\tAstropay\t2025-12-03 01:45:17\t5\tNOVO\n120001\tBybit\t2025-12-03 01:45:16\t5\tNOVO\n90007\tWhite Calling\t2025-12-01 21:23:56\t7\tANTIGO\n90006\tService EML\t2025-12-01 21:23:55\t7\tANTIGO\n90004\tService GMSG\t2025-12-01 21:23:54\t7\tANTIGO\n90005\tService GHT\t2025-12-01 21:23:54\t7\tANTIGO\n90003\tXiaomi\t2025-12-01 21:23:52\t7\tANTIGO\n90001\tService TEST_API\t2025-12-01 17:01:02\t7\tANTIGO\n60413\tAirtel\t2025-12-01 03:02:50\t7\tANTIGO\n60415\tBudweiser\t2025-12-01 03:02:50\t7\tANTIGO\n",
+  "stderr": "",
+  "execution_time_ms": 79
+}

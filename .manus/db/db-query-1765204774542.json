@@ -1,0 +1,24 @@
+{
+  "query": "SELECT \n  id,\n  name,\n  createdAt,\n  DATEDIFF(NOW(), createdAt) as dias_desde_criacao,\n  CASE \n    WHEN DATEDIFF(NOW(), createdAt) < 7 THEN 'NOVO ✨'\n    ELSE 'ANTIGO'\n  END as status_badge\nFROM services \nWHERE name IN ('Whatsapp', 'Outros apps/Site') \nAND active = 1;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT \n  id,\n  name,\n  createdAt,\n  DATEDIFF(NOW(), createdAt) as dias_desde_criacao,\n  CASE \n    WHEN DATEDIFF(NOW(), createdAt) < 7 THEN 'NOVO ✨'\n    ELSE 'ANTIGO'\n  END as status_badge\nFROM services \nWHERE name IN ('Whatsapp', 'Outros apps/Site') \nAND active = 1;",
+  "rows": [
+    {
+      "id": "60001",
+      "name": "Whatsapp",
+      "createdAt": "2025-12-03 14:39:28",
+      "dias_desde_criacao": "5",
+      "status_badge": "NOVO ✨"
+    },
+    {
+      "id": "60009",
+      "name": "Outros apps/Site",
+      "createdAt": "2025-12-03 14:39:28",
+      "dias_desde_criacao": "5",
+      "status_badge": "NOVO ✨"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tcreatedAt\tdias_desde_criacao\tstatus_badge\n60001\tWhatsapp\t2025-12-03 14:39:28\t5\tNOVO ✨\n60009\tOutros apps/Site\t2025-12-03 14:39:28\t5\tNOVO ✨\n",
+  "stderr": "",
+  "execution_time_ms": 54
+}
