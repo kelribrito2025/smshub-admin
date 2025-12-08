@@ -865,3 +865,10 @@
 - [x] Corrigir para retornar ctx.user (já populado pelo verifyAdminJWT)
 - [x] Corrigir useAuth: aguardar adminMeQuery terminar antes de tentar OAuth
 - [x] Testar: login → adminAuth.me retorna usuário → não redireciona
+
+
+## Corrigir Redirecionamento Após Login Admin
+- [x] Verificar onSuccess do loginMutation em AdminLogin.tsx
+- [x] Adicionar invalidação do cache adminAuth.me após login
+- [x] Adicionar redirecionamento para /admin/dashboard após login
+- [x] Testar: login → mensagem de sucesso → redireciona para dashboard
