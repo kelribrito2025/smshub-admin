@@ -1,4 +1,4 @@
-import { X, Shield, Zap, Lock, Mail, User, Eye, EyeOff } from 'lucide-react';
+import { X, Shield, Zap, Lock, Mail, User } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
@@ -13,13 +13,14 @@ export default function LoginModal({ isOpen, onClose, onLogin, onRegister }: Log
   const [isRegisterMode, setIsRegisterMode] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [confirmEmail, setConfirmEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   if (!isOpen) return null;
 
   // Validações
+  const emailsMatch = email === confirmEmail;
   const isEmailValid = email.includes('@') && email.includes('.');
   const isPasswordStrong = password.length >= 8;
 
@@ -35,6 +36,16 @@ export default function LoginModal({ isOpen, onClose, onLogin, onRegister }: Log
       // Validações de registro
       if (!name || name.trim().length < 3) {
         toast.error('Digite seu nome completo (mínimo 3 caracteres)');
+        return;
+      }
+
+      if (!confirmEmail) {
+        toast.error('Confirme seu email');
+        return;
+      }
+
+      if (!emailsMatch) {
+        toast.error('Os emails não coincidem');
         return;
       }
 
@@ -58,6 +69,7 @@ export default function LoginModal({ isOpen, onClose, onLogin, onRegister }: Log
         await onRegister(email, password, name);
         setName('');
         setEmail('');
+        setConfirmEmail('');
         setPassword('');
         onClose();
         toast.success('Conta criada com sucesso!');
@@ -85,6 +97,7 @@ export default function LoginModal({ isOpen, onClose, onLogin, onRegister }: Log
     setIsRegisterMode(!isRegisterMode);
     setName('');
     setEmail('');
+    setConfirmEmail('');
     setPassword('');
   };
 
@@ -247,7 +260,38 @@ export default function LoginModal({ isOpen, onClose, onLogin, onRegister }: Log
                   </div>
                 </div>
 
-
+                {/* Confirm Email Field (only for register) */}
+                {isRegisterMode && (
+                  <div>
+                    <label className="block text-green-400 text-sm font-bold mb-2 font-mono">
+                      CONFIRMAR EMAIL
+                    </label>
+                    <div className="relative">
+                      <Mail
+                        className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-green-500/50"
+                        strokeWidth={2}
+                      />
+                      <input
+                        type="email"
+                        value={confirmEmail}
+                        onChange={(e) => setConfirmEmail(e.target.value)}
+                        placeholder="confirme seu email"
+                        className={`w-full bg-black border-2 rounded-lg px-12 py-3 text-white placeholder-gray-600 focus:outline-none transition-colors font-mono ${
+                          confirmEmail && !emailsMatch
+                            ? 'border-red-500 focus:border-red-500'
+                            : confirmEmail && emailsMatch
+                            ? 'border-green-500 focus:border-green-500'
+                            : 'border-green-500/30 focus:border-green-500'
+                        }`}
+                        required
+                        disabled={isLoading}
+                      />
+                    </div>
+                    {confirmEmail && !emailsMatch && (
+                      <p className="text-red-400 text-xs mt-1 font-mono">Os emails não coincidem</p>
+                    )}
+                  </div>
+                )}
 
                 {/* Password Field (only for register) */}
                 {isRegisterMode && (
@@ -261,11 +305,11 @@ export default function LoginModal({ isOpen, onClose, onLogin, onRegister }: Log
                         strokeWidth={2}
                       />
                       <input
-                        type={showPassword ? "text" : "password"}
+                        type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="mínimo 8 caracteres"
-                        className={`w-full bg-black border-2 rounded-lg px-12 pr-12 py-3 text-white placeholder-gray-600 focus:outline-none transition-colors font-mono ${
+                        className={`w-full bg-black border-2 rounded-lg px-12 py-3 text-white placeholder-gray-600 focus:outline-none transition-colors font-mono ${
                           password && !isPasswordStrong
                             ? 'border-red-500 focus:border-red-500'
                             : password && isPasswordStrong
@@ -275,18 +319,6 @@ export default function LoginModal({ isOpen, onClose, onLogin, onRegister }: Log
                         required
                         disabled={isLoading}
                       />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 text-green-500/50 hover:text-green-400 transition-colors focus:outline-none"
-                        tabIndex={-1}
-                      >
-                        {showPassword ? (
-                          <EyeOff className="w-5 h-5" strokeWidth={2} />
-                        ) : (
-                          <Eye className="w-5 h-5" strokeWidth={2} />
-                        )}
-                      </button>
                     </div>
                     {password && !isPasswordStrong && (
                       <p className="text-red-400 text-xs mt-1 font-mono">
