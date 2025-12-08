@@ -24,7 +24,7 @@ import StoreSecurity from "./pages/StoreSecurity";
 import StoreSettings from "./pages/StoreSettings";
 import StoreAffiliate from "./pages/StoreAffiliate";
 import StoreRecharges from "./pages/StoreRecharges";
-import VerifyEmail from "./pages/VerifyEmail";
+
 
 import Affiliates from "./pages/admin/Affiliates";
 import { StoreAuthProvider } from "./contexts/StoreAuthContext";
@@ -40,7 +40,7 @@ function Router() {
       <Route path="/settings" component={StoreSettings} />
       <Route path="/affiliate" component={StoreAffiliate} />
       <Route path="/recharges" component={StoreRecharges} />
-      <Route path="/verify-email" component={VerifyEmail} />
+
 
       {/* Área Administrativa (Requer Login Manus) */}
       <Route path={"/admin"} component={Dashboard} />

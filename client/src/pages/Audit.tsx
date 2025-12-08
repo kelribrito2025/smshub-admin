@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { trpc } from '../lib/trpc';
+import { useDebouncedValue } from '../hooks/useDebouncedValue';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
@@ -45,6 +46,7 @@ import DashboardLayout from '../components/DashboardLayout';
 
 export default function Audit() {
   const [searchTerm, setSearchTerm] = useState('');
+  const debouncedSearchTerm = useDebouncedValue(searchTerm, 500); // ✅ Debounce to avoid 429
   const [customerId, setCustomerId] = useState<number | undefined>();
   const [activationId, setActivationId] = useState<number | undefined>();
   const [type, setType] = useState<'credit' | 'debit' | 'purchase' | 'refund' | 'all'>('all');
@@ -123,7 +125,7 @@ export default function Audit() {
   const transactionsQuery = trpc.audit.getTransactions.useQuery({
     customerId,
     activationId,
-    searchTerm: searchTerm.trim() || undefined,
+    searchTerm: debouncedSearchTerm.trim() || undefined,
     type,
     origin,
     startDate: startDate || undefined,

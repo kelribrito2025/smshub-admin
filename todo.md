@@ -1107,6 +1107,19 @@
 - [x] Adicionar staleTime adequado para cada query
 - [ ] Testar em produção e validar que erro 429 desapareceu
 
+## Correção Erro 429 "Too Many Requests"
+- [ ] Investigar logs do servidor para identificar endpoints com mais requisições
+- [ ] Verificar polling intervals em todos os componentes
+- [ ] Identificar queries sem staleTime adequado
+- [ ] Implementar debounce em inputs de busca/filtro
+- [ ] Implementar throttle em scroll/resize handlers
+- [ ] Adicionar cache local (localStorage) para dados estáticos
+- [ ] Configurar staleTime adequado para cada tipo de query
+- [ ] Implementar retry com backoff exponencial em queries críticas
+- [ ] Unificar chamadas duplicadas (mesma query chamada várias vezes)
+- [ ] Verificar se rate limiting no servidor está configurado corretamente
+- [ ] Testar em produção e confirmar que erro 429 desapareceu
+
 ## Correção de Erros CORS no Console
 - [x] Investigar configuração CORS atual no servidor Express
 - [x] Verificar headers CORS retornados pelo servidor (curl -I)
@@ -1132,3 +1145,9 @@
 - [x] Manter retry exponencial (1s, 2s, 4s... 32s)
 - [ ] Testar conexão SSE com autenticação funcionando em produção
 - [ ] Confirmar que notificações chegam em tempo real
+
+## Correções de Bugs - Dezembro 2025
+- [x] Remover ícone de seleção de idioma (globo verde) do header do painel de vendas
+- [x] Corrigir erros HTTP 403 nas conexões SSE (Server-Sent Events)
+- [x] Remover sistema incompleto de verificação de email
+- [x] Silenciar erros SSE 403 (esperado quando admin acessa páginas de customer)

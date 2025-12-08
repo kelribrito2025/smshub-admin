@@ -75,27 +75,7 @@ export const storeRouter = router({
         password: hashedPassword,
       });
 
-      // Gerar código de verificação
-      const { createVerificationCode } = await import('../db');
-      const { sendVerificationEmail } = await import('../email');
-      
-      try {
-        const code = await createVerificationCode(customer.id);
-        await sendVerificationEmail({
-          email: customer.email,
-          code,
-          customerName: customer.name || undefined,
-        });
-        console.log('[Store] Verification email sent:', { customerId: customer.id, email: customer.email });
-      } catch (error) {
-        console.error('[Store] Failed to send verification email:', error);
-        // Não falhar o cadastro se email não enviar
-      }
-
-      return { 
-        ...customer,
-        message: 'Conta criada! Verifique seu email para ativar.' 
-      };
+      return customer;
     }),
 
   // Obter dados do cliente
@@ -1214,53 +1194,5 @@ export const storeRouter = router({
       return recommendation;
     }),
 
-  // Verificar email com código
-  verifyEmail: publicProcedure
-    .input(z.object({
-      customerId: z.number(),
-      code: z.string().length(6),
-    }))
-    .mutation(async ({ input }) => {
-      const { validateVerificationCode } = await import('../db');
-      
-      const result = await validateVerificationCode(input.customerId, input.code);
-      
-      if (!result.valid) {
-        throw new Error(result.error || 'Código inválido');
-      }
 
-      return { success: true, message: 'Email verificado com sucesso!' };
-    }),
-
-  // Reenviar código de verificação
-  resendVerificationCode: publicProcedure
-    .input(z.object({
-      customerId: z.number(),
-    }))
-    .mutation(async ({ input }) => {
-      const customer = await getCustomerById(input.customerId);
-
-      if (!customer) {
-        throw new Error('Usuário não encontrado');
-      }
-
-      if (customer.emailVerified) {
-        throw new Error('Email já verificado');
-      }
-
-      // Gerar novo código
-      const { createVerificationCode } = await import('../db');
-      const { sendVerificationEmail } = await import('../email');
-      
-      const code = await createVerificationCode(input.customerId);
-
-      // Enviar email
-      await sendVerificationEmail({
-        email: customer.email,
-        code,
-        customerName: customer.name || undefined,
-      });
-
-      return { success: true, message: 'Novo código enviado!' };
-    }),
 });

@@ -12,8 +12,8 @@ export function useOperationLock() {
 
   useEffect(() => {
     // ✅ CORREÇÃO: Não conectar se não houver customer autenticado
-    if (!customer?.id) {
-      console.log('[useOperationLock] Skipping SSE connection - no customer authenticated');
+    if (!customer?.id || customer.id === 0) {
+      console.log('[useOperationLock] Skipping SSE connection - no customer authenticated (customer.id:', customer?.id, ')');
       return;
     }
 
@@ -44,15 +44,10 @@ export function useOperationLock() {
 
     eventSource.onerror = (event: Event) => {
       const target = event.target as EventSource;
-      console.error('[useOperationLock] SSE connection error:', {
-        readyState: target.readyState,
-        url: target.url,
-        eventType: event.type,
-      });
       
-      // Se a conexão falhou completamente, resetar estado
+      // Silently handle 403 errors (expected when admin accesses customer pages)
       if (target.readyState === EventSource.CLOSED) {
-        console.log('[useOperationLock] Connection closed, resetting state');
+        console.log('[useOperationLock] Connection closed (likely 403 - user not authorized)');
         setIsOperationInProgress(false);
         setCurrentOperation(null);
       }

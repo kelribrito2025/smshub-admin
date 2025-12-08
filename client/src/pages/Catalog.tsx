@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { trpc } from '../lib/trpc';
+import { useDebouncedValue } from '../hooks/useDebouncedValue';
 import DashboardLayout from '../components/DashboardLayout';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
@@ -33,6 +34,7 @@ interface CatalogItem {
 
 export default function Catalog() {
   const [searchTerm, setSearchTerm] = useState('');
+  const debouncedSearchTerm = useDebouncedValue(searchTerm, 500); // ✅ Debounce to avoid 429
   const [filterCountry, setFilterCountry] = useState<string>('all');
   const [filterStatus, setFilterStatus] = useState<string>('all');
   const [filterApi, setFilterApi] = useState<string>('all');
@@ -62,7 +64,7 @@ export default function Catalog() {
   const { data: pricesResponse, isLoading, refetch } = trpc.prices.getAll.useQuery({
     page: currentPage,
     pageSize,
-    searchTerm: searchTerm.trim() || undefined,
+    searchTerm: debouncedSearchTerm.trim() || undefined,
     filterCountry: filterCountry !== 'all' ? filterCountry : undefined,
     filterStatus: filterStatus !== 'all' ? filterStatus : undefined,
     filterApi: filterApi !== 'all' ? filterApi : undefined,
@@ -72,7 +74,7 @@ export default function Catalog() {
   const { data: allPricesResponse } = trpc.prices.getAll.useQuery(
     undefined,
     {
-      enabled: !searchTerm && filterCountry === 'all' && filterStatus === 'all' && filterApi === 'all',
+      enabled: !debouncedSearchTerm && filterCountry === 'all' && filterStatus === 'all' && filterApi === 'all',
     }
   );
 

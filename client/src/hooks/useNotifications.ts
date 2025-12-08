@@ -39,8 +39,8 @@ export function useNotifications(options: UseNotificationsOptions) {
 
   useEffect(() => {
     // ✅ CORREÇÃO: Não conectar se não houver customer autenticado
-    if (!customerId) {
-      console.log('[Notifications] Skipping SSE connection - no customer ID provided');
+    if (!customerId || customerId === 0) {
+      console.log('[Notifications] Skipping SSE connection - no customer ID provided (customerId:', customerId, ')');
       return;
     }
 
@@ -63,6 +63,11 @@ export function useNotifications(options: UseNotificationsOptions) {
         });
 
         if (!response.ok) {
+          // 403 is expected when admin accesses customer pages - don't log as error
+          if (response.status === 403) {
+            console.log(`[Notifications] SSE connection rejected (403) - user not authorized for this customer`);
+            return; // Silently exit, don't retry
+          }
           console.error(`[Notifications] SSE connection failed: ${response.status} ${response.statusText}`);
           throw new Error(`HTTP ${response.status}`);
         }
