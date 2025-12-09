@@ -146,7 +146,8 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
     
     // Invalidate queries when balance updated or payment confirmed
     if (notification.type === 'pix_payment_confirmed' || notification.type === 'balance_updated') {
-      customerQuery.refetch();
+      // ✅ Use utils.invalidate() instead of customerQuery.refetch() to avoid dependency
+      utils.store.getCustomer.invalidate();
       // Tocar som de notificação de recarga (apenas se não for som de dinheiro)
       if (!notification.playSound) {
         playNotificationSound('recharge');
@@ -156,9 +157,9 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
     if (notification.type === 'recharge_completed') {
       console.log('[Store] Invalidating recharges cache after payment confirmation');
       utils.recharges.getMyRecharges.invalidate();
-      customerQuery.refetch(); // Also refresh balance
+      utils.store.getCustomer.invalidate(); // ✅ Use utils.invalidate() instead of customerQuery.refetch()
     }
-  }, [customerQuery, utils]); // Dependencies: only recreate if these change
+  }, [utils]); // ✅ FIXED: Only depend on utils (stable), not customerQuery (changes every refetch)
 
   const { isConnected: notificationsConnected } = useNotifications({
     customerId: customer?.id || null,
