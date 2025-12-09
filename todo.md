@@ -1541,3 +1541,11 @@ Se retornar 403, 409, 522 ou 5xx → Cloudflare bloqueando antes do Node.js proc
 - ✅ Apenas 1 conexão SSE ativa por cliente (garantido)
 - ✅ Múltiplas abas/reconexões não criam conexões duplicadas
 - ✅ Debounce de 2s mantido como segurança adicional
+
+## 🐛 Bug: Notificação de Compra Não Aparece
+- [x] Investigar fluxo de notificação após compra de serviço
+- [x] Verificar se backend está enviando evento operation_completed via SSE
+- [x] Verificar se frontend está escutando o evento corretamente
+- [x] Testar fluxo completo de compra e validar notificação
+- [x] Adicionar suporte para operation_completed e operation_failed no useNotifications.ts
+- [x] Criar testes unitários (4 testes passaram)

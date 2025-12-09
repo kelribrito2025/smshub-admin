@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 export interface Notification {
-  type: "pix_payment_confirmed" | "balance_updated" | "sms_received" | "activation_expired" | "recharge_completed";
+  type: "pix_payment_confirmed" | "balance_updated" | "sms_received" | "activation_expired" | "recharge_completed" | "operation_completed" | "operation_failed";
   title: string;
   message: string;
   data?: any;
@@ -215,6 +215,22 @@ function showNotificationToast(notification: Notification) {
       toast.warning(notification.title, {
         description: notification.message,
         duration: 5000,
+      });
+      break;
+
+    case "operation_completed":
+      toast.success(notification.title, {
+        description: notification.message,
+        duration: 4000,
+        icon: "✅",
+      });
+      break;
+
+    case "operation_failed":
+      toast.error(notification.title, {
+        description: notification.message,
+        duration: 5000,
+        icon: "❌",
       });
       break;
 
