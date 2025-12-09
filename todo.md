@@ -1238,6 +1238,6 @@ Mover registro do webhook PIX para ANTES do express.json() (seguir padrão do St
 - [x] 4. Problema identificado: req.body estava undefined (faltava express.json() no webhook)
 - [x] 5. Correção aplicada: adicionado express.json() ao webhook PIX
 - [x] 6. Webhook testado em dev e funcionando corretamente
-- [ ] 7. Criar checkpoint e publicar em produção
+- [x] 7. Criar checkpoint e publicar em produção (checkpoint f206a8d3)
 - [ ] 8. Reconfigurar webhook na EfiPay após deploy
 - [ ] 9. Creditar transação pendente de criptomoedazcore@gmail.com manualmente
