@@ -1,5 +1,7 @@
 import React from 'react';
 import { Settings, Volume2, Bell, CheckCircle2, Play } from 'lucide-react';
+import { useLocation } from 'wouter';
+import { useStoreAuth } from '../contexts/StoreAuthContext';
 import StoreLayout from '../components/StoreLayout';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -17,7 +19,20 @@ const SOUND_LIBRARY = [
 ];
 
 export default function StoreSettings() {
+  const { customer } = useStoreAuth();
+  const [, setLocation] = useLocation();
   const [settings, setSettings] = React.useState<SoundSettings>(getSoundSettings());
+
+  // Redirect to /store if not authenticated
+  React.useEffect(() => {
+    if (!customer) {
+      setLocation('/');
+    }
+  }, [customer, setLocation]);
+
+  if (!customer) {
+    return null; // Will redirect in useEffect
+  }
 
   // Salvar configurações automaticamente quando mudarem
   React.useEffect(() => {

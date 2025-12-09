@@ -18,6 +18,17 @@ export default function StoreRecharges() {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showCanceledMessage, setShowCanceledMessage] = useState(false);
 
+  // Redirect to /store if not authenticated
+  useEffect(() => {
+    if (!customer) {
+      setLocation('/');
+    }
+  }, [customer, setLocation]);
+
+  if (!customer) {
+    return null; // Will redirect in useEffect
+  }
+
   // Check for Stripe return params
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);

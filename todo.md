@@ -1605,3 +1605,10 @@ Se retornar 403, 409, 522 ou 5xx → Cloudflare bloqueando antes do Node.js proc
 - [x] Atualizar lista de sons em StoreSettings.tsx (manter apenas Digital)
 - [x] Atualizar função de migração em utils.ts
 - [x] Remover código de migração de sons antigos (WAV → MP3)
+
+## 🔒 Proteção de Rotas - Validação de Autenticação
+- [x] Investigar como StoreAccount.tsx implementa proteção de rota
+- [x] Adicionar validação de autenticação em StoreSettings.tsx
+- [x] Adicionar validação de autenticação em StoreRecharges.tsx
+- [x] Testar redirecionamento quando usuário não está logado
+- [x] Validar que todas as páginas protegidas redirecionam corretamente
