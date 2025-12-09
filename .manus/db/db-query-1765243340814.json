@@ -1,0 +1,17 @@
+{
+  "query": "SELECT id, txid, customerId, amount, status FROM pix_transactions WHERE customerId = 480001 AND status = 'pending' LIMIT 1",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT id, txid, customerId, amount, status FROM pix_transactions WHERE customerId = 480001 AND status = 'pending' LIMIT 1",
+  "rows": [
+    {
+      "id": "510015",
+      "txid": "54334eb5390c44a1b249701f03bc7894",
+      "customerId": "480001",
+      "amount": "109",
+      "status": "pending"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttxid\tcustomerId\tamount\tstatus\n510015\t54334eb5390c44a1b249701f03bc7894\t480001\t109\tpending\n",
+  "stderr": "",
+  "execution_time_ms": 55
+}

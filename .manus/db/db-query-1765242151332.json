@@ -1,0 +1,28 @@
+{
+  "query": "SELECT * FROM customers WHERE id = 480001",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT * FROM customers WHERE id = 480001",
+  "rows": [
+    {
+      "id": "480001",
+      "name": "kelri",
+      "email": "criptomoedazcore@gmail.com",
+      "password": "$2b$10$v7Ob8nMpqRPB4c2dFU1nSuMIWY09q5VRQENN4EFv4ehj91QVzUW7C",
+      "balance": "533",
+      "active": "1",
+      "createdAt": "2025-12-08 16:42:27",
+      "updatedAt": "2025-12-09 00:46:02",
+      "pin": "10",
+      "bonusBalance": "0",
+      "referredBy": "NULL",
+      "banned": "0",
+      "bannedAt": "NULL",
+      "bannedReason": "NULL",
+      "emailVerified": "0",
+      "emailVerifiedAt": "NULL"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\temail\tpassword\tbalance\tactive\tcreatedAt\tupdatedAt\tpin\tbonusBalance\treferredBy\tbanned\tbannedAt\tbannedReason\temailVerified\temailVerifiedAt\n480001\tkelri\tcriptomoedazcore@gmail.com\t$2b$10$v7Ob8nMpqRPB4c2dFU1nSuMIWY09q5VRQENN4EFv4ehj91QVzUW7C\t533\t1\t2025-12-08 16:42:27\t2025-12-09 00:46:02\t10\t0\tNULL\t0\tNULL\tNULL\t0\tNULL\n",
+  "stderr": "",
+  "execution_time_ms": 50
+}

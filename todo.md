@@ -1211,3 +1211,18 @@
 - [x] Testar acessibilidade do endpoint externamente (HTTP 200 OK)
 - [ ] Fazer pagamento PIX de teste
 - [ ] Validar que saldo é creditado automaticamente
+
+## 🔥 CRÍTICO - Webhook PIX Não Recebe Chamadas da EfiPay
+- [x] Corrigir ordem dos middlewares no Express (webhook ANTES do express.json())
+- [x] Testar webhook com payload simulado da EfiPay
+- [ ] Validar que webhook recebe requisições corretamente
+- [ ] Fazer teste real de pagamento PIX em produção
+
+### Diagnóstico Completo:
+- ✅ SSL/TLS funcionando perfeitamente (TLS 1.3, certificado válido)
+- ❌ Webhook registrado DEPOIS do express.json() (linha 99 do index.ts)
+- ❌ Body sendo consumido antes de chegar no webhook
+- ✅ Webhook responde 200 OK para requisições manuais
+
+### Solução:
+Mover registro do webhook PIX para ANTES do express.json() (seguir padrão do Stripe)

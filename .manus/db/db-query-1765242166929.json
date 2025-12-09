@@ -1,0 +1,114 @@
+{
+  "query": "SELECT txid, status, amount, customerId, createdAt, paidAt FROM pix_transactions WHERE customerId = 480001 ORDER BY createdAt DESC",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT txid, status, amount, customerId, createdAt, paidAt FROM pix_transactions WHERE customerId = 480001 ORDER BY createdAt DESC",
+  "rows": [
+    {
+      "txid": "9596b322562b468aa3e45235040300fc",
+      "status": "paid",
+      "amount": "233",
+      "customerId": "480001",
+      "createdAt": "2025-12-09 00:41:50",
+      "paidAt": "2025-12-09 00:44:00"
+    },
+    {
+      "txid": "d2d97b134e764b4996bb9bba1eb84119",
+      "status": "pending",
+      "amount": "233",
+      "customerId": "480001",
+      "createdAt": "2025-12-09 00:35:50",
+      "paidAt": "NULL"
+    },
+    {
+      "txid": "abc4c01f858c434883315733afb96f92",
+      "status": "pending",
+      "amount": "112",
+      "customerId": "480001",
+      "createdAt": "2025-12-09 00:06:31",
+      "paidAt": "NULL"
+    },
+    {
+      "txid": "54334eb5390c44a1b249701f03bc7894",
+      "status": "pending",
+      "amount": "109",
+      "customerId": "480001",
+      "createdAt": "2025-12-09 00:04:14",
+      "paidAt": "NULL"
+    },
+    {
+      "txid": "ed627307c6434f96b195abe1a3f27a6c",
+      "status": "paid",
+      "amount": "110",
+      "customerId": "480001",
+      "createdAt": "2025-12-08 23:48:39",
+      "paidAt": "2025-12-09 00:07:05"
+    },
+    {
+      "txid": "ce7a35f6d88d457d82e89abf2b7e76c5",
+      "status": "paid",
+      "amount": "133",
+      "customerId": "480001",
+      "createdAt": "2025-12-08 23:39:08",
+      "paidAt": "2025-12-08 23:47:54"
+    },
+    {
+      "txid": "45f33b0fc78443b49e7d24676ebf23ab",
+      "status": "paid",
+      "amount": "255",
+      "customerId": "480001",
+      "createdAt": "2025-12-08 23:37:36",
+      "paidAt": "2025-12-08 23:47:54"
+    },
+    {
+      "txid": "0c7261b78dd94da687d64316ceb72a49",
+      "status": "paid",
+      "amount": "155",
+      "customerId": "480001",
+      "createdAt": "2025-12-08 23:19:44",
+      "paidAt": "2025-12-08 23:47:54"
+    },
+    {
+      "txid": "0d66cc940e054377a382ba44056d7e22",
+      "status": "paid",
+      "amount": "140",
+      "customerId": "480001",
+      "createdAt": "2025-12-08 23:14:39",
+      "paidAt": "2025-12-08 23:47:54"
+    },
+    {
+      "txid": "d30fa47ec103421e8c55bedf1bbf2400",
+      "status": "paid",
+      "amount": "200",
+      "customerId": "480001",
+      "createdAt": "2025-12-08 21:37:50",
+      "paidAt": "2025-12-08 23:47:55"
+    },
+    {
+      "txid": "3af11d5c587140869edd2f9c87897e77",
+      "status": "paid",
+      "amount": "222",
+      "customerId": "480001",
+      "createdAt": "2025-12-08 21:36:56",
+      "paidAt": "2025-12-08 23:47:55"
+    },
+    {
+      "txid": "df433801abf2485bb4c6f8d4a5ad3779",
+      "status": "paid",
+      "amount": "333",
+      "customerId": "480001",
+      "createdAt": "2025-12-08 21:30:34",
+      "paidAt": "2025-12-08 23:47:55"
+    },
+    {
+      "txid": "b2597ad58fe24fc7ae3d92ac465846ce",
+      "status": "paid",
+      "amount": "120",
+      "customerId": "480001",
+      "createdAt": "2025-12-08 21:22:24",
+      "paidAt": "2025-12-08 21:26:32"
+    }
+  ],
+  "messages": [],
+  "stdout": "txid\tstatus\tamount\tcustomerId\tcreatedAt\tpaidAt\n9596b322562b468aa3e45235040300fc\tpaid\t233\t480001\t2025-12-09 00:41:50\t2025-12-09 00:44:00\nd2d97b134e764b4996bb9bba1eb84119\tpending\t233\t480001\t2025-12-09 00:35:50\tNULL\nabc4c01f858c434883315733afb96f92\tpending\t112\t480001\t2025-12-09 00:06:31\tNULL\n54334eb5390c44a1b249701f03bc7894\tpending\t109\t480001\t2025-12-09 00:04:14\tNULL\ned627307c6434f96b195abe1a3f27a6c\tpaid\t110\t480001\t2025-12-08 23:48:39\t2025-12-09 00:07:05\nce7a35f6d88d457d82e89abf2b7e76c5\tpaid\t133\t480001\t2025-12-08 23:39:08\t2025-12-08 23:47:54\n45f33b0fc78443b49e7d24676ebf23ab\tpaid\t255\t480001\t2025-12-08 23:37:36\t2025-12-08 23:47:54\n0c7261b78dd94da687d64316ceb72a49\tpaid\t155\t480001\t2025-12-08 23:19:44\t2025-12-08 23:47:54\n0d66cc940e054377a382ba44056d7e22\tpaid\t140\t480001\t2025-12-08 23:14:39\t2025-12-08 23:47:54\nd30fa47ec103421e8c55bedf1bbf2400\tpaid\t200\t480001\t2025-12-08 21:37:50\t2025-12-08 23:47:55\n3af11d5c587140869edd2f9c87897e77\tpaid\t222\t480001\t2025-12-08 21:36:56\t2025-12-08 23:47:55\ndf433801abf2485bb4c6f8d4a5ad3779\tpaid\t333\t480001\t2025-12-08 21:30:34\t2025-12-08 23:47:55\nb2597ad58fe24fc7ae3d92ac465846ce\tpaid\t120\t480001\t2025-12-08 21:22:24\t2025-12-08 21:26:32\n",
+  "stderr": "",
+  "execution_time_ms": 53
+}

@@ -1,0 +1,15 @@
+{
+  "query": "\n-- 1. Atualizar saldo do cliente\nUPDATE customers SET balance = balance + 200, updatedAt = CURRENT_TIMESTAMP WHERE id = 480001;\n\n-- 2. Marcar transação como paga\nUPDATE pix_transactions \nSET status = 'paid', paidAt = CURRENT_TIMESTAMP, updatedAt = CURRENT_TIMESTAMP \nWHERE customerId = 480001 AND amount = 200 AND status = 'pending'\nLIMIT 1;\n\n-- 3. Verificar saldo final\nSELECT id, email, balance FROM customers WHERE id = 480001;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute \n-- 1. Atualizar saldo do cliente\nUPDATE customers SET balance = balance + 200, updatedAt = CURRENT_TIMESTAMP WHERE id = 480001;\n\n-- 2. Marcar transação como paga\nUPDATE pix_transactions \nSET status = 'paid', paidAt = CURRENT_TIMESTAMP, updatedAt = CURRENT_TIMESTAMP \nWHERE customerId = 480001 AND amount = 200 AND status = 'pending'\nLIMIT 1;\n\n-- 3. Verificar saldo final\nSELECT id, email, balance FROM customers WHERE id = 480001;\n",
+  "rows": [
+    {
+      "id": "480001",
+      "email": "criptomoedazcore@gmail.com",
+      "balance": "933"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\temail\tbalance\n480001\tcriptomoedazcore@gmail.com\t933\n",
+  "stderr": "",
+  "execution_time_ms": 70
+}

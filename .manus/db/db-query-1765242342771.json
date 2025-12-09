@@ -1,0 +1,19 @@
+{
+  "query": "SELECT txid, status, amount, customerId, createdAt, paidAt, pixCopyPaste FROM pix_transactions WHERE amount = 200 AND customerId = 480001 ORDER BY createdAt DESC LIMIT 1",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT txid, status, amount, customerId, createdAt, paidAt, pixCopyPaste FROM pix_transactions WHERE amount = 200 AND customerId = 480001 ORDER BY createdAt DESC LIMIT 1",
+  "rows": [
+    {
+      "txid": "d30fa47ec103421e8c55bedf1bbf2400",
+      "status": "paid",
+      "amount": "200",
+      "customerId": "480001",
+      "createdAt": "2025-12-08 21:37:50",
+      "paidAt": "2025-12-08 23:47:55",
+      "pixCopyPaste": "00020101021226830014BR.GOV.BCB.PIX2561qrcodespix.sejaefi.com.br/v2/6e475a0d08bd44f8bae50efe0310968b5204000053039865802BR5905EFISA6008SAOPAULO62070503***63049F24"
+    }
+  ],
+  "messages": [],
+  "stdout": "txid\tstatus\tamount\tcustomerId\tcreatedAt\tpaidAt\tpixCopyPaste\nd30fa47ec103421e8c55bedf1bbf2400\tpaid\t200\t480001\t2025-12-08 21:37:50\t2025-12-08 23:47:55\t00020101021226830014BR.GOV.BCB.PIX2561qrcodespix.sejaefi.com.br/v2/6e475a0d08bd44f8bae50efe0310968b5204000053039865802BR5905EFISA6008SAOPAULO62070503***63049F24\n",
+  "stderr": "",
+  "execution_time_ms": 65
+}
