@@ -11,7 +11,9 @@ import { copyToClipboard, playNotificationSound } from '../lib/utils';
 import { RechargeModal } from './RechargeModal';
 import NotificationsSidebar from './NotificationsSidebar';
 import ServiceListSkeleton from './ServiceListSkeleton';
+import { useNotifications } from '../hooks/useNotifications';
 import { useCountUp } from '../hooks/useCountUp';
+import { useOperationLock } from '../hooks/useOperationLock';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -30,9 +32,8 @@ interface StoreLayoutProps {
 }
 
 export default function StoreLayout({ children }: StoreLayoutProps) {
-  const { customer, isAuthenticated, requireAuth, logout, isSSEConnected, lastNotification, unreadCount } = useStoreAuth();
-  // ✅ REMOVIDO: useOperationLock (SSE agora está centralizado no StoreAuthContext)
-  const isLocked = false; // Operações não são mais bloqueadas globalmente
+  const { customer, isAuthenticated, requireAuth, logout } = useStoreAuth();
+  const { isLocked } = useOperationLock();
   const [location, setLocation] = useLocation();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCountry, setSelectedCountry] = useState<number | null>(null);
@@ -75,8 +76,15 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
     }
   );
 
-  // ✅ REMOVIDO: customerQuery (agora centralizado no StoreAuthContext)
-  // Usar customer do contexto diretamente
+  // Only query customer data if authenticated
+  const customerQuery = trpc.store.getCustomer.useQuery(
+    { customerId: customer?.id || 0 },
+    { 
+      enabled: !!customer?.id,
+      refetchOnWindowFocus: false,
+      staleTime: 30 * 1000, // 30 seconds (balance updates via SSE)
+    }
+  );
   
   const favoritesQuery = trpc.store.getFavorites.useQuery(
     { customerId: customer?.id || 0 },
@@ -91,43 +99,77 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
     { customerId: customer?.id || 0 },
     { 
       enabled: !!customer?.id,
-      retry: 1, // Apenas 1 retry para evitar 429
       refetchOnWindowFocus: false,
-      staleTime: 2 * 60 * 1000, // 2 minutos (SSE invalida quando necessário)
+      refetchInterval: 60 * 1000, // Poll every 60 seconds (optimized to avoid 429)
+      staleTime: 45 * 1000, // Consider data fresh for 45 seconds
     }
   );
   
   const utils = trpc.useUtils();
 
-  // ✅ REMOVIDO: SSE duplicado (agora centralizado no StoreAuthContext)
-  // ✅ REMOVIDO: notificationsQuery (agora centralizado no StoreAuthContext)
-  // Notificações e unreadCount vem do contexto
-
-  // ✅ Escutar notificações do contexto para invalidar queries locais
-  useEffect(() => {
-    if (lastNotification) {
-      // Purchase completion notification
-      if (lastNotification.type === 'operation_completed' && lastNotification.data?.operation === 'purchase') {
-        const now = Date.now();
-        if (now - lastPurchaseNotification.current < 2000) {
-          return; // Debounce
-        }
-        lastPurchaseNotification.current = now;
-        
-        toast.success(lastNotification.title || 'Compra realizada', {
-          description: lastNotification.message || 'Número SMS adquirido com sucesso',
-          duration: 5000,
-        });
-        utils.store.getMyActivations.invalidate();
-        playNotificationSound('purchase');
-      }
-      
-      // Purchase failure notification
-      if (lastNotification.type === 'operation_failed' && lastNotification.data?.operation === 'purchase') {
-        utils.store.getMyActivations.invalidate();
-      }
+  // Real-time notifications
+  // Wrap onNotification in useCallback to prevent SSE reconnection loops
+  const handleNotification = useCallback((notification: any) => {
+    console.log('[Store] Received notification:', notification);
+    
+    // Balance notification removed during validation phase
+    // Saldo atualiza silenciosamente via SSE
+    
+    // Invalidate queries when balance updated or payment confirmed
+    if (notification.type === 'pix_payment_confirmed' || notification.type === 'balance_updated') {
+      // ✅ Use utils.invalidate() instead of customerQuery.refetch() to avoid dependency
+      utils.store.getCustomer.invalidate();
+      // Som de recarga removido durante fase de validação
     }
-  }, [lastNotification, utils]);
+    // Invalidate recharges cache when recharge is completed
+    if (notification.type === 'recharge_completed') {
+      console.log('[Store] Invalidating recharges cache after payment confirmation');
+      utils.recharges.getMyRecharges.invalidate();
+      utils.store.getCustomer.invalidate(); // ✅ Use utils.invalidate() instead of customerQuery.refetch()
+    }
+    
+    // Handle purchase completion notification (only show after backend confirms)
+    if (notification.type === 'operation_completed' && notification.data?.operation === 'purchase') {
+      // Debounce: ignore duplicate notifications within 2 seconds (multiple SSE connections)
+      const now = Date.now();
+      if (now - lastPurchaseNotification.current < 2000) {
+        console.log('[Store] Ignoring duplicate purchase notification (debounced)');
+        return;
+      }
+      lastPurchaseNotification.current = now;
+      
+      console.log('[Store] Purchase completed - showing success notification');
+      toast.success(notification.title || 'Compra realizada', {
+        description: notification.message || 'Número SMS adquirido com sucesso',
+        duration: 5000,
+      });
+      // Invalidate activations to show new purchase
+      utils.store.getMyActivations.invalidate();
+      playNotificationSound('purchase');
+    }
+    
+    // Handle purchase failure notification
+    if (notification.type === 'operation_failed' && notification.data?.operation === 'purchase') {
+      console.log('[Store] Purchase failed - error already shown by mutation');
+      // Error toast is already shown by the mutation's catch block
+      // Just invalidate to ensure UI is in sync
+      utils.store.getMyActivations.invalidate();
+    }
+  }, [utils]); // ✅ FIXED: Only depend on utils (stable), not customerQuery (changes every refetch)
+
+  const { isConnected: notificationsConnected } = useNotifications({
+    customerId: customer?.id || null,
+    onNotification: handleNotification,
+  });
+
+  // Query notifications to get unread count for badge
+  const notificationsQuery = trpc.notifications.getAll.useQuery(undefined, {
+    enabled: !!customer?.id,
+    refetchOnWindowFocus: false,
+    staleTime: 30 * 1000, // 30 seconds
+  });
+
+  const unreadCount = (notificationsQuery.data || []).filter(n => !n.isRead).length;
   
   const toggleFavoriteMutation = trpc.store.toggleFavorite.useMutation({
     onSuccess: async () => {
@@ -272,7 +314,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
       }
       
       // Check balance first
-      const currentBalance = customer?.balance || 0;
+      const currentBalance = customerQuery.data?.balance || customer?.balance || 0;
       if (currentBalance < service.price) {
         toast.error('Saldo insuficiente', {
           description: `Você precisa de ${formatBalance(service.price)}, mas tem apenas ${formatBalance(currentBalance)}`,
@@ -345,7 +387,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
 
   // Display balance (R$ 0,00 if not authenticated)
   const displayBalance = isAuthenticated 
-    ? (customer?.balance || 0)
+    ? (customerQuery.data?.balance || customer?.balance || 0)
     : 0;
   
   // Animated balance with counter effect
