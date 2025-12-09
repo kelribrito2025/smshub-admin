@@ -1849,3 +1849,55 @@ Garantir que badge do sino e barra lateral atualizem imediatamente quando houver
 - [x] Disparar refetch() automaticamente ao trocar de página
 - [ ] Testar navegação entre páginas (Dashboard → Clientes → Catálogo)
 - [ ] Validar atualização instantânea do badge ao navegar
+
+## 🔄 Reversão de Mudanças Visuais (09/12/2024)
+- [x] Identificar mudanças visuais não solicitadas
+- [x] Reverter para checkpoint 980ddda7 (antes das alterações de UI)
+- [x] Validar que interface está restaurada ao estado original
+- [x] Servidor reiniciado e funcionando corretamente
+
+**Checkpoint restaurado:** 980ddda7 - "Otimização completa do sistema de notificações para atualização imediata"
+**Novo checkpoint após rollback:** 84d712fd
+
+
+---
+
+# 🚨 CORREÇÃO CRÍTICA: Erro 429 (Too Many Requests)
+
+## 🔍 Fase 1: Diagnóstico
+- [x] Investigar onde SSE está sendo criado (useOperationLock + useNotifications)
+- [x] Identificar queries duplicadas (getCustomer, notifications.getAll)
+- [x] Mapear polling desnecessário (getMyActivations, getOperators)
+- [x] Verificar retry configuration em todas as queries
+
+## 🔧 Fase 2: Centralizar SSE
+- [x] Mover SSE para StoreAuthContext (conexão única)
+- [x] Remover SSE duplicado de outros hooks/componentes
+- [x] Garantir cleanup correto ao desmontar
+
+## 🔧 Fase 3: Unificar Queries
+- [x] store.getCustomer → Apenas no StoreAuthContext
+- [x] notifications.getAll → Apenas no StoreAuthContext
+- [x] StoreLayout e NotificationsSidebar → Consumir do contexto
+- [x] Implementar pub/sub para broadcast de notificações
+
+## 🔧 Fase 4: Remover Polling
+- [x] Remover refetchInterval de todas as queries
+- [x] Configurar retry: 1 em todas as queries
+- [x] Configurar staleTime apropriado
+- [x] Desabilitar refetchOnWindowFocus onde não necessário
+
+## ✅ Fase 5: Testes
+- [x] Criar testes unitários para validar arquitetura
+- [x] Validar que apenas 1 SSE está ativo
+- [x] Validar que queries não são duplicadas
+
+## 📦 Fase 6: Entrega
+- [ ] Documentar mudanças
+- [ ] Criar checkpoint
+- [ ] Entregar ao usuário para teste
+
+---
+
+## ⚠️ REGRA CRÍTICA
+**ZERO MUDANÇAS VISUAIS** - Apenas lógica interna, sem tocar em layout/HTML/CSS/Tailwind

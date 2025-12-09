@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useEffect, ReactNode } from 'react
 import { trpc } from '../lib/trpc';
 import LoginModal from '../components/LoginModal';
 import BannedAccountModal from '../components/BannedAccountModal';
+import { useNotifications, type Notification } from '../hooks/useNotifications';
 
 interface Customer {
   id: number;
@@ -25,6 +26,14 @@ interface StoreAuthContextType {
   logout: () => void;
   refreshCustomer: () => Promise<void>;
   requireAuth: (action: () => void) => void;
+  // SSE connection state
+  isSSEConnected: boolean;
+  lastNotification: Notification | null;
+  // Notifications state
+  notifications: any[];
+  unreadCount: number;
+  markAsRead: (notificationId: number) => Promise<void>;
+  markAllAsRead: () => Promise<void>;
 }
 
 const StoreAuthContext = createContext<StoreAuthContextType | undefined>(undefined);
@@ -35,17 +44,73 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isBannedModalOpen, setIsBannedModalOpen] = useState(false);
   const [pendingAction, setPendingAction] = useState<(() => void) | null>(null);
+  const utils = trpc.useUtils();
 
   const loginMutation = trpc.store.login.useMutation();
   const registerMutation = trpc.store.register.useMutation();
+  // ✅ CENTRALIZADO: Query única de customer (sem polling - SSE invalida quando necessário)
   const getCustomerQuery = trpc.store.getCustomer.useQuery(
     { customerId: customer?.id || 0 },
     { 
-      enabled: !!customer?.id, 
-      refetchInterval: 2 * 60 * 1000, // Refresh every 2 minutes (reduced from 30s to avoid 429)
-      staleTime: 1 * 60 * 1000, // Consider fresh for 1 minute
+      enabled: !!customer?.id,
+      retry: 1, // Apenas 1 retry para evitar 429
+      refetchOnWindowFocus: false, // SSE invalida quando necessário
+      staleTime: 5 * 60 * 1000, // Dados frescos por 5 minutos
     }
   );
+
+  // ✅ CENTRALIZADO: Query única de notificações (sem polling - SSE invalida quando necessário)
+  const notificationsQuery = trpc.notifications.getAll.useQuery(undefined, {
+    enabled: !!customer?.id,
+    retry: 1,
+    refetchOnWindowFocus: false,
+    staleTime: 5 * 60 * 1000, // 5 minutos
+  });
+
+  const markAsReadMutation = trpc.notifications.markAsRead.useMutation({
+    onSuccess: () => {
+      utils.notifications.getAll.invalidate();
+    },
+  });
+
+  const markAllAsReadMutation = trpc.notifications.markAllAsRead.useMutation({
+    onSuccess: () => {
+      utils.notifications.getAll.invalidate();
+    },
+  });
+
+  const markAsRead = async (notificationId: number) => {
+    await markAsReadMutation.mutateAsync({ notificationId });
+  };
+
+  const markAllAsRead = async () => {
+    await markAllAsReadMutation.mutateAsync();
+  };
+
+  // ✅ CENTRALIZADO: SSE única conexão para notificações e eventos
+  const { isConnected: isSSEConnected, lastNotification } = useNotifications({
+    customerId: customer?.id || null,
+    autoToast: true, // Mostrar toasts automaticamente
+    onNotification: (notification) => {
+      // Invalidar queries relevantes baseado no tipo de notificação
+      if (notification.type === 'pix_payment_confirmed' || notification.type === 'balance_updated') {
+        utils.store.getCustomer.invalidate();
+        utils.recharges.getMyRecharges.invalidate();
+      }
+      if (notification.type === 'sms_received' || notification.type === 'activation_expired') {
+        utils.store.getMyActivations.invalidate();
+      }
+      if (notification.type === 'operation_completed' || notification.type === 'operation_failed') {
+        utils.store.getMyActivations.invalidate();
+        utils.store.getCustomer.invalidate();
+      }
+      // Invalidar notificações para atualizar badge
+      utils.notifications.getAll.invalidate();
+    },
+  });
+
+  const notifications = notificationsQuery.data || [];
+  const unreadCount = notifications.filter((n: any) => !n.isRead).length;
 
   // Load customer from localStorage on mount
   useEffect(() => {
@@ -157,6 +222,12 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
         logout,
         refreshCustomer,
         requireAuth,
+        isSSEConnected,
+        lastNotification,
+        notifications,
+        unreadCount,
+        markAsRead,
+        markAllAsRead,
       }}
     >
       {children}
