@@ -8,6 +8,12 @@ import { processFirstRechargeBonus } from "./db-helpers/affiliate-helpers";
 
 const router = Router();
 
+// Simple test endpoint to verify routing
+router.get("/webhook/pix/test", (req, res) => {
+  console.log("[PIX Webhook] Test endpoint called");
+  res.status(200).json({ status: "ok", message: "Webhook routing is working", timestamp: new Date().toISOString() });
+});
+
 // Middleware to log ALL requests to webhook (even if they fail)
 router.use("/webhook/pix", (req, res, next) => {
   const timestamp = new Date().toISOString();
@@ -30,27 +36,38 @@ router.use("/webhook/pix", (req, res, next) => {
  */
 router.post("/webhook/pix", async (req, res) => {
   try {
-    console.log("\n\n========== PIX WEBHOOK CALLED - VERSION 2.0 ==========\n");
-    console.log("[PIX Webhook] Received webhook:", JSON.stringify(req.body, null, 2));
+    console.log("\n\n========== PIX WEBHOOK CALLED - VERSION 3.0 ==========\n");
+    console.log("[PIX Webhook] Step 1: Received webhook");
+    console.log("[PIX Webhook] Body:", JSON.stringify(req.body, null, 2));
 
+    console.log("[PIX Webhook] Step 2: Getting database connection...");
     const db = await getDb();
     if (!db) {
-      console.error("[PIX Webhook] Database not available");
+      console.error("[PIX Webhook] ERROR: Database not available");
       return res.status(500).json({ error: "Database not available" });
     }
+    console.log("[PIX Webhook] Step 2: Database OK");
 
     // Handle test webhook from EfiPay (empty or test payload)
+    console.log("[PIX Webhook] Step 3: Checking payload...");
     if (!req.body.pix || !Array.isArray(req.body.pix) || req.body.pix.length === 0) {
-      console.log("[PIX Webhook] Test webhook received (no pix data)");
+      console.log("[PIX Webhook] Test webhook received (no pix data) - returning success");
       return res.status(200).json({ success: true, message: "Webhook configured successfully" });
     }
+    console.log("[PIX Webhook] Step 3: Payload has pix data");
 
     // Parse webhook data
+    console.log("[PIX Webhook] Step 4: Checking efiPayClient...");
+    console.log("[PIX Webhook] efiPayClient is:", efiPayClient ? "initialized" : "NULL");
     if (!efiPayClient) {
-      console.error('[PIX Webhook] Payment system not configured');
+      console.error('[PIX Webhook] ERROR: Payment system not configured');
       return res.status(503).json({ error: 'Payment system not configured' });
     }
+    console.log("[PIX Webhook] Step 4: efiPayClient OK");
+    
+    console.log("[PIX Webhook] Step 5: Parsing webhook payload...");
     const pixData = efiPayClient.parseWebhookPayload(req.body);
+    console.log("[PIX Webhook] Step 5: Payload parsed successfully");
 
     console.log("[PIX Webhook] Payment received:", {
       txid: pixData.txid,
@@ -220,8 +237,13 @@ router.post("/webhook/pix", async (req, res) => {
 
     return res.status(200).json({ success: true });
   } catch (error) {
-    console.error("[PIX Webhook] Error processing webhook:", error);
-    return res.status(500).json({ error: "Internal server error" });
+    console.error("\n\n========== PIX WEBHOOK ERROR ==========\n");
+    console.error("[PIX Webhook] Error processing webhook:");
+    console.error("Error message:", error instanceof Error ? error.message : String(error));
+    console.error("Error stack:", error instanceof Error ? error.stack : "No stack trace");
+    console.error("Error object:", error);
+    console.error("========================================\n\n");
+    return res.status(500).json({ error: "Internal server error", message: error instanceof Error ? error.message : String(error) });
   }
 });
 

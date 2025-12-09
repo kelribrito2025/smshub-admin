@@ -1226,3 +1226,18 @@
 
 ### Solução:
 Mover registro do webhook PIX para ANTES do express.json() (seguir padrão do Stripe)
+
+
+## 🔥 INVESTIGAÇÃO WEBHOOK PIX (URGENTE - 08/12/2024)
+
+**Contexto:** Pagamento PIX realizado com criptomoedazcore@gmail.com, mas webhook não foi chamado.
+
+- [x] 1. Verificar URL do webhook registrada na EfiPay (URL correta, mas retorna erro 500)
+- [x] 2. Adicionar logs de entrada bruta no topo do handler /api/webhook/pix (antes de qualquer lógica)
+- [x] 3. Testar endpoint manualmente em produção: POST https://app.numero-virtual.com/api/webhook/pix (retorna erro 500)
+- [x] 4. Problema identificado: req.body estava undefined (faltava express.json() no webhook)
+- [x] 5. Correção aplicada: adicionado express.json() ao webhook PIX
+- [x] 6. Webhook testado em dev e funcionando corretamente
+- [ ] 7. Criar checkpoint e publicar em produção
+- [ ] 8. Reconfigurar webhook na EfiPay após deploy
+- [ ] 9. Creditar transação pendente de criptomoedazcore@gmail.com manualmente

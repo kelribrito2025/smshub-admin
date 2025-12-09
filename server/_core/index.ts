@@ -87,8 +87,8 @@ async function startServer() {
   // Stripe Webhook (MUST be registered BEFORE express.json() middleware to receive raw body)
   app.use("/api/stripe", express.raw({ type: "application/json" }), stripeWebhookRouter);
   
-  // PIX Webhook (MUST be registered BEFORE express.json() middleware to receive raw body)
-  app.use("/api", pixWebhookRouter);
+  // PIX Webhook (needs JSON body parser for EfiPay payloads)
+  app.use("/api", express.json(), pixWebhookRouter);
   
   // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));
