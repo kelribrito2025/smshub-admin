@@ -12,7 +12,7 @@ export interface NotificationClient {
 }
 
 export interface Notification {
-  type: "pix_payment_confirmed" | "balance_updated" | "sms_received" | "activation_expired" | "operation_started" | "operation_completed" | "operation_failed" | "recharge_completed";
+  type: "pix_payment_confirmed" | "balance_updated" | "sms_received" | "activation_expired" | "operation_started" | "operation_completed" | "operation_failed" | "recharge_completed" | "admin_notification";
   title: string;
   message: string;
   data?: any;

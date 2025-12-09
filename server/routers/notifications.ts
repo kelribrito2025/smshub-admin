@@ -1,7 +1,7 @@
-import { router, publicProcedure } from "../_core/trpc";
+import { router, publicProcedure, protectedProcedure } from "../_core/trpc";
 import { getDb } from "../db";
 import { notifications } from "../../drizzle/schema";
-import { eq, desc, and } from "drizzle-orm";
+import { eq, desc, and, or, isNull } from "drizzle-orm";
 import { z } from "zod";
 
 /**
@@ -22,10 +22,16 @@ export const notificationsRouter = router({
     if (!db) {
       return [];
     }
+    // Get both user-specific and global notifications
     const customerNotifications = await db
       .select()
       .from(notifications)
-      .where(eq(notifications.customerId, ctx.user.id))
+      .where(
+        or(
+          eq(notifications.customerId, ctx.user.id),
+          isNull(notifications.customerId) // Global notifications
+        )
+      )
       .orderBy(desc(notifications.createdAt))
       .limit(50); // Last 50 notifications
 
@@ -83,6 +89,108 @@ export const notificationsRouter = router({
   }),
 
   /**
+   * Send admin notification (global or individual)
+   * Admin-only endpoint
+   */
+  sendAdminNotification: protectedProcedure
+    .input(
+      z.object({
+        title: z.string().min(1, "Título é obrigatório"),
+        message: z.string().min(1, "Descrição é obrigatória"),
+        type: z.enum(["global", "individual"]),
+        pinOrEmail: z.string().optional(), // Required if type is "individual"
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      // Check if user is admin
+      if (ctx.user.role !== "admin") {
+        throw new Error("Acesso negado: apenas administradores podem enviar notificações");
+      }
+
+      const db = await getDb();
+      if (!db) {
+        throw new Error("Database not available");
+      }
+
+      let targetCustomerId: number | null = null;
+
+      // If individual notification, find customer by PIN or email
+      if (input.type === "individual") {
+        if (!input.pinOrEmail) {
+          throw new Error("PIN ou e-mail é obrigatório para notificações individuais");
+        }
+
+        // Import customers table
+        const { customers } = await import("../../drizzle/schema");
+
+        // Try to parse as PIN (integer)
+        const pinNumber = parseInt(input.pinOrEmail, 10);
+
+        if (!isNaN(pinNumber)) {
+          // Search by PIN
+          const pinResult = await db
+            .select({ id: customers.id })
+            .from(customers)
+            .where(eq(customers.pin, pinNumber))
+            .limit(1);
+
+          if (pinResult.length > 0) {
+            targetCustomerId = pinResult[0].id;
+          } else {
+            throw new Error(`Cliente não encontrado com PIN: ${input.pinOrEmail}`);
+          }
+        } else {
+          // Search by email
+          const emailResult = await db
+            .select({ id: customers.id })
+            .from(customers)
+            .where(eq(customers.email, input.pinOrEmail))
+            .limit(1);
+
+          if (emailResult.length > 0) {
+            targetCustomerId = emailResult[0].id;
+          } else {
+            throw new Error(`Cliente não encontrado com e-mail: ${input.pinOrEmail}`);
+          }
+        }
+      }
+
+      // Create notification in database
+      await db.insert(notifications).values({
+        customerId: targetCustomerId, // NULL for global, specific ID for individual
+        type: "admin_notification",
+        title: input.title,
+        message: input.message,
+        isRead: false,
+      });
+
+      // Send real-time notification via SSE
+      const { notificationsManager } = await import("../notifications-manager");
+      
+      const sseNotification = {
+        type: "admin_notification" as const,
+        title: input.title,
+        message: input.message,
+      };
+
+      if (input.type === "global") {
+        // Send to all connected clients
+        notificationsManager.sendToAll(sseNotification);
+      } else if (targetCustomerId) {
+        // Send to specific customer
+        notificationsManager.sendToCustomer(targetCustomerId, sseNotification);
+      }
+
+      return {
+        success: true,
+        message:
+          input.type === "global"
+            ? "Notificação global enviada com sucesso"
+            : `Notificação enviada para o cliente ${input.pinOrEmail}`,
+      };
+    }),
+
+  /**
    * Get unread count
    */
   getUnreadCount: publicProcedure.query(async ({ ctx }) => {
@@ -123,6 +231,7 @@ function mapNotificationTypeToUIType(
     case "activation_expired":
       return "error";
     case "operation_started":
+    case "admin_notification":
       return "info";
     default:
       return "info";

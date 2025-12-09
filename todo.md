@@ -1628,3 +1628,31 @@ Se retornar 403, 409, 522 ou 5xx → Cloudflare bloqueando antes do Node.js proc
 - [x] Testar com 0 notificações (não deve piscar)
 - [x] Testar com notificações não lidas (deve piscar)
 - [x] Validar que animação para quando todas são marcadas como lidas
+
+## 📢 Sistema de Notificações Admin (Global e Individual)
+
+### Backend
+- [x] Verificar schema da tabela notifications (suporta customerId NULL para global?)
+- [x] Criar endpoint `notifications.sendAdminNotification` no router
+- [x] Validar PIN ou e-mail → converter para customerId
+- [x] Criar notificação global (customerId = NULL) ou individual
+- [x] Atualizar SSE para enviar notificações globais para todos os clientes conectados
+- [x] Criar testes unitários para endpoint de notificações admin
+
+### Frontend - Modal de Envio
+- [x] Criar componente SendNotificationModal.tsx
+- [x] Campo: Título da notificação (input text)
+- [x] Campo: Descrição da notificação (textarea)
+- [x] Campo: Tipo de envio (radio: Global / Individual)
+- [x] Campo condicional: PIN ou E-mail (se Individual selecionado)
+- [x] Validação de formulário (campos obrigatórios)
+- [x] Integração com tRPC para enviar notificação
+- [x] Toast de sucesso/erro após envio
+
+### Frontend - Integração
+- [x] Adicionar botão "Enviar Notificação" no card de Lista de Clientes (canto superior direito)
+- [x] Abrir modal ao clicar no botão
+- [ ] Testar que notificações aparecem na barra lateral
+- [ ] Testar que badge pulsante aparece quando há notificação não lida
+- [ ] Validar que notificações globais chegam para todos os usuários conectados
+- [ ] Validar que notificações individuais chegam apenas para o usuário específico

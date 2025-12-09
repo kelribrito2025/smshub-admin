@@ -550,7 +550,7 @@ export type InsertEmailVerification = typeof emailVerifications.$inferInsert;
  */
 export const notifications = mysqlTable("notifications", {
   id: int("id").autoincrement().primaryKey(),
-  customerId: int("customerId").notNull(), // Customer who receives the notification
+  customerId: int("customerId"), // Customer who receives the notification (NULL for global notifications)
   type: varchar("type", { length: 50 }).notNull(), // e.g., "pix_payment_confirmed", "balance_updated"
   title: varchar("title", { length: 255 }).notNull(),
   message: text("message").notNull(),
