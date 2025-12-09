@@ -1549,3 +1549,11 @@ Se retornar 403, 409, 522 ou 5xx → Cloudflare bloqueando antes do Node.js proc
 - [x] Testar fluxo completo de compra e validar notificação
 - [x] Adicionar suporte para operation_completed e operation_failed no useNotifications.ts
 - [x] Criar testes unitários (4 testes passaram)
+
+## ✅ Bug: Notificação de Compra Resolvido
+- [x] Verificar logs do backend durante compra real (confirmar envio de operation_completed)
+- [x] Verificar console do navegador (confirmar recebimento do evento SSE)
+- [x] Identificar causa raiz: useOperationLock e useNotifications competindo pela mesma conexão SSE
+- [x] Decisão: Usar toast direto no frontend (igual ao cancelamento) ao invés de SSE
+- [x] Adicionar toast.success() após compra bem-sucedida no frontend
+- [x] Testar em ambiente de desenvolvimento - FUNCIONANDO PERFEITAMENTE! 🎉

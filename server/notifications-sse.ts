@@ -15,6 +15,13 @@ router.get("/stream/:customerId", async (req, res) => {
   if (isNaN(customerId)) {
     return res.status(400).json({ error: "Invalid customer ID" });
   }
+  
+  // ✅ CRITICAL: Disable all timeouts for SSE connections
+  req.setTimeout(0); // Disable request timeout
+  res.setTimeout(0); // Disable response timeout
+  if (req.socket) {
+    req.socket.setTimeout(0); // Disable socket timeout
+  }
 
   // ✅ VALIDATE CUSTOMER: Check if customer exists and is active
   // Note: Customers use localStorage auth (not session cookies), so we validate directly
@@ -39,8 +46,11 @@ router.get("/stream/:customerId", async (req, res) => {
 
   // Add client to notifications manager
   notificationsManager.addClient(customerId, res);
+  
+  console.log(`[SSE] ✅ Client ${customerId} added to notifications manager, response should stay open`);
 
   // Connection will be kept alive by the notifications manager
+  // DO NOT call res.end() or res.send() here - SSE connection must stay open
 });
 
 /**

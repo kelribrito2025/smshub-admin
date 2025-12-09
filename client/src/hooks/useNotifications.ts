@@ -187,6 +187,7 @@ export function useNotifications(options: UseNotificationsOptions) {
  * Show toast notification based on notification type
  */
 function showNotificationToast(notification: Notification) {
+  console.log('[Notifications] showNotificationToast called with:', notification.type, notification);
   switch (notification.type) {
     case "pix_payment_confirmed":
       toast.success(notification.title, {
@@ -219,6 +220,7 @@ function showNotificationToast(notification: Notification) {
       break;
 
     case "operation_completed":
+      console.log('[Notifications] Showing operation_completed toast:', notification.title, notification.message);
       toast.success(notification.title, {
         description: notification.message,
         duration: 4000,

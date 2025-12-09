@@ -354,7 +354,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
         setLoadingApiId(apiId);
       }
       
-      // Executar compra silenciosamente (sem notificações de loading/sucesso)
+      // Executar compra e mostrar notificação de sucesso/erro
       (async () => {
         try {
           // Executar compra com delay mínimo de 4 segundos
@@ -368,6 +368,9 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
             }),
             new Promise(resolve => setTimeout(resolve, 4000)) // Delay mínimo de 4 segundos
           ]);
+          
+          // Mostrar notificação de SUCESSO (igual ao cancelamento)
+          toast.success('Número SMS adquirido com sucesso!');
           
           // Invalidate queries to refresh data
           await utils.store.getCustomer.invalidate();

@@ -70,37 +70,45 @@ class NotificationsManager {
     // This is CRITICAL for SSE to work in production environments
     if (response.socket) {
       response.socket.setNoDelay(true);
-      // Set socket timeout to prevent premature closure (2 hours)
-      response.socket.setTimeout(7200000);
+      // ✅ CRITICAL: Disable socket timeout completely for SSE (0 = no timeout)
+      response.socket.setTimeout(0);
     }
 
     // Send initial connection confirmation immediately
     // This helps detect connection issues early
     try {
+      console.log(`[Notifications] About to send initial message to customer ${customerId}, writableEnded=${response.writableEnded}`);
       response.write(`:connected\n\n`);
-      console.log(`[Notifications] Initial connection message sent to customer ${customerId}`);
+      console.log(`[Notifications] ✅ Initial connection message sent to customer ${customerId}`);
     } catch (error) {
-      console.error(`[Notifications] Error sending initial message to customer ${customerId}:`, error);
+      console.error(`[Notifications] ❌ Error sending initial message to customer ${customerId}:`, error);
     }
 
     // Setup cleanup on connection close (only once)
     const closeHandler = () => {
+      console.log(`[Notifications] ⚠️ Connection closed for customer ${customerId}`);
       this.removeClient(customerId, response);
     };
     response.once("close", closeHandler);
+    
+    // Log connection errors
+    response.on("error", (error) => {
+      console.error(`[Notifications] ❌ Connection error for customer ${customerId}:`, error);
+    });
 
     // Send heartbeat every 15 seconds to keep connection alive
     // Reduced from 30s to prevent proxy timeouts (Cloudflare/Nginx typically 60s)
     const heartbeatInterval = setInterval(() => {
       if (response.writableEnded) {
+        console.warn(`[Notifications] ⚠️ Heartbeat skipped - response already ended for customer ${customerId}`);
         clearInterval(heartbeatInterval);
         return;
       }
       try {
         response.write(":heartbeat\n\n");
-        console.log(`[Notifications] Heartbeat sent to customer ${customerId}`);
+        console.log(`[Notifications] ✅ Heartbeat sent to customer ${customerId}`);
       } catch (error) {
-        console.error(`[Notifications] Error sending heartbeat to customer ${customerId}:`, error);
+        console.error(`[Notifications] ❌ Error sending heartbeat to customer ${customerId}:`, error);
         clearInterval(heartbeatInterval);
       }
     }, 15000);
@@ -114,6 +122,7 @@ class NotificationsManager {
    * Remove a client connection
    */
   private removeClient(customerId: number, response: Response) {
+    console.log(`[Notifications] Removing client for customer ${customerId}`);
     const clients = this.clients.get(customerId);
     if (!clients) return;
 
@@ -134,11 +143,11 @@ class NotificationsManager {
   sendToCustomer(customerId: number, notification: Notification) {
     const clients = this.clients.get(customerId);
     if (!clients || clients.length === 0) {
-      console.log(`[Notifications] No clients connected for customer ${customerId}`);
+      console.log(`[Notifications] ⚠️ No clients connected for customer ${customerId} - notification will NOT be delivered:`, notification);
       return;
     }
 
-    console.log(`[Notifications] Sending to customer ${customerId}:`, notification.type);
+    console.log(`[Notifications] ✅ Sending to customer ${customerId} (${clients.length} connection(s)):`, notification.type, notification);
 
     clients.forEach((client) => {
       this.sendToClient(client.response, notification);
@@ -166,6 +175,7 @@ class NotificationsManager {
    */
   private sendToClient(response: Response, notification: Notification) {
     if (response.writableEnded) {
+      console.warn(`[Notifications] ⚠️ Cannot send notification - response already ended`);
       return;
     }
 
