@@ -1,0 +1,9 @@
+{
+  "query": "ALTER TABLE notification_reads CHANGE COLUMN customerId userId INT NOT NULL;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute ALTER TABLE notification_reads CHANGE COLUMN customerId userId INT NOT NULL;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 177
+}

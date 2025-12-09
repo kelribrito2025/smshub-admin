@@ -1893,11 +1893,143 @@ Garantir que badge do sino e barra lateral atualizem imediatamente quando houver
 - [x] Validar que queries não são duplicadas
 
 ## 📦 Fase 6: Entrega
-- [ ] Documentar mudanças
-- [ ] Criar checkpoint
-- [ ] Entregar ao usuário para teste
+- [x] Documentar mudanças
+- [x] Criar checkpoint
+- [x] Entregar ao usuário para teste
 
 ---
 
 ## ⚠️ REGRA CRÍTICA
 **ZERO MUDANÇAS VISUAIS** - Apenas lógica interna, sem tocar em layout/HTML/CSS/Tailwind
+
+
+## 🧪 Teste de Notificação Individual
+- [x] Corrigir erro TypeScript (markAsRead enviava notificationId mas backend esperava id)
+- [x] Limpar cache do TypeScript e Vite
+- [x] Matar processos tsc --watch travados
+- [x] Validar compilação com pnpm check (sem erros) - ✅ CONFIRMADO
+- [x] Confirmar site carregando corretamente
+- [x] Remover linha em branco extra do código
+- [ ] Usuário enviará notificação de teste para admin@admin.com
+- [ ] Verificar se notificação chega corretamente
+- [ ] Aguardar outros bugs reportados pelo usuário
+
+
+## 🐛 Bug: Notificação Individual Aparece como Toast
+- [x] Notificação individual está aparecendo como toast flutuante
+- [x] Deveria aparecer apenas na barra de notificações (sidebar)
+- [x] Investigar código do useNotifications (autoToast)
+- [x] Corrigir lógica para não mostrar toast de admin_notification (linha 223-226)
+- [x] Testar correção - NOVO PROBLEMA: notificação não aparece na sidebar
+
+## 🐛 Bug: Notificação Não Aparece na Sidebar
+- [x] Investigar se notificação foi salva no banco de dados
+- [x] Verificar se SSE está enviando a notificação
+- [x] Verificar se sidebar está buscando notificações corretamente
+- [x] ERRO ENCONTRADO: 502 Bad Gateway em /api/trpc/notifications.getAll
+- [x] Investigar router de notificações para encontrar causa do crash
+- [x] CAUSA: endpoints de notificações usavam ctx.user (admin) mas clientes da loja não têm user
+- [x] SOLUÇÃO: Criar endpoints específicos para clientes (getForCustomer, markAsReadForCustomer, markAllAsReadForCustomer)
+- [x] Atualizar StoreAuthContext para usar novos endpoints
+- [x] Reiniciar servidor
+- [x] Testar correção
+- [x] CONFIRMADO: Notificações estão sendo salvas no banco (7 notificações para cliente 510001)
+- [x] Sistema funcionando corretamente
+- [x] ERRO: Usuário ESTÁ logado como cliente no painel de vendas mas notificações não aparecem
+- [x] Investigar por que StoreAuthContext não está carregando notificações
+- [x] CAUSA ENCONTRADA: Navegador está usando código antigo (cache)
+- [x] Console mostra `notifications.getAll` em vez de `notifications.getForCustomer`
+- [ ] Usuário fazer hard refresh (Ctrl+Shift+R) para limpar cache
+
+---
+
+## 📊 Resumo das Correções Aplicadas Hoje
+
+### 1. Erro TypeScript - markAsRead
+- **Arquivo:** `client/src/contexts/StoreAuthContext.tsx`
+- **Problema:** Frontend enviava `{ notificationId }` mas backend esperava `{ id }`
+- **Solução:** Alterado para `{ id: notificationId }`
+- **Status:** ✅ Corrigido e testado
+
+### 2. Notificação de Admin Aparecendo como Toast
+- **Arquivo:** `client/src/hooks/useNotifications.ts`
+- **Problema:** Notificações de admin apareciam como toast + sidebar
+- **Solução:** Removido toast automático para `admin_notification`
+- **Status:** ✅ Corrigido
+
+### 3. Erro 502 ao Buscar Notificações (Sidebar Vazia)
+- **Arquivos:** `server/routers/notifications.ts`, `client/src/contexts/StoreAuthContext.tsx`
+- **Problema:** Endpoints de notificações usavam `ctx.user` (admin) mas clientes da loja não têm `user`
+- **Solução:** Criados 3 novos endpoints específicos para clientes:
+  * `getForCustomer` - buscar notificações por customerId
+  * `markAsReadForCustomer` - marcar como lida
+  * `markAllAsReadForCustomer` - marcar todas como lidas
+- **Status:** ✅ Corrigido e testado
+
+### 5. SSE (Server-Sent Events) Funcionando
+- **Teste:** Notificação global "oi" enviada e recebida instantaneamente
+- **Resultado:** Apareceu com timestamp "agora mesmo" + badge atualizado
+- **Status:** ✅ Confirmado funcionando perfeitamente
+
+### 4. Limpeza de Cache TypeScript
+- **Problema:** Processos `tsc --watch` travados mostrando erros antigos
+- **Solução:** Limpeza de cache + kill de processos travados
+- **Status:** ✅ Resolvido
+
+### Próximos Passos
+- [x] Usuário testar notificação individual
+- [x] Identificar problema de cache do navegador
+- [x] Usuário fazer hard refresh (Ctrl+Shift+R)
+- [x] PROBLEMA PERSISTE: Badge de notificações aparece (unreadCount funciona) mas lista vazia
+- [x] Investigar por que lista de notificações está vazia
+- [x] CAUSA RAIZ: NotificationsSidebar usa `getAll` (admin) em vez de `getForCustomer` (cliente)
+- [x] SISTEMA FUNCIONANDO! Notificações globais aparecendo corretamente
+- [x] Usuário viu 6 notificações globais na sidebar
+- [x] Notificações individuais só aparecem para o cliente específico (comportamento correto)
+- [x] Usuário testar envio de notificação global em tempo real
+- [x] Validar que SSE entrega notificação instantaneamente - ✅ CONFIRMADO!
+- [x] Notificação "oi" apareceu com timestamp "agora mesmo"
+- [x] Badge de unreadCount atualizou para "1"
+- [ ] Usuário enviar lista de outros bugs
+- [ ] Corrigir bugs adicionais
+- [ ] Criar checkpoint final
+
+
+## ⚠️ IMPORTANTE: Como Testar Notificações
+
+### Notificações para ADMIN
+- **Onde aparece:** Painel administrativo (https://smshubadm-sokyccse.manus.space/admin)
+- **Endpoint usado:** `notifications.getAll` (usa ctx.user)
+- **Como testar:** Enviar notificação global OU individual para o email do admin
+
+### Notificações para CLIENTE DA LOJA
+- **Onde aparece:** Painel de vendas (https://smshubadm-sokyccse.manus.space)
+- **Endpoint usado:** `notifications.getForCustomer` (usa customerId)
+- **Como testar:** 
+  1. Enviar notificação individual para email do cliente (ex: fcokelrihbrito@gmail.com)
+  2. Abrir aba anônima
+  3. Acessar painel de vendas
+  4. Fazer login com o email do cliente
+  5. Verificar sidebar de notificações
+
+### Confusão Comum
+- ❌ Enviar para cliente e verificar no painel admin → NÃO VAI APARECER
+- ✅ Enviar para cliente e verificar no painel de vendas (logado como cliente) → VAI APARECER
+- ✅ Enviar global e verificar em ambos os painéis → VAI APARECER EM AMBOS
+
+
+## 🐛 Bug: Notificação Global Marcada como Lida em Todas as Contas
+- [x] Usuário marcou notificação como lida na conta A
+- [x] Ao entrar na conta B, notificação já estava lida
+- [x] Investigar schema do banco - ✅ Schema correto (notification_reads por customerId)
+- [x] Verificar código markAsRead - ✅ Código correto (insere em notification_reads)
+- [x] CONFIRMADO: Conta cliente (não admin) marcou como lida, depois admin viu como lida
+- [x] CAUSA RAIZ: notification_reads só tem customerId, mas admins usam ctx.user.id
+- [x] Sistema mistura dois tipos de usuários (admin vs cliente) na mesma tabela
+- [x] Investigar como getAll verifica isRead
+- [x] PROBLEMA CONFIRMADO: LEFT JOIN usa customerId mas não diferencia admin vs cliente
+- [x] Admin user.id=1 coincide com cliente customerId=1 (são pessoas diferentes!)
+- [ ] SOLUÇÃO: Adicionar campo userType em notification_reads ("admin" | "customer")
+- [ ] Atualizar schema e fazer migração
+- [ ] Atualizar endpoints markAsRead e getAll
+- [ ] Testar correção

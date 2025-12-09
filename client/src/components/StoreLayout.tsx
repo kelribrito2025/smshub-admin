@@ -30,6 +30,7 @@ interface StoreLayoutProps {
 }
 
 export default function StoreLayout({ children }: StoreLayoutProps) {
+  // ✅ Destructure all auth context values including notifications
   const { customer, isAuthenticated, requireAuth, logout, isSSEConnected, lastNotification, unreadCount } = useStoreAuth();
   // ✅ REMOVIDO: useOperationLock (SSE agora está centralizado no StoreAuthContext)
   const isLocked = false; // Operações não são mais bloqueadas globalmente
