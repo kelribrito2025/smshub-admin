@@ -1344,3 +1344,11 @@ Se retornar 403, 409, 522 ou 5xx → Cloudflare bloqueando antes do Node.js proc
 - [x] Atualizar NotificationsSidebar para buscar dados reais do backend
 - [x] Garantir que notificação aparece na barra lateral (NotificationsSidebar)
 - [x] Validar visual e conteúdo da notificação
+
+## Modal PIX - Confirmação Automática de Pagamento
+- [x] Analisar código atual do PixPaymentModal
+- [x] Implementar detecção automática quando pagamento for confirmado (polling detecta status "paid")
+- [x] Criar tela de sucesso no modal com ícone de check verde e mensagem "Pagamento Confirmado"
+- [x] Remover salvamento de notificação PIX no banco de dados (webhook-pix.ts)
+- [x] Manter apenas notificação SSE para atualização em tempo real do saldo
+- [x] Testar fluxo completo: gerar PIX → pagar → modal atualiza automaticamente

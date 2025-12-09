@@ -20,6 +20,7 @@ export function PixPaymentModal({
 }: PixPaymentModalProps) {
   const [copied, setCopied] = useState(false);
   const [timeLeft, setTimeLeft] = useState(3600); // 1 hour in seconds
+  const [paymentConfirmed, setPaymentConfirmed] = useState(false);
   const [pixData, setPixData] = useState<{
     txid: string;
     pixCopyPaste: string;
@@ -64,12 +65,15 @@ export function PixPaymentModal({
 
   // Check if payment was confirmed
   useEffect(() => {
-    if (getTransactionQuery.data?.status === "paid") {
-      // Toast notification is already shown via SSE webhook
+    if (getTransactionQuery.data?.status === "paid" && !paymentConfirmed) {
+      setPaymentConfirmed(true);
       onSuccess();
-      onClose();
+      // Auto-close after 3 seconds
+      setTimeout(() => {
+        onClose();
+      }, 3000);
     }
-  }, [getTransactionQuery.data?.status]);
+  }, [getTransactionQuery.data?.status, paymentConfirmed]);
 
   // Countdown timer
   useEffect(() => {
@@ -155,8 +159,31 @@ export function PixPaymentModal({
           </div>
         )}
 
+        {/* Success State */}
+        {paymentConfirmed && (
+          <div className="text-center py-8 space-y-4">
+            {/* Success Icon */}
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-green-500 rounded-full mb-2">
+              <Check size={48} className="text-black" strokeWidth={3} />
+            </div>
+            
+            {/* Success Message */}
+            <div className="space-y-2">
+              <h3 className="text-2xl font-bold text-green-500">PAGAMENTO CONFIRMADO</h3>
+              <p className="text-gray-400 text-sm">
+                Sua recarga de <span className="text-green-500 font-semibold">{formatAmount(amount)}</span> foi processada com sucesso!
+              </p>
+            </div>
+
+            {/* Auto-close message */}
+            <p className="text-gray-500 text-xs">
+              Esta janela fechará automaticamente em alguns segundos...
+            </p>
+          </div>
+        )}
+
         {/* PIX Data */}
-        {pixData && (
+        {pixData && !paymentConfirmed && (
           <>
             {/* Amount */}
             <div className="bg-zinc-900/80 border border-green-500/30 rounded-xl p-3 text-center">

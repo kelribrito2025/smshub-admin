@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { getDb } from "./db";
-import { pixTransactions, balanceTransactions, customers, recharges, notifications } from "../drizzle/schema";
+import { pixTransactions, balanceTransactions, customers, recharges } from "../drizzle/schema";
 import { eq } from "drizzle-orm";
 import { efiPayClient } from "./efipay-client";
 import { notificationsManager } from "./notifications-manager";
@@ -193,22 +193,7 @@ router.post("/webhook/pix", async (req, res) => {
       amount: transaction.amount,
     });
 
-    // Save notification to database
-    await db.insert(notifications).values({
-      customerId: transaction.customerId,
-      type: "pix_payment_confirmed",
-      title: "Recarga Confirmada",
-      message: `Sua recarga de R$ ${(transaction.amount / 100).toFixed(2)} foi processada com sucesso.`,
-      data: JSON.stringify({
-        amount: transaction.amount,
-        balanceBefore,
-        balanceAfter,
-        txid: pixData.txid,
-      }),
-      isRead: false,
-    });
-
-    // Send real-time notification to customer via SSE
+    // Send real-time notification to customer via SSE (no database save - notification shown in modal)
     notificationsManager.sendToCustomer(transaction.customerId, {
       type: "pix_payment_confirmed",
       title: "Recarga Aprovada! 💰",
