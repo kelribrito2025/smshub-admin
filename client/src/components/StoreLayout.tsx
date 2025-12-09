@@ -112,47 +112,14 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
   const handleNotification = useCallback((notification: any) => {
     console.log('[Store] Received notification:', notification);
     
-    // Play money sound if admin added balance (flag playSound = true)
-    console.log('[Store] Notification received:', {
-      type: notification.type,
-      title: notification.title,
-      playSound: notification.playSound,
-    });
-    
-    if (notification.playSound) {
-      console.log('[Store] ✅ playSound flag is TRUE - attempting to play money sound');
-      const audio = new Audio('/sounds/money-received.mp3');
-      audio.volume = 0.5;
-      
-      // Try to play, handle autoplay policy errors
-      audio.play()
-        .then(() => {
-          console.log('[Store] ✅ Money sound played successfully');
-        })
-        .catch(err => {
-          console.error('[Store] ❌ Failed to play sound:', err);
-          
-          // If autoplay is blocked (common in production/HTTPS), show a toast
-          if (err.name === 'NotAllowedError') {
-            console.warn('[Store] ⚠️ Autoplay blocked by browser. User interaction required.');
-            toast.info('💰 Novo saldo adicionado!', {
-              duration: 5000,
-              description: 'Som de notificação bloqueado pelo navegador. Ative o som nas configurações se desejar.',
-            });
-          }
-        });
-    } else {
-      console.log('[Store] ❌ playSound flag is FALSE or undefined - not playing money sound');
-    }
+    // Balance notification removed during validation phase
+    // Saldo atualiza silenciosamente via SSE
     
     // Invalidate queries when balance updated or payment confirmed
     if (notification.type === 'pix_payment_confirmed' || notification.type === 'balance_updated') {
       // ✅ Use utils.invalidate() instead of customerQuery.refetch() to avoid dependency
       utils.store.getCustomer.invalidate();
-      // Tocar som de notificação de recarga (apenas se não for som de dinheiro)
-      if (!notification.playSound) {
-        playNotificationSound('recharge');
-      }
+      // Som de recarga removido durante fase de validação
     }
     // Invalidate recharges cache when recharge is completed
     if (notification.type === 'recharge_completed') {
@@ -260,8 +227,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
               duration: 5000,
             });
             
-            // Tocar som de notificação
-            playNotificationSound('sms');
+            // Som de SMS removido durante fase de validação
           }
         }
       });

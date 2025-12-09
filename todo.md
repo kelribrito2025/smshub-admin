@@ -1577,3 +1577,10 @@ Se retornar 403, 409, 522 ou 5xx → Cloudflare bloqueando antes do Node.js proc
 - [x] Localizar código da mensagem de erro no backend
 - [x] Alterar de "Erro ao comprar número: Limite de pedidos simultâneos atingido para Opção 1" para "Limite de pedidos simultâneos atingido para Opção 1"
 - [x] Testar alteração
+
+## Ajustes de Notificações (Fase de Validação)
+- [x] Remover notificação visual de "Saldo Adicionado" quando admin adiciona saldo
+- [x] Remover som de moedas (money-received.mp3) ao adicionar saldo
+- [x] Remover som de notificação quando SMS é recebido
+- [x] Manter atualização silenciosa do saldo via SSE
+- [x] Manter notificações visuais de SMS (apenas sem som)
