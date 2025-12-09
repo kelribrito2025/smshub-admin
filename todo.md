@@ -1620,3 +1620,11 @@ Se retornar 403, 409, 522 ou 5xx → Cloudflare bloqueando antes do Node.js proc
 - [x] Alterar cancel_url para redirecionar para home (/)
 - [x] Testar fluxo completo de pagamento com cartão
 - [x] Validar que redirecionamento funciona corretamente
+
+## 🔔 Correção: Ícone de Notificação Piscando Incorretamente
+- [x] Investigar onde está a lógica do ícone de notificação (sininho)
+- [x] Identificar condição que faz o ícone piscar
+- [x] Corrigir para piscar APENAS quando houver notificações não lidas (unreadCount > 0)
+- [x] Testar com 0 notificações (não deve piscar)
+- [x] Testar com notificações não lidas (deve piscar)
+- [x] Validar que animação para quando todas são marcadas como lidas

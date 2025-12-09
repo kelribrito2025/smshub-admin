@@ -161,6 +161,15 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
     customerId: customer?.id || null,
     onNotification: handleNotification,
   });
+
+  // Query notifications to get unread count for badge
+  const notificationsQuery = trpc.notifications.getAll.useQuery(undefined, {
+    enabled: !!customer?.id,
+    refetchOnWindowFocus: false,
+    staleTime: 30 * 1000, // 30 seconds
+  });
+
+  const unreadCount = (notificationsQuery.data || []).filter(n => !n.isRead).length;
   
   const toggleFavoriteMutation = trpc.store.toggleFavorite.useMutation({
     onSuccess: async () => {
@@ -534,8 +543,10 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
               style={{width: '40px', height: '40px'}}
             >
               <Bell className="w-5 h-5" />
-              {/* Badge de notificações não lidas */}
-              <span className="absolute top-1 right-1 w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+              {/* Badge de notificações não lidas - só pisca quando há notificações não lidas */}
+              {unreadCount > 0 && (
+                <span className="absolute top-1 right-1 w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+              )}
             </Button>
           )}
 
