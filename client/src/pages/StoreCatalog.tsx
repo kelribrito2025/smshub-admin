@@ -88,11 +88,11 @@ export default function StoreCatalog() {
     // Ativar estado global de cancelamento
     setIsCancelling(true);
     
-    // Usar toast.promise para gerenciar loading → success/error automaticamente
-    const cancelPromise = (async () => {
+    // Executar cancelamento (sem notificação de loading, apenas sucesso)
+    (async () => {
       try {
         // Executar cancelamento com delay mínimo de 5 segundos
-        const [result] = await Promise.all([
+        await Promise.all([
           cancelMutation.mutateAsync({
             activationId,
             customerId: customer.id,
@@ -100,28 +100,24 @@ export default function StoreCatalog() {
           new Promise(resolve => setTimeout(resolve, 5000)) // Delay mínimo de 5 segundos
         ]);
         
-        return result;
+        // Mostrar apenas notificação de SUCESSO quando realmente cancelado
+        toast.success('Pedido cancelado com sucesso!');
+        
+        // Invalidate queries to refresh data
+        await utils.store.getCustomer.invalidate();
+        await utils.store.getMyActivations.invalidate();
+      } catch (error: any) {
+        // Mostrar notificação de ERRO (importante para o usuário)
+        toast.error(error.message || 'Erro ao cancelar ativação');
+        
+        // Still invalidate on error to refresh state
+        await utils.store.getCustomer.invalidate();
+        await utils.store.getMyActivations.invalidate();
       } finally {
         // Desativar estado global de cancelamento após conclusão
         setIsCancelling(false);
       }
     })();
-    
-    toast.promise(cancelPromise, {
-      loading: 'Cancelamento em andamento...',
-      success: 'Pedido cancelado com sucesso!',
-      error: (err) => err.message || 'Erro ao cancelar ativação',
-    });
-    
-    // Invalidate queries AFTER toast.promise resolves to avoid re-render interference
-    cancelPromise.then(() => {
-      utils.store.getCustomer.invalidate();
-      utils.store.getMyActivations.invalidate();
-    }).catch(() => {
-      // Still invalidate on error to refresh state
-      utils.store.getCustomer.invalidate();
-      utils.store.getMyActivations.invalidate();
-    });
   };
 
   const formatTime = (date: Date) => {

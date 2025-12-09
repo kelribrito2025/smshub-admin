@@ -1191,3 +1191,8 @@
 - [x] Creditar pagamento pendente manualmente (R$ 1,10 creditado)
 - [x] Atualizar script setup-webhook.ts com novo domínio
 - [x] Próximos pagamentos PIX devem funcionar automaticamente
+
+## Otimização de Notificações - Cancelamento
+- [x] Remover notificação "Cancelamento em andamento..." 
+- [x] Manter apenas "Pedido cancelado com sucesso!" quando realmente cancelado
+- [x] Manter notificação de erro em caso de falha
