@@ -1469,3 +1469,75 @@ Se retornar 403, 409, 522 ou 5xx → Cloudflare bloqueando antes do Node.js proc
 
 **Checkpoint anterior:** f7744478
 **Checkpoint com correção:** [próximo]
+
+
+## 🐛 BUG: Notificação de Compra Aparece Antes do Pedido Ser Criado
+
+**Reportado pelo usuário (09/12/2024):**
+- ❌ Notificação "Compra realizada" aparece imediatamente ao clicar
+- ❌ Pedido só é criado no backend alguns segundos depois
+- ❌ Causa sensação de dessincronização e atraso
+
+**Comportamento atual (incorreto):**
+1. Usuário clica em comprar
+2. Notificação "Compra realizada" aparece imediatamente
+3. Backend processa compra (demora alguns segundos)
+4. Pedido é criado no banco de dados
+5. Usuário já viu notificação mas pedido ainda não existe
+
+**Comportamento desejado (correto):**
+1. Usuário clica em comprar
+2. Backend processa compra
+3. Pedido é criado no banco de dados
+4. Backend retorna sucesso
+5. **SÓ ENTÃO** notificação "Compra realizada" aparece
+
+**Referência:**
+- Cancelamento está correto (notifica só após backend confirmar)
+- Compra deve seguir mesmo padrão do cancelamento
+
+**Tarefas:**
+- [x] Investigar StoreLayout.tsx onde compra é disparada
+- [x] Identificar onde notificação está sendo enviada prematuramente
+- [x] Adicionar handler para operation_completed no frontend
+- [x] Garantir que notificação só aparece após resposta do backend
+- [x] Adicionar debounce para evitar duplicatas (múltiplas conexões SSE)
+- [x] Testar em desenvolvimento
+- [x] Validar sincronização perfeita entre notificação e criação do pedido
+
+**Solução aplicada:**
+- ✅ Frontend agora escuta `operation_completed` via SSE
+- ✅ Notificação só aparece após backend confirmar criação do pedido
+- ✅ Debounce de 2 segundos para evitar duplicatas (múltiplas conexões SSE)
+- ✅ Mesmo padrão do cancelamento (sincronização perfeita)
+
+
+## 🐛 BUG: Múltiplas Conexões SSE Causando Notificações Duplicadas
+
+**Reportado pelo usuário (09/12/2024):**
+- ❌ 3 conexões SSE ativas para o mesmo cliente
+- ❌ Cada notificação é enviada 3 vezes (uma por conexão)
+- ❌ Usuário vê 3 notificações idênticas
+
+**Causa provável:**
+- Múltiplas abas abertas
+- Reconexões não limpas (conexão antiga não fechada)
+- Hot reload durante desenvolvimento (Vite deixa conexões antigas)
+
+**Solução temporária aplicada:**
+- ✅ Debounce de 2 segundos no frontend (ignora duplicatas)
+
+**Solução definitiva aplicada:**
+- [x] Investigar useNotifications hook (client/src/hooks/useNotifications.ts)
+- [x] Verificar cleanup de conexões SSE no backend (notifications-manager.ts)
+- [x] Garantir que apenas 1 conexão SSE por cliente esteja ativa
+- [x] Implementar cleanup adequado ao desconectar
+- [x] Fechar conexões antigas ao criar nova conexão
+- [x] Testar com múltiplas abas abertas
+- [x] Validar que apenas 1 notificação aparece por evento
+
+**Correção implementada:**
+- ✅ Backend agora fecha todas as conexões antigas antes de adicionar nova
+- ✅ Apenas 1 conexão SSE ativa por cliente (garantido)
+- ✅ Múltiplas abas/reconexões não criam conexões duplicadas
+- ✅ Debounce de 2s mantido como segurança adicional

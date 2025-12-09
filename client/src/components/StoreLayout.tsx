@@ -53,6 +53,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
   const [notificationsSidebarOpen, setNotificationsSidebarOpen] = useState(false);
   const [balanceFlash, setBalanceFlash] = useState<'green' | 'red' | null>(null);
   const previousBalance = useRef<number | null>(null);
+  const lastPurchaseNotification = useRef<number>(0); // Timestamp of last purchase notification
 
   // Configure conservative refetch to avoid 429 (Too Many Requests)
   const servicesQuery = trpc.store.getServices.useQuery(undefined, {
@@ -158,6 +159,34 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
       console.log('[Store] Invalidating recharges cache after payment confirmation');
       utils.recharges.getMyRecharges.invalidate();
       utils.store.getCustomer.invalidate(); // ✅ Use utils.invalidate() instead of customerQuery.refetch()
+    }
+    
+    // Handle purchase completion notification (only show after backend confirms)
+    if (notification.type === 'operation_completed' && notification.data?.operation === 'purchase') {
+      // Debounce: ignore duplicate notifications within 2 seconds (multiple SSE connections)
+      const now = Date.now();
+      if (now - lastPurchaseNotification.current < 2000) {
+        console.log('[Store] Ignoring duplicate purchase notification (debounced)');
+        return;
+      }
+      lastPurchaseNotification.current = now;
+      
+      console.log('[Store] Purchase completed - showing success notification');
+      toast.success(notification.title || 'Compra realizada', {
+        description: notification.message || 'Número SMS adquirido com sucesso',
+        duration: 5000,
+      });
+      // Invalidate activations to show new purchase
+      utils.store.getMyActivations.invalidate();
+      playNotificationSound('purchase');
+    }
+    
+    // Handle purchase failure notification
+    if (notification.type === 'operation_failed' && notification.data?.operation === 'purchase') {
+      console.log('[Store] Purchase failed - error already shown by mutation');
+      // Error toast is already shown by the mutation's catch block
+      // Just invalidate to ensure UI is in sync
+      utils.store.getMyActivations.invalidate();
     }
   }, [utils]); // ✅ FIXED: Only depend on utils (stable), not customerQuery (changes every refetch)
 

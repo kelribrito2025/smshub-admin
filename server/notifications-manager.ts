@@ -24,19 +24,34 @@ class NotificationsManager {
 
   /**
    * Add a new SSE connection for a customer
+   * Closes any existing connections to ensure only 1 active connection per customer
    */
   addClient(customerId: number, response: Response) {
+    // Close all existing connections for this customer before adding new one
+    const existingClients = this.clients.get(customerId) || [];
+    if (existingClients.length > 0) {
+      console.log(`[Notifications] Closing ${existingClients.length} existing connection(s) for customer ${customerId}`);
+      existingClients.forEach((oldClient) => {
+        try {
+          if (!oldClient.response.writableEnded) {
+            oldClient.response.end();
+          }
+        } catch (error) {
+          console.error(`[Notifications] Error closing old connection:`, error);
+        }
+      });
+    }
+
     const client: NotificationClient = {
       customerId,
       response,
       connectedAt: new Date(),
     };
 
-    const existingClients = this.clients.get(customerId) || [];
-    existingClients.push(client);
-    this.clients.set(customerId, existingClients);
+    // Replace all old connections with the new one (only 1 connection per customer)
+    this.clients.set(customerId, [client]);
 
-    console.log(`[Notifications] Client connected: customer ${customerId}, total connections: ${existingClients.length}`);
+    console.log(`[Notifications] Client connected: customer ${customerId}, total connections: 1 (old connections closed)`);
 
     // Setup SSE headers (optimized for production with proxies)
     response.writeHead(200, {
@@ -68,10 +83,11 @@ class NotificationsManager {
       console.error(`[Notifications] Error sending initial message to customer ${customerId}:`, error);
     }
 
-    // Setup cleanup on connection close
-    response.on("close", () => {
+    // Setup cleanup on connection close (only once)
+    const closeHandler = () => {
       this.removeClient(customerId, response);
-    });
+    };
+    response.once("close", closeHandler);
 
     // Send heartbeat every 15 seconds to keep connection alive
     // Reduced from 30s to prevent proxy timeouts (Cloudflare/Nginx typically 60s)
