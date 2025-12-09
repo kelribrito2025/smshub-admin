@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/sidebar";
 import { getLoginUrl } from "@/const";
 import { useIsMobile } from "@/hooks/useMobile";
-import { LayoutDashboard, LogOut, PanelLeft, Settings, RefreshCw, Globe, Package, Key, LineChart, Users, BookOpen, Cloud, BarChart3, CreditCard, FileText, Gift, GripVertical, LucideIcon, Shield } from "lucide-react";
+import { LayoutDashboard, LogOut, PanelLeft, Settings, RefreshCw, Globe, Package, Key, LineChart, Users, BookOpen, Cloud, BarChart3, CreditCard, FileText, Gift, GripVertical, LucideIcon, Shield, Bell } from "lucide-react";
 import * as LucideIcons from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
@@ -34,7 +34,7 @@ if (typeof document !== 'undefined') {
 import { DashboardLayoutSkeleton } from './DashboardLayoutSkeleton';
 import { Button } from "./ui/button";
 import { MenuReorderDialog } from "./MenuReorderDialog";
-
+import NotificationsSidebar from './NotificationsSidebar';
 
 // Fallback menu items (used if database menus are not available)
 const fallbackMenuItems = [
@@ -146,6 +146,21 @@ function DashboardLayoutContent({
   const sidebarRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
   const [reorderDialogOpen, setReorderDialogOpen] = useState(false);
+  const [notificationsSidebarOpen, setNotificationsSidebarOpen] = useState(false);
+
+  // Query notifications to get unread count for badge
+  // Configuração otimizada para atualização imediata:
+  // - staleTime: 0 → sempre revalida ao montar componente
+  // - refetchInterval: 10s → polling mais agressivo
+  // - refetchOnWindowFocus: true → atualiza ao focar aba
+  const notificationsQuery = trpc.notifications.getAll.useQuery(undefined, {
+    enabled: !!user?.id,
+    refetchOnWindowFocus: true,
+    staleTime: 0,
+    refetchInterval: 10000, // Refetch every 10 seconds
+  });
+
+  const unreadCount = (notificationsQuery.data || []).filter(n => !n.isRead).length;
 
   // Fetch menus from database
   const { data: dbMenus } = trpc.adminMenus.getAll.useQuery();
@@ -160,6 +175,14 @@ function DashboardLayoutContent({
     : fallbackMenuItems;
 
   const activeMenuItem = menuItems.find(item => item.path === location);
+
+  // Refetch notificações ao navegar entre páginas
+  // Garante atualização instantânea do badge ao trocar de rota
+  useEffect(() => {
+    if (user?.id) {
+      notificationsQuery.refetch();
+    }
+  }, [location]); // Dispara sempre que a rota mudar
 
   useEffect(() => {
     if (isCollapsed) {
@@ -248,6 +271,22 @@ function DashboardLayoutContent({
           </SidebarContent>
 
           <SidebarFooter className="p-3">
+            {/* Notifications button - desktop */}
+            {!isMobile && (
+              <Button
+                variant="ghost"
+                onClick={() => setNotificationsSidebarOpen(true)}
+                className="relative w-full justify-start mb-2 h-10"
+              >
+                <Bell className="h-4 w-4" />
+                <span className="group-data-[collapsible=icon]:hidden">Notificações</span>
+                {unreadCount > 0 && (
+                  <span className="ml-auto bg-primary text-primary-foreground text-xs font-bold px-2 py-0.5 rounded-full group-data-[collapsible=icon]:absolute group-data-[collapsible=icon]:top-1 group-data-[collapsible=icon]:right-1 group-data-[collapsible=icon]:ml-0 group-data-[collapsible=icon]:w-2 group-data-[collapsible=icon]:h-2 group-data-[collapsible=icon]:p-0 group-data-[collapsible=icon]:animate-pulse">
+                    <span className="group-data-[collapsible=icon]:hidden">{unreadCount}</span>
+                  </span>
+                )}
+              </Button>
+            )}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button className="flex items-center gap-3 rounded-lg px-1 py-1 hover:bg-accent/50 transition-colors w-full text-left group-data-[collapsible=icon]:justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-ring">
@@ -326,7 +365,17 @@ function DashboardLayoutContent({
                 </div>
               </div>
             </div>
-
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setNotificationsSidebarOpen(true)}
+              className="relative h-9 w-9"
+            >
+              <Bell className="h-5 w-5" />
+              {unreadCount > 0 && (
+                <span className="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full animate-pulse" />
+              )}
+            </Button>
           </div>
         )}
         <main className="flex-1 p-4">
@@ -342,7 +391,10 @@ function DashboardLayoutContent({
         onOpenChange={setReorderDialogOpen}
       />
 
-
+      <NotificationsSidebar
+        isOpen={notificationsSidebarOpen}
+        onClose={() => setNotificationsSidebarOpen(false)}
+      />
     </>
   );
 }

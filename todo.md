@@ -1901,12 +1901,3 @@ Garantir que badge do sino e barra lateral atualizem imediatamente quando houver
 
 ## ⚠️ REGRA CRÍTICA
 **ZERO MUDANÇAS VISUAIS** - Apenas lógica interna, sem tocar em layout/HTML/CSS/Tailwind
-
-## Correção: Sino de Notificações no Painel Admin
-- [x] Identificado que sino de notificações foi adicionado incorretamente no DashboardLayout
-- [x] Removido completamente sistema de notificações do painel administrativo
-- [x] Sino de notificações agora existe apenas no painel de vendas (StoreLayout)
-- [x] Removidos imports: Bell icon, NotificationsSidebar
-- [x] Removidas queries: trpc.notifications.getAll
-- [x] Removidos estados: notificationsSidebarOpen, unreadCount
-- [x] Checkpoint salvo: c87f3aea
