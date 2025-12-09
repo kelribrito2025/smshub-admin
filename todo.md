@@ -1315,3 +1315,13 @@ curl -X POST https://app.numero-virtual.com/api/webhook/pix \
 ```
 
 Se retornar 403, 409, 522 ou 5xx → Cloudflare bloqueando antes do Node.js processar.
+
+## 📚 Documentação de Integração Webhook PIX EfiPay
+
+- [x] 1. Criar documentação completa de integração webhook PIX EfiPay
+- [x] 2. Incluir todos os problemas enfrentados e soluções
+- [x] 3. Adicionar checklist de validação passo a passo
+- [x] 4. Incluir exemplos de código completos
+- [x] 5. Adicionar seção de troubleshooting com erros comuns
+- [x] 6. Documentar configuração de ambiente (dev vs produção)
+- [x] 7. Incluir guia de teste e validação
