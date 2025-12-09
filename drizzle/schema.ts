@@ -555,16 +555,35 @@ export const notifications = mysqlTable("notifications", {
   title: varchar("title", { length: 255 }).notNull(),
   message: text("message").notNull(),
   data: text("data"), // JSON string for additional notification data
-  isRead: boolean("isRead").default(false).notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 }, (table) => ({
   customerIdx: index("notification_customer_idx").on(table.customerId),
   createdAtIdx: index("notification_created_at_idx").on(table.createdAt),
-  isReadIdx: index("notification_is_read_idx").on(table.isRead),
 }));
 
 export type Notification = typeof notifications.$inferSelect;
 export type InsertNotification = typeof notifications.$inferInsert;
+
+/**
+ * Notification Reads table - tracks which customers have read which notifications
+ * This allows per-user read state for global notifications
+ */
+export const notificationReads = mysqlTable("notification_reads", {
+  id: int("id").autoincrement().primaryKey(),
+  notificationId: int("notificationId").notNull(),
+  customerId: int("customerId").notNull(),
+  readAt: timestamp("readAt").defaultNow().notNull(),
+}, (table) => ({
+  // Unique constraint: each customer can only mark a notification as read once
+  notificationCustomerIdx: uniqueIndex("notification_customer_unique_idx").on(table.notificationId, table.customerId),
+  // Index for fast queries by customer ("get all read notifications for this user")
+  customerIdx: index("notification_reads_customer_idx").on(table.customerId),
+  // Index for fast queries by notification ("who has read this notification")
+  notificationIdx: index("notification_reads_notification_idx").on(table.notificationId),
+}));
+
+export type NotificationRead = typeof notificationReads.$inferSelect;
+export type InsertNotificationRead = typeof notificationReads.$inferInsert;
 
 /**
  * Password Reset Tokens table - stores tokens for password recovery

@@ -1,7 +1,7 @@
 import { router, publicProcedure, protectedProcedure } from "../_core/trpc";
 import { getDb } from "../db";
-import { notifications } from "../../drizzle/schema";
-import { eq, desc, and, or, isNull } from "drizzle-orm";
+import { notifications, notificationReads } from "../../drizzle/schema";
+import { eq, desc, and, or, isNull, sql } from "drizzle-orm";
 import { z } from "zod";
 
 /**
@@ -22,10 +22,28 @@ export const notificationsRouter = router({
     if (!db) {
       return [];
     }
+    
     // Get both user-specific and global notifications
+    // LEFT JOIN with notification_reads to determine if user has read each notification
     const customerNotifications = await db
-      .select()
+      .select({
+        id: notifications.id,
+        customerId: notifications.customerId,
+        type: notifications.type,
+        title: notifications.title,
+        message: notifications.message,
+        data: notifications.data,
+        createdAt: notifications.createdAt,
+        readAt: notificationReads.readAt,
+      })
       .from(notifications)
+      .leftJoin(
+        notificationReads,
+        and(
+          eq(notificationReads.notificationId, notifications.id),
+          eq(notificationReads.customerId, ctx.user.id)
+        )
+      )
       .where(
         or(
           eq(notifications.customerId, ctx.user.id),
@@ -41,7 +59,7 @@ export const notificationsRouter = router({
       title: notif.title,
       message: notif.message,
       timestamp: formatTimestamp(notif.createdAt),
-      isRead: notif.isRead,
+      isRead: notif.readAt !== null, // If readAt exists, notification is read
       data: notif.data ? JSON.parse(notif.data) : undefined,
     }));
   }),
@@ -60,10 +78,17 @@ export const notificationsRouter = router({
       if (!db) {
         throw new Error("Database not available");
       }
+      
+      // Insert a record in notification_reads (or ignore if already exists)
       await db
-        .update(notifications)
-        .set({ isRead: true })
-        .where(eq(notifications.id, input.id));
+        .insert(notificationReads)
+        .values({
+          notificationId: input.id,
+          customerId: ctx.user.id,
+        })
+        .onDuplicateKeyUpdate({
+          set: { readAt: sql`CURRENT_TIMESTAMP` },
+        });
 
       return { success: true };
     }),
@@ -80,10 +105,35 @@ export const notificationsRouter = router({
     if (!db) {
       throw new Error("Database not available");
     }
-    await db
-      .update(notifications)
-      .set({ isRead: true })
-      .where(eq(notifications.customerId, ctx.user.id));
+    
+    const userId = ctx.user.id; // Store userId to avoid null check issues
+    
+    // Get all notifications visible to this user (user-specific + global)
+    const visibleNotifications = await db
+      .select({ id: notifications.id })
+      .from(notifications)
+      .where(
+        or(
+          eq(notifications.customerId, userId),
+          isNull(notifications.customerId) // Global notifications
+        )
+      );
+
+    // Insert read records for all visible notifications
+    if (visibleNotifications.length > 0) {
+      const readRecords = visibleNotifications.map((notif) => ({
+        notificationId: notif.id,
+        customerId: userId,
+      }));
+
+      // Use INSERT IGNORE to avoid duplicate key errors
+      await db
+        .insert(notificationReads)
+        .values(readRecords)
+        .onDuplicateKeyUpdate({
+          set: { readAt: sql`CURRENT_TIMESTAMP` },
+        });
+    }
 
     return { success: true };
   }),
@@ -161,7 +211,6 @@ export const notificationsRouter = router({
         type: "admin_notification",
         title: input.title,
         message: input.message,
-        isRead: false,
       });
 
       // Send real-time notification via SSE
@@ -202,17 +251,29 @@ export const notificationsRouter = router({
     if (!db) {
       return 0;
     }
-    const unreadNotifications = await db
-      .select()
+    
+    // Count notifications visible to this user that don't have a read record
+    const unreadCount = await db
+      .select({ count: sql<number>`COUNT(*)` })
       .from(notifications)
+      .leftJoin(
+        notificationReads,
+        and(
+          eq(notificationReads.notificationId, notifications.id),
+          eq(notificationReads.customerId, ctx.user.id)
+        )
+      )
       .where(
         and(
-          eq(notifications.customerId, ctx.user.id),
-          eq(notifications.isRead, false)
+          or(
+            eq(notifications.customerId, ctx.user.id),
+            isNull(notifications.customerId) // Global notifications
+          ),
+          isNull(notificationReads.id) // No read record = unread
         )
       );
 
-    return unreadNotifications.length;
+    return unreadCount[0]?.count || 0;
   }),
 });
 

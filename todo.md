@@ -1656,3 +1656,43 @@ Se retornar 403, 409, 522 ou 5xx → Cloudflare bloqueando antes do Node.js proc
 - [ ] Testar que badge pulsante aparece quando há notificação não lida
 - [ ] Validar que notificações globais chegam para todos os usuários conectados
 - [ ] Validar que notificações individuais chegam apenas para o usuário específico
+
+
+---
+
+## 🐛 BUG CRÍTICO: Estado de Leitura de Notificações Global (Deveria ser Individual)
+
+**Problema identificado:**
+Quando um usuário marca uma notificação como lida, ela é marcada como lida para TODOS os usuários, não apenas para quem clicou.
+
+**Causa raiz:**
+A tabela `notifications` tem apenas um campo `isRead` (boolean), que é compartilhado por todos os usuários. Para notificações globais (customerId NULL), isso significa que se um usuário marcar como lida, todos os outros usuários também verão como lida.
+
+**Solução:**
+Criar tabela de relacionamento `notification_reads` para rastrear individualmente quais usuários leram cada notificação.
+
+### Tarefas
+
+#### Backend - Schema e Migração
+- [x] Criar tabela `notification_reads` (notificationId, customerId, readAt)
+- [x] Adicionar índices (notificationId + customerId único, customerId para queries rápidas)
+- [x] Remover campo `isRead` da tabela `notifications` (deprecated)
+- [x] Executar migration SQL
+
+#### Backend - Queries e Routers
+- [x] Atualizar `getAll` para fazer JOIN com `notification_reads` e calcular `isRead` por usuário
+- [x] Atualizar `markAsRead` para inserir registro em `notification_reads` ao invés de UPDATE
+- [x] Atualizar `markAllAsRead` para inserir múltiplos registros em `notification_reads`
+- [x] Atualizar `getUnreadCount` para contar notificações sem registro em `notification_reads` para o usuário
+
+#### Testes
+- [x] Criar testes unitários para validar leitura individual
+- [x] Testar notificação global: usuário A marca como lida, usuário B ainda vê como não lida
+- [x] Testar notificação individual: apenas o destinatário vê a notificação
+- [x] Testar contagem de não lidas por usuário
+
+#### Validação Manual
+- [x] Criar notificação global
+- [x] Usuário A marca como lida
+- [x] Validar que usuário B ainda vê como não lida
+- [x] Validar que badge pulsante funciona corretamente para cada usuário
