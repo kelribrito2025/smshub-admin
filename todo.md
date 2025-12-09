@@ -1849,3 +1849,25 @@ Garantir que badge do sino e barra lateral atualizem imediatamente quando houver
 - [x] Disparar refetch() automaticamente ao trocar de página
 - [ ] Testar navegação entre páginas (Dashboard → Clientes → Catálogo)
 - [ ] Validar atualização instantânea do badge ao navegar
+
+
+---
+
+## 🔧 Otimização: Remover Polling de Notificações
+
+**Contexto:**
+Notificações são enviadas apenas 2-5 vezes por semana, mas polling de 10s gera ~60.000 requisições/semana desnecessárias.
+
+**Tarefa:**
+- [x] Remover refetchInterval do DashboardLayout (linha ~153)
+- [x] Remover refetchInterval do NotificationsSidebar (linha ~32)
+- [x] Manter apenas triggers sob demanda:
+  - SSE (entrega instantânea)
+  - Refetch ao navegar entre páginas
+  - Refetch ao focar aba (refetchOnWindowFocus)
+  - Refetch ao abrir barra lateral
+- [x] Testar que notificações continuam chegando instantaneamente
+- [x] Validar que badge atualiza ao navegar/focar
+
+**Resultado esperado:**
+Redução de 99% nas requisições de notificações, mantendo funcionalidade completa.

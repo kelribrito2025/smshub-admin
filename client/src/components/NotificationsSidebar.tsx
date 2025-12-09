@@ -23,12 +23,13 @@ export default function NotificationsSidebar({ isOpen, onClose }: NotificationsS
   // Fetch notifications from backend
   // Configuração otimizada para atualização imediata:
   // - staleTime: 0 → sempre revalida (compartilha cache com DashboardLayout)
-  // - refetchInterval: 10s → polling mais agressivo
   // - refetchOnWindowFocus: true → atualiza ao focar aba
+  // - refetchOnMount: true → atualiza ao abrir a barra lateral
+  // - SSE entrega notificações instantaneamente quando criadas
   const { data: notifications = [], refetch } = trpc.notifications.getAll.useQuery(undefined, {
     staleTime: 0,
-    refetchInterval: 10000, // Refetch every 10 seconds
     refetchOnWindowFocus: true, // Refetch when user returns to tab
+    refetchOnMount: true, // Refetch when sidebar opens
   });
 
   const markAsReadMutation = trpc.notifications.markAsRead.useMutation({
