@@ -183,8 +183,10 @@ function showNotificationToast(notification: Notification) {
       break;
 
     case "balance_updated":
-      // Note: Toast and sound removed per user request
-      // Balance updates silently without notification
+      toast.info(notification.title, {
+        description: notification.message,
+        duration: 3000,
+      });
       break;
 
     case "sms_received":
