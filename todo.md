@@ -1391,3 +1391,17 @@ Se retornar 403, 409, 522 ou 5xx → Cloudflare bloqueando antes do Node.js proc
 - [x] Adicionar toggle de mostrar/ocultar senha
 - [x] Atualizar lógica de login para enviar senha
 - [x] Testar login com email e senha
+
+## Criar Senhas para Contas Existentes
+- [x] Criar script para adicionar senha em contas sem passwordHash
+- [x] Definir senha 290819943 para xkelrix@gmail.com
+- [x] Definir senha 290819943 para admin@admin.com
+- [x] Testar login com as novas senhas
+
+## Otimização de Dependências para Publicação
+- [x] Analisar package.json e listar todas as dependências
+- [x] Verificar uso de cada dependência no código
+- [x] Identificar dependências não utilizadas
+- [x] Remover dependências desnecessárias (bcryptjs, framer-motion, dotenv, aspect-ratio, tw-animate-css, add)
+- [x] Testar build após remoção (build passou de ~15s para ~13s)
+- [ ] Verificar se publicação ficou mais rápida (precisa testar publicando)
