@@ -1696,3 +1696,16 @@ Criar tabela de relacionamento `notification_reads` para rastrear individualment
 - [x] Usuário A marca como lida
 - [x] Validar que usuário B ainda vê como não lida
 - [x] Validar que badge pulsante funciona corretamente para cada usuário
+
+## 🔧 Correção: Redirecionamento Stripe após Pagamento
+
+**Problema reportado:**
+- Após pagamento com cartão (Stripe), usuário é redirecionado para `/store/recharges?success=true`
+- Deveria redirecionar para home (`/`) como no pagamento PIX
+
+**Tarefas:**
+- [x] Identificar onde URLs de redirecionamento são configuradas (router stripe.ts)
+- [x] Alterar success_url de `/store/recharges?success=true` para `/?success=true` (JÁ ESTAVA CORRETO)
+- [x] Alterar cancel_url de `/store/recharges?canceled=true` para `/?canceled=true` (JÁ ESTAVA CORRETO)
+- [x] Servidor reiniciado - código correto em execução
+- [ ] Usuário deve limpar cache do navegador e testar novo pagamento
