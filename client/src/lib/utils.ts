@@ -27,7 +27,7 @@ const DEFAULT_SOUND_SETTINGS: SoundSettings = {
   playOnSms: true,
   playOnRecharge: false,
   playOnPurchase: false,
-  selectedSound: 'sound2-bright.mp3',
+  selectedSound: 'sound1-digital.mp3',
 };
 
 // Carregar configurações do localStorage
@@ -37,18 +37,12 @@ export function getSoundSettings(): SoundSettings {
     if (stored) {
       const settings = { ...DEFAULT_SOUND_SETTINGS, ...JSON.parse(stored) };
       
-      // Migração automática: sound3-ping.wav → sound3-ping.mp3
-      if (settings.selectedSound === 'sound3-ping.wav') {
-        settings.selectedSound = 'sound3-ping.mp3';
+      // Migração automática: sons antigos → sound1-digital.mp3
+      const oldSounds = ['sound2-bright.wav', 'sound2-bright.mp3', 'sound3-ping.wav', 'sound3-ping.mp3', 'sound4-soft.mp3', 'sound5-classic.mp3'];
+      if (oldSounds.includes(settings.selectedSound)) {
+        settings.selectedSound = 'sound1-digital.mp3';
         saveSoundSettings(settings); // Salvar migração
-        console.log('[Sound Migration] Updated sound3-ping.wav to sound3-ping.mp3');
-      }
-      
-      // Migração automática: sound2-bright.wav → sound2-bright.mp3
-      if (settings.selectedSound === 'sound2-bright.wav') {
-        settings.selectedSound = 'sound2-bright.mp3';
-        saveSoundSettings(settings); // Salvar migração
-        console.log('[Sound Migration] Updated sound2-bright.wav to sound2-bright.mp3');
+        console.log(`[Sound Migration] Updated ${settings.selectedSound} to sound1-digital.mp3`);
       }
       
       return settings;

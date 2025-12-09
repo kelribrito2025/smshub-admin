@@ -1591,3 +1591,17 @@ Se retornar 403, 409, 522 ou 5xx → Cloudflare bloqueando antes do Node.js proc
 - [x] Verificar uso duplicado do hook em StoreLayout
 - [x] Corrigir causa raiz das conexões duplicadas
 - [x] Testar que apenas 1 conexão SSE por operação é criada
+
+## 🚀 Guia de Deploy para Vultr
+- [x] Criar guia de preparação do servidor Vultr
+- [x] Criar guia de instalação de dependências (Node.js, pnpm, PM2, Nginx)
+- [x] Criar guia de configuração do projeto e variáveis de ambiente
+- [x] Criar guia de configuração do Nginx e SSL
+- [x] Criar scripts de deploy automatizado
+- [x] Criar guia de troubleshooting comum
+
+## 🔊 Remover Sons de Notificação Não Utilizados
+- [x] Remover arquivos de áudio: sound2-bright.mp3, sound3-ping.mp3, sound4-soft.mp3, sound5-classic.mp3
+- [x] Atualizar lista de sons em StoreSettings.tsx (manter apenas Digital)
+- [x] Atualizar função de migração em utils.ts
+- [x] Remover código de migração de sons antigos (WAV → MP3)
