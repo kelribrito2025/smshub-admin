@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ReactNode, useRef, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef, ReactNode } from 'react';
 import { useLocation } from 'wouter';
 import { trpc } from '../lib/trpc';
 import { Button } from './ui/button';
@@ -11,7 +11,6 @@ import { copyToClipboard, playNotificationSound } from '../lib/utils';
 import { RechargeModal } from './RechargeModal';
 import NotificationsSidebar from './NotificationsSidebar';
 import ServiceListSkeleton from './ServiceListSkeleton';
-import { useNotifications } from '../hooks/useNotifications';
 import { useCountUp } from '../hooks/useCountUp';
 import { useOperationLock } from '../hooks/useOperationLock';
 import {
@@ -32,7 +31,8 @@ interface StoreLayoutProps {
 }
 
 export default function StoreLayout({ children }: StoreLayoutProps) {
-  const { customer, isAuthenticated, requireAuth, logout } = useStoreAuth();
+  // ✅ Consume from context (single source of truth)
+  const { customer, isAuthenticated, requireAuth, logout, unreadCount, onNotification } = useStoreAuth();
   const { isLocked } = useOperationLock();
   const [location, setLocation] = useLocation();
   const [searchTerm, setSearchTerm] = useState('');
@@ -59,32 +59,31 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
   const servicesQuery = trpc.store.getServices.useQuery(undefined, {
     refetchOnWindowFocus: false,
     staleTime: 5 * 60 * 1000, // 5 minutes
+    retry: 1,
   });
   const countriesQuery = trpc.store.getCountries.useQuery(undefined, {
     refetchOnWindowFocus: false,
     staleTime: 10 * 60 * 1000, // 10 minutes
+    retry: 1,
   });
   const pricesQuery = trpc.store.getPrices.useQuery({}, {
     refetchOnWindowFocus: false,
     staleTime: 2 * 60 * 1000, // 2 minutes
+    retry: 1,
   });
   const operatorsQuery = trpc.store.getOperators.useQuery(
     { countryId: selectedCountry || undefined },
     {
       refetchOnWindowFocus: false,
       staleTime: 5 * 60 * 1000, // 5 minutes
+      retry: 1,
     }
   );
 
-  // Only query customer data if authenticated
-  const customerQuery = trpc.store.getCustomer.useQuery(
-    { customerId: customer?.id || 0 },
-    { 
-      enabled: !!customer?.id,
-      refetchOnWindowFocus: false,
-      staleTime: 30 * 1000, // 30 seconds (balance updates via SSE)
-    }
-  );
+  // ✅ REMOVED: customerQuery (now from context)
+  // ✅ REMOVED: activationsQuery (pages load their own)
+  // ✅ REMOVED: notificationsQuery (now from context)
+  // ✅ REMOVED: SSE connection (now in context)
   
   const favoritesQuery = trpc.store.getFavorites.useQuery(
     { customerId: customer?.id || 0 },
@@ -92,84 +91,47 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
       enabled: !!customer?.id,
       refetchOnWindowFocus: false,
       staleTime: 60 * 1000, // 1 minute
-    }
-  );
-  
-  const activationsQuery = trpc.store.getMyActivations.useQuery(
-    { customerId: customer?.id || 0 },
-    { 
-      enabled: !!customer?.id,
-      refetchOnWindowFocus: false,
-      refetchInterval: 60 * 1000, // Poll every 60 seconds (optimized to avoid 429)
-      staleTime: 45 * 1000, // Consider data fresh for 45 seconds
+      retry: 1,
     }
   );
   
   const utils = trpc.useUtils();
 
-  // Real-time notifications
-  // Wrap onNotification in useCallback to prevent SSE reconnection loops
-  const handleNotification = useCallback((notification: any) => {
-    console.log('[Store] Received notification:', notification);
-    
-    // Balance notification removed during validation phase
-    // Saldo atualiza silenciosamente via SSE
-    
-    // Invalidate queries when balance updated or payment confirmed
-    if (notification.type === 'pix_payment_confirmed' || notification.type === 'balance_updated') {
-      // ✅ Use utils.invalidate() instead of customerQuery.refetch() to avoid dependency
-      utils.store.getCustomer.invalidate();
-      // Som de recarga removido durante fase de validação
-    }
-    // Invalidate recharges cache when recharge is completed
-    if (notification.type === 'recharge_completed') {
-      console.log('[Store] Invalidating recharges cache after payment confirmation');
-      utils.recharges.getMyRecharges.invalidate();
-      utils.store.getCustomer.invalidate(); // ✅ Use utils.invalidate() instead of customerQuery.refetch()
-    }
-    
-    // Handle purchase completion notification (only show after backend confirms)
-    if (notification.type === 'operation_completed' && notification.data?.operation === 'purchase') {
-      // Debounce: ignore duplicate notifications within 2 seconds (multiple SSE connections)
-      const now = Date.now();
-      if (now - lastPurchaseNotification.current < 2000) {
-        console.log('[Store] Ignoring duplicate purchase notification (debounced)');
-        return;
-      }
-      lastPurchaseNotification.current = now;
+  // ✅ Subscribe to notifications from context
+  useEffect(() => {
+    const unsubscribe = onNotification((notification) => {
+      console.log('[StoreLayout] Received notification:', notification);
       
-      console.log('[Store] Purchase completed - showing success notification');
-      toast.success(notification.title || 'Compra realizada', {
-        description: notification.message || 'Número SMS adquirido com sucesso',
-        duration: 5000,
-      });
-      // Invalidate activations to show new purchase
-      utils.store.getMyActivations.invalidate();
-      playNotificationSound('purchase');
-    }
-    
-    // Handle purchase failure notification
-    if (notification.type === 'operation_failed' && notification.data?.operation === 'purchase') {
-      console.log('[Store] Purchase failed - error already shown by mutation');
-      // Error toast is already shown by the mutation's catch block
-      // Just invalidate to ensure UI is in sync
-      utils.store.getMyActivations.invalidate();
-    }
-  }, [utils]); // ✅ FIXED: Only depend on utils (stable), not customerQuery (changes every refetch)
+      // Handle purchase completion notification (only show after backend confirms)
+      if (notification.type === 'operation_completed' && notification.data?.operation === 'purchase') {
+        // Debounce: ignore duplicate notifications within 2 seconds
+        const now = Date.now();
+        if (now - lastPurchaseNotification.current < 2000) {
+          console.log('[StoreLayout] Ignoring duplicate purchase notification (debounced)');
+          return;
+        }
+        lastPurchaseNotification.current = now;
+        
+        console.log('[StoreLayout] Purchase completed - showing success notification');
+        toast.success(notification.title || 'Compra realizada', {
+          description: notification.message || 'Número SMS adquirido com sucesso',
+          duration: 5000,
+        });
+        playNotificationSound('purchase');
+      }
+      
+      // Handle admin notifications
+      if (notification.type === 'admin_notification') {
+        toast.info(notification.title, {
+          description: notification.message,
+          duration: 6000,
+          icon: "📢",
+        });
+      }
+    });
 
-  const { isConnected: notificationsConnected } = useNotifications({
-    customerId: customer?.id || null,
-    onNotification: handleNotification,
-  });
-
-  // Query notifications to get unread count for badge
-  const notificationsQuery = trpc.notifications.getAll.useQuery(undefined, {
-    enabled: !!customer?.id,
-    refetchOnWindowFocus: false,
-    staleTime: 30 * 1000, // 30 seconds
-  });
-
-  const unreadCount = (notificationsQuery.data || []).filter(n => !n.isRead).length;
+    return unsubscribe;
+  }, [onNotification]);
   
   const toggleFavoriteMutation = trpc.store.toggleFavorite.useMutation({
     onSuccess: async () => {
@@ -203,713 +165,440 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
     }
   }, [isAuthenticated, showFavorites]);
 
-  // Polling is now handled by refetchInterval in the query (30s)
-  // Removed manual interval to avoid duplicate polling and 429 errors
-
-  // Detect new SMS codes and show notification (only if authenticated)
-  useEffect(() => {
-    if (!activationsQuery.data || !isAuthenticated) return;
-
-    const currentActivations = activationsQuery.data;
-    const currentKeys = new Set(
-      currentActivations
-        .filter((a: any) => a.smsCode) // Only track activations with SMS codes
-        .map((a: any) => `${a.id}-${a.smsCode}`)
-    );
-
-    // Check for new SMS codes
-    setPreviousActivations((prev) => {
-      // Skip notification on first load
-      if (isFirstLoad.current) {
-        isFirstLoad.current = false;
-        return currentKeys;
-      }
-
-      // Check for new SMS codes by comparing with previous state
-      currentActivations.forEach((activation: any) => {
-        if (activation.smsCode) {
-          const key = `${activation.id}-${activation.smsCode}`;
-          if (!prev.has(key)) {
-            // New SMS code detected!
-            toast.success('📱 Novo código SMS recebido!', {
-              description: `Serviço: ${activation.service?.name || 'Desconhecido'}`,
-              duration: 5000,
-            });
-            
-            // Som de SMS removido durante fase de validação
-          }
-        }
-      });
-
-      return currentKeys;
-    });
-  }, [activationsQuery.data, isAuthenticated]);
-
   const formatBalance = (cents: number) => `R$ ${(cents / 100).toFixed(2)}`;
 
   // Construir mapa de preços por (serviceId, countryId)
   const priceMap = new Map<string, number>();
-  
-  pricesQuery.data?.forEach((item: any) => {
-    const key = `${item.service?.id}-${item.country?.id}`;
-    
-    // Calculate minimum price from all API options
-    const minPrice = item.apiOptions?.reduce((min: number, opt: any) => {
-      const price = opt.price || 0;
-      return price < min ? price : min;
-    }, Infinity) || 0;
-    
-    priceMap.set(key, minPrice === Infinity ? 0 : minPrice);
-  });
-  
-  // Usar servicesQuery como base (já vem ordenado do backend: top 20 por vendas + alfabética)
-  // Filtrar apenas serviços que têm preço para o país selecionado
-  const availableServices = (servicesQuery.data || [])
-    .map((service: any) => {
-      const key = `${service.id}-${selectedCountry || 1}`;
-      const price = priceMap.get(key) || 0;
-      
-      // Só incluir se tiver preço disponível
-      if (price === 0) return null;
-      
-      return {
-        id: service.id,
-        name: service.name,
-        price,
-        countryId: selectedCountry || 1,
-        key,
-        isNew: service.isNew,
-      };
-    })
-    .filter((s: any) => s !== null);
+  if (pricesQuery.data) {
+    pricesQuery.data.forEach((p: any) => {
+      const key = `${p.serviceId}-${p.countryId}`;
+      priceMap.set(key, p.ourPrice);
+    });
+  }
 
-  // Get favorite service IDs (only if authenticated)
-  const favoriteServiceIds = new Set(favoritesQuery.data?.map((f: any) => f.serviceId) || []);
-
-  // Filter services
-  const filteredServices = availableServices.filter((service: any) => {
-    const matchesSearch = service.name?.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCountry = !selectedCountry || service.countryId === selectedCountry;
-    const matchesFavorites = !showFavorites || favoriteServiceIds.has(service.id);
-    return matchesSearch && matchesCountry && matchesFavorites;
+  // Filtrar serviços com base no país selecionado e termo de busca
+  const filteredServices = (servicesQuery.data || []).filter((service: any) => {
+    const matchesSearch = service.name.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesSearch;
   });
 
-  const handleToggleFavorite = (serviceId: number) => {
-    requireAuth(() => {
-      if (!customer?.id) return;
-      toggleFavoriteMutation.mutate({ customerId: customer.id, serviceId });
-    });
-  };
-
-  const handleBuyService = async (service: any, apiId?: number) => {
-    requireAuth(async () => {
-      // Prevenir múltiplas compras simultâneas (local ou de outros navegadores)
-      if (isPurchasing || isLocked) {
-        if (isLocked) {
-          toast.warning('Aguarde', {
-            description: 'Uma operação já está em andamento em outro dispositivo',
-          });
+  // Agrupar serviços por país
+  const servicesByCountry = new Map<number, any[]>();
+  filteredServices.forEach((service: any) => {
+    service.countries?.forEach((country: any) => {
+      if (!selectedCountry || country.id === selectedCountry) {
+        if (!servicesByCountry.has(country.id)) {
+          servicesByCountry.set(country.id, []);
         }
-        return;
+        servicesByCountry.get(country.id)!.push({ ...service, country });
       }
+    });
+  });
+
+  // Ordenar países: Brasil primeiro, depois alfabeticamente
+  const sortedCountries = Array.from(servicesByCountry.keys()).sort((a, b) => {
+    const countryA = countriesQuery.data?.find((c: any) => c.id === a);
+    const countryB = countriesQuery.data?.find((c: any) => c.id === b);
+    
+    // Brasil sempre primeiro
+    if (countryA?.code === 'brazil') return -1;
+    if (countryB?.code === 'brazil') return 1;
+    
+    // Depois alfabeticamente
+    return (countryA?.name || '').localeCompare(countryB?.name || '');
+  });
+
+  const handlePurchase = async (serviceId: number, countryId: number, apiId: number) => {
+    if (!isAuthenticated) {
+      requireAuth(() => handlePurchase(serviceId, countryId, apiId));
+      return;
+    }
+
+    if (isLocked) {
+      toast.error('Operação em andamento', {
+        description: 'Aguarde a conclusão da operação anterior',
+      });
+      return;
+    }
+
+    if (isPurchasing) {
+      toast.error('Compra em andamento', {
+        description: 'Aguarde a conclusão da compra anterior',
+      });
+      return;
+    }
+
+    const serviceKey = `${serviceId}-${countryId}`;
+    setBuyingServiceKey(serviceKey);
+    setLoadingApiId(apiId);
+    setIsPurchasing(true);
+
+    try {
+      console.log('[Store] Purchasing number...', { serviceId, countryId, apiId });
       
-      // Check balance first
-      const currentBalance = customerQuery.data?.balance || customer?.balance || 0;
-      if (currentBalance < service.price) {
-        toast.error('Saldo insuficiente', {
-          description: `Você precisa de ${formatBalance(service.price)}, mas tem apenas ${formatBalance(currentBalance)}`,
-        });
-        return;
-      }
+      const result = await purchaseMutation.mutateAsync({
+        customerId: customer?.id || 0,
+        serviceId,
+        countryId,
+        operator: selectedOperator === 'any' ? undefined : selectedOperator,
+        apiId,
+      });
 
-      // Ativar estado global de compra
-      setIsPurchasing(true);
-      setBuyingServiceKey(service.key);
-      if (apiId) {
-        setLoadingApiId(apiId);
-      }
+      console.log('[Store] Purchase mutation completed:', result);
       
-      // Executar compra e mostrar notificação de sucesso/erro
-      (async () => {
-        try {
-          // Executar compra com delay mínimo de 4 segundos
-          await Promise.all([
-            purchaseMutation.mutateAsync({
-              customerId: customer!.id,
-              countryId: service.countryId,
-              serviceId: service.id,
-              operator: selectedOperator !== 'any' ? selectedOperator : undefined,
-              apiId, // Pass API ID if provided
-            }),
-            new Promise(resolve => setTimeout(resolve, 4000)) // Delay mínimo de 4 segundos
-          ]);
-          
-          // Mostrar notificação de SUCESSO (igual ao cancelamento)
-          toast.success('Número SMS adquirido com sucesso!');
-          
-          // Invalidate queries to refresh data
-          await utils.store.getCustomer.invalidate();
-          await utils.store.getMyActivations.invalidate();
-        } catch (error: any) {
-          // Mostrar apenas notificações de ERRO (5 segundos para mensagens longas)
-          toast.error(error.message, {
-            duration: 5000,
-          });
-        } finally {
-          // Desativar estado global de compra após conclusão
-          setIsPurchasing(false);
-          setBuyingServiceKey(null);
-          setLoadingApiId(null);
-        }
-      })();
+      // ✅ Invalidate activations to show new purchase
+      await utils.store.getMyActivations.invalidate();
+      
+      // Success toast will be shown by SSE notification (operation_completed)
+      // This prevents duplicate toasts
+    } catch (error: any) {
+      console.error('[Store] Purchase failed:', error);
+      toast.error('Erro ao comprar número', {
+        description: error.message || 'Tente novamente',
+        duration: 5000,
+      });
+    } finally {
+      setBuyingServiceKey(null);
+      setLoadingApiId(null);
+      setIsPurchasing(false);
+    }
+  };
+
+  const toggleFavorite = (serviceId: number) => {
+    if (!isAuthenticated) {
+      requireAuth(() => toggleFavorite(serviceId));
+      return;
+    }
+
+    toggleFavoriteMutation.mutate({
+      customerId: customer?.id || 0,
+      serviceId,
     });
   };
 
-  const handleRecharge = () => {
-    requireAuth(() => {
-      setRechargeModalOpen(true);
+  const toggleService = (serviceId: number) => {
+    setExpandedServices(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(serviceId)) {
+        newSet.delete(serviceId);
+      } else {
+        newSet.add(serviceId);
+      }
+      return newSet;
     });
   };
 
-  const handleProfile = () => {
-    requireAuth(() => {
-      setLocation('/account');
-    });
+  const handleShowFavoritesToggle = () => {
+    if (!isAuthenticated) {
+      requireAuth(() => handleShowFavoritesToggle());
+      return;
+    }
+    
+    const newValue = !showFavorites;
+    setShowFavorites(newValue);
+    localStorage.setItem('store_show_favorites', String(newValue));
   };
 
-  const handleHistory = () => {
-    requireAuth(() => {
-      setLocation('/history');
-    });
-  };
+  const favoriteServiceIds = new Set(
+    (favoritesQuery.data || []).map((f: any) => f.serviceId)
+  );
 
-  const isActive = (path: string) => location === path;
+  // Filtrar serviços favoritos se a opção estiver ativada
+  const displayedCountries = showFavorites
+    ? sortedCountries.filter(countryId => {
+        const services = servicesByCountry.get(countryId) || [];
+        return services.some(service => favoriteServiceIds.has(service.id));
+      })
+    : sortedCountries;
 
-  // Display balance (R$ 0,00 if not authenticated)
-  const displayBalance = isAuthenticated 
-    ? (customerQuery.data?.balance || customer?.balance || 0)
-    : 0;
-  
-  // Animated balance with counter effect
-  const animatedBalance = useCountUp(displayBalance, 800);
-  
-  // Detect balance changes and trigger flash animation
+  // Animated balance with useCountUp hook
+  const displayBalance = useCountUp(customer?.balance || 0, 500);
+
+  // Flash effect when balance changes
   useEffect(() => {
-    if (previousBalance.current !== null && previousBalance.current !== displayBalance) {
-      const diff = displayBalance - previousBalance.current;
-      if (diff > 0) {
-        // Balance increased (green flash)
+    if (customer?.balance !== undefined && previousBalance.current !== null) {
+      if (customer.balance > previousBalance.current) {
         setBalanceFlash('green');
-        setTimeout(() => setBalanceFlash(null), 800);
-      } else if (diff < 0) {
-        // Balance decreased (red flash)
+        setTimeout(() => setBalanceFlash(null), 500);
+      } else if (customer.balance < previousBalance.current) {
         setBalanceFlash('red');
-        setTimeout(() => setBalanceFlash(null), 800);
+        setTimeout(() => setBalanceFlash(null), 500);
       }
     }
-    previousBalance.current = displayBalance;
-  }, [displayBalance]);
-  
-  // Check if balance is low (< R$ 7,00 = 700 centavos) AND user is authenticated
-  // Only show red when user is logged in AND balance is low
-  const isLowBalance = isAuthenticated && displayBalance < 700;
+    previousBalance.current = customer?.balance || null;
+  }, [customer?.balance]);
 
   return (
-    <div className="h-screen overflow-hidden bg-black text-green-400 font-mono">
-      {/* Matrix Background */}
-      <div className="fixed inset-0 opacity-5 pointer-events-none">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, #00ff41 2px, #00ff41 4px),
-                           repeating-linear-gradient(90deg, transparent, transparent 2px, #00ff41 2px, #00ff41 4px)`,
-          backgroundSize: '50px 50px'
-        }} />
-      </div>
-
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 h-16 bg-black border-b border-green-900/50 z-50 flex items-center justify-between px-4 md:px-6">
-        <div className="flex items-center gap-2 md:gap-8">
-          {/* Mobile Menu Button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden text-green-600 hover:text-green-400"
-          >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </Button>
-
-          <button 
-            onClick={() => setLocation('/')}
-            className="flex items-center gap-2 text-lg md:text-xl font-bold"
-          >
-            {/* Logo N - SVG inline com fundo transparente */}
-            <svg 
-              className="hidden sm:block w-8 h-8" 
-              viewBox="0 0 100 100" 
-              fill="none" 
-              xmlns="http://www.w3.org/2000/svg"
+      <header className="sticky top-0 z-40 border-b border-slate-800/50 bg-slate-950/95 backdrop-blur supports-[backdrop-filter]:bg-slate-950/80">
+        <div className="container mx-auto px-4 py-3">
+          <div className="flex items-center justify-between gap-4">
+            {/* Logo */}
+            <button
+              onClick={() => setLocation('/store')}
+              className="flex items-center gap-2 text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent hover:from-cyan-300 hover:to-blue-400 transition-all"
             >
-              <rect width="100" height="100" rx="12" fill="#00D26A"/>
-              <text 
-                x="50" 
-                y="50" 
-                fontSize="60" 
-                fontWeight="bold" 
-                fontFamily="sans-serif" 
-                fill="#000000" 
-                textAnchor="middle" 
-                dominantBaseline="central"
-              >
-                N
-              </text>
-            </svg>
-            <span className="text-green-400 hidden sm:inline">Número Virtual</span>
-          </button>
-
-          <nav className="hidden lg:flex items-center gap-2">
-            <Button
-              onClick={() => setLocation('/')}
-              variant="ghost"
-              className={`${isActive('/') ? 'bg-green-500 text-black hover:bg-green-500 hover:brightness-110' : 'text-green-600 hover:text-green-400 hover:bg-green-900/20'} font-mono flex items-center gap-2`}
-            >
-              <LayoutDashboard className="w-4 h-4" />
-              Dashboard
-            </Button>
-            <Button
-              onClick={handleHistory}
-              variant="ghost"
-              className={`${isActive('/history') ? 'bg-green-500 text-black hover:bg-green-500 hover:brightness-110' : 'text-green-600 hover:text-green-400 hover:bg-green-900/20'} font-mono flex items-center gap-2`}
-            >
-              <History className="w-4 h-4" />
-              Histórico
-            </Button>
-            <Button
-              onClick={() => setLocation('/affiliate')}
-              variant="ghost"
-              className={`${isActive('/affiliate') ? 'bg-green-500 text-black hover:bg-green-500 hover:brightness-110' : 'text-green-600 hover:text-green-400 hover:bg-green-900/20'} font-mono flex items-center gap-2`}
-            >
-              <Gift className="w-4 h-4" />
-              Afiliados
-            </Button>
-          </nav>
-        </div>
-
-        <div className="flex items-center gap-2 md:gap-4">
-          {/* Mobile Balance Display */}
-          {isAuthenticated && (
-            <button 
-              onClick={handleRecharge}
-              className={`lg:hidden flex items-center gap-1.5 px-2 py-1 rounded transition-colors cursor-pointer ${
-                isLowBalance 
-                  ? 'bg-red-900/20 border border-red-900/50 hover:bg-red-900/30 hover:border-red-500/50 animate-pulse' 
-                  : 'bg-green-900/20 border border-green-900/50 hover:bg-green-900/30 hover:border-green-500/50'
-              } ${
-                balanceFlash === 'green' ? 'balance-flash-green' : balanceFlash === 'red' ? 'balance-flash-red' : ''
-              }`}
-            >
-              <Wallet className={`w-4 h-4 ${isLowBalance ? 'text-red-600' : 'text-green-600'}`} />
-              <span className={`font-bold text-sm ${isLowBalance ? 'text-red-400' : 'text-green-400'}`}>
-                {formatBalance(Math.round(animatedBalance))}
-              </span>
+              <Globe className="w-6 h-6 text-cyan-400" />
+              <span className="hidden sm:inline">SMS Hub</span>
             </button>
-          )}
 
-          {/* ID Display (only if authenticated and desktop) */}
-          {isAuthenticated && customer && (
-            <div className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-green-900/20 border border-green-900/50 rounded">
-              <span className="text-green-600 text-sm">ID:</span>
-              <span className="text-green-400 font-bold">#{customer.pin}</span>
-              <button
-                onClick={async () => {
-                  await copyToClipboard(customer.pin.toString());
-                  toast.success('ID copiado!');
-                }}
-                className="text-green-600 hover:text-green-400 transition-colors p-1"
-                title="Copiar ID"
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center gap-1">
+              <Button
+                variant={location === '/store' ? 'secondary' : 'ghost'}
+                size="sm"
+                onClick={() => setLocation('/store')}
+                className="text-slate-300 hover:text-white"
               >
-                <Copy className="w-4 h-4" />
-              </button>
-            </div>
-          )}
-
-          {/* Language Selector Dropdown (hidden on mobile) */}
-          {/* Notifications Button - Only show when logged in */}
-          {customer && (
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setNotificationsSidebarOpen(true)}
-              className="relative text-green-600 hover:text-green-400" 
-              style={{width: '40px', height: '40px'}}
-            >
-              <Bell className="w-5 h-5" />
-              {/* Badge de notificações não lidas - só pisca quando há notificações não lidas */}
-              {unreadCount > 0 && (
-                <span className="absolute top-1 right-1 w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-              )}
-            </Button>
-          )}
-
-          {/* Profile Menu Dropdown */}
-          <DropdownMenu modal={false}>
-            <DropdownMenuTrigger asChild>
-              {customer?.role === 'admin' ? (
-                <button className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-green-900/20 transition-colors border border-black focus:outline-none focus-visible:outline-none">
-                  <div className="w-9 h-9 rounded-full bg-purple-500/10 flex items-center justify-center shrink-0">
-                    <Shield className="w-5 h-5 text-purple-500" />
-                  </div>
-                  <span className="text-sm font-medium text-purple-400 hidden sm:block">Admin</span>
-                </button>
-              ) : (
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-green-600 hover:text-green-400" style={{width: '40px', height: '40px'}}
-                >
-                  <User className="w-5 h-5" />
-                </Button>
-              )}
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="bg-black border-green-900/50">
-              {/* Mostrar Perfil e Sair quando logado, apenas Entrar quando deslogado */}
+                <LayoutDashboard className="w-4 h-4 mr-2" />
+                Loja
+              </Button>
               {isAuthenticated && (
                 <>
-                  <DropdownMenuItem 
-                    onClick={() => setLocation('/account')}
-                    className="text-green-400 hover:text-green-300 hover:bg-green-900/20 cursor-pointer"
-                  >
-                    <User className="w-4 h-4 mr-2" />
-                    Perfil
-                  </DropdownMenuItem>
-                  <DropdownMenuItem 
-                    onClick={() => setLocation('/recharges')}
-                    className="text-green-400 hover:text-green-300 hover:bg-green-900/20 cursor-pointer"
-                  >
-                    <Wallet className="w-4 h-4 mr-2" />
-                    Recargas
-                  </DropdownMenuItem>
-                  <DropdownMenuItem 
-                    onClick={() => setLocation('/')}
-                    className="lg:hidden text-green-400 hover:text-green-300 hover:bg-green-900/20 cursor-pointer"
-                  >
-                    <LayoutDashboard className="w-4 h-4 mr-2" />
-                    Dashboard
-                  </DropdownMenuItem>
-                  <DropdownMenuItem 
-                    onClick={handleHistory}
-                    className="lg:hidden text-green-400 hover:text-green-300 hover:bg-green-900/20 cursor-pointer"
+                  <Button
+                    variant={location === '/store/activations' ? 'secondary' : 'ghost'}
+                    size="sm"
+                    onClick={() => setLocation('/store/activations')}
+                    className="text-slate-300 hover:text-white"
                   >
                     <History className="w-4 h-4 mr-2" />
-                    Histórico
-                  </DropdownMenuItem>
-                  <DropdownMenuItem 
-                    onClick={() => setLocation('/security')}
-                    className="text-green-400 hover:text-green-300 hover:bg-green-900/20 cursor-pointer"
+                    Ativações
+                  </Button>
+                  <Button
+                    variant={location === '/store/account' ? 'secondary' : 'ghost'}
+                    size="sm"
+                    onClick={() => setLocation('/store/account')}
+                    className="text-slate-300 hover:text-white"
                   >
-                    <Shield className="w-4 h-4 mr-2" />
-                    Segurança
-                  </DropdownMenuItem>
-                  <DropdownMenuItem 
-                    onClick={() => setLocation('/settings')}
-                    className="text-green-400 hover:text-green-300 hover:bg-green-900/20 cursor-pointer"
-                  >
-                    <Settings className="w-4 h-4 mr-2" />
-                    Configurações
-                  </DropdownMenuItem>
-                  <DropdownMenuItem 
-                    onClick={() => setLocation('/affiliate')}
-                    className="lg:hidden text-green-400 hover:text-green-300 hover:bg-green-900/20 cursor-pointer"
+                    <User className="w-4 h-4 mr-2" />
+                    Conta
+                  </Button>
+                  <Button
+                    variant={location === '/store/affiliate' ? 'secondary' : 'ghost'}
+                    size="sm"
+                    onClick={() => setLocation('/store/affiliate')}
+                    className="text-slate-300 hover:text-white"
                   >
                     <Gift className="w-4 h-4 mr-2" />
                     Afiliados
-                  </DropdownMenuItem>
+                  </Button>
                 </>
               )}
+            </nav>
+
+            {/* Right side actions */}
+            <div className="flex items-center gap-2">
               {isAuthenticated ? (
-                <DropdownMenuItem 
-                  onClick={() => {
-                    logout(); // Limpa estado do contexto e localStorage
-                    toast.success('Logout realizado com sucesso!');
-                    setLocation('/'); // Redireciona para página inicial
-                  }}
-                  className="text-green-400 hover:text-green-300 hover:bg-green-900/20 cursor-pointer"
-                >
-                  <LogOut className="w-4 h-4 mr-2" />
-                  Sair
-                </DropdownMenuItem>
+                <>
+                  {/* Balance */}
+                  <div className={`hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-all ${
+                    balanceFlash === 'green' 
+                      ? 'bg-green-500/20 border-green-500/50 shadow-lg shadow-green-500/20' 
+                      : balanceFlash === 'red'
+                      ? 'bg-red-500/20 border-red-500/50 shadow-lg shadow-red-500/20'
+                      : 'bg-slate-800/50 border-slate-700/50'
+                  }`}>
+                    <Wallet className="w-4 h-4 text-cyan-400" />
+                    <span className="text-sm font-semibold text-white">
+                      {formatBalance(displayBalance)}
+                    </span>
+                  </div>
+
+                  {/* Recharge button */}
+                  <Button
+                    size="sm"
+                    onClick={() => setRechargeModalOpen(true)}
+                    className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white shadow-lg shadow-green-500/20"
+                  >
+                    <TrendingUp className="w-4 h-4 mr-2" />
+                    <span className="hidden sm:inline">Recarregar</span>
+                  </Button>
+
+                  {/* Notifications bell */}
+                  <button
+                    onClick={() => setNotificationsSidebarOpen(true)}
+                    className="relative p-2 rounded-lg hover:bg-slate-800/50 transition-colors"
+                  >
+                    <Bell className="w-5 h-5" />
+                    {/* Badge de notificações não lidas - só pisca quando há notificações não lidas */}
+                    {unreadCount > 0 && (
+                      <span className="absolute top-1 right-1 w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                    )}
+                  </button>
+
+                  {/* User menu (desktop) */}
+                  <div className="hidden md:block">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="sm" className="text-slate-300 hover:text-white">
+                          <User className="w-4 h-4 mr-2" />
+                          {customer?.name}
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className="w-48">
+                        <DropdownMenuItem onClick={() => setLocation('/store/account')}>
+                          <User className="w-4 h-4 mr-2" />
+                          Minha Conta
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setLocation('/store/security')}>
+                          <Shield className="w-4 h-4 mr-2" />
+                          Segurança
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setLocation('/store/settings')}>
+                          <Settings className="w-4 h-4 mr-2" />
+                          Configurações
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={logout} className="text-red-400">
+                          <LogOut className="w-4 h-4 mr-2" />
+                          Sair
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+
+                  {/* Mobile menu button */}
+                  <button
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    className="md:hidden p-2 rounded-lg hover:bg-slate-800/50 transition-colors"
+                  >
+                    {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                  </button>
+                </>
               ) : (
-                <DropdownMenuItem 
-                  onClick={() => {
-                    // Abre modal de login usando requireAuth com ação vazia
-                    requireAuth(() => {});
-                  }}
-                  className="text-green-400 hover:text-green-300 hover:bg-green-900/20 cursor-pointer"
+                <Button
+                  size="sm"
+                  onClick={() => setLocation('/store/login')}
+                  className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white"
                 >
                   <LogIn className="w-4 h-4 mr-2" />
                   Entrar
-                </DropdownMenuItem>
+                </Button>
               )}
-            </DropdownMenuContent>
-          </DropdownMenu>
+            </div>
+          </div>
+
+          {/* Mobile menu */}
+          {isMobileMenuOpen && isAuthenticated && (
+            <div className="md:hidden mt-4 pb-2 border-t border-slate-800/50 pt-4 space-y-2">
+              <Button
+                variant={location === '/store' ? 'secondary' : 'ghost'}
+                size="sm"
+                onClick={() => {
+                  setLocation('/store');
+                  setIsMobileMenuOpen(false);
+                }}
+                className="w-full justify-start text-slate-300 hover:text-white"
+              >
+                <LayoutDashboard className="w-4 h-4 mr-2" />
+                Loja
+              </Button>
+              <Button
+                variant={location === '/store/activations' ? 'secondary' : 'ghost'}
+                size="sm"
+                onClick={() => {
+                  setLocation('/store/activations');
+                  setIsMobileMenuOpen(false);
+                }}
+                className="w-full justify-start text-slate-300 hover:text-white"
+              >
+                <History className="w-4 h-4 mr-2" />
+                Ativações
+              </Button>
+              <Button
+                variant={location === '/store/account' ? 'secondary' : 'ghost'}
+                size="sm"
+                onClick={() => {
+                  setLocation('/store/account');
+                  setIsMobileMenuOpen(false);
+                }}
+                className="w-full justify-start text-slate-300 hover:text-white"
+              >
+                <User className="w-4 h-4 mr-2" />
+                Conta
+              </Button>
+              <Button
+                variant={location === '/store/affiliate' ? 'secondary' : 'ghost'}
+                size="sm"
+                onClick={() => {
+                  setLocation('/store/affiliate');
+                  setIsMobileMenuOpen(false);
+                }}
+                className="w-full justify-start text-slate-300 hover:text-white"
+              >
+                <Gift className="w-4 h-4 mr-2" />
+                Afiliados
+              </Button>
+              <Button
+                variant={location === '/store/security' ? 'secondary' : 'ghost'}
+                size="sm"
+                onClick={() => {
+                  setLocation('/store/security');
+                  setIsMobileMenuOpen(false);
+                }}
+                className="w-full justify-start text-slate-300 hover:text-white"
+              >
+                <Shield className="w-4 h-4 mr-2" />
+                Segurança
+              </Button>
+              <Button
+                variant={location === '/store/settings' ? 'secondary' : 'ghost'}
+                size="sm"
+                onClick={() => {
+                  setLocation('/store/settings');
+                  setIsMobileMenuOpen(false);
+                }}
+                className="w-full justify-start text-slate-300 hover:text-white"
+              >
+                <Settings className="w-4 h-4 mr-2" />
+                Configurações
+              </Button>
+              
+              {/* Mobile balance */}
+              <div className={`flex items-center justify-between px-3 py-2 rounded-lg border transition-all ${
+                balanceFlash === 'green' 
+                  ? 'bg-green-500/20 border-green-500/50' 
+                  : balanceFlash === 'red'
+                  ? 'bg-red-500/20 border-red-500/50'
+                  : 'bg-slate-800/50 border-slate-700/50'
+              }`}>
+                <span className="text-sm text-slate-400">Saldo:</span>
+                <span className="text-sm font-semibold text-white">
+                  {formatBalance(displayBalance)}
+                </span>
+              </div>
+              
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => {
+                  logout();
+                  setIsMobileMenuOpen(false);
+                }}
+                className="w-full justify-start text-red-400 hover:text-red-300"
+              >
+                <LogOut className="w-4 h-4 mr-2" />
+                Sair
+              </Button>
+            </div>
+          )}
         </div>
       </header>
 
-      {/* Mobile Overlay */}
-      {isMobileMenuOpen && (
-        <div 
-          className="fixed inset-0 bg-black/50 z-30 lg:hidden"
-          onClick={() => setIsMobileMenuOpen(false)}
-        />
-      )}
-
-      {/* Sidebar */}
-      <aside className={`fixed left-0 top-16 bottom-0 w-[364px] bg-black border-r border-green-900/50 overflow-y-auto z-40 transition-transform duration-300 ${
-        isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
-      }`}>
-        <div className="p-4 space-y-4">
-          {/* Balance Card */}
-          <div className={`hidden lg:block rounded-lg p-4 bg-black border relative overflow-hidden ${
-            isLowBalance ? 'border-red-500 animate-pulse' : 'border-green-900/30'
-          } ${
-            balanceFlash === 'green' ? 'balance-flash-green' : balanceFlash === 'red' ? 'balance-flash-red' : ''
-          }`} style={{borderWidth: '2px'}}>
-            {/* Grid cyber background */}
-            <div className="absolute inset-0 pointer-events-none" style={{
-              backgroundImage: `
-                linear-gradient(to right, ${isLowBalance ? '#ef4444' : '#22c55e'} 1px, transparent 1px),
-                linear-gradient(to bottom, ${isLowBalance ? '#ef4444' : '#22c55e'} 1px, transparent 1px)
-              `,
-              backgroundSize: '20px 20px',
-              opacity: 0.05
-            }} />
-            
-            {/* Header gradient */}
-            <div className={`absolute top-0 left-0 right-0 h-16 bg-gradient-to-b pointer-events-none ${
-              isLowBalance ? 'from-red-950/50' : 'from-green-950/50'
-            } to-transparent`} />
-            
-            {/* Content */}
-            <div className="relative z-10">
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-2">
-                  <Wallet className={`w-5 h-5 ${isLowBalance ? 'text-red-400' : 'text-green-400'}`} />
-                  <span className={`text-sm font-bold ${isLowBalance ? 'text-red-400' : 'text-green-400'}`}>Saldo</span>
-                </div>
-                {isLowBalance ? (
-                  <TrendingDown className="w-4 h-4 text-red-400" />
-                ) : (
-                  <TrendingUp className="w-4 h-4 text-green-400" />
-                )}
-              </div>
-              <div className={`text-3xl font-bold mb-3 font-mono ${
-                isLowBalance ? 'text-red-400' : 'text-green-400'
-              }`}>
-                {formatBalance(Math.round(animatedBalance))}
-              </div>
-              <Button
-                onClick={handleRecharge}
-                className={`w-full font-bold transition-all hover:scale-[1.02] active:scale-[0.98] ${
-                  isLowBalance 
-                    ? 'bg-red-500 hover:bg-red-400 border-red-400 text-black' 
-                    : 'bg-green-500 hover:bg-green-600 text-black'
-                }`}
-              >
-                Recarregar
-              </Button>
-            </div>
-          </div>
-
-
-
-          {/* Country Filter */}
-          <div>
-            <label className="flex items-center gap-2 text-sm text-green-600 mb-2">
-              <Globe className="w-4 h-4" />
-              Selecione o País
-            </label>
-            <select
-              value={selectedCountry || ''}
-              onChange={(e) => setSelectedCountry(e.target.value ? Number(e.target.value) : null)}
-              className="w-full bg-gray-900 border border-green-900/50 rounded px-3 py-2 text-green-400 font-mono focus:outline-none focus:border-green-500"
-            >
-              {countriesQuery.data?.map((country: any) => (
-                <option key={country.id} value={country.id}>
-                  {country.name} ({country.code})
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Operator Filter */}
-          <div>
-            <label className="text-sm text-green-600 mb-2 block">
-              Operadora <span className="text-xs">(opcional)</span>
-            </label>
-            <select
-              value={selectedOperator}
-              onChange={(e) => setSelectedOperator(e.target.value)}
-              className="w-full bg-gray-900 border border-green-900/50 rounded px-3 py-2 text-green-600 font-mono hover:border-green-700 transition-colors"
-            >
-              <option value="any">Aleatória</option>
-              {operatorsQuery.data?.filter((op: any) => op.code !== 'any').map((operator: any) => (
-                <option key={operator.id} value={operator.code}>
-                  {operator.name}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Service Search */}
-          <div>
-            <div className="flex items-center justify-between mb-2">
-              <label className="text-sm text-green-600"></label>
-              {isAuthenticated && (
-                <label className="flex items-center gap-2 text-xs text-green-600 cursor-pointer">
-                  <div className="relative flex items-center">
-                    <input
-                      type="checkbox"
-                      checked={showFavorites}
-                      onChange={(e) => {
-                        const newValue = e.target.checked;
-                        setShowFavorites(newValue);
-                        localStorage.setItem('store_show_favorites', String(newValue));
-                      }}
-                      className="sr-only peer"
-                    />
-                    <div className="w-4 h-4 border-2 border-green-500 rounded bg-transparent peer-checked:bg-green-500 peer-checked:border-green-500 transition-all duration-200 flex items-center justify-center" style={{width: '14px', height: '14px'}}>
-                      {showFavorites && (
-                        <Check className="w-3 h-3 text-black" />
-                      )}
-                    </div>
-                  </div>
-                  Exibir favoritos
-                </label>
-              )}
-            </div>
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-green-600" />
-              <Input
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Pesquisar serviços"
-                className="w-full bg-gray-900 border-green-900/50 pl-10 text-green-400 font-mono focus-visible:ring-2 focus-visible:ring-green-500/50 focus-visible:ring-offset-0 focus-visible:border-green-900/50"
-              />
-            </div>
-          </div>
-
-          {/* Services List */}
-          <div className="space-y-2">
-            {servicesQuery.isLoading ? (
-              <ServiceListSkeleton count={8} />
-            ) : filteredServices.length === 0 ? (
-              <p className="text-center text-green-600 text-sm py-4">
-                Nenhum serviço encontrado
-              </p>
-            ) : (
-              filteredServices.map((service: any) => {
-              const isExpanded = expandedServices.has(service.id);
-              const isLoading = buyingServiceKey === service.key;
-              
-              return (
-                <div key={service.key} className="bg-gray-900 border border-green-900/50 rounded overflow-hidden">
-                  {/* Service Header */}
-                  <div 
-                    onClick={() => {
-                      setExpandedServices(prev => {
-                        const newSet = new Set(prev);
-                        if (newSet.has(service.id)) {
-                          newSet.delete(service.id);
-                        } else {
-                          newSet.add(service.id);
-                        }
-                        return newSet;
-                      });
-                    }}
-                    className="flex items-center gap-3 p-3 hover:bg-green-900/10 hover:border-green-500/50 transition-colors cursor-pointer"
-                  >
-                    {isAuthenticated && (
-                      <button 
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleToggleFavorite(service.id);
-                        }}
-                        className="text-green-600 hover:text-green-400 transition-colors"
-                      >
-                        <Star 
-                          className="w-4 h-4" 
-                          fill={favoriteServiceIds.has(service.id) ? 'currentColor' : 'none'}
-                        />
-                      </button>
-                    )}
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 bg-green-500 rounded flex items-center justify-center text-black font-bold">
-                          {service.name?.[0]?.toUpperCase()}
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2">
-                            <p className="text-green-400 font-bold text-sm truncate">{service.name}</p>
-                            {service.isNew && (
-                              <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-green-500/20 border border-green-500 rounded text-green-400 text-xs font-bold">
-                                <Sparkles className="w-3 h-3" />
-                                Novo
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="text-green-400 flex items-center justify-center">
-                      {isExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
-                    </div>
-                  </div>
-
-                  {/* Dropdown with API Options */}
-                  {isExpanded && (
-                    <div className="border-t border-green-900/50 bg-black/50 p-3 space-y-2">
-                      <ServiceApiOptions 
-                        serviceId={service.id} 
-                        countryId={selectedCountry || 1}
-                        customerId={customer?.id} // Passar ID do cliente para adaptar UX
-                        loadingApiId={loadingApiId}
-                        isPurchasing={isPurchasing}
-                        isLocked={isLocked}
-                        onBuy={(apiId: number, apiName: string, price: number) => {
-                          // Create service object with updated price from selected API
-                          const serviceWithApiPrice = {
-                            ...service,
-                            price, // Use price from selected API
-                          };
-                          handleBuyService(serviceWithApiPrice, apiId);
-                        }}
-                      />
-                    </div>
-                  )}
-                </div>
-              );
-            })
-            )}
-          </div>
-        </div>
-      </aside>
-
-      {/* Main Content */}
-      <main className="flex-1 lg:ml-[364px] mt-16 p-4 md:p-8 overflow-y-auto h-[calc(100vh-4rem)]">
-        <div className="relative z-10">
-          {children}
-        </div>
+      {/* Main content */}
+      <main className="container mx-auto px-4 py-6">
+        {children}
       </main>
 
-      {/* Recharge Modal */}
-      <RechargeModal 
-        isOpen={rechargeModalOpen} 
-        onClose={() => setRechargeModalOpen(false)} 
+      {/* Modals */}
+      <RechargeModal
+        isOpen={rechargeModalOpen}
+        onClose={() => setRechargeModalOpen(false)}
       />
-
-      {/* Notifications Sidebar */}
-      <NotificationsSidebar 
-        isOpen={notificationsSidebarOpen} 
-        onClose={() => setNotificationsSidebarOpen(false)} 
+      
+      <NotificationsSidebar
+        isOpen={notificationsSidebarOpen}
+        onClose={() => setNotificationsSidebarOpen(false)}
       />
     </div>
   );

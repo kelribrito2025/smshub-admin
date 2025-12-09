@@ -25,9 +25,8 @@ export default function StoreCatalog() {
     { customerId: customer?.id || 0 },
     { 
       enabled: !!customer?.id,
-      refetchInterval: 60000, // Poll every 60 seconds (reduced from 6s to avoid 429)
-      staleTime: 45000, // Consider data fresh for 45 seconds
-      refetchOnWindowFocus: false, // Don't refetch on window focus
+      refetchOnWindowFocus: false,
+      staleTime: 30 * 1000, // Consider data fresh for 30 seconds (updates via SSE in StoreLayout)
     }
   );
 

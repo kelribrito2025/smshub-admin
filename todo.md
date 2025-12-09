@@ -1871,3 +1871,50 @@ Notificações são enviadas apenas 2-5 vezes por semana, mas polling de 10s ger
 
 **Resultado esperado:**
 Redução de 99% nas requisições de notificações, mantendo funcionalidade completa.
+
+---
+
+## 🐛 BUG CRÍTICO: Erro 429 (Too Many Requests) - Notificações Não Chegam
+
+**Problema reportado pelo usuário:**
+- Enviou notificação individual do admin
+- Notificação não chegou ao destinatário
+- Console mostra múltiplos erros 429 (Too Many Requests)
+- SSE falhando: "Error: HTTP 429"
+- Conexão SSE fechando: "Connection closed (likely 403 - user not authorized)"
+
+**Erros identificados no console:**
+```
+Failed to load resource: the server responded with a status of 429 ()
+- /api/trpc/store.getOp...
+- /api/trpc/notifications.ed...
+- /api/trpc/recharges.g...
+- /api/notifications/stream/510001
+```
+
+**Tarefas de diagnóstico:**
+- [x] Diagnosticar causa do erro 429 (identificar queries com polling excessivo)
+- [x] Verificar se há queries com refetchInterval ainda ativas
+- [x] Verificar se há múltiplas conexões SSE sendo criadas
+
+**Tarefas de correção:**
+- [x] Centralizar estado do usuário no StoreAuthContext (única fonte de verdade)
+- [x] Mover SSE para StoreAuthContext (1 conexão por sessão)
+- [x] Remover query duplicada store.getCustomer do StoreLayout
+- [x] Remover query duplicada store.getMyActivations do StoreLayout
+- [x] Remover polling de todas as queries (usar apenas SSE + invalidações)
+- [x] StoreLayout deve ler customer do contexto (não fazer query própria)
+- [x] Centralizar notifications.getAll no StoreAuthContext
+- [x] NotificationsSidebar consome do contexto (sem query própria)
+- [x] Configurar retry: 1 em todas as queries (evitar retry storms)
+- [x] Criar testes unitários para validar arquitetura (7 testes passaram)
+- [x] Servidor reiniciado com sucesso (SSE conectando corretamente)
+- [ ] Teste manual pelo usuário (aguardando confirmação)
+
+**Impacto:**
+- Sistema de notificações completamente quebrado
+- Usuários não recebem notificações admin
+- SSE não conecta (erro 429)
+- Experiência do usuário comprometida
+
+**Prioridade:** CRÍTICA 🔥
