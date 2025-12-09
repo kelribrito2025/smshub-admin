@@ -16,6 +16,7 @@ const SUGGESTED_VALUES = [20, 30, 50, 100, 200];
 
 export function RechargeModal({ isOpen, onClose }: RechargeModalProps) {
   const { customer } = useStoreAuth();
+  const utils = trpc.useUtils();
   const { data: paymentSettings } = trpc.paymentSettings.get.useQuery(undefined, {
     staleTime: 5 * 60 * 1000, // Payment settings rarely change, cache for 5 minutes
     refetchOnWindowFocus: false,
@@ -351,6 +352,8 @@ export function RechargeModal({ isOpen, onClose }: RechargeModalProps) {
           amount={pixAmount}
           customerId={customer?.id || 0}
           onSuccess={() => {
+            // Invalidate recharges cache to show new recharge immediately
+            utils.recharges.getMyRecharges.invalidate();
             setShowPixModal(false);
             onClose();
           }}

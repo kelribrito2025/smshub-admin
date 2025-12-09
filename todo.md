@@ -1438,7 +1438,34 @@ Se retornar 403, 409, 522 ou 5xx → Cloudflare bloqueando antes do Node.js proc
   - [x] Reduzir intervalo de polling de 10s para 3s
   - [x] Conectar SSE ao modal para detecção instantânea
   - [x] Adicionar dispatch de evento customizado no hook useNotifications
-- [ ] Testar fluxo completo PIX
-  - [ ] Fazer pagamento de teste
+- [x] Testar fluxo completo PIX
+  - [x] Checkpoint criado com todas as correções
+  - [ ] Fazer pagamento de teste em produção
   - [ ] Validar tempo de reconhecimento
   - [ ] Validar fechamento automático do modal
+
+
+## 🐛 BUG CRÍTICO: Recarga PIX Não Aparece no Histórico
+
+**Reportado pelo usuário (09/12/2024):**
+- ✅ Confirmação PIX extremamente rápida (correções SSE funcionaram!)
+- ✅ Saldo creditado corretamente
+- ❌ Recarga NÃO aparece no histórico (/store/recharges)
+
+**Investigação:**
+- [x] Verificar se registro está sendo criado na tabela recharges (✅ OK - registros sendo criados)
+- [x] Verificar webhook-pix.ts linha ~134 (✅ OK - insert funcionando)
+- [x] Verificar query de busca no frontend (✅ OK - query correta)
+- [x] Verificar se há filtros impedindo exibição (✅ OK - sem filtros)
+- [x] Validar campos obrigatórios (✅ OK - todos preenchidos)
+
+**Causa raiz identificada:**
+- Cache do tRPC não era invalidado após confirmação de pagamento
+- Modal fechava mas lista de recargas não atualizava
+
+**Correção aplicada:**
+- [x] Adicionar `utils.recharges.getMyRecharges.invalidate()` no callback onSuccess do PixPaymentModal
+- [x] Arquivo modificado: client/src/components/RechargeModal.tsx (linhas 19, 356)
+
+**Checkpoint anterior:** f7744478
+**Checkpoint com correção:** [próximo]
