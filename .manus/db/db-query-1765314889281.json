@@ -1,0 +1,50 @@
+{
+  "query": "SELECT id, customerId, type, title, message, createdAt FROM notifications ORDER BY createdAt DESC LIMIT 5",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT id, customerId, type, title, message, createdAt FROM notifications ORDER BY createdAt DESC LIMIT 5",
+  "rows": [
+    {
+      "id": "30024",
+      "customerId": "510001",
+      "type": "admin_notification",
+      "title": "ggdfgdfgdfgd",
+      "message": "fgdfgfdgdfgdgfd",
+      "createdAt": "2025-12-09 21:13:01"
+    },
+    {
+      "id": "30023",
+      "customerId": "510001",
+      "type": "admin_notification",
+      "title": "rgrgrgrgrgrgrgrgrg",
+      "message": "ggrgrgrgrgrg",
+      "createdAt": "2025-12-09 21:00:20"
+    },
+    {
+      "id": "30022",
+      "customerId": "510001",
+      "type": "admin_notification",
+      "title": "hggfhfhfhfhf",
+      "message": "hghfghfghfgh",
+      "createdAt": "2025-12-09 20:54:37"
+    },
+    {
+      "id": "30021",
+      "customerId": "510001",
+      "type": "admin_notification",
+      "title": "gdfgfdgdgfdgdf",
+      "message": "gdgdfgdf",
+      "createdAt": "2025-12-09 20:48:07"
+    },
+    {
+      "id": "30020",
+      "customerId": "NULL",
+      "type": "admin_notification",
+      "title": "teste 4",
+      "message": "frfrfrfrfrfrfr",
+      "createdAt": "2025-12-09 20:45:28"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\ttype\ttitle\tmessage\tcreatedAt\n30024\t510001\tadmin_notification\tggdfgdfgdfgd\tfgdfgfdgdfgdgfd\t2025-12-09 21:13:01\n30023\t510001\tadmin_notification\trgrgrgrgrgrgrgrgrg\tggrgrgrgrgrg\t2025-12-09 21:00:20\n30022\t510001\tadmin_notification\thggfhfhfhfhf\thghfghfghfgh\t2025-12-09 20:54:37\n30021\t510001\tadmin_notification\tgdfgfdgdgfdgdf\tgdgdfgdf\t2025-12-09 20:48:07\n30020\tNULL\tadmin_notification\tteste 4\tfrfrfrfrfrfrfr\t2025-12-09 20:45:28\n",
+  "stderr": "",
+  "execution_time_ms": 61
+}

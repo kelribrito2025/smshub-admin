@@ -1,0 +1,100 @@
+{
+  "query": "SELECT * FROM notifications ORDER BY createdAt DESC LIMIT 10",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT * FROM notifications ORDER BY createdAt DESC LIMIT 10",
+  "rows": [
+    {
+      "id": "30024",
+      "customerId": "510001",
+      "type": "admin_notification",
+      "title": "ggdfgdfgdfgd",
+      "message": "fgdfgfdgdfgdgfd",
+      "data": "NULL",
+      "createdAt": "2025-12-09 21:13:01"
+    },
+    {
+      "id": "30023",
+      "customerId": "510001",
+      "type": "admin_notification",
+      "title": "rgrgrgrgrgrgrgrgrg",
+      "message": "ggrgrgrgrgrg",
+      "data": "NULL",
+      "createdAt": "2025-12-09 21:00:20"
+    },
+    {
+      "id": "30022",
+      "customerId": "510001",
+      "type": "admin_notification",
+      "title": "hggfhfhfhfhf",
+      "message": "hghfghfghfgh",
+      "data": "NULL",
+      "createdAt": "2025-12-09 20:54:37"
+    },
+    {
+      "id": "30021",
+      "customerId": "510001",
+      "type": "admin_notification",
+      "title": "gdfgfdgdgfdgdf",
+      "message": "gdgdfgdf",
+      "data": "NULL",
+      "createdAt": "2025-12-09 20:48:07"
+    },
+    {
+      "id": "30020",
+      "customerId": "NULL",
+      "type": "admin_notification",
+      "title": "teste 4",
+      "message": "frfrfrfrfrfrfr",
+      "data": "NULL",
+      "createdAt": "2025-12-09 20:45:28"
+    },
+    {
+      "id": "30019",
+      "customerId": "NULL",
+      "type": "admin_notification",
+      "title": "teste 3",
+      "message": "fdsfdsfsdfdsfsd",
+      "data": "NULL",
+      "createdAt": "2025-12-09 20:43:54"
+    },
+    {
+      "id": "30018",
+      "customerId": "450001",
+      "type": "admin_notification",
+      "title": "oi",
+      "message": "teste",
+      "data": "NULL",
+      "createdAt": "2025-12-09 20:43:09"
+    },
+    {
+      "id": "30008",
+      "customerId": "NULL",
+      "type": "admin_notification",
+      "title": "teste",
+      "message": "tete",
+      "data": "NULL",
+      "createdAt": "2025-12-09 19:32:39"
+    },
+    {
+      "id": "30007",
+      "customerId": "NULL",
+      "type": "admin_notification",
+      "title": "manutencao kkkk",
+      "message": "eae meu bom ebeleza?",
+      "data": "NULL",
+      "createdAt": "2025-12-09 19:28:17"
+    },
+    {
+      "id": "30005",
+      "customerId": "180002",
+      "type": "admin_notification",
+      "title": "Notificação Individual",
+      "message": "Esta é uma notificação apenas para você",
+      "data": "NULL",
+      "createdAt": "2025-12-09 19:25:49"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\ttype\ttitle\tmessage\tdata\tcreatedAt\n30024\t510001\tadmin_notification\tggdfgdfgdfgd\tfgdfgfdgdfgdgfd\tNULL\t2025-12-09 21:13:01\n30023\t510001\tadmin_notification\trgrgrgrgrgrgrgrgrg\tggrgrgrgrgrg\tNULL\t2025-12-09 21:00:20\n30022\t510001\tadmin_notification\thggfhfhfhfhf\thghfghfghfgh\tNULL\t2025-12-09 20:54:37\n30021\t510001\tadmin_notification\tgdfgfdgdgfdgdf\tgdgdfgdf\tNULL\t2025-12-09 20:48:07\n30020\tNULL\tadmin_notification\tteste 4\tfrfrfrfrfrfrfr\tNULL\t2025-12-09 20:45:28\n30019\tNULL\tadmin_notification\tteste 3\tfdsfdsfsdfdsfsd\tNULL\t2025-12-09 20:43:54\n30018\t450001\tadmin_notification\toi\tteste\tNULL\t2025-12-09 20:43:09\n30008\tNULL\tadmin_notification\tteste\ttete\tNULL\t2025-12-09 19:32:39\n30007\tNULL\tadmin_notification\tmanutencao kkkk\teae meu bom ebeleza?\tNULL\t2025-12-09 19:28:17\n30005\t180002\tadmin_notification\tNotificação Individual\tEsta é uma notificação apenas para você\tNULL\t2025-12-09 19:25:49\n",
+  "stderr": "",
+  "execution_time_ms": 51
+}

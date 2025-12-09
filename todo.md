@@ -1789,3 +1789,29 @@ Criar tabela de relacionamento `notification_reads` para rastrear individualment
 **Comportamento esperado:**
 - Notificação deve aparecer na barra lateral em tempo real
 - Sem toast, apenas na barra lateral
+
+## 🐛 BUG: Notificações Admin Não Aparecem no DashboardLayout
+
+**Problema reportado:**
+- Notificações individuais admin não aparecem na barra lateral
+- Ícone de notificação não pisca quando tem notificação
+
+**Causa raiz identificada:**
+- NotificationsSidebar estava implementado apenas no StoreLayout (área do cliente)
+- DashboardLayout (área admin) NÃO tinha o componente NotificationsSidebar
+- Por isso admin não via notificações e não tinha ícone de sino
+
+**Correção aplicada:**
+- [x] Adicionar imports necessários (Bell icon, NotificationsSidebar)
+- [x] Adicionar estado notificationsSidebarOpen
+- [x] Adicionar query de notificações com refetch automático
+- [x] Calcular unreadCount para badge
+- [x] Adicionar botão de notificações na sidebar desktop (com badge pulsante)
+- [x] Adicionar botão de notificações no header mobile (com badge pulsante)
+- [x] Adicionar componente NotificationsSidebar ao final do layout
+- [ ] Testar funcionamento completo (aguardando validação do usuário)
+
+**Comportamento esperado:**
+- ✅ Sino aparece com badge quando há notificações não lidas
+- ✅ Barra lateral mostra TODAS as notificações (globais + individuais)
+- ✅ Sistema funciona tanto para admin quanto para clientes
