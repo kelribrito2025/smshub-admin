@@ -9,12 +9,11 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 import { copyToClipboard } from '../lib/clipboard';
 import TableSkeleton from '../components/TableSkeleton';
-import { useOperationLock } from '../hooks/useOperationLock';
+
 
 
 export default function StoreCatalog() {
   const { customer } = useStoreAuth();
-  const { isLocked } = useOperationLock();
   const [copiedId, setCopiedId] = useState<number | null>(null);
   const [isCancelling, setIsCancelling] = useState(false); // Estado global de cancelamento
   const [currentPage, setCurrentPage] = useState(1);
@@ -352,10 +351,10 @@ export default function StoreCatalog() {
                               variant="outline"
                               size="sm"
                               className="border-red-900/50 text-red-400 hover:bg-red-900/20 hover:text-red-300 hover:border-red-500/50 text-xs md:text-sm px-2 md:px-3"
-                              disabled={isCancelling || isLocked || !allowed}
+                              disabled={isCancelling || !allowed}
                               title={!allowed ? `Aguarde ${remainingSeconds} segundos` : ''}
                             >
-                              {(isCancelling || isLocked) ? (
+                              {isCancelling ? (
                                 <Loader2 className="w-3 h-3 md:w-4 md:h-4 animate-spin md:mr-1" />
                               ) : (
                                 <X className="w-3 h-3 md:w-4 md:h-4 md:mr-1" />
@@ -423,10 +422,10 @@ export default function StoreCatalog() {
                               variant="outline"
                               size="sm"
                               className="border-red-900/50 text-red-400 hover:bg-red-900/20 hover:text-red-300 hover:border-red-500/50 text-xs md:text-sm px-2 md:px-3"
-                              disabled={isCancelling || isLocked || !allowed}
+                              disabled={isCancelling || !allowed}
                               title={!allowed ? `Aguarde ${remainingSeconds} segundos` : ''}
                             >
-                              {(isCancelling || isLocked) ? (
+                              {isCancelling ? (
                                 <Loader2 className="w-3 h-3 md:w-4 md:h-4 animate-spin md:mr-1" />
                               ) : (
                                 <X className="w-3 h-3 md:w-4 md:h-4 md:mr-1" />

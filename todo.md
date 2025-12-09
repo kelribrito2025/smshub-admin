@@ -1584,3 +1584,10 @@ Se retornar 403, 409, 522 ou 5xx → Cloudflare bloqueando antes do Node.js proc
 - [x] Remover som de notificação quando SMS é recebido
 - [x] Manter atualização silenciosa do saldo via SSE
 - [x] Manter notificações visuais de SMS (apenas sem som)
+
+## Bug: Conexões SSE Duplicadas (useOperationLock)
+- [x] Verificar React.StrictMode em main.tsx
+- [x] Verificar rotas duplicadas em App.tsx
+- [x] Verificar uso duplicado do hook em StoreLayout
+- [x] Corrigir causa raiz das conexões duplicadas
+- [x] Testar que apenas 1 conexão SSE por operação é criada
