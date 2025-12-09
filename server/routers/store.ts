@@ -986,13 +986,8 @@ export const storeRouter = router({
           await recordCancellation(input.customerId, activation.apiId, activation.id);
         }
 
-        // Broadcast operation completed
-        notificationsManager.sendToCustomer(input.customerId, {
-          type: 'operation_completed',
-          title: 'Cancelamento concluído',
-          message: 'Pedido cancelado e saldo reembolsado',
-          data: { operation: 'cancel', customerId: input.customerId, activationId: input.activationId },
-        });
+        // Removed duplicate notification - frontend already shows "Pedido cancelado com sucesso!"
+        // No need to send notification here to avoid duplicate toasts
 
           return { success: true };
         } catch (error: any) {
