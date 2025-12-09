@@ -542,3 +542,24 @@ export const emailVerifications = mysqlTable("email_verifications", {
 
 export type EmailVerification = typeof emailVerifications.$inferSelect;
 export type InsertEmailVerification = typeof emailVerifications.$inferInsert;
+
+/**
+ * Notifications table - stores user notifications history
+ */
+export const notifications = mysqlTable("notifications", {
+  id: int("id").autoincrement().primaryKey(),
+  customerId: int("customerId").notNull(), // Customer who receives the notification
+  type: varchar("type", { length: 50 }).notNull(), // e.g., "pix_payment_confirmed", "balance_updated"
+  title: varchar("title", { length: 255 }).notNull(),
+  message: text("message").notNull(),
+  data: text("data"), // JSON string for additional notification data
+  isRead: boolean("isRead").default(false).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => ({
+  customerIdx: index("notification_customer_idx").on(table.customerId),
+  createdAtIdx: index("notification_created_at_idx").on(table.createdAt),
+  isReadIdx: index("notification_is_read_idx").on(table.isRead),
+}));
+
+export type Notification = typeof notifications.$inferSelect;
+export type InsertNotification = typeof notifications.$inferInsert;

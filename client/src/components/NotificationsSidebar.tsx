@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { X, Bell, AlertCircle, CheckCircle, Info, Clock } from 'lucide-react';
+import { trpc } from '@/lib/trpc';
 
 interface Notification {
   id: number;
@@ -8,6 +9,7 @@ interface Notification {
   message: string;
   timestamp: string;
   isRead: boolean;
+  data?: any;
 }
 
 interface NotificationsSidebarProps {
@@ -16,57 +18,31 @@ interface NotificationsSidebarProps {
 }
 
 export default function NotificationsSidebar({ isOpen, onClose }: NotificationsSidebarProps) {
-  const [notifications, setNotifications] = useState<Notification[]>([
-    {
-      id: 1,
-      type: 'success',
-      title: 'Recarga Confirmada',
-      message: 'Sua recarga de R$ 100,00 foi processada com sucesso.',
-      timestamp: '2 min atrás',
-      isRead: false,
+  const utils = trpc.useUtils();
+  
+  // Fetch notifications from backend
+  const { data: notifications = [], refetch } = trpc.notifications.getAll.useQuery(undefined, {
+    enabled: isOpen, // Only fetch when sidebar is open
+  });
+
+  const markAsReadMutation = trpc.notifications.markAsRead.useMutation({
+    onSuccess: () => {
+      refetch();
     },
-    {
-      id: 2,
-      type: 'info',
-      title: 'Nova API Disponível',
-      message: 'A API de consulta de CPF v2.0 está disponível para uso.',
-      timestamp: '15 min atrás',
-      isRead: false,
+  });
+
+  const markAllAsReadMutation = trpc.notifications.markAllAsRead.useMutation({
+    onSuccess: () => {
+      refetch();
     },
-    {
-      id: 3,
-      type: 'warning',
-      title: 'Saldo Baixo',
-      message: 'Seu saldo está abaixo de R$ 50,00. Considere fazer uma recarga.',
-      timestamp: '1 hora atrás',
-      isRead: true,
-    },
-    {
-      id: 4,
-      type: 'error',
-      title: 'Falha na Requisição',
-      message: 'A requisição para API falhou. Verifique seus parâmetros.',
-      timestamp: '2 horas atrás',
-      isRead: true,
-    },
-    {
-      id: 5,
-      type: 'info',
-      title: 'Manutenção Programada',
-      message: 'Sistema passará por manutenção no domingo às 03:00.',
-      timestamp: '1 dia atrás',
-      isRead: true,
-    },
-  ]);
+  });
 
   const markAsRead = (id: number) => {
-    setNotifications(notifications.map(notif =>
-      notif.id === id ? { ...notif, isRead: true } : notif
-    ));
+    markAsReadMutation.mutate({ id });
   };
 
   const markAllAsRead = () => {
-    setNotifications(notifications.map(notif => ({ ...notif, isRead: true })));
+    markAllAsReadMutation.mutate();
   };
 
   const unreadCount = notifications.filter(n => !n.isRead).length;
@@ -79,134 +55,137 @@ export default function NotificationsSidebar({ isOpen, onClose }: NotificationsS
         return <AlertCircle className="w-5 h-5 text-yellow-400" />;
       case 'error':
         return <AlertCircle className="w-5 h-5 text-red-400" />;
+      case 'info':
       default:
         return <Info className="w-5 h-5 text-blue-400" />;
     }
   };
 
-  const getTypeColor = (type: string) => {
+  const getBgColor = (type: string, isRead: boolean) => {
+    const opacity = isRead ? '10' : '20';
     switch (type) {
       case 'success':
-        return 'border-green-500/30 bg-green-500/5';
+        return `bg-green-500/${opacity}`;
       case 'warning':
-        return 'border-yellow-500/30 bg-yellow-500/5';
+        return `bg-yellow-500/${opacity}`;
       case 'error':
-        return 'border-red-500/30 bg-red-500/5';
+        return `bg-red-500/${opacity}`;
+      case 'info':
       default:
-        return 'border-blue-500/30 bg-blue-500/5';
+        return `bg-blue-500/${opacity}`;
+    }
+  };
+
+  const getBorderColor = (type: string) => {
+    switch (type) {
+      case 'success':
+        return 'border-green-500/30';
+      case 'warning':
+        return 'border-yellow-500/30';
+      case 'error':
+        return 'border-red-500/30';
+      case 'info':
+      default:
+        return 'border-blue-500/30';
     }
   };
 
   return (
     <>
-      {/* Backdrop */}
-      <div
-        className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] transition-opacity duration-300 ${
-          isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
-        }`}
-        onClick={onClose}
-      />
+      {/* Overlay */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 transition-opacity"
+          onClick={onClose}
+        />
+      )}
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 right-0 h-full w-full max-w-md bg-gradient-to-br from-gray-900 to-black border-l-2 border-green-500 z-[110] transition-transform duration-300 ${
+        className={`fixed top-0 right-0 h-full w-96 bg-[#0a0f1a] border-l border-green-500/20 shadow-2xl z-50 transform transition-transform duration-300 ease-in-out ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        {/* Cyber Grid Background */}
-        <div className="absolute inset-0 opacity-5">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage:
-                'linear-gradient(#22c55e 1px, transparent 1px), linear-gradient(90deg, #22c55e 1px, transparent 1px)',
-              backgroundSize: '30px 30px',
-            }}
-          />
-        </div>
-
-        {/* Content */}
-        <div className="relative z-10 h-full flex flex-col">
-          {/* Header */}
-          <div className="p-6 border-b-2 border-green-500/30">
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center">
-                  <Bell className="w-6 h-6 text-black" />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-bold text-green-400 font-mono">Notificações</h2>
-                  {unreadCount > 0 && (
-                    <span className="text-green-300/70 text-sm font-mono">
-                      {unreadCount} nova{unreadCount !== 1 ? 's' : ''}
-                    </span>
-                  )}
-                </div>
-              </div>
-              <button
-                onClick={onClose}
-                className="w-10 h-10 flex items-center justify-center rounded-lg border-2 border-green-500/30 text-green-400 hover:bg-green-500/10 hover:border-green-500 transition-all"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-            <p className="text-green-300/70 text-sm font-mono">
-              Acompanhe as atualizações e alertas do sistema
-            </p>
+        {/* Header */}
+        <div className="flex items-center justify-between p-4 border-b border-green-500/20">
+          <div className="flex items-center gap-2">
+            <Bell className="w-5 h-5 text-green-400" />
+            <h2 className="text-lg font-semibold text-green-400">Notificações</h2>
             {unreadCount > 0 && (
-              <button
-                onClick={markAllAsRead}
-                className="mt-3 text-green-400 text-sm font-mono hover:text-green-300 transition-colors underline"
-              >
-                Marcar todas como lidas
-              </button>
+              <span className="px-2 py-0.5 text-xs font-bold bg-green-500 text-black rounded-full">
+                {unreadCount}
+              </span>
             )}
           </div>
+          <button
+            onClick={onClose}
+            className="p-1 hover:bg-green-500/10 rounded transition-colors"
+          >
+            <X className="w-5 h-5 text-gray-400" />
+          </button>
+        </div>
 
-          {/* Notifications List */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-4">
-            {notifications.map((notification) => (
-              <div
-                key={notification.id}
-                onClick={() => markAsRead(notification.id)}
-                className={`relative border-2 rounded-xl p-4 cursor-pointer transition-all hover:scale-[1.02] ${
-                  getTypeColor(notification.type)
-                } ${
-                  !notification.isRead ? 'border-green-500/50' : 'border-green-500/20'
-                }`}
-              >
-                {/* Unread Badge */}
-                {!notification.isRead && (
-                  <div className="absolute top-3 right-3 w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                )}
+        {/* Actions */}
+        {unreadCount > 0 && (
+          <div className="p-4 border-b border-green-500/20">
+            <button
+              onClick={markAllAsRead}
+              className="text-sm text-green-400 hover:text-green-300 transition-colors"
+            >
+              Marcar todas como lidas
+            </button>
+          </div>
+        )}
 
-                {/* Notification Content */}
-                <div className="flex gap-3">
-                  <div className="flex-shrink-0 mt-1">
-                    {getIcon(notification.type)}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className={`font-bold font-mono mb-1 ${
-                      !notification.isRead ? 'text-green-400' : 'text-green-400/70'
-                    }`}>
-                      {notification.title}
-                    </h3>
-                    <p className={`text-sm font-mono mb-2 ${
-                      !notification.isRead ? 'text-green-300' : 'text-green-300/60'
-                    }`}>
-                      {notification.message}
-                    </p>
-                    <div className="flex items-center gap-2 text-xs text-green-400/50 font-mono">
-                      <Clock className="w-3 h-3" />
-                      {notification.timestamp}
+        {/* Notifications List */}
+        <div className="overflow-y-auto h-[calc(100vh-140px)]">
+          {notifications.length === 0 ? (
+            <div className="flex flex-col items-center justify-center h-full text-gray-500">
+              <Bell className="w-12 h-12 mb-2 opacity-50" />
+              <p>Nenhuma notificação</p>
+            </div>
+          ) : (
+            <div className="p-4 space-y-3">
+              {notifications.map((notif) => (
+                <div
+                  key={notif.id}
+                  onClick={() => !notif.isRead && markAsRead(notif.id)}
+                  className={`p-4 rounded-lg border ${getBgColor(notif.type, notif.isRead)} ${getBorderColor(
+                    notif.type
+                  )} ${!notif.isRead ? 'cursor-pointer hover:bg-opacity-30' : ''} transition-all`}
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="flex-shrink-0 mt-1">{getIcon(notif.type)}</div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start justify-between gap-2">
+                        <h3
+                          className={`text-sm font-semibold ${
+                            notif.isRead ? 'text-gray-400' : 'text-green-400'
+                          }`}
+                        >
+                          {notif.title}
+                        </h3>
+                        {!notif.isRead && (
+                          <div className="w-2 h-2 bg-green-400 rounded-full flex-shrink-0 mt-1" />
+                        )}
+                      </div>
+                      <p
+                        className={`text-sm mt-1 ${
+                          notif.isRead ? 'text-gray-500' : 'text-gray-300'
+                        }`}
+                      >
+                        {notif.message}
+                      </p>
+                      <div className="flex items-center gap-1 mt-2 text-xs text-gray-500">
+                        <Clock className="w-3 h-3" />
+                        <span>{notif.timestamp}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-
-
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </>

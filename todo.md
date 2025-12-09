@@ -1325,3 +1325,22 @@ Se retornar 403, 409, 522 ou 5xx → Cloudflare bloqueando antes do Node.js proc
 - [x] 5. Adicionar seção de troubleshooting com erros comuns
 - [x] 6. Documentar configuração de ambiente (dev vs produção)
 - [x] 7. Incluir guia de teste e validação
+
+
+## Bug: Notificação Técnica "Cache Invalidation" Aparecendo para Usuário
+
+- [x] Investigar origem da notificação "Cache Invalidation - Recharge list needs refresh"
+- [x] Remover notificação técnica que aparece após pagamento PIX (webhook-pix.ts)
+- [x] Corrigir import duplicado de zod em pix.ts
+- [x] Validar que apenas notificações relevantes aparecem para o usuário
+
+
+## Verificação: Notificação de Recarga Confirmada
+
+- [x] Investigar código de notificações no webhook PIX (webhook-pix.ts)
+- [x] Criar tabela notifications no banco de dados
+- [x] Criar router de notificações com endpoints tRPC (getAll, markAsRead, markAllAsRead, getUnreadCount)
+- [x] Atualizar webhook PIX para salvar notificações no banco
+- [x] Atualizar NotificationsSidebar para buscar dados reais do backend
+- [x] Garantir que notificação aparece na barra lateral (NotificationsSidebar)
+- [x] Validar visual e conteúdo da notificação
