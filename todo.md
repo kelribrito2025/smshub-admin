@@ -1915,3 +1915,5 @@ Garantir que badge do sino e barra lateral atualizem imediatamente quando houver
 - [x] Remover imports relacionados a notificações
 - [x] Manter notificações apenas no StoreLayout (painel de vendas)
 - [x] Corrigir parâmetro markAsRead no StoreAuthContext (notificationId → id)
+- [x] Corrigir erro de CSP (Content Security Policy) que bloqueia eval()
+- [x] Remover Google Analytics do index.html
