@@ -1375,3 +1375,12 @@ Se retornar 403, 409, 522 ou 5xx → Cloudflare bloqueando antes do Node.js proc
 - [x] Webhook Stripe já existe e funciona (stripe-webhook.ts)
 - [x] Criar testes unitários para endpoints Stripe (3 testes passaram)
 - [ ] Testar fluxo completo de pagamento no navegador
+
+## BUG: Página de Retorno do Stripe (404)
+- [x] Investigar URL de success_url configurada no createCheckoutSession
+- [x] Verificar se rota /store/recharges existe no App.tsx
+- [x] Criar lógica para processar query param ?success=true
+- [x] Verificar session_id via query param e validar pagamento
+- [x] Exibir feedback de sucesso/processamento para o usuário
+- [x] Redirecionar para dashboard após confirmação
+- [x] Testar fluxo completo de pagamento Stripe

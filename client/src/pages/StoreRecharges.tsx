@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useStoreAuth } from '../contexts/StoreAuthContext';
 import StoreLayout from '../components/StoreLayout';
 import { trpc } from '../lib/trpc';
 import { Card } from '../components/ui/card';
-import { CreditCard, ChevronLeft, ChevronRight } from 'lucide-react';
+import { CreditCard, ChevronLeft, ChevronRight, CheckCircle, XCircle } from 'lucide-react';
 import TableSkeleton from '../components/TableSkeleton';
+import { useLocation } from 'wouter';
+import { toast } from 'sonner';
 
 
 
@@ -12,6 +14,39 @@ import TableSkeleton from '../components/TableSkeleton';
 export default function StoreRecharges() {
   const { customer } = useStoreAuth();
   const [currentPage, setCurrentPage] = useState(1);
+  const [location, setLocation] = useLocation();
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showCanceledMessage, setShowCanceledMessage] = useState(false);
+
+  // Check for Stripe return params
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const success = urlParams.get('success');
+    const canceled = urlParams.get('canceled');
+
+    if (success === 'true') {
+      setShowSuccessMessage(true);
+      toast.success('Pagamento processado com sucesso! Seu saldo será atualizado em breve.');
+      
+      // Remove query params from URL
+      window.history.replaceState({}, '', '/recharges');
+      
+      // Hide message after 5 seconds
+      setTimeout(() => setShowSuccessMessage(false), 5000);
+      
+      // Refresh recharges list
+      rechargesQuery.refetch();
+    } else if (canceled === 'true') {
+      setShowCanceledMessage(true);
+      toast.error('Pagamento cancelado.');
+      
+      // Remove query params from URL
+      window.history.replaceState({}, '', '/recharges');
+      
+      // Hide message after 5 seconds
+      setTimeout(() => setShowCanceledMessage(false), 5000);
+    }
+  }, []);
 
   const limit = 20;
 
@@ -141,6 +176,32 @@ export default function StoreRecharges() {
   return (
     <StoreLayout>
       <div className="space-y-6">
+        {/* Success Message */}
+        {showSuccessMessage && (
+          <Card className="bg-green-950/30 border-green-500/50 p-4">
+            <div className="flex items-center gap-3">
+              <CheckCircle className="w-6 h-6 text-green-400" />
+              <div>
+                <h3 className="text-green-400 font-bold">Pagamento Confirmado!</h3>
+                <p className="text-green-600 text-sm">Seu saldo será atualizado em alguns instantes. Obrigado pela sua recarga!</p>
+              </div>
+            </div>
+          </Card>
+        )}
+
+        {/* Canceled Message */}
+        {showCanceledMessage && (
+          <Card className="bg-red-950/30 border-red-500/50 p-4">
+            <div className="flex items-center gap-3">
+              <XCircle className="w-6 h-6 text-red-400" />
+              <div>
+                <h3 className="text-red-400 font-bold">Pagamento Cancelado</h3>
+                <p className="text-red-600 text-sm">Você cancelou o pagamento. Nenhuma cobrança foi realizada.</p>
+              </div>
+            </div>
+          </Card>
+        )}
+
         <div className="mb-4">
           <h1 className="text-2xl font-bold text-green-400 mb-2 flex items-center gap-2">
             <CreditCard className="w-6 h-6" />
