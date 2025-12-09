@@ -17,7 +17,7 @@ import { storeRouter } from "./routers/store";
 import { apisRouter } from "./routers/apis";
 import { apiMetricsRouter } from "./routers/api-metrics";
 import { pixRouter } from "./routers/pix";
-import { stripeRouter } from "./stripe-router";
+import { stripeRouter } from "./routers/stripe";
 import { paymentSettingsRouter } from "./routers/paymentSettings";
 import { securityRouter } from "./routers/security";
 import { auditRouter } from "./routers/audit";

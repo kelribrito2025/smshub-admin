@@ -1,0 +1,8 @@
+{
+  "query": "ALTER TABLE recharges \nADD COLUMN stripe_payment_intent_id VARCHAR(255) NULL AFTER transactionId,\nADD INDEX recharge_stripe_payment_intent_idx (stripe_payment_intent_id);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute ALTER TABLE recharges \nADD COLUMN stripe_payment_intent_id VARCHAR(255) NULL AFTER transactionId,\nADD INDEX recharge_stripe_payment_intent_idx (stripe_payment_intent_id);",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1072 (42000) at line 1: column does not exist: stripe_payment_intent_id"
+  ]
+}

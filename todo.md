@@ -1365,3 +1365,13 @@ Se retornar 403, 409, 522 ou 5xx → Cloudflare bloqueando antes do Node.js proc
 - [x] Adicionar campo de senha na página de login
 - [x] Criar tabela password_reset_tokens no banco
 - [x] Testar envio dos 3 emails
+
+## Integração de Pagamento Stripe
+- [x] Adicionar feature Stripe ao projeto (webdev_add_feature)
+- [x] Criar endpoints tRPC para Stripe (createCheckoutSession, checkSessionStatus)
+- [x] Adicionar campo stripe_payment_intent_id na tabela recharges
+- [x] Integrar Stripe Checkout no frontend (RechargeModal já implementado)
+- [x] Adicionar opção "Cartão de Crédito/Débito" no modal de recarga
+- [x] Webhook Stripe já existe e funciona (stripe-webhook.ts)
+- [x] Criar testes unitários para endpoints Stripe (3 testes passaram)
+- [ ] Testar fluxo completo de pagamento no navegador

@@ -78,6 +78,13 @@
       "when": 1765280496343,
       "tag": "0010_foamy_bullseye",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "5",
+      "when": 1765280940044,
+      "tag": "0011_complete_the_captain",
+      "breakpoints": true
     }
   ]
 }

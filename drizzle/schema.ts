@@ -493,6 +493,7 @@ export const recharges = mysqlTable("recharges", {
   paymentMethod: mysqlEnum("paymentMethod", ["pix", "card", "crypto", "picpay"]).notNull(),
   status: mysqlEnum("status", ["completed", "pending", "expired"]).default("pending").notNull(),
   transactionId: varchar("transactionId", { length: 255 }), // External payment provider transaction ID
+  stripePaymentIntentId: varchar("stripe_payment_intent_id", { length: 255 }), // Stripe Payment Intent ID
   metadata: text("metadata"), // JSON string for additional payment data
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
@@ -503,6 +504,7 @@ export const recharges = mysqlTable("recharges", {
   statusIdx: index("recharge_status_idx").on(table.status),
   createdAtIdx: index("recharge_created_at_idx").on(table.createdAt),
   paymentMethodIdx: index("recharge_payment_method_idx").on(table.paymentMethod),
+  stripePaymentIntentIdx: index("recharge_stripe_payment_intent_idx").on(table.stripePaymentIntentId),
 }));
 
 export type Recharge = typeof recharges.$inferSelect;
