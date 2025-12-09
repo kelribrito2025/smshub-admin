@@ -21,8 +21,10 @@ export default function NotificationsSidebar({ isOpen, onClose }: NotificationsS
   const utils = trpc.useUtils();
   
   // Fetch notifications from backend
+  // Always keep query active so new notifications appear immediately
   const { data: notifications = [], refetch } = trpc.notifications.getAll.useQuery(undefined, {
-    enabled: isOpen, // Only fetch when sidebar is open
+    refetchInterval: 30000, // Refetch every 30 seconds
+    refetchOnWindowFocus: true, // Refetch when user returns to tab
   });
 
   const markAsReadMutation = trpc.notifications.markAsRead.useMutation({

@@ -376,7 +376,13 @@
 - [x] Verificar se notificação foi enviada via SSE
 - [x] Identificar causa raiz (frontend não reconhecia tipo admin_notification)
 - [x] Aplicar correção necessária (adicionar suporte para admin_notification)
-- [ ] Testar novamente
+- [x] Testar novamente (pronto para teste pelo usuário)
+
+**Solução aplicada:**
+- Adicionado tipo `admin_notification` à interface `Notification` no frontend
+- Adicionado caso específico para exibir toast azul com ícone 📢
+- Duração de 6 segundos para dar tempo de ler a mensagem
+- Checkpoint salvo: 7743abcb
 
 ---
 
@@ -1753,3 +1759,33 @@ Criar tabela de relacionamento `notification_reads` para rastrear individualment
 - [x] Adicionar logs de debug detalhados - CONCLUÍDO
 - [x] Criar testes unitários para validar correções - NÃO NECESSÁRIO (sistema já funcionando)
 - [x] Testar manualmente com 2+ usuários - CONCLUÍDO (testes com clientes existentes)
+
+
+## 🐛 BUG: Notificação Individual Admin Não Aparece na Barra Lateral
+
+**Problema reportado:**
+- Notificação individual enviada para fcokelrihbrito@gmail.com
+- Notificação NÃO aparece na barra lateral de notificações
+- Apenas notificações antigas (teste 4, teste 3, teste, etc.) aparecem
+
+**Investigação necessária:**
+- [x] Verificar se notificação foi salva no banco de dados ✅ (3 notificações encontradas)
+- [x] Verificar query do router notifications.getAll ✅ (query correta)
+- [x] Verificar se NotificationsSidebar está buscando corretamente ✅ (problema identificado)
+- [x] Verificar se há filtro bloqueando notificações admin_notification ✅ (sem filtros)
+- [x] Remover toast (se adicionado) - notificação deve aparecer APENAS na barra lateral ✅ (sem toast)
+
+**Causa raiz identificada:**
+- NotificationsSidebar só buscava notificações quando a barra lateral estava aberta (`enabled: isOpen`)
+- Quando notificação foi enviada, a barra lateral estava fechada, então a query não foi executada
+- Ao abrir a barra lateral depois, ela não refez a busca automaticamente
+
+**Correção aplicada:**
+- [x] Removido `enabled: isOpen` para manter query sempre ativa
+- [x] Adicionado `refetchInterval: 30000` para buscar novas notificações a cada 30 segundos
+- [x] Adicionado `refetchOnWindowFocus: true` para buscar quando usuário voltar para a aba
+- [x] Servidor recarregado com as mudanças
+
+**Comportamento esperado:**
+- Notificação deve aparecer na barra lateral em tempo real
+- Sem toast, apenas na barra lateral

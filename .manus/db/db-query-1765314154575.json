@@ -1,0 +1,37 @@
+{
+  "query": "SELECT * FROM notifications WHERE customerId = (SELECT id FROM customers WHERE email = 'fcokelrihbrito@gmail.com') ORDER BY createdAt DESC LIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT * FROM notifications WHERE customerId = (SELECT id FROM customers WHERE email = 'fcokelrihbrito@gmail.com') ORDER BY createdAt DESC LIMIT 5;",
+  "rows": [
+    {
+      "id": "30023",
+      "customerId": "510001",
+      "type": "admin_notification",
+      "title": "rgrgrgrgrgrgrgrgrg",
+      "message": "ggrgrgrgrgrg",
+      "data": "NULL",
+      "createdAt": "2025-12-09 21:00:20"
+    },
+    {
+      "id": "30022",
+      "customerId": "510001",
+      "type": "admin_notification",
+      "title": "hggfhfhfhfhf",
+      "message": "hghfghfghfgh",
+      "data": "NULL",
+      "createdAt": "2025-12-09 20:54:37"
+    },
+    {
+      "id": "30021",
+      "customerId": "510001",
+      "type": "admin_notification",
+      "title": "gdfgfdgdgfdgdf",
+      "message": "gdgdfgdf",
+      "data": "NULL",
+      "createdAt": "2025-12-09 20:48:07"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\ttype\ttitle\tmessage\tdata\tcreatedAt\n30023\t510001\tadmin_notification\trgrgrgrgrgrgrgrgrg\tggrgrgrgrgrg\tNULL\t2025-12-09 21:00:20\n30022\t510001\tadmin_notification\thggfhfhfhfhf\thghfghfghfgh\tNULL\t2025-12-09 20:54:37\n30021\t510001\tadmin_notification\tgdfgfdgdgfdgdf\tgdgdfgdf\tNULL\t2025-12-09 20:48:07\n",
+  "stderr": "",
+  "execution_time_ms": 55
+}
