@@ -48,8 +48,8 @@ export function PixPaymentModal({
       customerId,
     },
     {
-      enabled: !!pixData?.txid,
-      refetchInterval: 10000, // Poll every 10 seconds (reduced from 3s to avoid 429)
+      enabled: !!pixData?.txid && !paymentConfirmed,
+      refetchInterval: 3000, // Poll every 3 seconds for faster detection
     }
   );
 
@@ -63,17 +63,46 @@ export function PixPaymentModal({
     }
   }, [isOpen]);
 
-  // Check if payment was confirmed
+  // Listen to SSE notifications for instant payment confirmation
+  useEffect(() => {
+    if (!isOpen || !pixData?.txid) return;
+
+    const handleNotification = (event: Event) => {
+      const customEvent = event as CustomEvent;
+      const notification = customEvent.detail;
+      
+      // Check if this is a PIX payment confirmation for our transaction
+      if (
+        notification.type === "pix_payment_confirmed" &&
+        notification.data?.txid === pixData.txid &&
+        !paymentConfirmed
+      ) {
+        console.log("[PixPaymentModal] Payment confirmed via SSE:", notification);
+        setPaymentConfirmed(true);
+        onSuccess();
+        // Auto-close after 2 seconds (faster than before)
+        setTimeout(() => {
+          onClose();
+        }, 2000);
+      }
+    };
+
+    window.addEventListener("notification", handleNotification);
+    return () => window.removeEventListener("notification", handleNotification);
+  }, [isOpen, pixData?.txid, paymentConfirmed, onSuccess, onClose]);
+
+  // Fallback: Check if payment was confirmed via polling (if SSE fails)
   useEffect(() => {
     if (getTransactionQuery.data?.status === "paid" && !paymentConfirmed) {
+      console.log("[PixPaymentModal] Payment confirmed via polling:", getTransactionQuery.data);
       setPaymentConfirmed(true);
       onSuccess();
-      // Auto-close after 3 seconds
+      // Auto-close after 2 seconds
       setTimeout(() => {
         onClose();
-      }, 3000);
+      }, 2000);
     }
-  }, [getTransactionQuery.data?.status, paymentConfirmed]);
+  }, [getTransactionQuery.data?.status, paymentConfirmed, onSuccess, onClose]);
 
   // Countdown timer
   useEffect(() => {

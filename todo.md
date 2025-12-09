@@ -1416,3 +1416,29 @@ Se retornar 403, 409, 522 ou 5xx → Cloudflare bloqueando antes do Node.js proc
 - [x] Separar vendors (react, recharts, etc) em chunks independentes
 - [x] Testar build e validar redução de bundle
 - [x] Criar checkpoint com resultados
+
+## Google Analytics - Verificação e Correção
+- [ ] Verificar implementação atual da tag do Google Analytics no client/index.html
+- [ ] Confirmar que a tag está no formato correto conforme documentação oficial do Google
+- [ ] Garantir que a tag está apenas no painel de vendas (Store), não no admin
+- [ ] Testar funcionamento após correção
+
+
+## Correções Fluxo PIX - Detecção + UI
+- [x] Investigar gargalos no webhook PIX
+  - [x] Verificar se webhook está sendo chamado imediatamente pela EfiPay
+  - [x] Adicionar logs de timestamp (recebimento → processamento final)
+  - [x] Verificar awaits desnecessários ou operações lentas
+  - [x] Checar performance de inserts no DB (recharges, pix_transactions)
+  - [x] Validar se não há locks ou transações com espera
+- [x] Implementar fechamento automático do modal QR Code
+  - [x] Modal deve detectar pagamento confirmado via SSE/polling
+  - [x] Fechar modal automaticamente após confirmação
+  - [x] Manter apenas notificação de recarga visível
+  - [x] Reduzir intervalo de polling de 10s para 3s
+  - [x] Conectar SSE ao modal para detecção instantânea
+  - [x] Adicionar dispatch de evento customizado no hook useNotifications
+- [ ] Testar fluxo completo PIX
+  - [ ] Fazer pagamento de teste
+  - [ ] Validar tempo de reconhecimento
+  - [ ] Validar fechamento automático do modal

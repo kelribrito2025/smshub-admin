@@ -113,6 +113,9 @@ export function useNotifications(options: UseNotificationsOptions) {
 
                 setLastNotification(notification);
 
+                // Dispatch custom event for components to listen
+                window.dispatchEvent(new CustomEvent('notification', { detail: notification }));
+
                 if (onNotificationRef.current) {
                   onNotificationRef.current(notification);
                 }
