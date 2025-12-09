@@ -197,13 +197,8 @@ export const storeRouter = router({
 
       // Execute with exclusive lock per customer to prevent race conditions
       return await operationLockManager.executeWithLock(input.customerId, async () => {
-        // 0. Broadcast operation started to all customer's devices
-        notificationsManager.sendToCustomer(input.customerId, {
-          type: 'operation_started',
-          title: 'Operação em andamento',
-          message: 'Comprando número SMS...',
-          data: { operation: 'purchase', customerId: input.customerId },
-        });
+        // Removed intermediate notification to avoid duplicate toasts
+        // Only final success/error notifications will be shown
 
         try {
         // 1. Verificar saldo do cliente
@@ -922,13 +917,8 @@ export const storeRouter = router({
 
       // Execute with exclusive lock per customer to prevent race conditions
       return await operationLockManager.executeWithLock(input.customerId, async () => {
-        // Broadcast operation started to all customer's devices
-        notificationsManager.sendToCustomer(input.customerId, {
-          type: 'operation_started',
-          title: 'Operação em andamento',
-          message: 'Cancelando pedido...',
-          data: { operation: 'cancel', customerId: input.customerId, activationId: input.activationId },
-        });
+        // Removed intermediate notification to avoid duplicate toasts
+        // Only final success/error notifications will be shown
 
         try {
         const result = await getActivationById(input.activationId);
