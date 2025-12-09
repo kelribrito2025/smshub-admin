@@ -10,7 +10,12 @@ import { EfiPayClient } from '../server/efipay-client';
 async function setupWebhook() {
   console.log('🔧 Configurando webhook PIX na EfiPay...\n');
 
-  const webhookUrl = 'https://app.numero-virtual.com/api/webhook/pix';
+  // IMPORTANTE: Adicionar ?ignorar= ao final da URL
+  // A EfiPay adiciona /pix automaticamente, então:
+  // - Teste de configuração: https://app.numero-virtual.com/api/webhook/pix?ignorar=
+  // - Notificação real: https://app.numero-virtual.com/api/webhook/pix?ignorar=/pix
+  // Ambas chegam na mesma rota /api/webhook/pix
+  const webhookUrl = 'https://app.numero-virtual.com/api/webhook/pix?ignorar=';
   
   try {
     const client = new EfiPayClient();

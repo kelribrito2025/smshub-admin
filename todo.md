@@ -1297,10 +1297,15 @@ Webhook PIX não chega no servidor mesmo após correções de body parser. Suspe
 - [x] 6. Criar diagnóstico completo (docs/WEBHOOK-PIX-DIAGNOSTICO.md)
 - [x] 7. Criar script para verificar transações pendentes (scripts/check-pending-pix.ts)
 - [x] 8. Criar script para creditar transações pendentes (scripts/credit-pending-pix.ts)
-- [ ] 9. Executar script para creditar 13 transações pendentes (R$ 56,55)
-- [ ] 10. Investigar por que EfiPay não está enviando webhooks
-- [ ] 11. Validar conta EfiPay (produção vs sandbox)
-- [ ] 12. Testar com webhook.site para validar envio da EfiPay
+- [x] 9. Ler documentação oficial da EfiPay sobre webhooks
+- [x] 10. PROBLEMA IDENTIFICADO: EfiPay adiciona /pix automaticamente ao final da URL
+- [x] 11. URL antiga: https://app.numero-virtual.com/api/webhook/pix
+- [x] 12. URL que EfiPay chamava: https://app.numero-virtual.com/api/webhook/pix/pix (404)
+- [x] 13. Solução: Adicionar ?ignorar= ao final da URL
+- [x] 14. URL corrigida: https://app.numero-virtual.com/api/webhook/pix?ignorar=
+- [x] 15. Webhook reconfigurado com sucesso na EfiPay
+- [ ] 16. Testar pagamento PIX real para validar webhook funcionando
+- [ ] 17. Executar script para creditar 13 transações pendentes (R$ 56,55)
 
 **Comando de teste:**
 ```bash
