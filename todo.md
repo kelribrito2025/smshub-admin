@@ -1384,3 +1384,10 @@ Se retornar 403, 409, 522 ou 5xx → Cloudflare bloqueando antes do Node.js proc
 - [x] Exibir feedback de sucesso/processamento para o usuário
 - [x] Redirecionar para dashboard após confirmação
 - [x] Testar fluxo completo de pagamento Stripe
+
+## BUG: Modal de Login Sem Campo de Senha
+- [x] Verificar componente LoginModal.tsx
+- [x] Adicionar campo de senha no formulário de login
+- [x] Adicionar toggle de mostrar/ocultar senha
+- [x] Atualizar lógica de login para enviar senha
+- [x] Testar login com email e senha
