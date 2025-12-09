@@ -362,6 +362,24 @@
 - [x] Criar testes para funcionalidade de banimento (4 testes passaram)
 - [x] Adicionar campo `bannedReason` para armazenar motivo do banimento
 
+## 🐛 BUG: Notificação Individual Não Chegou para fcokelrihbrito@gmail.com
+
+**Problema reportado:**
+- Usuário enviou notificação individual para fcokelrihbrito@gmail.com
+- Notificação não foi entregue ao destinatário
+
+**Tarefas de diagnóstico:**
+- [x] Verificar se cliente existe no banco de dados
+- [x] Verificar logs do servidor (busca por email, customerId encontrado)
+- [x] Verificar se notificação foi salva no banco
+- [x] Verificar se cliente está conectado via SSE
+- [x] Verificar se notificação foi enviada via SSE
+- [x] Identificar causa raiz (frontend não reconhecia tipo admin_notification)
+- [x] Aplicar correção necessária (adicionar suporte para admin_notification)
+- [ ] Testar novamente
+
+---
+
 ## Melhorias de UI e Paginação
 - [x] Redesenhar UI de banimento no formulário de edição de cliente (substituir botão por toggle)
 - [x] Criar caixa com fundo levemente vermelho para seção de banimento (`bg-red-500/5 border-red-500/20`)
