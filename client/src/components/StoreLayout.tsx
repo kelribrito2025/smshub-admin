@@ -324,11 +324,11 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
         setLoadingApiId(apiId);
       }
       
-      // Usar toast.promise para gerenciar loading → success/error automaticamente
-      const purchasePromise = (async () => {
+      // Executar compra silenciosamente (sem notificações de loading/sucesso)
+      (async () => {
         try {
           // Executar compra com delay mínimo de 4 segundos
-          const [result] = await Promise.all([
+          await Promise.all([
             purchaseMutation.mutateAsync({
               customerId: customer!.id,
               countryId: service.countryId,
@@ -342,8 +342,9 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
           // Invalidate queries to refresh data
           await utils.store.getCustomer.invalidate();
           await utils.store.getMyActivations.invalidate();
-          
-          return result;
+        } catch (error: any) {
+          // Mostrar apenas notificações de ERRO (importante para o usuário)
+          toast.error(`Erro ao comprar número: ${error.message}`);
         } finally {
           // Desativar estado global de compra após conclusão
           setIsPurchasing(false);
@@ -351,12 +352,6 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
           setLoadingApiId(null);
         }
       })();
-      
-      toast.promise(purchasePromise, {
-        loading: 'Processando compra...',
-        success: (result) => `Serviço adquirido com sucesso! Número: ${result.phoneNumber}`,
-        error: (error) => `Erro ao comprar número: ${error.message}`,
-      });
     });
   };
 
