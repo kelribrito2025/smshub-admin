@@ -1,37 +1,42 @@
+import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import Home from "./pages/Home";
-import Dashboard from "./pages/Dashboard";
-import Settings from "./pages/Settings";
-
-import Countries from "./pages/Countries";
-import Financial from "./pages/Financial";
-import Customers from "./pages/Customers";
-import Catalog from "./pages/Catalog";
-import Apis from "./pages/admin/Apis";
-import ApiPerformance from "./pages/admin/ApiPerformance";
-import PaymentSettings from "./pages/PaymentSettings";
-import Audit from "./pages/Audit";
-
-import StoreCatalog from "./pages/StoreCatalog";
-import StoreActivations from "./pages/StoreActivations";
-import StoreAccount from "./pages/StoreAccount";
-import StoreSecurity from "./pages/StoreSecurity";
-import StoreSettings from "./pages/StoreSettings";
-import StoreAffiliate from "./pages/StoreAffiliate";
-import StoreRecharges from "./pages/StoreRecharges";
-
-
-import Affiliates from "./pages/admin/Affiliates";
 import { StoreAuthProvider } from "./contexts/StoreAuthContext";
+
+// Lazy load all pages for code splitting
+const NotFound = lazy(() => import("@/pages/NotFound"));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const Settings = lazy(() => import("./pages/Settings"));
+const Countries = lazy(() => import("./pages/Countries"));
+const Financial = lazy(() => import("./pages/Financial"));
+const Customers = lazy(() => import("./pages/Customers"));
+const Catalog = lazy(() => import("./pages/Catalog"));
+const Apis = lazy(() => import("./pages/admin/Apis"));
+const ApiPerformance = lazy(() => import("./pages/admin/ApiPerformance"));
+const PaymentSettings = lazy(() => import("./pages/PaymentSettings"));
+const Audit = lazy(() => import("./pages/Audit"));
+const Affiliates = lazy(() => import("./pages/admin/Affiliates"));
+
+// Store pages (public)
+const StoreCatalog = lazy(() => import("./pages/StoreCatalog"));
+const StoreActivations = lazy(() => import("./pages/StoreActivations"));
+const StoreAccount = lazy(() => import("./pages/StoreAccount"));
+const StoreSecurity = lazy(() => import("./pages/StoreSecurity"));
+const StoreSettings = lazy(() => import("./pages/StoreSettings"));
+const StoreAffiliate = lazy(() => import("./pages/StoreAffiliate"));
+const StoreRecharges = lazy(() => import("./pages/StoreRecharges"));
 
 function Router() {
   return (
-    <Switch>
+    <Suspense fallback={
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+      </div>
+    }>
+      <Switch>
       {/* Painel de Vendas (Público) */}
       <Route path={"/"} component={StoreCatalog} />
       <Route path="/history" component={StoreActivations} />
@@ -58,7 +63,8 @@ function Router() {
       
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
-    </Switch>
+      </Switch>
+    </Suspense>
   );
 }
 

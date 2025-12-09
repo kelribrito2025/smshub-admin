@@ -24,6 +24,33 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        manualChunks: (id) => {
+          // Separate vendor libraries into their own chunks
+          if (id.includes('node_modules')) {
+            // React core libraries
+            if (id.includes('react') || id.includes('react-dom') || id.includes('scheduler')) {
+              return 'vendor-react';
+            }
+            // Recharts and its dependencies (d3, victory)
+            if (id.includes('recharts') || id.includes('d3-') || id.includes('victory')) {
+              return 'vendor-charts';
+            }
+            // UI libraries (radix-ui, lucide)
+            if (id.includes('@radix-ui') || id.includes('lucide-react')) {
+              return 'vendor-ui';
+            }
+            // tRPC and tanstack query
+            if (id.includes('@trpc') || id.includes('@tanstack')) {
+              return 'vendor-trpc';
+            }
+            // Other node_modules
+            return 'vendor-misc';
+          }
+        },
+      },
+    },
   },
   server: {
     host: true,

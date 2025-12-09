@@ -1405,3 +1405,14 @@ Se retornar 403, 409, 522 ou 5xx → Cloudflare bloqueando antes do Node.js proc
 - [x] Remover dependências desnecessárias (bcryptjs, framer-motion, dotenv, aspect-ratio, tw-animate-css, add)
 - [x] Testar build após remoção (build passou de ~15s para ~13s)
 - [ ] Verificar se publicação ficou mais rápida (precisa testar publicando)
+
+
+## Fase 2: Code Splitting e Otimização de Bundle JavaScript
+
+- [x] Analisar bundle atual e identificar componentes pesados
+- [x] Implementar React.lazy() nas rotas principais
+- [x] Implementar lazy loading em componentes pesados (Dashboard, Recharts)
+- [x] Configurar manualChunks no vite.config.ts
+- [x] Separar vendors (react, recharts, etc) em chunks independentes
+- [x] Testar build e validar redução de bundle
+- [ ] Criar checkpoint com resultados
