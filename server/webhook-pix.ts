@@ -206,15 +206,8 @@ router.post("/webhook/pix", async (req, res) => {
       },
     });
 
-    // Send cache invalidation event to update recharges list
-    notificationsManager.sendToCustomer(transaction.customerId, {
-      type: "recharge_completed",
-      title: "Cache Invalidation",
-      message: "Recharge list needs refresh",
-      data: {
-        action: "invalidate_recharges",
-      },
-    });
+    // Cache invalidation is handled automatically by SSE and polling
+    // No need to send a user-facing notification for this technical event
 
     // Check if this is the first recharge and process referral bonus
     try {
