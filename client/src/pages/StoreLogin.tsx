@@ -5,7 +5,7 @@ import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Card } from '../components/ui/card';
-import { ShoppingBag, Mail, User, Loader2 } from 'lucide-react';
+import { ShoppingBag, Mail, User, Loader2, Lock } from 'lucide-react';
 
 export default function StoreLogin() {
   const [, setLocation] = useLocation();
@@ -24,7 +24,12 @@ export default function StoreLogin() {
 
     try {
       if (isLogin) {
-        await login(email);
+        if (!password || password.length < 8) {
+          setError('Senha deve ter no mínimo 8 caracteres');
+          setIsLoading(false);
+          return;
+        }
+        await login(email, password);
       } else {
         if (!name.trim()) {
           setError('Nome é obrigatório');
@@ -103,6 +108,25 @@ export default function StoreLogin() {
                 onChange={(e) => setEmail(e.target.value)}
                 className="pl-10 bg-black/50 border-green-900/50 text-green-400 placeholder:text-green-900 focus:border-green-500 font-mono"
                 required
+              />
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="password" className="text-green-400 font-mono text-sm">
+              Senha
+            </Label>
+            <div className="relative">
+              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-green-600" />
+              <Input
+                id="password"
+                type="password"
+                placeholder="Mínimo 8 caracteres"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="pl-10 bg-black/50 border-green-900/50 text-green-400 placeholder:text-green-900 focus:border-green-500 font-mono"
+                required
+                minLength={8}
               />
             </div>
           </div>

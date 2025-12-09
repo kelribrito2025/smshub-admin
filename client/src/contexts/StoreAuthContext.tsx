@@ -80,8 +80,10 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
 
   const login = async (email: string, password?: string) => {
     try {
-      // Login simples com email (para compatibilidade com contas antigas)
-      const result = await loginMutation.mutateAsync({ email });
+      if (!password) {
+        throw new Error('Senha é obrigatória');
+      }
+      const result = await loginMutation.mutateAsync({ email, password });
       setCustomer(result);
       localStorage.setItem('store_customer', JSON.stringify(result));
       

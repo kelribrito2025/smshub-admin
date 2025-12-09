@@ -1352,3 +1352,16 @@ Se retornar 403, 409, 522 ou 5xx → Cloudflare bloqueando antes do Node.js proc
 - [x] Remover salvamento de notificação PIX no banco de dados (webhook-pix.ts)
 - [x] Manter apenas notificação SSE para atualização em tempo real do saldo
 - [x] Testar fluxo completo: gerar PIX → pagar → modal atualiza automaticamente
+
+## Emails Transacionais via Mailchimp
+- [x] Criar helper de envio de emails (mailchimp-email.ts)
+- [x] Criar template HTML de confirmação de cadastro
+- [x] Criar template HTML de recuperação de senha
+- [x] Criar template HTML de boas-vindas
+- [x] Integrar email de confirmação no registro de cliente (store.ts)
+- [x] Integrar email de recuperação de senha (security router)
+- [x] Integrar email de boas-vindas no registro (store.ts)
+- [x] Adicionar validação de senha no login
+- [x] Adicionar campo de senha na página de login
+- [x] Criar tabela password_reset_tokens no banco
+- [x] Testar envio dos 3 emails

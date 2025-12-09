@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import bcrypt from 'bcryptjs';
 import { publicProcedure, protectedProcedure, router } from '../_core/trpc';
 import { 
   getPriceByCountryAndService,
@@ -19,6 +18,8 @@ import {
   getSmsMessagesByActivation,
 } from '../db-helpers';
 import { getDb } from '../db';
+import { sendConfirmationEmail, sendWelcomeEmail } from '../mailchimp-email';
+import bcrypt from 'bcrypt';
 import { 
   getCustomerByEmail, 
   getCustomerByPin,
@@ -43,12 +44,24 @@ export const storeRouter = router({
   login: publicProcedure
     .input(z.object({
       email: z.string().email(),
+      password: z.string().min(8),
     }))
     .mutation(async ({ input }) => {
       const customer = await getCustomerByEmail(input.email);
       if (!customer) {
-        throw new Error('Cliente não encontrado');
+        throw new Error('Email ou senha incorretos');
       }
+
+      // Verificar senha
+      if (!customer.password) {
+        throw new Error('Conta sem senha cadastrada. Por favor, use a recuperação de senha.');
+      }
+
+      const passwordMatch = await bcrypt.compare(input.password, customer.password);
+      if (!passwordMatch) {
+        throw new Error('Email ou senha incorretos');
+      }
+
       return customer;
     }),
 
@@ -73,6 +86,16 @@ export const storeRouter = router({
         email: input.email, 
         name: input.name.trim(),
         password: hashedPassword,
+      });
+
+      // Enviar email de confirmação de cadastro (async, não bloqueia resposta)
+      sendConfirmationEmail(customer.email, customer.name).catch((error) => {
+        console.error('[Store] Failed to send confirmation email:', error);
+      });
+
+      // Enviar email de boas-vindas (async, não bloqueia resposta)
+      sendWelcomeEmail(customer.email, customer.name).catch((error) => {
+        console.error('[Store] Failed to send welcome email:', error);
       });
 
       return customer;

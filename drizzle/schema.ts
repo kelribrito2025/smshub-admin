@@ -563,3 +563,23 @@ export const notifications = mysqlTable("notifications", {
 
 export type Notification = typeof notifications.$inferSelect;
 export type InsertNotification = typeof notifications.$inferInsert;
+
+/**
+ * Password Reset Tokens table - stores tokens for password recovery
+ */
+export const passwordResetTokens = mysqlTable("password_reset_tokens", {
+  id: int("id").autoincrement().primaryKey(),
+  customerId: int("customer_id").notNull(), // Customer requesting password reset
+  token: varchar("token", { length: 255 }).notNull().unique(), // Unique reset token
+  expiresAt: timestamp("expires_at").notNull(), // Token expiration (1 hour)
+  used: boolean("used").default(false).notNull(), // Whether token has been used
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  usedAt: timestamp("used_at"), // When token was used
+}, (table) => ({
+  tokenIdx: index("token_idx").on(table.token),
+  customerIdx: index("customer_id_idx").on(table.customerId),
+  expiresIdx: index("expires_at_idx").on(table.expiresAt),
+}));
+
+export type PasswordResetToken = typeof passwordResetTokens.$inferSelect;
+export type InsertPasswordResetToken = typeof passwordResetTokens.$inferInsert;
