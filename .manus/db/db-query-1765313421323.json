@@ -1,0 +1,50 @@
+{
+  "query": "SELECT id, customerId, type, title, message, createdAt FROM notifications WHERE customerId IS NOT NULL ORDER BY createdAt DESC LIMIT 5",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT id, customerId, type, title, message, createdAt FROM notifications WHERE customerId IS NOT NULL ORDER BY createdAt DESC LIMIT 5",
+  "rows": [
+    {
+      "id": "30021",
+      "customerId": "510001",
+      "type": "admin_notification",
+      "title": "gdfgfdgdgfdgdf",
+      "message": "gdgdfgdf",
+      "createdAt": "2025-12-09 20:48:07"
+    },
+    {
+      "id": "30018",
+      "customerId": "450001",
+      "type": "admin_notification",
+      "title": "oi",
+      "message": "teste",
+      "createdAt": "2025-12-09 20:43:09"
+    },
+    {
+      "id": "30005",
+      "customerId": "180002",
+      "type": "admin_notification",
+      "title": "Notificação Individual",
+      "message": "Esta é uma notificação apenas para você",
+      "createdAt": "2025-12-09 19:25:49"
+    },
+    {
+      "id": "30006",
+      "customerId": "180002",
+      "type": "admin_notification",
+      "title": "Notificação por E-mail",
+      "message": "Enviado via e-mail",
+      "createdAt": "2025-12-09 19:25:49"
+    },
+    {
+      "id": "30003",
+      "customerId": "180002",
+      "type": "admin_notification",
+      "title": "Notificação por E-mail",
+      "message": "Enviado via e-mail",
+      "createdAt": "2025-12-09 19:25:32"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\ttype\ttitle\tmessage\tcreatedAt\n30021\t510001\tadmin_notification\tgdfgfdgdgfdgdf\tgdgdfgdf\t2025-12-09 20:48:07\n30018\t450001\tadmin_notification\toi\tteste\t2025-12-09 20:43:09\n30005\t180002\tadmin_notification\tNotificação Individual\tEsta é uma notificação apenas para você\t2025-12-09 19:25:49\n30006\t180002\tadmin_notification\tNotificação por E-mail\tEnviado via e-mail\t2025-12-09 19:25:49\n30003\t180002\tadmin_notification\tNotificação por E-mail\tEnviado via e-mail\t2025-12-09 19:25:32\n",
+  "stderr": "",
+  "execution_time_ms": 53
+}

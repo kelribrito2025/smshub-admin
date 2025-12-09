@@ -1,0 +1,52 @@
+{
+  "query": "SELECT nr.id, nr.notificationId, nr.customerId, nr.readAt, n.title FROM notification_reads nr JOIN notifications n ON nr.notificationId = n.id ORDER BY nr.readAt DESC LIMIT 10",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT nr.id, nr.notificationId, nr.customerId, nr.readAt, n.title FROM notification_reads nr JOIN notifications n ON nr.notificationId = n.id ORDER BY nr.readAt DESC LIMIT 10",
+  "rows": [
+    {
+      "id": "15",
+      "notificationId": "30020",
+      "customerId": "3090026",
+      "readAt": "2025-12-09 20:46:03",
+      "title": "teste 4"
+    },
+    {
+      "id": "14",
+      "notificationId": "30019",
+      "customerId": "3090026",
+      "readAt": "2025-12-09 20:44:12",
+      "title": "teste 3"
+    },
+    {
+      "id": "13",
+      "notificationId": "30001",
+      "customerId": "3090026",
+      "readAt": "2025-12-09 20:42:40",
+      "title": "Manutenção Programada"
+    },
+    {
+      "id": "12",
+      "notificationId": "30004",
+      "customerId": "3090026",
+      "readAt": "2025-12-09 20:42:39",
+      "title": "Manutenção Programada"
+    },
+    {
+      "id": "10",
+      "notificationId": "30008",
+      "customerId": "3090026",
+      "readAt": "2025-12-09 20:42:39",
+      "title": "teste"
+    },
+    {
+      "id": "11",
+      "notificationId": "30007",
+      "customerId": "3090026",
+      "readAt": "2025-12-09 20:42:39",
+      "title": "manutencao kkkk"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tnotificationId\tcustomerId\treadAt\ttitle\n15\t30020\t3090026\t2025-12-09 20:46:03\tteste 4\n14\t30019\t3090026\t2025-12-09 20:44:12\tteste 3\n13\t30001\t3090026\t2025-12-09 20:42:40\tManutenção Programada\n12\t30004\t3090026\t2025-12-09 20:42:39\tManutenção Programada\n10\t30008\t3090026\t2025-12-09 20:42:39\tteste\n11\t30007\t3090026\t2025-12-09 20:42:39\tmanutencao kkkk\n",
+  "stderr": "",
+  "execution_time_ms": 62
+}

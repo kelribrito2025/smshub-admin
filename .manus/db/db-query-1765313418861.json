@@ -1,0 +1,50 @@
+{
+  "query": "SELECT id, customerId, type, title, message, createdAt FROM notifications WHERE customerId IS NULL ORDER BY createdAt DESC LIMIT 5",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT id, customerId, type, title, message, createdAt FROM notifications WHERE customerId IS NULL ORDER BY createdAt DESC LIMIT 5",
+  "rows": [
+    {
+      "id": "30020",
+      "customerId": "NULL",
+      "type": "admin_notification",
+      "title": "teste 4",
+      "message": "frfrfrfrfrfrfr",
+      "createdAt": "2025-12-09 20:45:28"
+    },
+    {
+      "id": "30019",
+      "customerId": "NULL",
+      "type": "admin_notification",
+      "title": "teste 3",
+      "message": "fdsfdsfsdfdsfsd",
+      "createdAt": "2025-12-09 20:43:54"
+    },
+    {
+      "id": "30008",
+      "customerId": "NULL",
+      "type": "admin_notification",
+      "title": "teste",
+      "message": "tete",
+      "createdAt": "2025-12-09 19:32:39"
+    },
+    {
+      "id": "30007",
+      "customerId": "NULL",
+      "type": "admin_notification",
+      "title": "manutencao kkkk",
+      "message": "eae meu bom ebeleza?",
+      "createdAt": "2025-12-09 19:28:17"
+    },
+    {
+      "id": "30004",
+      "customerId": "NULL",
+      "type": "admin_notification",
+      "title": "Manutenção Programada",
+      "message": "O sistema estará em manutenção das 02:00 às 04:00",
+      "createdAt": "2025-12-09 19:25:49"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\ttype\ttitle\tmessage\tcreatedAt\n30020\tNULL\tadmin_notification\tteste 4\tfrfrfrfrfrfrfr\t2025-12-09 20:45:28\n30019\tNULL\tadmin_notification\tteste 3\tfdsfdsfsdfdsfsd\t2025-12-09 20:43:54\n30008\tNULL\tadmin_notification\tteste\ttete\t2025-12-09 19:32:39\n30007\tNULL\tadmin_notification\tmanutencao kkkk\teae meu bom ebeleza?\t2025-12-09 19:28:17\n30004\tNULL\tadmin_notification\tManutenção Programada\tO sistema estará em manutenção das 02:00 às 04:00\t2025-12-09 19:25:49\n",
+  "stderr": "",
+  "execution_time_ms": 79
+}
