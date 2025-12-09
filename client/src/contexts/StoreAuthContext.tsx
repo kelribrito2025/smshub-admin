@@ -1,8 +1,7 @@
-import { createContext, useContext, useState, useEffect, ReactNode, useCallback, useRef } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { trpc } from '../lib/trpc';
 import LoginModal from '../components/LoginModal';
 import BannedAccountModal from '../components/BannedAccountModal';
-import { useNotifications, Notification } from '../hooks/useNotifications';
 
 interface Customer {
   id: number;
@@ -17,30 +16,15 @@ interface Customer {
   role?: 'admin' | 'user'; // Role from users table (if customer has admin account)
 }
 
-interface StoreNotification {
-  id: number;
-  type: 'info' | 'warning' | 'success' | 'error';
-  title: string;
-  message: string;
-  timestamp: string;
-  isRead: boolean;
-  data?: any;
-}
-
 interface StoreAuthContextType {
   customer: Customer | null;
   isLoading: boolean;
   isAuthenticated: boolean;
-  isNotificationsConnected: boolean;
-  notifications: StoreNotification[];
-  unreadCount: number;
-  refreshNotifications: () => Promise<void>;
   login: (email: string, password?: string) => Promise<void>;
   register: (email: string, password: string, name: string) => Promise<void>;
   logout: () => void;
   refreshCustomer: () => Promise<void>;
   requireAuth: (action: () => void) => void;
-  onNotification: (callback: (notification: Notification) => void) => () => void; // Subscribe to notifications
 }
 
 const StoreAuthContext = createContext<StoreAuthContextType | undefined>(undefined);
@@ -51,75 +35,17 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isBannedModalOpen, setIsBannedModalOpen] = useState(false);
   const [pendingAction, setPendingAction] = useState<(() => void) | null>(null);
-  
-  // Notification subscribers (components can subscribe to notifications)
-  const notificationCallbacksRef = useRef<Set<(notification: Notification) => void>>(new Set());
 
   const loginMutation = trpc.store.login.useMutation();
   const registerMutation = trpc.store.register.useMutation();
-  const utils = trpc.useUtils();
-  
-  // ✅ SINGLE SOURCE OF TRUTH: Only query customer here
   const getCustomerQuery = trpc.store.getCustomer.useQuery(
     { customerId: customer?.id || 0 },
     { 
       enabled: !!customer?.id, 
-      refetchOnWindowFocus: false,
-      staleTime: 5 * 60 * 1000, // Consider fresh for 5 minutes (balance updates via SSE)
+      refetchInterval: 2 * 60 * 1000, // Refresh every 2 minutes (reduced from 30s to avoid 429)
+      staleTime: 1 * 60 * 1000, // Consider fresh for 1 minute
     }
   );
-
-  // ✅ SINGLE SSE CONNECTION: Handle notifications centrally
-  const handleNotification = useCallback((notification: Notification) => {
-    console.log('[StoreAuthContext] Received notification:', notification);
-    
-    // Invalidate customer query when balance is updated
-    if (notification.type === 'pix_payment_confirmed' || notification.type === 'balance_updated') {
-      utils.store.getCustomer.invalidate();
-    }
-    
-    // Invalidate recharges when payment is confirmed
-    if (notification.type === 'recharge_completed') {
-      utils.recharges.getMyRecharges.invalidate();
-      utils.store.getCustomer.invalidate();
-    }
-    
-    // Invalidate activations when purchase is completed or failed
-    if (notification.type === 'operation_completed' || notification.type === 'operation_failed') {
-      utils.store.getMyActivations.invalidate();
-    }
-    
-    // Broadcast notification to all subscribers (StoreLayout, pages, etc.)
-    notificationCallbacksRef.current.forEach(callback => {
-      try {
-        callback(notification);
-      } catch (error) {
-        console.error('[StoreAuthContext] Error in notification callback:', error);
-      }
-    });
-  }, [utils]);
-
-  // ✅ SINGLE SSE CONNECTION: Connect only once per session
-  const { isConnected: isNotificationsConnected } = useNotifications({
-    customerId: customer?.id || null,
-    onNotification: handleNotification,
-    autoToast: false, // Don't auto-toast here, let subscribers handle it
-  });
-
-  // ✅ SINGLE NOTIFICATIONS QUERY: Centralized notifications state
-  const notificationsQuery = trpc.notifications.getAll.useQuery(undefined, {
-    enabled: !!customer?.id,
-    refetchOnWindowFocus: false,
-    staleTime: 30 * 1000, // 30 seconds (updates via SSE)
-    retry: 1, // Avoid retry storms on 403
-  });
-
-  const notifications = notificationsQuery.data || [];
-  const unreadCount = notifications.filter(n => !n.isRead).length;
-
-  const refreshNotifications = useCallback(async () => {
-    await notificationsQuery.refetch();
-  }, [notificationsQuery]);
 
   // Load customer from localStorage on mount
   useEffect(() => {
@@ -210,14 +136,6 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  // Subscribe to notifications (returns unsubscribe function)
-  const onNotification = useCallback((callback: (notification: Notification) => void) => {
-    notificationCallbacksRef.current.add(callback);
-    return () => {
-      notificationCallbacksRef.current.delete(callback);
-    };
-  }, []);
-
   const handleLoginModalClose = () => {
     setIsLoginModalOpen(false);
     setPendingAction(null);
@@ -234,16 +152,11 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
         customer,
         isLoading,
         isAuthenticated: !!customer,
-        isNotificationsConnected,
-        notifications,
-        unreadCount,
-        refreshNotifications,
         login,
         register,
         logout,
         refreshCustomer,
         requireAuth,
-        onNotification,
       }}
     >
       {children}

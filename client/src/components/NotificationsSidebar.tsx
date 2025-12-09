@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { X, Bell, AlertCircle, CheckCircle, Info, Clock } from 'lucide-react';
 import { trpc } from '@/lib/trpc';
-import { useStoreAuth } from '@/contexts/StoreAuthContext';
 
 interface Notification {
   id: number;
@@ -19,21 +18,28 @@ interface NotificationsSidebarProps {
 }
 
 export default function NotificationsSidebar({ isOpen, onClose }: NotificationsSidebarProps) {
-  // ✅ Consume notifications from context (single source of truth)
-  const { notifications, unreadCount, refreshNotifications } = useStoreAuth();
   const utils = trpc.useUtils();
+  
+  // Fetch notifications from backend
+  // Configuração otimizada para atualização imediata:
+  // - staleTime: 0 → sempre revalida (compartilha cache com DashboardLayout)
+  // - refetchInterval: 10s → polling mais agressivo
+  // - refetchOnWindowFocus: true → atualiza ao focar aba
+  const { data: notifications = [], refetch } = trpc.notifications.getAll.useQuery(undefined, {
+    staleTime: 0,
+    refetchInterval: 10000, // Refetch every 10 seconds
+    refetchOnWindowFocus: true, // Refetch when user returns to tab
+  });
 
   const markAsReadMutation = trpc.notifications.markAsRead.useMutation({
     onSuccess: () => {
-      // Invalidate to refresh from server
-      utils.notifications.getAll.invalidate();
+      refetch();
     },
   });
 
   const markAllAsReadMutation = trpc.notifications.markAllAsRead.useMutation({
     onSuccess: () => {
-      // Invalidate to refresh from server
-      utils.notifications.getAll.invalidate();
+      refetch();
     },
   });
 
@@ -45,12 +51,14 @@ export default function NotificationsSidebar({ isOpen, onClose }: NotificationsS
     markAllAsReadMutation.mutate();
   };
 
-  // Refresh notifications when sidebar opens
+  // Força refetch ao abrir barra lateral para garantir dados frescos
   useEffect(() => {
     if (isOpen) {
-      refreshNotifications();
+      refetch();
     }
-  }, [isOpen, refreshNotifications]);
+  }, [isOpen, refetch]);
+
+  const unreadCount = notifications.filter(n => !n.isRead).length;
 
   const getIcon = (type: string) => {
     switch (type) {
@@ -95,105 +103,95 @@ export default function NotificationsSidebar({ isOpen, onClose }: NotificationsS
     }
   };
 
-  const formatTimestamp = (timestamp: string) => {
-    const date = new Date(timestamp);
-    const now = new Date();
-    const diffMs = now.getTime() - date.getTime();
-    const diffMins = Math.floor(diffMs / 60000);
-    const diffHours = Math.floor(diffMs / 3600000);
-    const diffDays = Math.floor(diffMs / 86400000);
-
-    if (diffMins < 1) return 'Agora';
-    if (diffMins < 60) return `${diffMins}min atrás`;
-    if (diffHours < 24) return `${diffHours}h atrás`;
-    if (diffDays < 7) return `${diffDays}d atrás`;
-    
-    return date.toLocaleDateString('pt-BR', {
-      day: '2-digit',
-      month: 'short',
-      hour: '2-digit',
-      minute: '2-digit',
-    });
-  };
-
-  if (!isOpen) return null;
-
   return (
     <>
-      {/* Backdrop */}
-      <div
-        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 transition-opacity"
-        onClick={onClose}
-      />
+      {/* Overlay */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 transition-opacity"
+          onClick={onClose}
+        />
+      )}
 
       {/* Sidebar */}
-      <div className="fixed right-0 top-0 h-full w-full sm:w-96 bg-slate-900 border-l border-slate-800 z-50 shadow-2xl flex flex-col">
+      <div
+        className={`fixed top-0 right-0 h-full w-96 bg-[#0a0f1a] border-l border-green-500/20 shadow-2xl z-50 transform transition-transform duration-300 ease-in-out ${
+          isOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
+      >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-slate-800">
+        <div className="flex items-center justify-between p-4 border-b border-green-500/20">
           <div className="flex items-center gap-2">
-            <Bell className="w-5 h-5 text-cyan-400" />
-            <h2 className="text-lg font-semibold text-white">Notificações</h2>
+            <Bell className="w-5 h-5 text-green-400" />
+            <h2 className="text-lg font-semibold text-green-400">Notificações</h2>
             {unreadCount > 0 && (
-              <span className="px-2 py-0.5 text-xs font-semibold bg-cyan-500/20 text-cyan-400 rounded-full border border-cyan-500/30">
+              <span className="px-2 py-0.5 text-xs font-bold bg-green-500 text-black rounded-full">
                 {unreadCount}
               </span>
             )}
           </div>
           <button
             onClick={onClose}
-            className="p-1 hover:bg-slate-800 rounded-lg transition-colors"
+            className="p-1 hover:bg-green-500/10 rounded transition-colors"
           >
-            <X className="w-5 h-5 text-slate-400" />
+            <X className="w-5 h-5 text-gray-400" />
           </button>
         </div>
 
         {/* Actions */}
-        {notifications.length > 0 && unreadCount > 0 && (
-          <div className="p-3 border-b border-slate-800">
+        {unreadCount > 0 && (
+          <div className="p-4 border-b border-green-500/20">
             <button
               onClick={markAllAsRead}
-              disabled={markAllAsReadMutation.isPending}
-              className="text-sm text-cyan-400 hover:text-cyan-300 transition-colors disabled:opacity-50"
+              className="text-sm text-green-400 hover:text-green-300 transition-colors"
             >
-              {markAllAsReadMutation.isPending ? 'Marcando...' : 'Marcar todas como lidas'}
+              Marcar todas como lidas
             </button>
           </div>
         )}
 
-        {/* Notifications list */}
-        <div className="flex-1 overflow-y-auto">
+        {/* Notifications List */}
+        <div className="overflow-y-auto h-[calc(100vh-140px)]">
           {notifications.length === 0 ? (
-            <div className="flex flex-col items-center justify-center h-full text-slate-400 p-8">
-              <Bell className="w-12 h-12 mb-3 opacity-50" />
-              <p className="text-center">Nenhuma notificação</p>
+            <div className="flex flex-col items-center justify-center h-full text-gray-500">
+              <Bell className="w-12 h-12 mb-2 opacity-50" />
+              <p>Nenhuma notificação</p>
             </div>
           ) : (
-            <div className="p-3 space-y-2">
-              {notifications.map((notification) => (
+            <div className="p-4 space-y-3">
+              {notifications.map((notif) => (
                 <div
-                  key={notification.id}
-                  className={`p-3 rounded-lg border ${getBgColor(notification.type, notification.isRead)} ${getBorderColor(notification.type)} ${
-                    !notification.isRead ? 'shadow-lg' : ''
-                  } transition-all cursor-pointer hover:scale-[1.02]`}
-                  onClick={() => !notification.isRead && markAsRead(notification.id)}
+                  key={notif.id}
+                  onClick={() => !notif.isRead && markAsRead(notif.id)}
+                  className={`p-4 rounded-lg border ${getBgColor(notif.type, notif.isRead)} ${getBorderColor(
+                    notif.type
+                  )} ${!notif.isRead ? 'cursor-pointer hover:bg-opacity-30' : ''} transition-all`}
                 >
                   <div className="flex items-start gap-3">
-                    {getIcon(notification.type)}
+                    <div className="flex-shrink-0 mt-1">{getIcon(notif.type)}</div>
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-start justify-between gap-2 mb-1">
-                        <h3 className={`text-sm font-semibold ${!notification.isRead ? 'text-white' : 'text-slate-300'}`}>
-                          {notification.title}
+                      <div className="flex items-start justify-between gap-2">
+                        <h3
+                          className={`text-sm font-semibold ${
+                            notif.isRead ? 'text-gray-400' : 'text-green-400'
+                          }`}
+                        >
+                          {notif.title}
                         </h3>
-                        {!notification.isRead && (
-                          <div className="w-2 h-2 bg-cyan-400 rounded-full flex-shrink-0 mt-1" />
+                        {!notif.isRead && (
+                          <div className="w-2 h-2 bg-green-400 rounded-full flex-shrink-0 mt-1" />
                         )}
                       </div>
-                      <p className="text-sm text-slate-400 mb-2 break-words">
-                        {notification.message}
+                      <p
+                        className={`text-sm mt-1 ${
+                          notif.isRead ? 'text-gray-500' : 'text-gray-300'
+                        }`}
+                      >
+                        {notif.message}
                       </p>
-                      <div className="flex items-center gap-1 text-xs text-slate-500">
+                      <div className="flex items-center gap-1 mt-2 text-xs text-gray-500">
                         <Clock className="w-3 h-3" />
-                        {formatTimestamp(notification.timestamp)}
+                        <span>{notif.timestamp}</span>
                       </div>
                     </div>
                   </div>

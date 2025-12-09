@@ -149,16 +149,15 @@ function DashboardLayoutContent({
   const [notificationsSidebarOpen, setNotificationsSidebarOpen] = useState(false);
 
   // Query notifications to get unread count for badge
-  // Configuração otimizada para baixo volume de notificações (2-5/semana):
+  // Configuração otimizada para atualização imediata:
   // - staleTime: 0 → sempre revalida ao montar componente
+  // - refetchInterval: 10s → polling mais agressivo
   // - refetchOnWindowFocus: true → atualiza ao focar aba
-  // - refetchOnMount: true → atualiza ao navegar entre páginas
-  // - SSE entrega notificações instantaneamente quando criadas
   const notificationsQuery = trpc.notifications.getAll.useQuery(undefined, {
     enabled: !!user?.id,
     refetchOnWindowFocus: true,
-    refetchOnMount: true,
     staleTime: 0,
+    refetchInterval: 10000, // Refetch every 10 seconds
   });
 
   const unreadCount = (notificationsQuery.data || []).filter(n => !n.isRead).length;

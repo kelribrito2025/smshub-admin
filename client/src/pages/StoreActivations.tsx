@@ -22,8 +22,7 @@ export default function StoreActivations() {
     },
     { 
       enabled: !!customer?.id,
-      refetchOnWindowFocus: false,
-      staleTime: 2 * 60 * 1000, // Consider data fresh for 2 minutes (historical data doesn't change frequently)
+      refetchInterval: 60000, // Poll every 60 seconds (reduced from 30s to avoid 429)
     }
   );
 
