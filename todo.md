@@ -1612,3 +1612,11 @@ Se retornar 403, 409, 522 ou 5xx → Cloudflare bloqueando antes do Node.js proc
 - [x] Adicionar validação de autenticação em StoreRecharges.tsx
 - [x] Testar redirecionamento quando usuário não está logado
 - [x] Validar que todas as páginas protegidas redirecionam corretamente
+
+
+## 🔄 Correção de Redirecionamento Stripe
+- [x] Investigar onde está configurada a URL de sucesso do Stripe (/store/recharges)
+- [x] Alterar success_url para redirecionar para home (/)
+- [x] Alterar cancel_url para redirecionar para home (/)
+- [x] Testar fluxo completo de pagamento com cartão
+- [x] Validar que redirecionamento funciona corretamente

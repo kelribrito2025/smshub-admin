@@ -76,8 +76,8 @@ export const stripeRouter = router({
           },
         ],
         mode: "payment",
-        success_url: `${ctx.req.headers.origin}/store?payment=success`,
-        cancel_url: `${ctx.req.headers.origin}/store?payment=cancelled`,
+        success_url: `${ctx.req.headers.origin}/`,
+        cancel_url: `${ctx.req.headers.origin}/`,
         customer_email: customer.email,
         client_reference_id: customerId.toString(),
         metadata: {
