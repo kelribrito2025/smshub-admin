@@ -377,7 +377,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
           await utils.store.getMyActivations.invalidate();
         } catch (error: any) {
           // Mostrar apenas notificações de ERRO (5 segundos para mensagens longas)
-          toast.error(`Erro ao comprar número: ${error.message}`, {
+          toast.error(error.message, {
             duration: 5000,
           });
         } finally {

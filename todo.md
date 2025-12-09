@@ -1572,3 +1572,8 @@ Se retornar 403, 409, 522 ou 5xx → Cloudflare bloqueando antes do Node.js proc
 - [x] Remover logs desnecessários mantendo apenas logs essenciais (erros, conexões importantes)
 - [x] Testar funcionamento do SSE após remoção
 - [x] Criar checkpoint com código limpo
+
+## Simplificar Mensagem de Erro de Limite de Pedidos
+- [x] Localizar código da mensagem de erro no backend
+- [x] Alterar de "Erro ao comprar número: Limite de pedidos simultâneos atingido para Opção 1" para "Limite de pedidos simultâneos atingido para Opção 1"
+- [x] Testar alteração
