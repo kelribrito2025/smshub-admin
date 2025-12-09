@@ -1562,3 +1562,13 @@ Se retornar 403, 409, 522 ou 5xx → Cloudflare bloqueando antes do Node.js proc
 - [x] Decisão: Usar toast direto no frontend (igual ao cancelamento) ao invés de SSE
 - [x] Adicionar toast.success() após compra bem-sucedida no frontend
 - [x] Testar em ambiente de desenvolvimento - FUNCIONANDO PERFEITAMENTE! 🎉
+
+
+## 🧹 Limpeza de Logs de Debug
+
+### Tarefas
+- [x] Analisar logs de debug em notifications-manager.ts
+- [x] Analisar logs de debug em useNotifications.ts
+- [x] Remover logs desnecessários mantendo apenas logs essenciais (erros, conexões importantes)
+- [x] Testar funcionamento do SSE após remoção
+- [x] Criar checkpoint com código limpo

@@ -38,13 +38,10 @@ export function useNotifications(options: UseNotificationsOptions) {
   }, [onNotification, autoToast]);
 
   useEffect(() => {
-    // ✅ CORREÇÃO: Não conectar se não houver customer autenticado
+    // Don't connect if no customer is authenticated
     if (!customerId || customerId === 0) {
-      console.log('[Notifications] Skipping SSE connection - no customer ID provided (customerId:', customerId, ')');
       return;
     }
-
-    console.log(`[Notifications] Connecting to SSE for customer ${customerId}`);
 
     let abortController = new AbortController();
     let reader: ReadableStreamDefaultReader<Uint8Array> | null = null;
@@ -65,19 +62,16 @@ export function useNotifications(options: UseNotificationsOptions) {
         if (!response.ok) {
           // 403 is expected when admin accesses customer pages - don't log as error
           if (response.status === 403) {
-            console.log(`[Notifications] SSE connection rejected (403) - user not authorized for this customer`);
             return; // Silently exit, don't retry
           }
-          console.error(`[Notifications] SSE connection failed: ${response.status} ${response.statusText}`);
+          console.error(`[Notifications] SSE connection failed: ${response.status}`);
           throw new Error(`HTTP ${response.status}`);
         }
 
         if (!response.body) {
-          console.error('[Notifications] No response body');
           throw new Error('No response body');
         }
 
-        console.log("[Notifications] SSE connection opened");
         setIsConnected(true);
         retryCountRef.current = 0;
 
@@ -90,7 +84,6 @@ export function useNotifications(options: UseNotificationsOptions) {
           const { done, value } = await reader.read();
           
           if (done) {
-            console.log('[Notifications] Stream ended');
             break;
           }
 
@@ -109,7 +102,6 @@ export function useNotifications(options: UseNotificationsOptions) {
             if (dataMatch) {
               try {
                 const notification: Notification = JSON.parse(dataMatch[1]);
-                console.log("[Notifications] Received:", notification);
 
                 setLastNotification(notification);
 
@@ -131,7 +123,6 @@ export function useNotifications(options: UseNotificationsOptions) {
         }
       } catch (error: any) {
         if (error.name === 'AbortError') {
-          console.log('[Notifications] Connection aborted');
           return;
         }
 
@@ -142,11 +133,8 @@ export function useNotifications(options: UseNotificationsOptions) {
         const delay = Math.min(1000 * Math.pow(2, retryCountRef.current), 32000);
         retryCountRef.current++;
         
-        console.log(`[Notifications] Retrying in ${delay}ms (attempt ${retryCountRef.current})`);
-        
         retryTimeoutRef.current = setTimeout(() => {
           if (customerId) {
-            console.log(`[Notifications] Reconnecting to SSE for customer ${customerId}`);
             setReconnectTrigger(prev => prev + 1);
           }
         }, delay);
@@ -157,8 +145,6 @@ export function useNotifications(options: UseNotificationsOptions) {
 
     // Cleanup on unmount
     return () => {
-      console.log("[Notifications] Closing SSE connection");
-      
       // Clear retry timeout
       if (retryTimeoutRef.current) {
         clearTimeout(retryTimeoutRef.current);
@@ -187,7 +173,6 @@ export function useNotifications(options: UseNotificationsOptions) {
  * Show toast notification based on notification type
  */
 function showNotificationToast(notification: Notification) {
-  console.log('[Notifications] showNotificationToast called with:', notification.type, notification);
   switch (notification.type) {
     case "pix_payment_confirmed":
       toast.success(notification.title, {
@@ -220,7 +205,6 @@ function showNotificationToast(notification: Notification) {
       break;
 
     case "operation_completed":
-      console.log('[Notifications] Showing operation_completed toast:', notification.title, notification.message);
       toast.success(notification.title, {
         description: notification.message,
         duration: 4000,

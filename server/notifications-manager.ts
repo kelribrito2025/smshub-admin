@@ -30,7 +30,6 @@ class NotificationsManager {
     // Close all existing connections for this customer before adding new one
     const existingClients = this.clients.get(customerId) || [];
     if (existingClients.length > 0) {
-      console.log(`[Notifications] Closing ${existingClients.length} existing connection(s) for customer ${customerId}`);
       existingClients.forEach((oldClient) => {
         try {
           if (!oldClient.response.writableEnded) {
@@ -50,8 +49,6 @@ class NotificationsManager {
 
     // Replace all old connections with the new one (only 1 connection per customer)
     this.clients.set(customerId, [client]);
-
-    console.log(`[Notifications] Client connected: customer ${customerId}, total connections: 1 (old connections closed)`);
 
     // Setup SSE headers (optimized for production with proxies)
     response.writeHead(200, {
@@ -75,18 +72,14 @@ class NotificationsManager {
     }
 
     // Send initial connection confirmation immediately
-    // This helps detect connection issues early
     try {
-      console.log(`[Notifications] About to send initial message to customer ${customerId}, writableEnded=${response.writableEnded}`);
       response.write(`:connected\n\n`);
-      console.log(`[Notifications] ✅ Initial connection message sent to customer ${customerId}`);
     } catch (error) {
-      console.error(`[Notifications] ❌ Error sending initial message to customer ${customerId}:`, error);
+      console.error(`[Notifications] Error sending initial message to customer ${customerId}:`, error);
     }
 
     // Setup cleanup on connection close (only once)
     const closeHandler = () => {
-      console.log(`[Notifications] ⚠️ Connection closed for customer ${customerId}`);
       this.removeClient(customerId, response);
     };
     response.once("close", closeHandler);
@@ -97,18 +90,15 @@ class NotificationsManager {
     });
 
     // Send heartbeat every 15 seconds to keep connection alive
-    // Reduced from 30s to prevent proxy timeouts (Cloudflare/Nginx typically 60s)
     const heartbeatInterval = setInterval(() => {
       if (response.writableEnded) {
-        console.warn(`[Notifications] ⚠️ Heartbeat skipped - response already ended for customer ${customerId}`);
         clearInterval(heartbeatInterval);
         return;
       }
       try {
         response.write(":heartbeat\n\n");
-        console.log(`[Notifications] ✅ Heartbeat sent to customer ${customerId}`);
       } catch (error) {
-        console.error(`[Notifications] ❌ Error sending heartbeat to customer ${customerId}:`, error);
+        console.error(`[Notifications] Error sending heartbeat:`, error);
         clearInterval(heartbeatInterval);
       }
     }, 15000);
@@ -122,7 +112,6 @@ class NotificationsManager {
    * Remove a client connection
    */
   private removeClient(customerId: number, response: Response) {
-    console.log(`[Notifications] Removing client for customer ${customerId}`);
     const clients = this.clients.get(customerId);
     if (!clients) return;
 
@@ -133,8 +122,6 @@ class NotificationsManager {
     } else {
       this.clients.set(customerId, updatedClients);
     }
-
-    console.log(`[Notifications] Client disconnected: customer ${customerId}, remaining connections: ${updatedClients.length}`);
   }
 
   /**
@@ -143,11 +130,8 @@ class NotificationsManager {
   sendToCustomer(customerId: number, notification: Notification) {
     const clients = this.clients.get(customerId);
     if (!clients || clients.length === 0) {
-      console.log(`[Notifications] ⚠️ No clients connected for customer ${customerId} - notification will NOT be delivered:`, notification);
       return;
     }
-
-    console.log(`[Notifications] ✅ Sending to customer ${customerId} (${clients.length} connection(s)):`, notification.type, notification);
 
     clients.forEach((client) => {
       this.sendToClient(client.response, notification);
@@ -158,16 +142,11 @@ class NotificationsManager {
    * Send notification to all connected clients
    */
   sendToAll(notification: Notification) {
-    let totalSent = 0;
-    
-    this.clients.forEach((clients, customerId) => {
+    this.clients.forEach((clients) => {
       clients.forEach((client) => {
         this.sendToClient(client.response, notification);
-        totalSent++;
       });
     });
-
-    console.log(`[Notifications] Broadcast sent to ${totalSent} clients`);
   }
 
   /**
@@ -175,7 +154,6 @@ class NotificationsManager {
    */
   private sendToClient(response: Response, notification: Notification) {
     if (response.writableEnded) {
-      console.warn(`[Notifications] ⚠️ Cannot send notification - response already ended`);
       return;
     }
 
