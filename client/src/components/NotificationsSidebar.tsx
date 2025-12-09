@@ -21,14 +21,16 @@ export default function NotificationsSidebar({ isOpen, onClose }: NotificationsS
   const utils = trpc.useUtils();
   
   // Fetch notifications from backend
-  // Configuração otimizada para atualização imediata:
-  // - staleTime: 0 → sempre revalida (compartilha cache com DashboardLayout)
-  // - refetchInterval: 10s → polling mais agressivo
-  // - refetchOnWindowFocus: true → atualiza ao focar aba
+  // Configuração otimizada para evitar erro 429 (Too Many Requests):
+  // - staleTime: 30s → considera dados frescos por 30s
+  // - refetchInterval: 30s → polling moderado (reduzido de 10s)
+  // - refetchOnWindowFocus: false → evita requisições ao trocar de aba
+  // - retry: 1 → apenas 1 retry para evitar sobrecarga
   const { data: notifications = [], refetch } = trpc.notifications.getAll.useQuery(undefined, {
-    staleTime: 0,
-    refetchInterval: 10000, // Refetch every 10 seconds
-    refetchOnWindowFocus: true, // Refetch when user returns to tab
+    staleTime: 30 * 1000,
+    refetchInterval: 30 * 1000, // Refetch every 30 seconds (reduced from 10s)
+    refetchOnWindowFocus: false, // Avoid requests when switching tabs
+    retry: 1, // Only 1 retry to prevent 429 errors
   });
 
   const markAsReadMutation = trpc.notifications.markAsRead.useMutation({

@@ -146,8 +146,12 @@ function DashboardLayoutContent({
   const isMobile = useIsMobile();
   const [reorderDialogOpen, setReorderDialogOpen] = useState(false);
 
-  // Fetch menus from database
-  const { data: dbMenus } = trpc.adminMenus.getAll.useQuery();
+  // Fetch menus from database (optimized to prevent 429)
+  const { data: dbMenus } = trpc.adminMenus.getAll.useQuery(undefined, {
+    staleTime: 5 * 60 * 1000, // Consider fresh for 5 minutes (menus rarely change)
+    refetchOnWindowFocus: false, // Don't refetch when switching tabs
+    retry: 1, // Only 1 retry to prevent 429 errors
+  });
 
   // Convert database menus to menu items with icons
   const menuItems = dbMenus

@@ -1917,3 +1917,15 @@ Garantir que badge do sino e barra lateral atualizem imediatamente quando houver
 - [x] Corrigir parâmetro markAsRead no StoreAuthContext (notificationId → id)
 - [x] Corrigir erro de CSP (Content Security Policy) que bloqueia eval()
 - [x] Remover Google Analytics do index.html
+
+## 🐛 BUG: Erro 429 (Too Many Requests)
+- [x] Investigar origem das requisições excessivas ao servidor
+- [x] Implementar debouncing em queries/mutations
+- [x] Adicionar cache para reduzir requisições desnecessárias
+- [x] Testar e validar correção
+
+### Otimizações Implementadas:
+1. **NotificationsSidebar**: Polling reduzido de 10s → 30s
+2. **PixPaymentModal**: Polling reduzido de 3s → 5s
+3. **DashboardLayout**: Menus com cache de 5 minutos
+4. **Todas as queries**: Adicionado `retry: 1` e `refetchOnWindowFocus: false`
