@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { X, Bell, AlertCircle, CheckCircle, Info, Clock } from 'lucide-react';
 import { trpc } from '@/lib/trpc';
 
@@ -21,9 +21,13 @@ export default function NotificationsSidebar({ isOpen, onClose }: NotificationsS
   const utils = trpc.useUtils();
   
   // Fetch notifications from backend
-  // Always keep query active so new notifications appear immediately
+  // Configuração otimizada para atualização imediata:
+  // - staleTime: 0 → sempre revalida (compartilha cache com DashboardLayout)
+  // - refetchInterval: 10s → polling mais agressivo
+  // - refetchOnWindowFocus: true → atualiza ao focar aba
   const { data: notifications = [], refetch } = trpc.notifications.getAll.useQuery(undefined, {
-    refetchInterval: 30000, // Refetch every 30 seconds
+    staleTime: 0,
+    refetchInterval: 10000, // Refetch every 10 seconds
     refetchOnWindowFocus: true, // Refetch when user returns to tab
   });
 
@@ -46,6 +50,13 @@ export default function NotificationsSidebar({ isOpen, onClose }: NotificationsS
   const markAllAsRead = () => {
     markAllAsReadMutation.mutate();
   };
+
+  // Força refetch ao abrir barra lateral para garantir dados frescos
+  useEffect(() => {
+    if (isOpen) {
+      refetch();
+    }
+  }, [isOpen, refetch]);
 
   const unreadCount = notifications.filter(n => !n.isRead).length;
 

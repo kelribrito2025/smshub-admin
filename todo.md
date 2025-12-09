@@ -1815,3 +1815,37 @@ Criar tabela de relacionamento `notification_reads` para rastrear individualment
 - ✅ Sino aparece com badge quando há notificações não lidas
 - ✅ Barra lateral mostra TODAS as notificações (globais + individuais)
 - ✅ Sistema funciona tanto para admin quanto para clientes
+
+---
+
+## 🔔 Otimização: Notificações com Atualização Imediata
+
+**Objetivo:**
+Garantir que badge do sino e barra lateral atualizem imediatamente quando houver nova notificação, sem delay de 30s e sem inconsistências.
+
+**Problemas atuais:**
+- [x] Duas queries separadas (DashboardLayout + NotificationsSidebar) causam cache duplicado
+- [x] staleTime de 30s causa delay na atualização do badge
+- [x] refetchInterval de 30s é muito lento
+- [x] Barra lateral não força refetch ao abrir
+- [x] DashboardLayout não refaz query ao focar aba
+
+**Soluções a implementar:**
+- [x] Unificar configurações de query (mesmos parâmetros)
+- [x] Reduzir staleTime para 0 (sempre revalida)
+- [x] Reduzir refetchInterval para 10s (polling mais agressivo)
+- [x] Ativar refetchOnWindowFocus em ambos
+- [x] Adicionar refetch manual ao abrir barra lateral
+- [ ] Testar comportamento com notificação nova
+
+**Resultado esperado:**
+- ✅ Badge atualiza em até 10s após notificação chegar no banco
+- ✅ Ao focar aba, atualiza imediatamente
+- ✅ Ao abrir barra, força refetch e mostra dados frescos
+- ✅ Consistência total entre badge e barra lateral
+
+**Nova solução sugerida pelo usuário:**
+- [x] Adicionar listener de navegação (mudança de rota) no DashboardLayout
+- [x] Disparar refetch() automaticamente ao trocar de página
+- [ ] Testar navegação entre páginas (Dashboard → Clientes → Catálogo)
+- [ ] Validar atualização instantânea do badge ao navegar

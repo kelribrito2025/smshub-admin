@@ -149,11 +149,15 @@ function DashboardLayoutContent({
   const [notificationsSidebarOpen, setNotificationsSidebarOpen] = useState(false);
 
   // Query notifications to get unread count for badge
+  // Configuração otimizada para atualização imediata:
+  // - staleTime: 0 → sempre revalida ao montar componente
+  // - refetchInterval: 10s → polling mais agressivo
+  // - refetchOnWindowFocus: true → atualiza ao focar aba
   const notificationsQuery = trpc.notifications.getAll.useQuery(undefined, {
     enabled: !!user?.id,
-    refetchOnWindowFocus: false,
-    staleTime: 30 * 1000, // 30 seconds
-    refetchInterval: 30000, // Refetch every 30 seconds
+    refetchOnWindowFocus: true,
+    staleTime: 0,
+    refetchInterval: 10000, // Refetch every 10 seconds
   });
 
   const unreadCount = (notificationsQuery.data || []).filter(n => !n.isRead).length;
@@ -171,6 +175,14 @@ function DashboardLayoutContent({
     : fallbackMenuItems;
 
   const activeMenuItem = menuItems.find(item => item.path === location);
+
+  // Refetch notificações ao navegar entre páginas
+  // Garante atualização instantânea do badge ao trocar de rota
+  useEffect(() => {
+    if (user?.id) {
+      notificationsQuery.refetch();
+    }
+  }, [location]); // Dispara sempre que a rota mudar
 
   useEffect(() => {
     if (isCollapsed) {
