@@ -46,6 +46,8 @@ async function startServer() {
       "https://smshubadm-sokyccse.manus.space",
       "http://localhost:3000",
       "http://localhost:5173",
+      "https://app.manus.im",
+      "https://manus.im",
     ];
     
     // Check if origin is allowed
