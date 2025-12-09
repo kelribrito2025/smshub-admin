@@ -1415,4 +1415,4 @@ Se retornar 403, 409, 522 ou 5xx → Cloudflare bloqueando antes do Node.js proc
 - [x] Configurar manualChunks no vite.config.ts
 - [x] Separar vendors (react, recharts, etc) em chunks independentes
 - [x] Testar build e validar redução de bundle
-- [ ] Criar checkpoint com resultados
+- [x] Criar checkpoint com resultados
