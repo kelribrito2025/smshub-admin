@@ -1181,3 +1181,13 @@
 - [x] Webhook reconfigurado na EfiPay
 - [x] Creditadas 10 transações pendentes (R$ 18,60)
 - [ ] Fazer teste real de pagamento PIX para validar webhook
+
+## Diagnóstico e Correção: Webhook PIX Não Funcionando
+- [x] Investigar pagamento PIX de teste (R$ 1,10 - TXID: ed627307c6434f96b195abe1a3f27a6c)
+- [x] Confirmar que pagamento foi aprovado na EfiPay (status: CONCLUIDA)
+- [x] Identificar causa raiz: Webhook configurado para domínio antigo (app.numero-virtual.com)
+- [x] Reconfigurar webhook para domínio correto (smshubadm-sokyccse.manus.space)
+- [x] Validar que rota do webhook está acessível publicamente (teste com curl OK)
+- [x] Creditar pagamento pendente manualmente (R$ 1,10 creditado)
+- [x] Atualizar script setup-webhook.ts com novo domínio
+- [x] Próximos pagamentos PIX devem funcionar automaticamente

@@ -1,0 +1,12 @@
+{
+  "query": "\n-- 1. Verificar transação\nSELECT txid, customerId, amount, status FROM pix_transactions WHERE txid = 'ed627307c6434f96b195abe1a3f27a6c';\n\n-- 2. Buscar saldo atual\nSELECT id, balance FROM customers WHERE id = 480001;\n\n-- 3. Atualizar saldo (R$ 18,41 + R$ 1,10 = R$ 19,51)\nUPDATE customers SET balance = balance + 110 WHERE id = 480001;\n\n-- 4. Atualizar transação PIX\nUPDATE pix_transactions SET status = 'completed', paidAt = NOW() WHERE txid = 'ed627307c6434f96b195abe1a3f27a6c';\n\n-- 5. Criar registro de recarga\nINSERT INTO recharges (customerId, amount, method, status, createdAt, updatedAt)\nVALUES (480001, 110, 'pix', 'completed', NOW(), NOW());\n\n-- 6. Verificar saldo atualizado\nSELECT id, balance FROM customers WHERE id = 480001;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute \n-- 1. Verificar transação\nSELECT txid, customerId, amount, status FROM pix_transactions WHERE txid = 'ed627307c6434f96b195abe1a3f27a6c';\n\n-- 2. Buscar saldo atual\nSELECT id, balance FROM customers WHERE id = 480001;\n\n-- 3. Atualizar saldo (R$ 18,41 + R$ 1,10 = R$ 19,51)\nUPDATE customers SET balance = balance + 110 WHERE id = 480001;\n\n-- 4. Atualizar transação PIX\nUPDATE pix_transactions SET status = 'completed', paidAt = NOW() WHERE txid = 'ed627307c6434f96b195abe1a3f27a6c';\n\n-- 5. Criar registro de recarga\nINSERT INTO recharges (customerId, amount, method, status, createdAt, updatedAt)\nVALUES (480001, 110, 'pix', 'completed', NOW(), NOW());\n\n-- 6. Verificar saldo atualizado\nSELECT id, balance FROM customers WHERE id = 480001;\n",
+  "returncode": 1,
+  "logs": [
+    "txid\tcustomerId\tamount\tstatus",
+    "ed627307c6434f96b195abe1a3f27a6c\t480001\t110\tpending",
+    "id\tbalance",
+    "480001\t2301",
+    "ERROR 1265 (01000) at line 12: Data truncated for column '%s' at row %d"
+  ]
+}

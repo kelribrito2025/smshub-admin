@@ -1,0 +1,49 @@
+{
+  "query": "SELECT * FROM recharges WHERE customerId = 480001 ORDER BY createdAt DESC LIMIT 3",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT * FROM recharges WHERE customerId = 480001 ORDER BY createdAt DESC LIMIT 3",
+  "rows": [
+    {
+      "id": "210009",
+      "customerId": "480001",
+      "amount": "222",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "3af11d5c587140869edd2f9c87897e77",
+      "metadata": "NULL",
+      "createdAt": "2025-12-08 23:47:55",
+      "updatedAt": "2025-12-08 23:47:55",
+      "completedAt": "2025-12-08 23:47:55",
+      "expiresAt": "NULL"
+    },
+    {
+      "id": "210008",
+      "customerId": "480001",
+      "amount": "200",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "d30fa47ec103421e8c55bedf1bbf2400",
+      "metadata": "NULL",
+      "createdAt": "2025-12-08 23:47:55",
+      "updatedAt": "2025-12-08 23:47:55",
+      "completedAt": "2025-12-08 23:47:55",
+      "expiresAt": "NULL"
+    },
+    {
+      "id": "210010",
+      "customerId": "480001",
+      "amount": "333",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "df433801abf2485bb4c6f8d4a5ad3779",
+      "metadata": "NULL",
+      "createdAt": "2025-12-08 23:47:55",
+      "updatedAt": "2025-12-08 23:47:55",
+      "completedAt": "2025-12-08 23:47:55",
+      "expiresAt": "NULL"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\tamount\tpaymentMethod\tstatus\ttransactionId\tmetadata\tcreatedAt\tupdatedAt\tcompletedAt\texpiresAt\n210009\t480001\t222\tpix\tcompleted\t3af11d5c587140869edd2f9c87897e77\tNULL\t2025-12-08 23:47:55\t2025-12-08 23:47:55\t2025-12-08 23:47:55\tNULL\n210008\t480001\t200\tpix\tcompleted\td30fa47ec103421e8c55bedf1bbf2400\tNULL\t2025-12-08 23:47:55\t2025-12-08 23:47:55\t2025-12-08 23:47:55\tNULL\n210010\t480001\t333\tpix\tcompleted\tdf433801abf2485bb4c6f8d4a5ad3779\tNULL\t2025-12-08 23:47:55\t2025-12-08 23:47:55\t2025-12-08 23:47:55\tNULL\n",
+  "stderr": "",
+  "execution_time_ms": 52
+}

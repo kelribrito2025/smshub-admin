@@ -1,0 +1,34 @@
+{
+  "query": "SELECT txid, customerId, amount, status, createdAt, paidAt FROM pix_transactions ORDER BY createdAt DESC LIMIT 3",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT txid, customerId, amount, status, createdAt, paidAt FROM pix_transactions ORDER BY createdAt DESC LIMIT 3",
+  "rows": [
+    {
+      "txid": "ed627307c6434f96b195abe1a3f27a6c",
+      "customerId": "480001",
+      "amount": "110",
+      "status": "pending",
+      "createdAt": "2025-12-08 23:48:39",
+      "paidAt": "NULL"
+    },
+    {
+      "txid": "ce7a35f6d88d457d82e89abf2b7e76c5",
+      "customerId": "480001",
+      "amount": "133",
+      "status": "paid",
+      "createdAt": "2025-12-08 23:39:08",
+      "paidAt": "2025-12-08 23:47:54"
+    },
+    {
+      "txid": "45f33b0fc78443b49e7d24676ebf23ab",
+      "customerId": "480001",
+      "amount": "255",
+      "status": "paid",
+      "createdAt": "2025-12-08 23:37:36",
+      "paidAt": "2025-12-08 23:47:54"
+    }
+  ],
+  "messages": [],
+  "stdout": "txid\tcustomerId\tamount\tstatus\tcreatedAt\tpaidAt\ned627307c6434f96b195abe1a3f27a6c\t480001\t110\tpending\t2025-12-08 23:48:39\tNULL\nce7a35f6d88d457d82e89abf2b7e76c5\t480001\t133\tpaid\t2025-12-08 23:39:08\t2025-12-08 23:47:54\n45f33b0fc78443b49e7d24676ebf23ab\t480001\t255\tpaid\t2025-12-08 23:37:36\t2025-12-08 23:47:54\n",
+  "stderr": "",
+  "execution_time_ms": 55
+}

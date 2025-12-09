@@ -10,7 +10,7 @@ import { EfiPayClient } from '../server/efipay-client';
 async function setupWebhook() {
   console.log('🔧 Configurando webhook PIX na EfiPay...\n');
 
-  const webhookUrl = 'https://app.numero-virtual.com/api/webhook/pix';
+  const webhookUrl = 'https://smshubadm-sokyccse.manus.space/api/webhook/pix';
   
   try {
     const client = new EfiPayClient();
