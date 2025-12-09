@@ -1907,3 +1907,11 @@ Garantir que badge do sino e barra lateral atualizem imediatamente quando houver
 - [x] Criar tabela notifications no banco de dados
 - [x] Recriar tabela notification_reads com estrutura correta (customerId em vez de userId/userType)
 - [x] Validar funcionamento do sistema de notificações no navegador
+
+## Remover Notificações do Painel Admin (09/12/2025)
+- [x] Remover sino de notificações do header do DashboardLayout
+- [x] Remover NotificationsSidebar do DashboardLayout
+- [x] Remover queries de notificações (getAll, unreadCount) do DashboardLayout
+- [x] Remover imports relacionados a notificações
+- [x] Manter notificações apenas no StoreLayout (painel de vendas)
+- [x] Corrigir parâmetro markAsRead no StoreAuthContext (notificationId → id)

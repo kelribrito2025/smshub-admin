@@ -80,7 +80,7 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
   });
 
   const markAsRead = async (notificationId: number) => {
-    await markAsReadMutation.mutateAsync({ notificationId });
+    await markAsReadMutation.mutateAsync({ id: notificationId });
   };
 
   const markAllAsRead = async () => {
