@@ -1901,3 +1901,9 @@ Garantir que badge do sino e barra lateral atualizem imediatamente quando houver
 
 ## ⚠️ REGRA CRÍTICA
 **ZERO MUDANÇAS VISUAIS** - Apenas lógica interna, sem tocar em layout/HTML/CSS/Tailwind
+
+## Correção de Erros de Notificações (09/12/2025)
+- [x] Corrigir erros de query nas tabelas notifications e notification_reads
+- [x] Criar tabela notifications no banco de dados
+- [x] Recriar tabela notification_reads com estrutura correta (customerId em vez de userId/userType)
+- [x] Validar funcionamento do sistema de notificações no navegador

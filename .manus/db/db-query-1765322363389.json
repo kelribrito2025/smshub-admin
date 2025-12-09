@@ -1,0 +1,9 @@
+{
+  "query": "CREATE TABLE IF NOT EXISTS `notification_reads` (\n  `id` int AUTO_INCREMENT NOT NULL,\n  `notificationId` int NOT NULL,\n  `customerId` int NOT NULL,\n  `readAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  CONSTRAINT `notification_reads_id` PRIMARY KEY(`id`),\n  UNIQUE KEY `notification_customer_unique_idx` (`notificationId`, `customerId`),\n  KEY `notification_reads_customer_idx` (`customerId`),\n  KEY `notification_reads_notification_idx` (`notificationId`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute CREATE TABLE IF NOT EXISTS `notification_reads` (\n  `id` int AUTO_INCREMENT NOT NULL,\n  `notificationId` int NOT NULL,\n  `customerId` int NOT NULL,\n  `readAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  CONSTRAINT `notification_reads_id` PRIMARY KEY(`id`),\n  UNIQUE KEY `notification_customer_unique_idx` (`notificationId`, `customerId`),\n  KEY `notification_reads_customer_idx` (`customerId`),\n  KEY `notification_reads_notification_idx` (`notificationId`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 53
+}

@@ -1,0 +1,25 @@
+{
+  "query": "SHOW CREATE TABLE notification_reads;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SHOW CREATE TABLE notification_reads;",
+  "rows": [
+    {
+      "Table": "notification_reads",
+      "Create Table": "CREATE TABLE `notification_reads` ("
+    }
+  ],
+  "messages": [
+    "  `id` int(11) NOT NULL AUTO_INCREMENT,",
+    "  `notificationId` int(11) NOT NULL,",
+    "  `userId` int(11) NOT NULL,",
+    "  `userType` enum('admin','customer') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'customer',",
+    "  `readAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,",
+    "  PRIMARY KEY (`id`) /*T![clustered_index] CLUSTERED */,",
+    "  KEY `notification_reads_notification_idx` (`notificationId`),",
+    "  UNIQUE KEY `notification_user_unique_idx` (`notificationId`,`userId`,`userType`),",
+    "  KEY `notification_reads_user_idx` (`userId`,`userType`)",
+    ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=30001"
+  ],
+  "stdout": "Table\tCreate Table\nnotification_reads\tCREATE TABLE `notification_reads` (\n  `id` int(11) NOT NULL AUTO_INCREMENT,\n  `notificationId` int(11) NOT NULL,\n  `userId` int(11) NOT NULL,\n  `userType` enum('admin','customer') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'customer',\n  `readAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  PRIMARY KEY (`id`) /*T![clustered_index] CLUSTERED */,\n  KEY `notification_reads_notification_idx` (`notificationId`),\n  UNIQUE KEY `notification_user_unique_idx` (`notificationId`,`userId`,`userType`),\n  KEY `notification_reads_user_idx` (`userId`,`userType`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=30001\n",
+  "stderr": "",
+  "execution_time_ms": 53
+}
