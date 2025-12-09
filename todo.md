@@ -1260,5 +1260,53 @@ Mover registro do webhook PIX para ANTES do express.json() (seguir padrão do St
 - [x] 3. Verificar outras queries com polling excessivo (StoreCatalog, StoreAccount, etc)
 - [x] 4. Otimizar StoreCatalog (6s → 60s, redução de 90%)
 - [x] 5. Otimizar RechargeModal (adicionar staleTime 5min)
-- [ ] 6. Testar com conta criptomoedazcore@gmail.com
-- [ ] 7. Criar checkpoint com correções
+- [x] 6. Testar com conta criptomoedazcore@gmail.com
+- [x] 7. Criar checkpoint com correções (fdffb4b8)
+
+---
+
+## 🚨 CRÍTICO: Webhook PIX Bloqueado pela Cloudflare
+
+**Problema:**
+Webhook PIX não chega no servidor mesmo após correções de body parser. Suspeita de bloqueio pela Cloudflare.
+
+**Sintomas:**
+- ✅ QR Code gerado corretamente
+- ✅ Pagamento realizado com sucesso
+- ❌ Webhook nunca chega no servidor (nenhum log)
+- ❌ EfiPay não consegue validar URL do webhook
+
+**Possíveis causas (Cloudflare):**
+1. Bot Fight Mode bloqueando webhooks de terceiros
+2. WAF Rules bloqueando POST sem cookies
+3. Challenge/Captcha exigido (EfiPay não consegue responder)
+4. Proxy Orange Cloud alterando headers/body
+5. Rate limiting agressivo
+6. Payload JSON sendo modificado/bloqueado
+
+**Tarefas:**
+- [x] 1. Criar endpoint de teste simples (GET + POST) para validar Cloudflare
+- [x] 2. Adicionar logs detalhados de headers recebidos (já existentes)
+- [x] 3. Testar endpoint externamente com curl (HTTP 200 OK - Cloudflare NÃO está bloqueando)
+- [x] 4. Documentar configurações necessárias na Cloudflare:
+  - [x] Desativar Bot Fight Mode para /api/webhook/pix
+  - [x] Criar WAF Rule Exception (bypass) para webhook
+  - [x] Criar Page Rule para bypass de cache/segurança
+  - [x] Verificar se proxy está em modo DNS-only (gray cloud)
+- [x] 5. Criar guia passo a passo para configurar Cloudflare (docs/CLOUDFLARE-WEBHOOK-CONFIG.md)
+- [x] 6. Criar diagnóstico completo (docs/WEBHOOK-PIX-DIAGNOSTICO.md)
+- [x] 7. Criar script para verificar transações pendentes (scripts/check-pending-pix.ts)
+- [x] 8. Criar script para creditar transações pendentes (scripts/credit-pending-pix.ts)
+- [ ] 9. Executar script para creditar 13 transações pendentes (R$ 56,55)
+- [ ] 10. Investigar por que EfiPay não está enviando webhooks
+- [ ] 11. Validar conta EfiPay (produção vs sandbox)
+- [ ] 12. Testar com webhook.site para validar envio da EfiPay
+
+**Comando de teste:**
+```bash
+curl -X POST https://app.numero-virtual.com/api/webhook/pix \
+  -H "Content-Type: application/json" \
+  -d '{"test":true}' -v
+```
+
+Se retornar 403, 409, 522 ou 5xx → Cloudflare bloqueando antes do Node.js processar.
