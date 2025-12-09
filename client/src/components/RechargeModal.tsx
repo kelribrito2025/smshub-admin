@@ -16,7 +16,10 @@ const SUGGESTED_VALUES = [20, 30, 50, 100, 200];
 
 export function RechargeModal({ isOpen, onClose }: RechargeModalProps) {
   const { customer } = useStoreAuth();
-  const { data: paymentSettings } = trpc.paymentSettings.get.useQuery();
+  const { data: paymentSettings } = trpc.paymentSettings.get.useQuery(undefined, {
+    staleTime: 5 * 60 * 1000, // Payment settings rarely change, cache for 5 minutes
+    refetchOnWindowFocus: false,
+  });
   const [selectedMethod, setSelectedMethod] = useState<PaymentMethod>('pix');
   const [selectedValue, setSelectedValue] = useState<number | null>(20);
   const [customValue, setCustomValue] = useState<string>('');

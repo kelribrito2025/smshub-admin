@@ -1241,3 +1241,24 @@ Mover registro do webhook PIX para ANTES do express.json() (seguir padrão do St
 - [x] 7. Criar checkpoint e publicar em produção (checkpoint f206a8d3)
 - [ ] 8. Reconfigurar webhook na EfiPay após deploy
 - [ ] 9. Creditar transação pendente de criptomoedazcore@gmail.com manualmente
+
+## 🔥 URGENTE: Erro 429 (Too Many Requests) no Painel de Vendas
+
+**Problema reportado:**
+- Cliente criptomoedazcore@gmail.com recebendo erros 429 no console
+- Endpoints afetados: store.getMyActivations, store.getOperators, store.getCustomer, paymentSettings.get
+- SSE desconectando com erro 403 (possivelmente relacionado ao rate limit)
+
+**Causa identificada:**
+- Polling excessivo de múltiplas queries simultâneas (30s interval)
+- staleTime muito curto (15s) causando refetches desnecessários
+- Queries fazendo requisições mesmo quando dados não mudaram
+
+**Tarefas:**
+- [x] 1. Aumentar refetchInterval de 30s para 60s em store.getMyActivations
+- [x] 2. Aumentar staleTime de 15s para 45s
+- [x] 3. Verificar outras queries com polling excessivo (StoreCatalog, StoreAccount, etc)
+- [x] 4. Otimizar StoreCatalog (6s → 60s, redução de 90%)
+- [x] 5. Otimizar RechargeModal (adicionar staleTime 5min)
+- [ ] 6. Testar com conta criptomoedazcore@gmail.com
+- [ ] 7. Criar checkpoint com correções

@@ -99,8 +99,8 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
     { 
       enabled: !!customer?.id,
       refetchOnWindowFocus: false,
-      refetchInterval: 30 * 1000, // Poll every 30 seconds (reduced from 10s to avoid 429)
-      staleTime: 15 * 1000, // 15 seconds
+      refetchInterval: 60 * 1000, // Poll every 60 seconds (optimized to avoid 429)
+      staleTime: 45 * 1000, // Consider data fresh for 45 seconds
     }
   );
   
