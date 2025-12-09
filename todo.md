@@ -1551,6 +1551,11 @@ Se retornar 403, 409, 522 ou 5xx → Cloudflare bloqueando antes do Node.js proc
 - [x] Criar testes unitários (4 testes passaram)
 
 ## ✅ Bug: Notificação de Compra Resolvido
+
+### Ajuste de Duração
+- [x] Adicionar duração de 5s na notificação de erro de compra (mensagens longas)
+
+### Histórico
 - [x] Verificar logs do backend durante compra real (confirmar envio de operation_completed)
 - [x] Verificar console do navegador (confirmar recebimento do evento SSE)
 - [x] Identificar causa raiz: useOperationLock e useNotifications competindo pela mesma conexão SSE

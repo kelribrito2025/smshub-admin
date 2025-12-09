@@ -376,8 +376,10 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
           await utils.store.getCustomer.invalidate();
           await utils.store.getMyActivations.invalidate();
         } catch (error: any) {
-          // Mostrar apenas notificações de ERRO (importante para o usuário)
-          toast.error(`Erro ao comprar número: ${error.message}`);
+          // Mostrar apenas notificações de ERRO (5 segundos para mensagens longas)
+          toast.error(`Erro ao comprar número: ${error.message}`, {
+            duration: 5000,
+          });
         } finally {
           // Desativar estado global de compra após conclusão
           setIsPurchasing(false);

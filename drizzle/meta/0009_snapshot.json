@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "59c23641-224a-4597-8d2e-5efb4c4e49d5",
+  "id": "6e2fc9c4-21ac-480c-9c11-f2c5de4f2759",
   "prevId": "c4536b69-8d9d-418f-bf0b-46264613a72b",
   "tables": {
     "activations": {
@@ -1392,6 +1392,103 @@
       "uniqueConstraints": {},
       "checkConstraint": {}
     },
+    "password_reset_tokens": {
+      "name": "password_reset_tokens",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "customer_id": {
+          "name": "customer_id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "token": {
+          "name": "token",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "used": {
+          "name": "used",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(now())"
+        },
+        "used_at": {
+          "name": "used_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "token_idx": {
+          "name": "token_idx",
+          "columns": [
+            "token"
+          ],
+          "isUnique": false
+        },
+        "customer_id_idx": {
+          "name": "customer_id_idx",
+          "columns": [
+            "customer_id"
+          ],
+          "isUnique": false
+        },
+        "expires_at_idx": {
+          "name": "expires_at_idx",
+          "columns": [
+            "expires_at"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "password_reset_tokens_id": {
+          "name": "password_reset_tokens_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {
+        "password_reset_tokens_token_unique": {
+          "name": "password_reset_tokens_token_unique",
+          "columns": [
+            "token"
+          ]
+        }
+      },
+      "checkConstraint": {}
+    },
     "payment_settings": {
       "name": "payment_settings",
       "columns": {
@@ -1834,6 +1931,13 @@
           "notNull": false,
           "autoincrement": false
         },
+        "stripe_payment_intent_id": {
+          "name": "stripe_payment_intent_id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
         "metadata": {
           "name": "metadata",
           "type": "text",
@@ -1899,6 +2003,13 @@
           "name": "recharge_payment_method_idx",
           "columns": [
             "paymentMethod"
+          ],
+          "isUnique": false
+        },
+        "recharge_stripe_payment_intent_idx": {
+          "name": "recharge_stripe_payment_intent_idx",
+          "columns": [
+            "stripe_payment_intent_id"
           ],
           "isUnique": false
         }
