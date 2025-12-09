@@ -16,7 +16,7 @@ export default function BannedAccountModal({ open, onClose }: BannedAccountModal
     }
 
     // Play alert sound when modal opens
-    const audio = new Audio('/ban-alert.wav');
+    const audio = new Audio('/ban-alert.mp3');
     audio.volume = 0.7; // 70% volume
     audio.play().catch((error) => {
       console.warn('Failed to play ban alert sound:', error);

@@ -120,7 +120,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
     
     if (notification.playSound) {
       console.log('[Store] ✅ playSound flag is TRUE - attempting to play money sound');
-      const audio = new Audio('/sounds/money-received.wav');
+      const audio = new Audio('/sounds/money-received.mp3');
       audio.volume = 0.5;
       
       // Try to play, handle autoplay policy errors
