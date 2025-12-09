@@ -11,8 +11,7 @@ import { z } from "zod";
 
 export const notificationsRouter = router({
   /**
-   * Get all notifications for the current customer (ADMIN ONLY)
-   * For store customers, use getForCustomer instead
+   * Get all notifications for the current customer
    */
   getAll: publicProcedure.query(async ({ ctx }) => {
     if (!ctx.user) {
@@ -42,8 +41,7 @@ export const notificationsRouter = router({
         notificationReads,
         and(
           eq(notificationReads.notificationId, notifications.id),
-          eq(notificationReads.userId, ctx.user.id),
-          eq(notificationReads.userType, "admin")
+          eq(notificationReads.customerId, ctx.user.id)
         )
       )
       .where(
@@ -86,8 +84,7 @@ export const notificationsRouter = router({
         .insert(notificationReads)
         .values({
           notificationId: input.id,
-          userId: ctx.user.id,
-          userType: "admin",
+          customerId: ctx.user.id,
         })
         .onDuplicateKeyUpdate({
           set: { readAt: sql`CURRENT_TIMESTAMP` },
@@ -126,8 +123,7 @@ export const notificationsRouter = router({
     if (visibleNotifications.length > 0) {
       const readRecords = visibleNotifications.map((notif) => ({
         notificationId: notif.id,
-        userId: userId,
-        userType: "admin" as const,
+        customerId: userId,
       }));
 
       // Use INSERT IGNORE to avoid duplicate key errors
@@ -287,8 +283,7 @@ export const notificationsRouter = router({
         notificationReads,
         and(
           eq(notificationReads.notificationId, notifications.id),
-          eq(notificationReads.userId, ctx.user.id),
-          eq(notificationReads.userType, "admin")
+          eq(notificationReads.customerId, ctx.user.id)
         )
       )
       .where(
@@ -303,127 +298,6 @@ export const notificationsRouter = router({
 
     return unreadCount[0]?.count || 0;
   }),
-
-  /**
-   * Get all notifications for a store customer (by customerId)
-   */
-  getForCustomer: publicProcedure
-    .input(z.object({ customerId: z.number() }))
-    .query(async ({ input }) => {
-      const db = await getDb();
-      if (!db) {
-        return [];
-      }
-      
-      // Get both customer-specific and global notifications
-      // LEFT JOIN with notification_reads to determine if customer has read each notification
-      const customerNotifications = await db
-        .select({
-          id: notifications.id,
-          customerId: notifications.customerId,
-          type: notifications.type,
-          title: notifications.title,
-          message: notifications.message,
-          data: notifications.data,
-          createdAt: notifications.createdAt,
-          readAt: notificationReads.readAt,
-        })
-        .from(notifications)
-        .leftJoin(
-          notificationReads,
-          and(
-            eq(notificationReads.notificationId, notifications.id),
-            eq(notificationReads.userId, input.customerId),
-            eq(notificationReads.userType, "customer")
-          )
-        )
-        .where(
-          or(
-            eq(notifications.customerId, input.customerId),
-            isNull(notifications.customerId) // Global notifications
-          )
-        )
-        .orderBy(desc(notifications.createdAt))
-        .limit(50); // Last 50 notifications
-
-      return customerNotifications.map((notif: any) => ({
-        id: notif.id,
-        type: mapNotificationTypeToUIType(notif.type),
-        title: notif.title,
-        message: notif.message,
-        timestamp: formatTimestamp(notif.createdAt),
-        isRead: notif.readAt !== null, // If readAt exists, notification is read
-        data: notif.data ? JSON.parse(notif.data) : undefined,
-      }));
-    }),
-
-  /**
-   * Mark notification as read for store customer
-   */
-  markAsReadForCustomer: publicProcedure
-    .input(z.object({ id: z.number(), customerId: z.number() }))
-    .mutation(async ({ input }) => {
-      const db = await getDb();
-      if (!db) {
-        throw new Error("Database not available");
-      }
-      
-      // Insert a record in notification_reads (or ignore if already exists)
-      await db
-        .insert(notificationReads)
-        .values({
-          notificationId: input.id,
-          userId: input.customerId,
-          userType: "customer",
-        })
-        .onDuplicateKeyUpdate({
-          set: { readAt: sql`CURRENT_TIMESTAMP` },
-        });
-
-      return { success: true };
-    }),
-
-  /**
-   * Mark all notifications as read for store customer
-   */
-  markAllAsReadForCustomer: publicProcedure
-    .input(z.object({ customerId: z.number() }))
-    .mutation(async ({ input }) => {
-      const db = await getDb();
-      if (!db) {
-        throw new Error("Database not available");
-      }
-      
-      // Get all notifications visible to this customer (customer-specific + global)
-      const visibleNotifications = await db
-        .select({ id: notifications.id })
-        .from(notifications)
-        .where(
-          or(
-            eq(notifications.customerId, input.customerId),
-            isNull(notifications.customerId) // Global notifications
-          )
-        );
-
-      // Insert read records for all visible notifications
-      if (visibleNotifications.length > 0) {
-        const readRecords = visibleNotifications.map((notif) => ({
-          notificationId: notif.id,
-          userId: input.customerId,
-          userType: "customer" as const,
-        }));
-
-        // Use INSERT IGNORE to avoid duplicate key errors
-        await db
-          .insert(notificationReads)
-          .values(readRecords)
-          .onDuplicateKeyUpdate({
-            set: { readAt: sql`CURRENT_TIMESTAMP` },
-          });
-      }
-
-      return { success: true };
-    }),
 });
 
 /**

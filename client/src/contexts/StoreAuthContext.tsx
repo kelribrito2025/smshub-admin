@@ -60,36 +60,31 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
   );
 
   // ✅ CENTRALIZADO: Query única de notificações (sem polling - SSE invalida quando necessário)
-  const notificationsQuery = trpc.notifications.getForCustomer.useQuery(
-    { customerId: customer?.id || 0 },
-    {
-      enabled: !!customer?.id,
-      retry: 1,
-      refetchOnWindowFocus: false,
-      staleTime: 5 * 60 * 1000, // 5 minutos
-    }
-  );
+  const notificationsQuery = trpc.notifications.getAll.useQuery(undefined, {
+    enabled: !!customer?.id,
+    retry: 1,
+    refetchOnWindowFocus: false,
+    staleTime: 5 * 60 * 1000, // 5 minutos
+  });
 
-  const markAsReadMutation = trpc.notifications.markAsReadForCustomer.useMutation({
+  const markAsReadMutation = trpc.notifications.markAsRead.useMutation({
     onSuccess: () => {
-      utils.notifications.getForCustomer.invalidate();
+      utils.notifications.getAll.invalidate();
     },
   });
 
-  const markAllAsReadMutation = trpc.notifications.markAllAsReadForCustomer.useMutation({
+  const markAllAsReadMutation = trpc.notifications.markAllAsRead.useMutation({
     onSuccess: () => {
-      utils.notifications.getForCustomer.invalidate();
+      utils.notifications.getAll.invalidate();
     },
   });
 
   const markAsRead = async (notificationId: number) => {
-    if (!customer?.id) return;
-    await markAsReadMutation.mutateAsync({ id: notificationId, customerId: customer.id });
+    await markAsReadMutation.mutateAsync({ notificationId });
   };
 
   const markAllAsRead = async () => {
-    if (!customer?.id) return;
-    await markAllAsReadMutation.mutateAsync({ customerId: customer.id });
+    await markAllAsReadMutation.mutateAsync();
   };
 
   // ✅ CENTRALIZADO: SSE única conexão para notificações e eventos
@@ -110,7 +105,7 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
         utils.store.getCustomer.invalidate();
       }
       // Invalidar notificações para atualizar badge
-      utils.notifications.getForCustomer.invalidate();
+      utils.notifications.getAll.invalidate();
     },
   });
 

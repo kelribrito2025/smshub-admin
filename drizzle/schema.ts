@@ -571,14 +571,13 @@ export type InsertNotification = typeof notifications.$inferInsert;
 export const notificationReads = mysqlTable("notification_reads", {
   id: int("id").autoincrement().primaryKey(),
   notificationId: int("notificationId").notNull(),
-  userId: int("userId").notNull(), // ID do usuário (pode ser admin ou cliente)
-  userType: mysqlEnum("userType", ["admin", "customer"]).notNull(), // Tipo de usuário
+  customerId: int("customerId").notNull(),
   readAt: timestamp("readAt").defaultNow().notNull(),
 }, (table) => ({
-  // Unique constraint: each user can only mark a notification as read once
-  notificationUserIdx: uniqueIndex("notification_user_unique_idx").on(table.notificationId, table.userId, table.userType),
-  // Index for fast queries by user ("get all read notifications for this user")
-  userIdx: index("notification_reads_user_idx").on(table.userId, table.userType),
+  // Unique constraint: each customer can only mark a notification as read once
+  notificationCustomerIdx: uniqueIndex("notification_customer_unique_idx").on(table.notificationId, table.customerId),
+  // Index for fast queries by customer ("get all read notifications for this user")
+  customerIdx: index("notification_reads_customer_idx").on(table.customerId),
   // Index for fast queries by notification ("who has read this notification")
   notificationIdx: index("notification_reads_notification_idx").on(table.notificationId),
 }));
