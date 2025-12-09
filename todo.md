@@ -1201,3 +1201,13 @@
 - [x] Remover notificação "Cancelamento em andamento..." 
 - [x] Manter apenas "Pedido cancelado com sucesso!" quando realmente cancelado
 - [x] Manter notificação de erro em caso de falha
+
+
+## Webhook PIX - Investigação Domínio Correto
+
+- [x] Verificar URL atual do webhook configurada na EfiPay
+- [x] Confirmar que pagamentos são feitos via app.numero-virtual.com
+- [x] Reconfigurar webhook para https://app.numero-virtual.com/api/webhook/pix
+- [x] Testar acessibilidade do endpoint externamente (HTTP 200 OK)
+- [ ] Fazer pagamento PIX de teste
+- [ ] Validar que saldo é creditado automaticamente
