@@ -72,7 +72,8 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
     onNotification: (notification) => {
       // Invalidar queries específicas baseado no tipo de notificação
       if (notification.type === 'pix_payment_confirmed' || notification.type === 'balance_updated') {
-        utils.store.getCustomer.invalidate();
+        // Forçar refetch imediato do saldo (ignora staleTime)
+        utils.store.getCustomer.refetch();
         utils.recharges.getMyRecharges.invalidate();
       }
       if (notification.type === 'sms_received' || notification.type === 'activation_expired') {

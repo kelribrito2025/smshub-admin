@@ -234,3 +234,23 @@
 - [x] Implementar retry com backoff exponencial nas queries tRPC
 - [ ] Adicionar header de rate limit info nas respostas do servidor
 - [ ] Implementar fallback gracioso quando rate limit é atingido (mostrar mensagem ao usuário)
+
+
+---
+
+## 💰 Atualização Automática de Saldo Após Pagamento PIX
+
+**Problema:**
+- Modal de QR Code atualiza corretamente quando pagamento é confirmado
+- Porém, o saldo do usuário NÃO atualiza em tempo real
+- Usuário precisa dar F5 na página para ver o saldo atualizado
+
+**Objetivo:**
+- Fazer o saldo atualizar automaticamente após confirmação de pagamento PIX
+- Eliminar necessidade de reload manual (F5) da página
+- Usar SSE existente para enviar evento específico de saldo atualizado
+
+**Tarefas:**
+- [x] Adicionar evento balanceUpdated ao SSE no webhook PIX
+- [x] Atualizar frontend para processar evento balanceUpdated e invalidar cache
+- [x] Testar fluxo completo (PIX → webhook → SSE → atualização UI)
