@@ -386,6 +386,10 @@
 
 ---
 
+## Bugs
+
+- [x] Corrigir bug de notificações: após deslogar do painel admin, notificações continuam aparecendo apenas para a conta de cliente fcokelrihbrito@gmail.com
+
 ## Melhorias de UI e Paginação
 - [x] Redesenhar UI de banimento no formulário de edição de cliente (substituir botão por toggle)
 - [x] Criar caixa com fundo levemente vermelho para seção de banimento (`bg-red-500/5 border-red-500/20`)

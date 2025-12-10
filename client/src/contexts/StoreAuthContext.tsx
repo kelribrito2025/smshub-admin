@@ -14,7 +14,6 @@ interface Customer {
   banned?: boolean;
   bannedAt?: Date | null;
   bannedReason?: string | null;
-  role?: 'admin' | 'user'; // Role from users table (if customer has admin account)
 }
 
 // Force TypeScript recompilation
@@ -189,8 +188,10 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
   };
 
   const logout = () => {
+    console.log('[StoreAuthContext] 🚪 Logout: limpando customer e forçando desconexão SSE');
     setCustomer(null);
     localStorage.removeItem('store_customer');
+    // Forçar desconexão SSE ao limpar customer (useNotifications detectará customerId = null)
   };
 
   const refreshCustomer = async () => {

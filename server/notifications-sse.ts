@@ -47,10 +47,10 @@ router.get("/stream/:customerId", async (req, res) => {
   // Frontend should send a unique sessionId in X-Session-Id header
   const sessionId = req.headers['x-session-id'] as string || crypto.randomUUID();
 
-  console.log(`[SSE] New connection request from customer ${customerId} (role: ${customer.role}, sessionId: ${sessionId})`);
+  console.log(`[SSE] New connection request from customer ${customerId} (sessionId: ${sessionId})`);
 
-  // Add client to notifications manager with sessionId and role
-  notificationsManager.addClient(customerId, sessionId, res, customer.role);
+  // Add client to notifications manager with sessionId (customers are always "user" role)
+  notificationsManager.addClient(customerId, sessionId, res, "user");
   
   console.log(`[SSE] ✅ Client ${customerId} added to notifications manager, response should stay open`);
 

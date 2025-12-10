@@ -44,6 +44,8 @@ export function useNotifications(options: UseNotificationsOptions) {
     // Don't connect if no customer is authenticated
     if (!customerId || customerId === 0) {
       console.log('[useNotifications] ❌ Não conectando SSE - customerId inválido:', customerId);
+      setIsConnected(false);
+      setLastNotification(null);
       return;
     }
 
