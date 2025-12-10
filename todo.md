@@ -73,3 +73,25 @@
 - [x] Analisar useEffect que podem estar disparando recarregamentos
 - [x] Implementar correções para eliminar reloads desnecessários
 - [x] Testar estabilidade do painel após correções
+
+
+---
+
+## 🐛 Flash de Loading no Painel Financeiro
+
+**Problema:**
+- Aparece um flash rápido de loading (spinner) durante atualizações da página
+- Causa experiência visual desagradável para o usuário
+- Ocorre quando os dados são recarregados
+
+**Solução:**
+- Implementar skeleton loader adequado para evitar flash visual
+- Usar Suspense boundaries ou loading states mais suaves
+- Manter dados em cache durante re-fetches
+
+**Tarefas:**
+- [x] Implementar skeleton loader para KPI cards
+- [x] Implementar skeleton loader para gráficos
+- [x] Implementar skeleton loader para tabelas
+- [x] Configurar staleTime no tRPC para evitar re-fetches desnecessários
+- [x] Testar transições suaves entre estados de loading

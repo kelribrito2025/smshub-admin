@@ -29,6 +29,9 @@ export interface StoreAuthContextType {
   isSSEConnected: boolean;
   lastNotification: Notification | null;
   notifications: any[];
+  unreadCount: number;
+  markAsRead: (notificationId: number) => void;
+  markAllAsRead: () => void;
 }
 
 const StoreAuthContext = createContext<StoreAuthContextType | undefined>(undefined);
@@ -183,6 +186,9 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
     isSSEConnected,
     lastNotification,
     notifications,
+    unreadCount: 0,
+    markAsRead: () => {},
+    markAllAsRead: () => {},
   };
 
   return (

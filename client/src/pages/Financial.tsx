@@ -1,4 +1,5 @@
 import DashboardLayout from "@/components/DashboardLayout";
+import { FinancialSkeleton } from "@/components/FinancialSkeleton";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -79,32 +80,62 @@ export default function Financial() {
   }, [period]);
 
   // Fetch financial data
-  const { data: metrics, isLoading: metricsLoading } = trpc.financial.getMetrics.useQuery({
-    startDate: dateRange.startDate,
-    endDate: dateRange.endDate,
-  });
+  const { data: metrics, isLoading: metricsLoading } = trpc.financial.getMetrics.useQuery(
+    {
+      startDate: dateRange.startDate,
+      endDate: dateRange.endDate,
+    },
+    {
+      staleTime: 30000, // Keep data fresh for 30 seconds
+      refetchOnWindowFocus: false, // Prevent refetch on window focus
+    }
+  );
 
   const { data: revenueByPeriod, isLoading: revenueLoading } =
-    trpc.financial.getRevenueByPeriod.useQuery({
-      startDate: dateRange.startDate,
-      endDate: dateRange.endDate,
-      groupBy,
-    });
+    trpc.financial.getRevenueByPeriod.useQuery(
+      {
+        startDate: dateRange.startDate,
+        endDate: dateRange.endDate,
+        groupBy,
+      },
+      {
+        staleTime: 30000,
+        refetchOnWindowFocus: false,
+      }
+    );
 
   const { data: revenueByCountry, isLoading: countryLoading } =
-    trpc.financial.getRevenueByCountry.useQuery({
-      startDate: dateRange.startDate,
-      endDate: dateRange.endDate,
-    });
+    trpc.financial.getRevenueByCountry.useQuery(
+      {
+        startDate: dateRange.startDate,
+        endDate: dateRange.endDate,
+      },
+      {
+        staleTime: 30000,
+        refetchOnWindowFocus: false,
+      }
+    );
 
   const { data: revenueByService, isLoading: serviceLoading } =
-    trpc.financial.getRevenueByService.useQuery({
-      startDate: dateRange.startDate,
-      endDate: dateRange.endDate,
-    });
+    trpc.financial.getRevenueByService.useQuery(
+      {
+        startDate: dateRange.startDate,
+        endDate: dateRange.endDate,
+      },
+      {
+        staleTime: 30000,
+        refetchOnWindowFocus: false,
+      }
+    );
 
   const { data: recentActivations, isLoading: activationsLoading } =
-    trpc.financial.getRecentActivations.useQuery({ limit: 20 });
+    trpc.financial.getRecentActivations.useQuery(
+      { limit: 20 },
+      {
+        staleTime: 30000,
+        refetchOnWindowFocus: false,
+      }
+    );
 
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat("pt-BR", {
@@ -139,9 +170,7 @@ export default function Financial() {
   if (metricsLoading) {
     return (
       <DashboardLayout>
-        <div className="flex items-center justify-center min-h-[400px]">
-          <Loader2 className="h-8 w-8 animate-spin" />
-        </div>
+        <FinancialSkeleton />
       </DashboardLayout>
     );
   }
