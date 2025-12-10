@@ -3,11 +3,11 @@ import DashboardLayout from "@/components/DashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
-import { Activity, DollarSign, TrendingUp, Users, ShoppingCart, LayoutDashboard, Bell } from "lucide-react";
+import { Activity, DollarSign, TrendingUp, Users, ShoppingCart, LayoutDashboard } from "lucide-react";
 import { Link } from "wouter";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { GlobalNotificationModal } from "@/components/GlobalNotificationModal";
+
 import { AnimatedPage } from "@/components/AnimatedPage";
 import { AnimatedList, AnimatedListItem } from "@/components/AnimatedList";
 import { motion } from "framer-motion";
@@ -15,7 +15,7 @@ import { fadeInScale, staggerContainer } from "@/lib/animations";
 
 export default function Dashboard() {
   const { user, loading } = useAuth();
-  const [notificationModalOpen, setNotificationModalOpen] = useState(false);
+
   const { data: dashboardData, isLoading, error } = trpc.stats.getDashboard.useQuery();
   // Fetch balances from all APIs
   const { data: allBalances, isLoading: isLoadingBalances } = trpc.settings.getAllBalances.useQuery(undefined, {
@@ -67,14 +67,6 @@ export default function Dashboard() {
             </p>
           </div>
           <div className="flex gap-2">
-            <Button
-              onClick={() => setNotificationModalOpen(true)}
-              variant="outline"
-              className="gap-2"
-            >
-              <Bell className="h-4 w-4" />
-              Enviar Notificação Global
-            </Button>
             <a href="https://app.numero-virtual.com" target="_blank" rel="noopener noreferrer">
               <Button className="gap-2">
                 <ShoppingCart className="h-4 w-4" />
@@ -321,12 +313,6 @@ export default function Dashboard() {
           </CardContent>
         </Card>
       </AnimatedPage>
-
-      {/* Global Notification Modal */}
-      <GlobalNotificationModal
-        open={notificationModalOpen}
-        onOpenChange={setNotificationModalOpen}
-      />
     </DashboardLayout>
   );
 }

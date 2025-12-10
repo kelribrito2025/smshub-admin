@@ -175,3 +175,18 @@
 - [x] Adicionar animações sutis no carregamento de listas (serviços, histórico)
 - [x] Aplicar transições suaves em cards e elementos interativos
 - [x] Melhorar skeleton loaders com animações
+
+
+---
+
+## 🗑️ Remover Botão "Enviar Notificação Global"
+
+**Objetivo:**
+- Remover completamente o botão "Enviar Notificação Global" do painel administrativo
+- Limpar todo o código relacionado (componentes, rotas, handlers)
+
+**Tarefas:**
+- [x] Remover botão do Dashboard administrativo
+- [x] Remover código relacionado no frontend
+- [x] Remover rotas/procedures relacionados no backend (se existirem)
+- [x] Validar que não há erros após remoção
