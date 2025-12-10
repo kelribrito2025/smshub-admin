@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { X, Copy, Check, Clock } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { copyToClipboard } from "@/lib/clipboard";
+import { toast } from "sonner";
 
 interface PixPaymentModalProps {
   isOpen: boolean;
@@ -81,11 +82,12 @@ export function PixPaymentModal({
       ) {
         console.log("[PixPaymentModal] Payment confirmed via SSE:", notification);
         setPaymentConfirmed(true);
+        toast.success("Pagamento confirmado! Seu saldo foi atualizado.", {
+          duration: 4000,
+        });
         onSuccess();
-        // Auto-close after 2 seconds (faster than before)
-        setTimeout(() => {
-          onClose();
-        }, 2000);
+        // Close immediately after payment confirmation
+        onClose();
       }
     };
 
@@ -98,11 +100,12 @@ export function PixPaymentModal({
     if (getTransactionQuery.data?.status === "paid" && !paymentConfirmed) {
       console.log("[PixPaymentModal] Payment confirmed via polling:", getTransactionQuery.data);
       setPaymentConfirmed(true);
+      toast.success("Pagamento confirmado! Seu saldo foi atualizado.", {
+        duration: 4000,
+      });
       onSuccess();
-      // Auto-close after 2 seconds
-      setTimeout(() => {
-        onClose();
-      }, 2000);
+      // Close immediately after payment confirmation
+      onClose();
     }
   }, [getTransactionQuery.data?.status, paymentConfirmed, onSuccess, onClose]);
 
