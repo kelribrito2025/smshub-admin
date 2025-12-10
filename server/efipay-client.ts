@@ -230,10 +230,11 @@ export class EfiPayClient {
    * Generate QR Code image URL from pixCopyPaste
    */
   generateQRCodeImageUrl(pixCopyPaste: string): string {
-    // Use a QR Code generation service
-    // Example: https://api.qrserver.com/v1/create-qr-code/
+    // Use a QR Code generation service with green color (#00FF41)
+    // API: https://api.qrserver.com/v1/create-qr-code/
     const encodedPix = encodeURIComponent(pixCopyPaste);
-    return `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodedPix}`;
+    // color parameter: foreground color (green), bgcolor parameter: background color (dark gray/black)
+    return `https://api.qrserver.com/v1/create-qr-code/?size=300x300&color=00FF41&bgcolor=18181B&data=${encodedPix}`;
   }
 }
 

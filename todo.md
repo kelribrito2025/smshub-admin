@@ -342,3 +342,17 @@
 - [x] Adicionar toast de confirmação após pagamento PIX ser processado com sucesso
 - [x] Remover delay de 2 segundos e fechar modal imediatamente após pagamento
 - [x] Otimizar tempo de fechamento do modal de recarga PIX após pagamento (reduzir delay de ~10s)
+
+
+---
+
+## 🎨 Modificar Cor do QR Code para Verde
+
+**Objetivo:**
+- Alterar a cor do QR Code de preto para verde do sistema
+- Manter legibilidade e funcionalidade do QR Code
+
+**Tarefas:**
+- [x] Modificar cor do QR Code de preto para verde do sistema
+
+- [x] Modificar fundo do QR Code de branco para cor escura do modal

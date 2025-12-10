@@ -232,7 +232,7 @@ export function PixPaymentModal({
             </div>
 
             {/* QR Code - 30% menor */}
-            <div className="bg-white rounded-xl p-3 flex items-center justify-center">
+            <div className="bg-zinc-900/80 border border-green-500/30 rounded-xl p-3 flex items-center justify-center">
               <img
                 src={pixData.qrCodeUrl}
                 alt="QR Code PIX"
