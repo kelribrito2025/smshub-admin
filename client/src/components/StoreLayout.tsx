@@ -3,13 +3,13 @@ import { useLocation } from 'wouter';
 import { trpc } from '../lib/trpc';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { Search, Star, Wallet, Globe, User, Loader2, Copy, ChevronDown, ChevronUp, LogOut, LogIn, Menu, X, Shield, Sparkles, History, LayoutDashboard, Check, Settings, Gift, TrendingUp, TrendingDown, Bell } from 'lucide-react';
+import { Search, Star, Wallet, Globe, User, Loader2, Copy, ChevronDown, ChevronUp, LogOut, LogIn, Menu, X, Shield, Sparkles, History, LayoutDashboard, Check, Settings, Gift, TrendingUp, TrendingDown } from 'lucide-react';
 import { toast } from 'sonner';
 import { useStoreAuth } from '../contexts/StoreAuthContext';
 import ServiceApiOptions from './ServiceApiOptions';
 import { copyToClipboard, playNotificationSound } from '../lib/utils';
 import { RechargeModal } from './RechargeModal';
-import NotificationsSidebar from './NotificationsSidebar';
+
 import ServiceListSkeleton from './ServiceListSkeleton';
 import { useCountUp } from '../hooks/useCountUp';
 import {
@@ -38,9 +38,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
   const isSSEConnected = authContext.isSSEConnected;
   const lastNotification = authContext.lastNotification;
   const notifications = authContext.notifications;
-  const unreadCount = authContext.unreadCount;
-  const markAsRead = authContext.markAsRead;
-  const markAllAsRead = authContext.markAllAsRead;
+
   // ✅ REMOVIDO: useOperationLock (SSE agora está centralizado no StoreAuthContext)
   const isLocked = false; // Operações não são mais bloqueadas globalmente
   const [location, setLocation] = useLocation();
@@ -59,7 +57,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
   const [expandedServices, setExpandedServices] = useState<Set<number>>(new Set());
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [rechargeModalOpen, setRechargeModalOpen] = useState(false);
-  const [notificationsSidebarOpen, setNotificationsSidebarOpen] = useState(false);
+
   const [balanceFlash, setBalanceFlash] = useState<'green' | 'red' | null>(null);
   const previousBalance = useRef<number | null>(null);
   const lastPurchaseNotification = useRef<number>(0); // Timestamp of last purchase notification
@@ -111,7 +109,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
 
   // ✅ REMOVIDO: SSE duplicado (agora centralizado no StoreAuthContext)
   // ✅ REMOVIDO: notificationsQuery (agora centralizado no StoreAuthContext)
-  // Notificações e unreadCount vem do contexto
+  // Notificações vem do contexto
 
   // ✅ Escutar notificações do contexto para invalidar queries locais
   useEffect(() => {
@@ -514,22 +512,6 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
           )}
 
           {/* Language Selector Dropdown (hidden on mobile) */}
-          {/* Notifications Button - Only show when logged in */}
-          {customer && (
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setNotificationsSidebarOpen(true)}
-              className="relative text-green-600 hover:text-green-400" 
-              style={{width: '40px', height: '40px'}}
-            >
-              <Bell className="w-5 h-5" />
-              {/* Badge de notificações não lidas - só pisca quando há notificações não lidas */}
-              {unreadCount > 0 && (
-                <span className="absolute top-1 right-1 w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-              )}
-            </Button>
-          )}
 
           {/* Profile Menu Dropdown */}
           <DropdownMenu modal={false}>
@@ -887,15 +869,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
         onClose={() => setRechargeModalOpen(false)} 
       />
 
-      {/* Notifications Sidebar */}
-      <NotificationsSidebar 
-        isOpen={notificationsSidebarOpen} 
-        onClose={() => setNotificationsSidebarOpen(false)}
-        notifications={notifications}
-        unreadCount={unreadCount}
-        markAsRead={markAsRead}
-        markAllAsRead={markAllAsRead}
-      />
+
     </div>
   );
 }

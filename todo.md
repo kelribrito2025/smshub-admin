@@ -22,3 +22,20 @@
 - [ ] Testar comportamento com múltiplas abas abertas (validar logs)
 - [ ] Testar navegação entre páginas (confirmar persistência)
 - [ ] Testar refresh da página (confirmar apenas 1 conexão)
+
+
+---
+
+## 🗑️ Remoção da Sidebar de Notificações
+
+**Objetivo:**
+- Remover completamente a sidebar de notificações e o ícone do sino
+- Manter apenas as notificações via toast funcionando
+
+**Tarefas:**
+- [x] Remover arquivo NotificationsSidebar.tsx
+- [x] Remover ícone do sino do header do StoreLayout
+- [x] Remover estados isNotificationSidebarOpen do StoreLayout
+- [x] Remover imports relacionados à sidebar
+- [x] Validar que notificações via toast continuam funcionando
+- [x] Testar sistema sem erros de UI

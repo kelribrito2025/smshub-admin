@@ -17,7 +17,6 @@ interface Customer {
   role?: 'admin' | 'user';
 }
 
-// Interface atualizada com unreadCount e notificações
 export interface StoreAuthContextType {
   customer: Customer | null;
   isLoading: boolean;
@@ -30,9 +29,6 @@ export interface StoreAuthContextType {
   isSSEConnected: boolean;
   lastNotification: Notification | null;
   notifications: any[];
-  unreadCount: number;
-  markAsRead: (notificationId: number) => Promise<void>;
-  markAllAsRead: () => Promise<void>;
 }
 
 const StoreAuthContext = createContext<StoreAuthContextType | undefined>(undefined);
@@ -58,32 +54,7 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
     }
   );
 
-  const notificationsQuery = trpc.notifications.getAll.useQuery(undefined, {
-    enabled: !!customer?.id,
-    retry: 1,
-    refetchOnWindowFocus: false,
-    staleTime: 0,
-  });
 
-  const markAsReadMutation = trpc.notifications.markAsRead.useMutation({
-    onSuccess: () => {
-      utils.notifications.getAll.invalidate();
-    },
-  });
-
-  const markAllAsReadMutation = trpc.notifications.markAllAsRead.useMutation({
-    onSuccess: () => {
-      utils.notifications.getAll.invalidate();
-    },
-  });
-
-  const markAsRead = async (notificationId: number) => {
-    await markAsReadMutation.mutateAsync({ id: notificationId });
-  };
-
-  const markAllAsRead = async () => {
-    await markAllAsReadMutation.mutateAsync();
-  };
 
   const { isConnected: isSSEConnected, lastNotification } = useNotifications({
     customerId: customer?.id || null,
@@ -104,8 +75,7 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
     },
   });
 
-  const notifications = notificationsQuery.data || [];
-  const unreadCount = notifications.filter((n: any) => !n.isRead).length;
+  const notifications: any[] = [];
 
   useEffect(() => {
     const storedCustomer = localStorage.getItem('store_customer');
@@ -209,9 +179,6 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
     isSSEConnected,
     lastNotification,
     notifications,
-    unreadCount,
-    markAsRead,
-    markAllAsRead,
   };
 
   return (
