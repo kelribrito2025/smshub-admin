@@ -12,7 +12,7 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       // ✅ Optimized defaults to eliminate loading flashes and avoid 429 "Too Many Requests"
-      staleTime: 7 * 60 * 1000, // Consider data fresh for 7 minutes (eliminates unnecessary refetches)
+      staleTime: 5 * 60 * 1000, // Consider data fresh for 5 minutes (eliminates unnecessary refetches)
       gcTime: 10 * 60 * 1000, // Keep unused data in cache for 10 minutes
       refetchOnMount: false, // Don't auto-refetch when component mounts if data is fresh
       refetchOnWindowFocus: false, // Don't auto-refetch when window regains focus

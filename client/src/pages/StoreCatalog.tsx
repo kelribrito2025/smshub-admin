@@ -249,7 +249,10 @@ export default function StoreCatalog() {
                 ) : activations.length === 0 ? (
                   <tr>
                     <td colSpan={6} className="px-6 py-12 text-center">
-                      <p className="text-green-600 font-mono">Nenhuma ativação em andamento</p>
+                      <div className="flex flex-col items-center gap-4">
+                        <div className="w-8 h-8 border-4 border-green-500/30 border-t-green-500 rounded-full animate-spin" />
+                        <p className="text-green-600 font-mono">Nenhuma ativação em andamento</p>
+                      </div>
                     </td>
                   </tr>
                 ) : (
