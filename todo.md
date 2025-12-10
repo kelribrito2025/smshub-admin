@@ -217,3 +217,17 @@
 - [x] Atualizar componente de loading para usar fundo escuro e ícone verde
 - [x] Aplicar estilo consistente em todos os estados de loading
 - [x] Testar visualmente em diferentes contextos
+
+
+---
+
+## 🎯 Reduzir Tamanho do Ícone de Loading
+
+**Objetivo:**
+- Diminuir o tamanho do ícone de loading em 20%
+- Manter proporções e estilo visual consistente
+
+**Tarefas:**
+- [x] Localizar componente de loading atual
+- [x] Reduzir tamanho do ícone em 20%
+- [x] Testar visualmente a alteração
