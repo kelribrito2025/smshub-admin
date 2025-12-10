@@ -23,9 +23,12 @@ export const notificationsRouter = router({
       return [];
     }
     
-    // Get customer's createdAt to filter notifications
+    // Get customer's ID and createdAt to filter notifications
     const [customer] = await db
-      .select({ createdAt: customers.createdAt })
+      .select({ 
+        id: customers.id,
+        createdAt: customers.createdAt 
+      })
       .from(customers)
       .where(eq(customers.email, ctx.user.email))
       .limit(1);
@@ -53,13 +56,13 @@ export const notificationsRouter = router({
         notificationReads,
         and(
           eq(notificationReads.notificationId, notifications.id),
-          eq(notificationReads.customerId, ctx.user.id)
+          eq(notificationReads.customerId, customer.id)
         )
       )
       .where(
         and(
           or(
-            eq(notifications.customerId, ctx.user.id),
+            eq(notifications.customerId, customer.id),
             isNull(notifications.customerId) // Global notifications
           ),
           gte(notifications.createdAt, customer.createdAt) // Only notifications after customer registration
@@ -68,7 +71,13 @@ export const notificationsRouter = router({
       .orderBy(desc(notifications.createdAt))
       .limit(50); // Last 50 notifications
 
-    return customerNotifications.map((notif: any) => ({
+    // Log raw data before mapping
+    console.log(`[Notifications.getAll] customerId=${ctx.user.id}, fetched ${customerNotifications.length} notifications from DB`);
+    customerNotifications.forEach((notif: any, index: number) => {
+      console.log(`  [${index}] id=${notif.id}, title="${notif.title}", readAt=${notif.readAt}`);
+    });
+    
+    const result = customerNotifications.map((notif: any) => ({
       id: notif.id,
       type: mapNotificationTypeToUIType(notif.type),
       title: notif.title,
@@ -77,6 +86,11 @@ export const notificationsRouter = router({
       isRead: notif.readAt !== null, // If readAt exists, notification is read
       data: notif.data ? JSON.parse(notif.data) : undefined,
     }));
+    
+    const unreadCount = result.filter(n => !n.isRead).length;
+    console.log(`[Notifications.getAll] After mapping: total=${result.length}, unread=${unreadCount}`);
+    
+    return result;
   }),
 
   /**
@@ -172,16 +186,18 @@ export const notificationsRouter = router({
    * Send admin notification (global or individual)
    * Admin-only endpoint
    */
-  sendAdminNotification: protectedProcedure
+   sendAdminNotification: protectedProcedure
     .input(
       z.object({
-        title: z.string().min(1, "Título é obrigatório"),
-        message: z.string().min(1, "Descrição é obrigatória"),
         type: z.enum(["global", "individual"]),
-        pinOrEmail: z.string().optional(), // Required if type is "individual"
+        title: z.string().min(1, "Título é obrigatório"),
+        message: z.string().min(1, "Mensagem é obrigatória"),
+        pinOrEmail: z.string().optional(), // Required if type is individual
       })
     )
-    .mutation(async ({ input, ctx }) => {
+    .mutation(async ({ ctx, input }) => {
+      console.log(`[Notifications.sendAdminNotification] 📥 INICIANDO - type=${input.type}, title="${input.title}", pinOrEmail="${input.pinOrEmail || 'N/A'}"`);
+
       // Check if user is admin
       if (ctx.user.role !== "admin") {
         throw new Error("Acesso negado: apenas administradores podem enviar notificações");
@@ -305,9 +321,12 @@ export const notificationsRouter = router({
       return 0;
     }
     
-    // Get customer's createdAt to filter notifications
+    // Get customer's ID and createdAt to filter notifications
     const [customer] = await db
-      .select({ createdAt: customers.createdAt })
+      .select({ 
+        id: customers.id,
+        createdAt: customers.createdAt 
+      })
       .from(customers)
       .where(eq(customers.email, ctx.user.email))
       .limit(1);

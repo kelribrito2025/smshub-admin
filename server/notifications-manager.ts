@@ -7,6 +7,7 @@ import { Response } from "express";
 
 export interface NotificationClient {
   customerId: number;
+  sessionId: string; // Unique session ID to allow multiple connections per customer
   response: Response;
   connectedAt: Date;
   role: "admin" | "user"; // Track user role to filter notifications
@@ -21,36 +22,41 @@ export interface Notification {
 }
 
 class NotificationsManager {
+  // Map: customerId -> array of sessions
   private clients: Map<number, NotificationClient[]> = new Map();
 
   /**
    * Add a new SSE connection for a customer
-   * Closes any existing connections to ensure only 1 active connection per customer
+   * Allows multiple simultaneous connections per customer (different tabs/sessions)
    */
-  addClient(customerId: number, response: Response, role: "admin" | "user" = "user") {
-    // Close all existing connections for this customer before adding new one
+  addClient(customerId: number, sessionId: string, response: Response, role: "admin" | "user" = "user") {
+    // Get existing connections for this customer
     const existingClients = this.clients.get(customerId) || [];
-    if (existingClients.length > 0) {
-      existingClients.forEach((oldClient) => {
-        try {
-          if (!oldClient.response.writableEnded) {
-            oldClient.response.end();
-          }
-        } catch (error) {
-          console.error(`[Notifications] Error closing old connection:`, error);
+
+    // Close only the connection with the SAME sessionId (if exists)
+    const sameSessionClient = existingClients.find(c => c.sessionId === sessionId);
+    if (sameSessionClient) {
+      try {
+        if (!sameSessionClient.response.writableEnded) {
+          sameSessionClient.response.end();
         }
-      });
+      } catch (error) {
+        console.error(`[Notifications] Error closing same-session connection:`, error);
+      }
     }
 
     const client: NotificationClient = {
       customerId,
+      sessionId,
       response,
       connectedAt: new Date(),
       role,
     };
 
-    // Replace all old connections with the new one (only 1 connection per customer)
-    this.clients.set(customerId, [client]);
+    // Remove old connection with same sessionId and add new one
+    const updatedClients = existingClients.filter(c => c.sessionId !== sessionId);
+    updatedClients.push(client);
+    this.clients.set(customerId, updatedClients);
 
     // Setup SSE headers (optimized for production with proxies)
     response.writeHead(200, {
@@ -82,7 +88,7 @@ class NotificationsManager {
 
     // Setup cleanup on connection close (only once)
     const closeHandler = () => {
-      this.removeClient(customerId, response);
+      this.removeClient(customerId, sessionId);
     };
     response.once("close", closeHandler);
     
@@ -111,13 +117,13 @@ class NotificationsManager {
   }
 
   /**
-   * Remove a client connection
+   * Remove a client connection by sessionId
    */
-  private removeClient(customerId: number, response: Response) {
+  private removeClient(customerId: number, sessionId: string) {
     const clients = this.clients.get(customerId);
     if (!clients) return;
 
-    const updatedClients = clients.filter((c) => c.response !== response);
+    const updatedClients = clients.filter((c) => c.sessionId !== sessionId);
     
     if (updatedClients.length === 0) {
       this.clients.delete(customerId);

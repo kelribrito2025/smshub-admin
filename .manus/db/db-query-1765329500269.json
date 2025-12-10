@@ -1,0 +1,90 @@
+{
+  "query": "\nSELECT \n  n.id as notif_id,\n  n.title,\n  n.customerId as target_customer,\n  n.createdAt,\n  nr.customerId as read_by_customer,\n  nr.readAt\nFROM notifications n\nLEFT JOIN notification_reads nr ON nr.notificationId = n.id\nWHERE n.title LIKE 'Teste%'\nORDER BY n.createdAt DESC\nLIMIT 20;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute \nSELECT \n  n.id as notif_id,\n  n.title,\n  n.customerId as target_customer,\n  n.createdAt,\n  nr.customerId as read_by_customer,\n  nr.readAt\nFROM notifications n\nLEFT JOIN notification_reads nr ON nr.notificationId = n.id\nWHERE n.title LIKE 'Teste%'\nORDER BY n.createdAt DESC\nLIMIT 20;\n",
+  "rows": [
+    {
+      "notif_id": "30066",
+      "title": "Teste 4: SSE Conectado",
+      "target_customer": "510014",
+      "createdAt": "2025-12-10 01:08:32",
+      "read_by_customer": "NULL",
+      "readAt": "NULL"
+    },
+    {
+      "notif_id": "30065",
+      "title": "Teste 3: Refetch Forçado",
+      "target_customer": "510014",
+      "createdAt": "2025-12-10 00:59:51",
+      "read_by_customer": "NULL",
+      "readAt": "NULL"
+    },
+    {
+      "notif_id": "30064",
+      "title": "Teste 2: StaleTime Zero",
+      "target_customer": "510014",
+      "createdAt": "2025-12-10 00:56:25",
+      "read_by_customer": "NULL",
+      "readAt": "NULL"
+    },
+    {
+      "notif_id": "30063",
+      "title": "Teste de Badge Automático",
+      "target_customer": "510014",
+      "createdAt": "2025-12-10 00:52:30",
+      "read_by_customer": "NULL",
+      "readAt": "NULL"
+    },
+    {
+      "notif_id": "30061",
+      "title": "teste",
+      "target_customer": "NULL",
+      "createdAt": "2025-12-10 00:43:07",
+      "read_by_customer": "3090026",
+      "readAt": "2025-12-10 00:43:29"
+    },
+    {
+      "notif_id": "30059",
+      "title": "teste",
+      "target_customer": "NULL",
+      "createdAt": "2025-12-10 00:39:33",
+      "read_by_customer": "3090026",
+      "readAt": "2025-12-10 00:39:52"
+    },
+    {
+      "notif_id": "30058",
+      "title": "teste 1",
+      "target_customer": "NULL",
+      "createdAt": "2025-12-10 00:38:39",
+      "read_by_customer": "3090026",
+      "readAt": "2025-12-10 00:39:07"
+    },
+    {
+      "notif_id": "30057",
+      "title": "teste 1",
+      "target_customer": "NULL",
+      "createdAt": "2025-12-10 00:38:00",
+      "read_by_customer": "3090026",
+      "readAt": "2025-12-10 00:38:26"
+    },
+    {
+      "notif_id": "30050",
+      "title": "teste",
+      "target_customer": "NULL",
+      "createdAt": "2025-12-10 00:04:26",
+      "read_by_customer": "3090026",
+      "readAt": "2025-12-10 00:07:29"
+    },
+    {
+      "notif_id": "30049",
+      "title": "teste",
+      "target_customer": "NULL",
+      "createdAt": "2025-12-10 00:03:45",
+      "read_by_customer": "3090026",
+      "readAt": "2025-12-10 00:04:01"
+    }
+  ],
+  "messages": [],
+  "stdout": "notif_id\ttitle\ttarget_customer\tcreatedAt\tread_by_customer\treadAt\n30066\tTeste 4: SSE Conectado\t510014\t2025-12-10 01:08:32\tNULL\tNULL\n30065\tTeste 3: Refetch Forçado\t510014\t2025-12-10 00:59:51\tNULL\tNULL\n30064\tTeste 2: StaleTime Zero\t510014\t2025-12-10 00:56:25\tNULL\tNULL\n30063\tTeste de Badge Automático\t510014\t2025-12-10 00:52:30\tNULL\tNULL\n30061\tteste\tNULL\t2025-12-10 00:43:07\t3090026\t2025-12-10 00:43:29\n30059\tteste\tNULL\t2025-12-10 00:39:33\t3090026\t2025-12-10 00:39:52\n30058\tteste 1\tNULL\t2025-12-10 00:38:39\t3090026\t2025-12-10 00:39:07\n30057\tteste 1\tNULL\t2025-12-10 00:38:00\t3090026\t2025-12-10 00:38:26\n30050\tteste\tNULL\t2025-12-10 00:04:26\t3090026\t2025-12-10 00:07:29\n30049\tteste\tNULL\t2025-12-10 00:03:45\t3090026\t2025-12-10 00:04:01\n",
+  "stderr": "",
+  "execution_time_ms": 100
+}

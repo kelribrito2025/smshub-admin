@@ -1,0 +1,13 @@
+{
+  "query": "\nSELECT COUNT(*) as total_nao_lidas\nFROM notifications n\nLEFT JOIN notification_reads nr ON nr.notificationId = n.id AND nr.customerId = 510014\nWHERE (n.customerId = 510014 OR n.customerId IS NULL)\n  AND nr.readAt IS NULL;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute \nSELECT COUNT(*) as total_nao_lidas\nFROM notifications n\nLEFT JOIN notification_reads nr ON nr.notificationId = n.id AND nr.customerId = 510014\nWHERE (n.customerId = 510014 OR n.customerId IS NULL)\n  AND nr.readAt IS NULL;\n",
+  "rows": [
+    {
+      "total_nao_lidas": "17"
+    }
+  ],
+  "messages": [],
+  "stdout": "total_nao_lidas\n17\n",
+  "stderr": "",
+  "execution_time_ms": 55
+}

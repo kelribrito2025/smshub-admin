@@ -17,6 +17,7 @@ interface Customer {
   role?: 'admin' | 'user'; // Role from users table (if customer has admin account)
 }
 
+// Force TypeScript recompilation
 interface StoreAuthContextType {
   customer: Customer | null;
   isLoading: boolean;
@@ -64,7 +65,7 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
     enabled: !!customer?.id,
     retry: 1,
     refetchOnWindowFocus: false,
-    staleTime: 5 * 60 * 1000, // 5 minutos
+    staleTime: 0, // Sempre considerar stale para refetch imediato após invalidação
   });
 
   const markAsReadMutation = trpc.notifications.markAsRead.useMutation({
@@ -88,10 +89,12 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
   };
 
   // ✅ CENTRALIZADO: SSE única conexão para notificações e eventos
+  console.log('[StoreAuthContext] 🔍 Iniciando useNotifications com customerId:', customer?.id);
   const { isConnected: isSSEConnected, lastNotification } = useNotifications({
     customerId: customer?.id || null,
     autoToast: true, // Mostrar toasts automaticamente
     onNotification: (notification) => {
+      console.log('[StoreAuthContext] 📬 Nova notificação recebida via SSE:', notification.type);
       // Invalidar queries relevantes baseado no tipo de notificação
       if (notification.type === 'pix_payment_confirmed' || notification.type === 'balance_updated') {
         utils.store.getCustomer.invalidate();
@@ -104,13 +107,20 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
         utils.store.getMyActivations.invalidate();
         utils.store.getCustomer.invalidate();
       }
-      // Invalidar notificações para atualizar badge
-      utils.notifications.getAll.invalidate();
+      // Forçar refetch imediato de notificações para atualizar badge
+      console.log('[StoreAuthContext] 🔄 Forçando refetch de notificações...');
+      utils.notifications.getAll.refetch();
+      console.log('[StoreAuthContext] ✅ Refetch de notificações disparado');
     },
   });
 
   const notifications = notificationsQuery.data || [];
   const unreadCount = notifications.filter((n: any) => !n.isRead).length;
+  
+  // Debug: log quando notifications mudar
+  useEffect(() => {
+    console.log('[StoreAuthContext] 📦 Notifications atualizadas:', notifications.length, 'total,', unreadCount, 'não lidas');
+  }, [notifications.length, unreadCount]);
 
   // Load customer from localStorage on mount
   useEffect(() => {

@@ -1,0 +1,80 @@
+{
+  "query": "\nSELECT \n  n.id,\n  n.title,\n  n.createdAt,\n  nr.readAt,\n  CASE WHEN nr.readAt IS NULL THEN 'NÃO LIDA' ELSE 'LIDA' END as status\nFROM notifications n\nLEFT JOIN notification_reads nr ON nr.notificationId = n.id AND nr.customerId = 510014\nWHERE n.customerId = 510014 OR n.customerId IS NULL\nORDER BY n.createdAt DESC\nLIMIT 10;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute \nSELECT \n  n.id,\n  n.title,\n  n.createdAt,\n  nr.readAt,\n  CASE WHEN nr.readAt IS NULL THEN 'NÃO LIDA' ELSE 'LIDA' END as status\nFROM notifications n\nLEFT JOIN notification_reads nr ON nr.notificationId = n.id AND nr.customerId = 510014\nWHERE n.customerId = 510014 OR n.customerId IS NULL\nORDER BY n.createdAt DESC\nLIMIT 10;\n",
+  "rows": [
+    {
+      "id": "30066",
+      "title": "Teste 4: SSE Conectado",
+      "createdAt": "2025-12-10 01:08:32",
+      "readAt": "NULL",
+      "status": "NÃO LIDA"
+    },
+    {
+      "id": "30065",
+      "title": "Teste 3: Refetch Forçado",
+      "createdAt": "2025-12-10 00:59:51",
+      "readAt": "NULL",
+      "status": "NÃO LIDA"
+    },
+    {
+      "id": "30064",
+      "title": "Teste 2: StaleTime Zero",
+      "createdAt": "2025-12-10 00:56:25",
+      "readAt": "NULL",
+      "status": "NÃO LIDA"
+    },
+    {
+      "id": "30063",
+      "title": "Teste de Badge Automático",
+      "createdAt": "2025-12-10 00:52:30",
+      "readAt": "NULL",
+      "status": "NÃO LIDA"
+    },
+    {
+      "id": "30062",
+      "title": "ggg",
+      "createdAt": "2025-12-10 00:52:03",
+      "readAt": "NULL",
+      "status": "NÃO LIDA"
+    },
+    {
+      "id": "30061",
+      "title": "teste",
+      "createdAt": "2025-12-10 00:43:07",
+      "readAt": "NULL",
+      "status": "NÃO LIDA"
+    },
+    {
+      "id": "30060",
+      "title": "re",
+      "createdAt": "2025-12-10 00:40:10",
+      "readAt": "NULL",
+      "status": "NÃO LIDA"
+    },
+    {
+      "id": "30059",
+      "title": "teste",
+      "createdAt": "2025-12-10 00:39:33",
+      "readAt": "NULL",
+      "status": "NÃO LIDA"
+    },
+    {
+      "id": "30058",
+      "title": "teste 1",
+      "createdAt": "2025-12-10 00:38:39",
+      "readAt": "NULL",
+      "status": "NÃO LIDA"
+    },
+    {
+      "id": "30057",
+      "title": "teste 1",
+      "createdAt": "2025-12-10 00:38:00",
+      "readAt": "NULL",
+      "status": "NÃO LIDA"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tcreatedAt\treadAt\tstatus\n30066\tTeste 4: SSE Conectado\t2025-12-10 01:08:32\tNULL\tNÃO LIDA\n30065\tTeste 3: Refetch Forçado\t2025-12-10 00:59:51\tNULL\tNÃO LIDA\n30064\tTeste 2: StaleTime Zero\t2025-12-10 00:56:25\tNULL\tNÃO LIDA\n30063\tTeste de Badge Automático\t2025-12-10 00:52:30\tNULL\tNÃO LIDA\n30062\tggg\t2025-12-10 00:52:03\tNULL\tNÃO LIDA\n30061\tteste\t2025-12-10 00:43:07\tNULL\tNÃO LIDA\n30060\tre\t2025-12-10 00:40:10\tNULL\tNÃO LIDA\n30059\tteste\t2025-12-10 00:39:33\tNULL\tNÃO LIDA\n30058\tteste 1\t2025-12-10 00:38:39\tNULL\tNÃO LIDA\n30057\tteste 1\t2025-12-10 00:38:00\tNULL\tNÃO LIDA\n",
+  "stderr": "",
+  "execution_time_ms": 126
+}
