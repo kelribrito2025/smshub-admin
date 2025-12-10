@@ -9,8 +9,7 @@ import InitialLoader from '../components/InitialLoader';
 import('../pages/StoreCatalog');
 import('../pages/StoreActivations');
 import('../pages/StoreAccount');
-import('../pages/StoreSecurity');
-import('../pages/StoreSettings');
+
 import('../pages/StoreAffiliate');
 import('../pages/StoreRecharges');
 

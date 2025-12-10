@@ -3,7 +3,7 @@ import { useLocation } from 'wouter';
 import { trpc } from '../lib/trpc';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { Search, Star, Wallet, Globe, User, Loader2, Copy, ChevronDown, ChevronUp, LogOut, LogIn, Menu, X, Shield, Sparkles, History, LayoutDashboard, Check, Settings, Gift, TrendingUp, TrendingDown } from 'lucide-react';
+import { Search, Star, Wallet, Globe, User, Loader2, Copy, ChevronDown, ChevronUp, LogOut, LogIn, Menu, X, Shield, Sparkles, History, LayoutDashboard, Check, Gift, TrendingUp, TrendingDown } from 'lucide-react';
 import { toast } from 'sonner';
 import { useStoreAuth } from '../contexts/StoreAuthContext';
 import ServiceApiOptions from './ServiceApiOptions';
@@ -560,20 +560,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
                     <History className="w-4 h-4 mr-2" />
                     Histórico
                   </DropdownMenuItem>
-                  <DropdownMenuItem 
-                    onClick={() => setLocation('/security')}
-                    className="text-green-400 hover:text-green-300 hover:bg-green-900/20 cursor-pointer"
-                  >
-                    <Shield className="w-4 h-4 mr-2" />
-                    Segurança
-                  </DropdownMenuItem>
-                  <DropdownMenuItem 
-                    onClick={() => setLocation('/settings')}
-                    className="text-green-400 hover:text-green-300 hover:bg-green-900/20 cursor-pointer"
-                  >
-                    <Settings className="w-4 h-4 mr-2" />
-                    Configurações
-                  </DropdownMenuItem>
+
                   <DropdownMenuItem 
                     onClick={() => setLocation('/affiliate')}
                     className="lg:hidden text-green-400 hover:text-green-300 hover:bg-green-900/20 cursor-pointer"

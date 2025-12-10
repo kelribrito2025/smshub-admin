@@ -254,3 +254,20 @@
 - [x] Adicionar evento balanceUpdated ao SSE no webhook PIX
 - [x] Atualizar frontend para processar evento balanceUpdated e invalidar cache
 - [x] Testar fluxo completo (PIX → webhook → SSE → atualização UI)
+
+
+---
+
+## 🗑️ Remover Páginas de Segurança e Configurações
+
+**Objetivo:**
+- Remover páginas de Segurança e Configurações do sistema
+- Eliminar código morto e simplificar navegação
+
+**Tarefas:**
+- [x] Remover arquivo StoreSecurity.tsx
+- [x] Remover arquivo StoreSettings.tsx
+- [x] Remover rotas das páginas no App.tsx
+- [x] Remover links de navegação no StoreLayout.tsx
+- [x] Remover prefetch das páginas no StoreAuthContext.tsx
+- [x] Validar que não há erros após remoção
