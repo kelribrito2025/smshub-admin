@@ -1940,3 +1940,12 @@ Garantir que badge do sino e barra lateral atualizem imediatamente quando houver
 
 ## Bug: Notificações de Clientes Aparecendo em Toast
 - [x] Remover toast automático para notificações admin_notification (devem aparecer somente na sidebar)
+
+## Remover Notificações Individuais (manter apenas globais)
+- [x] Remover botão "Enviar Notificação" da página de Clientes
+- [x] Remover componente SendNotificationModal.tsx
+- [x] Simplificar endpoint notifications.sendAdminNotification (apenas global)
+- [x] Remover validação de PIN/Email do backend
+- [x] Remover lógica de notificações individuais (customerId específico)
+- [x] Atualizar testes unitários
+- [x] Testar envio de notificação global

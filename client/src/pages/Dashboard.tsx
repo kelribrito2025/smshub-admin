@@ -3,13 +3,15 @@ import DashboardLayout from "@/components/DashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
-import { Activity, DollarSign, TrendingUp, Users, ShoppingCart, LayoutDashboard } from "lucide-react";
+import { Activity, DollarSign, TrendingUp, Users, ShoppingCart, LayoutDashboard, Bell } from "lucide-react";
 import { Link } from "wouter";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { GlobalNotificationModal } from "@/components/GlobalNotificationModal";
 
 export default function Dashboard() {
   const { user, loading } = useAuth();
+  const [notificationModalOpen, setNotificationModalOpen] = useState(false);
   const { data: dashboardData, isLoading, error } = trpc.stats.getDashboard.useQuery();
   // Fetch balances from all APIs
   const { data: allBalances, isLoading: isLoadingBalances } = trpc.settings.getAllBalances.useQuery(undefined, {
@@ -60,12 +62,22 @@ export default function Dashboard() {
               Visão geral do seu painel administrativo SMSHub
             </p>
           </div>
-          <a href="https://app.numero-virtual.com" target="_blank" rel="noopener noreferrer">
-            <Button className="gap-2">
-              <ShoppingCart className="h-4 w-4" />
-              Painel de Vendas
+          <div className="flex gap-2">
+            <Button
+              onClick={() => setNotificationModalOpen(true)}
+              variant="outline"
+              className="gap-2"
+            >
+              <Bell className="h-4 w-4" />
+              Enviar Notificação Global
             </Button>
-          </a>
+            <a href="https://app.numero-virtual.com" target="_blank" rel="noopener noreferrer">
+              <Button className="gap-2">
+                <ShoppingCart className="h-4 w-4" />
+                Painel de Vendas
+              </Button>
+            </a>
+          </div>
         </div>
 
         {/* Stats Cards */}
@@ -289,6 +301,12 @@ export default function Dashboard() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Global Notification Modal */}
+      <GlobalNotificationModal
+        open={notificationModalOpen}
+        onOpenChange={setNotificationModalOpen}
+      />
     </DashboardLayout>
   );
 }

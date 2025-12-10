@@ -13,13 +13,13 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { trpc } from "@/lib/trpc";
-import { DollarSign, Edit, Loader2, Plus, Search, Trash2, Users, Wallet, TrendingUp, Bell } from "lucide-react";
+import { DollarSign, Edit, Loader2, Plus, Search, Trash2, Users, Wallet, TrendingUp } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useState } from "react";
 import { toast } from "sonner";
 import { CustomerDialog } from "@/components/CustomerDialog";
 import { BalanceSidePanel } from "@/components/BalanceSidePanel";
-import { SendNotificationModal } from "@/components/SendNotificationModal";
+
 import { format } from "date-fns";
 
 export default function Customers() {
@@ -30,7 +30,7 @@ export default function Customers() {
   const [addDialogOpen, setAddDialogOpen] = useState(false);
   const [editCustomer, setEditCustomer] = useState<any>(null);
   const [balanceCustomer, setBalanceCustomer] = useState<any>(null);
-  const [notificationModalOpen, setNotificationModalOpen] = useState(false);
+
 
   const { data: customers, isLoading } = trpc.customers.getAll.useQuery();
   const { data: stats } = trpc.customers.getStats.useQuery();
@@ -190,14 +190,7 @@ export default function Customers() {
                   Gerencie cadastros, saldos e status dos clientes
                 </CardDescription>
               </div>
-              <Button
-                onClick={() => setNotificationModalOpen(true)}
-                variant="outline"
-                size="sm"
-              >
-                <Bell className="mr-2 h-4 w-4" />
-                Enviar Notificação
-              </Button>
+
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -399,11 +392,7 @@ export default function Customers() {
         }}
       />
 
-      {/* Send Notification Modal */}
-      <SendNotificationModal
-        open={notificationModalOpen}
-        onOpenChange={setNotificationModalOpen}
-      />
+
     </DashboardLayout>
   );
 }

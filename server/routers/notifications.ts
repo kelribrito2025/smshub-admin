@@ -24,10 +24,15 @@ export const notificationsRouter = router({
     }
     
     // Get customer's createdAt to filter notifications
+    const userEmail = ctx.user.email;
+    if (!userEmail) {
+      return [];
+    }
+    
     const [customer] = await db
       .select({ createdAt: customers.createdAt })
       .from(customers)
-      .where(eq(customers.email, ctx.user.email))
+      .where(eq(customers.email, userEmail))
       .limit(1);
     
     if (!customer) {
@@ -169,7 +174,7 @@ export const notificationsRouter = router({
   }),
 
   /**
-   * Send admin notification (global or individual)
+   * Send admin notification (global only)
    * Admin-only endpoint
    */
   sendAdminNotification: protectedProcedure
@@ -177,8 +182,6 @@ export const notificationsRouter = router({
       z.object({
         title: z.string().min(1, "Título é obrigatório"),
         message: z.string().min(1, "Descrição é obrigatória"),
-        type: z.enum(["global", "individual"]),
-        pinOrEmail: z.string().optional(), // Required if type is "individual"
       })
     )
     .mutation(async ({ input, ctx }) => {
@@ -192,68 +195,17 @@ export const notificationsRouter = router({
         throw new Error("Database not available");
       }
 
-      let targetCustomerId: number | null = null;
-
-      // If individual notification, find customer by PIN or email
-      if (input.type === "individual") {
-        if (!input.pinOrEmail) {
-          throw new Error("PIN ou e-mail é obrigatório para notificações individuais");
-        }
-
-        console.log(`[Notifications] 🔍 Buscando cliente: ${input.pinOrEmail}`);
-
-        // Import customers table
-        const { customers } = await import("../../drizzle/schema");
-
-        // Try to parse as PIN (integer)
-        const pinNumber = parseInt(input.pinOrEmail, 10);
-
-        if (!isNaN(pinNumber)) {
-          // Search by PIN
-          console.log(`[Notifications] 🔍 Buscando por PIN: ${pinNumber}`);
-          const pinResult = await db
-            .select({ id: customers.id, email: customers.email, pin: customers.pin })
-            .from(customers)
-            .where(eq(customers.pin, pinNumber))
-            .limit(1);
-
-          if (pinResult.length > 0) {
-            targetCustomerId = pinResult[0].id;
-            console.log(`[Notifications] ✅ Cliente encontrado por PIN: ID=${targetCustomerId}, Email=${pinResult[0].email}, PIN=${pinResult[0].pin}`);
-          } else {
-            console.log(`[Notifications] ❌ Cliente NÃO encontrado com PIN: ${pinNumber}`);
-            throw new Error(`Cliente não encontrado com PIN: ${input.pinOrEmail}`);
-          }
-        } else {
-          // Search by email
-          console.log(`[Notifications] 🔍 Buscando por email: ${input.pinOrEmail}`);
-          const emailResult = await db
-            .select({ id: customers.id, email: customers.email, pin: customers.pin })
-            .from(customers)
-            .where(eq(customers.email, input.pinOrEmail))
-            .limit(1);
-
-          if (emailResult.length > 0) {
-            targetCustomerId = emailResult[0].id;
-            console.log(`[Notifications] ✅ Cliente encontrado por email: ID=${targetCustomerId}, Email=${emailResult[0].email}, PIN=${emailResult[0].pin}`);
-          } else {
-            console.log(`[Notifications] ❌ Cliente NÃO encontrado com email: ${input.pinOrEmail}`);
-            throw new Error(`Cliente não encontrado com e-mail: ${input.pinOrEmail}`);
-          }
-        }
-      }
-
-      // Create notification in database
-      console.log(`[Notifications] 💾 Salvando notificação no banco: customerId=${targetCustomerId}, type=${input.type}`);
+      // Create global notification in database (customerId = NULL)
+      console.log(`[Notifications] 💾 Salvando notificação GLOBAL no banco`);
       await db.insert(notifications).values({
-        customerId: targetCustomerId, // NULL for global, specific ID for individual
+        customerId: null, // NULL = global notification
         type: "admin_notification",
         title: input.title,
         message: input.message,
       });
       console.log(`[Notifications] ✅ Notificação salva no banco com sucesso`);
 
-      // Send real-time notification via SSE
+      // Send real-time notification via SSE to all users (exclude admins)
       const { notificationsManager } = await import("../notifications-manager");
       
       const sseNotification = {
@@ -262,33 +214,15 @@ export const notificationsRouter = router({
         message: input.message,
       };
 
-      if (input.type === "global") {
-        // Send to all connected users (exclude admins)
-        console.log(`[Notifications] 📡 Enviando notificação GLOBAL via SSE para todos os USUÁRIOS conectados (excluindo admins)`);
-        const stats = notificationsManager.getStats();
-        console.log(`[Notifications] 📊 Clientes conectados: ${stats.totalConnections} (${stats.totalCustomers} usuários únicos)`);
-        notificationsManager.sendToAllUsers(sseNotification);
-        console.log(`[Notifications] ✅ Notificação GLOBAL enviada via SSE (apenas para usuários, admins excluídos)`);
-      } else if (targetCustomerId) {
-        // Send to specific customer
-        console.log(`[Notifications] 📡 Enviando notificação INDIVIDUAL via SSE para customerId=${targetCustomerId}`);
-        const stats = notificationsManager.getStats();
-        const customerConnections = stats.customers.find(c => c.customerId === targetCustomerId);
-        if (customerConnections) {
-          console.log(`[Notifications] ✅ Cliente ${targetCustomerId} está CONECTADO (${customerConnections.connections} conexões ativas)`);
-        } else {
-          console.log(`[Notifications] ⚠️ Cliente ${targetCustomerId} NÃO está conectado via SSE (notificação salva no banco, mas não enviada em tempo real)`);
-        }
-        notificationsManager.sendToCustomer(targetCustomerId, sseNotification);
-        console.log(`[Notifications] ✅ Notificação INDIVIDUAL enviada via SSE para customerId=${targetCustomerId}`);
-      }
+      console.log(`[Notifications] 📡 Enviando notificação GLOBAL via SSE para todos os USUÁRIOS conectados (excluindo admins)`);
+      const stats = notificationsManager.getStats();
+      console.log(`[Notifications] 📊 Clientes conectados: ${stats.totalConnections} (${stats.totalCustomers} usuários únicos)`);
+      notificationsManager.sendToAllUsers(sseNotification);
+      console.log(`[Notifications] ✅ Notificação GLOBAL enviada via SSE (apenas para usuários, admins excluídos)`);
 
       return {
         success: true,
-        message:
-          input.type === "global"
-            ? "Notificação global enviada com sucesso (apenas para usuários)"
-            : `Notificação enviada para o cliente ${input.pinOrEmail}`,
+        message: "Notificação global enviada com sucesso para todos os usuários",
       };
     }),
 
@@ -306,10 +240,15 @@ export const notificationsRouter = router({
     }
     
     // Get customer's createdAt to filter notifications
+    const userEmail = ctx.user.email;
+    if (!userEmail) {
+      return [];
+    }
+    
     const [customer] = await db
       .select({ createdAt: customers.createdAt })
       .from(customers)
-      .where(eq(customers.email, ctx.user.email))
+      .where(eq(customers.email, userEmail))
       .limit(1);
     
     if (!customer) {
