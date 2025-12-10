@@ -1940,3 +1940,26 @@ Garantir que badge do sino e barra lateral atualizem imediatamente quando houver
 
 ## Bug: Notificações de Clientes Aparecendo em Toast
 - [x] Remover toast automático para notificações admin_notification (devem aparecer somente na sidebar)
+
+## Remover Notificações Individuais (manter apenas globais)
+- [x] Remover botão "Enviar Notificação" da página de Clientes
+- [x] Remover componente SendNotificationModal.tsx
+- [x] Simplificar endpoint notifications.sendAdminNotification (apenas global)
+- [x] Remover validação de PIN/Email do backend
+- [x] Remover lógica de notificações individuais (customerId específico)
+- [x] Atualizar testes unitários
+- [x] Testar envio de notificação global
+
+## Bug: Notificações Globais Desaparecem Quando Admin Desloga
+- [x] Problema: Notificações globais somem do painel de vendas quando admin faz logout
+- [x] Causa: Query usa ctx.user.id ao invés de customer.id para filtrar notificationReads
+- [x] Solução: Buscar customer.id baseado no email do ctx.user
+- [x] Testar correção (3 testes passaram)
+
+## Bug: Notificações Não Atualizam Automaticamente
+- [x] Problema: Badge e lista de notificações só atualizam quando usuário clica no sino
+- [x] Solução: Ajustar staleTime para 0 na query de notificações (SSE já estava configurado)
+- [x] Testar atualização automática
+
+## Edição Visual: Correção de Texto
+- [x] Corrigir texto de "Ativações em Andamentossss" para "Ativações em Andamento" na StoreCatalog.tsx (correção final aplicada)

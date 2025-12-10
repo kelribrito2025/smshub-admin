@@ -5,7 +5,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Search, Star, Wallet, Globe, User, Loader2, Copy, ChevronDown, ChevronUp, LogOut, LogIn, Menu, X, Shield, Sparkles, History, LayoutDashboard, Check, Settings, Gift, TrendingUp, TrendingDown, Bell } from 'lucide-react';
 import { toast } from 'sonner';
-import { useStoreAuth } from '../contexts/StoreAuthContext';
+import { useStoreAuth, type StoreAuthContextType } from '../contexts/StoreAuthContext';
 import ServiceApiOptions from './ServiceApiOptions';
 import { copyToClipboard, playNotificationSound } from '../lib/utils';
 import { RechargeModal } from './RechargeModal';
@@ -30,7 +30,8 @@ interface StoreLayoutProps {
 }
 
 export default function StoreLayout({ children }: StoreLayoutProps) {
-  const { customer, isAuthenticated, requireAuth, logout, isSSEConnected, lastNotification, notifications, unreadCount } = useStoreAuth();
+  const authContext = useStoreAuth();
+  const { customer, isAuthenticated, requireAuth, logout, isSSEConnected, lastNotification, notifications, unreadCount } = authContext;
   // ✅ REMOVIDO: useOperationLock (SSE agora está centralizado no StoreAuthContext)
   const isLocked = false; // Operações não são mais bloqueadas globalmente
   const [location, setLocation] = useLocation();

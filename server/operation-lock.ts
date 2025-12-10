@@ -60,12 +60,12 @@ class OperationLockManager {
    */
   private cleanupExpiredLocks() {
     const now = Date.now();
-    for (const [customerId, lock] of this.locks.entries()) {
+    Array.from(this.locks.entries()).forEach(([customerId, lock]) => {
       if (now - lock.timestamp > this.LOCK_TIMEOUT) {
         console.warn(`[OperationLock] Cleaning up expired lock for customer ${customerId}`);
         this.locks.delete(customerId);
       }
-    }
+    });
   }
 
   /**

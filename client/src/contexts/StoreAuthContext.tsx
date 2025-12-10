@@ -17,7 +17,8 @@ interface Customer {
   role?: 'admin' | 'user'; // Role from users table (if customer has admin account)
 }
 
-interface StoreAuthContextType {
+// Store authentication context type definition
+export interface StoreAuthContextType {
   customer: Customer | null;
   isLoading: boolean;
   isAuthenticated: boolean;
@@ -64,7 +65,7 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
     enabled: !!customer?.id,
     retry: 1,
     refetchOnWindowFocus: false,
-    staleTime: 5 * 60 * 1000, // 5 minutos
+    staleTime: 0, // Sempre considerar dados stale para permitir invalidação imediata via SSE
   });
 
   const markAsReadMutation = trpc.notifications.markAsRead.useMutation({
@@ -109,6 +110,7 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
     },
   });
 
+  // Calculate notifications and unread count
   const notifications = notificationsQuery.data || [];
   const unreadCount = notifications.filter((n: any) => !n.isRead).length;
 
@@ -211,9 +213,7 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
     logout(); // Force logout when banned modal is closed
   };
 
-  return (
-    <StoreAuthContext.Provider
-      value={{
+  const contextValue: StoreAuthContextType = {
         customer,
         isLoading,
         isAuthenticated: !!customer,
@@ -228,7 +228,11 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
         unreadCount,
         markAsRead,
         markAllAsRead,
-      }}
+  };
+
+  return (
+    <StoreAuthContext.Provider
+      value={contextValue}
     >
       {children}
       <LoginModal
