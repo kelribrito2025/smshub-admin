@@ -202,3 +202,18 @@
 
 **Tarefas:**
 - [x] Atualizar staleTime das queries relevantes no StoreLayout.tsx
+
+
+---
+
+## 🎨 Atualizar Estilo de Loading
+
+**Objetivo:**
+- Substituir loading atual (fundo escuro + ícone azul) pelo estilo consistente
+- Usar mesmo fundo e ícone verde da página "nenhuma ativação em andamento"
+- Aplicar em todos os componentes de loading da aplicação
+
+**Tarefas:**
+- [x] Atualizar componente de loading para usar fundo escuro e ícone verde
+- [x] Aplicar estilo consistente em todos os estados de loading
+- [x] Testar visualmente em diferentes contextos
