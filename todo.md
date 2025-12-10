@@ -54,3 +54,22 @@
 - [x] Adicionar evento balanceUpdated ao SSE no webhook PIX
 - [x] Implementar listener no frontend para atualizar saldo automaticamente
 - [x] Testar fluxo completo (PIX → webhook → SSE → atualização UI)
+
+
+---
+
+## 🔍 Investigar Pequenos Reloads no Painel de Vendas
+
+**Objetivo:**
+- Identificar e corrigir pequenos reloads/refreshes não intencionais no painel
+- Garantir navegação suave sem interrupções
+- SSE deve atualizar apenas elementos necessários, sem reload global
+
+**Tarefas:**
+- [x] Verificar se SSE está causando re-renders desnecessários
+- [x] Verificar se há router.refresh() ou navigate(0) não intencionais
+- [x] Verificar se providers estão forçando re-render global
+- [x] Verificar se lógica de autenticação está recarregando página
+- [x] Analisar useEffect que podem estar disparando recarregamentos
+- [x] Implementar correções para eliminar reloads desnecessários
+- [x] Testar estabilidade do painel após correções

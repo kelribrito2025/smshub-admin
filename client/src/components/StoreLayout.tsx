@@ -111,10 +111,11 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
   // ✅ REMOVIDO: notificationsQuery (agora centralizado no StoreAuthContext)
   // Notificações vem do contexto
 
-  // ✅ Escutar notificações do contexto para invalidar queries locais
+  // ✅ Escutar notificações do contexto apenas para UI (toasts e sons)
+  // Invalidações de queries já são feitas no StoreAuthContext
   useEffect(() => {
     if (lastNotification) {
-      // Purchase completion notification
+      // Purchase completion notification - apenas UI
       if (lastNotification.type === 'operation_completed' && lastNotification.data?.operation === 'purchase') {
         const now = Date.now();
         if (now - lastPurchaseNotification.current < 2000) {
@@ -126,16 +127,10 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
           description: lastNotification.message || 'Número SMS adquirido com sucesso',
           duration: 5000,
         });
-        utils.store.getMyActivations.invalidate();
         playNotificationSound('purchase');
       }
-      
-      // Purchase failure notification
-      if (lastNotification.type === 'operation_failed' && lastNotification.data?.operation === 'purchase') {
-        utils.store.getMyActivations.invalidate();
-      }
     }
-  }, [lastNotification, utils]);
+  }, [lastNotification]);
   
   const toggleFavoriteMutation = trpc.store.toggleFavorite.useMutation({
     onSuccess: async () => {

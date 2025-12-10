@@ -60,6 +60,7 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
     customerId: customer?.id || null,
     autoToast: true,
     onNotification: (notification) => {
+      // Invalidar queries específicas baseado no tipo de notificação
       if (notification.type === 'pix_payment_confirmed' || notification.type === 'balance_updated') {
         utils.store.getCustomer.invalidate();
         utils.recharges.getMyRecharges.invalidate();
@@ -71,7 +72,10 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
         utils.store.getMyActivations.invalidate();
         utils.store.getCustomer.invalidate();
       }
-      utils.notifications.getAll.invalidate();
+      // Invalidar lista de notificações apenas para notificações admin (que aparecem na sidebar)
+      if (notification.type === 'admin_notification') {
+        utils.notifications.getAll.invalidate();
+      }
     },
   });
 
