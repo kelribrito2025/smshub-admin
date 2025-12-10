@@ -1960,3 +1960,6 @@ Garantir que badge do sino e barra lateral atualizem imediatamente quando houver
 - [x] Problema: Badge e lista de notificações só atualizam quando usuário clica no sino
 - [x] Solução: Ajustar staleTime para 0 na query de notificações (SSE já estava configurado)
 - [x] Testar atualização automática
+
+## Edição Visual: Correção de Texto
+- [x] Corrigir texto de "Ativações em Andamentossss" para "Ativações em Andamentos" na StoreCatalog.tsx
