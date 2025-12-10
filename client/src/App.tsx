@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { Route, Switch } from "wouter";
+import { Route, Switch, useLocation } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { StoreAuthProvider } from "./contexts/StoreAuthContext";
@@ -29,43 +29,64 @@ const StoreSettings = lazy(() => import("./pages/StoreSettings"));
 const StoreAffiliate = lazy(() => import("./pages/StoreAffiliate"));
 const StoreRecharges = lazy(() => import("./pages/StoreRecharges"));
 
-function Router() {
+const LoadingFallback = () => (
+  <div className="flex items-center justify-center min-h-screen">
+    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+  </div>
+);
+
+// Router para rotas do painel de vendas (COM StoreAuthProvider)
+function StoreRouter() {
   return (
-    <Suspense fallback={
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-      </div>
-    }>
+    <StoreAuthProvider>
+      <Suspense fallback={<LoadingFallback />}>
+        <Switch>
+          <Route path={"/"} component={StoreCatalog} />
+          <Route path="/history" component={StoreActivations} />
+          <Route path="/account" component={StoreAccount} />
+          <Route path="/security" component={StoreSecurity} />
+          <Route path="/settings" component={StoreSettings} />
+          <Route path="/affiliate" component={StoreAffiliate} />
+          <Route path="/recharges" component={StoreRecharges} />
+        </Switch>
+      </Suspense>
+    </StoreAuthProvider>
+  );
+}
+
+// Router para rotas admin (SEM StoreAuthProvider)
+function AdminRouter() {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
       <Switch>
-      {/* Painel de Vendas (Público) */}
-      <Route path={"/"} component={StoreCatalog} />
-      <Route path="/history" component={StoreActivations} />
-      <Route path="/account" component={StoreAccount} />
-      <Route path="/security" component={StoreSecurity} />
-      <Route path="/settings" component={StoreSettings} />
-      <Route path="/affiliate" component={StoreAffiliate} />
-      <Route path="/recharges" component={StoreRecharges} />
-
-
-      {/* Área Administrativa (Requer Login Manus) */}
-      <Route path={"/admin"} component={Dashboard} />
-      <Route path={"/admin/dashboard"} component={Dashboard} />
-      <Route path={"/admin/settings"} component={Settings} />
-      <Route path={"/admin/countries"} component={Countries} />
-      <Route path="/admin/relatorios" component={Financial} />
-      <Route path="/admin/clientes" component={Customers} />
-      <Route path={"/admin/catalogo"} component={Catalog} />
-      <Route path={"/admin/apis"} component={Apis} />
-      <Route path="/admin/api-performance" component={ApiPerformance} />
-      <Route path="/admin/payment-settings" component={PaymentSettings} />
-      <Route path="/admin/auditoria" component={Audit} />
-      <Route path="/admin/affiliates" component={Affiliates} />
-      
-      <Route path={"/404"} component={NotFound} />
-      <Route component={NotFound} />
+        <Route path={"/admin"} component={Dashboard} />
+        <Route path={"/admin/dashboard"} component={Dashboard} />
+        <Route path={"/admin/settings"} component={Settings} />
+        <Route path={"/admin/countries"} component={Countries} />
+        <Route path="/admin/relatorios" component={Financial} />
+        <Route path="/admin/clientes" component={Customers} />
+        <Route path={"/admin/catalogo"} component={Catalog} />
+        <Route path={"/admin/apis"} component={Apis} />
+        <Route path="/admin/api-performance" component={ApiPerformance} />
+        <Route path="/admin/payment-settings" component={PaymentSettings} />
+        <Route path="/admin/auditoria" component={Audit} />
+        <Route path="/admin/affiliates" component={Affiliates} />
       </Switch>
     </Suspense>
   );
+}
+
+// Router principal que decide qual sub-router usar
+function MainRouter() {
+  const [location] = useLocation();
+  
+  // Se a rota começa com /admin, usa AdminRouter (sem StoreAuthProvider)
+  if (location.startsWith('/admin')) {
+    return <AdminRouter />;
+  }
+  
+  // Caso contrário, usa StoreRouter (com StoreAuthProvider)
+  return <StoreRouter />;
 }
 
 // NOTE: About Theme
@@ -82,9 +103,7 @@ function App() {
       >
         <Toaster duration={2300} closeButton={false} visibleToasts={1} />
         <TooltipProvider>
-          <StoreAuthProvider>
-            <Router />
-          </StoreAuthProvider>
+          <MainRouter />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>

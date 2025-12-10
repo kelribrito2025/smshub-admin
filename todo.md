@@ -363,6 +363,7 @@
 - [x] Adicionar campo `bannedReason` para armazenar motivo do banimento
 
 - [x] BUG: Notificações do painel de vendas desaparecem quando admin desloga (isolamento de contextos)
+- [x] CRÍTICO: Corrigir isolamento entre contextos de autenticação do admin e do painel de vendas
 
 ## 🐛 BUG: Notificação Individual Não Chegou para fcokelrihbrito@gmail.com
 
