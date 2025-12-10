@@ -460,8 +460,14 @@
 - Notificação deveria aparecer apenas uma vez, quando o número é realmente adquirido
 - Comportamento incorreto: notificação persiste e reaparece em navegações subsequentes
 
+**Solução Implementada:**
+- Persistir notificações exibidas no localStorage ao invés de apenas useRef
+- Adicionar limpeza automática de notificações antigas (mais de 1 hora)
+- Limitar armazenamento a últimas 100 notificações
+- Carregar notificações já exibidas na inicialização do componente
+
 **Tarefas:**
 - [x] Investigar código que dispara a notificação de compra realizada
 - [x] Identificar por que a notificação está sendo disparada em mudanças de página
-- [x] Corrigir para que notificação apareça apenas uma vez após aquisição
+- [x] Corrigir para que notificação apareça apenas uma vez após aquisição (usar localStorage)
 - [x] Testar navegação entre páginas para confirmar correção

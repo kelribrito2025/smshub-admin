@@ -61,7 +61,25 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
   const [balanceFlash, setBalanceFlash] = useState<'green' | 'red' | null>(null);
   const previousBalance = useRef<number | null>(null);
   const lastPurchaseNotification = useRef<number>(0); // Timestamp of last purchase notification
-  const displayedNotifications = useRef<Set<string>>(new Set()); // Track displayed notifications by unique ID
+  
+  // ✅ CORREÇÃO: Usar localStorage para persistir notificações exibidas entre navegações
+  const getDisplayedNotifications = (): Set<string> => {
+    try {
+      const stored = localStorage.getItem('displayed_notifications');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        // Limpar notificações antigas (mais de 1 hora)
+        const oneHourAgo = Date.now() - (60 * 60 * 1000);
+        const filtered = parsed.filter((item: any) => item.timestamp > oneHourAgo);
+        return new Set(filtered.map((item: any) => item.id));
+      }
+    } catch (e) {
+      console.error('Error loading displayed notifications:', e);
+    }
+    return new Set();
+  };
+  
+  const displayedNotifications = useRef<Set<string>>(getDisplayedNotifications());
 
   // Configure conservative refetch to avoid 429 (Too Many Requests)
   // ✅ OTIMIZAÇÃO: Queries críticas carregam primeiro, não-críticas depois
@@ -131,8 +149,18 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
         }
         lastPurchaseNotification.current = now;
         
-        // Mark this notification as displayed
+        // Mark this notification as displayed (persist in localStorage)
         displayedNotifications.current.add(notificationId);
+        try {
+          const stored = localStorage.getItem('displayed_notifications');
+          const notifications = stored ? JSON.parse(stored) : [];
+          notifications.push({ id: notificationId, timestamp: now });
+          // Manter apenas últimas 100 notificações
+          const recent = notifications.slice(-100);
+          localStorage.setItem('displayed_notifications', JSON.stringify(recent));
+        } catch (e) {
+          console.error('Error saving displayed notification:', e);
+        }
         
         toast.success(lastNotification.title || 'Compra realizada', {
           description: lastNotification.message || 'Número SMS adquirido com sucesso',
