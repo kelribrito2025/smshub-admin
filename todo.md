@@ -449,3 +449,19 @@
 - [x] Testar no navegador para confirmar remoção
 - [x] Criar checkpoint com correção
 
+
+
+---
+
+## 🐛 Notificação "Compra Realizada" Aparece em Toda Mudança de Página
+
+**Problema:**
+- Após gerar um número SMS, a notificação "Compra realizada - Número SMS adquirido com sucesso" aparece toda vez que o usuário muda de página
+- Notificação deveria aparecer apenas uma vez, quando o número é realmente adquirido
+- Comportamento incorreto: notificação persiste e reaparece em navegações subsequentes
+
+**Tarefas:**
+- [x] Investigar código que dispara a notificação de compra realizada
+- [x] Identificar por que a notificação está sendo disparada em mudanças de página
+- [x] Corrigir para que notificação apareça apenas uma vez após aquisição
+- [x] Testar navegação entre páginas para confirmar correção

@@ -61,6 +61,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
   const [balanceFlash, setBalanceFlash] = useState<'green' | 'red' | null>(null);
   const previousBalance = useRef<number | null>(null);
   const lastPurchaseNotification = useRef<number>(0); // Timestamp of last purchase notification
+  const displayedNotifications = useRef<Set<string>>(new Set()); // Track displayed notifications by unique ID
 
   // Configure conservative refetch to avoid 429 (Too Many Requests)
   // ✅ OTIMIZAÇÃO: Queries críticas carregam primeiro, não-críticas depois
@@ -114,6 +115,14 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
   // Invalidações de queries já são feitas no StoreAuthContext
   useEffect(() => {
     if (lastNotification) {
+      // Create unique notification ID based on type, timestamp, and data
+      const notificationId = `${lastNotification.type}-${lastNotification.timestamp || Date.now()}-${JSON.stringify(lastNotification.data || {})}`;
+      
+      // Check if this notification was already displayed
+      if (displayedNotifications.current.has(notificationId)) {
+        return; // Skip already displayed notifications
+      }
+      
       // Purchase completion notification - apenas UI
       if (lastNotification.type === 'operation_completed' && lastNotification.data?.operation === 'purchase') {
         const now = Date.now();
@@ -121,6 +130,9 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
           return; // Debounce
         }
         lastPurchaseNotification.current = now;
+        
+        // Mark this notification as displayed
+        displayedNotifications.current.add(notificationId);
         
         toast.success(lastNotification.title || 'Compra realizada', {
           description: lastNotification.message || 'Número SMS adquirido com sucesso',
