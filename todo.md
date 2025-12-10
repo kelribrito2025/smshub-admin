@@ -1966,15 +1966,3 @@ Garantir que badge do sino e barra lateral atualizem imediatamente quando houver
 
 ## Edição Visual: Correção de Texto
 - [x] Corrigir texto de "Ativações em Andamentossss" para "Ativações em Andamento" na StoreCatalog.tsx (correção final aplicada)
-
-## 🗑️ Remoção da Sidebar de Notificações
-
-- [x] Analisar código existente para identificar todos os componentes relacionados à sidebar
-- [x] Remover ícone do sino no header (StoreLayout.tsx)
-- [x] Remover contador/badge de notificações
-- [x] Remover componente NotificationsSidebar.tsx
-- [x] Remover estados UI relacionados (isNotificationSidebarOpen, etc.)
-- [x] Limpar imports e dependências não utilizadas
-- [x] Remover unreadCount do StoreAuthContext
-- [x] Verificar que notificações via toast continuam funcionando
-- [x] Testar aplicação após remoções
