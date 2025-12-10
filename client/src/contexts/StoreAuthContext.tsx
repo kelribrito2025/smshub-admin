@@ -17,7 +17,6 @@ interface Customer {
   role?: 'admin' | 'user';
 }
 
-// Interface atualizada com unreadCount
 export interface StoreAuthContextType {
   customer: Customer | null;
   isLoading: boolean;
@@ -30,7 +29,6 @@ export interface StoreAuthContextType {
   isSSEConnected: boolean;
   lastNotification: Notification | null;
   notifications: any[];
-  unreadCount: number;
   markAsRead: (notificationId: number) => Promise<void>;
   markAllAsRead: () => Promise<void>;
 }
@@ -105,7 +103,6 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
   });
 
   const notifications = notificationsQuery.data || [];
-  const unreadCount = notifications.filter((n: any) => !n.isRead).length;
 
   useEffect(() => {
     const storedCustomer = localStorage.getItem('store_customer');
@@ -209,7 +206,6 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
     isSSEConnected,
     lastNotification,
     notifications,
-    unreadCount,
     markAsRead,
     markAllAsRead,
   };
