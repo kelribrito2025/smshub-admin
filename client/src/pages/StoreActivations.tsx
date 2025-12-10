@@ -6,6 +6,8 @@ import { trpc } from '../lib/trpc';
 import { Card } from '../components/ui/card';
 import { ChevronLeft, ChevronRight, ChevronDown, ChevronUp, History } from 'lucide-react';
 import TableSkeleton from '../components/TableSkeleton';
+import { AnimatedPage } from '../components/AnimatedPage';
+import { AnimatedList, AnimatedListItem } from '../components/AnimatedList';
 
 
 export default function StoreActivations() {
@@ -105,7 +107,7 @@ export default function StoreActivations() {
 
   return (
     <StoreLayout>
-      <div className="space-y-6">
+      <AnimatedPage className="space-y-6">
         <div className="mb-4">
           <h1 className="text-2xl font-bold text-green-400 mb-2 flex items-center gap-2">
             <History className="w-6 h-6" />
@@ -293,7 +295,7 @@ export default function StoreActivations() {
             </div>
           </div>
         )}
-      </div>
+      </AnimatedPage>
     </StoreLayout>
   );
 }

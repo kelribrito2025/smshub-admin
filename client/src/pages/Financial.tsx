@@ -45,6 +45,9 @@ import {
   YAxis,
 } from "recharts";
 import { toast } from "sonner";
+import { AnimatedPage } from "@/components/AnimatedPage";
+import { motion } from "framer-motion";
+import { fadeInScale, staggerContainer } from "@/lib/animations";
 
 type PeriodType = "7days" | "30days" | "90days" | "year" | "all";
 type GroupByType = "day" | "week" | "month";
@@ -177,7 +180,7 @@ export default function Financial() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-6">
+      <AnimatedPage className="space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
@@ -663,7 +666,7 @@ export default function Financial() {
             </Card>
           </TabsContent>
         </Tabs>
-      </div>
+      </AnimatedPage>
     </DashboardLayout>
   );
 }

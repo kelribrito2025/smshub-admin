@@ -158,3 +158,20 @@
 - [x] Garantir que após auth.me resolver, nenhum loading adicional apareça
 - [x] Testar navegação: Dashboard → Histórico → Conta → Voltar
 - [x] Validar que transições são instantâneas sem flash visual
+
+
+---
+
+## 🎬 Melhorias de UX - Animações Suaves
+
+**Objetivo:**
+- Implementar animações suaves em toda a aplicação
+- Adicionar fade-in/fade-out entre transições de página
+- Aplicar transições sutis em listas e elementos interativos
+- Eliminar sensação de "pulo" durante navegação
+
+**Tarefas:**
+- [x] Implementar fade-in/fade-out entre transições de página
+- [x] Adicionar animações sutis no carregamento de listas (serviços, histórico)
+- [x] Aplicar transições suaves em cards e elementos interativos
+- [x] Melhorar skeleton loaders com animações
