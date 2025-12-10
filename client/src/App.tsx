@@ -33,9 +33,9 @@ const LoadingFallback = () => (
   <div className="fixed inset-0 bg-black flex items-center justify-center z-50">
     <div className="flex flex-col items-center gap-6">
       <div className="relative">
-        <div className="w-12 h-12 border-3 border-green-900/30 border-t-green-500 rounded-full animate-spin"></div>
+        <div className="w-16 h-16 border-4 border-green-900/30 border-t-green-500 rounded-full animate-spin"></div>
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+          <div className="w-4 h-4 bg-green-500 rounded-full animate-pulse"></div>
         </div>
       </div>
       <div className="text-gray-400 text-sm font-medium animate-pulse font-mono">

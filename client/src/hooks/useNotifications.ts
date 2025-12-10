@@ -175,11 +175,15 @@ export function useNotifications(options: UseNotificationsOptions) {
 function showNotificationToast(notification: Notification) {
   switch (notification.type) {
     case "pix_payment_confirmed":
-      // ✅ Não mostrar toast - apenas balance_updated será exibido
+      toast.success(notification.title, {
+        description: notification.message,
+        duration: 5000,
+        icon: "💰",
+      });
       break;
 
     case "balance_updated":
-      toast.success(notification.title, {
+      toast.info(notification.title, {
         description: notification.message,
         duration: 3000,
       });
