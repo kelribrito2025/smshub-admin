@@ -1962,4 +1962,4 @@ Garantir que badge do sino e barra lateral atualizem imediatamente quando houver
 - [x] Testar atualização automática
 
 ## Edição Visual: Correção de Texto
-- [x] Corrigir texto de "Ativações em Andamentossss" para "Ativações em Andamentos" na StoreCatalog.tsx
+- [x] Corrigir texto de "Ativações em Andamentossss" para "Ativações em Andamento" na StoreCatalog.tsx (correção final aplicada)
