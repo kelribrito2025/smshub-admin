@@ -17,7 +17,7 @@ interface Customer {
   role?: 'admin' | 'user'; // Role from users table (if customer has admin account)
 }
 
-interface StoreAuthContextType {
+export interface StoreAuthContextType {
   customer: Customer | null;
   isLoading: boolean;
   isAuthenticated: boolean;

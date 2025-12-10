@@ -9,7 +9,7 @@ export interface NotificationClient {
   customerId: number;
   response: Response;
   connectedAt: Date;
-  role: "admin" | "user"; // Track user role to filter notifications
+  role?: "admin" | "user"; // Track user role to filter notifications (optional)
 }
 
 export interface Notification {
@@ -27,7 +27,7 @@ class NotificationsManager {
    * Add a new SSE connection for a customer
    * Closes any existing connections to ensure only 1 active connection per customer
    */
-  addClient(customerId: number, response: Response, role: "admin" | "user" = "user") {
+  addClient(customerId: number, response: Response, role?: "admin" | "user") {
     // Close all existing connections for this customer before adding new one
     const existingClients = this.clients.get(customerId) || [];
     if (existingClients.length > 0) {

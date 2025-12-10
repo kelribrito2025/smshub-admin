@@ -1949,3 +1949,9 @@ Garantir que badge do sino e barra lateral atualizem imediatamente quando houver
 - [x] Remover lógica de notificações individuais (customerId específico)
 - [x] Atualizar testes unitários
 - [x] Testar envio de notificação global
+
+## Bug: Notificações Globais Desaparecem Quando Admin Desloga
+- [x] Problema: Notificações globais somem do painel de vendas quando admin faz logout
+- [x] Causa: Query usa ctx.user.id ao invés de customer.id para filtrar notificationReads
+- [x] Solução: Buscar customer.id baseado no email do ctx.user
+- [x] Testar correção (3 testes passaram)

@@ -23,14 +23,14 @@ export const notificationsRouter = router({
       return [];
     }
     
-    // Get customer's createdAt to filter notifications
+    // Get customer's ID and createdAt to filter notifications
     const userEmail = ctx.user.email;
     if (!userEmail) {
       return [];
     }
     
     const [customer] = await db
-      .select({ createdAt: customers.createdAt })
+      .select({ id: customers.id, createdAt: customers.createdAt })
       .from(customers)
       .where(eq(customers.email, userEmail))
       .limit(1);
@@ -42,6 +42,7 @@ export const notificationsRouter = router({
     // Get both user-specific and global notifications
     // LEFT JOIN with notification_reads to determine if user has read each notification
     // FILTER: Only show notifications created AFTER the customer's registration date
+    // IMPORTANT: Use customer.id (not ctx.user.id) for filtering reads
     const customerNotifications = await db
       .select({
         id: notifications.id,
@@ -58,13 +59,13 @@ export const notificationsRouter = router({
         notificationReads,
         and(
           eq(notificationReads.notificationId, notifications.id),
-          eq(notificationReads.customerId, ctx.user.id)
+          eq(notificationReads.customerId, customer.id)
         )
       )
       .where(
         and(
           or(
-            eq(notifications.customerId, ctx.user.id),
+            eq(notifications.customerId, customer.id),
             isNull(notifications.customerId) // Global notifications
           ),
           gte(notifications.createdAt, customer.createdAt) // Only notifications after customer registration
@@ -99,12 +100,28 @@ export const notificationsRouter = router({
         throw new Error("Database not available");
       }
       
+      // Get customer ID from email
+      const userEmail = ctx.user.email;
+      if (!userEmail) {
+        throw new Error("User email not found");
+      }
+      
+      const [customer] = await db
+        .select({ id: customers.id })
+        .from(customers)
+        .where(eq(customers.email, userEmail))
+        .limit(1);
+      
+      if (!customer) {
+        throw new Error("Customer not found");
+      }
+      
       // Insert a record in notification_reads (or ignore if already exists)
       await db
         .insert(notificationReads)
         .values({
           notificationId: input.id,
-          customerId: ctx.user.id,
+          customerId: customer.id,
         })
         .onDuplicateKeyUpdate({
           set: { readAt: sql`CURRENT_TIMESTAMP` },
@@ -126,13 +143,16 @@ export const notificationsRouter = router({
       throw new Error("Database not available");
     }
     
-    const userId = ctx.user.id; // Store userId to avoid null check issues
+    // Get customer ID and createdAt from email
+    const userEmail = ctx.user.email;
+    if (!userEmail) {
+      throw new Error("User email not found");
+    }
     
-    // Get customer's createdAt to filter notifications
     const [customer] = await db
-      .select({ createdAt: customers.createdAt })
+      .select({ id: customers.id, createdAt: customers.createdAt })
       .from(customers)
-      .where(eq(customers.id, userId))
+      .where(eq(customers.email, userEmail))
       .limit(1);
     
     if (!customer) {
@@ -147,7 +167,7 @@ export const notificationsRouter = router({
       .where(
         and(
           or(
-            eq(notifications.customerId, userId),
+            eq(notifications.customerId, customer.id),
             isNull(notifications.customerId) // Global notifications
           ),
           gte(notifications.createdAt, customer.createdAt) // Only notifications after customer registration
@@ -158,7 +178,7 @@ export const notificationsRouter = router({
     if (visibleNotifications.length > 0) {
       const readRecords = visibleNotifications.map((notif) => ({
         notificationId: notif.id,
-        customerId: userId,
+        customerId: customer.id,
       }));
 
       // Use INSERT IGNORE to avoid duplicate key errors
@@ -239,14 +259,14 @@ export const notificationsRouter = router({
       return 0;
     }
     
-    // Get customer's createdAt to filter notifications
+    // Get customer's ID and createdAt to filter notifications
     const userEmail = ctx.user.email;
     if (!userEmail) {
-      return [];
+      return 0;
     }
     
     const [customer] = await db
-      .select({ createdAt: customers.createdAt })
+      .select({ id: customers.id, createdAt: customers.createdAt })
       .from(customers)
       .where(eq(customers.email, userEmail))
       .limit(1);
@@ -257,6 +277,7 @@ export const notificationsRouter = router({
     
     // Count notifications visible to this user that don't have a read record
     // FILTER: Only count notifications created AFTER the customer's registration date
+    // IMPORTANT: Use customer.id (not ctx.user.id) for filtering reads
     const unreadCount = await db
       .select({ count: sql<number>`COUNT(*)` })
       .from(notifications)
@@ -264,13 +285,13 @@ export const notificationsRouter = router({
         notificationReads,
         and(
           eq(notificationReads.notificationId, notifications.id),
-          eq(notificationReads.customerId, ctx.user.id)
+          eq(notificationReads.customerId, customer.id)
         )
       )
       .where(
         and(
           or(
-            eq(notifications.customerId, ctx.user.id),
+            eq(notifications.customerId, customer.id),
             isNull(notifications.customerId) // Global notifications
           ),
           isNull(notificationReads.id), // No read record = unread
