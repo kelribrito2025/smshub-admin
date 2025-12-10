@@ -31,6 +31,11 @@ class NotificationsManager {
     // Close all existing connections for this customer before adding new one
     const existingClients = this.clients.get(customerId) || [];
     if (existingClients.length > 0) {
+      console.warn(
+        `[SSE] ⚠️  Customer ${customerId} already has ${existingClients.length} active connection(s). ` +
+        `Closing old connection(s) and replacing with new one. ` +
+        `(This is normal when user opens multiple tabs or refreshes the page)`
+      );
       existingClients.forEach((oldClient) => {
         try {
           if (!oldClient.response.writableEnded) {
@@ -40,6 +45,8 @@ class NotificationsManager {
           console.error(`[Notifications] Error closing old connection:`, error);
         }
       });
+    } else {
+      console.log(`[SSE] ✅ Customer ${customerId} connected (first connection)`);
     }
 
     const client: NotificationClient = {
@@ -118,6 +125,8 @@ class NotificationsManager {
     if (!clients) return;
 
     const updatedClients = clients.filter((c) => c.response !== response);
+    
+    console.log(`[SSE] 🔌 Customer ${customerId} disconnected`);
     
     if (updatedClients.length === 0) {
       this.clients.delete(customerId);
@@ -208,6 +217,7 @@ class NotificationsManager {
         customerId,
         connections: clients.length,
         connectedAt: clients[0]?.connectedAt,
+        durationSeconds: clients[0] ? Math.floor((Date.now() - clients[0].connectedAt.getTime()) / 1000) : 0,
       })),
     };
   }

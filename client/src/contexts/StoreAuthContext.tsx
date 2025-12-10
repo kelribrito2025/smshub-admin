@@ -17,7 +17,7 @@ interface Customer {
   role?: 'admin' | 'user';
 }
 
-// Interface atualizada com unreadCount
+// Interface atualizada com unreadCount e notificações
 export interface StoreAuthContextType {
   customer: Customer | null;
   isLoading: boolean;

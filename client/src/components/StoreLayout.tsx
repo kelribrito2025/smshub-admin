@@ -31,7 +31,16 @@ interface StoreLayoutProps {
 
 export default function StoreLayout({ children }: StoreLayoutProps) {
   const authContext = useStoreAuth();
-  const { customer, isAuthenticated, requireAuth, logout, isSSEConnected, lastNotification, notifications, unreadCount, markAsRead, markAllAsRead } = authContext;
+  const customer = authContext.customer;
+  const isAuthenticated = authContext.isAuthenticated;
+  const requireAuth = authContext.requireAuth;
+  const logout = authContext.logout;
+  const isSSEConnected = authContext.isSSEConnected;
+  const lastNotification = authContext.lastNotification;
+  const notifications = authContext.notifications;
+  const unreadCount = authContext.unreadCount;
+  const markAsRead = authContext.markAsRead;
+  const markAllAsRead = authContext.markAllAsRead;
   // ✅ REMOVIDO: useOperationLock (SSE agora está centralizado no StoreAuthContext)
   const isLocked = false; // Operações não são mais bloqueadas globalmente
   const [location, setLocation] = useLocation();
@@ -489,6 +498,19 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
                 <Copy className="w-4 h-4" />
               </button>
             </div>
+          )}
+
+          {/* Admin Panel Button - Only show for admin users */}
+          {customer?.role === 'admin' && (
+            <Button
+              onClick={() => {
+                window.location.href = '/admin';
+              }}
+              className="bg-purple-500 hover:bg-purple-600 text-white font-bold flex items-center gap-2"
+            >
+              <Shield className="w-4 h-4" />
+              <span className="hidden sm:inline">Painel Admin</span>
+            </Button>
           )}
 
           {/* Language Selector Dropdown (hidden on mobile) */}
