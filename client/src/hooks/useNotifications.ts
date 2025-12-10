@@ -221,11 +221,7 @@ function showNotificationToast(notification: Notification) {
       break;
 
     case "admin_notification":
-      toast.info(notification.title, {
-        description: notification.message,
-        duration: 6000,
-        icon: "📢",
-      });
+      // ✅ Não mostrar toast - notificações admin aparecem somente na sidebar
       break;
 
     default:

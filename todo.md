@@ -1937,3 +1937,6 @@ Garantir que badge do sino e barra lateral atualizem imediatamente quando houver
 - [x] Testar correção
 
 - [x] Bug: Usuários novos veem todas as notificações antigas ao invés de apenas notificações criadas após o cadastro
+
+## Bug: Notificações de Clientes Aparecendo em Toast
+- [x] Remover toast automático para notificações admin_notification (devem aparecer somente na sidebar)
