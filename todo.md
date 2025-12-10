@@ -296,3 +296,15 @@
 **Resultado:**
 - Antes: 6-8 queries simultâneas + prefetch de 5 páginas
 - Agora: 2-3 queries críticas primeiro → resto carrega progressivamente
+
+
+---
+
+## 🔒 Proteger Página /history para Usuários Logados
+
+**Objetivo:**
+- Garantir que a página `/history` no painel de vendas só seja acessível quando o usuário estiver logado
+- Redirecionar usuários não autenticados para login
+
+**Tarefas:**
+- [x] Proteger página /history para exibir apenas quando usuário estiver logado

@@ -11,7 +11,34 @@ import { AnimatedList, AnimatedListItem } from '../components/AnimatedList';
 
 
 export default function StoreActivations() {
-  const { customer } = useStoreAuth();
+  const { customer, isLoading, isAuthenticated, requireAuth } = useStoreAuth();
+  const [, navigate] = useLocation();
+
+  // Proteger a página - redirecionar para login se não autenticado
+  React.useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      navigate('/');
+    }
+  }, [isLoading, isAuthenticated, navigate]);
+
+  // Mostrar loading enquanto verifica autenticação
+  if (isLoading) {
+    return (
+      <StoreLayout>
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <div className="flex flex-col items-center gap-4">
+            <div className="w-12 h-12 border-4 border-green-900 border-t-green-500 rounded-full animate-spin"></div>
+            <p className="text-green-600 font-mono">Carregando...</p>
+          </div>
+        </div>
+      </StoreLayout>
+    );
+  }
+
+  // Não renderizar conteúdo se não autenticado
+  if (!isAuthenticated || !customer) {
+    return null;
+  }
   const [currentPage, setCurrentPage] = useState(1);
   const [expandedRows, setExpandedRows] = useState<Set<number>>(new Set());
   const limit = 20;
