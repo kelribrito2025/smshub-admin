@@ -39,3 +39,18 @@
 - [x] Remover imports relacionados à sidebar
 - [x] Validar que notificações via toast continuam funcionando
 - [x] Testar sistema sem erros de UI
+
+
+---
+
+## 🔄 Atualização Automática de Saldo via SSE
+
+**Objetivo:**
+- Fazer o saldo atualizar automaticamente após confirmação de pagamento PIX
+- Eliminar necessidade de reload manual (F5) da página
+
+**Tarefas:**
+- [x] Analisar implementação atual de SSE e fluxo de pagamento PIX
+- [x] Adicionar evento balanceUpdated ao SSE no webhook PIX
+- [x] Implementar listener no frontend para atualizar saldo automaticamente
+- [x] Testar fluxo completo (PIX → webhook → SSE → atualização UI)

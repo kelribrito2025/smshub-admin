@@ -224,6 +224,18 @@ router.post("/webhook/pix", async (req, res) => {
         txid: pixData.txid,
       },
     });
+    
+    // Send balance_updated event to trigger UI refresh (separate from payment confirmation)
+    notificationsManager.sendToCustomer(transaction.customerId, {
+      type: "balance_updated",
+      title: "Saldo Atualizado",
+      message: `Novo saldo: R$ ${(balanceAfter / 100).toFixed(2)}`,
+      data: {
+        balanceBefore,
+        balanceAfter,
+        amountAdded: transaction.amount,
+      },
+    });
     timestamps.afterSSE = Date.now();
 
     // Cache invalidation is handled automatically by SSE and polling
