@@ -118,3 +118,20 @@
 - [x] Verificar se suspense/loader dispara antes do cached data ser verificado
 - [x] Implementar otimizações de cache adequadas (staleTime: 5min, gcTime: 10min)
 - [x] Testar navegação entre páginas para confirmar eliminação do flash
+
+
+---
+
+## 🎨 Loading Inicial Personalizado
+
+**Objetivo:**
+- Criar componente de loading inicial exclusivo para o primeiro carregamento
+- Evitar flash preto com ícone de loading azul durante verificação de autenticação
+- Usar as mesmas cores do sistema (painel de vendas)
+- Garantir transição suave antes de qualquer render fallback
+
+**Tarefas:**
+- [x] Criar componente InitialLoader com spinner personalizado
+- [x] Integrar no fluxo de autenticação antes do DashboardLayoutSkeleton
+- [x] Testar transição suave sem flash preto
+- [x] Validar que segurança de autenticação permanece intacta

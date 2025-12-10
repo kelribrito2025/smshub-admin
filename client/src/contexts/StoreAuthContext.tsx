@@ -3,6 +3,7 @@ import { trpc } from '../lib/trpc';
 import LoginModal from '../components/LoginModal';
 import BannedAccountModal from '../components/BannedAccountModal';
 import { useNotifications, type Notification } from '../hooks/useNotifications';
+import InitialLoader from '../components/InitialLoader';
 
 interface Customer {
   id: number;
@@ -193,7 +194,7 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
 
   return (
     <StoreAuthContext.Provider value={contextValue}>
-      {children}
+      {isLoading ? <InitialLoader /> : children}
       <LoginModal
         isOpen={isLoginModalOpen}
         onClose={handleLoginModalClose}
