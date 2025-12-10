@@ -8,6 +8,18 @@ import App from "./App";
 import { getLoginUrl } from "./const";
 import "./index.css";
 
+// Suppress React DevTools message in console
+if (typeof window !== 'undefined') {
+  // @ts-ignore
+  window.__REACT_DEVTOOLS_GLOBAL_HOOK__ = {
+    isDisabled: true,
+    supportsFiber: true,
+    inject() {},
+    onCommitFiberRoot() {},
+    onCommitFiberUnmount() {},
+  };
+}
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
