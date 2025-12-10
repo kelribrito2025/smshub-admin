@@ -64,10 +64,17 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
     customerId: customer?.id || null,
     autoToast: true,
     onNotification: (notification) => {
+      console.log('[StoreAuthContext] Notification received:', notification.type, notification);
+      
       // Invalidar queries específicas baseado no tipo de notificação
       if (notification.type === 'pix_payment_confirmed' || notification.type === 'balance_updated') {
+        console.log('[StoreAuthContext] Balance update detected, refetching customer data...');
+        console.log('[StoreAuthContext] Current balance:', customer?.balance);
+        
         // Forçar refetch imediato do saldo (ignora staleTime)
         utils.store.getCustomer.refetch();
+        console.log('[StoreAuthContext] Customer refetch triggered');
+        
         utils.recharges.getMyRecharges.invalidate();
       }
       if (notification.type === 'sms_received' || notification.type === 'activation_expired') {
@@ -114,6 +121,9 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (getCustomerQuery.data) {
+      console.log('[StoreAuthContext] Customer data updated:', getCustomerQuery.data);
+      console.log('[StoreAuthContext] Balance changed:', customer?.balance, '→', getCustomerQuery.data.balance);
+      
       setCustomer(getCustomerQuery.data);
       localStorage.setItem('store_customer', JSON.stringify(getCustomerQuery.data));
       

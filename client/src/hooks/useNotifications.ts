@@ -101,6 +101,7 @@ export function useNotifications(options: UseNotificationsOptions) {
     // Listen to notifications from other tabs via BroadcastChannel
     const handleBroadcastMessage = (event: MessageEvent) => {
       const notification: Notification = event.data;
+      console.log('[useNotifications] Received notification from BroadcastChannel:', notification.type, notification);
       
       setLastNotification(notification);
       
@@ -108,6 +109,7 @@ export function useNotifications(options: UseNotificationsOptions) {
       window.dispatchEvent(new CustomEvent('notification', { detail: notification }));
 
       if (onNotificationRef.current) {
+        console.log('[useNotifications] Calling onNotification callback (from broadcast):', notification.type);
         onNotificationRef.current(notification);
       }
 
@@ -201,18 +203,22 @@ export function useNotifications(options: UseNotificationsOptions) {
             if (dataMatch) {
               try {
                 const notification: Notification = JSON.parse(dataMatch[1]);
+                console.log('[useNotifications] SSE notification received:', notification.type, notification);
 
                 setLastNotification(notification);
 
                 // Broadcast to other tabs
                 if (broadcastChannelRef.current) {
+                  console.log('[useNotifications] Broadcasting to other tabs:', notification.type);
                   broadcastChannelRef.current.postMessage(notification);
                 }
 
                 // Dispatch custom event for components to listen
+                console.log('[useNotifications] Dispatching window event:', notification.type);
                 window.dispatchEvent(new CustomEvent('notification', { detail: notification }));
 
                 if (onNotificationRef.current) {
+                  console.log('[useNotifications] Calling onNotification callback:', notification.type);
                   onNotificationRef.current(notification);
                 }
 

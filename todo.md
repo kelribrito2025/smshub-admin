@@ -254,6 +254,10 @@
 - [x] Adicionar evento balanceUpdated ao SSE no webhook PIX
 - [x] Atualizar frontend para processar evento balanceUpdated e invalidar cache
 - [x] Testar fluxo completo (PIX → webhook → SSE → atualização UI)
+- [x] Investigar por que saldo não atualiza automaticamente após pagamento confirmado
+- [x] Implementar solução para atualização automática do saldo sem F5
+- [x] Adicionar logs detalhados para diagnóstico
+- [x] Implementar refetch de saldo no callback onSuccess como fallback
 
 
 ---

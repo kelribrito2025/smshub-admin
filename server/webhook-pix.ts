@@ -213,6 +213,7 @@ router.post("/webhook/pix", async (req, res) => {
 
     // Send real-time notification to customer via SSE (no database save - notification shown in modal)
     timestamps.beforeSSE = Date.now();
+    console.log('[PIX Webhook] Sending pix_payment_confirmed notification to customer:', transaction.customerId);
     notificationsManager.sendToCustomer(transaction.customerId, {
       type: "pix_payment_confirmed",
       title: "Recarga Aprovada! 💰",
@@ -226,6 +227,8 @@ router.post("/webhook/pix", async (req, res) => {
     });
     
     // Send balance_updated event to trigger UI refresh (separate from payment confirmation)
+    console.log('[PIX Webhook] Sending balance_updated notification to customer:', transaction.customerId);
+    console.log('[PIX Webhook] Balance change:', balanceBefore, '→', balanceAfter);
     notificationsManager.sendToCustomer(transaction.customerId, {
       type: "balance_updated",
       title: "Saldo Atualizado",

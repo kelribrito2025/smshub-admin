@@ -352,8 +352,14 @@ export function RechargeModal({ isOpen, onClose }: RechargeModalProps) {
           amount={pixAmount}
           customerId={customer?.id || 0}
           onSuccess={() => {
+            console.log('[RechargeModal] Payment confirmed, updating balance and recharges...');
+            
+            // Force immediate balance refresh (bypasses staleTime)
+            utils.store.getCustomer.refetch();
+            
             // Invalidate recharges cache to show new recharge immediately
             utils.recharges.getMyRecharges.invalidate();
+            
             setShowPixModal(false);
             onClose();
           }}
