@@ -1935,3 +1935,5 @@ Garantir que badge do sino e barra lateral atualizem imediatamente quando houver
 - [x] Identificar onde notificações são enviadas via SSE
 - [x] Implementar filtro para excluir admins das notificações globais
 - [x] Testar correção
+
+- [x] Bug: Usuários novos veem todas as notificações antigas ao invés de apenas notificações criadas após o cadastro

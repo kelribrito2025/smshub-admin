@@ -1,70 +1,82 @@
 /**
- * Sistema de lock em memória para prevenir operações simultâneas por cliente
- * Garante que apenas uma operação crítica (compra/cancelamento) execute por vez
+ * Operation Lock Manager
+ * 
+ * Prevents race conditions when multiple operations are executed concurrently
+ * for the same customer (e.g., multiple purchases at the same time).
+ * 
+ * Uses in-memory locks with automatic cleanup after timeout.
  */
 
+interface LockEntry {
+  promise: Promise<void>;
+  timestamp: number;
+}
+
 class OperationLockManager {
-  private locks: Map<number, Promise<any>> = new Map();
+  private locks: Map<number, LockEntry> = new Map();
+  private readonly LOCK_TIMEOUT = 30000; // 30 seconds
 
   /**
-   * Executa operação com lock exclusivo por cliente
-   * Se já houver operação em andamento, aguarda conclusão antes de executar
+   * Execute a function with exclusive lock for a customer
+   * If another operation is already running for this customer, wait for it to complete
    */
-  async executeWithLock<T>(
-    customerId: number,
-    operation: () => Promise<T>
-  ): Promise<T> {
-    // Aguardar operação anterior do mesmo cliente (se houver)
+  async executeWithLock<T>(customerId: number, fn: () => Promise<T>): Promise<T> {
+    // Clean up expired locks
+    this.cleanupExpiredLocks();
+
+    // Wait for existing lock if any
     const existingLock = this.locks.get(customerId);
     if (existingLock) {
-      console.log(`[OperationLock] Customer ${customerId} has operation in progress, waiting...`);
-      try {
-        await existingLock;
-      } catch (error) {
-        // Ignorar erro da operação anterior
-        console.log(`[OperationLock] Previous operation failed, continuing...`);
-      }
+      console.log(`[OperationLock] Waiting for existing operation to complete for customer ${customerId}`);
+      await existingLock.promise.catch(() => {
+        // Ignore errors from previous operation
+      });
     }
 
-    // Criar nova promise para esta operação
-    const operationPromise = (async () => {
-      try {
-        console.log(`[OperationLock] Starting operation for customer ${customerId}`);
-        const result = await operation();
-        console.log(`[OperationLock] Operation completed for customer ${customerId}`);
-        return result;
-      } catch (error) {
-        console.log(`[OperationLock] Operation failed for customer ${customerId}:`, error);
-        throw error;
-      } finally {
-        // Remover lock após conclusão
+    // Create new lock
+    let resolveLock: () => void;
+    const lockPromise = new Promise<void>((resolve) => {
+      resolveLock = resolve;
+    });
+
+    this.locks.set(customerId, {
+      promise: lockPromise,
+      timestamp: Date.now(),
+    });
+
+    try {
+      // Execute the function
+      const result = await fn();
+      return result;
+    } finally {
+      // Release lock
+      resolveLock!();
+      this.locks.delete(customerId);
+    }
+  }
+
+  /**
+   * Clean up locks that have been held for too long (likely due to errors)
+   */
+  private cleanupExpiredLocks() {
+    const now = Date.now();
+    for (const [customerId, lock] of this.locks.entries()) {
+      if (now - lock.timestamp > this.LOCK_TIMEOUT) {
+        console.warn(`[OperationLock] Cleaning up expired lock for customer ${customerId}`);
         this.locks.delete(customerId);
       }
-    })();
-
-    // Registrar lock
-    this.locks.set(customerId, operationPromise);
-
-    return operationPromise;
+    }
   }
 
   /**
-   * Verifica se cliente tem operação em andamento
-   */
-  isLocked(customerId: number): boolean {
-    return this.locks.has(customerId);
-  }
-
-  /**
-   * Retorna estatísticas de locks ativos
+   * Get current lock statistics (for debugging)
    */
   getStats() {
     return {
-      activeOperations: this.locks.size,
-      lockedCustomers: Array.from(this.locks.keys()),
+      activeLocks: this.locks.size,
+      customers: Array.from(this.locks.keys()),
     };
   }
 }
 
-// Export singleton instance
 export const operationLockManager = new OperationLockManager();

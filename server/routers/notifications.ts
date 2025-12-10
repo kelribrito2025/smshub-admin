@@ -1,7 +1,7 @@
 import { router, publicProcedure, protectedProcedure } from "../_core/trpc";
 import { getDb } from "../db";
-import { notifications, notificationReads } from "../../drizzle/schema";
-import { eq, desc, and, or, isNull, sql } from "drizzle-orm";
+import { notifications, notificationReads, customers } from "../../drizzle/schema";
+import { eq, desc, and, or, isNull, sql, gte } from "drizzle-orm";
 import { z } from "zod";
 
 /**
@@ -23,8 +23,20 @@ export const notificationsRouter = router({
       return [];
     }
     
+    // Get customer's createdAt to filter notifications
+    const [customer] = await db
+      .select({ createdAt: customers.createdAt })
+      .from(customers)
+      .where(eq(customers.email, ctx.user.email))
+      .limit(1);
+    
+    if (!customer) {
+      return [];
+    }
+    
     // Get both user-specific and global notifications
     // LEFT JOIN with notification_reads to determine if user has read each notification
+    // FILTER: Only show notifications created AFTER the customer's registration date
     const customerNotifications = await db
       .select({
         id: notifications.id,
@@ -45,9 +57,12 @@ export const notificationsRouter = router({
         )
       )
       .where(
-        or(
-          eq(notifications.customerId, ctx.user.id),
-          isNull(notifications.customerId) // Global notifications
+        and(
+          or(
+            eq(notifications.customerId, ctx.user.id),
+            isNull(notifications.customerId) // Global notifications
+          ),
+          gte(notifications.createdAt, customer.createdAt) // Only notifications after customer registration
         )
       )
       .orderBy(desc(notifications.createdAt))
@@ -108,14 +123,29 @@ export const notificationsRouter = router({
     
     const userId = ctx.user.id; // Store userId to avoid null check issues
     
+    // Get customer's createdAt to filter notifications
+    const [customer] = await db
+      .select({ createdAt: customers.createdAt })
+      .from(customers)
+      .where(eq(customers.id, userId))
+      .limit(1);
+    
+    if (!customer) {
+      throw new Error("Customer not found");
+    }
+    
     // Get all notifications visible to this user (user-specific + global)
+    // FILTER: Only notifications created AFTER the customer's registration date
     const visibleNotifications = await db
       .select({ id: notifications.id })
       .from(notifications)
       .where(
-        or(
-          eq(notifications.customerId, userId),
-          isNull(notifications.customerId) // Global notifications
+        and(
+          or(
+            eq(notifications.customerId, userId),
+            isNull(notifications.customerId) // Global notifications
+          ),
+          gte(notifications.createdAt, customer.createdAt) // Only notifications after customer registration
         )
       );
 
@@ -275,7 +305,19 @@ export const notificationsRouter = router({
       return 0;
     }
     
+    // Get customer's createdAt to filter notifications
+    const [customer] = await db
+      .select({ createdAt: customers.createdAt })
+      .from(customers)
+      .where(eq(customers.email, ctx.user.email))
+      .limit(1);
+    
+    if (!customer) {
+      return 0;
+    }
+    
     // Count notifications visible to this user that don't have a read record
+    // FILTER: Only count notifications created AFTER the customer's registration date
     const unreadCount = await db
       .select({ count: sql<number>`COUNT(*)` })
       .from(notifications)
@@ -292,7 +334,8 @@ export const notificationsRouter = router({
             eq(notifications.customerId, ctx.user.id),
             isNull(notifications.customerId) // Global notifications
           ),
-          isNull(notificationReads.id) // No read record = unread
+          isNull(notificationReads.id), // No read record = unread
+          gte(notifications.createdAt, customer.createdAt) // Only notifications after customer registration
         )
       );
 
