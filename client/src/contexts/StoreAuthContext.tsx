@@ -17,7 +17,7 @@ interface Customer {
   role?: 'admin' | 'user'; // Role from users table (if customer has admin account)
 }
 
-export interface StoreAuthContextType {
+interface StoreAuthContextType {
   customer: Customer | null;
   isLoading: boolean;
   isAuthenticated: boolean;
@@ -64,7 +64,7 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
     enabled: !!customer?.id,
     retry: 1,
     refetchOnWindowFocus: false,
-    staleTime: 0, // Sempre considerar dados stale para permitir invalidação imediata via SSE
+    staleTime: 5 * 60 * 1000, // 5 minutos
   });
 
   const markAsReadMutation = trpc.notifications.markAsRead.useMutation({
