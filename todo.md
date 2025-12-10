@@ -217,3 +217,25 @@
 - [x] Atualizar componente de loading para usar fundo escuro e ícone verde
 - [x] Aplicar estilo consistente em todos os estados de loading
 - [x] Testar visualmente em diferentes contextos
+
+
+---
+
+## 🐛 Erro de JSON Parsing ao Gerar PIX
+
+**Problema:**
+- Ao tentar realizar recarga PIX, aparece erro: "Unexpected token 'R', 'Rate exceeded.' is not valid JSON"
+- API do EfiPay está retornando erro de rate limiting como texto puro
+- Código está tentando fazer parse de resposta não-JSON
+
+**Objetivo:**
+- Corrigir tratamento de erros na geração de PIX
+- Lidar adequadamente com respostas de rate limiting e outros erros da API
+- Exibir mensagens de erro amigáveis ao usuário
+
+**Tarefas:**
+- [x] Investigar código de geração de PIX (server/efipay-client.ts)
+- [x] Identificar onde ocorre o JSON.parse que está falhando
+- [x] Implementar try-catch adequado para respostas não-JSON
+- [x] Adicionar tratamento específico para erro de rate limiting
+- [x] Testar geração de PIX com diferentes cenários de erro

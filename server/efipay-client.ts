@@ -145,21 +145,33 @@ export class EfiPayClient {
       if (error.message) {
         errorMessage = error.message;
       } else if (error.response?.data) {
-        // Try to parse JSON response
-        try {
-          const data = typeof error.response.data === 'string' 
-            ? JSON.parse(error.response.data) 
-            : error.response.data;
-          errorMessage = data.mensagem || data.message || JSON.stringify(data);
-        } catch {
-          // If not JSON, use as string
-          errorMessage = String(error.response.data);
+        // First, check if it's a string (might be plain text error)
+        if (typeof error.response.data === 'string') {
+          errorMessage = error.response.data;
+          
+          // Check for rate limit error in plain text
+          if (errorMessage.includes('Rate exceeded') || errorMessage.includes('rate limit')) {
+            throw new Error('Limite de requisições excedido. Aguarde alguns segundos e tente novamente.');
+          }
+          
+          // Try to parse as JSON only if it looks like JSON
+          if (errorMessage.trim().startsWith('{') || errorMessage.trim().startsWith('[')) {
+            try {
+              const data = JSON.parse(errorMessage);
+              errorMessage = data.mensagem || data.message || errorMessage;
+            } catch {
+              // Keep the original string if JSON parse fails
+            }
+          }
+        } else {
+          // Already an object
+          errorMessage = error.response.data.mensagem || error.response.data.message || JSON.stringify(error.response.data);
         }
       } else if (error.response?.statusText) {
         errorMessage = error.response.statusText;
       }
       
-      // Check for rate limit error
+      // Check for rate limit error (after processing)
       if (errorMessage.includes('Rate exceeded') || errorMessage.includes('rate limit')) {
         throw new Error('Limite de requisições excedido. Aguarde alguns segundos e tente novamente.');
       }
