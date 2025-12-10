@@ -7,6 +7,7 @@ import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { User, Mail, Hash, Key, MapPin, Home, Copy } from 'lucide-react';
 import { copyToClipboard } from '../lib/clipboard';
+import { ProfileSkeleton } from '../components/skeletons';
 
 export default function StoreAccount() {
   const { customer, logout } = useStoreAuth();
@@ -29,7 +30,11 @@ export default function StoreAccount() {
   }, [customer, setLocation]);
 
   if (!customer) {
-    return null; // Will redirect in useEffect
+    return (
+      <StoreLayout>
+        <ProfileSkeleton />
+      </StoreLayout>
+    );
   }
 
   return (

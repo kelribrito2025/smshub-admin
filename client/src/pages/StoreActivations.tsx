@@ -8,6 +8,7 @@ import { ChevronLeft, ChevronRight, ChevronDown, ChevronUp, History } from 'luci
 import TableSkeleton from '../components/TableSkeleton';
 import { AnimatedPage } from '../components/AnimatedPage';
 import { AnimatedList, AnimatedListItem } from '../components/AnimatedList';
+import { ActivationsTableSkeleton } from '../components/skeletons';
 
 
 export default function StoreActivations() {
@@ -105,6 +106,14 @@ export default function StoreActivations() {
   const startEntry = totalEntries > 0 ? (currentPage - 1) * limit + 1 : 0;
   const endEntry = Math.min(currentPage * limit, totalEntries);
 
+  if (historyQuery.isLoading) {
+    return (
+      <StoreLayout>
+        <ActivationsTableSkeleton />
+      </StoreLayout>
+    );
+  }
+
   return (
     <StoreLayout>
       <AnimatedPage className="space-y-6">
@@ -145,9 +154,7 @@ export default function StoreActivations() {
                 </tr>
               </thead>
               <tbody>
-                {historyQuery.isLoading ? (
-                  <TableSkeleton rows={5} columns={5} />
-                ) : activations.length > 0 ? (
+                {activations.length > 0 ? (
                   <>
                     {activations.map((activation: any) => {
                       const smsMessages = activation.smsMessages || [];

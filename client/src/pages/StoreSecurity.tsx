@@ -8,6 +8,7 @@ import { Input } from '../components/ui/input';
 import { Shield, Key, History, Smartphone } from 'lucide-react';
 import { trpc } from '../lib/trpc';
 import { toast } from 'sonner';
+import { GenericPageSkeleton } from '../components/skeletons';
 
 function SessionsTable({ customerId }: { customerId: number }) {
   const sessionsQuery = trpc.security.getSessions.useQuery({ customerId });
@@ -117,7 +118,11 @@ export default function StoreSecurity() {
   }, [customer, setLocation]);
 
   if (!customer) {
-    return null;
+    return (
+      <StoreLayout>
+        <GenericPageSkeleton />
+      </StoreLayout>
+    );
   }
 
   return (

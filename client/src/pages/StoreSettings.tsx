@@ -12,6 +12,7 @@ import {
   testNotificationSound,
   type SoundSettings,
 } from '@/lib/utils';
+import { GenericPageSkeleton } from '../components/skeletons';
 
 // Biblioteca de sons disponíveis
 const SOUND_LIBRARY = [
@@ -31,7 +32,11 @@ export default function StoreSettings() {
   }, [customer, setLocation]);
 
   if (!customer) {
-    return null; // Will redirect in useEffect
+    return (
+      <StoreLayout>
+        <GenericPageSkeleton />
+      </StoreLayout>
+    );
   }
 
   // Salvar configurações automaticamente quando mudarem

@@ -7,6 +7,7 @@ import { CreditCard, ChevronLeft, ChevronRight, CheckCircle, XCircle } from 'luc
 import TableSkeleton from '../components/TableSkeleton';
 import { useLocation } from 'wouter';
 import { toast } from 'sonner';
+import { HistorySkeleton } from '../components/skeletons';
 
 
 
@@ -184,6 +185,14 @@ export default function StoreRecharges() {
   const startEntry = totalEntries > 0 ? (currentPage - 1) * limit + 1 : 0;
   const endEntry = Math.min(currentPage * limit, totalEntries);
 
+  if (rechargesQuery.isLoading) {
+    return (
+      <StoreLayout>
+        <HistorySkeleton />
+      </StoreLayout>
+    );
+  }
+
   return (
     <StoreLayout>
       <div className="space-y-6">
@@ -250,9 +259,7 @@ export default function StoreRecharges() {
                 </tr>
               </thead>
               <tbody>
-                {rechargesQuery.isLoading ? (
-                  <TableSkeleton rows={5} columns={5} />
-                ) : recharges.length > 0 ? (
+                {recharges.length > 0 ? (
                   recharges.map((recharge: any) => (
                     <tr key={recharge.id} className="border-b border-green-900/30 hover:bg-green-900/10 transition-colors">
                       <td className="px-3 md:px-6 py-3 md:py-4 text-green-400 font-mono text-xs md:text-sm">
