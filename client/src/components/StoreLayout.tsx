@@ -30,7 +30,7 @@ interface StoreLayoutProps {
 }
 
 export default function StoreLayout({ children }: StoreLayoutProps) {
-  const { customer, isAuthenticated, requireAuth, logout, isSSEConnected, lastNotification } = useStoreAuth();
+  const { customer, isAuthenticated, requireAuth, logout, isSSEConnected, lastNotification, unreadCount } = useStoreAuth();
   // ✅ REMOVIDO: useOperationLock (SSE agora está centralizado no StoreAuthContext)
   const isLocked = false; // Operações não são mais bloqueadas globalmente
   const [location, setLocation] = useLocation();

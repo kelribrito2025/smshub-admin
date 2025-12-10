@@ -37,17 +37,44 @@ function Router() {
       </div>
     }>
       <Switch>
-      {/* Painel de Vendas (Público) */}
-      <Route path={"/"} component={StoreCatalog} />
-      <Route path="/history" component={StoreActivations} />
-      <Route path="/account" component={StoreAccount} />
-      <Route path="/security" component={StoreSecurity} />
-      <Route path="/settings" component={StoreSettings} />
-      <Route path="/affiliate" component={StoreAffiliate} />
-      <Route path="/recharges" component={StoreRecharges} />
+      {/* Painel de Vendas (Público) - COM StoreAuthProvider */}
+      <Route path={"/"}>
+        <StoreAuthProvider>
+          <StoreCatalog />
+        </StoreAuthProvider>
+      </Route>
+      <Route path="/history">
+        <StoreAuthProvider>
+          <StoreActivations />
+        </StoreAuthProvider>
+      </Route>
+      <Route path="/account">
+        <StoreAuthProvider>
+          <StoreAccount />
+        </StoreAuthProvider>
+      </Route>
+      <Route path="/security">
+        <StoreAuthProvider>
+          <StoreSecurity />
+        </StoreAuthProvider>
+      </Route>
+      <Route path="/settings">
+        <StoreAuthProvider>
+          <StoreSettings />
+        </StoreAuthProvider>
+      </Route>
+      <Route path="/affiliate">
+        <StoreAuthProvider>
+          <StoreAffiliate />
+        </StoreAuthProvider>
+      </Route>
+      <Route path="/recharges">
+        <StoreAuthProvider>
+          <StoreRecharges />
+        </StoreAuthProvider>
+      </Route>
 
-
-      {/* Área Administrativa (Requer Login Manus) */}
+      {/* Área Administrativa (Requer Login Manus) - SEM StoreAuthProvider */}
       <Route path={"/admin"} component={Dashboard} />
       <Route path={"/admin/dashboard"} component={Dashboard} />
       <Route path={"/admin/settings"} component={Settings} />
@@ -82,9 +109,7 @@ function App() {
       >
         <Toaster duration={2300} closeButton={false} visibleToasts={1} />
         <TooltipProvider>
-          <StoreAuthProvider>
-            <Router />
-          </StoreAuthProvider>
+          <Router />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>

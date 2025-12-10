@@ -45,12 +45,12 @@
 ## ✅ Limpeza do Banco de Dados (Concluído)
 - [x] Remover tabelas do projeto inicial (sales, messages, campaigns, clients)
 
-## ✅ Correções de Bugs (Concluído)
+## ✅## Correções de Bugs (Concluído)
 - [x] Criar procedure adminMenus.getAll no backend
 - [x] Criar procedure stats.getDashboard no backend
 - [x] Criar procedure settings.get no backend
-
----
+- [x] Corrigir ReferenceError: unreadCount is not defined no StoreLayout
+- [x] Resolver conflito de autenticação entre painel admin e store na mesma aba---
 
 # 🚀 MIGRAÇÃO COMPLETA DO PROJETO ANTIGO
 
