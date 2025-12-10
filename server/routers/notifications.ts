@@ -25,6 +25,9 @@ export const notificationsRouter = router({
     
     // Get both user-specific and global notifications
     // LEFT JOIN with notification_reads to determine if user has read each notification
+    // IMPORTANT: Admins should NOT see global notifications (only users see them)
+    const isAdmin = ctx.user.role === "admin";
+    
     const customerNotifications = await db
       .select({
         id: notifications.id,
@@ -45,10 +48,14 @@ export const notificationsRouter = router({
         )
       )
       .where(
-        or(
-          eq(notifications.customerId, ctx.user.id),
-          isNull(notifications.customerId) // Global notifications
-        )
+        isAdmin
+          ? // Admins: only user-specific notifications (no global)
+            eq(notifications.customerId, ctx.user.id)
+          : // Users: user-specific + global notifications
+            or(
+              eq(notifications.customerId, ctx.user.id),
+              isNull(notifications.customerId) // Global notifications
+            )
       )
       .orderBy(desc(notifications.createdAt))
       .limit(50); // Last 50 notifications
@@ -276,6 +283,9 @@ export const notificationsRouter = router({
     }
     
     // Count notifications visible to this user that don't have a read record
+    // IMPORTANT: Admins should NOT see global notifications (only users see them)
+    const isAdmin = ctx.user.role === "admin";
+    
     const unreadCount = await db
       .select({ count: sql<number>`COUNT(*)` })
       .from(notifications)
@@ -288,10 +298,14 @@ export const notificationsRouter = router({
       )
       .where(
         and(
-          or(
-            eq(notifications.customerId, ctx.user.id),
-            isNull(notifications.customerId) // Global notifications
-          ),
+          isAdmin
+            ? // Admins: only user-specific notifications (no global)
+              eq(notifications.customerId, ctx.user.id)
+            : // Users: user-specific + global notifications
+              or(
+                eq(notifications.customerId, ctx.user.id),
+                isNull(notifications.customerId) // Global notifications
+              ),
           isNull(notificationReads.id) // No read record = unread
         )
       );
