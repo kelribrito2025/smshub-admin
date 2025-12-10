@@ -271,3 +271,28 @@
 - [x] Remover links de navegação no StoreLayout.tsx
 - [x] Remover prefetch das páginas no StoreAuthContext.tsx
 - [x] Validar que não há erros após remoção
+
+
+---
+
+## ✅ Lentidão no Carregamento Inicial da Página (RESOLVIDO)
+
+**Problema:**
+- Página demorava para carregar ao entrar no sistema
+- Múltiplas queries sendo executadas simultaneamente (6-8 queries)
+- Prefetch de páginas bloqueando carregamento inicial
+- Query duplicada de ativações
+
+**Solução Implementada:**
+- [x] Analisar queries executadas no carregamento inicial
+- [x] Implementar lazy loading para queries não críticas (preços, operadoras, favoritos)
+- [x] Otimizar ordem de carregamento (serviços e países primeiro, resto depois)
+- [x] Remover query duplicada de ativações no StoreLayout
+- [x] Prefetch lazy (2 segundos de delay) para não bloquear carregamento
+- [x] Remover prefetch de páginas (lazy loading real)
+- [x] Otimizar QueryClient (retry: 1, backoff mais rápido)
+- [x] Remover polling desnecessário de SMS codes
+
+**Resultado:**
+- Antes: 6-8 queries simultâneas + prefetch de 5 páginas
+- Agora: 2-3 queries críticas primeiro → resto carrega progressivamente

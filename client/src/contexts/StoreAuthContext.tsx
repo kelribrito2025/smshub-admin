@@ -5,13 +5,8 @@ import BannedAccountModal from '../components/BannedAccountModal';
 import { useNotifications, type Notification } from '../hooks/useNotifications';
 import InitialLoader from '../components/InitialLoader';
 
-// Prefetch das rotas principais para eliminar loading entre páginas
-import('../pages/StoreCatalog');
-import('../pages/StoreActivations');
-import('../pages/StoreAccount');
-
-import('../pages/StoreAffiliate');
-import('../pages/StoreRecharges');
+// ✅ REMOVIDO: Prefetch de páginas (causava lentidão no carregamento inicial)
+// Páginas serão carregadas sob demanda (lazy loading) quando o usuário navegar
 
 interface Customer {
   id: number;
@@ -104,12 +99,16 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
     setIsLoading(false);
   }, []);
 
-  // Prefetch de queries críticas após autenticação para navegação instantânea
+  // ✅ OTIMIZAÇÃO: Prefetch lazy (após 2 segundos) para não bloquear carregamento inicial
   useEffect(() => {
     if (customer?.id) {
-      // Prefetch de dados que serão usados em outras páginas
-      utils.store.getMyActivations.prefetch({ customerId: customer.id });
-      utils.recharges.getMyRecharges.prefetch({ customerId: customer.id });
+      // Agendar prefetch para depois do carregamento inicial
+      const timer = setTimeout(() => {
+        utils.store.getMyActivations.prefetch({ customerId: customer.id });
+        utils.recharges.getMyRecharges.prefetch({ customerId: customer.id });
+      }, 2000); // 2 segundos de delay
+      
+      return () => clearTimeout(timer);
     }
   }, [customer?.id, utils]);
 

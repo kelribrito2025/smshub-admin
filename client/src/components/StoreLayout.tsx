@@ -63,6 +63,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
   const lastPurchaseNotification = useRef<number>(0); // Timestamp of last purchase notification
 
   // Configure conservative refetch to avoid 429 (Too Many Requests)
+  // ✅ OTIMIZAÇÃO: Queries críticas carregam primeiro, não-críticas depois
   const servicesQuery = trpc.store.getServices.useQuery(undefined, {
     refetchOnWindowFocus: false,
     staleTime: 7 * 60 * 1000, // 7 minutes
@@ -74,12 +75,16 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
   const pricesQuery = trpc.store.getPrices.useQuery({}, {
     refetchOnWindowFocus: false,
     staleTime: 2 * 60 * 1000, // 2 minutes
+    // ✅ Carregar preços apenas após serviços e países estarem prontos
+    enabled: !!servicesQuery.data && !!countriesQuery.data,
   });
   const operatorsQuery = trpc.store.getOperators.useQuery(
     { countryId: selectedCountry || undefined },
     {
       refetchOnWindowFocus: false,
       staleTime: 7 * 60 * 1000, // 7 minutes
+      // ✅ Carregar operadoras apenas após país ser selecionado
+      enabled: !!selectedCountry,
     }
   );
 
@@ -89,21 +94,15 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
   const favoritesQuery = trpc.store.getFavorites.useQuery(
     { customerId: customer?.id || 0 },
     { 
-      enabled: !!customer?.id,
+      // ✅ Carregar favoritos apenas se autenticado E após serviços estarem prontos
+      enabled: !!customer?.id && !!servicesQuery.data,
       refetchOnWindowFocus: false,
       staleTime: 60 * 1000, // 1 minute
     }
   );
   
-  const activationsQuery = trpc.store.getMyActivations.useQuery(
-    { customerId: customer?.id || 0 },
-    { 
-      enabled: !!customer?.id,
-      retry: 1, // Apenas 1 retry para evitar 429
-      refetchOnWindowFocus: false,
-      staleTime: 2 * 60 * 1000, // 2 minutos (SSE invalida quando necessário)
-    }
-  );
+  // ✅ REMOVIDO: Query duplicada - será carregada apenas na página específica (StoreCatalog)
+  // const activationsQuery = trpc.store.getMyActivations.useQuery(...)
   
   const utils = trpc.useUtils();
 
@@ -164,47 +163,8 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
     }
   }, [isAuthenticated, showFavorites]);
 
-  // Polling is now handled by refetchInterval in the query (30s)
-  // Removed manual interval to avoid duplicate polling and 429 errors
-
-  // Detect new SMS codes and show notification (only if authenticated)
-  useEffect(() => {
-    if (!activationsQuery.data || !isAuthenticated) return;
-
-    const currentActivations = activationsQuery.data;
-    const currentKeys = new Set(
-      currentActivations
-        .filter((a: any) => a.smsCode) // Only track activations with SMS codes
-        .map((a: any) => `${a.id}-${a.smsCode}`)
-    );
-
-    // Check for new SMS codes
-    setPreviousActivations((prev) => {
-      // Skip notification on first load
-      if (isFirstLoad.current) {
-        isFirstLoad.current = false;
-        return currentKeys;
-      }
-
-      // Check for new SMS codes by comparing with previous state
-      currentActivations.forEach((activation: any) => {
-        if (activation.smsCode) {
-          const key = `${activation.id}-${activation.smsCode}`;
-          if (!prev.has(key)) {
-            // New SMS code detected!
-            toast.success('📱 Novo código SMS recebido!', {
-              description: `Serviço: ${activation.service?.name || 'Desconhecido'}`,
-              duration: 5000,
-            });
-            
-            // Som de SMS removido durante fase de validação
-          }
-        }
-      });
-
-      return currentKeys;
-    });
-  }, [activationsQuery.data, isAuthenticated]);
+  // ✅ REMOVIDO: Detecção de novos SMS codes (agora feita via SSE no StoreAuthContext)
+  // Notificações de SMS são enviadas via SSE, não precisamos mais fazer polling
 
   const formatBalance = (cents: number) => `R$ ${(cents / 100).toFixed(2)}`;
 

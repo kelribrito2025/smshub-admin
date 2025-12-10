@@ -17,8 +17,8 @@ const queryClient = new QueryClient({
       refetchOnMount: false, // Don't auto-refetch when component mounts if data is fresh
       refetchOnWindowFocus: false, // Don't auto-refetch when window regains focus
       refetchOnReconnect: true, // Only refetch when reconnecting to network
-      retry: 3, // Retry failed queries up to 3 times
-      retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000), // Exponential backoff: 1s, 2s, 4s, 8s... max 30s
+      retry: 1, // ✅ Apenas 1 retry para carregamento mais rápido (evita esperar muito em caso de erro)
+      retryDelay: (attemptIndex) => Math.min(500 * 2 ** attemptIndex, 10000), // ✅ Backoff mais rápido: 500ms, 1s, 2s... max 10s
     },
   },
 });
