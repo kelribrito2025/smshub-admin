@@ -1935,6 +1935,3 @@ Garantir que badge do sino e barra lateral atualizem imediatamente quando houver
 - [x] Identificar onde notificações são enviadas via SSE
 - [x] Implementar filtro para excluir admins das notificações globais
 - [x] Testar correção
-
-## 🔔 Correção de Notificações Globais
-- [x] Corrigir notificações globais ainda aparecendo no painel administrativo (devem aparecer apenas para usuários)
