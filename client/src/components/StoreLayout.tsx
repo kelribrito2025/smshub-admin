@@ -31,7 +31,7 @@ interface StoreLayoutProps {
 
 export default function StoreLayout({ children }: StoreLayoutProps) {
   const authContext = useStoreAuth();
-  const { customer, isAuthenticated, requireAuth, logout, isSSEConnected, lastNotification, notifications, unreadCount } = authContext;
+  const { customer, isAuthenticated, requireAuth, logout, isSSEConnected, lastNotification, notifications, unreadCount, markAsRead, markAllAsRead } = authContext;
   // ✅ REMOVIDO: useOperationLock (SSE agora está centralizado no StoreAuthContext)
   const isLocked = false; // Operações não são mais bloqueadas globalmente
   const [location, setLocation] = useLocation();
@@ -868,7 +868,11 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
       {/* Notifications Sidebar */}
       <NotificationsSidebar 
         isOpen={notificationsSidebarOpen} 
-        onClose={() => setNotificationsSidebarOpen(false)} 
+        onClose={() => setNotificationsSidebarOpen(false)}
+        notifications={notifications}
+        unreadCount={unreadCount}
+        markAsRead={markAsRead}
+        markAllAsRead={markAllAsRead}
       />
     </div>
   );

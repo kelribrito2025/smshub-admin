@@ -362,6 +362,8 @@
 - [x] Criar testes para funcionalidade de banimento (4 testes passaram)
 - [x] Adicionar campo `bannedReason` para armazenar motivo do banimento
 
+- [x] BUG: Notificações do painel de vendas desaparecem quando admin desloga (isolamento de contextos)
+
 ## 🐛 BUG: Notificação Individual Não Chegou para fcokelrihbrito@gmail.com
 
 **Problema reportado:**

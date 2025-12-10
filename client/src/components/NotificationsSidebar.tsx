@@ -1,6 +1,4 @@
-import { useEffect } from 'react';
 import { X, Bell, AlertCircle, CheckCircle, Info, Clock } from 'lucide-react';
-import { trpc } from '@/lib/trpc';
 
 interface Notification {
   id: number;
@@ -15,53 +13,20 @@ interface Notification {
 interface NotificationsSidebarProps {
   isOpen: boolean;
   onClose: () => void;
+  notifications: Notification[];
+  unreadCount: number;
+  markAsRead: (id: number) => Promise<void>;
+  markAllAsRead: () => Promise<void>;
 }
 
-export default function NotificationsSidebar({ isOpen, onClose }: NotificationsSidebarProps) {
-  const utils = trpc.useUtils();
-  
-  // Fetch notifications from backend
-  // Configuração otimizada para evitar erro 429 (Too Many Requests):
-  // - staleTime: 30s → considera dados frescos por 30s
-  // - refetchInterval: 30s → polling moderado (reduzido de 10s)
-  // - refetchOnWindowFocus: false → evita requisições ao trocar de aba
-  // - retry: 1 → apenas 1 retry para evitar sobrecarga
-  const { data: notifications = [], refetch } = trpc.notifications.getAll.useQuery(undefined, {
-    staleTime: 30 * 1000,
-    refetchInterval: 30 * 1000, // Refetch every 30 seconds (reduced from 10s)
-    refetchOnWindowFocus: false, // Avoid requests when switching tabs
-    retry: 1, // Only 1 retry to prevent 429 errors
-  });
-
-  const markAsReadMutation = trpc.notifications.markAsRead.useMutation({
-    onSuccess: () => {
-      refetch();
-    },
-  });
-
-  const markAllAsReadMutation = trpc.notifications.markAllAsRead.useMutation({
-    onSuccess: () => {
-      refetch();
-    },
-  });
-
-  const markAsRead = (id: number) => {
-    markAsReadMutation.mutate({ id });
-  };
-
-  const markAllAsRead = () => {
-    markAllAsReadMutation.mutate();
-  };
-
-  // Força refetch ao abrir barra lateral para garantir dados frescos
-  useEffect(() => {
-    if (isOpen) {
-      refetch();
-    }
-  }, [isOpen, refetch]);
-
-  const unreadCount = notifications.filter(n => !n.isRead).length;
-
+export default function NotificationsSidebar({ 
+  isOpen, 
+  onClose, 
+  notifications, 
+  unreadCount,
+  markAsRead,
+  markAllAsRead 
+}: NotificationsSidebarProps) {
   const getIcon = (type: string) => {
     switch (type) {
       case 'success':

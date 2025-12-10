@@ -14,10 +14,9 @@ interface Customer {
   banned?: boolean;
   bannedAt?: Date | null;
   bannedReason?: string | null;
-  role?: 'admin' | 'user'; // Role from users table (if customer has admin account)
+  role?: 'admin' | 'user';
 }
 
-// Store authentication context type definition
 export interface StoreAuthContextType {
   customer: Customer | null;
   isLoading: boolean;
@@ -27,10 +26,8 @@ export interface StoreAuthContextType {
   logout: () => void;
   refreshCustomer: () => Promise<void>;
   requireAuth: (action: () => void) => void;
-  // SSE connection state
   isSSEConnected: boolean;
   lastNotification: Notification | null;
-  // Notifications state
   notifications: any[];
   unreadCount: number;
   markAsRead: (notificationId: number) => Promise<void>;
@@ -49,23 +46,22 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
 
   const loginMutation = trpc.store.login.useMutation();
   const registerMutation = trpc.store.register.useMutation();
-  // ✅ CENTRALIZADO: Query única de customer (sem polling - SSE invalida quando necessário)
+  
   const getCustomerQuery = trpc.store.getCustomer.useQuery(
     { customerId: customer?.id || 0 },
     { 
       enabled: !!customer?.id,
-      retry: 1, // Apenas 1 retry para evitar 429
-      refetchOnWindowFocus: false, // SSE invalida quando necessário
-      staleTime: 5 * 60 * 1000, // Dados frescos por 5 minutos
+      retry: 1,
+      refetchOnWindowFocus: false,
+      staleTime: 5 * 60 * 1000,
     }
   );
 
-  // ✅ CENTRALIZADO: Query única de notificações (sem polling - SSE invalida quando necessário)
   const notificationsQuery = trpc.notifications.getAll.useQuery(undefined, {
     enabled: !!customer?.id,
     retry: 1,
     refetchOnWindowFocus: false,
-    staleTime: 0, // Sempre considerar dados stale para permitir invalidação imediata via SSE
+    staleTime: 0,
   });
 
   const markAsReadMutation = trpc.notifications.markAsRead.useMutation({
@@ -88,12 +84,10 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
     await markAllAsReadMutation.mutateAsync();
   };
 
-  // ✅ CENTRALIZADO: SSE única conexão para notificações e eventos
   const { isConnected: isSSEConnected, lastNotification } = useNotifications({
     customerId: customer?.id || null,
-    autoToast: true, // Mostrar toasts automaticamente
+    autoToast: true,
     onNotification: (notification) => {
-      // Invalidar queries relevantes baseado no tipo de notificação
       if (notification.type === 'pix_payment_confirmed' || notification.type === 'balance_updated') {
         utils.store.getCustomer.invalidate();
         utils.recharges.getMyRecharges.invalidate();
@@ -105,16 +99,13 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
         utils.store.getMyActivations.invalidate();
         utils.store.getCustomer.invalidate();
       }
-      // Invalidar notificações para atualizar badge
       utils.notifications.getAll.invalidate();
     },
   });
 
-  // Calculate notifications and unread count
   const notifications = notificationsQuery.data || [];
   const unreadCount = notifications.filter((n: any) => !n.isRead).length;
 
-  // Load customer from localStorage on mount
   useEffect(() => {
     const storedCustomer = localStorage.getItem('store_customer');
     if (storedCustomer) {
@@ -128,18 +119,15 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
     setIsLoading(false);
   }, []);
 
-  // Update customer data when query succeeds
   useEffect(() => {
     if (getCustomerQuery.data) {
       setCustomer(getCustomerQuery.data);
       localStorage.setItem('store_customer', JSON.stringify(getCustomerQuery.data));
       
-      // Check if customer is banned
       if (getCustomerQuery.data.banned) {
         setIsBannedModalOpen(true);
       }
     } else if (getCustomerQuery.data === null && customer) {
-      // ✅ CORREÇÃO: Se query retornar null, limpar estado (cliente não existe mais)
       setCustomer(null);
       localStorage.removeItem('store_customer');
     }
@@ -154,7 +142,6 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
       setCustomer(result);
       localStorage.setItem('store_customer', JSON.stringify(result));
       
-      // Execute pending action if exists
       if (pendingAction) {
         pendingAction();
         setPendingAction(null);
@@ -170,7 +157,6 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
       setCustomer(result);
       localStorage.setItem('store_customer', JSON.stringify(result));
       
-      // Execute pending action if exists
       if (pendingAction) {
         pendingAction();
         setPendingAction(null);
@@ -191,13 +177,10 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  // Function to require authentication before executing an action
   const requireAuth = (action: () => void) => {
     if (customer) {
-      // Already authenticated, execute immediately
       action();
     } else {
-      // Not authenticated, save action and show login modal
       setPendingAction(() => action);
       setIsLoginModalOpen(true);
     }
@@ -210,30 +193,28 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
 
   const handleBannedModalClose = () => {
     setIsBannedModalOpen(false);
-    logout(); // Force logout when banned modal is closed
+    logout();
   };
 
   const contextValue: StoreAuthContextType = {
-        customer,
-        isLoading,
-        isAuthenticated: !!customer,
-        login,
-        register,
-        logout,
-        refreshCustomer,
-        requireAuth,
-        isSSEConnected,
-        lastNotification,
-        notifications,
-        unreadCount,
-        markAsRead,
-        markAllAsRead,
+    customer,
+    isLoading,
+    isAuthenticated: !!customer,
+    login,
+    register,
+    logout,
+    refreshCustomer,
+    requireAuth,
+    isSSEConnected,
+    lastNotification,
+    notifications,
+    unreadCount,
+    markAsRead,
+    markAllAsRead,
   };
 
   return (
-    <StoreAuthContext.Provider
-      value={contextValue}
-    >
+    <StoreAuthContext.Provider value={contextValue}>
       {children}
       <LoginModal
         isOpen={isLoginModalOpen}
