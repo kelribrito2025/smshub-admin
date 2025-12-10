@@ -65,7 +65,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
   // Configure conservative refetch to avoid 429 (Too Many Requests)
   const servicesQuery = trpc.store.getServices.useQuery(undefined, {
     refetchOnWindowFocus: false,
-    staleTime: 5 * 60 * 1000, // 5 minutes
+    staleTime: 7 * 60 * 1000, // 7 minutes
   });
   const countriesQuery = trpc.store.getCountries.useQuery(undefined, {
     refetchOnWindowFocus: false,
@@ -79,7 +79,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
     { countryId: selectedCountry || undefined },
     {
       refetchOnWindowFocus: false,
-      staleTime: 5 * 60 * 1000, // 5 minutes
+      staleTime: 7 * 60 * 1000, // 7 minutes
     }
   );
 

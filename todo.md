@@ -190,3 +190,15 @@
 - [x] Remover código relacionado no frontend
 - [x] Remover rotas/procedures relacionados no backend (se existirem)
 - [x] Validar que não há erros após remoção
+
+
+---
+
+## ⏱️ Aumentar staleTime para 7 Minutos
+
+**Objetivo:**
+- Aumentar o staleTime de 5 para 7 minutos (420000ms) nas queries do StoreLayout.tsx
+- Reduzir frequência de requisições ao backend
+
+**Tarefas:**
+- [x] Atualizar staleTime das queries relevantes no StoreLayout.tsx
