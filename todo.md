@@ -341,3 +341,4 @@
 **Tarefas:**
 - [x] Adicionar toast de confirmação após pagamento PIX ser processado com sucesso
 - [x] Remover delay de 2 segundos e fechar modal imediatamente após pagamento
+- [x] Otimizar tempo de fechamento do modal de recarga PIX após pagamento (reduzir delay de ~10s)

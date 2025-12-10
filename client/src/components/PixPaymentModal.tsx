@@ -50,7 +50,7 @@ export function PixPaymentModal({
     },
     {
       enabled: !!pixData?.txid && !paymentConfirmed,
-      refetchInterval: 10000, // Poll every 10 seconds (increased to prevent 429 errors)
+      refetchInterval: 3000, // Poll every 3 seconds for faster detection
       retry: 1, // Only 1 retry to prevent 429 errors
       refetchOnWindowFocus: false, // Avoid requests when switching tabs
     }
@@ -86,8 +86,10 @@ export function PixPaymentModal({
           duration: 4000,
         });
         onSuccess();
-        // Close immediately after payment confirmation
-        onClose();
+        // Close modal after 500ms to show success state briefly
+        setTimeout(() => {
+          onClose();
+        }, 500);
       }
     };
 
@@ -104,8 +106,10 @@ export function PixPaymentModal({
         duration: 4000,
       });
       onSuccess();
-      // Close immediately after payment confirmation
-      onClose();
+      // Close modal after 500ms to show success state briefly
+      setTimeout(() => {
+        onClose();
+      }, 500);
     }
   }, [getTransactionQuery.data?.status, paymentConfirmed, onSuccess, onClose]);
 
@@ -211,7 +215,7 @@ export function PixPaymentModal({
 
             {/* Auto-close message */}
             <p className="text-gray-500 text-xs">
-              Esta janela fechará automaticamente em alguns segundos...
+              Fechando automaticamente...
             </p>
           </div>
         )}
