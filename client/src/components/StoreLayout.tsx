@@ -396,22 +396,26 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
               <LayoutDashboard className="w-4 h-4" />
               Dashboard
             </Button>
-            <Button
-              onClick={handleHistory}
-              variant="ghost"
-              className={`${isActive('/history') ? 'bg-green-500 text-black hover:bg-green-500 hover:brightness-110' : 'text-green-600 hover:text-green-400 hover:bg-green-900/20'} font-mono flex items-center gap-2`}
-            >
-              <History className="w-4 h-4" />
-              Histórico
-            </Button>
-            <Button
-              onClick={() => setLocation('/affiliate')}
-              variant="ghost"
-              className={`${isActive('/affiliate') ? 'bg-green-500 text-black hover:bg-green-500 hover:brightness-110' : 'text-green-600 hover:text-green-400 hover:bg-green-900/20'} font-mono flex items-center gap-2`}
-            >
-              <Gift className="w-4 h-4" />
-              Afiliados
-            </Button>
+            {isAuthenticated && (
+              <Button
+                onClick={handleHistory}
+                variant="ghost"
+                className={`${isActive('/history') ? 'bg-green-500 text-black hover:bg-green-500 hover:brightness-110' : 'text-green-600 hover:text-green-400 hover:bg-green-900/20'} font-mono flex items-center gap-2`}
+              >
+                <History className="w-4 h-4" />
+                Histórico
+              </Button>
+            )}
+            {isAuthenticated && (
+              <Button
+                onClick={() => setLocation('/affiliate')}
+                variant="ghost"
+                className={`${isActive('/affiliate') ? 'bg-green-500 text-black hover:bg-green-500 hover:brightness-110' : 'text-green-600 hover:text-green-400 hover:bg-green-900/20'} font-mono flex items-center gap-2`}
+              >
+                <Gift className="w-4 h-4" />
+                Afiliados
+              </Button>
+            )}
           </nav>
         </div>
 

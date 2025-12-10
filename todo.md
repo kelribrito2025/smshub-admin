@@ -307,4 +307,20 @@
 - Redirecionar usuários não autenticados para login
 
 **Tarefas:**
-- [x] Proteger página /history para exibir apenas quando usuário estiver logado
+- [x] Proteger página /history para exibir apenas quando usuário estiver logado (BUG: ainda acessível para não autenticados)
+
+
+---
+
+## 👻 Remover Elemento Fantasma
+
+**Problema:**
+- Existe um elemento fantasma aparecendo no projeto
+- Necessário identificar e remover
+
+**Tarefas:**
+- [x] Identificar qual elemento fantasma está aparecendo
+- [x] Localizar origem do elemento no código
+- [x] Remover elemento fantasma do código
+- [x] Testar para confirmar remoção
+
