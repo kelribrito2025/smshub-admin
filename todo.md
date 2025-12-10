@@ -356,3 +356,33 @@
 - [x] Modificar cor do QR Code de preto para verde do sistema
 
 - [x] Modificar fundo do QR Code de branco para cor escura do modal
+
+
+---
+
+## 🔍 Auditoria Completa: Erro 429 (Requisições Duplicadas)
+
+**Objetivo:**
+- Revisar TODOS os pontos que podem causar requisições duplicadas
+- Garantir que erro 429 não volte a ocorrer
+- Otimizar configuração de cache e refetch em todo o sistema
+
+**Pontos de Verificação:**
+1. Queries TRPC sem enabled, staleTime e refetchOnMount: false
+2. useEffects instáveis que disparam refetch
+3. Conexões SSE duplicadas
+4. Invalidações em cascata no TRPC
+5. Loops de re-renderização causados por estado global
+
+**Tarefas:**
+- [x] Auditar todas as queries TRPC em StoreLayout.tsx
+- [x] Auditar todas as queries TRPC em StoreDashboard.tsx
+- [x] Auditar todas as queries TRPC em StoreHistory.tsx
+- [x] Auditar todas as queries TRPC em StoreAccount.tsx
+- [x] Auditar todas as queries TRPC em StoreAuthContext.tsx
+- [x] Verificar useEffects que chamam refetch sem dependências estáveis
+- [x] Confirmar que SSE está com apenas 1 conexão por usuário (revisar logs)
+- [x] Verificar se há invalidações em cascata no TRPC
+- [x] Identificar loops de re-renderização causados por estado global
+- [x] Implementar correções identificadas (debounce + invalidate ao invés de refetch)
+- [ ] Testar e validar que erro 429 não ocorre mais (requer teste em produção)

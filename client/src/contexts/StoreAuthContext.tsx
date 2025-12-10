@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode, useRef, useCallback } from 'react';
 import { trpc } from '../lib/trpc';
 import LoginModal from '../components/LoginModal';
 import BannedAccountModal from '../components/BannedAccountModal';
@@ -44,6 +44,34 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
   const [isBannedModalOpen, setIsBannedModalOpen] = useState(false);
   const [pendingAction, setPendingAction] = useState<(() => void) | null>(null);
   const utils = trpc.useUtils();
+  
+  // ✅ Hook de debounce para invalidações (prevenir requisições duplicadas)
+  const invalidationTimeouts = useRef(new Map<string, NodeJS.Timeout>());
+  
+  const debouncedInvalidate = useCallback((key: string, fn: () => void, delay = 500) => {
+    const timeouts = invalidationTimeouts.current;
+    
+    // Cancelar timeout anterior se existir
+    if (timeouts.has(key)) {
+      clearTimeout(timeouts.get(key)!);
+    }
+    
+    // Agendar nova invalidação
+    const timeout = setTimeout(() => {
+      fn();
+      timeouts.delete(key);
+    }, delay);
+    
+    timeouts.set(key, timeout);
+  }, []);
+  
+  // Cleanup de timeouts ao desmontar
+  useEffect(() => {
+    return () => {
+      invalidationTimeouts.current.forEach(timeout => clearTimeout(timeout));
+      invalidationTimeouts.current.clear();
+    };
+  }, []);
 
   const loginMutation = trpc.store.login.useMutation();
   const registerMutation = trpc.store.register.useMutation();
@@ -66,27 +94,50 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
     onNotification: (notification) => {
       console.log('[StoreAuthContext] Notification received:', notification.type, notification);
       
-      // Invalidar queries específicas baseado no tipo de notificação
+      // ✅ OTIMIZAÇÃO: Usar debounce e invalidate() ao invés de refetch()
+      // Consolidar invalidações para evitar duplicatas
+      
       if (notification.type === 'pix_payment_confirmed' || notification.type === 'balance_updated') {
-        console.log('[StoreAuthContext] Balance update detected, refetching customer data...');
+        console.log('[StoreAuthContext] Balance update detected, scheduling invalidation...');
         console.log('[StoreAuthContext] Current balance:', customer?.balance);
         
-        // Forçar refetch imediato do saldo (ignora staleTime)
-        utils.store.getCustomer.refetch();
-        console.log('[StoreAuthContext] Customer refetch triggered');
+        // ✅ Usar invalidate() ao invés de refetch() (respeita staleTime)
+        debouncedInvalidate('customer', () => {
+          console.log('[StoreAuthContext] Invalidating customer query');
+          utils.store.getCustomer.invalidate();
+        });
         
-        utils.recharges.getMyRecharges.invalidate();
+        debouncedInvalidate('recharges', () => {
+          console.log('[StoreAuthContext] Invalidating recharges query');
+          utils.recharges.getMyRecharges.invalidate();
+        });
       }
+      
       if (notification.type === 'sms_received' || notification.type === 'activation_expired') {
-        utils.store.getMyActivations.invalidate();
+        debouncedInvalidate('activations', () => {
+          console.log('[StoreAuthContext] Invalidating activations query');
+          utils.store.getMyActivations.invalidate();
+        });
       }
+      
       if (notification.type === 'operation_completed' || notification.type === 'operation_failed') {
-        utils.store.getMyActivations.invalidate();
-        utils.store.getCustomer.invalidate();
+        // ✅ Consolidar invalidações (evitar duplicatas)
+        debouncedInvalidate('activations', () => {
+          console.log('[StoreAuthContext] Invalidating activations query');
+          utils.store.getMyActivations.invalidate();
+        });
+        
+        debouncedInvalidate('customer', () => {
+          console.log('[StoreAuthContext] Invalidating customer query');
+          utils.store.getCustomer.invalidate();
+        });
       }
+      
       // Invalidar lista de notificações apenas para notificações admin (que aparecem na sidebar)
       if (notification.type === 'admin_notification') {
-        utils.notifications.getAll.invalidate();
+        debouncedInvalidate('notifications', () => {
+          utils.notifications.getAll.invalidate();
+        });
       }
     },
   });
@@ -130,11 +181,12 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
       if (getCustomerQuery.data.banned) {
         setIsBannedModalOpen(true);
       }
-    } else if (getCustomerQuery.data === null && customer) {
+    } else if (getCustomerQuery.data === null) {
+      // ✅ OTIMIZAÇÃO: Remover dependência de customer para evitar possível loop
       setCustomer(null);
       localStorage.removeItem('store_customer');
     }
-  }, [getCustomerQuery.data, customer]);
+  }, [getCustomerQuery.data]); // ✅ Remover customer das dependências
 
   const login = async (email: string, password?: string) => {
     try {
