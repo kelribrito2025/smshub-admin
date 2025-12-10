@@ -135,3 +135,26 @@
 - [x] Integrar no fluxo de autenticação antes do DashboardLayoutSkeleton
 - [x] Testar transição suave sem flash preto
 - [x] Validar que segurança de autenticação permanece intacta
+
+
+---
+
+## 🔧 Eliminar Flash Preto e Ícone Azul Entre Páginas
+
+**Problema:**
+- Após autenticação inicial, ainda aparece flash preto entre navegações
+- Ícone azul padrão continua aparecendo ao trocar de página
+- Loading customizado não está sendo aplicado corretamente
+- Transições entre páginas deveriam ser instantâneas após auth inicial
+
+**Objetivo:**
+- Remover completamente qualquer flash ou loading entre páginas
+- Substituir fundo preto + spinner azul pelo componente de loading customizado
+- Garantir que só o loading inicial exista, e apenas uma vez
+
+**Tarefas:**
+- [x] Investigar por que InitialLoader não está substituindo o loading padrão
+- [x] Verificar se há suspense/loading state sendo disparado nas rotas
+- [x] Garantir que após auth.me resolver, nenhum loading adicional apareça
+- [x] Testar navegação: Dashboard → Histórico → Conta → Voltar
+- [x] Validar que transições são instantâneas sem flash visual

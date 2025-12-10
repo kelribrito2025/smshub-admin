@@ -5,6 +5,15 @@ import BannedAccountModal from '../components/BannedAccountModal';
 import { useNotifications, type Notification } from '../hooks/useNotifications';
 import InitialLoader from '../components/InitialLoader';
 
+// Prefetch das rotas principais para eliminar loading entre páginas
+import('../pages/StoreCatalog');
+import('../pages/StoreActivations');
+import('../pages/StoreAccount');
+import('../pages/StoreSecurity');
+import('../pages/StoreSettings');
+import('../pages/StoreAffiliate');
+import('../pages/StoreRecharges');
+
 interface Customer {
   id: number;
   name: string;
@@ -30,9 +39,6 @@ export interface StoreAuthContextType {
   isSSEConnected: boolean;
   lastNotification: Notification | null;
   notifications: any[];
-  unreadCount: number;
-  markAsRead: (notificationId: number) => void;
-  markAllAsRead: () => void;
 }
 
 const StoreAuthContext = createContext<StoreAuthContextType | undefined>(undefined);
@@ -97,6 +103,15 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
     }
     setIsLoading(false);
   }, []);
+
+  // Prefetch de queries críticas após autenticação para navegação instantânea
+  useEffect(() => {
+    if (customer?.id) {
+      // Prefetch de dados que serão usados em outras páginas
+      utils.store.getMyActivations.prefetch({ customerId: customer.id });
+      utils.recharges.getMyRecharges.prefetch({ customerId: customer.id });
+    }
+  }, [customer?.id, utils]);
 
   useEffect(() => {
     if (getCustomerQuery.data) {
@@ -187,9 +202,6 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
     isSSEConnected,
     lastNotification,
     notifications,
-    unreadCount: 0,
-    markAsRead: () => {},
-    markAllAsRead: () => {},
   };
 
   return (
