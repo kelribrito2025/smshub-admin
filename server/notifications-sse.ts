@@ -2,7 +2,6 @@ import express from "express";
 import { notificationsManager } from "./notifications-manager";
 import { sdk } from "./_core/sdk";
 import { getCustomerById } from "./customers-helpers";
-import crypto from "crypto";
 
 const router = express.Router();
 
@@ -43,14 +42,10 @@ router.get("/stream/:customerId", async (req, res) => {
     return res.status(403).json({ error: "customer account is banned" });
   }
 
-  // Generate or extract sessionId from headers
-  // Frontend should send a unique sessionId in X-Session-Id header
-  const sessionId = req.headers['x-session-id'] as string || crypto.randomUUID();
+  console.log(`[SSE] New connection request from authenticated customer ${customerId} (role: ${customer.role})`);
 
-  console.log(`[SSE] New connection request from customer ${customerId} (sessionId: ${sessionId})`);
-
-  // Add client to notifications manager with sessionId (customers are always "user" role)
-  notificationsManager.addClient(customerId, sessionId, res, "user");
+  // Add client to notifications manager with role
+  notificationsManager.addClient(customerId, res, customer.role);
   
   console.log(`[SSE] ✅ Client ${customerId} added to notifications manager, response should stay open`);
 

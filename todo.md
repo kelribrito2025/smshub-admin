@@ -45,12 +45,12 @@
 ## ✅ Limpeza do Banco de Dados (Concluído)
 - [x] Remover tabelas do projeto inicial (sales, messages, campaigns, clients)
 
-## ✅## Correções de Bugs (Concluído)
+## ✅ Correções de Bugs (Concluído)
 - [x] Criar procedure adminMenus.getAll no backend
 - [x] Criar procedure stats.getDashboard no backend
 - [x] Criar procedure settings.get no backend
-- [x] Corrigir ReferenceError: unreadCount is not defined no StoreLayout
-- [x] Resolver conflito de autenticação entre painel admin e store na mesma aba---
+
+---
 
 # 🚀 MIGRAÇÃO COMPLETA DO PROJETO ANTIGO
 
@@ -385,10 +385,6 @@
 - Checkpoint salvo: 7743abcb
 
 ---
-
-## Bugs
-
-- [x] Corrigir bug de notificações: após deslogar do painel admin, notificações continuam aparecendo apenas para a conta de cliente fcokelrihbrito@gmail.com
 
 ## Melhorias de UI e Paginação
 - [x] Redesenhar UI de banimento no formulário de edição de cliente (substituir botão por toggle)
@@ -1944,86 +1940,3 @@ Garantir que badge do sino e barra lateral atualizem imediatamente quando houver
 
 ## Bug: Notificações de Clientes Aparecendo em Toast
 - [x] Remover toast automático para notificações admin_notification (devem aparecer somente na sidebar)
-
-## 🐛 BUG: Badge de Notificações Não Atualiza Automaticamente
-
-**Problema reportado:**
-- Badge do sino só aparece quando usuário clica manualmente no ícone
-- Notificações não surgem automaticamente no painel quando são enviadas
-- Comportamento esperado: badge deve aparecer automaticamente quando notificação chegar via SSE
-
-**Tarefas de diagnóstico:**
-- [x] Investigar fluxo SSE de notificações (useNotifications hook)
-- [x] Verificar invalidação de cache do contador de notificações
-- [x] Garantir que badge atualiza quando notificação chega via SSE
-- [x] Ajustar staleTime para 0 para forçar refetch imediato
-- [ ] Testar com notificação individual e global
-- [ ] Validar que badge aparece sem precisar clicar no sino
-
-
-## 🐛 BUG: Badge de Notificações e Atualização Automática
-
-**Problema 1: Badge não aparecia**
-- [x] Identificado: servidor usava `ctx.user.id` em vez de `customer.id`
-- [x] Corrigido: agora busca `customer.id` pelo email do usuário OAuth
-- [x] Badge agora aparece corretamente com notificações não lidas
-
-**Problema 2: Notificações não aparecem automaticamente via SSE**
-- [ ] Testar se notificações chegam via SSE quando enviadas
-- [ ] Validar que badge atualiza automaticamente sem clicar no sino
-
-**Problema 3: Botão "Marcar todas como lidas" não funciona**
-- [ ] Investigar procedure markAllAsRead
-- [ ] Corrigir lógica de marcação
-- [ ] Testar funcionalidade
-
-## 🐛 BUG CRÍTICO: Notificações INDIVIDUAIS não aparecem na sidebar
-
-**Problema identificado:**
-- Notificações GLOBAIS funcionam perfeitamente (aparecem automaticamente via SSE)
-- Notificações INDIVIDUAIS não aparecem na sidebar após envio
-- SSE recebe a notificação mas ela não é exibida na lista
-- Badge atualiza corretamente mas notificação não aparece na lista
-
-**Tarefas:**
-- [ ] Investigar código de envio de notificações individuais (sendAdminNotification)
-- [ ] Verificar se notificação individual é salva no banco de dados
-- [ ] Verificar se query getAll retorna notificações individuais
-- [ ] Corrigir lógica de envio/busca
-- [ ] Testar funcionalidade
-
-## 🐛 BUG: Botão "Marcar todas como lidas" não funciona
-
-**Problema reportado:**
-- Usuário clica em "Marcar todas como lidas" mas notificações continuam não lidas
-- [ ] Investigar procedure markAllAsRead
-- [ ] Corrigir lógica de marcação
-- [ ] Testar funcionalidade
-
-
-## 🐛 BUG CRÍTICO: Notificações SSE param quando cliente está logado em múltiplas abas
-
-**Problema reportado:**
-- Cliente logado simultaneamente em 2 abas:
-  * Aba 1: Painel Admin (como admin)
-  * Aba 2: Painel de Vendas (como fcokelrihbrito@gmail.com)
-- Quando desloga do admin, notificações param de funcionar no painel de vendas
-- SSE fecha a conexão da outra aba e não reconecta automaticamente
-
-**Causa raiz:**
-- `notifications-manager.ts` linha 30-54: quando cliente conecta em nova aba, fecha TODAS as conexões SSE anteriores
-- Usa apenas `customerId` para identificar conexões (não diferencia entre abas/sessões)
-- Quando desloga de uma aba, a outra fica sem conexão SSE ativa
-
-**Solução implementada:**
-- [x] Adicionar `sessionId` único para cada conexão SSE (além de customerId)
-- [x] Permitir múltiplas conexões simultâneas para o mesmo cliente
-- [x] Identificar conexões por `customerId + sessionId` em vez de apenas `customerId`
-- [x] Garantir que deslogar de uma aba não afeta a conexão SSE da outra
-- [ ] Testar com 2 abas abertas simultaneamente (admin + vendas)
-
-**Arquivos modificados:**
-- `server/notifications-manager.ts` - Adicionado campo `sessionId` à interface `NotificationClient`
-- `server/notifications-manager.ts` - Modificado `addClient()` para aceitar `sessionId` e permitir múltiplas conexões
-- `server/notifications-sse.ts` - Gera `sessionId` único usando `crypto.randomUUID()`
-- `client/src/hooks/useNotifications.ts` - Envia `sessionId` no header `X-Session-Id`

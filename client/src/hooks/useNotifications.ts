@@ -27,9 +27,6 @@ export function useNotifications(options: UseNotificationsOptions) {
   const retryTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [reconnectTrigger, setReconnectTrigger] = useState(0);
   
-  // Generate unique sessionId once per component mount (persists across reconnections)
-  const sessionIdRef = useRef<string>(crypto.randomUUID());
-  
   // Store callbacks in refs to avoid recreating EventSource on every render
   const onNotificationRef = useRef(onNotification);
   const autoToastRef = useRef(autoToast);
@@ -43,27 +40,20 @@ export function useNotifications(options: UseNotificationsOptions) {
   useEffect(() => {
     // Don't connect if no customer is authenticated
     if (!customerId || customerId === 0) {
-      console.log('[useNotifications] ❌ Não conectando SSE - customerId inválido:', customerId);
-      setIsConnected(false);
-      setLastNotification(null);
       return;
     }
-
-    console.log('[useNotifications] ✅ Iniciando conexão SSE para customerId:', customerId);
 
     let abortController = new AbortController();
     let reader: ReadableStreamDefaultReader<Uint8Array> | null = null;
 
     // ✅ Use fetch + ReadableStream instead of EventSource to support credentials
     const connectSSE = async () => {
-      console.log('[useNotifications] 🔌 Conectando SSE via fetch...');
       try {
         const response = await fetch(`/api/notifications/stream/${customerId}`, {
           method: 'GET',
           headers: {
             'Accept': 'text/event-stream',
             'Cache-Control': 'no-cache',
-            'X-Session-Id': sessionIdRef.current, // ✅ Send unique sessionId
           },
           credentials: 'include', // ✅ Send cookies with request
           signal: abortController.signal,
@@ -113,7 +103,6 @@ export function useNotifications(options: UseNotificationsOptions) {
               try {
                 const notification: Notification = JSON.parse(dataMatch[1]);
 
-                console.log('[useNotifications] 📨 Notificação recebida via SSE:', notification);
                 setLastNotification(notification);
 
                 // Dispatch custom event for components to listen
