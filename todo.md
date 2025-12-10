@@ -1955,3 +1955,8 @@ Garantir que badge do sino e barra lateral atualizem imediatamente quando houver
 - [x] Causa: Query usa ctx.user.id ao invés de customer.id para filtrar notificationReads
 - [x] Solução: Buscar customer.id baseado no email do ctx.user
 - [x] Testar correção (3 testes passaram)
+
+## Bug: Notificações Não Atualizam Automaticamente
+- [x] Problema: Badge e lista de notificações só atualizam quando usuário clica no sino
+- [x] Solução: Ajustar staleTime para 0 na query de notificações (SSE já estava configurado)
+- [x] Testar atualização automática

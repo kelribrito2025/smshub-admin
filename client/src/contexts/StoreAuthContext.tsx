@@ -64,7 +64,7 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
     enabled: !!customer?.id,
     retry: 1,
     refetchOnWindowFocus: false,
-    staleTime: 5 * 60 * 1000, // 5 minutos
+    staleTime: 0, // Sempre considerar dados stale para permitir invalidação imediata via SSE
   });
 
   const markAsReadMutation = trpc.notifications.markAsRead.useMutation({
