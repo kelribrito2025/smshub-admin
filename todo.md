@@ -415,3 +415,22 @@
 - [x] Adicionar enabled: isOpen na query de paymentSettings (RechargeModal)
 - [x] Otimizar query de recharges com staleTime e retry: false
 - [x] Testar para confirmar que erro 429 não ocorre mais (CONFIRMADO - sem erros 429!)
+
+
+---
+
+## 🚨 URGENTE: Erro de CORS ao Acessar API do Manus
+
+**Problema:**
+- Erro de CORS ao tentar acessar `https://api.manus.im/space.v1.SpacePublicService/GetEditSpaceSiteToken`
+- Mensagem: "Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present"
+- Origem: `https://app.numero-virtual.com`
+- Impede acesso a recursos da API do Manus
+
+**Tarefas:**
+- [x] Investigar configuração de CORS no frontend
+- [x] Verificar se há proxy ou configuração de API incorreta
+- [x] Analisar se o domínio customizado está causando o problema
+- [x] Implementar solução para permitir acesso correto à API
+- [x] Testar correção e validar funcionamento
+
