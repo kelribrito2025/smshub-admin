@@ -24,7 +24,7 @@ export default function StoreActivations() {
       enabled: !!customer?.id,
       retry: 1, // Apenas 1 retry para evitar 429
       refetchOnWindowFocus: false,
-      staleTime: 2 * 60 * 1000, // Consider data fresh for 2 minutes (historical data doesn't change frequently)
+      // staleTime herdado do QueryClient global (5 minutos)
     }
   );
 

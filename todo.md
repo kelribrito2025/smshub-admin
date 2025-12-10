@@ -95,3 +95,26 @@
 - [x] Implementar skeleton loader para tabelas
 - [x] Configurar staleTime no tRPC para evitar re-fetches desnecessários
 - [x] Testar transições suaves entre estados de loading
+
+
+---
+
+## ⚡ Otimização: Flash de Loading na Primeira Navegação
+
+**Problema:**
+- Ao navegar entre páginas pela primeira vez, aparece um flash rápido de loading
+- Nas navegações seguintes para as mesmas páginas, o loading não aparece mais
+- Indica que o cache está funcionando, mas a primeira carga ainda gera re-render inicial
+
+**Análise:**
+- Queries estão sendo cacheadas após primeira navegação (comportamento correto)
+- Porém, na primeira carga há um re-render antes da query resolver
+- Possíveis causas: staleTime baixo, falta de initialData, invalidação desnecessária, estado global causando re-render
+
+**Tarefas:**
+- [x] Verificar configuração de staleTime e cacheTime no tRPC client
+- [x] Analisar se há invalidação desnecessária de queries ao trocar de página
+- [x] Verificar se estado global (Auth, SSE, balance, notifications) causa re-render inicial
+- [x] Verificar se suspense/loader dispara antes do cached data ser verificado
+- [x] Implementar otimizações de cache adequadas (staleTime: 5min, gcTime: 10min)
+- [x] Testar navegação entre páginas para confirmar eliminação do flash

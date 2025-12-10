@@ -86,8 +86,8 @@ export default function Financial() {
       endDate: dateRange.endDate,
     },
     {
-      staleTime: 30000, // Keep data fresh for 30 seconds
       refetchOnWindowFocus: false, // Prevent refetch on window focus
+      // staleTime herdado do QueryClient global (5 minutos)
     }
   );
 
@@ -99,8 +99,8 @@ export default function Financial() {
         groupBy,
       },
       {
-        staleTime: 30000,
         refetchOnWindowFocus: false,
+        // staleTime herdado do QueryClient global (5 minutos)
       }
     );
 
@@ -111,8 +111,8 @@ export default function Financial() {
         endDate: dateRange.endDate,
       },
       {
-        staleTime: 30000,
         refetchOnWindowFocus: false,
+        // staleTime herdado do QueryClient global (5 minutos)
       }
     );
 
@@ -123,8 +123,8 @@ export default function Financial() {
         endDate: dateRange.endDate,
       },
       {
-        staleTime: 30000,
         refetchOnWindowFocus: false,
+        // staleTime herdado do QueryClient global (5 minutos)
       }
     );
 
@@ -132,8 +132,8 @@ export default function Financial() {
     trpc.financial.getRecentActivations.useQuery(
       { limit: 20 },
       {
-        staleTime: 30000,
         refetchOnWindowFocus: false,
+        // staleTime herdado do QueryClient global (5 minutos)
       }
     );
 

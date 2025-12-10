@@ -27,7 +27,7 @@ export default function StoreCatalog() {
       enabled: !!customer?.id,
       retry: 1, // Apenas 1 retry para evitar 429
       refetchOnWindowFocus: false,
-      staleTime: 30 * 1000, // Consider data fresh for 30 seconds (updates via SSE in StoreLayout)
+      // staleTime herdado do QueryClient global (5 minutos) - updates via SSE
     }
   );
 

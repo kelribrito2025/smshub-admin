@@ -11,10 +11,10 @@ import "./index.css";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      // ✅ Conservative defaults to avoid 429 "Too Many Requests"
-      staleTime: 30 * 1000, // Consider data fresh for 30 seconds by default
-      gcTime: 5 * 60 * 1000, // Keep unused data in cache for 5 minutes
-      refetchOnMount: false, // Don't auto-refetch when component mounts
+      // ✅ Optimized defaults to eliminate loading flashes and avoid 429 "Too Many Requests"
+      staleTime: 5 * 60 * 1000, // Consider data fresh for 5 minutes (eliminates unnecessary refetches)
+      gcTime: 10 * 60 * 1000, // Keep unused data in cache for 10 minutes
+      refetchOnMount: false, // Don't auto-refetch when component mounts if data is fresh
       refetchOnWindowFocus: false, // Don't auto-refetch when window regains focus
       refetchOnReconnect: true, // Only refetch when reconnecting to network
       retry: 3, // Retry failed queries up to 3 times
