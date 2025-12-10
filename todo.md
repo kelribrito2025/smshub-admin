@@ -386,3 +386,32 @@
 - [x] Identificar loops de re-renderização causados por estado global
 - [x] Implementar correções identificadas (debounce + invalidate ao invés de refetch)
 - [ ] Testar e validar que erro 429 não ocorre mais (requer teste em produção)
+
+
+---
+
+## 🚨 CRÍTICO: Múltiplos Erros 429 (Rate Limit Exceeded)
+
+**Problema:**
+- Múltiplos erros 429 aparecendo no console do navegador
+- Erros relacionados a:
+  - `paymentSettings.get` (rate exceeded)
+  - `recharges.getMyRecharges` (rate exceeded)
+  - `store.getCustomer` (rate exceeded)
+  - `/api/notifications/stream/:customerId` (SSE connection failed: 429)
+- Circuit breaker ativado após múltiplas falhas consecutivas
+- Sistema está fazendo requisições excessivas ao servidor
+
+**Causa Raiz:**
+- Queries sendo executadas muito frequentemente
+- Possível falta de staleTime adequado
+- Retry excessivo em queries que falham
+- SSE tentando reconectar muito rapidamente após erro 429
+
+**Tarefas:**
+- [x] Auditar todas as queries tRPC e adicionar staleTime adequado (mínimo 5 minutos)
+- [x] Desabilitar retry automático em queries não críticas
+- [x] Aumentar backoff exponencial no SSE após erro 429 (5s inicial, max 120s)
+- [x] Adicionar enabled: isOpen na query de paymentSettings (RechargeModal)
+- [x] Otimizar query de recharges com staleTime e retry: false
+- [x] Testar para confirmar que erro 429 não ocorre mais (CONFIRMADO - sem erros 429!)

@@ -246,11 +246,16 @@ export function useNotifications(options: UseNotificationsOptions) {
         if (circuitBreaker.failureCount >= circuitBreaker.threshold) {
           circuitBreaker.isOpen = true;
           console.error(`[Notifications] Circuit breaker OPENED after ${circuitBreaker.failureCount} consecutive failures`);
+          toast.error('Limite de conexões atingido', {
+            description: 'O sistema pausará tentativas de conexão por 1 minuto.',
+            duration: 5000,
+          });
           return; // Stop retrying
         }
 
-        // Retry with exponential backoff (increased max delay to 60s)
-        const delay = Math.min(1000 * Math.pow(2, retryCountRef.current), 60000);
+        // Retry with exponential backoff (increased max delay to 120s, starting at 5s)
+        // ✅ Delay inicial de 5s para evitar sobrecarga após erro 429
+        const delay = Math.min(5000 * Math.pow(2, retryCountRef.current), 120000);
         retryCountRef.current++;
         
         console.log(`[Notifications] Retrying in ${delay / 1000}s (attempt ${retryCountRef.current})...`);

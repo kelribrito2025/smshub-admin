@@ -18,8 +18,10 @@ export function RechargeModal({ isOpen, onClose }: RechargeModalProps) {
   const { customer } = useStoreAuth();
   const utils = trpc.useUtils();
   const { data: paymentSettings } = trpc.paymentSettings.get.useQuery(undefined, {
-    staleTime: 5 * 60 * 1000, // Payment settings rarely change, cache for 5 minutes
+    enabled: isOpen, // ✅ Só executar quando modal estiver aberto
+    staleTime: 15 * 60 * 1000, // Payment settings rarely change, cache for 15 minutes
     refetchOnWindowFocus: false,
+    retry: false, // ✅ Desabilitar retry para evitar 429
   });
   const [selectedMethod, setSelectedMethod] = useState<PaymentMethod>('pix');
   const [selectedValue, setSelectedValue] = useState<number | null>(20);

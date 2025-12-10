@@ -70,6 +70,9 @@ export default function StoreRecharges() {
     },
     {
       enabled: !!customer?.id,
+      staleTime: 5 * 60 * 1000, // ✅ Cache por 5 minutos
+      refetchOnWindowFocus: false, // ✅ Não refazer ao focar janela
+      retry: false, // ✅ Desabilitar retry para evitar 429
     }
   );
 
