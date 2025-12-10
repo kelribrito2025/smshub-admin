@@ -9,6 +9,7 @@ export interface NotificationClient {
   customerId: number;
   response: Response;
   connectedAt: Date;
+  role: "admin" | "user"; // Track user role to filter notifications
 }
 
 export interface Notification {
@@ -26,7 +27,7 @@ class NotificationsManager {
    * Add a new SSE connection for a customer
    * Closes any existing connections to ensure only 1 active connection per customer
    */
-  addClient(customerId: number, response: Response) {
+  addClient(customerId: number, response: Response, role: "admin" | "user" = "user") {
     // Close all existing connections for this customer before adding new one
     const existingClients = this.clients.get(customerId) || [];
     if (existingClients.length > 0) {
@@ -45,6 +46,7 @@ class NotificationsManager {
       customerId,
       response,
       connectedAt: new Date(),
+      role,
     };
 
     // Replace all old connections with the new one (only 1 connection per customer)
@@ -145,6 +147,20 @@ class NotificationsManager {
     this.clients.forEach((clients) => {
       clients.forEach((client) => {
         this.sendToClient(client.response, notification);
+      });
+    });
+  }
+
+  /**
+   * Send notification to all connected users (exclude admins)
+   */
+  sendToAllUsers(notification: Notification) {
+    this.clients.forEach((clients) => {
+      clients.forEach((client) => {
+        // Only send to users, skip admins
+        if (client.role === "user") {
+          this.sendToClient(client.response, notification);
+        }
       });
     });
   }

@@ -42,10 +42,10 @@ router.get("/stream/:customerId", async (req, res) => {
     return res.status(403).json({ error: "customer account is banned" });
   }
 
-  console.log(`[SSE] New connection request from authenticated customer ${customerId}`);
+  console.log(`[SSE] New connection request from authenticated customer ${customerId} (role: ${customer.role})`);
 
-  // Add client to notifications manager
-  notificationsManager.addClient(customerId, res);
+  // Add client to notifications manager with role
+  notificationsManager.addClient(customerId, res, customer.role);
   
   console.log(`[SSE] ✅ Client ${customerId} added to notifications manager, response should stay open`);
 

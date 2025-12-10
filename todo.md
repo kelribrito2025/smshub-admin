@@ -1929,3 +1929,9 @@ Garantir que badge do sino e barra lateral atualizem imediatamente quando houver
 2. **PixPaymentModal**: Polling reduzido de 3s → 5s
 3. **DashboardLayout**: Menus com cache de 5 minutos
 4. **Todas as queries**: Adicionado `retry: 1` e `refetchOnWindowFocus: false`
+
+## Bug: Notificações Globais Sendo Recebidas pelo Admin
+- [x] Investigar código de notificações globais (backend + frontend)
+- [x] Identificar onde notificações são enviadas via SSE
+- [x] Implementar filtro para excluir admins das notificações globais
+- [x] Testar correção

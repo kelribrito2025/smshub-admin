@@ -233,12 +233,12 @@ export const notificationsRouter = router({
       };
 
       if (input.type === "global") {
-        // Send to all connected clients
-        console.log(`[Notifications] 📡 Enviando notificação GLOBAL via SSE para todos os clientes conectados`);
+        // Send to all connected users (exclude admins)
+        console.log(`[Notifications] 📡 Enviando notificação GLOBAL via SSE para todos os USUÁRIOS conectados (excluindo admins)`);
         const stats = notificationsManager.getStats();
         console.log(`[Notifications] 📊 Clientes conectados: ${stats.totalConnections} (${stats.totalCustomers} usuários únicos)`);
-        notificationsManager.sendToAll(sseNotification);
-        console.log(`[Notifications] ✅ Notificação GLOBAL enviada via SSE`);
+        notificationsManager.sendToAllUsers(sseNotification);
+        console.log(`[Notifications] ✅ Notificação GLOBAL enviada via SSE (apenas para usuários, admins excluídos)`);
       } else if (targetCustomerId) {
         // Send to specific customer
         console.log(`[Notifications] 📡 Enviando notificação INDIVIDUAL via SSE para customerId=${targetCustomerId}`);
@@ -257,7 +257,7 @@ export const notificationsRouter = router({
         success: true,
         message:
           input.type === "global"
-            ? "Notificação global enviada com sucesso"
+            ? "Notificação global enviada com sucesso (apenas para usuários)"
             : `Notificação enviada para o cliente ${input.pinOrEmail}`,
       };
     }),
