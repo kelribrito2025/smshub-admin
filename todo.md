@@ -190,3 +190,17 @@
 - [x] Remover código relacionado no frontend
 - [x] Remover rotas/procedures relacionados no backend (se existirem)
 - [x] Validar que não há erros após remoção
+
+
+---
+
+## ⚡ Otimização de Cache do tRPC
+
+**Objetivo:**
+- Aumentar staleTime para 7 minutos (420000ms)
+- Reduzir requisições desnecessárias ao servidor
+- Melhorar performance geral da aplicação
+
+**Tarefas:**
+- [x] Atualizar configuração de staleTime no tRPC client
+- [x] Testar e validar otimização
