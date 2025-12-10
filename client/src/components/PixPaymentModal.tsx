@@ -49,7 +49,7 @@ export function PixPaymentModal({
     },
     {
       enabled: !!pixData?.txid && !paymentConfirmed,
-      refetchInterval: 5000, // Poll every 5 seconds (reduced from 3s to prevent 429)
+      refetchInterval: 10000, // Poll every 10 seconds (increased to prevent 429 errors)
       retry: 1, // Only 1 retry to prevent 429 errors
       refetchOnWindowFocus: false, // Avoid requests when switching tabs
     }

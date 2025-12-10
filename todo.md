@@ -202,3 +202,35 @@
 
 **Tarefas:**
 - [x] Atualizar staleTime das queries relevantes no StoreLayout.tsx
+
+
+---
+
+## 🚨 URGENTE: Erros 429 (Too Many Requests) no Console
+
+**Problema:**
+- Múltiplos erros 429 aparecendo no console do navegador
+- Erros relacionados a:
+  - `/api/notifications/stream/:customerId` (SSE connection failed)
+  - `store.getCustomer` (rate exceeded)
+  - `store.getMyRecharges` (rate exceeded)
+  - `paymentSettings.get` (rate exceeded)
+  - `store.getMyActivations` (rate exceeded)
+
+**Análise:**
+- Apesar da centralização do SSE estar correta, ainda há múltiplas tentativas de conexão
+- Possível causa: múltiplas abas abertas ou reconexões rápidas após erro 429
+- Queries estão sendo executadas muito frequentemente, ultrapassando limite do servidor
+- Falta de rate limiting adequado no servidor para proteger endpoints
+
+**Tarefas:**
+- [x] Implementar detecção de múltiplas abas e compartilhar conexão SSE via BroadcastChannel
+- [ ] Adicionar rate limiting no servidor para endpoints SSE
+- [x] Aumentar backoff exponencial no useNotifications (max delay de 32s → 60s)
+- [x] Adicionar circuit breaker para parar tentativas após N falhas consecutivas
+- [ ] Implementar timeout de conexão SSE (fechar após 30 minutos de inatividade)
+- [ ] Adicionar logs detalhados de conexões SSE ativas no servidor
+- [x] Revisar e aumentar staleTime de queries críticas (getCustomer, getMyActivations)
+- [x] Implementar retry com backoff exponencial nas queries tRPC
+- [ ] Adicionar header de rate limit info nas respostas do servidor
+- [ ] Implementar fallback gracioso quando rate limit é atingido (mostrar mensagem ao usuário)

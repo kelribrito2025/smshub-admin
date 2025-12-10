@@ -16,8 +16,26 @@ interface UseNotificationsOptions {
   autoToast?: boolean; // Automatically show toast for notifications
 }
 
+// Global state to track active connections per customerId
+const activeConnections = new Map<number, number>();
+
+// Circuit breaker state
+const circuitBreaker = {
+  failureCount: 0,
+  lastFailureTime: 0,
+  isOpen: false,
+  threshold: 5, // Open circuit after 5 consecutive failures
+  resetTimeout: 60000, // Reset after 1 minute
+};
+
 /**
  * Hook to receive real-time notifications via Server-Sent Events (SSE)
+ * 
+ * Features:
+ * - Single connection per customer (prevents duplicate connections)
+ * - BroadcastChannel for sharing notifications across tabs
+ * - Circuit breaker to stop retries after consecutive failures
+ * - Exponential backoff with increased max delay (60s)
  */
 export function useNotifications(options: UseNotificationsOptions) {
   const { customerId, onNotification, autoToast = true } = options;
@@ -26,6 +44,8 @@ export function useNotifications(options: UseNotificationsOptions) {
   const retryCountRef = useRef(0);
   const retryTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [reconnectTrigger, setReconnectTrigger] = useState(0);
+  const broadcastChannelRef = useRef<BroadcastChannel | null>(null);
+  const isLeaderRef = useRef(false);
   
   // Store callbacks in refs to avoid recreating EventSource on every render
   const onNotificationRef = useRef(onNotification);
@@ -43,19 +63,78 @@ export function useNotifications(options: UseNotificationsOptions) {
       return;
     }
 
+    // Check circuit breaker
+    if (circuitBreaker.isOpen) {
+      const timeSinceLastFailure = Date.now() - circuitBreaker.lastFailureTime;
+      if (timeSinceLastFailure < circuitBreaker.resetTimeout) {
+        console.warn(`[Notifications] Circuit breaker is OPEN. Waiting ${Math.ceil((circuitBreaker.resetTimeout - timeSinceLastFailure) / 1000)}s before retry`);
+        return;
+      } else {
+        // Reset circuit breaker
+        console.log('[Notifications] Circuit breaker RESET');
+        circuitBreaker.isOpen = false;
+        circuitBreaker.failureCount = 0;
+      }
+    }
+
+    // Initialize BroadcastChannel for cross-tab communication
+    const channelName = `notifications-${customerId}`;
+    broadcastChannelRef.current = new BroadcastChannel(channelName);
+
+    // Check if another tab is already connected (leader election)
+    const connectionCount = activeConnections.get(customerId) || 0;
+    
+    if (connectionCount === 0) {
+      // This tab becomes the leader
+      isLeaderRef.current = true;
+      activeConnections.set(customerId, 1);
+      console.log(`[Notifications] Tab elected as LEADER for customer ${customerId}`);
+    } else {
+      // Another tab is already connected, this tab is a follower
+      isLeaderRef.current = false;
+      console.log(`[Notifications] Tab is FOLLOWER for customer ${customerId}. Listening to BroadcastChannel only.`);
+    }
+
     let abortController = new AbortController();
     let reader: ReadableStreamDefaultReader<Uint8Array> | null = null;
 
-    // ✅ Use fetch + ReadableStream instead of EventSource to support credentials
+    // Listen to notifications from other tabs via BroadcastChannel
+    const handleBroadcastMessage = (event: MessageEvent) => {
+      const notification: Notification = event.data;
+      
+      setLastNotification(notification);
+      
+      // Dispatch custom event for components to listen
+      window.dispatchEvent(new CustomEvent('notification', { detail: notification }));
+
+      if (onNotificationRef.current) {
+        onNotificationRef.current(notification);
+      }
+
+      if (autoToastRef.current) {
+        showNotificationToast(notification);
+      }
+    };
+
+    broadcastChannelRef.current.addEventListener('message', handleBroadcastMessage);
+
+    // Only leader tab creates SSE connection
     const connectSSE = async () => {
+      if (!isLeaderRef.current) {
+        console.log(`[Notifications] Skipping SSE connection (follower tab)`);
+        return;
+      }
+
       try {
+        console.log(`[Notifications] Leader tab connecting to SSE for customer ${customerId}...`);
+        
         const response = await fetch(`/api/notifications/stream/${customerId}`, {
           method: 'GET',
           headers: {
             'Accept': 'text/event-stream',
             'Cache-Control': 'no-cache',
           },
-          credentials: 'include', // ✅ Send cookies with request
+          credentials: 'include',
           signal: abortController.signal,
         });
 
@@ -64,6 +143,23 @@ export function useNotifications(options: UseNotificationsOptions) {
           if (response.status === 403) {
             return; // Silently exit, don't retry
           }
+          
+          // 429 - Too Many Requests
+          if (response.status === 429) {
+            console.error(`[Notifications] Rate limit exceeded (429). Incrementing circuit breaker.`);
+            circuitBreaker.failureCount++;
+            circuitBreaker.lastFailureTime = Date.now();
+            
+            if (circuitBreaker.failureCount >= circuitBreaker.threshold) {
+              circuitBreaker.isOpen = true;
+              console.error(`[Notifications] Circuit breaker OPENED after ${circuitBreaker.failureCount} consecutive failures`);
+              toast.error('Limite de conexões atingido', {
+                description: 'Aguarde 1 minuto antes de tentar novamente.',
+                duration: 5000,
+              });
+            }
+          }
+          
           console.error(`[Notifications] SSE connection failed: ${response.status}`);
           throw new Error(`HTTP ${response.status}`);
         }
@@ -74,6 +170,9 @@ export function useNotifications(options: UseNotificationsOptions) {
 
         setIsConnected(true);
         retryCountRef.current = 0;
+        circuitBreaker.failureCount = 0; // Reset on success
+
+        console.log(`[Notifications] SSE connected successfully for customer ${customerId}`);
 
         // Read stream
         reader = response.body.getReader();
@@ -105,6 +204,11 @@ export function useNotifications(options: UseNotificationsOptions) {
 
                 setLastNotification(notification);
 
+                // Broadcast to other tabs
+                if (broadcastChannelRef.current) {
+                  broadcastChannelRef.current.postMessage(notification);
+                }
+
                 // Dispatch custom event for components to listen
                 window.dispatchEvent(new CustomEvent('notification', { detail: notification }));
 
@@ -129,9 +233,21 @@ export function useNotifications(options: UseNotificationsOptions) {
         console.error('[Notifications] SSE error:', error);
         setIsConnected(false);
 
-        // Retry with exponential backoff
-        const delay = Math.min(1000 * Math.pow(2, retryCountRef.current), 32000);
+        // Increment circuit breaker on error
+        circuitBreaker.failureCount++;
+        circuitBreaker.lastFailureTime = Date.now();
+
+        if (circuitBreaker.failureCount >= circuitBreaker.threshold) {
+          circuitBreaker.isOpen = true;
+          console.error(`[Notifications] Circuit breaker OPENED after ${circuitBreaker.failureCount} consecutive failures`);
+          return; // Stop retrying
+        }
+
+        // Retry with exponential backoff (increased max delay to 60s)
+        const delay = Math.min(1000 * Math.pow(2, retryCountRef.current), 60000);
         retryCountRef.current++;
+        
+        console.log(`[Notifications] Retrying in ${delay / 1000}s (attempt ${retryCountRef.current})...`);
         
         retryTimeoutRef.current = setTimeout(() => {
           if (customerId) {
@@ -157,6 +273,21 @@ export function useNotifications(options: UseNotificationsOptions) {
       // Cancel reader
       if (reader) {
         reader.cancel();
+      }
+      
+      // Close BroadcastChannel
+      if (broadcastChannelRef.current) {
+        broadcastChannelRef.current.removeEventListener('message', handleBroadcastMessage);
+        broadcastChannelRef.current.close();
+      }
+      
+      // Decrement connection count
+      if (isLeaderRef.current && customerId) {
+        const count = activeConnections.get(customerId) || 0;
+        if (count > 0) {
+          activeConnections.set(customerId, count - 1);
+        }
+        console.log(`[Notifications] Leader tab disconnected for customer ${customerId}`);
       }
       
       setIsConnected(false);
