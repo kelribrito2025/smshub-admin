@@ -171,7 +171,7 @@ export default function StoreAffiliate() {
                 type="text"
                 readOnly
                 value={displayLink}
-                className="flex-1 bg-black border border-green-900/50 rounded-md px-4 py-2 text-green-400 font-mono text-sm"
+                className="w-auto min-w-[280px] max-w-md bg-black border border-green-900/50 rounded-md px-4 py-2 text-green-400 font-mono text-sm"
               />
               <Button
                 onClick={handleCopyLink}

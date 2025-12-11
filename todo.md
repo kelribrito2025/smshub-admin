@@ -1244,3 +1244,18 @@
 - [x] Atualizar StoreAffiliate.tsx para usar paginação
 - [x] Testar com diferentes quantidades de indicações (0, 10, 13, 20, 50)
 - [x] Validar que navegação entre páginas funciona corretamente
+
+
+---
+
+## 🎨 Ajustar Largura do Campo de Link de Afiliado
+
+**Objetivo:**
+- Ajustar largura do campo de link de afiliado para não ocupar 100% da largura
+- Tornar o input mais compacto e visualmente proporcional ao conteúdo
+- Manter funcionalidade de copiar link intacta
+
+**Tarefas:**
+- [x] Localizar componente que exibe o link de afiliado
+- [x] Ajustar largura do input para ser proporcional ao conteúdo
+- [x] Testar visual e funcionalidade
