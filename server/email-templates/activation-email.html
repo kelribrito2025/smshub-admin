@@ -3,70 +3,151 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bem-vindo ao Número Virtual!</title>
+    <title>Ative sua conta - Número Virtual</title>
   </head>
 
   <body
     style="
       margin: 0;
       padding: 0;
-      background-color: #0d0d0d;
-      font-family: Arial, sans-serif;
-      color: #e6ffe6;
+      background-color: #ffffff;
+      font-family: 'Courier New', Courier, monospace;
+      color: #ffffff;
     "
   >
-    <p>&nbsp;</p>
-    <table style="padding: 20px 0;" border="0" width="100%" cellspacing="0" cellpadding="0">
+    <table style="padding: 60px 20px; background-color: #ffffff;" border="0" width="100%" cellspacing="0" cellpadding="0">
       <tbody>
         <tr>
           <td align="center">
-            <table style="background-color: #111; border-radius: 10px; overflow: hidden; box-shadow: 0 0 8px rgba(0,255,65,0.15);" border="0" width="600" cellspacing="0" cellpadding="0">
-              <!-- HEADER -->
+            <table 
+              style="
+                max-width: 500px; 
+                background-color: #0e1522; 
+                border: 2px solid #00ab45; 
+                border-radius: 2px; 
+                box-shadow: 0 0 50px rgba(0, 171, 69, 0.25); 
+                overflow: hidden;
+              " 
+              border="0" 
+              width="100%" 
+              cellspacing="0" 
+              cellpadding="0"
+            >
               <tbody>
+                <!-- TOP GRADIENT BAR -->
                 <tr>
-                  <td style="background: linear-gradient(135deg, #00ff41 0%, #00cc33 100%); padding: 35px 20px;" align="center">
-                    <h1 style="margin: 0; color: #000; font-size: 26px; font-weight: bold;">🎉 Bem-vindo ao Número Virtual!</h1>
+                  <td style="background: linear-gradient(90deg, #00ab45 0%, #09bf61 50%, #00ab45 100%); height: 4px; padding: 0; line-height: 0;">
+                    &nbsp;
                   </td>
                 </tr>
+                
                 <!-- CONTENT -->
                 <tr>
-                  <td style="padding: 35px 30px; font-size: 15px; line-height: 1.7; color: #d6f5d6;">
-                    <h2 style="margin-top: 0; color: #00ff41; font-size: 20px;">Olá, {{USER_NAME}}!</h2>
-                    <p>Estamos muito felizes em ter você conosco! Sua conta foi criada com sucesso.</p>
-                    <p>Com o <strong>Número Virtual</strong>, você pode:</p>
-                    <ul style="padding-left: 20px; margin: 0;">
-                      <li>✅ Receber SMS de verificação de qualquer serviço</li>
-                      <li>✅ Escolher entre centenas de países e operadoras</li>
-                      <li>✅ Ativar números instantaneamente</li>
-                      <li>✅ Recarregar saldo via PIX com confirmação automática</li>
-                    </ul>
-                    <br />
-                    <p>Faça sua primeira recarga e comece a usar agora mesmo!</p>
+                  <td style="padding: 48px 40px;">
+                    <!-- HEADER WITH PULSE INDICATOR -->
+                    <table border="0" width="100%" cellspacing="0" cellpadding="0">
+                      <tbody>
+                        <tr>
+                          <td style="padding-bottom: 32px;">
+                            <table border="0" cellspacing="0" cellpadding="0">
+                              <tbody>
+                                <tr>
+                                  <td style="padding-right: 12px; vertical-align: middle;">
+                                    <div style="width: 8px; height: 8px; background-color: #00ab45; border-radius: 50%;">&nbsp;</div>
+                                  </td>
+                                  <td style="vertical-align: middle;">
+                                    <span style="font-size: 11px; color: #09bf61; letter-spacing: 3px; text-transform: uppercase; font-weight: bold;">
+                                      AÇÃO NECESSÁRIA
+                                    </span>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <!-- TITLE -->
+                    <table border="0" width="100%" cellspacing="0" cellpadding="0">
+                      <tbody>
+                        <tr>
+                          <td style="padding-bottom: 32px;">
+                            <h1 style="font-size: 24px; color: #ffffff; margin: 0 0 8px 0; font-weight: bold; letter-spacing: 1px;">
+                              ATIVE SUA CONTA
+                            </h1>
+                            <div style="width: 60px; height: 2px; background-color: #00ab45;">&nbsp;</div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <!-- MESSAGE -->
+                    <table border="0" width="100%" cellspacing="0" cellpadding="0">
+                      <tbody>
+                        <tr>
+                          <td style="padding-bottom: 32px;">
+                            <p style="font-size: 15px; color: #c0c0c0; line-height: 1.7; margin: 0;">
+                              <span style="color: #09bf61; font-weight: 600;">{{USER_NAME}}</span>, 
+                              Para começar a usar a plataforma, por favor, clique no botão abaixo para ativar o acesso.
+                            </p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+
                     <!-- BUTTON -->
-                    <div style="text-align: center; margin-top: 25px;">
-                      <a style="background-color: #00ff41; color: #000; padding: 12px 25px; font-size: 15px; font-weight: bold; text-decoration: none; border-radius: 6px; display: inline-block;" href="{{ACTIVATION_LINK}}">
-                        Explorar Serviços
-                      </a>
-                    </div>
-                    <br />
-                    <p>Se tiver alguma dúvida, nossa equipe está sempre pronta para ajudar.</p>
-                  </td>
-                </tr>
-                <!-- FOOTER -->
-                <tr>
-                  <td style="background-color: #0b0b0b; padding: 20px; font-size: 12px; color: #666;" align="center">
-                    &copy; 2025 Número Virtual. Todos os direitos reservados.
-                    <br /><br />
-                    Este é um email automático, por favor não responda.
+                    <table border="0" width="100%" cellspacing="0" cellpadding="0">
+                      <tbody>
+                        <tr>
+                          <td style="padding: 40px 0;">
+                            <a 
+                              style="
+                                display: inline-block; 
+                                background-color: transparent; 
+                                color: #09bf61; 
+                                font-weight: bold; 
+                                font-size: 13px; 
+                                padding: 14px 40px; 
+                                border: 2px solid #09bf61; 
+                                text-decoration: none; 
+                                letter-spacing: 2px; 
+                                text-transform: uppercase;
+                              " 
+                              href="{{ACTIVATION_LINK}}"
+                            >
+                              [ATIVAR CONTA]
+                            </a>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <!-- FOOTER INFO -->
+                    <table border="0" width="100%" cellspacing="0" cellpadding="0">
+                      <tbody>
+                        <tr>
+                          <td style="padding-top: 32px; border-top: 1px solid rgba(0, 171, 69, 0.15);">
+                            <p style="font-size: 11px; color: #ffffff; margin: 0 0 8px 0; line-height: 1.5; font-family: 'Courier New', monospace;">
+                              &gt; URL: <span style="color: #09bf61;">{{ACTIVATION_LINK}}</span>
+                            </p>
+                            <p style="font-size: 11px; color: #c0c0c0; margin: 0; line-height: 1.5;">
+                              &gt; Esse link expira em 15 minutos
+                            </p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </td>
                 </tr>
               </tbody>
             </table>
-            <!-- PIXEL DE RASTREAMENTO -->
-            <img style="display: block; margin: 0; padding: 0;" src="https://mandrillapp.com/track/open.php" alt="" width="1" height="1" />
           </td>
         </tr>
       </tbody>
     </table>
+    
+    <!-- PIXEL DE RASTREAMENTO -->
+    <img style="display: block; margin: 0; padding: 0;" src="https://mandrillapp.com/track/open.php" alt="" width="1" height="1" />
   </body>
 </html>

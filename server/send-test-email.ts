@@ -8,9 +8,9 @@ import { renderActivationEmail } from './email-template-renderer.js';
 async function sendTestEmail() {
   console.log('[Test Email] Iniciando envio de email de teste...');
   
-  const testEmail = 'xkelrix@gmail.com';
-  const testName = 'Usuário Teste';
-  const testActivationLink = 'https://app.numero-virtual.com/activate?id=12345';
+  const testEmail = 'kelribrito@icloud.com';
+  const testName = 'Kelri';
+  const testActivationLink = 'https://exemplo.com/ativar-conta/1234abcd';
   
   try {
     // Renderizar o template com os dados de teste

@@ -1846,3 +1846,19 @@
 - [x] Testar envio de email com novo template
 - [x] Verificar renderização em diferentes clientes de email
 
+
+
+---
+
+## 📧 Atualizar Template de E-mail de Ativação
+
+**Objetivo:**
+- Substituir template atual de e-mail por novo design
+- Corrigir problema de fundo verde em clientes de e-mail
+- Implementar novo design com fundo branco e card dark centrado
+
+**Tarefas:**
+- [x] Localizar arquivo de template de e-mail atual
+- [x] Criar novo template baseado no design fornecido
+- [x] Garantir fundo branco ao redor do conteúdo
+- [x] Testar compatibilidade com diferentes clientes de e-mail
