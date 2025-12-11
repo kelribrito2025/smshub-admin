@@ -1,0 +1,45 @@
+{
+  "query": "SELECT id, email, name, emailVerified, createdAt FROM customers ORDER BY createdAt DESC LIMIT 5",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT id, email, name, emailVerified, createdAt FROM customers ORDER BY createdAt DESC LIMIT 5",
+  "rows": [
+    {
+      "id": "690001",
+      "email": "criptomoedazcore@gmail.com",
+      "name": "rrrrrrr",
+      "emailVerified": "0",
+      "createdAt": "2025-12-11 17:21:45"
+    },
+    {
+      "id": "660006",
+      "email": "xkelrix@gmail.com",
+      "name": "eeeeee",
+      "emailVerified": "0",
+      "createdAt": "2025-12-11 17:11:58"
+    },
+    {
+      "id": "660005",
+      "email": "empresa@bigteck.com.br",
+      "name": "teste",
+      "emailVerified": "0",
+      "createdAt": "2025-12-11 16:59:40"
+    },
+    {
+      "id": "570010",
+      "email": "admifn@admin.com",
+      "name": "teste",
+      "emailVerified": "0",
+      "createdAt": "2025-12-11 11:28:07"
+    },
+    {
+      "id": "570001",
+      "email": "contato@kelri.com.br",
+      "name": "kelri",
+      "emailVerified": "0",
+      "createdAt": "2025-12-11 10:53:33"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\temail\tname\temailVerified\tcreatedAt\n690001\tcriptomoedazcore@gmail.com\trrrrrrr\t0\t2025-12-11 17:21:45\n660006\txkelrix@gmail.com\teeeeee\t0\t2025-12-11 17:11:58\n660005\tempresa@bigteck.com.br\tteste\t0\t2025-12-11 16:59:40\n570010\tadmifn@admin.com\tteste\t0\t2025-12-11 11:28:07\n570001\tcontato@kelri.com.br\tkelri\t0\t2025-12-11 10:53:33\n",
+  "stderr": "",
+  "execution_time_ms": 69
+}

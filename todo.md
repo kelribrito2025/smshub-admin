@@ -1561,3 +1561,44 @@
 - [x] Testar envio de email com dados reais
 - [x] Documentar uso do sistema de templates
 
+
+
+---
+
+## ✅ BUG CORRIGIDO: Emails de Confirmação Não Enviados Após Registro
+
+**Problema:**
+- Usuário criou conta mas não recebeu email de confirmação
+- Sistema estava falhando com erro: `ReferenceError: __dirname is not defined`
+- O erro ocorria no arquivo `email-template-renderer.ts`
+
+**Causa Raiz:**
+- O arquivo `email-template-renderer.ts` usava `__dirname` diretamente
+- `__dirname` não está disponível em módulos ES (arquivos `.js`/`.mjs`)
+- Isso causava falha silenciosa no envio de emails
+
+**Solução:**
+- Adicionado polyfill para `__dirname` usando `fileURLToPath` e `dirname`
+- Código corrigido:
+  ```typescript
+  import { fileURLToPath } from "url";
+  import { dirname } from "path";
+  
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = dirname(__filename);
+  ```
+- Criado endpoint `resendActivationEmail` para reenviar emails
+
+**Resultado:**
+- ✅ Emails de ativação agora são enviados corretamente
+- ✅ Template de email renderiza sem erros
+- ✅ Testes passando (2/2 testes bem-sucedidos)
+- ✅ Endpoint de reenvio disponível para usuários que não receberam email
+
+**Tarefas:**
+- [x] Investigar sistema de envio de emails (verificar configuração Mailchimp/Mandrill)
+- [x] Verificar fluxo de registro e onde email deveria ser enviado
+- [x] Identificar se há erro silencioso no envio de emails
+- [x] Implementar correção do erro de __dirname
+- [x] Criar endpoint para reenviar email de ativação
+- [x] Testar correção com vitest

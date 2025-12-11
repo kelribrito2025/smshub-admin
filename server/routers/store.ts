@@ -117,6 +117,33 @@ export const storeRouter = router({
       return customer;
     }),
 
+  // Reenviar email de ativação
+  resendActivationEmail: publicProcedure
+    .input(z.object({
+      email: z.string().email(),
+    }))
+    .mutation(async ({ input }) => {
+      const customer = await getCustomerByEmail(input.email);
+      if (!customer) {
+        throw new Error('Email não encontrado');
+      }
+
+      // Verificar se já está ativado
+      if (customer.emailVerified) {
+        throw new Error('Esta conta já está ativada');
+      }
+
+      // Reenviar email de ativação
+      const { sendActivationEmail } = await import('../mailchimp-email');
+      const success = await sendActivationEmail(customer.email, customer.name, customer.id);
+      
+      if (!success) {
+        throw new Error('Falha ao enviar email. Tente novamente mais tarde.');
+      }
+
+      return { success: true, message: 'Email de ativação reenviado com sucesso!' };
+    }),
+
   // Obter dados do cliente
   getCustomer: publicProcedure
     .input(z.object({
