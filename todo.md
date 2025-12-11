@@ -1669,3 +1669,47 @@
 - [x] Atualizar template de email de ativação de conta com novo HTML
 - [x] Testar envio de email com novo template
 - [x] Validar renderização em diferentes clientes de email
+
+
+---
+
+## 📧 Problema: Email Não Recebido
+
+**Problema:**
+- Usuário reportou que não recebeu email de ativação de conta
+- Email de verificação com código de 6 dígitos não está chegando
+- Sistema usa Mailchimp Transactional (Mandrill) para envio
+
+**Tarefas:**
+- [x] Verificar se MAILCHIMP_API_KEY está configurada corretamente
+- [x] Verificar se MAILCHIMP_FROM_EMAIL e MAILCHIMP_FROM_NAME estão configurados
+- [x] Testar conexão com API do Mailchimp/Mandrill
+- [x] Verificar logs de envio de emails no servidor
+- [x] Testar envio de email de verificação manualmente
+- [x] Verificar se email está sendo enviado mas bloqueado por spam
+- [x] Corrigir problema identificado
+
+**Resolução:**
+- ✅ Sistema de email está funcionando corretamente
+- ✅ Emails de ativação estão sendo enviados com sucesso
+- ✅ Template de email corrigido (SMS.STORE → Número Virtual)
+- ✅ Ícone corrigido (carrinho → letra "N")
+- ⚠️ Problema inicial: email criptomoedazcore@gmail.com estava em global-block do Mandrill
+- ✅ Testado com outro email e funcionou perfeitamente
+
+
+---
+
+## 🎨 Template de Email de Ativação Incorreto
+
+**Problema:**
+- Email de ativação está sendo enviado com sucesso
+- Porém o template mostra "SMS.STORE" com ícone de carrinho de compras
+- Deveria mostrar branding "Número Virtual" com design correto
+
+**Tarefas:**
+- [x] Verificar arquivo de template de email (email-template-renderer.js)
+- [x] Corrigir branding de "SMS.STORE" para "Número Virtual"
+- [x] Corrigir ícone de carrinho para letra "N" (logo do Número Virtual)
+- [x] Testar novo template
+- [x] Marcar como concluído no todo.md
