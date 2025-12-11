@@ -1503,11 +1503,13 @@
 
 **Solução:**
 - Modificado `uniqueCountries` para usar a query `countries` (todos os países do sistema)
-- Agora o dropdown sempre mostra todos os países disponíveis, independente do filtro atual
+- Adicionado filtro `.filter((country) => country.active)` para exibir apenas países ativos
+- Agora o dropdown sempre mostra todos os países ativos disponíveis, independente do filtro atual
 - Permite trocar diretamente entre qualquer país sem passar por "Todos os países"
 
 **Tarefas:**
 - [x] Investigar lógica de filtro de países no Catalog.tsx
 - [x] Identificar por que filtro não atualiza ao trocar entre países específicos
 - [x] Corrigir lógica para permitir troca direta entre países (usar query countries)
+- [x] Ajustar filtro para exibir apenas países ativos (active: true)
 - [x] Testar troca entre diferentes países sem passar por "Todos os países"

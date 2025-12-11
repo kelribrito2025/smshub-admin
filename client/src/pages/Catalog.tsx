@@ -303,8 +303,9 @@ export default function Catalog() {
   // O backend já aplicou todos os filtros (país, status, API) na query allPricesResponse
   const globalFilteredItems = allCatalogItems;
 
-  // Get unique countries for filter (from all countries in the system)
+  // Get unique countries for filter (only active countries)
   const uniqueCountries = (countries || [])
+    .filter((country) => country.active) // Only show active countries
     .map((country) => ({
       code: country.code,
       name: country.name,
