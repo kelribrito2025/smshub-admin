@@ -1,0 +1,20 @@
+{
+  "query": "SELECT \n  re.id,\n  re.amount,\n  re.description,\n  re.createdAt,\n  c.email as affiliate_email,\n  ref_customer.email as referral_email,\n  r.firstRechargeAmount,\n  r.status as referral_status\nFROM referral_earnings re\nJOIN customers c ON re.affiliateId = c.id\nLEFT JOIN referrals r ON re.referralId = r.id\nLEFT JOIN customers ref_customer ON r.referredId = ref_customer.id\nWHERE c.email = 'fcokelrihbrito@gmail.com'\nORDER BY re.createdAt DESC",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT \n  re.id,\n  re.amount,\n  re.description,\n  re.createdAt,\n  c.email as affiliate_email,\n  ref_customer.email as referral_email,\n  r.firstRechargeAmount,\n  r.status as referral_status\nFROM referral_earnings re\nJOIN customers c ON re.affiliateId = c.id\nLEFT JOIN referrals r ON re.referralId = r.id\nLEFT JOIN customers ref_customer ON r.referredId = ref_customer.id\nWHERE c.email = 'fcokelrihbrito@gmail.com'\nORDER BY re.createdAt DESC",
+  "rows": [
+    {
+      "id": "1",
+      "amount": "50",
+      "description": "Bônus de 10% pela primeira recarga de Cliente #570010",
+      "createdAt": "2025-12-11 11:32:56",
+      "affiliate_email": "fcokelrihbrito@gmail.com",
+      "referral_email": "admifn@admin.com",
+      "firstRechargeAmount": "500",
+      "referral_status": "active"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tamount\tdescription\tcreatedAt\taffiliate_email\treferral_email\tfirstRechargeAmount\treferral_status\n1\t50\tBônus de 10% pela primeira recarga de Cliente #570010\t2025-12-11 11:32:56\tfcokelrihbrito@gmail.com\tadmifn@admin.com\t500\tactive\n",
+  "stderr": "",
+  "execution_time_ms": 57
+}

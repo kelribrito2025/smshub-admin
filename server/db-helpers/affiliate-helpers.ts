@@ -171,7 +171,7 @@ export async function getAffiliateStats(affiliateId: number) {
   return {
     totalReferrals: total,
     activeReferrals: active,
-    totalEarnings: totalEarnings[0].sum || 0,
+    totalEarnings: Number(totalEarnings[0].sum) || 0,
     conversionRate,
   };
 }
@@ -306,7 +306,7 @@ export async function getAllAffiliatesWithStats() {
       return {
         ...affiliate,
         ...stats,
-        totalRecharged: totalRecharged[0].sum || 0,
+        totalRecharged: Number(totalRecharged[0].sum) || 0,
       };
     })
   );

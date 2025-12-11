@@ -1,0 +1,37 @@
+{
+  "query": "SELECT id, referrerId, referredId, firstRechargeAmount, bonusGenerated, status, firstRechargeAt FROM referrals ORDER BY id DESC LIMIT 10",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT id, referrerId, referredId, firstRechargeAmount, bonusGenerated, status, firstRechargeAt FROM referrals ORDER BY id DESC LIMIT 10",
+  "rows": [
+    {
+      "id": "3",
+      "referrerId": "510014",
+      "referredId": "570011",
+      "firstRechargeAmount": "300",
+      "bonusGenerated": "30",
+      "status": "active",
+      "firstRechargeAt": "2025-12-11 11:44:26"
+    },
+    {
+      "id": "2",
+      "referrerId": "510014",
+      "referredId": "570010",
+      "firstRechargeAmount": "500",
+      "bonusGenerated": "50",
+      "status": "active",
+      "firstRechargeAt": "2025-12-11 11:32:56"
+    },
+    {
+      "id": "1",
+      "referrerId": "570006",
+      "referredId": "570007",
+      "firstRechargeAmount": "NULL",
+      "bonusGenerated": "NULL",
+      "status": "pending",
+      "firstRechargeAt": "NULL"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\treferrerId\treferredId\tfirstRechargeAmount\tbonusGenerated\tstatus\tfirstRechargeAt\n3\t510014\t570011\t300\t30\tactive\t2025-12-11 11:44:26\n2\t510014\t570010\t500\t50\tactive\t2025-12-11 11:32:56\n1\t570006\t570007\tNULL\tNULL\tpending\tNULL\n",
+  "stderr": "",
+  "execution_time_ms": 61
+}

@@ -1,0 +1,18 @@
+{
+  "query": "SELECT \n  c.id as customer_id,\n  c.email,\n  c.balance,\n  c.bonusBalance,\n  COUNT(re.id) as total_bonuses,\n  COALESCE(SUM(re.amount), 0) as total_bonus_amount\nFROM customers c\nLEFT JOIN referral_earnings re ON re.affiliateId = c.id\nWHERE c.email = 'fcokelrihbrito@gmail.com'\nGROUP BY c.id, c.email, c.balance, c.bonusBalance",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT \n  c.id as customer_id,\n  c.email,\n  c.balance,\n  c.bonusBalance,\n  COUNT(re.id) as total_bonuses,\n  COALESCE(SUM(re.amount), 0) as total_bonus_amount\nFROM customers c\nLEFT JOIN referral_earnings re ON re.affiliateId = c.id\nWHERE c.email = 'fcokelrihbrito@gmail.com'\nGROUP BY c.id, c.email, c.balance, c.bonusBalance",
+  "rows": [
+    {
+      "customer_id": "510014",
+      "email": "fcokelrihbrito@gmail.com",
+      "balance": "4087",
+      "bonusBalance": "50",
+      "total_bonuses": "1",
+      "total_bonus_amount": "50"
+    }
+  ],
+  "messages": [],
+  "stdout": "customer_id\temail\tbalance\tbonusBalance\ttotal_bonuses\ttotal_bonus_amount\n510014\tfcokelrihbrito@gmail.com\t4087\t50\t1\t50\n",
+  "stderr": "",
+  "execution_time_ms": 60
+}
