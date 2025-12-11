@@ -20,6 +20,8 @@ import { Badge } from "@/components/ui/badge";
 export default function StoreAffiliate() {
   const { customer } = useStoreAuth();
   const [copied, setCopied] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 13;
 
   // Queries - sempre buscar informações do programa
   const { data: programInfo, isLoading: programInfoLoading } = trpc.affiliate.getProgramInfo.useQuery();
@@ -33,10 +35,21 @@ export default function StoreAffiliate() {
     { customerId: customer?.id ?? 0 },
     { enabled: !!customer }
   );
-  const { data: referrals = [] } = trpc.affiliate.getMyReferrals.useQuery(
+  const { data: referralsCount = 0 } = trpc.affiliate.getReferralsCount.useQuery(
     { customerId: customer?.id ?? 0 },
     { enabled: !!customer }
   );
+  
+  const { data: referrals = [] } = trpc.affiliate.getMyReferrals.useQuery(
+    { 
+      customerId: customer?.id ?? 0,
+      limit: ITEMS_PER_PAGE,
+      offset: (currentPage - 1) * ITEMS_PER_PAGE,
+    },
+    { enabled: !!customer }
+  );
+  
+  const totalPages = Math.ceil(referralsCount / ITEMS_PER_PAGE);
 
   // Link genérico para usuários deslogados
   const GENERIC_LINK = "https://app.numero-virtual.com/link_de_indicação";
@@ -153,7 +166,7 @@ export default function StoreAffiliate() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4 relative z-10">
-            <div className="flex gap-2">
+            <div className="flex gap-2 items-center">
               <input
                 type="text"
                 readOnly
@@ -162,7 +175,7 @@ export default function StoreAffiliate() {
               />
               <Button
                 onClick={handleCopyLink}
-                className="bg-green-500 hover:bg-green-600 text-black font-semibold"
+                className="bg-green-500 hover:bg-green-600 text-black font-semibold whitespace-nowrap"
               >
                 {copied ? (
                   <>
@@ -321,6 +334,53 @@ export default function StoreAffiliate() {
                     ))}
                   </TableBody>
                 </Table>
+              </div>
+            )}
+            
+            {/* Paginação */}
+            {customer && referralsCount > ITEMS_PER_PAGE && (
+              <div className="flex items-center justify-between mt-6 pt-4 border-t border-green-900/50">
+                <p className="text-sm text-green-600">
+                  Mostrando {Math.min((currentPage - 1) * ITEMS_PER_PAGE + 1, referralsCount)} a{" "}
+                  {Math.min(currentPage * ITEMS_PER_PAGE, referralsCount)} de {referralsCount} indicações
+                </p>
+                <div className="flex gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                    disabled={currentPage === 1}
+                    className="bg-black/50 border-green-900/50 text-green-400 hover:bg-green-900/20 hover:text-green-300 disabled:opacity-30"
+                  >
+                    Anterior
+                  </Button>
+                  <div className="flex items-center gap-1">
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                      <Button
+                        key={page}
+                        variant={currentPage === page ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => setCurrentPage(page)}
+                        className={
+                          currentPage === page
+                            ? "bg-green-600 text-black hover:bg-green-500"
+                            : "bg-black/50 border-green-900/50 text-green-400 hover:bg-green-900/20 hover:text-green-300"
+                        }
+                      >
+                        {page}
+                      </Button>
+                    ))}
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                    disabled={currentPage === totalPages}
+                    className="bg-black/50 border-green-900/50 text-green-400 hover:bg-green-900/20 hover:text-green-300 disabled:opacity-30"
+                  >
+                    Próxima
+                  </Button>
+                </div>
               </div>
             )}
           </CardContent>

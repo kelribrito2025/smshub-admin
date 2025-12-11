@@ -1209,3 +1209,38 @@
 - ✅ Performance otimizada
 - ✅ Design moderno e responsivo
 - ✅ Pronto para uso em produção
+
+---
+
+## 🎨 Ajustar Tamanho do Campo de URL no Link de Indicação
+
+**Problema:**
+- O campo de URL e o botão "Copiar" estão muito extensos, ocupando toda a largura da tela
+- Layout precisa ser mais compacto para melhor experiência visual
+
+**Objetivo:**
+- Reduzir largura do campo de URL e botão "Copiar" para que fiquem proporcionais ao texto
+- Manter design responsivo e funcionalidade
+
+**Tarefas:**
+- [x] Ajustar largura do campo de URL no componente de link de indicação para mostrar URL completa
+- [x] Manter botão "Copiar" com tamanho adequado
+- [x] Testar responsividade em diferentes tamanhos de tela
+
+
+---
+
+## 📄 Paginação no Histórico de Indicações
+
+**Objetivo:**
+- Adicionar paginação no card de Histórico de Indicações
+- Exibir 13 indicações por página
+- Implementar navegação entre páginas quando houver mais de 13 indicações
+
+**Tarefas:**
+- [x] Atualizar backend para suportar paginação (limit, offset) na query de indicações
+- [x] Adicionar parâmetros de paginação no procedure getReferrals
+- [x] Implementar componente de paginação no frontend (botões prev/next ou números de página)
+- [x] Atualizar StoreAffiliate.tsx para usar paginação
+- [x] Testar com diferentes quantidades de indicações (0, 10, 13, 20, 50)
+- [x] Validar que navegação entre páginas funciona corretamente

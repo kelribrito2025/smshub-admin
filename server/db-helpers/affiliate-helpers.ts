@@ -96,10 +96,14 @@ export async function getReferralByReferredId(referredId: number) {
 /**
  * Get all referrals for an affiliate (referrer)
  */
-export async function getReferralsByAffiliate(affiliateId: number) {
+export async function getReferralsByAffiliate(
+  affiliateId: number,
+  options?: { limit?: number; offset?: number }
+) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
-  const result = await db
+  
+  let query = db
     .select({
       id: referrals.id,
       referredId: referrals.referredId,
@@ -116,7 +120,30 @@ export async function getReferralsByAffiliate(affiliateId: number) {
     .where(eq(referrals.referrerId, affiliateId))
     .orderBy(desc(referrals.createdAt));
   
+  // Apply pagination if provided
+  if (options?.limit !== undefined) {
+    query = query.limit(options.limit) as any;
+  }
+  if (options?.offset !== undefined) {
+    query = query.offset(options.offset) as any;
+  }
+  
+  const result = await query;
   return result;
+}
+
+/**
+ * Get total count of referrals for an affiliate
+ */
+export async function getReferralsCountByAffiliate(affiliateId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const result = await db
+    .select({ count: sql<number>`count(*)` })
+    .from(referrals)
+    .where(eq(referrals.referrerId, affiliateId));
+  
+  return Number(result[0]?.count) || 0;
 }
 
 /**

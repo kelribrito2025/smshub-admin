@@ -4,6 +4,7 @@ import { publicProcedure, router } from "../_core/trpc";
 import {
   getAffiliateSettings,
   getReferralsByAffiliate,
+  getReferralsCountByAffiliate,
   getEarningsByAffiliate,
   getAffiliateStats,
 } from "../db-helpers/affiliate-helpers";
@@ -43,17 +44,26 @@ export const affiliateRouter = router({
     }),
 
   /**
-   * Get all referrals for a customer
+   * Get all referrals for a customer with pagination
    */
   getMyReferrals: publicProcedure
-    .input(z.object({ customerId: z.number() }))
+    .input(
+      z.object({
+        customerId: z.number(),
+        limit: z.number().optional().default(13),
+        offset: z.number().optional().default(0),
+      })
+    )
     .query(async ({ input }) => {
       const customer = await getCustomerById(input.customerId);
       if (!customer) {
         throw new TRPCError({ code: "NOT_FOUND", message: "Customer not found" });
       }
 
-      const referrals = await getReferralsByAffiliate(customer.id);
+      const referrals = await getReferralsByAffiliate(customer.id, {
+        limit: input.limit,
+        offset: input.offset,
+      });
 
       return referrals.map((ref) => ({
         id: ref.id,
@@ -109,6 +119,21 @@ export const affiliateRouter = router({
         conversionRate: stats.conversionRate,
         bonusBalance: customer.bonusBalance,
       };
+    }),
+
+  /**
+   * Get total count of referrals for a customer
+   */
+  getReferralsCount: publicProcedure
+    .input(z.object({ customerId: z.number() }))
+    .query(async ({ input }) => {
+      const customer = await getCustomerById(input.customerId);
+      if (!customer) {
+        throw new TRPCError({ code: "NOT_FOUND", message: "Customer not found" });
+      }
+
+      const count = await getReferralsCountByAffiliate(customer.id);
+      return count;
     }),
 
   /**
