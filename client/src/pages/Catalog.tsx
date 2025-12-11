@@ -303,14 +303,12 @@ export default function Catalog() {
   // O backend já aplicou todos os filtros (país, status, API) na query allPricesResponse
   const globalFilteredItems = allCatalogItems;
 
-  // Get unique countries for filter (from current page)
-  const uniqueCountries = Array.from(
-    new Set(catalogItems.map((item) => item.countryCode))
-  )
-    .map((code) => {
-      const item = catalogItems.find((i) => i.countryCode === code);
-      return { code, name: item?.countryName || '' };
-    })
+  // Get unique countries for filter (from all countries in the system)
+  const uniqueCountries = (countries || [])
+    .map((country) => ({
+      code: country.code,
+      name: country.name,
+    }))
     .sort((a, b) => a.name.localeCompare(b.name));
 
   // Reset to page 1 when filters change

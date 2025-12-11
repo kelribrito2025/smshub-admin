@@ -1480,3 +1480,34 @@
 - [x] Corrigir lógica de contagem de serviços ativos
 - [x] Testar com filtro "Brazil" selecionado
 - [x] Validar que mostra 970+ serviços ativos (teste automatizado criado)
+
+
+---
+
+## 🐛 BUG: Filtro de Países Não Permite Trocar Entre Países Específicos
+
+**Problema:**
+- Quando seleciono "Brazil" no filtro, funciona corretamente
+- Porém, quando tento selecionar outro país (ex: "Colombia"), ele não aparece
+- Só consigo ver outros países se clicar em "Todos os países" primeiro
+- Não é possível trocar diretamente de um país para outro
+
+**Comportamento Esperado:**
+- Deveria ser possível trocar diretamente de "Brazil" para "Colombia" sem precisar passar por "Todos os países"
+
+**Causa Raiz:**
+- O código estava criando `uniqueCountries` baseado apenas nos itens da página atual (`catalogItems`)
+- Quando filtrava por "Brazil", apenas serviços do Brasil eram retornados
+- O dropdown era recriado com base nesses resultados filtrados
+- Resultado: apenas "Brazil" aparecia no dropdown, impossibilitando trocar para outro país
+
+**Solução:**
+- Modificado `uniqueCountries` para usar a query `countries` (todos os países do sistema)
+- Agora o dropdown sempre mostra todos os países disponíveis, independente do filtro atual
+- Permite trocar diretamente entre qualquer país sem passar por "Todos os países"
+
+**Tarefas:**
+- [x] Investigar lógica de filtro de países no Catalog.tsx
+- [x] Identificar por que filtro não atualiza ao trocar entre países específicos
+- [x] Corrigir lógica para permitir troca direta entre países (usar query countries)
+- [x] Testar troca entre diferentes países sem passar por "Todos os países"
