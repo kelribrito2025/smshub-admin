@@ -206,18 +206,18 @@ export default function StoreCatalog() {
         </div>
 
         {/* Activations Table */}
-        <Card className="bg-black/50 border-green-900/50 overflow-hidden" style={{paddingTop: '0px', paddingBottom: '15px'}}>
+        <Card className="bg-white border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow" style={{paddingTop: '0px', paddingBottom: '15px', borderRadius: '1.25rem'}}>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-green-900/50">
-                  <th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-bold text-green-400 uppercase tracking-wider">
+                <tr className="border-b border-gray-200">
+                  <th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-bold text-gray-700 uppercase tracking-wider">
                     Serviço
                   </th>
-                  <th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-bold text-green-400 uppercase tracking-wider">
+                  <th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-bold text-gray-700 uppercase tracking-wider">
                     Número
                   </th>
-                  <th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-bold text-green-400 uppercase tracking-wider">
+                  <th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-bold text-gray-700 uppercase tracking-wider">
                     <span className="lg:hidden">SMS</span>
                     <span className="hidden lg:inline">Código SMS</span>
                   </th>
@@ -257,13 +257,13 @@ export default function StoreCatalog() {
                   </tr>
                 ) : (
                   activations.map((activation: any) => (
-                    <tr key={activation.id} className="border-b border-green-900/30 hover:bg-green-900/10 transition-colors">
-                      <td className="px-3 md:px-6 py-3 md:py-4 text-green-400 font-mono text-xs md:text-sm">
+                    <tr key={activation.id} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                      <td className="px-3 md:px-6 py-3 md:py-4 text-gray-700 font-mono text-xs md:text-sm">
                         {activation.service?.name || 'N/A'}
                       </td>
                       <td className="px-3 md:px-6 py-3 md:py-4">
                         <div className="flex items-center gap-2">
-                          <span className="text-green-400 font-mono text-xs md:text-sm">{activation.phoneNumber}</span>
+                          <span className="text-gray-700 font-mono text-xs md:text-sm">{activation.phoneNumber}</span>
                           <button
                             type="button"
                             onClick={() => handleCopy(activation.phoneNumber, activation.id)}
@@ -286,9 +286,9 @@ export default function StoreCatalog() {
                           <div className="flex items-center gap-2">
                             {/* Mostrar mensagem de aguardando se smshubStatus === 'retry' */}
                             {activation.smshubStatus === 'retry' ? (
-                              <span className="text-green-400 font-mono text-xs md:text-sm">Aguardando a chegada de um novo SMS...</span>
+                              <span className="text-gray-700 font-mono text-xs md:text-sm">Aguardando a chegada de um novo SMS...</span>
                             ) : (
-                              <span className="text-green-400 font-mono text-base md:text-lg font-bold">{activation.smsCode}</span>
+                              <span className="text-gray-700 font-mono text-base md:text-lg font-bold">{activation.smsCode}</span>
                             )}
                             {/* Só mostrar botão copiar se NÃO estiver aguardando */}
                             {activation.smshubStatus !== 'retry' && (

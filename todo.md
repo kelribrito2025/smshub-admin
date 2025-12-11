@@ -1862,3 +1862,41 @@
 - [x] Criar novo template baseado no design fornecido
 - [x] Garantir fundo branco ao redor do conteúdo
 - [x] Testar compatibilidade com diferentes clientes de e-mail
+
+
+---
+
+## 📧 Corrigir Template de Email de Ativação
+
+**Problema:**
+- Email de ativação chegando em formato quadrado
+- Fundo verde não está aparecendo completamente como estava antes
+- Layout do email não está com o design esperado (fundo verde com conteúdo branco centralizado)
+
+**Objetivo:**
+- Restaurar o template de email para ter fundo verde completo
+- Garantir que o conteúdo apareça centralizado com fundo branco/escuro
+- Manter consistência visual com design anterior
+
+**Tarefas:**
+- [x] Investigar template de email atual (server/email-templates.ts)
+- [x] Corrigir estrutura HTML do email para fundo verde completo
+- [x] Testar envio de email de ativação
+- [x] Validar visual do email no cliente de email (aguardando confirmação do usuário)
+
+
+---
+
+## 🎨 Redesign: Fundo Branco com Layout Fluido
+
+**Objetivo:**
+- Alterar design para fundo branco
+- Criar layout mais fluido e orgânico sem elementos quadrados rígidos
+- Manter identidade visual mas com aparência mais leve e moderna
+
+**Tarefas:**
+- [x] Atualizar tema global para fundo branco
+- [x] Redesenhar cards com bordas mais suaves e sombras sutis
+- [x] Ajustar cores de texto para contraste adequado com fundo branco
+- [x] Implementar layout mais fluido sem caixas quadradas rígidas
+- [x] Testar legibilidade e contraste em todos os componentes
