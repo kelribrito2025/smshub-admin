@@ -1397,3 +1397,23 @@
 - [x] Verificar como países são carregados atualmente
 - [x] Implementar filtragem para exibir apenas países com status ativo
 - [x] Testar filtragem com diferentes configurações de países ativos
+
+
+---
+
+## 🐛 Filtro de País Não Funciona nos Cards de Serviços Ativos/Inativos
+
+**Problema:**
+- Ao filtrar por país na página /admin/catalogo, os cards de "Serviços Ativos" e "Serviços Inativos" não filtram os serviços
+- Os cards mostram contagem total de todos os países, não apenas do país selecionado
+- Filtro de país funciona corretamente na tabela de serviços, mas não nos cards de estatísticas
+
+**Objetivo:**
+- Fazer os cards de "Serviços Ativos" e "Serviços Inativos" respeitarem o filtro de país selecionado
+- Sincronizar contagem dos cards com os serviços exibidos na tabela
+
+**Tarefas:**
+- [x] Analisar implementação atual dos cards e queries de contagem
+- [x] Modificar queries de contagem para aceitar filtro de país
+- [x] Atualizar frontend para passar filtro de país para as queries de contagem
+- [x] Testar filtro de país nos cards

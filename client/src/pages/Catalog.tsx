@@ -70,11 +70,13 @@ export default function Catalog() {
     filterApi: filterApi !== 'all' ? filterApi : undefined,
   } as any);
 
-  // Buscar TODOS os registros para estatísticas (sem filtros) - apenas quando não há busca ativa
+  // Buscar TODOS os registros para estatísticas COM filtro de país
   const { data: allPricesResponse } = trpc.prices.getAll.useQuery(
-    undefined,
     {
-      enabled: !debouncedSearchTerm && filterCountry === 'all' && filterStatus === 'all' && filterApi === 'all',
+      filterCountry: filterCountry !== 'all' ? filterCountry : undefined,
+    } as any,
+    {
+      enabled: true, // Sempre habilitado para manter estatísticas atualizadas
     }
   );
 
@@ -744,7 +746,7 @@ export default function Catalog() {
         </div>
       </Card>
 
-      {/* Stats - Usando TODOS os registros, não apenas a página atual */}
+      {/* Stats - Usando registros filtrados por país */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Card className="p-4">
           <div className="text-sm text-muted-foreground">Serviços Ativos</div>
