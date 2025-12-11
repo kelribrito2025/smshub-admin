@@ -1259,3 +1259,16 @@
 - [x] Localizar componente que exibe o link de afiliado
 - [x] Ajustar largura do input para ser proporcional ao conteúdo
 - [x] Testar visual e funcionalidade
+
+
+---
+
+## 🎨 Corrigir SVG Divider Cobrindo Texto
+
+**Problema:**
+- SVG divider está sobrepondo o texto na seção de indicação
+- Conteúdo está sendo coberto pelo divider
+
+**Tarefas:**
+- [x] Corrigir SVG divider que está cobrindo o texto na seção de indicação
+- [x] Ajustar largura do input do link de indicação para não esticar até o tamanho da página
