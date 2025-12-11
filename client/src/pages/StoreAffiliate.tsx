@@ -166,16 +166,16 @@ export default function StoreAffiliate() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4 relative z-10">
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-2 items-center max-w-[680px]">
               <input
                 type="text"
                 readOnly
                 value={displayLink}
-                className="w-auto min-w-[280px] max-w-md bg-black border border-green-900/50 rounded-md px-4 py-2 text-green-400 font-mono text-sm"
+                className="flex-1 bg-black border border-green-900/50 rounded-md px-4 py-2 text-green-400 font-mono text-sm"
               />
               <Button
                 onClick={handleCopyLink}
-                className="bg-green-500 hover:bg-green-600 text-black font-semibold whitespace-nowrap"
+                className="bg-green-500 hover:bg-green-600 text-black font-semibold whitespace-nowrap flex-shrink-0"
               >
                 {copied ? (
                   <>

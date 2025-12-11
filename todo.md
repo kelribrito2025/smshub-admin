@@ -1259,3 +1259,19 @@
 - [x] Localizar componente que exibe o link de afiliado
 - [x] Ajustar largura do input para ser proporcional ao conteúdo
 - [x] Testar visual e funcionalidade
+
+
+---
+
+## 🎯 Limitar Largura Máxima do Link de Indicação
+
+**Objetivo:**
+- Ajustar largura máxima do campo de URL e botão "Copiar" no link de indicação
+- Não deve ultrapassar a linha vermelha marcada (logo após o texto "ganhar bônus")
+- Tornar o layout mais compacto e visualmente equilibrado
+
+**Tarefas:**
+- [x] Localizar componente do link de indicação (StoreAffiliate.tsx)
+- [x] Adicionar max-width ao container do campo URL + botão copiar
+- [ ] Testar visual para garantir que não ultrapassa o limite desejado
+- [ ] Validar responsividade em diferentes tamanhos de tela
