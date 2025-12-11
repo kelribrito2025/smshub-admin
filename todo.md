@@ -1713,3 +1713,15 @@
 - [x] Corrigir ícone de carrinho para letra "N" (logo do Número Virtual)
 - [x] Testar novo template
 - [x] Marcar como concluído no todo.md
+
+
+---
+
+## 📧 Atualizar Template de Email de Ativação
+
+**Objetivo:**
+- Substituir o template atual de activation-email.html pelo novo modelo fornecido
+- Manter variáveis dinâmicas (userName, loginLink)
+
+**Tarefas:**
+- [x] Atualizar template activation-email.html com novo modelo fornecido
