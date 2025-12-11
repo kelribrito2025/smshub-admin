@@ -1311,3 +1311,14 @@
 
 **Tarefas:**
 - [x] Modificar max-width de 500px para 450px no StoreAffiliate.tsx
+
+
+---
+
+## 🎯 Ajustar Largura do Link de Indicação para 470px
+
+**Objetivo:**
+- Ajustar largura máxima do container de 450px para 470px
+
+**Tarefas:**
+- [x] Modificar max-width de 450px para 470px no StoreAffiliate.tsx
