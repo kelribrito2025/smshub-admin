@@ -64,8 +64,8 @@ export const stripeRouter = router({
             quantity: 1,
           },
         ],
-        success_url: `${origin}/store/recharges?success=true`,
-        cancel_url: `${origin}/store/recharges?canceled=true`,
+        success_url: `${origin}/recharges?success=true`,
+        cancel_url: `${origin}/recharges?canceled=true`,
         metadata: {
           customerId: input.customerId.toString(),
         },

@@ -151,7 +151,7 @@ export async function sendWelcomeEmail(customerEmail: string, customerName: stri
         <li>✅ Recarregar saldo via PIX com confirmação automática</li>
       </ul>
       <p>Faça sua primeira recarga e comece a usar agora mesmo!</p>
-      <a href="https://numero-virtual.com/store/catalog" class="button">Explorar Serviços</a>
+      <a href="https://app.numero-virtual.com/" class="button">Explorar Serviços</a>
       <p>Se tiver alguma dúvida, nossa equipe está sempre pronta para ajudar.</p>
     </div>
     <div class="footer">
@@ -206,7 +206,7 @@ export async function sendConfirmationEmail(customerEmail: string, customerName:
         <li>✅ Ativar números SMS de qualquer país</li>
         <li>✅ Gerenciar suas ativações</li>
       </ul>
-      <a href="https://numero-virtual.com/store/login" class="button">Fazer Login</a>
+      <a href="https://app.numero-virtual.com/" class="button">Fazer Login</a>
       <p>Qualquer dúvida, estamos à disposição!</p>
     </div>
     <div class="footer">
@@ -233,7 +233,7 @@ export async function sendPasswordResetEmail(
   customerName: string,
   resetToken: string
 ): Promise<boolean> {
-  const resetUrl = `https://numero-virtual.com/store/reset-password?token=${resetToken}`;
+  const resetUrl = `https://app.numero-virtual.com/reset-password?token=${resetToken}`;
 
   const html = `
 <!DOCTYPE html>

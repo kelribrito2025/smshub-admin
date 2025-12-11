@@ -629,3 +629,26 @@
 - [x] Criar e executar script para corrigir pedidos antigos
 - [x] Criar testes de validação (activation-status-auto-complete.test.ts)
 - [x] Validar que histórico mostra status correto
+
+
+---
+
+## 🐛 Página de Afiliado Aparece Preta com Parâmetro ref
+
+**Problema:**
+- Ao acessar a URL de afiliado com parâmetro ref (ex: https://app.numero-virtual.com/store?ref=510014)
+- A página aparece completamente preta
+- Usuário não consegue ver conteúdo da loja
+
+**Solução:**
+- Rota /store não existia no App.tsx
+- Corrigido affiliateRouter.ts para usar `/?ref=` ao invés de `/store?ref=`
+- Corrigido URLs em stripe.ts e mailchimp-email.ts
+- Teste automatizado validado com sucesso
+
+**Tarefas:**
+- [x] Investigar rota /store e verificar se existe
+- [x] Verificar se há erro de renderização com parâmetro ref
+- [x] Verificar se há problema de autenticação ou redirecionamento
+- [x] Corrigir problema identificado
+- [x] Testar URL de afiliado com parâmetro ref

@@ -33,7 +33,7 @@ export const affiliateRouter = router({
 
       // Generate referral link
       const baseUrl = process.env.VITE_FRONTEND_URL || "https://smshubdash-2kemnlvg.manus.space";
-      const referralLink = `${baseUrl}/store?ref=${customer.id}`;
+      const referralLink = `${baseUrl}/?ref=${customer.id}`;
 
       return {
         referralLink,
