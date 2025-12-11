@@ -1,94 +1,72 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conta Confirmada - Número Virtual</title>
-</head>
-<body style="margin: 0; padding: 0; background-color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
-    <div style="min-height: 100vh; background-color: #ffffff; padding: 32px;">
-        <div style="max-width: 700px; margin: 0 auto;">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bem-vindo ao Número Virtual!</title>
+  </head>
 
-            <!-- Header -->
-            <div style="background: linear-gradient(to right, #4ade80, #22c55e); border-radius: 16px; padding: 32px; margin-bottom: 32px;">
-                <div style="display: flex; align-items: center; justify-content: center; gap: 12px;">
-                    <div style="width: 48px; height: 48px; background-color: rgba(255, 255, 255, 0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
-                        <span style="font-size: 30px;">✓</span>
-                    </div>
-                    <h1 style="font-size: 36px; font-weight: bold; color: #000000; margin: 0;">
-                        Conta Confirmada!
-                    </h1>
-                </div>
-            </div>
-
-            <!-- Content -->
-            <div style="padding: 0 16px;">
-
-                <!-- Greeting -->
-                <h2 style="font-size: 36px; font-weight: bold; color: #22c55e; margin-bottom: 24px;">
-                    Olá, {{USER_NAME}}!
-                </h2>
-
-                <!-- Confirmation Message -->
-                <p style="font-size: 20px; color: #374151; margin-bottom: 32px; line-height: 1.5;">
-                    Sua conta no <strong>Número Virtual</strong> foi confirmada com sucesso!
-                </p>
-
-                <!-- Features List -->
-                <div style="margin-bottom: 40px;">
-                    <p style="font-size: 20px; color: #374151; margin-bottom: 24px; font-weight: 600;">
-                        Agora você pode:
-                    </p>
-
-                    <ul style="list-style: none; padding: 0; margin: 0;">
-                        <li style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px;">
-                            <div style="width: 32px; height: 32px; background-color: #22c55e; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 4px;">
-                                <span style="color: #ffffff; font-size: 20px; font-weight: bold;">✓</span>
-                            </div>
-                            <span style="font-size: 18px; color: #374151; padding-top: 4px;">
-                                Fazer login na plataforma
-                            </span>
-                        </li>
-
-                        <li style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px;">
-                            <div style="width: 32px; height: 32px; background-color: #22c55e; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 4px;">
-                                <span style="color: #ffffff; font-size: 20px; font-weight: bold;">✓</span>
-                            </div>
-                            <span style="font-size: 18px; color: #374151; padding-top: 4px;">
-                                Recarregar seu saldo
-                            </span>
-                        </li>
-
-                        <li style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px;">
-                            <div style="width: 32px; height: 32px; background-color: #22c55e; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 4px;">
-                                <span style="color: #ffffff; font-size: 20px; font-weight: bold;">✓</span>
-                            </div>
-                            <span style="font-size: 18px; color: #374151; padding-top: 4px;">
-                                Ativar números SMS de qualquer país
-                            </span>
-                        </li>
-
-                        <li style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px;">
-                            <div style="width: 32px; height: 32px; background-color: #22c55e; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 4px;">
-                                <span style="color: #ffffff; font-size: 20px; font-weight: bold;">✓</span>
-                            </div>
-                            <span style="font-size: 18px; color: #374151; padding-top: 4px;">
-                                Gerenciar suas ativações
-                            </span>
-                        </li>
+  <body
+    style="
+      margin: 0;
+      padding: 0;
+      background-color: #0d0d0d;
+      font-family: Arial, sans-serif;
+      color: #e6ffe6;
+    "
+  >
+    <p>&nbsp;</p>
+    <table style="padding: 20px 0;" border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tbody>
+        <tr>
+          <td align="center">
+            <table style="background-color: #111; border-radius: 10px; overflow: hidden; box-shadow: 0 0 8px rgba(0,255,65,0.15);" border="0" width="600" cellspacing="0" cellpadding="0">
+              <!-- HEADER -->
+              <tbody>
+                <tr>
+                  <td style="background: linear-gradient(135deg, #00ff41 0%, #00cc33 100%); padding: 35px 20px;" align="center">
+                    <h1 style="margin: 0; color: #000; font-size: 26px; font-weight: bold;">🎉 Bem-vindo ao Número Virtual!</h1>
+                  </td>
+                </tr>
+                <!-- CONTENT -->
+                <tr>
+                  <td style="padding: 35px 30px; font-size: 15px; line-height: 1.7; color: #d6f5d6;">
+                    <h2 style="margin-top: 0; color: #00ff41; font-size: 20px;">Olá, {{USER_NAME}}!</h2>
+                    <p>Estamos muito felizes em ter você conosco! Sua conta foi criada com sucesso.</p>
+                    <p>Com o <strong>Número Virtual</strong>, você pode:</p>
+                    <ul style="padding-left: 20px; margin: 0;">
+                      <li>✅ Receber SMS de verificação de qualquer serviço</li>
+                      <li>✅ Escolher entre centenas de países e operadoras</li>
+                      <li>✅ Ativar números instantaneamente</li>
+                      <li>✅ Recarregar saldo via PIX com confirmação automática</li>
                     </ul>
-                </div>
-
-                <!-- Login Button -->
-                <div>
-                    <a href="{{ACTIVATION_LINK}}" style="display: inline-block; background-color: #22c55e; color: #000000; font-weight: bold; font-size: 20px; padding: 16px 48px; border-radius: 12px; text-decoration: none; transition: background-color 0.3s;">
-                        Fazer Login
-                    </a>
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-</body>
+                    <br />
+                    <p>Faça sua primeira recarga e comece a usar agora mesmo!</p>
+                    <!-- BUTTON -->
+                    <div style="text-align: center; margin-top: 25px;">
+                      <a style="background-color: #00ff41; color: #000; padding: 12px 25px; font-size: 15px; font-weight: bold; text-decoration: none; border-radius: 6px; display: inline-block;" href="{{ACTIVATION_LINK}}">
+                        Explorar Serviços
+                      </a>
+                    </div>
+                    <br />
+                    <p>Se tiver alguma dúvida, nossa equipe está sempre pronta para ajudar.</p>
+                  </td>
+                </tr>
+                <!-- FOOTER -->
+                <tr>
+                  <td style="background-color: #0b0b0b; padding: 20px; font-size: 12px; color: #666;" align="center">
+                    &copy; 2025 Número Virtual. Todos os direitos reservados.
+                    <br /><br />
+                    Este é um email automático, por favor não responda.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- PIXEL DE RASTREAMENTO -->
+            <img style="display: block; margin: 0; padding: 0;" src="https://mandrillapp.com/track/open.php" alt="" width="1" height="1" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
 </html>

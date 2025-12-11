@@ -1739,3 +1739,110 @@
 - [x] Atualizar template de email de ativação com novo modelo
 - [x] Testar envio de email com novo template
 - [x] Validar que variáveis {{USER_NAME}} e {{ACTIVATION_LINK}} funcionam corretamente
+
+
+---
+
+## 🐛 Email de Ativação do Mailchimp Não Recebido
+
+**Problema:**
+- Usuário criou conta com email assini2024@gmail.com
+- Email de ativação não foi recebido
+- Necessário investigar configuração do Mailchimp e logs de envio
+
+**Tarefas:**
+- [x] Verificar configuração do Mailchimp no servidor
+- [x] Verificar logs de envio de email
+- [x] Testar envio de email de ativação
+- [x] Identificar e corrigir problema
+- [x] Confirmar recebimento do email
+
+- [x] Atualizar template activation-email.html com novo design verde neon
+
+
+---
+
+## 📧 Atualizar Modelo do Email de Ativação
+
+**Objetivo:**
+- Atualizar o template do email de ativação (activation-email.html) com novo design
+- Aplicar cores do sistema (verde #00ff41, fundo escuro #111)
+- Manter estrutura responsiva e compatibilidade com clientes de email
+
+**Tarefas:**
+- [x] Atualizar activation-email.html com novo design fornecido
+- [x] Testar renderização do email
+
+
+---
+
+## 📧 Enviar Email de Teste com Novo Modelo
+
+**Objetivo:**
+- Enviar email para kelribrito@icloud.com usando o novo modelo de email definido
+- Validar que o sistema de envio de emails está funcionando corretamente
+
+**Tarefas:**
+- [x] Verificar configuração de email no sistema
+- [x] Enviar email de teste para kelribrito@icloud.com
+- [x] Confirmar envio do email (ID: 41fb125ade674a98a8899fc1bd4fde51)
+
+
+---
+
+## 🎨 Redesign Completo do Sistema (Novo Modelo Visual)
+
+**Objetivo:**
+- Criar um novo modelo visual moderno e profissional
+- Redesenhar toda a interface com nova paleta de cores
+- Melhorar experiência visual e usabilidade
+
+**Tarefas:**
+- [ ] Criar novo design system com paleta de cores moderna
+- [ ] Atualizar estilos globais e tipografia
+- [ ] Redesenhar página Home com novo layout
+- [ ] Redesenhar DashboardLayout com nova sidebar
+- [ ] Atualizar componentes de UI (cards, buttons, etc)
+- [ ] Testar responsividade e acessibilidade
+
+
+---
+
+## 📧 Criar Novo Modelo de Email Alternativo
+
+**Objetivo:**
+- Criar um template de email alternativo para o usuário avaliar
+- Oferecer opção diferente de design de email
+
+**Tarefas:**
+- [x] Criar novo template de email com design alternativo
+- [x] Apresentar ao usuário para avaliação
+
+
+---
+
+## 📧 Criar Novo Template de Email de Ativação (Design Claro)
+
+**Objetivo:**
+- Criar um novo template de email de ativação de conta com design claro e sem cores escuras
+- Manter apenas o conteúdo especificado pelo usuário
+- Abordagem visual diferente da anterior
+
+**Tarefas:**
+- [x] Criar novo template de email com design claro (sem cores escuras)
+- [x] Testar visualização do template
+
+---
+
+## 📧 Atualizar Template de Email de Ativação
+
+**Objetivo:**
+- Atualizar template de email de ativação para novo modelo com design dark/green
+- Manter funcionalidade de ativação de conta
+- Enviar email de teste para kelribrito@icloud.com
+
+**Tarefas:**
+- [x] Atualizar template HTML do email de ativação
+- [x] Testar envio de email com novo template
+- [x] Verificar renderização em diferentes clientes de email
+

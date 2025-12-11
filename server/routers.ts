@@ -27,6 +27,7 @@ import { exchangeRateRouter } from "./routers/exchange-rate";
 import { adminMenusRouter } from "./routers/adminMenus";
 import { rechargesRouter } from "./routers/recharges";
 import { notificationsRouter } from "./routers/notifications";
+import { emailTestRouter } from "./routers/email-test";
 
 export const appRouter = router({
     // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
@@ -72,6 +73,7 @@ export const appRouter = router({
   affiliate: affiliateRouter,
   recharges: rechargesRouter,
   notifications: notificationsRouter,
+  emailTest: emailTestRouter,
 });
 
 export type AppRouter = typeof appRouter;

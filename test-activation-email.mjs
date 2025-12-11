@@ -2,14 +2,14 @@ import { sendActivationEmail } from './server/mailchimp-email.js';
 
 async function testEmail() {
   console.log('📧 Testando envio de email de ativação...');
-  console.log('   Para: criptomoedazcore@gmail.com');
-  console.log('   Customer ID: 720002');
+  console.log('   Para: kelribrito@icloud.com');
+  console.log('   Customer ID: 99999');
   
   try {
     const result = await sendActivationEmail(
-      'criptomoedazcore@gmail.com',
-      'ttttt',
-      720002
+      'kelribrito@icloud.com',
+      'Kelri',
+      99999
     );
     
     if (result) {

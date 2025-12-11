@@ -3,74 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ativar Conta - Número Virtual</title>
+    <title>Ativar Conta</title>
 </head>
-<body style="margin: 0; padding: 0; background-color: #000000; font-family: 'Courier New', Courier, monospace;">
-    <!-- Main Container -->
-    <div style="min-height: 100vh; background-color: #000000; padding: 32px; position: relative;">
-        
-        <!-- Cyber Grid Background -->
-        <div style="position: absolute; inset: 0; background-image: linear-gradient(to right, rgba(0, 255, 65, 0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 255, 65, 0.06) 1px, transparent 1px); background-size: 64px 64px; pointer-events: none;"></div>
-        
-        <!-- Glowing Orbs -->
-        <div style="position: absolute; top: 80px; left: 80px; width: 384px; height: 384px; background-color: rgba(34, 197, 94, 0.15); border-radius: 50%; filter: blur(100px); pointer-events: none;"></div>
-        <div style="position: absolute; bottom: 80px; right: 80px; width: 384px; height: 384px; background-color: rgba(34, 197, 94, 0.08); border-radius: 50%; filter: blur(100px); pointer-events: none;"></div>
+<body style="margin: 0; padding: 0; background-color: #ffffff !important; font-family: Arial, sans-serif;">
 
-        <!-- Content Container -->
-        <div style="max-width: 600px; margin: 0 auto; position: relative; z-index: 1;">
+    <!-- FUNDO EXTERNO BRANCO -->
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" 
+           style="background-color: #ffffff; padding: 40px 0;">
+      <tr>
+        <td align="center">
 
-            <!-- Logo Section -->
-            <div style="text-align: center; margin-bottom: 48px;">
-                <div style="display: inline-block; width: 80px; height: 80px; background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); border-radius: 16px; margin-bottom: 24px; position: relative; box-shadow: 0 0 40px rgba(34, 197, 94, 0.4);">
-                    <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;">
-                        <span style="font-size: 56px; font-weight: bold; color: #000000; font-family: 'Courier New', Courier, monospace;">N</span>
-                    </div>
-                </div>
-                <h2 style="font-size: 28px; font-weight: bold; color: #22c55e; margin: 0; letter-spacing: 1px;">Olá, {{USER_NAME}}!</h2>
-                <div style="height: 2px; width: 100px; background: linear-gradient(to right, transparent, #22c55e, transparent); margin: 16px auto 0;"></div>
-            </div>
+          <!-- CAIXA INTERNA ESCURA -->
+          <table width="540" cellpadding="0" cellspacing="0" border="0"
+            style="
+              background-color: #0e1522;
+              border: 2px solid #00ab45;
+              border-radius: 2px;
+              box-shadow: 0 0 40px rgba(0, 171, 69, 0.25);
+              overflow: hidden;
+            "
+          >
 
-            <!-- Main Card -->
-            <div style="background-color: rgba(0, 0, 0, 0.8); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 16px; padding: 40px; backdrop-filter: blur(10px); box-shadow: 0 0 60px rgba(34, 197, 94, 0.15);">
-                
-                <!-- Greeting -->
+            <!-- BARRA SUPERIOR -->
+            <tr>
+              <td style="
+                background: linear-gradient(90deg, #00ab45 0%, #09bf61 50%, #00ab45 100%);
+                height: 4px;
+              ">
+              </td>
+            </tr>
+
+            <!-- CONTEÚDO -->
+            <tr>
+              <td style="padding: 48px 40px;">
+
+                <!-- TAG SUPERIOR -->
                 <div style="margin-bottom: 32px;">
-                    <p style="font-size: 18px; color: #22c55e; margin: 0 0 8px 0;">
-                        &gt; SISTEMA_ATIVAÇÃO
-                    </p>
-                    <h2 style="font-size: 28px; font-weight: bold; color: #22c55e; margin: 0; letter-spacing: 1px;">
-                        <span style="color: #86efac; font-size: 16px;">Para começar a usar, ative sua conta clicando no botão abaixo:</span>
-                    </h2>
+                  <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                      <td style="width: 8px; height: 8px; background-color: #00ab45;"></td>
+                      <td style="padding-left: 12px;">
+                        <span 
+                          style="
+                            font-size: 11px;
+                            color: #09bf61;
+                            letter-spacing: 3px;
+                            text-transform: uppercase;
+                            font-weight: bold;
+                          "
+                        >
+                          AÇÃO NECESSÁRIA
+                        </span>
+                      </td>
+                    </tr>
+                  </table>
                 </div>
 
-                <!-- Activation Button -->
-                <div style="text-align: center; margin: 40px 0;">
-                    <a href="{{ACTIVATION_LINK}}" style="display: inline-block; background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); color: #000000; font-weight: bold; font-size: 18px; padding: 18px 48px; border-radius: 8px; text-decoration: none; letter-spacing: 1px; box-shadow: 0 0 30px rgba(34, 197, 94, 0.4); transition: all 0.3s;">
-                        [ ATIVAR CONTA ]
-                    </a>
+                <!-- TÍTULO -->
+                <div style="margin-bottom: 32px;">
+                  <h1
+                    style="
+                      font-size: 24px;
+                      color: #ffffff;
+                      margin: 0 0 8px 0;
+                      font-weight: bold;
+                      letter-spacing: 1px;
+                    "
+                  >
+                    ATIVE SUA CONTA
+                  </h1>
+
+                  <div style="width: 60px; height: 2px; background-color: #00ab45;"></div>
                 </div>
 
-                <!-- Alternative Link -->
-                <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(34, 197, 94, 0.2);">
-                    <p style="font-size: 13px; color: #4ade80; margin: 0 0 12px 0;">
-                        &gt; Link alternativo:
-                    </p>
-                    <p style="font-size: 12px; color: #86efac; word-break: break-all; margin: 0 0 16px 0; background-color: rgba(34, 197, 94, 0.05); padding: 12px; border-radius: 6px; border-left: 3px solid #22c55e;">
-                        {{ACTIVATION_LINK}}
-                    </p>
+                <!-- TEXTO -->
+                <div style="margin-bottom: 32px;">
+                  <p
+                    style="
+                      font-size: 15px;
+                      color: #c0c0c0;
+                      line-height: 1.7;
+                      margin: 0;
+                    "
+                  >
+                    <span style="color: #09bf61; font-weight: 600;">{{USER_NAME}}</span>, para começar a
+                    usar a plataforma, clique no botão abaixo para ativar o acesso.
+                  </p>
                 </div>
 
-            </div>
+                <!-- BOTÃO -->
+                <div style="margin: 40px 0; text-align: center;">
+                  <a
+                    href="{{ACTIVATION_LINK}}"
+                    style="
+                      display: inline-block;
+                      background-color: transparent;
+                      color: #09bf61;
+                      font-weight: bold;
+                      font-size: 13px;
+                      padding: 14px 40px;
+                      border: 2px solid #09bf61;
+                      text-decoration: none;
+                      letter-spacing: 2px;
+                      text-transform: uppercase;
+                    "
+                  >
+                    [ATIVAR CONTA]
+                  </a>
+                </div>
 
-            <!-- Footer -->
-            <div style="margin-top: 40px; text-align: center;">
-                <div style="height: 1px; width: 100%; background: linear-gradient(to right, transparent, rgba(34, 197, 94, 0.3), transparent); margin-bottom: 24px;"></div>
-                <p style="font-size: 11px; color: #166534; margin: 0 0 8px 0; letter-spacing: 1px;">
-                    NÚMERO VIRTUAL © 2025
-                </p>
-            </div>
+                <!-- LINK ALTERNATIVO -->
+                <div
+                  style="
+                    margin-top: 40px;
+                    padding-top: 32px;
+                    border-top: 1px solid rgba(0, 171, 69, 0.15);
+                  "
+                >
+                  <p
+                    style="
+                      font-size: 11px;
+                      color: #ffffff;
+                      margin: 0 0 8px 0;
+                      line-height: 1.5;
+                      font-family: 'Courier New', monospace;
+                    "
+                  >
+                    &gt; URL: 
+                    <span style="color: #09bf61;">
+                      {{ACTIVATION_LINK}}
+                    </span>
+                  </p>
 
-        </div>
-    </div>
+                  <p
+                    style="
+                      font-size: 11px;
+                      color: #c0c0c0;
+                      margin: 0;
+                      line-height: 1.5;
+                    "
+                  >
+                    &gt; Esse link expira em 24 horas
+                  </p>
+                </div>
+
+              </td>
+            </tr>
+          </table>
+
+          <!-- PIXEL DE RASTREAMENTO -->
+          <img
+            src="https://mandrillapp.com/track/open.php"
+            height="1"
+            width="1"
+            alt=""
+            style="display: block; margin: 0; padding: 0;"
+          />
+
+        </td>
+      </tr>
+    </table>
 </body>
 </html>
