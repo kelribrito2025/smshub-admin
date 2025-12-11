@@ -117,7 +117,6 @@ export const affiliateRouter = router({
         activeReferrals: stats.activeReferrals,
         totalEarnings: stats.totalEarnings,
         conversionRate: stats.conversionRate,
-        bonusBalance: customer.bonusBalance,
       };
     }),
 

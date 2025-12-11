@@ -751,13 +751,13 @@ export default function Catalog() {
         <Card className="p-4">
           <div className="text-sm text-muted-foreground">Serviços Ativos</div>
           <div className="text-2xl font-bold mt-1 text-green-600">
-            {allCatalogItems.filter((i) => i.active).length}
+            {globalFilteredItems.filter((i) => i.active).length}
           </div>
         </Card>
         <Card className="p-4">
           <div className="text-sm text-muted-foreground">Serviços Inativos</div>
           <div className="text-2xl font-bold mt-1 text-red-600">
-            {allCatalogItems.filter((i) => !i.active).length}
+            {globalFilteredItems.filter((i) => !i.active).length}
           </div>
         </Card>
         <Card className="p-4">

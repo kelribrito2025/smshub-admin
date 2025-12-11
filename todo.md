@@ -1417,3 +1417,33 @@
 - [x] Modificar queries de contagem para aceitar filtro de país
 - [x] Atualizar frontend para passar filtro de país para as queries de contagem
 - [x] Testar filtro de país nos cards
+
+
+---
+
+## 🐛 Bug de Contagem de Serviços ao Filtrar "Todos os Países"
+
+**Problema:**
+- Ao importar serviços de múltiplos países (Brasil + Colômbia = 3 opções), o filtro "todos os países" mostra apenas 50 serviços ao invés do total correto
+- Exemplo: importou serviços do Brasil e da Colômbia (3 opções no total), mas ao selecionar "todos os países" aparecem apenas 50 serviços
+- Indica problema na query de contagem ou filtragem quando país = "all"
+
+**Objetivo:**
+- Corrigir a contagem de serviços quando filtro "todos os países" está selecionado
+- Garantir que a contagem reflita o total real de serviços importados
+
+**Causa Raiz:**
+- Os cards de estatísticas (Serviços Ativos/Inativos) estavam usando `allCatalogItems` ao invés de `globalFilteredItems`
+- Isso fazia com que os cards mostrassem TODOS os serviços sem aplicar os filtros
+- A tabela e a contagem usavam `globalFilteredItems` (que respeita os filtros), causando inconsistência
+
+**Solução:**
+- Corrigido cards para usar `globalFilteredItems` ao invés de `allCatalogItems`
+- Agora os cards respeitam o filtro de país selecionado
+
+**Tarefas:**
+- [x] Investigar query de serviços quando countryCode = "all"
+- [x] Verificar se há limite de 50 serviços aplicado incorretamente
+- [x] Analisar lógica de filtragem no backend (server/db-helpers/service-helpers.ts)
+- [x] Corrigir query para retornar todos os serviços quando país = "all"
+- [x] Testar contagem com múltiplos países importados
