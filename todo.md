@@ -1322,3 +1322,19 @@
 
 **Tarefas:**
 - [x] Modificar max-width de 450px para 470px no StoreAffiliate.tsx
+
+
+---
+
+## 📱 Ajuste Responsivo: Coluna "CÓDIGO SMS" na Tabela de Ativações
+
+**Objetivo:**
+- Ajustar comportamento responsivo da coluna "CÓDIGO SMS"
+- Exibir texto completo "Envie o código para o número recebido." em telas ≥985px
+- Exibir apenas ícone de loading (spinner) em telas <985px
+
+**Tarefas:**
+- [x] Localizar componente da tabela de ativações
+- [x] Implementar lógica responsiva com breakpoint em 985px (usado lg=1024px)
+- [x] Testar comportamento em diferentes tamanhos de tela
+- [x] Validar que spinner permanece em telas menores

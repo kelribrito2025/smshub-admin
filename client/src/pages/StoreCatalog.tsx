@@ -311,10 +311,10 @@ export default function StoreCatalog() {
                           </div>
                         ) : (
                           <>
-                            {/* Mobile: apenas loader */}
-                            <Loader2 className="w-4 h-4 text-green-600 animate-spin md:hidden" />
-                            {/* Desktop: texto de instrução */}
-                            <span className="hidden md:inline text-green-600 font-mono text-xs md:text-sm">
+                            {/* Mobile (<985px): apenas loader */}
+                            <Loader2 className="w-4 h-4 text-green-600 animate-spin lg:hidden" />
+                            {/* Desktop (≥985px): texto de instrução */}
+                            <span className="hidden lg:inline text-green-600 font-mono text-xs lg:text-sm">
                               Envie o código para o número recebido.
                             </span>
                           </>
