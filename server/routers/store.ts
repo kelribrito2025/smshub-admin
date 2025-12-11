@@ -62,6 +62,11 @@ export const storeRouter = router({
         throw new Error('Email ou senha incorretos');
       }
 
+      // ✅ Bloquear login de contas não ativadas
+      if (!customer.emailVerified) {
+        throw new Error('Sua conta ainda não foi ativada. Verifique seu e-mail para concluir o cadastro.');
+      }
+
       return customer;
     }),
 
@@ -100,16 +105,13 @@ export const storeRouter = router({
         name: input.name.trim(),
         password: hashedPassword,
         referredBy, // ✅ Salvar ID do afiliado
+        emailVerified: false, // ✅ Conta inicia não verificada
       });
 
-      // Enviar email de confirmação de cadastro (async, não bloqueia resposta)
-      sendConfirmationEmail(customer.email, customer.name).catch((error) => {
-        console.error('[Store] Failed to send confirmation email:', error);
-      });
-
-      // Enviar email de boas-vindas (async, não bloqueia resposta)
-      sendWelcomeEmail(customer.email, customer.name).catch((error) => {
-        console.error('[Store] Failed to send welcome email:', error);
+      // ✅ Enviar apenas e-mail de ativação (com link de confirmação)
+      const { sendActivationEmail } = await import('../mailchimp-email');
+      sendActivationEmail(customer.email, customer.name, customer.id).catch((error) => {
+        console.error('[Store] Failed to send activation email:', error);
       });
 
       return customer;
@@ -1218,6 +1220,38 @@ export const storeRouter = router({
       return {
         success: true,
         message: 'Novo SMS solicitado! Aguarde a chegada do código.',
+      };
+    }),
+
+  // ✅ Ativar conta via link de e-mail
+  activateAccount: publicProcedure
+    .input(z.object({
+      customerId: z.number(),
+    }))
+    .mutation(async ({ input }) => {
+      const customer = await getCustomerById(input.customerId);
+      if (!customer) {
+        throw new Error('Cliente não encontrado');
+      }
+
+      if (customer.emailVerified) {
+        throw new Error('Conta já foi ativada anteriormente');
+      }
+
+      // Ativar conta
+      await updateCustomer(input.customerId, {
+        emailVerified: true,
+        emailVerifiedAt: new Date(),
+      });
+
+      // ✅ Enviar e-mail de boas-vindas após ativação
+      sendWelcomeEmail(customer.email, customer.name).catch((error) => {
+        console.error('[Store] Failed to send welcome email:', error);
+      });
+
+      return {
+        success: true,
+        message: 'Conta ativada com sucesso! Você já pode fazer login.',
       };
     }),
 

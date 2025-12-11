@@ -171,7 +171,73 @@ export async function sendWelcomeEmail(customerEmail: string, customerName: stri
 }
 
 /**
- * Send account confirmation email
+ * Send account activation email with verification link
+ */
+export async function sendActivationEmail(
+  customerEmail: string,
+  customerName: string,
+  customerId: number
+): Promise<boolean> {
+  const activationUrl = `https://app.numero-virtual.com/activate?id=${customerId}`;
+
+  const html = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f4f4f4; margin: 0; padding: 0; }
+    .container { max-width: 600px; margin: 20px auto; background: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .header { background: linear-gradient(135deg, #00ff41 0%, #00cc33 100%); padding: 40px 20px; text-align: center; }
+    .header h1 { color: #000; margin: 0; font-size: 28px; font-weight: bold; }
+    .content { padding: 40px 30px; }
+    .content h2 { color: #00cc33; margin-top: 0; }
+    .button { display: inline-block; padding: 12px 30px; background: #00ff41; color: #000; text-decoration: none; border-radius: 5px; font-weight: bold; margin: 20px 0; }
+    .alert { background: #fff3cd; border-left: 4px solid #00cc33; padding: 15px; margin: 20px 0; }
+    .footer { background: #f8f8f8; padding: 20px; text-align: center; font-size: 12px; color: #666; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>👋 Bem-vindo ao Número Virtual!</h1>
+    </div>
+    <div class="content">
+      <h2>Olá, ${customerName}!</h2>
+      <p>Sua conta foi criada com sucesso! Para começar a usar nossos serviços, precisamos confirmar seu e-mail.</p>
+      <p>Clique no botão abaixo para ativar sua conta:</p>
+      <a href="${activationUrl}" class="button">Ativar Minha Conta</a>
+      <div class="alert">
+        <strong>⚠️ Importante:</strong> Este link expira em 24 horas por motivos de segurança.
+      </div>
+      <p>Após ativar sua conta, você poderá:</p>
+      <ul>
+        <li>✅ Fazer login na plataforma</li>
+        <li>✅ Recarregar seu saldo</li>
+        <li>✅ Ativar números SMS de qualquer país</li>
+        <li>✅ Gerenciar suas ativações</li>
+      </ul>
+      <p><small>Link alternativo (caso o botão não funcione):<br>${activationUrl}</small></p>
+    </div>
+    <div class="footer">
+      <p>© ${new Date().getFullYear()} Número Virtual. Todos os direitos reservados.</p>
+      <p>Este é um email automático, por favor não responda.</p>
+    </div>
+  </div>
+</body>
+</html>
+  `;
+
+  return sendEmail({
+    to: customerEmail,
+    subject: "✅ Ative sua conta - Número Virtual",
+    html,
+  });
+}
+
+/**
+ * Send account confirmation email (sent AFTER activation)
  */
 export async function sendConfirmationEmail(customerEmail: string, customerName: string): Promise<boolean> {
   const html = `

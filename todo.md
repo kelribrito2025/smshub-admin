@@ -1513,3 +1513,31 @@
 - [x] Corrigir lógica para permitir troca direta entre países (usar query countries)
 - [x] Ajustar filtro para exibir apenas países ativos (active: true)
 - [x] Testar troca entre diferentes países sem passar por "Todos os países"
+
+
+---
+
+## 📧 Correção: Fluxo de Ativação de Conta
+
+**Problema:**
+- Sistema está enviando dois e-mails ao criar conta (duplicação)
+- Usuário consegue fazer login antes de ativar a conta
+- Falta mensagem de erro apropriada para contas não ativadas
+
+**Objetivo:**
+- Enviar apenas 1 e-mail de ativação ao criar conta
+- Bloquear login de contas não ativadas
+- Exibir mensagem clara: "Sua conta ainda não foi ativada. Verifique seu e-mail para concluir o cadastro."
+
+**Tarefas:**
+- [x] Identificar onde estão sendo enviados os dois e-mails
+- [x] Remover envio duplicado de e-mail (sendWelcomeEmail e sendConfirmationEmail)
+- [x] Criar função sendActivationEmail com link de ativação
+- [x] Garantir que apenas e-mail de ativação seja enviado no registro
+- [x] Bloquear login de contas não ativadas no backend (store.login)
+- [x] Adicionar mensagem de erro apropriada no login
+- [x] Criar endpoint store.activateAccount
+- [x] Criar página StoreActivate.tsx
+- [x] Adicionar rotas /login e /activate no App.tsx
+- [x] Enviar sendWelcomeEmail apenas após ativação
+- [x] Testar fluxo completo de criação e ativação (testes passando)

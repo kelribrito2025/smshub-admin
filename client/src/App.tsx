@@ -24,6 +24,8 @@ const Affiliates = lazy(() => import("./pages/admin/Affiliates"));
 const StoreCatalog = lazy(() => import("./pages/StoreCatalog"));
 const StoreActivations = lazy(() => import("./pages/StoreActivations"));
 const StoreAccount = lazy(() => import("./pages/StoreAccount"));
+const StoreLogin = lazy(() => import("./pages/StoreLogin"));
+const StoreActivate = lazy(() => import("./pages/StoreActivate"));
 
 const StoreAffiliate = lazy(() => import("./pages/StoreAffiliate"));
 const StoreRecharges = lazy(() => import("./pages/StoreRecharges"));
@@ -53,6 +55,8 @@ function StoreRouter() {
           <Route path={"/"} component={StoreCatalog} />
           <Route path="/history" component={StoreActivations} />
           <Route path="/account" component={StoreAccount} />
+          <Route path="/login" component={StoreLogin} />
+          <Route path="/activate" component={StoreActivate} />
 
           <Route path="/affiliate" component={StoreAffiliate} />
           <Route path="/recharges" component={StoreRecharges} />
