@@ -2,6 +2,7 @@ import express from "express";
 import { notificationsManager } from "./notifications-manager";
 import { sdk } from "./_core/sdk";
 import { getCustomerById } from "./customers-helpers";
+import { sseRateLimiter } from "./sse-rate-limiter";
 
 const router = express.Router();
 
@@ -44,10 +45,30 @@ router.get("/stream/:customerId", async (req, res) => {
 
   console.log(`[SSE] New connection request from authenticated customer ${customerId}`);
 
+  // ✅ CHECK RATE LIMIT: Verificar se cliente pode conectar
+  const rateLimitCheck = sseRateLimiter.canConnect(customerId);
+  
+  if (!rateLimitCheck.allowed) {
+    console.warn(`[SSE] Connection rejected for customer ${customerId}: ${rateLimitCheck.reason}`);
+    return res.status(429).json({ 
+      error: "Too many connections",
+      message: rateLimitCheck.reason 
+    });
+  }
+
+  // Registrar conexão no rate limiter
+  sseRateLimiter.registerConnection(customerId);
+
   // Add client to notifications manager
   notificationsManager.addClient(customerId, res);
   
   console.log(`[SSE] ✅ Client ${customerId} added to notifications manager, response should stay open`);
+
+  // Remover conexão do rate limiter quando cliente desconectar
+  res.on('close', () => {
+    sseRateLimiter.unregisterConnection(customerId);
+    console.log(`[SSE] Client ${customerId} disconnected, unregistered from rate limiter`);
+  });
 
   // Connection will be kept alive by the notifications manager
   // DO NOT call res.end() or res.send() here - SSE connection must stay open
@@ -57,8 +78,13 @@ router.get("/stream/:customerId", async (req, res) => {
  * Get SSE statistics (for debugging)
  */
 router.get("/stats", (req, res) => {
-  const stats = notificationsManager.getStats();
-  res.json(stats);
+  const notificationStats = notificationsManager.getStats();
+  const rateLimiterStats = sseRateLimiter.getStats();
+  
+  res.json({
+    notifications: notificationStats,
+    rateLimiter: rateLimiterStats,
+  });
 });
 
 export default router;

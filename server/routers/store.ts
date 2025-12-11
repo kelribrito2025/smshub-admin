@@ -212,11 +212,13 @@ export const storeRouter = router({
       serviceId: z.number(),
       operator: z.string().optional(), // Optional operator filter (e.g., 'claro', 'vivo', 'tim')
       apiId: z.number().optional(), // Optional API ID to use specific API
+      idempotencyKey: z.string().optional(), // Optional idempotency key for duplicate prevention
     }))
     .mutation(async ({ input }) => {
       // Import operation lock manager
       const { operationLockManager } = await import('../operation-lock');
       const { notificationsManager } = await import('../notifications-manager');
+      const { idempotencyManager } = await import('../idempotency-manager');
 
       // Execute with exclusive lock per customer to prevent race conditions
       return await operationLockManager.executeWithLock(input.customerId, async () => {
@@ -224,6 +226,19 @@ export const storeRouter = router({
         // Only final success/error notifications will be shown
 
         try {
+        // ✅ IDEMPOTENCY CHECK: Verificar se operação já foi executada
+        const idempotencyKey = input.idempotencyKey || idempotencyManager.generateKey(
+          input.customerId,
+          'purchaseNumber',
+          { countryId: input.countryId, serviceId: input.serviceId, apiId: input.apiId }
+        );
+        
+        const duplicateCheck = idempotencyManager.checkDuplicate(idempotencyKey, input.customerId);
+        
+        if (duplicateCheck.isDuplicate) {
+          console.log(`[purchaseNumber] Duplicate request detected for customer ${input.customerId}, returning cached result`);
+          return duplicateCheck.result;
+        }
         // 1. Verificar saldo do cliente
         const customer = await getCustomerById(input.customerId);
       if (!customer) {
@@ -414,13 +429,24 @@ export const storeRouter = router({
           data: { operation: 'purchase', customerId: input.customerId },
         });
 
-        return {
+        const result = {
           activationId: activation.id,
           phoneNumber: smshubResponse.phoneNumber,
           service: price.service?.name || 'Unknown',
           country: price.country?.name || 'Unknown',
           price: price.price.ourPrice,
         };
+        
+        // ✅ IDEMPOTENCY RECORD: Registrar resultado para prevenir duplicação
+        idempotencyManager.recordOperation(
+          idempotencyKey,
+          input.customerId,
+          'purchaseNumber',
+          result,
+          5 * 60 * 1000 // TTL de 5 minutos (suficiente para prevenir cliques duplos)
+        );
+
+        return result;
         } catch (error: any) {
           // Broadcast operation failed
           notificationsManager.sendToCustomer(input.customerId, {
@@ -531,7 +557,8 @@ export const storeRouter = router({
           console.log(`[getMyActivations] API 2 cache loaded: ${api2Cache.length} active numbers`);
         }
         
-        for (const activation of filtered) {
+        // ✅ OTIMIZAÇÃO: Processar ativações em paralelo com Promise.all
+        await Promise.all(filtered.map(async (activation) => {
           try {
             console.log(`[getMyActivations] Checking activation ${activation.id}: apiId=${activation.apiId}, smshubId=${activation.smshubActivationId}, phone=${activation.phoneNumber}`);
             
@@ -576,7 +603,7 @@ export const storeRouter = router({
                 console.log(`[getMyActivations] No SMS in cache for phone ${activation.phoneNumber}`);
               }
               
-              continue; // Pular polling padrão
+              return; // Pular polling padrão
             }
             
             // CASO 2: Formato válido - Usar polling normal com activationId (funciona para ambas as APIs)
@@ -662,7 +689,7 @@ export const storeRouter = router({
           } catch (error) {
             console.error(`[getMyActivations] Error polling activation ${activation.id}:`, error);
           }
-        }
+        }));
       }
       
       return filtered;

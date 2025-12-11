@@ -104,6 +104,7 @@ export async function deleteCustomer(id: number) {
 
 /**
  * Add balance to customer (creates transaction record)
+ * ✅ ATOMIC TRANSACTION: Operação de saldo agora é atômica (rollback automático em caso de falha)
  */
 export async function addBalance(
   customerId: number,
@@ -116,52 +117,58 @@ export async function addBalance(
   const db = await getDb();
   if (!db) throw new Error("Database not available");
 
-  const customer = await getCustomerById(customerId);
-  if (!customer) throw new Error("Customer not found");
+  // ✅ TRANSAÇÃO ATÔMICA: Envolver todas as operações em uma transação de banco
+  return await db.transaction(async (tx) => {
+    // Buscar cliente dentro da transação (lock para evitar race conditions)
+    const [customer] = await tx.select().from(customers).where(eq(customers.id, customerId)).limit(1);
+    if (!customer) throw new Error("Customer not found");
 
-  const balanceBefore = customer.balance;
-  const requestedAmount = amount;
-  let appliedAmount = amount;
-  let balanceAfter = balanceBefore + amount;
-  let adjusted = false;
-  let metadata: any = null;
+    const balanceBefore = customer.balance;
+    const requestedAmount = amount;
+    let appliedAmount = amount;
+    let balanceAfter = balanceBefore + amount;
+    let adjusted = false;
+    let metadata: any = null;
 
-  // Prevent negative balance for debit operations
-  if (amount < 0 && balanceAfter < 0) {
-    // Limit debit to available balance
-    appliedAmount = -balanceBefore; // Debit only what's available
-    balanceAfter = 0;
-    adjusted = true;
-    
-    // Store audit information in metadata (preserves original request)
-    metadata = {
-      requestedAmount,
-      appliedAmount,
-      adjusted: true,
-      reason: "insufficient_balance",
-      message: `Débito ajustado: solicitado ${(requestedAmount / 100).toFixed(2)} BRL, aplicado ${(appliedAmount / 100).toFixed(2)} BRL`
-    };
-    
-    console.warn(`[Balance] Debit adjusted for customer ${customerId}: requested ${requestedAmount}, applied ${appliedAmount} (prevented negative balance)`);
-  }
+    // Prevent negative balance for debit operations
+    if (amount < 0 && balanceAfter < 0) {
+      // Limit debit to available balance
+      appliedAmount = -balanceBefore; // Debit only what's available
+      balanceAfter = 0;
+      adjusted = true;
+      
+      // Store audit information in metadata (preserves original request)
+      metadata = {
+        requestedAmount,
+        appliedAmount,
+        adjusted: true,
+        reason: "insufficient_balance",
+        message: `Débito ajustado: solicitado ${(requestedAmount / 100).toFixed(2)} BRL, aplicado ${(appliedAmount / 100).toFixed(2)} BRL`
+      };
+      
+      console.warn(`[Balance] Debit adjusted for customer ${customerId}: requested ${requestedAmount}, applied ${appliedAmount} (prevented negative balance)`);
+    }
 
-  // Update customer balance
-  await updateCustomer(customerId, { balance: balanceAfter });
+    // Update customer balance dentro da transação
+    await tx.update(customers).set({ balance: balanceAfter }).where(eq(customers.id, customerId));
 
-  // Create transaction record with audit trail in metadata
-  await db.insert(balanceTransactions).values({
-    customerId,
-    amount: appliedAmount, // Applied amount (may be adjusted)
-    type,
-    description, // Keep original description unchanged for audit
-    balanceBefore,
-    balanceAfter,
-    relatedActivationId,
-    createdBy,
-    metadata: metadata ? JSON.stringify(metadata) : null,
+    // Create transaction record with audit trail in metadata
+    await tx.insert(balanceTransactions).values({
+      customerId,
+      amount: appliedAmount, // Applied amount (may be adjusted)
+      type,
+      description, // Keep original description unchanged for audit
+      balanceBefore,
+      balanceAfter,
+      relatedActivationId,
+      createdBy,
+      metadata: metadata ? JSON.stringify(metadata) : null,
+    });
+
+    console.log(`[Balance] ✅ Atomic transaction completed for customer ${customerId}: ${(appliedAmount / 100).toFixed(2)} BRL (${balanceBefore / 100} → ${balanceAfter / 100})`);
+
+    return { balanceBefore, balanceAfter, requestedAmount, appliedAmount, adjusted };
   });
-
-  return { balanceBefore, balanceAfter, requestedAmount, appliedAmount, adjusted };
 }
 
 /**

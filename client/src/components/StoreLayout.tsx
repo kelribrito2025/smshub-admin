@@ -12,6 +12,7 @@ import { RechargeModal } from './RechargeModal';
 
 import ServiceListSkeleton from './ServiceListSkeleton';
 import { useCountUp } from '../hooks/useCountUp';
+import { useDebouncedCallback } from '../hooks/useDebouncedCallback';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -262,7 +263,8 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
     });
   };
 
-  const handleBuyService = async (service: any, apiId?: number) => {
+  // ✅ DEBOUNCE: Prevenir cliques duplos no botão de compra
+  const handleBuyServiceInternal = async (service: any, apiId?: number) => {
     requireAuth(async () => {
       // Prevenir múltiplas compras simultâneas (local ou de outros navegadores)
       if (isPurchasing || isLocked) {
@@ -325,6 +327,9 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
       })();
     });
   };
+  
+  // Aplicar debounce de 1 segundo para prevenir cliques duplos
+  const handleBuyService = useDebouncedCallback(handleBuyServiceInternal, 1000);
 
   const handleRecharge = () => {
     requireAuth(() => {

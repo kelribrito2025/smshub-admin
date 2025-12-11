@@ -471,3 +471,115 @@
 - [x] Identificar por que a notificação está sendo disparada em mudanças de página
 - [x] Corrigir para que notificação apareça apenas uma vez após aquisição (usar localStorage)
 - [x] Testar navegação entre páginas para confirmar correção
+
+
+---
+
+## 🔍 AUDITORIA TÉCNICA COMPLETA DO PAINEL DE VENDAS
+
+**Objetivo:**
+- Realizar auditoria técnica completa do painel de vendas
+- Identificar gargalos de performance, problemas de estabilidade e oportunidades de refatoração
+- Criar relatório detalhado com sugestões de correção e estimativas de esforço
+- Propor plano de refatoração estruturado em 3 fases
+
+**Fase 1: An### Fase 1: Análise Estrutural
+- [x] Mapear estrutura de arquivos do projeto
+- [x] Identificar componentes relacionados ao painel de vendas
+- [x] Identificar rotas e endpoints do painel de vendas
+- [x] Mapear schema do banco de dados relacionado a vendasionado a vendas
+
+*### Fase 2: Auditoria de Performance
+- [x] Analisar queries do banco de dados (N+1, falta de índices)
+- [x] Identificar endpoints lentos (listagem, filtros, criação de pedidos)
+- [x] Avaliar uso de CPU/memória em operações críticas
+- [x] Verificar paginação e filtros de listagem de vendas
+- [x] Mapear queries pesadas e lógica que gera uso excessivo de recursos
+**### Fase 3: Auditoria de Estabilidade
+- [x] Revisar pontos de erro 429 e timeouts
+- [x] Verificar duplicidade de chamadas
+- [x] Analisar implementação de SSE/polling/websockets
+- [x] Garantir idempotência em fluxos críticos (criar, cancelar, estornar)
+- [x] Verificar logging adequado em pontos críticos
+- [x] Analisar fluxo de cancelamentos e estornos (saldo fantasma)### Fase 4: Auditoria de Organização de Código
+- [x] Identificar código duplicado no painel de vendas
+- [x] Avaliar tamanho e complexidade de services
+- [x] Verificar organização de componentes
+- [x] Propor melhor estrutura de camadas (services, hooks, etc)
+- [x] Identificar componentes confusos ou difíceis de manter
+
+### Fase 5: Auditoria de Segurança e Consistência
+- [x] Verificar regras de negócio (atualização de saldo, histórico, auditoria)
+- [x] Avaliar permissões de acesso ao painel de vendas
+- [x] Identificar brechas de segurança
+- [x] Garantir consistência de dados em fluxos críticos
+- [x] Verificar idempotência de operações críticas
+
+### Fase 6: Documentação e Relatório
+- [x] Compilar lista de gargalos encontrados (endpoint/tela, problema, causa)
+- [x] Criar sugestões de correção para cada item
+- [x] Estimar esforço (baixo/médio/alto) e prioridade para cada item
+- [x] Criar plano de refatoração em 3 fases (rápidas, estruturais, ajustes finos)
+- [x] Gerar relatório final de auditoria
+
+**Pontos de Atenção Especial:**
+- [x] Listagem de vendas: performance com muitos registros
+- [x] Criação de pedidos: chamadas duplicadas e concorrência
+- [x] Cancelamentos/estornos: consistência de saldo e histórico
+- [x] SSE/polling: múltiplas conexões desnecessárias
+- [x] Logs e monitoramento: auditoria e debug
+
+
+---
+
+## 🚀 MELHORIAS TÉCNICAS - Relatório de Auditoria
+
+### Fase 1 - Correções Urgentes (Alta Prioridade)
+
+#### 1.1 Performance - N+1 Queries
+- [x] Analisar loops com await em store.ts
+- [x] Substituir loops sequenciais por Promise.all
+- [x] Otimizar queries em batch onde aplicável
+- [x] Testar performance após otimizações
+
+#### 1.2 Estabilidade - SSE Rate Limiting (Backend)
+- [x] Implementar rate limiting no servidor para /api/notifications/stream
+- [x] Limitar conexões por customerId no backend
+- [x] Adicionar timeout de conexão SSE (fechar após 30 minutos de inatividade)
+- [x] Adicionar logs detalhados de conexões SSE ativas no servidor
+- [x] Adicionar header de rate limit info nas respostas do servidor
+- [x] Implementar fallback gracioso quando rate limit é atingido
+
+#### 1.3 Integridade - Proteção contra Duplicação
+- [x] Implementar idempotency key no backend (store.createActivation)
+- [x] Adicionar debounce no frontend para botões de compra
+- [x] Criar testes para validar proteção contra duplicação
+- [x] Documentar mecanismo de idempotência
+
+#### 1.4 Consistência - Transações Atômicas
+- [x] Identificar operações de saldo sem transação em store.ts
+- [x] Envolver operações de saldo em transações de banco
+- [x] Garantir rollback em caso de falha
+- [x] Adicionar testes de integridade financeira
+
+### Fase 2 - Refatoração Estrutural (Média Prioridade)
+
+#### 2.1 Modularização de Arquivos Grandes
+- [ ] Refatorar store.ts (1207 linhas) em módulos menores
+- [ ] Refatorar StoreCatalog.tsx (554 linhas) em componentes menores
+- [ ] Refatorar StoreLayout.tsx (862 linhas) em componentes menores
+- [ ] Criar estrutura de pastas para helpers/hooks/services
+
+#### 2.2 Componentes Reutilizáveis
+- [ ] Criar componente genérico de tabela
+- [ ] Migrar StoreActivations.tsx para usar componente genérico
+- [ ] Migrar StoreRecharges.tsx para usar componente genérico
+- [ ] Documentar props do componente genérico
+
+### Fase 3 - Otimizações Finais
+
+- [x] Padronização de código e convenções
+- [x] Revisão e melhoria de logs
+- [x] Ajustes finais de performance
+- [x] Documentação de mudanças implementadas
+- [x] Testes de regressão completos
