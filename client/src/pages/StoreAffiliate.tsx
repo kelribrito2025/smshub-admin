@@ -153,6 +153,9 @@ export default function StoreAffiliate() {
             opacity: 0.05
           }} />
           
+          {/* Header gradient */}
+          <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-green-950/50 to-transparent pointer-events-none" />
+          
           <CardHeader className="relative z-10">
             <CardTitle className="text-green-400 flex items-center gap-2">
               <Share2 className="w-5 h-5" />
@@ -163,12 +166,12 @@ export default function StoreAffiliate() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4 relative z-10">
-            <div className="inline-flex gap-2 items-center">
+            <div className="flex gap-2 items-center">
               <input
                 type="text"
                 readOnly
                 value={displayLink}
-                className="w-auto max-w-full bg-black border border-green-900/50 rounded-md px-4 py-2 text-green-400 font-mono text-sm"
+                className="w-auto min-w-[280px] max-w-md bg-black border border-green-900/50 rounded-md px-4 py-2 text-green-400 font-mono text-sm"
               />
               <Button
                 onClick={handleCopyLink}
