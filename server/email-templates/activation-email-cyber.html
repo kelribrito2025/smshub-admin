@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ativar Conta</title>
 </head>
-<body style="margin: 0; padding: 0; background-color: #00D26A !important; font-family: Arial, sans-serif;">
+<body style="margin: 0; padding: 0; background-color: #ffffff !important; font-family: Arial, sans-serif;">
 
-    <!-- FUNDO EXTERNO VERDE -->
+    <!-- FUNDO EXTERNO BRANCO -->
     <table width="100%" cellpadding="0" cellspacing="0" border="0" 
-           style="background-color: #00D26A; padding: 60px 20px; min-height: 100vh;">
+           style="background-color: #ffffff; padding: 40px 0;">
       <tr>
         <td align="center">
 
@@ -19,7 +19,7 @@
               background-color: #0e1522;
               border: 2px solid #00ab45;
               border-radius: 2px;
-              box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
+              box-shadow: 0 0 40px rgba(0, 171, 69, 0.25);
               overflow: hidden;
             "
           >
@@ -87,7 +87,7 @@
                     "
                   >
                     <span style="color: #09bf61; font-weight: 600;">{{USER_NAME}}</span>, para começar a
-                    usar a plataforma, por favor, clique no botão abaixo para ativar o acesso.
+                    usar a plataforma, clique no botão abaixo para ativar o acesso.
                   </p>
                 </div>
 
@@ -130,9 +130,9 @@
                     "
                   >
                     &gt; URL: 
-                    <a href="{{ACTIVATION_LINK}}" style="color: #09bf61; text-decoration: none;">
+                    <span style="color: #09bf61;">
                       {{ACTIVATION_LINK}}
-                    </a>
+                    </span>
                   </p>
 
                   <p
@@ -150,6 +150,15 @@
               </td>
             </tr>
           </table>
+
+          <!-- PIXEL DE RASTREAMENTO -->
+          <img
+            src="https://mandrillapp.com/track/open.php"
+            height="1"
+            width="1"
+            alt=""
+            style="display: block; margin: 0; padding: 0;"
+          />
 
         </td>
       </tr>
