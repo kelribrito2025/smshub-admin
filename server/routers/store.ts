@@ -594,7 +594,8 @@ export const storeRouter = router({
                 
                 await updateActivation(activation.id, {
                   smsCode: match.smsCode,
-                  // NÃO mudar status - ativação continua ativa até usuário clicar em Concluir
+                  status: 'completed',
+                  completedAt: new Date(),
                 });
                 
                 // Atualizar objeto no array (manter status ativo)
@@ -644,7 +645,8 @@ export const storeRouter = router({
                 await updateActivation(activation.id, {
                   smsCode: smsCode,
                   smshubStatus: smshubStatus.status, // Salvar status da API ("received" ou "retry")
-                  // NÃO mudar status - ativação continua ativa até usuário clicar em Concluir
+                  status: 'completed',
+                  completedAt: new Date(),
                 });
                 
                 // Atualizar objeto no array (manter status ativo)
@@ -802,7 +804,8 @@ export const storeRouter = router({
             
             await updateActivation(activation.id, {
               smsCode: smsCode,
-              // NÃO mudar status - ativação continua ativa até usuário clicar em Concluir
+              status: 'completed',
+              completedAt: new Date(),
             });
             
             return {
@@ -874,7 +877,8 @@ export const storeRouter = router({
           if (smsStatus && smsStatus.status === 'received' && smsStatus.code) {
             await updateActivation(activation.id, {
               smsCode: smsStatus.code,
-              // NÃO mudar status - ativação continua ativa até usuário clicar em Concluir
+              status: 'completed',
+              completedAt: new Date(),
             });
             
             return {
@@ -928,12 +932,11 @@ export const storeRouter = router({
             });
             console.log(`[requestNewSms] SMS saved to sms_messages table: ${smsCode}`);
           }
-          
-          await updateActivation(activation.id, {
+                 await updateActivation(input.activationId, {
             smsCode: smsCode,
-            // NÃO mudar status - ativação continua ativa até usuário clicar em Concluir
-          });
-          
+            status: 'completed',
+            completedAt: new Date(),
+          });          
           return {
             success: true,
             message: 'SMS recebido com sucesso!',

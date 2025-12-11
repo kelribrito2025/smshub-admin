@@ -605,3 +605,27 @@
 - [x] Adicionar debounce de 2-3 segundos na reconexão SSE (frontend)
 - [x] Testar que erro 429 não ocorre mais durante HMR no DEV
 - [x] Validar que rate limiter continua ativo em produção
+
+
+---
+
+## ✅ Pedido com SMS Recebido Continua Marcado como "Ativo" (RESOLVIDO)
+
+**Problema:**
+- Pedidos que receberam SMS continuam marcados como "Ativo" no histórico
+- Exemplo: Pedido com código "Teste SMS 16273838" recebeu SMS mas status não foi atualizado
+- Status deveria mudar automaticamente para "Concluído" após recebimento do SMS
+
+**Solução Implementada:**
+- Modificado `server/routers/store.ts` para atualizar status automaticamente para "completed" quando SMS é recebido
+- Afeta 5 pontos no código: polling API 1, polling API 2, verificação individual, botão "Verificar SMS" (ambas APIs)
+- Criado script `server/fix-active-with-sms.ts` para corrigir pedidos antigos
+- Executado script: 2 ativações corrigidas (incluindo Activation 960002 reportada)
+
+**Tarefas:**
+- [x] Investigar schema da tabela de ativações (activations) e campo de status
+- [x] Identificar onde SMS é recebido/processado no backend
+- [x] Implementar atualização automática de status quando SMS é recebido
+- [x] Criar e executar script para corrigir pedidos antigos
+- [x] Criar testes de validação (activation-status-auto-complete.test.ts)
+- [x] Validar que histórico mostra status correto
