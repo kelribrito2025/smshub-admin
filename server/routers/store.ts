@@ -70,6 +70,7 @@ export const storeRouter = router({
       email: z.string().email(),
       password: z.string().min(8),
       name: z.string().min(3),
+      referralPin: z.number().optional(), // ✅ PIN do afiliado (opcional)
     }))
     .mutation(async ({ input }) => {
       // Verificar se já existe
@@ -81,11 +82,24 @@ export const storeRouter = router({
       // Hash da senha
       const hashedPassword = await bcrypt.hash(input.password, 10);
 
-      // Criar novo cliente com senha e nome (não verificado)
+      // ✅ Converter PIN do afiliado para customerId
+      let referredBy: number | undefined = undefined;
+      if (input.referralPin) {
+        const referrer = await getCustomerByPin(input.referralPin);
+        if (referrer) {
+          referredBy = referrer.id;
+          console.log(`[Store] Referral detected: PIN ${input.referralPin} -> Customer ID ${referrer.id}`);
+        } else {
+          console.warn(`[Store] Invalid referral PIN: ${input.referralPin}`);
+        }
+      }
+
+      // Criar novo cliente com senha, nome e referral (não verificado)
       const customer = await createCustomer({ 
         email: input.email, 
         name: input.name.trim(),
         password: hashedPassword,
+        referredBy, // ✅ Salvar ID do afiliado
       });
 
       // Enviar email de confirmação de cadastro (async, não bloqueia resposta)

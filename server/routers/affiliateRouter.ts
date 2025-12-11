@@ -31,9 +31,9 @@ export const affiliateRouter = router({
         throw new TRPCError({ code: "FORBIDDEN", message: "Referral program is currently disabled" });
       }
 
-      // Generate referral link
+      // Generate referral link using PIN (not ID)
       const baseUrl = process.env.VITE_FRONTEND_URL || "https://smshubdash-2kemnlvg.manus.space";
-      const referralLink = `${baseUrl}/?ref=${customer.id}`;
+      const referralLink = `${baseUrl}/?ref=${customer.pin}`;
 
       return {
         referralLink,

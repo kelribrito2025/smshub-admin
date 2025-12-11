@@ -79,6 +79,19 @@ export async function createCustomer(data: Omit<InsertCustomer, 'pin'>) {
   const created = await getCustomerByEmail(data.email);
   if (!created) throw new Error("Failed to create customer");
   
+  // ✅ Se foi indicado por alguém, criar registro na tabela referrals
+  if (data.referredBy) {
+    const { referrals } = await import('../drizzle/schema');
+    
+    await db.insert(referrals).values({
+      referrerId: data.referredBy,
+      referredId: created.id,
+      status: 'pending', // Ainda não fez recarga
+    });
+    
+    console.log(`[Customer] Referral created: Referrer ID ${data.referredBy} -> Referred ID ${created.id}`);
+  }
+  
   return created;
 }
 

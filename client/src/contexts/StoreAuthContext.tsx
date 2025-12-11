@@ -144,6 +144,18 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
 
   const notifications: any[] = [];
 
+  // ✅ Capturar parâmetro ref da URL (sistema de afiliados)
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const refParam = urlParams.get('ref');
+    
+    if (refParam) {
+      // Salvar PIN do afiliado no localStorage
+      localStorage.setItem('referral_pin', refParam);
+      console.log('[StoreAuthContext] Referral PIN captured:', refParam);
+    }
+  }, []);
+
   useEffect(() => {
     const storedCustomer = localStorage.getItem('store_customer');
     if (storedCustomer) {
@@ -208,9 +220,24 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
 
   const register = async (email: string, password: string, name: string) => {
     try {
-      const result = await registerMutation.mutateAsync({ email, password, name });
+      // ✅ Capturar PIN do afiliado do localStorage
+      const referralPin = localStorage.getItem('referral_pin');
+      
+      const result = await registerMutation.mutateAsync({ 
+        email, 
+        password, 
+        name,
+        referralPin: referralPin ? parseInt(referralPin, 10) : undefined,
+      });
+      
       setCustomer(result);
       localStorage.setItem('store_customer', JSON.stringify(result));
+      
+      // ✅ Limpar referral PIN após registro bem-sucedido
+      if (referralPin) {
+        localStorage.removeItem('referral_pin');
+        console.log('[StoreAuthContext] Referral PIN used and cleared');
+      }
       
       if (pendingAction) {
         pendingAction();

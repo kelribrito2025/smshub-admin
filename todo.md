@@ -716,3 +716,28 @@
   - [x] Validar prevenção de loop infinito
 
 **Prioridade:** 🔥🔥🔥 MÁXIMA - Sistema não funciona sem esta correção
+
+
+---
+
+## ✅ BUG: Sistema de Afiliados Não Registra Indicações (RESOLVIDO)
+
+**Problema:**
+- Link de referência `/?ref=510014` não estava registrando indicações
+- Nova conta criada via link de afiliado não aparecia no painel do indicador
+- Campo `referredBy` não estava sendo salvo corretamente durante signup
+
+**Solução Implementada:**
+- Corrigido link de referência para usar PIN ao invés de ID
+- Implementada captura do parâmetro `ref` da URL no frontend
+- Adicionado envio de `referralPin` durante registro
+- Implementada conversão PIN → customerId no backend
+- Criado registro automático na tabela `referrals` quando customer tem `referredBy`
+
+**Tarefas:**
+- [x] Verificar captura do parâmetro `ref` na URL durante signup
+- [x] Verificar conversão PIN → customerId no processo de signup
+- [x] Verificar salvamento do campo `referredBy` na criação de usuário
+- [x] Criar registro automático na tabela `referrals`
+- [x] Testar fluxo completo: acesso via /?ref=PIN → signup → verificar registro
+- [x] Criar testes automatizados (affiliate-referral.test.ts)
