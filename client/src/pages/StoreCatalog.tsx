@@ -218,8 +218,8 @@ export default function StoreCatalog() {
                     Número
                   </th>
                   <th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-bold text-green-400 uppercase tracking-wider">
-                    <span className="md:hidden">SMS</span>
-                    <span className="hidden md:inline">Código SMS</span>
+                    <span className="lg:hidden">SMS</span>
+                    <span className="hidden lg:inline">Código SMS</span>
                   </th>
                   {/* Desktop: STATUS → REST → AÇÃO */}
                   <th className="hidden md:table-cell px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-bold text-green-400 uppercase tracking-wider">
@@ -311,9 +311,9 @@ export default function StoreCatalog() {
                           </div>
                         ) : (
                           <>
-                            {/* Mobile (<985px): apenas loader */}
+                            {/* Mobile (<1024px): apenas loader */}
                             <Loader2 className="w-4 h-4 text-green-600 animate-spin lg:hidden" />
-                            {/* Desktop (≥985px): texto de instrução */}
+                            {/* Desktop (≥1024px): texto de instrução */}
                             <span className="hidden lg:inline text-green-600 font-mono text-xs lg:text-sm">
                               Envie o código para o número recebido.
                             </span>

@@ -1338,3 +1338,18 @@
 - [x] Implementar lógica responsiva com breakpoint em 985px (usado lg=1024px)
 - [x] Testar comportamento em diferentes tamanhos de tela
 - [x] Validar que spinner permanece em telas menores
+
+
+---
+
+## 📱 Ajustes de Responsividade na Tabela de Números Ativos
+
+**Objetivo:**
+- Ajustar responsividade da tabela de números ativos para diferentes tamanhos de tela
+- Melhorar experiência em dispositivos móveis
+
+**Tarefas:**
+- [x] Ajustar coluna "Código SMS" para exibir apenas "SMS" em telas < 1024px (CORREÇÃO)
+- [x] Ajustar coluna "Código SMS" para exibir texto completo em telas ≥ 1024px
+- [x] Exibir spinner verde animado em telas < 1024px
+- [x] Exibir texto "Envie o código para o número recebido." em telas ≥ 1024px
