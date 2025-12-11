@@ -1654,3 +1654,18 @@
 - [x] Atualizar HTML do email para seguir modelo visual fornecido
 - [x] Testar envio de email de confirmação
 - [x] Validar visual do email recebido
+
+
+---
+
+## 📧 Atualizar Modelo de Email de Ativação de Conta
+
+**Objetivo:**
+- Substituir o modelo atual de email de ativação de conta pelo novo template HTML fornecido
+- Usar design moderno com gradiente verde, ícones e layout responsivo
+- Manter variáveis dinâmicas (userName, loginLink)
+
+**Tarefas:**
+- [x] Atualizar template de email de ativação de conta com novo HTML
+- [x] Testar envio de email com novo template
+- [x] Validar renderização em diferentes clientes de email
