@@ -290,7 +290,6 @@ export default function StoreAffiliate() {
                     <TableRow className="border-green-900/50 hover:bg-green-900/10">
                       <TableHead className="text-green-600">ID</TableHead>
                       <TableHead className="text-green-600">Nome</TableHead>
-                      <TableHead className="text-green-600">Email</TableHead>
                       <TableHead className="text-green-600">Data Cadastro</TableHead>
                       <TableHead className="text-green-600">Primeira Recarga</TableHead>
                       <TableHead className="text-green-600">Valor Recarga</TableHead>
@@ -303,9 +302,6 @@ export default function StoreAffiliate() {
                       <TableRow key={ref.id} className="border-green-900/50 hover:bg-green-900/10">
                         <TableCell className="text-green-400 font-mono">#{ref.referredId}</TableCell>
                         <TableCell className="text-green-400">{ref.referredName}</TableCell>
-                        <TableCell className="text-green-600 font-mono text-sm">
-                          {ref.referredEmail}
-                        </TableCell>
                         <TableCell className="text-green-600">
                           {formatDate(ref.createdAt)}
                         </TableCell>

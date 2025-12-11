@@ -741,3 +741,16 @@
 - [x] Criar registro automático na tabela `referrals`
 - [x] Testar fluxo completo: acesso via /?ref=PIN → signup → verificar registro
 - [x] Criar testes automatizados (affiliate-referral.test.ts)
+
+
+---
+
+## 🗑️ Remover Coluna Email do Histórico de Indicações
+
+**Objetivo:**
+- Remover a coluna "Email" da tabela de histórico de indicações
+- Manter apenas as colunas: ID, Nome, Data Cadastro, Primeira Recarga, Valor Recarga, Bônus Gerado, Status
+
+**Tarefas:**
+- [x] Remover coluna Email da tabela no componente de histórico de indicações
+- [x] Testar para confirmar que tabela está exibindo corretamente sem a coluna Email
