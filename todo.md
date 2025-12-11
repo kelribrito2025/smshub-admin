@@ -1725,3 +1725,17 @@
 
 **Tarefas:**
 - [x] Atualizar template activation-email.html com novo modelo fornecido
+
+
+---
+
+## 📧 Atualização do Template de Email de Ativação
+
+**Objetivo:**
+- Aplicar modelo de email fornecido pelo usuário com alterações mínimas
+- Manter funcionalidade existente de substituição de variáveis
+
+**Tarefas:**
+- [x] Atualizar template de email de ativação com novo modelo
+- [x] Testar envio de email com novo template
+- [x] Validar que variáveis {{USER_NAME}} e {{ACTIVATION_LINK}} funcionam corretamente

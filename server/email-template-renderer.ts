@@ -39,9 +39,8 @@ export function renderActivationEmail(
   activationLink: string,
   expirationTime: string = "24 horas"
 ): string {
-  return renderEmailTemplate("activation-email", {
+  return renderEmailTemplate("activation-email-cyber", {
     USER_NAME: userName,
     ACTIVATION_LINK: activationLink,
-    EXPIRATION_TIME: expirationTime,
   });
 }
