@@ -1625,3 +1625,32 @@
 - [x] Adicionar estilos inline (não usar CSS externo)
 - [x] Testar renderização em diferentes clientes de email
 - [x] Validar que texto e botões são visíveis
+
+
+---
+
+## 📧 Reverter Template de Email para Modelo Original
+
+**Objetivo:**
+- Reverter o template de email de confirmação para o modelo original criado anteriormente
+- Usar design verde com estrutura simplificada conforme imagem de referência
+
+**Tarefas:**
+- [x] Reverter template de email para modelo original com design verde e estrutura simplificada
+
+
+---
+
+## 📧 Corrigir Template de Email de Confirmação
+
+**Problema:**
+- Template de email não está seguindo o modelo visual correto
+- Falta banner verde no topo com "✅ Conta Confirmada!"
+- Saudação deve ser em verde
+- Botão "Fazer Login" deve estar no final
+
+**Tarefas:**
+- [x] Verificar template atual de email
+- [x] Atualizar HTML do email para seguir modelo visual fornecido
+- [x] Testar envio de email de confirmação
+- [x] Validar visual do email recebido
