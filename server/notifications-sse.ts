@@ -46,18 +46,25 @@ router.get("/stream/:customerId", async (req, res) => {
   console.log(`[SSE] New connection request from authenticated customer ${customerId}`);
 
   // ✅ CHECK RATE LIMIT: Verificar se cliente pode conectar
-  const rateLimitCheck = sseRateLimiter.canConnect(customerId);
+  // ⚠️ DEVELOPMENT MODE: Rate limiter desabilitado para evitar erro 429 durante HMR
+  const isDevelopment = process.env.NODE_ENV === "development";
   
-  if (!rateLimitCheck.allowed) {
-    console.warn(`[SSE] Connection rejected for customer ${customerId}: ${rateLimitCheck.reason}`);
-    return res.status(429).json({ 
-      error: "Too many connections",
-      message: rateLimitCheck.reason 
-    });
-  }
+  if (!isDevelopment) {
+    const rateLimitCheck = sseRateLimiter.canConnect(customerId);
+    
+    if (!rateLimitCheck.allowed) {
+      console.warn(`[SSE] Connection rejected for customer ${customerId}: ${rateLimitCheck.reason}`);
+      return res.status(429).json({ 
+        error: "Too many connections",
+        message: rateLimitCheck.reason 
+      });
+    }
 
-  // Registrar conexão no rate limiter
-  sseRateLimiter.registerConnection(customerId);
+    // Registrar conexão no rate limiter
+    sseRateLimiter.registerConnection(customerId);
+  } else {
+    console.log(`[SSE] ⚠️ DEV MODE: Rate limiter disabled for customer ${customerId}`);
+  }
 
   // Add client to notifications manager
   notificationsManager.addClient(customerId, res);
@@ -66,8 +73,12 @@ router.get("/stream/:customerId", async (req, res) => {
 
   // Remover conexão do rate limiter quando cliente desconectar
   res.on('close', () => {
-    sseRateLimiter.unregisterConnection(customerId);
-    console.log(`[SSE] Client ${customerId} disconnected, unregistered from rate limiter`);
+    if (!isDevelopment) {
+      sseRateLimiter.unregisterConnection(customerId);
+      console.log(`[SSE] Client ${customerId} disconnected, unregistered from rate limiter`);
+    } else {
+      console.log(`[SSE] Client ${customerId} disconnected (DEV MODE: rate limiter not used)`);
+    }
   });
 
   // Connection will be kept alive by the notifications manager

@@ -583,3 +583,25 @@
 - [x] Ajustes finais de performance
 - [x] Documentação de mudanças implementadas
 - [x] Testes de regressão completos
+
+
+---
+
+## 🔧 Desabilitar Rate Limiter SSE no Ambiente de Desenvolvimento
+
+**Problema:**
+- Erro 429 (Too Many Requests) ocorre no ambiente de desenvolvimento
+- Hot Module Replacement (HMR) do Vite reinicia componentes e cria múltiplas reconexões SSE em sequência
+- Circuit breaker é acionado durante desenvolvimento, bloqueando SSE
+- Em produção o sistema funciona corretamente
+
+**Objetivo:**
+- Desabilitar rate limiter do SSE apenas no ambiente de desenvolvimento
+- Adicionar debounce na reconexão SSE para evitar múltiplas conexões durante HMR
+- Manter segurança em produção sem comprometer experiência de desenvolvimento
+
+**Tarefas:**
+- [x] Desabilitar rate limiter do SSE no ambiente de desenvolvimento (backend)
+- [x] Adicionar debounce de 2-3 segundos na reconexão SSE (frontend)
+- [x] Testar que erro 429 não ocorre mais durante HMR no DEV
+- [x] Validar que rate limiter continua ativo em produção

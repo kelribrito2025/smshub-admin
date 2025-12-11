@@ -121,9 +121,19 @@ export function useNotifications(options: UseNotificationsOptions) {
     broadcastChannelRef.current.addEventListener('message', handleBroadcastMessage);
 
     // Only leader tab creates SSE connection
+    // ⚠️ DEBOUNCE: Aguardar 2s antes de conectar para evitar múltiplas conexões durante HMR
     const connectSSE = async () => {
       if (!isLeaderRef.current) {
         console.log(`[Notifications] Skipping SSE connection (follower tab)`);
+        return;
+      }
+
+      // Debounce de 2s para evitar reconexões rápidas durante HMR no DEV
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      // Verificar se ainda é necessário conectar após o debounce
+      if (abortController.signal.aborted) {
+        console.log(`[Notifications] Connection aborted during debounce`);
         return;
       }
 
