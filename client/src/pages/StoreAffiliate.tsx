@@ -166,7 +166,7 @@ export default function StoreAffiliate() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4 relative z-10">
-            <div className="flex gap-2 items-center max-w-[600px]">
+            <div className="flex gap-2 items-center max-w-[500px]">
               <input
                 type="text"
                 readOnly
