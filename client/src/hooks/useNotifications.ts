@@ -24,8 +24,9 @@ const circuitBreaker = {
   failureCount: 0,
   lastFailureTime: 0,
   isOpen: false,
-  threshold: 5, // Open circuit after 5 consecutive failures
-  resetTimeout: 60000, // Reset after 1 minute
+  threshold: 3, // Open circuit after 3 consecutive failures (reduced from 5)
+  resetTimeout: 5 * 60 * 1000, // Reset after 5 minutes (increased from 1 minute)
+  permanentlyDisabled: false, // Flag to permanently disable reconnection after too many failures
 };
 
 /**
@@ -64,6 +65,11 @@ export function useNotifications(options: UseNotificationsOptions) {
     }
 
     // Check circuit breaker
+    if (circuitBreaker.permanentlyDisabled) {
+      console.error('[Notifications] SSE permanently disabled due to repeated failures. Please refresh the page.');
+      return;
+    }
+    
     if (circuitBreaker.isOpen) {
       const timeSinceLastFailure = Date.now() - circuitBreaker.lastFailureTime;
       if (timeSinceLastFailure < circuitBreaker.resetTimeout) {
@@ -71,7 +77,7 @@ export function useNotifications(options: UseNotificationsOptions) {
         return;
       } else {
         // Reset circuit breaker
-        console.log('[Notifications] Circuit breaker RESET');
+        console.log('[Notifications] Circuit breaker RESET after cooldown period');
         circuitBreaker.isOpen = false;
         circuitBreaker.failureCount = 0;
       }
@@ -121,19 +127,15 @@ export function useNotifications(options: UseNotificationsOptions) {
     broadcastChannelRef.current.addEventListener('message', handleBroadcastMessage);
 
     // Only leader tab creates SSE connection
-    // ⚠️ DEBOUNCE: Aguardar 2s antes de conectar para evitar múltiplas conexões durante HMR
     const connectSSE = async () => {
       if (!isLeaderRef.current) {
         console.log(`[Notifications] Skipping SSE connection (follower tab)`);
         return;
       }
-
-      // Debounce de 2s para evitar reconexões rápidas durante HMR no DEV
-      await new Promise(resolve => setTimeout(resolve, 2000));
       
-      // Verificar se ainda é necessário conectar após o debounce
+      // Check if aborted before connecting
       if (abortController.signal.aborted) {
-        console.log(`[Notifications] Connection aborted during debounce`);
+        console.log(`[Notifications] Connection aborted before starting`);
         return;
       }
 
@@ -166,9 +168,18 @@ export function useNotifications(options: UseNotificationsOptions) {
               circuitBreaker.isOpen = true;
               console.error(`[Notifications] Circuit breaker OPENED after ${circuitBreaker.failureCount} consecutive failures`);
               toast.error('Limite de conexões atingido', {
-                description: 'Aguarde 1 minuto antes de tentar novamente.',
-                duration: 5000,
+                description: 'O sistema pausará tentativas por 5 minutos. Se o problema persistir, recarregue a página.',
+                duration: 8000,
               });
+              
+              // After 3 circuit breaker openings, permanently disable
+              if (circuitBreaker.failureCount >= circuitBreaker.threshold * 3) {
+                circuitBreaker.permanentlyDisabled = true;
+                toast.error('Sistema de notificações desabilitado', {
+                  description: 'Muitas falhas consecutivas. Por favor, recarregue a página.',
+                  duration: 10000,
+                });
+              }
             }
           }
           
@@ -257,15 +268,23 @@ export function useNotifications(options: UseNotificationsOptions) {
           circuitBreaker.isOpen = true;
           console.error(`[Notifications] Circuit breaker OPENED after ${circuitBreaker.failureCount} consecutive failures`);
           toast.error('Limite de conexões atingido', {
-            description: 'O sistema pausará tentativas de conexão por 1 minuto.',
-            duration: 5000,
+            description: 'O sistema pausará tentativas por 5 minutos.',
+            duration: 8000,
           });
+          
+          // After 3 circuit breaker openings, permanently disable
+          if (circuitBreaker.failureCount >= circuitBreaker.threshold * 3) {
+            circuitBreaker.permanentlyDisabled = true;
+            toast.error('Sistema de notificações desabilitado', {
+              description: 'Muitas falhas consecutivas. Por favor, recarregue a página.',
+              duration: 10000,
+            });
+          }
           return; // Stop retrying
         }
 
-        // Retry with exponential backoff (increased max delay to 120s, starting at 5s)
-        // ✅ Delay inicial de 5s para evitar sobrecarga após erro 429
-        const delay = Math.min(5000 * Math.pow(2, retryCountRef.current), 120000);
+        // Retry with exponential backoff (max delay 2 minutes, starting at 3s)
+        const delay = Math.min(3000 * Math.pow(2, retryCountRef.current), 120000);
         retryCountRef.current++;
         
         console.log(`[Notifications] Retrying in ${delay / 1000}s (attempt ${retryCountRef.current})...`);

@@ -652,3 +652,67 @@
 - [x] Verificar se há problema de autenticação ou redirecionamento
 - [x] Corrigir problema identificado
 - [x] Testar URL de afiliado com parâmetro ref
+
+
+---
+
+## 🚨🚨🚨 CRÍTICO URGENTE: Loop Infinito de Erro 429 no SSE
+
+**Problema:**
+- Erro HTTP 429 (Rate Limit Exceeded) acontecendo em loop infinito no SSE
+- SSE está entrando em ciclo de reconexão contínua sem parar
+- Múltiplos erros consecutivos:
+  - `Failed to load resource: /api/notifications/stream/:customerId` (429)
+  - `Rate limit exceeded (429). Incrementing circuit breaker`
+  - `SSE connection failed: 429`
+  - `Circuit breaker OPENED after 5/6 consecutive failures`
+- Leader election executando repetidamente (tab elected → disconnected → elected → loop)
+- Sistema completamente travado por excesso de requisições
+
+**Causa Raiz Identificada:**
+1. Frontend está criando múltiplas conexões SSE simultâneas (mesmo sem navegação)
+2. Backend está bloqueando com 429 por excesso de tentativas
+3. Leader election está reexecutando constantemente
+4. SSE cai → tenta reconectar → bate rate limit → cai → loop infinito
+5. Circuit breaker abre mas não impede novas tentativas
+
+**Impacto:**
+- Sistema de notificações completamente inoperante
+- Logs poluídos com centenas de erros 429
+- Experiência do usuário severamente degradada
+- Backend sobrecarregado com requisições inúteis
+
+**Tarefas URGENTES:**
+- [x] **FRONTEND: Garantir apenas UMA instância SSE por usuário**
+  - [x] Verificar se SSE está sendo recriado em múltiplos lugares
+  - [x] Confirmar que SSE está em provider global único
+  - [x] Remover listeners duplicados
+  - [x] Garantir que re-renders não recriam SSE
+  
+- [x] **FRONTEND: Melhorar lógica de reconexão**
+  - [x] Aumentar backoff exponencial (máximo de 2 minutos)
+  - [x] Implementar circuit breaker mais robusto (parar após 3 falhas)
+  - [x] Adicionar cooldown period após circuit breaker abrir (5 minutos)
+  - [x] Desabilitar reconexão automática após múltiplas falhas (desabilitação permanente)
+  
+- [x] **BACKEND: Ajustar rate-limit para SSE**
+  - [x] Manter rate-limit ativo sempre (mesmo em DEV)
+  - [x] Implementar "2 conexões ativas por customerId" (tolerância para múltiplas abas)
+  - [x] Adicionar logs com customerId + connectionId para debug
+  - [x] Garantir que disconnect de uma aba não derruba outras
+  
+- [x] **BACKEND: Implementar gerenciamento de conexões**
+  - [x] Manter registro de conexões ativas por customerId
+  - [x] Incrementar/decrementar contador de conexões corretamente
+  - [x] Adicionar timeout de inatividade (30 minutos)
+  - [x] Retornar 409 Conflict ao invés de 429 para duplicatas
+
+- [x] **TESTES:**
+  - [x] Criar testes unitários para rate limiter
+  - [x] Testar limite de 2 conexões simultâneas
+  - [x] Testar desregistro correto de conexões
+  - [x] Validar comportamento com múltiplos customers
+  - [x] Documentar comportamento do circuit breaker
+  - [x] Validar prevenção de loop infinito
+
+**Prioridade:** 🔥🔥🔥 MÁXIMA - Sistema não funciona sem esta correção

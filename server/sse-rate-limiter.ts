@@ -12,7 +12,7 @@ interface ConnectionInfo {
 
 class SSERateLimiter {
   private connections: Map<number, ConnectionInfo> = new Map();
-  private readonly MAX_CONNECTIONS_PER_CUSTOMER = 1;
+  private readonly MAX_CONNECTIONS_PER_CUSTOMER = 2; // Allow 2 connections for multi-tab tolerance
   private readonly CONNECTION_TIMEOUT_MS = 30 * 60 * 1000; // 30 minutos
   private readonly CLEANUP_INTERVAL_MS = 5 * 60 * 1000; // 5 minutos
 
@@ -118,7 +118,7 @@ class SSERateLimiter {
     const now = Date.now();
     let cleanedCount = 0;
 
-    for (const [customerId, info] of this.connections.entries()) {
+    Array.from(this.connections.entries()).forEach(([customerId, info]) => {
       const timeSinceLastActivity = now - info.lastActivity;
       if (timeSinceLastActivity > this.CONNECTION_TIMEOUT_MS) {
         this.connections.delete(customerId);
@@ -127,7 +127,7 @@ class SSERateLimiter {
           `[SSE Rate Limiter] Cleaned up inactive connection for customer ${customerId} (inactive for ${Math.round(timeSinceLastActivity / 60000)}min)`
         );
       }
-    }
+    });
 
     if (cleanedCount > 0) {
       console.log(`[SSE Rate Limiter] Cleanup completed: ${cleanedCount} inactive connections removed`);

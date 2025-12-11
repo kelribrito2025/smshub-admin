@@ -106,12 +106,12 @@ class IdempotencyManager {
     const now = Date.now();
     let cleanedCount = 0;
 
-    for (const [key, record] of this.records.entries()) {
+    Array.from(this.records.entries()).forEach(([key, record]) => {
       if (now > record.expiresAt) {
         this.records.delete(key);
         cleanedCount++;
       }
-    }
+    });
 
     if (cleanedCount > 0) {
       console.log(`[Idempotency] Cleanup completed: ${cleanedCount} expired records removed`);

@@ -46,25 +46,20 @@ router.get("/stream/:customerId", async (req, res) => {
   console.log(`[SSE] New connection request from authenticated customer ${customerId}`);
 
   // ✅ CHECK RATE LIMIT: Verificar se cliente pode conectar
-  // ⚠️ DEVELOPMENT MODE: Rate limiter desabilitado para evitar erro 429 durante HMR
-  const isDevelopment = process.env.NODE_ENV === "development";
+  // Rate limiter sempre ativo (mesmo em DEV) para prevenir loops infinitos
+  const rateLimitCheck = sseRateLimiter.canConnect(customerId);
   
-  if (!isDevelopment) {
-    const rateLimitCheck = sseRateLimiter.canConnect(customerId);
-    
-    if (!rateLimitCheck.allowed) {
-      console.warn(`[SSE] Connection rejected for customer ${customerId}: ${rateLimitCheck.reason}`);
-      return res.status(429).json({ 
-        error: "Too many connections",
-        message: rateLimitCheck.reason 
-      });
-    }
-
-    // Registrar conexão no rate limiter
-    sseRateLimiter.registerConnection(customerId);
-  } else {
-    console.log(`[SSE] ⚠️ DEV MODE: Rate limiter disabled for customer ${customerId}`);
+  if (!rateLimitCheck.allowed) {
+    console.warn(`[SSE] Connection rejected for customer ${customerId}: ${rateLimitCheck.reason}`);
+    // Return 409 Conflict instead of 429 to avoid triggering exponential backoff
+    return res.status(409).json({ 
+      error: "Duplicate connection",
+      message: rateLimitCheck.reason 
+    });
   }
+
+  // Registrar conexão no rate limiter
+  sseRateLimiter.registerConnection(customerId);
 
   // Add client to notifications manager
   notificationsManager.addClient(customerId, res);
@@ -73,12 +68,8 @@ router.get("/stream/:customerId", async (req, res) => {
 
   // Remover conexão do rate limiter quando cliente desconectar
   res.on('close', () => {
-    if (!isDevelopment) {
-      sseRateLimiter.unregisterConnection(customerId);
-      console.log(`[SSE] Client ${customerId} disconnected, unregistered from rate limiter`);
-    } else {
-      console.log(`[SSE] Client ${customerId} disconnected (DEV MODE: rate limiter not used)`);
-    }
+    sseRateLimiter.unregisterConnection(customerId);
+    console.log(`[SSE] Client ${customerId} disconnected, unregistered from rate limiter`);
   });
 
   // Connection will be kept alive by the notifications manager
