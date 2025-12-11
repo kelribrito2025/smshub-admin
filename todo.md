@@ -1541,3 +1541,23 @@
 - [x] Adicionar rotas /login e /activate no App.tsx
 - [x] Enviar sendWelcomeEmail apenas após ativação
 - [x] Testar fluxo completo de criação e ativação (testes passando)
+
+
+---
+
+## 📧 Integração de Template de Email de Ativação de Conta
+
+**Objetivo:**
+- Integrar o modelo de email de ativação de conta fornecido pelo usuário
+- Criar sistema de templates de email reutilizável
+- Implementar envio de email de verificação para novos usuários
+- Configurar variáveis dinâmicas (USER_NAME, ACTIVATION_LINK, EXPIRATION_TIME)
+
+**Tarefas:**
+- [x] Criar diretório de templates de email (server/email-templates/)
+- [x] Criar template de ativação de conta (activation-email.html)
+- [x] Criar helper para renderizar templates com variáveis dinâmicas
+- [x] Integrar com sistema de envio de email existente (Mandrill)
+- [x] Testar envio de email com dados reais
+- [x] Documentar uso do sistema de templates
+

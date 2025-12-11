@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Verificação de Email - Número Virtual</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body style="margin: 0; padding: 0; font-family: 'Courier New', Courier, monospace; background-color: #000000; color: #22c55e;">
+
+  <!-- Container Principal com Grid Background -->
+  <div style="padding: 40px 20px; min-height: 100vh; background-image: linear-gradient(rgba(34, 197, 94, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(34, 197, 94, 0.03) 1px, transparent 1px); background-size: 50px 50px;">
+
+    <!-- Card Principal -->
+    <table role="presentation" style="max-width: 600px; margin: 0 auto; background-color: #000000; border: 2px solid rgba(34, 197, 94, 0.3); border-radius: 8px; position: relative;" cellpadding="0" cellspacing="0">
+      <tr>
+        <td style="position: relative;">
+
+          <!-- Corner Borders - Top Left -->
+          <div style="position: absolute; top: 0; left: 0; width: 80px; height: 80px; border-top: 4px solid rgba(34, 197, 94, 0.5); border-left: 4px solid rgba(34, 197, 94, 0.5); pointer-events: none;"></div>
+
+          <!-- Corner Borders - Top Right -->
+          <div style="position: absolute; top: 0; right: 0; width: 80px; height: 80px; border-top: 4px solid rgba(34, 197, 94, 0.5); border-right: 4px solid rgba(34, 197, 94, 0.5); pointer-events: none;"></div>
+
+          <!-- Corner Borders - Bottom Left -->
+          <div style="position: absolute; bottom: 0; left: 0; width: 80px; height: 80px; border-bottom: 4px solid rgba(34, 197, 94, 0.5); border-left: 4px solid rgba(34, 197, 94, 0.5); pointer-events: none;"></div>
+
+          <!-- Corner Borders - Bottom Right -->
+          <div style="position: absolute; bottom: 0; right: 0; width: 80px; height: 80px; border-bottom: 4px solid rgba(34, 197, 94, 0.5); border-right: 4px solid rgba(34, 197, 94, 0.5); pointer-events: none;"></div>
+
+          <!-- HEADER -->
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: rgba(34, 197, 94, 0.1); border-bottom: 2px solid rgba(34, 197, 94, 0.3);">
+            <tr>
+              <td style="padding: 30px 40px; text-align: center; position: relative; z-index: 1;">
+
+                <!-- Logo/Icon -->
+                <table role="presentation" cellpadding="0" cellspacing="0" style="margin: 0 auto 20px;">
+                  <tr>
+                    <td style="width: 80px; height: 80px; background-color: #22c55e; border-radius: 8px; text-align: center; font-size: 40px; font-weight: bold; color: #000000; box-shadow: 0 0 30px rgba(34, 197, 94, 0.5); line-height: 80px; vertical-align: middle;">
+                      ✓
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Título -->
+                <h1 style="margin: 0 0 10px; font-size: 28px; font-weight: bold; color: #22c55e; letter-spacing: 2px; text-transform: uppercase; font-family: 'Courier New', Courier, monospace;">
+                  Verificação de Email
+                </h1>
+
+                <!-- Dots -->
+                <div style="margin-top: 15px;">
+                  <span style="display: inline-block; width: 8px; height: 8px; background-color: #22c55e; border-radius: 50%; margin: 0 4px;"></span>
+                  <span style="display: inline-block; width: 8px; height: 8px; background-color: #22c55e; border-radius: 50%; opacity: 0.7; margin: 0 4px;"></span>
+                  <span style="display: inline-block; width: 8px; height: 8px; background-color: #22c55e; border-radius: 50%; opacity: 0.4; margin: 0 4px;"></span>
+                </div>
+
+              </td>
+            </tr>
+          </table>
+
+          <!-- BODY -->
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+              <td style="padding: 40px; position: relative; z-index: 1;">
+
+                <!-- Greeting -->
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 30px;">
+                  <tr>
+                    <td>
+                      <p style="margin: 0 0 10px; font-size: 14px; color: rgba(34, 197, 94, 0.7); letter-spacing: 1px; font-family: 'Courier New', Courier, monospace;">
+                        &gt; SISTEMA_INICIADO
+                      </p>
+                      <h2 style="margin: 0; font-size: 20px; color: #22c55e; font-weight: bold; font-family: 'Courier New', Courier, monospace;">
+                        Olá, {{USER_NAME}}!
+                      </h2>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Message Box -->
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 30px;">
+                  <tr>
+                    <td style="background-color: rgba(34, 197, 94, 0.05); border: 1px solid rgba(34, 197, 94, 0.2); border-radius: 4px; padding: 25px;">
+                      <p style="margin: 0 0 15px; font-size: 15px; color: #22c55e; line-height: 1.8; font-family: 'Courier New', Courier, monospace;">
+                        Bem-vindo ao nosso sistema! Para ativar sua conta e ter acesso completo a todas as funcionalidades, você precisa verificar seu endereço de email.
+                      </p>
+                      <p style="margin: 0; font-size: 15px; color: #22c55e; line-height: 1.8; font-family: 'Courier New', Courier, monospace;">
+                        Clique no botão abaixo para confirmar seu email e ativar sua conta:
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Activation Button -->
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 30px;">
+                  <tr>
+                    <td style="text-align: center;">
+                      <a href="{{ACTIVATION_LINK}}" style="display: inline-block; background-color: #22c55e; color: #000000; padding: 16px 50px; text-decoration: none; font-weight: bold; font-size: 16px; letter-spacing: 2px; text-transform: uppercase; border-radius: 4px; border: 2px solid #22c55e; box-shadow: 0 0 20px rgba(34, 197, 94, 0.4); font-family: 'Courier New', Courier, monospace;">
+                        ⚡ ATIVAR CONTA ⚡
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Alternative Link Box -->
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 25px;">
+                  <tr>
+                    <td style="background-color: rgba(34, 197, 94, 0.05); border: 1px solid rgba(34, 197, 94, 0.2); border-radius: 4px; padding: 20px;">
+                      <p style="margin: 0 0 10px; font-size: 13px; color: rgba(34, 197, 94, 0.8); font-family: 'Courier New', Courier, monospace;">
+                        Se o botão não funcionar, copie e cole o link abaixo no seu navegador:
+                      </p>
+                      <div style="background-color: rgba(0, 0, 0, 0.5); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 4px; padding: 12px; word-break: break-all; font-size: 12px; color: #22c55e; font-family: 'Courier New', Courier, monospace;">
+                        {{ACTIVATION_LINK}}
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Warning Box -->
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 25px;">
+                  <tr>
+                    <td style="border-left: 4px solid rgba(251, 191, 36, 0.6); background-color: rgba(251, 191, 36, 0.1); padding: 15px 20px;">
+                      <p style="margin: 0; font-size: 13px; color: rgba(251, 191, 36, 0.9); line-height: 1.6; font-family: 'Courier New', Courier, monospace;">
+                        <strong>⚠ ATENÇÃO:</strong> Este link expira em {{EXPIRATION_TIME}}. Se você não criou uma conta, ignore este email.
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Security Notice -->
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td style="font-size: 12px; color: rgba(34, 197, 94, 0.6); line-height: 1.6; font-family: 'Courier New', Courier, monospace;">
+                      <p style="margin: 0 0 8px;">
+                        &gt; Se você não criou uma conta, ignore este email.
+                      </p>
+                      <p style="margin: 0;">
+                        &gt; Nunca compartilhe este link com outras pessoas.
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+
+              </td>
+            </tr>
+          </table>
+
+          <!-- FOOTER -->
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: rgba(34, 197, 94, 0.1); border-top: 2px solid rgba(34, 197, 94, 0.3);">
+            <tr>
+              <td style="padding: 30px 40px; text-align: center; position: relative; z-index: 1;">
+
+                <!-- Divider -->
+                <div style="margin-bottom: 15px;">
+                  <span style="display: inline-block; width: 40px; height: 2px; background-color: rgba(34, 197, 94, 0.5); margin-right: 10px; vertical-align: middle;"></span>
+                  <span style="font-size: 20px; color: #22c55e;">●</span>
+                  <span style="display: inline-block; width: 40px; height: 2px; background-color: rgba(34, 197, 94, 0.5); margin-left: 10px; vertical-align: middle;"></span>
+                </div>
+
+                <!-- Company Name -->
+                <p style="margin: 0 0 8px; font-size: 13px; color: rgba(34, 197, 94, 0.8); letter-spacing: 1px; font-family: 'Courier New', Courier, monospace;">
+                  NÚMERO VIRTUAL SYSTEM
+                </p>
+
+                <!-- Copyright -->
+                <p style="margin: 0; font-size: 11px; color: rgba(34, 197, 94, 0.5); font-family: 'Courier New', Courier, monospace;">
+                  © 2024 - Todos os direitos reservados
+                </p>
+
+                <!-- Security Info -->
+                <div style="margin-top: 15px; font-size: 11px; color: rgba(34, 197, 94, 0.4); font-family: 'Courier New', Courier, monospace;">
+                  SISTEMA_SEGURO | CONEXÃO_CRIPTOGRAFADA
+                </div>
+
+              </td>
+            </tr>
+          </table>
+
+        </td>
+      </tr>
+    </table>
+
+  </div>
+
+</body>
+</html>
