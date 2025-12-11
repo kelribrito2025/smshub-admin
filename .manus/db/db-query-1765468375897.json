@@ -1,0 +1,105 @@
+{
+  "query": "SELECT code, name, id FROM countries ORDER BY name LIMIT 20;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT code, name, id FROM countries ORDER BY name LIMIT 20;",
+  "rows": [
+    {
+      "code": "brazil",
+      "name": "Brazil",
+      "id": "24"
+    },
+    {
+      "code": "canada",
+      "name": "Canada",
+      "id": "18"
+    },
+    {
+      "code": "china",
+      "name": "China",
+      "id": "9"
+    },
+    {
+      "code": "colombia",
+      "name": "Colombia",
+      "id": "17"
+    },
+    {
+      "code": "england",
+      "name": "England",
+      "id": "15"
+    },
+    {
+      "code": "germany",
+      "name": "Germany",
+      "id": "19"
+    },
+    {
+      "code": "india",
+      "name": "India",
+      "id": "16"
+    },
+    {
+      "code": "indonesia",
+      "name": "Indonesia",
+      "id": "12"
+    },
+    {
+      "code": "kazakhstan",
+      "name": "Kazakhstan",
+      "id": "8"
+    },
+    {
+      "code": "kenya",
+      "name": "Kenya",
+      "id": "14"
+    },
+    {
+      "code": "malaysia",
+      "name": "Malaysia",
+      "id": "13"
+    },
+    {
+      "code": "myanmar",
+      "name": "Myanmar",
+      "id": "11"
+    },
+    {
+      "code": "netherlands",
+      "name": "Netherlands",
+      "id": "20"
+    },
+    {
+      "code": "philippines",
+      "name": "Philippines",
+      "id": "10"
+    },
+    {
+      "code": "spain",
+      "name": "Spain",
+      "id": "22"
+    },
+    {
+      "code": "thailand",
+      "name": "Thailand",
+      "id": "21"
+    },
+    {
+      "code": "turkey",
+      "name": "Turkey",
+      "id": "23"
+    },
+    {
+      "code": "usa",
+      "name": "USA",
+      "id": "25"
+    },
+    {
+      "code": "ukraine",
+      "name": "Ukraine",
+      "id": "7"
+    }
+  ],
+  "messages": [],
+  "stdout": "code\tname\tid\nbrazil\tBrazil\t24\ncanada\tCanada\t18\nchina\tChina\t9\ncolombia\tColombia\t17\nengland\tEngland\t15\ngermany\tGermany\t19\nindia\tIndia\t16\nindonesia\tIndonesia\t12\nkazakhstan\tKazakhstan\t8\nkenya\tKenya\t14\nmalaysia\tMalaysia\t13\nmyanmar\tMyanmar\t11\nnetherlands\tNetherlands\t20\nphilippines\tPhilippines\t10\nspain\tSpain\t22\nthailand\tThailand\t21\nturkey\tTurkey\t23\nusa\tUSA\t25\nukraine\tUkraine\t7\n",
+  "stderr": "",
+  "execution_time_ms": 51
+}

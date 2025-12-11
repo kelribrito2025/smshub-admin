@@ -70,13 +70,18 @@ export default function Catalog() {
     filterApi: filterApi !== 'all' ? filterApi : undefined,
   } as any);
 
-  // Buscar TODOS os registros para estatísticas COM filtro de país
+  // Buscar TODOS os registros para estatísticas COM filtros aplicados (sem paginação)
   const { data: allPricesResponse } = trpc.prices.getAll.useQuery(
     {
+      page: 1,
+      pageSize: 999999, // Buscar todos os registros sem limite
       filterCountry: filterCountry !== 'all' ? filterCountry : undefined,
+      filterStatus: filterStatus !== 'all' ? filterStatus : undefined,
+      filterApi: filterApi !== 'all' ? filterApi : undefined,
     } as any,
     {
-      enabled: true, // Sempre habilitado para manter estatísticas atualizadas
+      enabled: true,
+      staleTime: 60000, // Cache por 1 minuto
     }
   );
 
@@ -294,27 +299,9 @@ export default function Catalog() {
   // Apenas usamos os dados retornados diretamente
   const filteredItems = catalogItems;
   
-  // Para estatísticas, filtramos todos os registros localmente
-  const globalFilteredItems = allCatalogItems.filter((item) => {
-    const matchesSearch =
-      item.countryName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.serviceName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.serviceCode.toLowerCase().includes(searchTerm.toLowerCase());
-
-    const matchesCountry =
-      filterCountry === 'all' || item.countryCode === filterCountry;
-
-    const matchesStatus =
-      filterStatus === 'all' ||
-      (filterStatus === 'active' && item.active) ||
-      (filterStatus === 'inactive' && !item.active);
-
-    const matchesApi =
-      filterApi === 'all' ||
-      (item.apiId !== null && item.apiId.toString() === filterApi);
-
-    return matchesSearch && matchesCountry && matchesStatus && matchesApi;
-  });
+  // Para estatísticas, usamos os dados já filtrados pelo backend (sem filtro local adicional)
+  // O backend já aplicou todos os filtros (país, status, API) na query allPricesResponse
+  const globalFilteredItems = allCatalogItems;
 
   // Get unique countries for filter (from current page)
   const uniqueCountries = Array.from(

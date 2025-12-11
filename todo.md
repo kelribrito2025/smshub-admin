@@ -1447,3 +1447,36 @@
 - [x] Analisar lógica de filtragem no backend (server/db-helpers/service-helpers.ts)
 - [x] Corrigir query para retornar todos os serviços quando país = "all"
 - [x] Testar contagem com múltiplos países importados
+
+
+---
+
+## 🐛 Bug: Filtragem por País Mostra Apenas 50 Serviços Ativos
+
+**Problema:**
+- Ao selecionar "Brazil" no filtro de país, mostra apenas 50 serviços ativos
+- Deveria mostrar mais de 970 serviços ativos do Brasil
+- Existem 3 opções de API (smshub, 5sim, sms-activate) mas a contagem está incorreta
+
+**Objetivo:**
+- Investigar lógica de filtragem e agregação de serviços por país
+- Corrigir cálculo de serviços ativos para considerar todas as APIs
+- Garantir que a contagem reflita o total real de serviços disponíveis
+
+**Causa Raiz:**
+- O frontend estava limitando a query de estatísticas a apenas 50 registros (pageSize padrão)
+- O backend tinha limite máximo de pageSize = 100, impedindo buscar todos os registros
+- A query de estatísticas não estava aplicando os mesmos filtros da query paginada
+
+**Solução:**
+- Aumentado limite de pageSize no backend de 100 para 1.000.000
+- Modificado query de estatísticas para usar pageSize=999999 e aplicar todos os filtros
+- Removido filtros locais duplicados no frontend (backend já filtra)
+- Criado teste automatizado para validar correção
+
+**Tarefas:**
+- [x] Investigar código de filtragem de serviços por país
+- [x] Verificar agregação de dados das 3 APIs (smshub, 5sim, sms-activate)
+- [x] Corrigir lógica de contagem de serviços ativos
+- [x] Testar com filtro "Brazil" selecionado
+- [x] Validar que mostra 970+ serviços ativos (teste automatizado criado)

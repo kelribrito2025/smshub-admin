@@ -1,0 +1,9 @@
+{
+  "query": "SELECT \n  c.code as country_code,\n  c.name as country_name,\n  COUNT(*) as total_services,\n  SUM(CASE WHEN p.active = 1 THEN 1 ELSE 0 END) as active_services\nFROM prices p\nJOIN countries c ON p.countryId = c.id\nWHERE c.code = 'br'\nGROUP BY c.code, c.name;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT \n  c.code as country_code,\n  c.name as country_name,\n  COUNT(*) as total_services,\n  SUM(CASE WHEN p.active = 1 THEN 1 ELSE 0 END) as active_services\nFROM prices p\nJOIN countries c ON p.countryId = c.id\nWHERE c.code = 'br'\nGROUP BY c.code, c.name;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 51
+}

@@ -28,7 +28,7 @@ export const pricesRouter = router({
     .input(
       z.object({
         page: z.number().min(1).default(1),
-        pageSize: z.number().min(10).max(100).default(50),
+        pageSize: z.number().min(10).max(1000000).default(50),
         searchTerm: z.string().optional(),
         filterCountry: z.string().optional(),
         filterStatus: z.string().optional(),
