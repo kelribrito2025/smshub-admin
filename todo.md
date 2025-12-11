@@ -1273,5 +1273,18 @@
 **Tarefas:**
 - [x] Localizar componente do link de indicação (StoreAffiliate.tsx)
 - [x] Adicionar max-width ao container do campo URL + botão copiar
-- [ ] Testar visual para garantir que não ultrapassa o limite desejado
-- [ ] Validar responsividade em diferentes tamanhos de tela
+- [x] Testar visual para garantir que não ultrapassa o limite desejado
+- [x] Validar responsividade em diferentes tamanhos de tela
+
+
+---
+
+## 🎯 Reduzir Largura do Link de Indicação para 600px
+
+**Objetivo:**
+- Ajustar largura máxima do container de 680px para 600px
+- Tornar o layout ainda mais compacto
+
+**Tarefas:**
+- [x] Modificar max-width de 680px para 600px no StoreAffiliate.tsx
+- [x] Validar visual após ajuste
