@@ -406,7 +406,7 @@ export default function Catalog() {
                       <SelectValue placeholder="Selecione o país" />
                     </SelectTrigger>
                     <SelectContent className="bg-black/90 border-border">
-                      {(countries || []).map((country) => (
+                      {(countries || []).filter(country => country.active).map((country) => (
                         <SelectItem key={country.id} value={country.id.toString()}>
                           {country.name}
                         </SelectItem>

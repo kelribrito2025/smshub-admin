@@ -1381,3 +1381,19 @@
 - [x] Executar migration do banco de dados
 - [x] Testar fluxo completo de afiliados (vitest passou)
 - [x] Validar crédito de bônus em tempo real
+
+
+---
+
+## 🌍 Filtrar Países Ativos na Importação de Serviço
+
+**Objetivo:**
+- Na aba de importar serviço do painel admin, exibir apenas países ativos na lista de seleção
+- Países ativos são aqueles configurados em /admin/countries
+- Exemplo: se apenas Brasil e Indonésia estão ativos, mostrar somente esses dois
+
+**Tarefas:**
+- [x] Analisar código atual da página de importar serviço
+- [x] Verificar como países são carregados atualmente
+- [x] Implementar filtragem para exibir apenas países com status ativo
+- [x] Testar filtragem com diferentes configurações de países ativos
