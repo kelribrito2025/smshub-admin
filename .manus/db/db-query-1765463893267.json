@@ -1,0 +1,17 @@
+{
+  "query": "SELECT id, name, email, balance, bonusBalance FROM customers WHERE email = 'fcokelrihbrito@gmail.com'",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT id, name, email, balance, bonusBalance FROM customers WHERE email = 'fcokelrihbrito@gmail.com'",
+  "rows": [
+    {
+      "id": "510014",
+      "name": "Conta 2",
+      "email": "fcokelrihbrito@gmail.com",
+      "balance": "4197",
+      "bonusBalance": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\temail\tbalance\tbonusBalance\n510014\tConta 2\tfcokelrihbrito@gmail.com\t4197\t0\n",
+  "stderr": "",
+  "execution_time_ms": 56
+}

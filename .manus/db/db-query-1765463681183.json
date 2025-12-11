@@ -1,0 +1,37 @@
+{
+  "query": "SELECT r.id, r.customerId, r.amount, r.status, r.createdAt, c.email, c.referredBy \nFROM recharges r \nJOIN customers c ON r.customerId = c.id \nWHERE c.referredBy = 510014 AND r.status = 'completed'",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT r.id, r.customerId, r.amount, r.status, r.createdAt, c.email, c.referredBy \nFROM recharges r \nJOIN customers c ON r.customerId = c.id \nWHERE c.referredBy = 510014 AND r.status = 'completed'",
+  "rows": [
+    {
+      "id": "510002",
+      "customerId": "570010",
+      "amount": "500",
+      "status": "completed",
+      "createdAt": "2025-12-11 11:32:56",
+      "email": "admifn@admin.com",
+      "referredBy": "510014"
+    },
+    {
+      "id": "510003",
+      "customerId": "570011",
+      "amount": "300",
+      "status": "completed",
+      "createdAt": "2025-12-11 11:44:26",
+      "email": "admin2@admin.com",
+      "referredBy": "510014"
+    },
+    {
+      "id": "510004",
+      "customerId": "570033",
+      "amount": "300",
+      "status": "completed",
+      "createdAt": "2025-12-11 12:28:07",
+      "email": "admdsadasdifn@admin.com",
+      "referredBy": "510014"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\tamount\tstatus\tcreatedAt\temail\treferredBy\n510002\t570010\t500\tcompleted\t2025-12-11 11:32:56\tadmifn@admin.com\t510014\n510003\t570011\t300\tcompleted\t2025-12-11 11:44:26\tadmin2@admin.com\t510014\n510004\t570033\t300\tcompleted\t2025-12-11 12:28:07\tadmdsadasdifn@admin.com\t510014\n",
+  "stderr": "",
+  "execution_time_ms": 62
+}

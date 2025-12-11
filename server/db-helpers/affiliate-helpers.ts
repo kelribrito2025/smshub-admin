@@ -253,7 +253,7 @@ export async function processFirstRechargeBonus(
     description: `Bônus de ${settings.bonusPercentage}% pela primeira recarga de Cliente #${referredCustomerId}`,
   });
   
-  // Credit bonus to affiliate's bonusBalance
+  // Credit bonus to affiliate's balance (main balance)
   const affiliate = await db
     .select()
     .from(customers)
@@ -261,11 +261,12 @@ export async function processFirstRechargeBonus(
     .limit(1);
   
   if (affiliate.length > 0) {
-    const newBonusBalance = affiliate[0].bonusBalance + bonusAmount;
+    const balanceBefore = affiliate[0].balance;
+    const balanceAfter = balanceBefore + bonusAmount;
     
     await db
       .update(customers)
-      .set({ bonusBalance: newBonusBalance })
+      .set({ balance: balanceAfter })
       .where(eq(customers.id, referral.referrerId));
     
     // Create transaction record
@@ -274,8 +275,8 @@ export async function processFirstRechargeBonus(
       amount: bonusAmount,
       type: "credit",
       description: `Bônus de afiliado - Primeira recarga de Cliente #${referredCustomerId}`,
-      balanceBefore: affiliate[0].balance,
-      balanceAfter: affiliate[0].balance, // Regular balance doesn't change
+      balanceBefore,
+      balanceAfter,
       origin: "system",
       metadata: JSON.stringify({
         referralId: referral.id,
@@ -307,7 +308,6 @@ export async function getAllAffiliatesWithStats() {
       pin: customers.pin,
       name: customers.name,
       email: customers.email,
-      bonusBalance: customers.bonusBalance,
       createdAt: customers.createdAt,
     })
     .from(customers)

@@ -1,0 +1,42 @@
+{
+  "query": "SELECT id, name, email, balance, referredBy, createdAt FROM customers WHERE referredBy = 510014",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT id, name, email, balance, referredBy, createdAt FROM customers WHERE referredBy = 510014",
+  "rows": [
+    {
+      "id": "570010",
+      "name": "teste",
+      "email": "admifn@admin.com",
+      "balance": "500",
+      "referredBy": "510014",
+      "createdAt": "2025-12-11 11:28:07"
+    },
+    {
+      "id": "570011",
+      "name": "teste",
+      "email": "admin2@admin.com",
+      "balance": "300",
+      "referredBy": "510014",
+      "createdAt": "2025-12-11 11:41:20"
+    },
+    {
+      "id": "570033",
+      "name": "dasfsadasd",
+      "email": "admdsadasdifn@admin.com",
+      "balance": "300",
+      "referredBy": "510014",
+      "createdAt": "2025-12-11 12:27:19"
+    },
+    {
+      "id": "600001",
+      "name": "teste",
+      "email": "teste@gmail.com",
+      "balance": "0",
+      "referredBy": "510014",
+      "createdAt": "2025-12-11 14:22:00"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\temail\tbalance\treferredBy\tcreatedAt\n570010\tteste\tadmifn@admin.com\t500\t510014\t2025-12-11 11:28:07\n570011\tteste\tadmin2@admin.com\t300\t510014\t2025-12-11 11:41:20\n570033\tdasfsadasd\tadmdsadasdifn@admin.com\t300\t510014\t2025-12-11 12:27:19\n600001\tteste\tteste@gmail.com\t0\t510014\t2025-12-11 14:22:00\n",
+  "stderr": "",
+  "execution_time_ms": 61
+}

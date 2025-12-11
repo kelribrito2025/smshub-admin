@@ -1353,3 +1353,31 @@
 - [x] Ajustar coluna "Código SMS" para exibir texto completo em telas ≥ 1024px
 - [x] Exibir spinner verde animado em telas < 1024px
 - [x] Exibir texto "Envie o código para o número recebido." em telas ≥ 1024px
+
+## 🐛 BUG CRÍTICO: Bônus de Afiliados Não Está Sendo Creditado
+
+**Problema:**
+- Afiliado fcokelrihbrito@gmail.com não está recebendo bônus no saldo
+- Saldo permanece em R$ 40,87 mesmo com recargas de afiliados
+- Sistema pode estar calculando mas não creditando o valor
+
+**Causa Raiz:**
+- Bônus estava sendo creditado em `bonusBalance` (campo separado e não utilizado)
+- Deveria ser creditado em `balance` (saldo principal)
+- Campo `bonusBalance` não é usado em nenhum lugar do sistema
+
+**Solução:**
+- Remover campo `bonusBalance` do schema
+- Corrigir função `processFirstRechargeBonus` para creditar em `balance`
+- Creditar retroativamente bônus acumulados no `bonusBalance`
+- Atualizar painel de afiliados para não referenciar `bonusBalance`
+
+**Tarefas:**
+- [x] Verificar bônus acumulados em bonusBalance antes de remover
+- [x] Creditar retroativamente bônus para saldo principal
+- [x] Corrigir função processFirstRechargeBonus
+- [x] Remover campo bonusBalance do schema
+- [x] Atualizar getAllAffiliatesWithStats
+- [x] Executar migration do banco de dados
+- [x] Testar fluxo completo de afiliados (vitest passou)
+- [x] Validar crédito de bônus em tempo real

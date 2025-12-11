@@ -217,7 +217,6 @@ export const customers = mysqlTable("customers", {
   email: varchar("email", { length: 320 }).notNull().unique(),
   password: varchar("password", { length: 255 }), // Hashed password (bcrypt), nullable for backward compatibility
   balance: int("balance").default(0).notNull(), // Balance in cents
-  bonusBalance: int("bonusBalance").default(0).notNull(), // Bonus balance in cents (non-withdrawable, can only be used for purchases)
   referredBy: int("referredBy"), // ID of the customer who referred this customer (nullable)
   active: boolean("active").default(true).notNull(),
   banned: boolean("banned").default(false).notNull(), // Permanent ban flag
