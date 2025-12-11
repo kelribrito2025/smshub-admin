@@ -1602,3 +1602,26 @@
 - [x] Implementar correção do erro de __dirname
 - [x] Criar endpoint para reenviar email de ativação
 - [x] Testar correção com vitest
+
+
+---
+
+## 📧 Correção de Formatação do Email de Ativação
+
+**Problema:**
+- Email de ativação de conta aparece completamente preto em clientes de email móveis
+- Template HTML não está sendo renderizado corretamente
+- Falta de compatibilidade com diferentes clientes de email
+
+**Objetivo:**
+- Corrigir template HTML do email para garantir renderização adequada
+- Garantir compatibilidade com clientes de email móveis (Gmail, Outlook, Apple Mail)
+- Manter design consistente com a identidade visual do sistema
+
+**Tarefas:**
+- [x] Analisar template atual de email de ativação
+- [x] Implementar template HTML compatível com clientes de email
+- [x] Usar tabelas para layout (padrão para emails)
+- [x] Adicionar estilos inline (não usar CSS externo)
+- [x] Testar renderização em diferentes clientes de email
+- [x] Validar que texto e botões são visíveis

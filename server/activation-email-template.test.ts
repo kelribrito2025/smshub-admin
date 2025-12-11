@@ -22,8 +22,8 @@ describe("Activation Email Template", () => {
 
     // Verificar estrutura HTML
     expect(html).toContain("<!DOCTYPE html>");
-    expect(html).toContain("Verificação de Email");
-    expect(html).toContain("NÚMERO VIRTUAL SYSTEM");
+    expect(html).toContain("Ativação de Conta");
+    expect(html).toContain("SMS.STORE");
   });
 
   it("should render template with special characters in user name", () => {
