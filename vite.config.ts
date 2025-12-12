@@ -21,26 +21,12 @@ export default defineConfig({
   envDir: path.resolve(import.meta.dirname),
   root: path.resolve(import.meta.dirname, "client"),
   publicDir: path.resolve(import.meta.dirname, "client", "public"),
-  optimizeDeps: {
-    include: [
-      'react',
-      'react-dom',
-      'wouter',
-      '@trpc/client',
-      '@trpc/react-query',
-      '@tanstack/react-query',
-    ],
-    exclude: ['@builder.io/vite-plugin-jsx-loc'],
-  },
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
     rollupOptions: {
       output: {
         manualChunks: (id) => {
-          // Only chunk in production build, not in dev
-          if (process.env.NODE_ENV !== 'production') return;
-          
           // Separate vendor libraries into their own chunks
           if (id.includes('node_modules')) {
             // React core libraries
@@ -81,9 +67,5 @@ export default defineConfig({
       strict: true,
       deny: ["**/.*"],
     },
-    hmr: {
-      overlay: false,
-    },
   },
-  cacheDir: path.resolve(import.meta.dirname, 'node_modules/.vite'),
 });
