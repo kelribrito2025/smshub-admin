@@ -2240,3 +2240,28 @@
 - [x] Verificar onde está a configuração do status do Programa de Afiliados
 - [x] Implementar lógica condicional no StoreLayout para ocultar/mostrar item "Afiliados"
 - [x] Testar com programa ativado e desativado
+
+
+---
+
+## 🎨 Reorganizar Dashboard /admin/dashboard
+
+**Objetivo:**
+- Reorganizar o dashboard administrativo seguindo estrutura obrigatória
+- Reaproveitar componentes existentes das páginas de relatórios
+- Manter visual dark e lógica já implementada
+
+**Estrutura Obrigatória:**
+1. Topo: 6 cards KPI (Saldo das APIs, Total de Ativações, Receita Total, Lucro Total, Custo Total, Taxa de Sucesso)
+2. Gráfico: Evolução de Receita e Lucro
+3. Dois cards lado a lado: Serviços Mais Vendidos | Países Mais Utilizados
+4. Card grande: Comparação Detalhada
+5. Card grande: Ativações Recentes (20 últimas)
+
+**Tarefas:**
+- [x] Reorganizar página AdminDashboard com nova estrutura
+- [x] Mover componente de gráfico de evolução para o dashboard
+- [x] Mover componentes de serviços e países para o dashboard
+- [x] Mover componente de comparação detalhada para o dashboard
+- [x] Ajustar componente de ativações recentes para mostrar 20 últimas
+- [x] Testar e validar dashboard reorganizado

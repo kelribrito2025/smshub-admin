@@ -3,25 +3,90 @@ import DashboardLayout from "@/components/DashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
-import { Activity, DollarSign, TrendingUp, Users, ShoppingCart, LayoutDashboard } from "lucide-react";
+import { Activity, DollarSign, TrendingUp, Users, ShoppingCart, LayoutDashboard, ArrowDown, CheckCircle2, XCircle, Download, Loader2, TrendingDown, Minus } from "lucide-react";
 import { Link } from "wouter";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { toast } from "sonner";
 
 import { AnimatedPage } from "@/components/AnimatedPage";
 import { AnimatedList, AnimatedListItem } from "@/components/AnimatedList";
 import { motion } from "framer-motion";
 import { fadeInScale, staggerContainer } from "@/lib/animations";
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 export default function Dashboard() {
   const { user, loading } = useAuth();
 
   const { data: dashboardData, isLoading, error } = trpc.stats.getDashboard.useQuery();
+  
   // Fetch balances from all APIs
   const { data: allBalances, isLoading: isLoadingBalances } = trpc.settings.getAllBalances.useQuery(undefined, {
     retry: false,
     refetchOnWindowFocus: false,
   });
+
+  // Fetch financial data for the chart (últimos 30 dias)
+  const dateRange = useMemo(() => {
+    const endDate = new Date();
+    const startDate = new Date();
+    startDate.setDate(endDate.getDate() - 30);
+    return { startDate, endDate };
+  }, []);
+
+  const { data: revenueByPeriod, isLoading: revenueLoading } = trpc.financial.getRevenueByPeriod.useQuery(
+    {
+      startDate: dateRange.startDate,
+      endDate: dateRange.endDate,
+      groupBy: "day",
+    },
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
+
+  const { data: metrics } = trpc.financial.getMetrics.useQuery(
+    {
+      startDate: dateRange.startDate,
+      endDate: dateRange.endDate,
+    },
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
+
+  // Fetch API comparison data
+  const { data: comparisonData, isLoading: comparisonLoading } = trpc.apiPerformance.getComparison.useQuery(
+    {
+      startDate: dateRange.startDate,
+      endDate: dateRange.endDate,
+    },
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
+
+  // Fetch detailed stats for each API
+  const { data: api1Stats } = trpc.apiPerformance.getDetailedStats.useQuery(
+    { apiId: 1, startDate: dateRange.startDate, endDate: dateRange.endDate },
+    { refetchOnWindowFocus: false }
+  );
+  const { data: api2Stats } = trpc.apiPerformance.getDetailedStats.useQuery(
+    { apiId: 2, startDate: dateRange.startDate, endDate: dateRange.endDate },
+    { refetchOnWindowFocus: false }
+  );
+  const { data: api3Stats } = trpc.apiPerformance.getDetailedStats.useQuery(
+    { apiId: 3, startDate: dateRange.startDate, endDate: dateRange.endDate },
+    { refetchOnWindowFocus: false }
+  );
 
   useEffect(() => {
     if (error) {
@@ -52,6 +117,36 @@ export default function Dashboard() {
     }).format(cents / 100);
   };
 
+  const formatPercent = (value: number) => {
+    return `${value.toFixed(2)}%`;
+  };
+
+  const getRankingBadge = (ranking: number) => {
+    const badges = {
+      1: { text: "🥇 1º Lugar", color: "bg-yellow-500/20 text-yellow-500" },
+      2: { text: "🥈 2º Lugar", color: "bg-gray-400/20 text-gray-400" },
+      3: { text: "🥉 3º Lugar", color: "bg-orange-500/20 text-orange-500" },
+    };
+    const badge = badges[ranking as keyof typeof badges];
+    return (
+      <span className={`px-2 py-1 rounded-full text-xs font-semibold ${badge.color}`}>
+        {badge.text}
+      </span>
+    );
+  };
+
+  const getSuccessRateColor = (rate: number) => {
+    if (rate >= 70) return "text-green-500";
+    if (rate >= 50) return "text-yellow-500";
+    return "text-red-500";
+  };
+
+  const getTrendIcon = (trend: string) => {
+    if (trend === 'up') return <TrendingUp className="w-4 h-4 text-green-500" />;
+    if (trend === 'down') return <TrendingDown className="w-4 h-4 text-red-500" />;
+    return <Minus className="w-4 h-4 text-gray-500" />;
+  };
+
   return (
     <DashboardLayout>
       <AnimatedPage className="space-y-6">
@@ -76,13 +171,14 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Stats Cards */}
+        {/* 1) TOPO - 6 CARDS KPI */}
         <motion.div 
-          className="grid gap-4 md:grid-cols-2 lg:grid-cols-4"
+          className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6"
           variants={staggerContainer}
           initial="initial"
           animate="animate"
         >
+          {/* Card 1: Saldo das APIs */}
           <motion.div variants={fadeInScale}>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -116,6 +212,7 @@ export default function Dashboard() {
             </Card>
           </motion.div>
 
+          {/* Card 2: Total de Ativações */}
           <motion.div variants={fadeInScale}>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -131,6 +228,7 @@ export default function Dashboard() {
             </Card>
           </motion.div>
 
+          {/* Card 3: Receita Total */}
           <motion.div variants={fadeInScale}>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -146,6 +244,7 @@ export default function Dashboard() {
             </Card>
           </motion.div>
 
+          {/* Card 4: Lucro Total */}
           <motion.div variants={fadeInScale}>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -162,14 +261,119 @@ export default function Dashboard() {
               </CardContent>
             </Card>
           </motion.div>
+
+          {/* Card 5: Custo Total */}
+          <motion.div variants={fadeInScale}>
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Custo Total</CardTitle>
+                <ArrowDown className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent className="pt-8">
+                <div className="text-2xl font-bold text-red-600">
+                  {formatCurrency(Number(metrics?.totalCost) || 0)}
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Lucro médio: {formatCurrency(Number(metrics?.averageProfit) || 0)}
+                </p>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          {/* Card 6: Taxa de Sucesso */}
+          <motion.div variants={fadeInScale}>
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Taxa de Sucesso</CardTitle>
+                <Activity className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent className="pt-8">
+                <div className="text-2xl font-bold">
+                  {metrics?.totalActivations
+                    ? formatPercent(
+                        (metrics.completedActivations / metrics.totalActivations) * 100
+                      )
+                    : "0%"}
+                </div>
+                <div className="flex items-center gap-4 mt-1 text-xs text-muted-foreground">
+                  <span className="flex items-center gap-1">
+                    <CheckCircle2 className="h-3 w-3 text-green-600" />
+                    {metrics?.completedActivations || 0}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <XCircle className="h-3 w-3 text-red-600" />
+                    {metrics?.cancelledActivations || 0}
+                  </span>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
         </motion.div>
 
-        {/* Recent Activity and Top Services */}
+        {/* 2) GRÁFICO - Evolução de Receita e Lucro */}
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between">
+            <div>
+              <CardTitle>Evolução de Receita e Lucro</CardTitle>
+              <CardDescription>Análise temporal de desempenho financeiro</CardDescription>
+            </div>
+          </CardHeader>
+          <CardContent>
+            {revenueLoading ? (
+              <div className="flex items-center justify-center h-[400px]">
+                <Loader2 className="h-8 w-8 animate-spin" />
+              </div>
+            ) : revenueByPeriod && revenueByPeriod.length > 0 ? (
+              <ResponsiveContainer width="100%" height={400}>
+                <AreaChart data={revenueByPeriod}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="date" />
+                  <YAxis tickFormatter={(value) => formatCurrency(value)} />
+                  <Tooltip
+                    formatter={(value: number) => formatCurrency(value)}
+                    labelStyle={{ color: "#000" }}
+                  />
+                  <Legend />
+                  <Area
+                    type="monotone"
+                    dataKey="revenue"
+                    name="Receita"
+                    stroke="#8884d8"
+                    fill="#8884d8"
+                    fillOpacity={0.6}
+                  />
+                  <Area
+                    type="monotone"
+                    dataKey="profit"
+                    name="Lucro"
+                    stroke="#82ca9d"
+                    fill="#82ca9d"
+                    fillOpacity={0.6}
+                  />
+                  <Area
+                    type="monotone"
+                    dataKey="cost"
+                    name="Custo"
+                    stroke="#ff7c7c"
+                    fill="#ff7c7c"
+                    fillOpacity={0.6}
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
+            ) : (
+              <div className="flex items-center justify-center h-[400px] text-muted-foreground">
+                Nenhum dado disponível para o período selecionado
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* 3) DOIS CARDS LADO A LADO - Serviços e Países */}
         <div className="grid gap-4 md:grid-cols-2">
-          {/* Top Services */}
+          {/* Serviços Mais Vendidos */}
           <Card>
             <CardHeader>
-              <CardTitle>Serviços Mais Vendidoss</CardTitle>
+              <CardTitle>Serviços Mais Vendidos</CardTitle>
               <CardDescription>Top 5 serviços por número de vendas</CardDescription>
             </CardHeader>
             <CardContent>
@@ -207,7 +411,7 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          {/* Top Countries */}
+          {/* Países Mais Utilizados */}
           <Card>
             <CardHeader>
               <CardTitle>Países Mais Utilizados</CardTitle>
@@ -249,16 +453,83 @@ export default function Dashboard() {
           </Card>
         </div>
 
-        {/* Recent Activations */}
+        {/* 4) CARD GRANDE - Comparação Detalhada */}
+        <Card className="p-6">
+          <h3 className="text-lg font-semibold mb-4">Comparação Detalhada</h3>
+          {comparisonLoading ? (
+            <div className="flex items-center justify-center h-[200px]">
+              <Loader2 className="h-8 w-8 animate-spin" />
+            </div>
+          ) : comparisonData && comparisonData.length > 0 ? (
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left py-3 px-4 font-semibold">Fornecedor</th>
+                    <th className="text-center py-3 px-4 font-semibold">Ranking</th>
+                    <th className="text-center py-3 px-4 font-semibold">Taxa de Sucesso</th>
+                    <th className="text-center py-3 px-4 font-semibold">Total</th>
+                    <th className="text-center py-3 px-4 font-semibold">Completos</th>
+                    <th className="text-center py-3 px-4 font-semibold">Cancelados</th>
+                    <th className="text-center py-3 px-4 font-semibold">Tendência</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {comparisonData.map((api) => {
+                    const detailedStats = 
+                      api.apiId === 1 ? api1Stats :
+                      api.apiId === 2 ? api2Stats :
+                      api3Stats;
+
+                    return (
+                      <tr key={api.apiId} className="border-b hover:bg-muted/50">
+                        <td className="py-3 px-4 font-medium">{api.apiName}</td>
+                        <td className="py-3 px-4 text-center">
+                          {getRankingBadge(api.ranking)}
+                        </td>
+                        <td className="py-3 px-4 text-center">
+                          <span className={`font-bold ${getSuccessRateColor(api.successRate)}`}>
+                            {api.successRate}%
+                          </span>
+                        </td>
+                        <td className="py-3 px-4 text-center">{api.totalActivations}</td>
+                        <td className="py-3 px-4 text-center text-green-500 font-semibold">
+                          {detailedStats?.completed || 0}
+                        </td>
+                        <td className="py-3 px-4 text-center text-red-500 font-semibold">
+                          {detailedStats?.cancelled || 0}
+                        </td>
+                        <td className="py-3 px-4 text-center flex items-center justify-center gap-2">
+                          {getTrendIcon(api.trend)}
+                          <span className="text-sm">
+                            {api.trend === 'up' && 'Melhorando'}
+                            {api.trend === 'down' && 'Piorando'}
+                            {api.trend === 'stable' && 'Estável'}
+                          </span>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <div className="text-center py-8 text-muted-foreground">
+              Nenhum dado disponível
+            </div>
+          )}
+        </Card>
+
+        {/* 5) CARD GRANDE - Ativações Recentes (20 últimas) */}
         <Card>
           <CardHeader>
             <CardTitle>Ativações Recentes</CardTitle>
-            <CardDescription>Últimas 10 ativações realizadas</CardDescription>
+            <CardDescription>Últimas 20 ativações realizadas</CardDescription>
           </CardHeader>
           <CardContent>
             {dashboardData?.recentActivations && dashboardData.recentActivations.length > 0 ? (
               <AnimatedList className="space-y-3">
-                {dashboardData.recentActivations.map((item) => {
+                {dashboardData.recentActivations.slice(0, 20).map((item) => {
                   const activation = item.activation;
                   const service = item.service;
                   const country = item.country;
@@ -269,35 +540,30 @@ export default function Dashboard() {
                         <div className="flex items-center gap-3">
                           <div
                             className={`h-2 w-2 rounded-full ${
-                              activation?.status === 'completed'
-                                ? 'bg-green-500'
-                                : activation?.status === 'cancelled'
-                                ? 'bg-red-500'
-                                : activation?.status === 'failed'
-                                ? 'bg-orange-500'
-                                : 'bg-blue-500'
+                              activation?.status === "completed"
+                                ? "bg-green-500"
+                                : activation?.status === "active"
+                                  ? "bg-blue-500"
+                                  : activation?.status === "cancelled"
+                                    ? "bg-red-500"
+                                    : "bg-gray-500"
                             }`}
                           />
                           <div>
-                            <p className="font-medium">
+                            <p className="font-medium text-sm">
                               {service?.name} - {country?.name}
                             </p>
                             <p className="text-xs text-muted-foreground">
-                              {activation?.phoneNumber || 'Aguardando número'}
+                              {activation?.phoneNumber || "N/A"} • {activation?.createdAt ? new Date(activation.createdAt).toLocaleString("pt-BR") : "N/A"}
                             </p>
                           </div>
                         </div>
                         <div className="text-right">
-                          <p className="text-sm font-medium capitalize">
-                            {activation?.status === 'completed' ? 'Concluída' :
-                             activation?.status === 'cancelled' ? 'Cancelada' :
-                             activation?.status === 'failed' ? 'Falhou' :
-                             activation?.status === 'active' ? 'Ativa' : 'Pendente'}
+                          <p className="text-sm font-medium">
+                            {formatCurrency(Number(activation?.sellingPrice) || 0)}
                           </p>
-                          <p className="text-xs text-muted-foreground">
-                            {activation?.createdAt
-                              ? new Date(activation.createdAt).toLocaleString('pt-BR')
-                              : ''}
+                          <p className="text-xs text-green-600">
+                            +{formatCurrency(Number(activation?.profit) || 0)}
                           </p>
                         </div>
                       </div>
