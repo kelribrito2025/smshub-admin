@@ -1915,3 +1915,17 @@
 
 **Tarefas:**
 - [x] Atualizar template de email de boas-vindas com novo modelo visual verde e escuro
+
+
+---
+
+## 🗑️ Remover Modelos de Email de Ativação
+
+**Objetivo:**
+- Remover completamente os modelos de email de ativação do sistema
+- Limpar arquivos HTML não utilizados
+
+**Tarefas:**
+- [x] Remover arquivo activation-email-light.html
+- [x] Remover arquivo activation-email-modern.html
+- [x] Verificar e remover referências aos modelos no código (se existirem)
