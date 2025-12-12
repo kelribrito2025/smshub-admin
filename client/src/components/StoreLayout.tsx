@@ -4,7 +4,7 @@ import { trpc } from '../lib/trpc';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Search, Star, Wallet, Globe, User, Loader2, Copy, ChevronDown, ChevronUp, LogOut, LogIn, Menu, X, Shield, Sparkles, History, LayoutDashboard, Check, Gift, TrendingUp, TrendingDown } from 'lucide-react';
-import { toast } from '@/contexts/ToastContext';
+import { toast } from 'sonner';
 import { useStoreAuth } from '../contexts/StoreAuthContext';
 import ServiceApiOptions from './ServiceApiOptions';
 import { copyToClipboard, playNotificationSound } from '../lib/utils';
@@ -848,8 +848,6 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
         isOpen={rechargeModalOpen} 
         onClose={() => setRechargeModalOpen(false)} 
       />
-
-
     </div>
   );
 }

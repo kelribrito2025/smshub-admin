@@ -20,7 +20,7 @@ async function main() {
     const [key] = await db
       .select()
       .from(apiKeys)
-      .where(eq(apiKeys.active, true))
+      .where(eq(apiKeys.active, 1))
       .limit(1);
 
     if (key) {

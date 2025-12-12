@@ -2155,3 +2155,28 @@
 - [x] Remover componente Toaster do App.tsx
 - [x] Testar toast em diferentes cenários (success, error, warning, info)
 - [x] Validar que não há erros no console após remoção
+
+
+---
+
+## 🔄 Restaurar Sonner no Painel de Vendas
+
+**Problema:**
+- Biblioteca Sonner foi removida completamente do projeto
+- Painel de vendas precisa continuar usando Sonner (não deve usar toast customizado)
+- Apenas o painel administrativo deve usar o toast customizado
+
+**Objetivo:**
+- Reinstalar biblioteca Sonner
+- Restaurar Toaster do Sonner no painel de vendas
+- Garantir que painel de vendas continue usando Sonner normalmente
+- Manter toast customizado apenas no painel administrativo
+
+**Tarefas:**
+- [x] Reinstalar biblioteca sonner (pnpm add sonner)
+- [x] Restaurar <Toaster /> do Sonner no StoreAuthContext.tsx (provider do painel de vendas)
+- [x] Restaurar imports de toast() do Sonner nas páginas do painel de vendas
+- [x] Corrigir toasts do Sonner para não usar description (usar apenas mensagem concatenada)
+- [x] Corrigir toasts do admin para não usar description (toast customizado)
+- [x] Testar que toasts do Sonner aparecem corretamente no painel de vendas
+- [x] Confirmar que painel administrativo continua usando toast customizado
