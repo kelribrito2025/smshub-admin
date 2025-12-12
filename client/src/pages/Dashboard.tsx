@@ -231,7 +231,7 @@ export default function Dashboard() {
               Dashboard
             </h1>
             <p className="text-muted-foreground mt-1">
-              Visão geral do seu painel administrativo SMSHub
+              Visão geral do seu painel admin
             </p>
           </div>
           <div className="flex gap-2">
