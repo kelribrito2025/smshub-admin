@@ -45,7 +45,7 @@ type PeriodFilter = 'today' | 'yesterday' | 'last7days' | 'last30days' | 'last90
 
 export default function Dashboard() {
   const { user, loading } = useAuth();
-  const [periodFilter, setPeriodFilter] = useState<PeriodFilter>('last30days');
+  const [periodFilter, setPeriodFilter] = useState<PeriodFilter>('today');
   const [servicesFilter, setServicesFilter] = useState('Hoje');
 
   const { data: dashboardData, isLoading, error } = trpc.stats.getDashboard.useQuery();

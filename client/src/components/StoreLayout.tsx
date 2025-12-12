@@ -483,7 +483,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
               className="lg:hidden bg-purple-500 hover:bg-purple-600 text-white font-bold flex items-center gap-2 px-3 py-2 h-9"
             >
               <Shield className="w-4 h-4" />
-              <span className="text-xs sm:text-sm">Painel de Vendas</span>
+              <span className="text-xs sm:text-sm">Painel</span>
             </Button>
           )}
 
@@ -533,7 +533,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
               className="hidden lg:flex bg-purple-500 hover:bg-purple-600 text-white font-bold items-center gap-2"
             >
               <Shield className="w-4 h-4" />
-              <span>Painel de Vendas</span>
+              <span>Painel</span>
             </Button>
           )}
 

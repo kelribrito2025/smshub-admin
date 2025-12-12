@@ -2430,3 +2430,17 @@
 
 **Tarefas:**
 - [x] Mover botão "Painel de Vendas" para top bar no mobile (alinhado à direita)
+
+
+---
+
+## 🎨 Renomear Botão e Ajustar Filtro de Data Padrão
+
+**Objetivo:**
+- Renomear botão "Painel de Vendas" para apenas "Painel" (em todas as ocorrências)
+- Configurar filtro de data do Dashboard para selecionar "Hoje" por padrão ao invés de "Últimos 30 dias"
+
+**Tarefas:**
+- [x] Renomear botão "Painel de Vendas" para "Painel" no StoreLayout (mobile e desktop)
+- [x] Renomear botão "Painel de Vendas" para "Painel" no DashboardLayout (se existir)
+- [x] Configurar filtro de data para selecionar "Hoje" por padrão no Dashboard
