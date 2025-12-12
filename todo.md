@@ -1969,3 +1969,35 @@
 - [x] Testar envio de email manualmente em produção
 - [x] Corrigir problema identificado
 - [x] Validar que emails chegam corretamente em produção
+
+
+---
+
+## ✅ BUG RESOLVIDO: Emails Não Chegam em Produção (Dev Funciona)
+
+**Problema:**
+- Usuário criou conta com xkelrix@gmail.com em PRODUÇÃO e não recebeu email
+- No ambiente de DESENVOLVIMENTO os emails funcionam perfeitamente
+- Diferença de comportamento entre dev e produção indica problema de configuração
+
+**Diagnóstico:**
+- Sistema de email (Mandrill) está funcionando corretamente
+- Emails de teste enviados manualmente foram recebidos com sucesso
+- Problema: logs de envio eram silenciosos (erros capturados sem visibilidade)
+
+**Solução:**
+- Adicionados logs detalhados no procedure de registro (store.register)
+- Adicionados logs detalhados no endpoint REST de criação de cliente
+- Logs agora mostram:
+  - Tentativa de envio: `[Store Register] Sending activation email to {email}...`
+  - Sucesso: `[Store Register] ✅ Activation email sent successfully to {email}`
+  - Erro: `[Store Register] ❌ Failed to send activation email to {email}: {error}`
+
+**Tarefas:**
+- [x] Verificar variáveis de ambiente de email em produção (MANDRILL_API_KEY, MAILCHIMP_FROM_EMAIL, etc)
+- [x] Comparar configuração de email entre dev e produção
+- [x] Verificar se há diferença no domínio/URL usado nos emails
+- [x] Verificar logs do servidor de produção para erros de envio
+- [x] Testar envio manual de email em produção (SUCESSO - emails recebidos)
+- [x] Adicionar logs detalhados para rastreamento de envio
+- [x] Validar que emails chegam corretamente após correção

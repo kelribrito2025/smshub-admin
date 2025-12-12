@@ -1,0 +1,55 @@
+{
+  "query": "SELECT * FROM api_keys WHERE active = 1 LIMIT 5",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT * FROM api_keys WHERE active = 1 LIMIT 5",
+  "rows": [
+    {
+      "id": "1",
+      "name": "Test API Key",
+      "key": "sk_5cUTQ-0VggBg_-4Z1_RzqFOr3CdnMLEz00egdBK8A_hpOeVV",
+      "active": "1",
+      "createdAt": "2025-11-30 16:53:12",
+      "lastUsedAt": "NULL",
+      "expiresAt": "NULL"
+    },
+    {
+      "id": "7",
+      "name": "Test API Key",
+      "key": "sk_rX9T4JeURaxc7_4rU6QhU4sqZckh9QJXCH2bCN411kOnuNYW",
+      "active": "1",
+      "createdAt": "2025-11-30 17:14:16",
+      "lastUsedAt": "NULL",
+      "expiresAt": "NULL"
+    },
+    {
+      "id": "8",
+      "name": "Test API Key",
+      "key": "sk_zdl3l1WzfLlWv1-PahGpk2lIFafN8TM8NMfks2GOtV7p1svp",
+      "active": "1",
+      "createdAt": "2025-11-30 17:14:41",
+      "lastUsedAt": "NULL",
+      "expiresAt": "NULL"
+    },
+    {
+      "id": "9",
+      "name": "Test API Key",
+      "key": "sk_7DcXXh0icwIBGGV8KmYr5i89NUHDo8AHAVbAK0hnNcjb5gDf",
+      "active": "1",
+      "createdAt": "2025-11-30 17:20:18",
+      "lastUsedAt": "NULL",
+      "expiresAt": "NULL"
+    },
+    {
+      "id": "10",
+      "name": "Painel de vendas",
+      "key": "sk_POJaRN9YTPKfZaUQ4P9LQW-H3FI68F5abjtECApweI2iFukh",
+      "active": "1",
+      "createdAt": "2025-11-30 17:34:44",
+      "lastUsedAt": "NULL",
+      "expiresAt": "NULL"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tkey\tactive\tcreatedAt\tlastUsedAt\texpiresAt\n1\tTest API Key\tsk_5cUTQ-0VggBg_-4Z1_RzqFOr3CdnMLEz00egdBK8A_hpOeVV\t1\t2025-11-30 16:53:12\tNULL\tNULL\n7\tTest API Key\tsk_rX9T4JeURaxc7_4rU6QhU4sqZckh9QJXCH2bCN411kOnuNYW\t1\t2025-11-30 17:14:16\tNULL\tNULL\n8\tTest API Key\tsk_zdl3l1WzfLlWv1-PahGpk2lIFafN8TM8NMfks2GOtV7p1svp\t1\t2025-11-30 17:14:41\tNULL\tNULL\n9\tTest API Key\tsk_7DcXXh0icwIBGGV8KmYr5i89NUHDo8AHAVbAK0hnNcjb5gDf\t1\t2025-11-30 17:20:18\tNULL\tNULL\n10\tPainel de vendas\tsk_POJaRN9YTPKfZaUQ4P9LQW-H3FI68F5abjtECApweI2iFukh\t1\t2025-11-30 17:34:44\tNULL\tNULL\n",
+  "stderr": "",
+  "execution_time_ms": 64
+}
