@@ -336,8 +336,38 @@ export default function Financial() {
                       <XAxis dataKey="date" />
                       <YAxis tickFormatter={(value) => formatCurrency(value)} />
                       <Tooltip
-                        formatter={(value: number) => formatCurrency(value)}
-                        labelStyle={{ color: "#000" }}
+                        content={({ active, payload, label }) => {
+                          if (!active || !payload || !payload.length) return null;
+                          
+                          const receita = payload.find(p => p.dataKey === 'revenue');
+                          const lucro = payload.find(p => p.dataKey === 'profit');
+                          const custo = payload.find(p => p.dataKey === 'cost');
+                          
+                          return (
+                            <div className="bg-white rounded-lg shadow-xl p-4 border border-neutral-200">
+                              <div className="text-neutral-900 font-semibold mb-2">
+                                {label}
+                              </div>
+                              <div className="space-y-1 text-sm">
+                                {receita && (
+                                  <div className="text-blue-600">
+                                    Receita: {formatCurrency(receita.value as number)}
+                                  </div>
+                                )}
+                                {lucro && (
+                                  <div className="text-emerald-600">
+                                    Lucro: {formatCurrency(lucro.value as number)}
+                                  </div>
+                                )}
+                                {custo && (
+                                  <div className="text-red-600">
+                                    Custo: {formatCurrency(custo.value as number)}
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          );
+                        }}
                       />
                       <Legend />
                       <Area

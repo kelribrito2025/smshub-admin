@@ -2361,3 +2361,20 @@
 - [x] Adicionar botão de sincronizar com ícone RefreshCw
 - [x] Implementar formatação de horário (HH:MM)
 - [x] Testar responsividade e interações
+
+
+---
+
+## 🎨 Melhorar Visual do Tooltip do Gráfico "Evolução de Receita e Lucro"
+
+**Objetivo:**
+- Atualizar estilo do tooltip do gráfico para seguir design moderno
+- Fundo branco com sombra suave
+- Cores específicas para cada métrica (azul para receita, verde para lucro, vermelho para custo)
+- Bordas arredondadas e espaçamento adequado
+
+**Tarefas:**
+- [x] Atualizar componente do tooltip no gráfico de evolução financeira
+- [x] Aplicar estilo com fundo branco, sombra e bordas arredondadas
+- [x] Definir cores específicas para cada métrica
+- [x] Testar visualização do tooltip
