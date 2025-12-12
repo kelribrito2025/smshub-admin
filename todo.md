@@ -2159,3 +2159,17 @@
 - [x] Estender schema do banco de dados com campos minAmount e bonusPercentage
 - [x] Atualizar router e procedures do backend
 - [x] Criar e executar testes unitários (9 testes passando)
+
+
+---
+
+## 🧹 Remover Título e Descrição do Card de Métodos de Pagamento
+
+**Objetivo:**
+- Remover o título "Métodos de Pagamento" e a descrição do card na página PaymentSettings
+- Deixar apenas a lista de métodos de pagamento visível
+- Simplificar visualmente a interface
+
+**Tarefas:**
+- [x] Remover CardTitle do card de métodos de pagamento
+- [x] Remover CardDescription do card de métodos de pagamento

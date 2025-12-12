@@ -158,9 +158,9 @@ export default function PaymentSettings() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Métodos de Pagamento</CardTitle>
+            <CardTitle></CardTitle>
             <CardDescription>
-              Configure os métodos de pagamento disponíveis no painel de vendas
+              
             </CardDescription>
           </CardHeader>
           <CardContent>
