@@ -2101,3 +2101,25 @@
 - [x] Remover card de configurações da página Financial.tsx
 - [x] Adicionar card de configurações na página Settings.tsx
 - [x] Testar funcionalidade após movimentação
+
+
+---
+
+## 🧹 Limpar Página de Configurações
+
+**Objetivo:**
+- Remover cards não utilizados da página /admin/settings
+- Manter apenas o card de Configurações do Programa de Afiliados
+- Simplificar interface administrativa
+
+**Cards a remover:**
+- API Key do SMSHub (não usado mais)
+- Markup Padrão (não usado mais)
+- Próximos Passos (não necessário)
+
+**Tarefas:**
+- [x] Remover card de API Key do SMSHub
+- [x] Remover card de Markup Padrão
+- [x] Remover card de Próximos Passos
+- [x] Remover estados e queries relacionados aos cards removidos
+- [x] Testar página após limpeza
