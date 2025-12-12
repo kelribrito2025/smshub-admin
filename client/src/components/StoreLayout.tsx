@@ -474,19 +474,6 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
         </div>
 
         <div className="flex items-center gap-2 md:gap-4">
-          {/* Admin Panel Button - Mobile (aligned right) */}
-          {customer?.role === 'admin' && (
-            <Button
-              onClick={() => {
-                window.location.href = '/admin';
-              }}
-              className="lg:hidden bg-purple-500 hover:bg-purple-600 text-white font-bold flex items-center gap-2 px-3 py-2 h-9"
-            >
-              <Shield className="w-4 h-4" />
-              <span className="text-xs sm:text-sm">Painel</span>
-            </Button>
-          )}
-
           {/* Mobile Balance Display */}
           {isAuthenticated && (
             <button 
@@ -524,16 +511,16 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
             </div>
           )}
 
-          {/* Admin Panel Button - Desktop only */}
+          {/* Admin Panel Button - Responsive */}
           {customer?.role === 'admin' && (
             <Button
               onClick={() => {
                 window.location.href = '/admin';
               }}
-              className="hidden lg:flex bg-purple-500 hover:bg-purple-600 text-white font-bold items-center gap-2"
+              className="bg-purple-500 hover:bg-purple-600 text-white font-bold flex items-center gap-2 lg:px-4 lg:py-2 px-3 py-2 h-9 lg:h-10"
             >
               <Shield className="w-4 h-4" />
-              <span>Painel</span>
+              <span className="text-xs sm:text-sm lg:text-base">Painel</span>
             </Button>
           )}
 

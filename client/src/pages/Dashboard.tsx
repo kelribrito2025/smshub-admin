@@ -248,7 +248,7 @@ export default function Dashboard() {
                 <SelectItem value="last90days">Últimos 90 dias</SelectItem>
               </SelectContent>
             </Select>
-            <a href="https://app.numero-virtual.com" target="_blank" rel="noopener noreferrer">
+            <a href="https://app.numero-virtual.com" target="_blank" rel="noopener noreferrer" className="hidden md:block">
               <Button className="gap-2">
                 <ShoppingCart className="h-4 w-4" />
                 Painel

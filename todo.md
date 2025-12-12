@@ -2481,3 +2481,25 @@
 **Tarefas:**
 - [x] Restaurar botão "Painel" no Dashboard (versão desktop)
 - [x] Manter botão "Painel" na top bar mobile do DashboardLayout
+
+
+---
+
+## 🐛 Duplicação do Botão "Painel" na Versão Mobile
+
+**Problema:**
+- Na versão mobile, estão aparecendo dois botões "Painel":
+  1. Um no cabeçalho (topo da página)
+  2. Outro no conteúdo da página (abaixo do seletor de data)
+- Deve existir apenas um botão de acordo com a resolução da tela
+
+**Objetivo:**
+- Remover duplicação do botão "Painel"
+- Garantir que apenas um botão seja exibido na versão mobile
+- Manter responsividade adequada
+
+**Tarefas:**
+- [x] Identificar onde os dois botões estão sendo renderizados
+- [x] Aplicar classes de responsividade (hidden md:block ou block md:hidden)
+- [x] Testar em diferentes resoluções (mobile, tablet, desktop)
+- [x] Validar que apenas um botão aparece em cada resolução
