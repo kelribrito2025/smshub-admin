@@ -2345,3 +2345,19 @@
 - [x] Integrar filtro com KPIs (Saldo APIs, Total Ativações, Receita Total, Lucro Total)
 - [x] Integrar filtro com gráficos (Receita vs Custo, Ativações por Dia)
 - [x] Testar todos os períodos e validar cálculos
+
+
+---
+
+## 🎨 Redesign do Card de Cotação USD/BRL
+
+**Objetivo:**
+- Atualizar visual do card de cotação na página /admin/apis
+- Implementar novo design com fundo escuro, tipografia melhorada e botão de sincronizar
+- Melhorar legibilidade e estética do componente
+
+**Tarefas:**
+- [x] Atualizar visual do card de cotação com novo design
+- [x] Adicionar botão de sincronizar com ícone RefreshCw
+- [x] Implementar formatação de horário (HH:MM)
+- [x] Testar responsividade e interações
