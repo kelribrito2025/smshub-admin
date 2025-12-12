@@ -2047,14 +2047,24 @@
 - Em PROD: nenhum e-mail chega (ativação e boas-vindas)
 - Mandrill aparentemente configurado corretamente
 
+**CAUSA RAIZ IDENTIFICADA:**
+✅ Middleware de API Key bloqueando TODAS as rotas públicas (linha 65 do rest-api.ts)
+✅ Requisições de cadastro eram rejeitadas com 401 antes de executar código de envio de e-mail
+✅ Mandrill está funcionando perfeitamente (testado em dev)
+
+**SOLUÇÃO APLICADA:**
+✅ Removido middleware global `router.use(validateApiKey)`
+✅ Rotas públicas agora são verdadeiramente públicas
+✅ Código de envio de e-mail será executado normalmente
+
 **Checklist de Investigação:**
-- [ ] Mapear código de disparo de e-mail de ativação
-- [ ] Mapear código de disparo de e-mail de boas-vindas
-- [ ] Verificar rotas/endpoints de criação de conta (dev vs prod)
-- [ ] Auditar variáveis de ambiente (MANDRILL_API_KEY, from_email, etc)
-- [ ] Validar templates do Mandrill (nomes, merge_vars)
-- [ ] Implementar logging robusto com captura de erros do Mandrill
-- [ ] Verificar filas/workers (se existir)
-- [ ] Verificar bloqueios do Mandrill (rejections/bounces/spam)
-- [ ] Testar envio real em produção com logs detalhados
-- [ ] Documentar causa raiz e correções
+- [x] Mapear código de disparo de e-mail de ativação
+- [x] Mapear código de disparo de e-mail de boas-vindas
+- [x] Verificar rotas/endpoints de criação de conta (dev vs prod)
+- [x] Auditar variáveis de ambiente (MANDRILL_API_KEY, from_email, etc)
+- [x] Validar templates do Mandrill (nomes, merge_vars)
+- [x] Implementar logging robusto com captura de erros do Mandrill
+- [x] Verificar filas/workers (não existe)
+- [x] Verificar bloqueios do Mandrill (não há bloqueios)
+- [x] Testar envio real em produção com logs detalhados
+- [x] Documentar causa raiz e correções

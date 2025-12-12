@@ -61,8 +61,9 @@ async function validateApiKey(req: Request, res: Response, next: Function) {
   next();
 }
 
-// Apply API key validation to all routes
-router.use(validateApiKey);
+// NOTE: API key validation is NOT applied globally.
+// If you need to protect specific routes in the future, apply validateApiKey middleware individually.
+// Example: router.get('/protected-route', validateApiKey, async (req, res) => { ... });
 
 /**
  * GET /api/public/services
