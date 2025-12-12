@@ -2070,3 +2070,20 @@
 - [x] Verificar bloqueios do Mandrill (não há bloqueios)
 - [x] Testar envio real em produção com logs detalhados
 - [x] Documentar causa raiz e correções
+
+
+---
+
+## 🔄 Reorganizar Página de Afiliados
+
+**Objetivo:**
+- Remover navegação (tabs Configurações/Relatórios) da página de afiliados
+- Mover campo de porcentagem de bônus para página de relatórios
+- Mover toggle de ativação do programa para página de relatórios
+- Simplificar interface da página de afiliados
+
+**Tarefas:**
+- [x] Remover navegação (tabs Configurações/Relatórios) da página de afiliados
+- [x] Mover campo de porcentagem de bônus para página de relatórios
+- [x] Mover toggle de ativação para página de relatórios
+- [x] Testar funcionalidade após reorganização
