@@ -1862,3 +1862,56 @@
 - [x] Criar novo template baseado no design fornecido
 - [x] Garantir fundo branco ao redor do conteúdo
 - [x] Testar compatibilidade com diferentes clientes de e-mail
+
+---
+
+## 📧 Atualizar Template de Email de Ativação
+
+**Objetivo:**
+- Atualizar o template de email de ativação (activation-email-cyber.html) com novo modelo fornecido
+- Manter variáveis dinâmicas funcionando corretamente
+
+**Tarefas:**
+- [x] Atualizar conteúdo do arquivo activation-email-cyber.html com novo modelo
+- [ ] Testar envio de email com novo template
+
+
+
+---
+
+## 📧 Atualizar Template de Email de Ativação
+
+**Objetivo:**
+- Atualizar o template de email de ativação (activation-email.html) com novo design fornecido
+- Manter variáveis dinâmicas ({{USER_NAME}}, {{ACTIVATION_LINK}})
+
+**Tarefas:**
+- [x] Substituir conteúdo do activation-email.html pelo novo design
+- [x] Validar que variáveis dinâmicas estão corretas
+- [x] Testar renderização do email
+
+
+---
+
+## 📧 Atualizar Template de Email de Ativação
+
+**Objetivo:**
+- Atualizar o template activation-email-cyber.html com novo design cyber
+- Fundo escuro (#0e1522) com detalhes em verde neon (#00ab45 e #09bf61)
+- Layout moderno com bordas, sombras e efeitos visuais
+
+**Tarefas:**
+- [x] Atualizar conteúdo HTML do template activation-email-cyber.html
+
+
+---
+
+## 📧 Atualizar Template de Email de Boas-Vindas
+
+**Objetivo:**
+- Substituir template atual de email de boas-vindas pelo novo modelo visual
+- Usar tema verde e escuro (#00ab45, #0e1522)
+- Manter estrutura HTML responsiva e compatível com clientes de email
+
+**Tarefas:**
+- [x] Atualizar template de email de boas-vindas com novo modelo visual verde e escuro

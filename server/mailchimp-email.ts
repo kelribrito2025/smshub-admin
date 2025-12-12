@@ -120,45 +120,77 @@ export async function testMandrillConnection(): Promise<boolean> {
 export async function sendWelcomeEmail(customerEmail: string, customerName: string): Promise<boolean> {
   const html = `
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f4f4f4; margin: 0; padding: 0; }
-    .container { max-width: 600px; margin: 20px auto; background: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-    .header { background: linear-gradient(135deg, #00ff41 0%, #00cc33 100%); padding: 40px 20px; text-align: center; }
-    .header h1 { color: #000; margin: 0; font-size: 28px; font-weight: bold; }
-    .content { padding: 40px 30px; }
-    .content h2 { color: #00cc33; margin-top: 0; }
-    .button { display: inline-block; padding: 12px 30px; background: #00ff41; color: #000; text-decoration: none; border-radius: 5px; font-weight: bold; margin: 20px 0; }
-    .footer { background: #f8f8f8; padding: 20px; text-align: center; font-size: 12px; color: #666; }
-  </style>
+  <title>Bem-vindo ao Número Virtual</title>
 </head>
-<body>
-  <div class="container">
-    <div class="header">
-      <h1>🎉 Bem-vindo ao Número Virtual!</h1>
-    </div>
-    <div class="content">
-      <h2>Olá, ${customerName}!</h2>
-      <p>Estamos muito felizes em ter você conosco! Sua conta foi criada com sucesso.</p>
-      <p>Com o <strong>Número Virtual</strong>, você pode:</p>
-      <ul>
-        <li>✅ Receber SMS de verificação de qualquer serviço</li>
-        <li>✅ Escolher entre centenas de países e operadoras</li>
-        <li>✅ Ativar números instantaneamente</li>
-        <li>✅ Recarregar saldo via PIX com confirmação automática</li>
-      </ul>
-      <p>Faça sua primeira recarga e comece a usar agora mesmo!</p>
-      <a href="https://app.numero-virtual.com/" class="button">Explorar Serviços</a>
-      <p>Se tiver alguma dúvida, nossa equipe está sempre pronta para ajudar.</p>
-    </div>
-    <div class="footer">
-      <p>© ${new Date().getFullYear()} Número Virtual. Todos os direitos reservados.</p>
-      <p>Este é um email automático, por favor não responda.</p>
-    </div>
-  </div>
+<body style="margin: 0; padding: 0; background-color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+  <!-- FUNDO EXTERNO BRANCO -->
+  <table style="background-color: #ffffff; padding: 40px 0px; width: 100%;" border="0" width="100%" cellspacing="0" cellpadding="0">
+    <tbody>
+      <tr>
+        <td style="width: 100%;" align="center">
+          <!-- CAIXA INTERNA ESCURA -->
+          <table style="background-color: #0e1522; border: 2px solid #00ab45; border-radius: 2px; box-shadow: rgba(0, 171, 69, 0.25) 0px 0px 40px; overflow: hidden; max-width: 437px;" border="0" width="437" cellspacing="0" cellpadding="0">
+            <tbody>
+              <!-- BARRA SUPERIOR -->
+              <tr>
+                <td style="padding: 0; margin: 0;">
+                  <div style="background: linear-gradient(90deg, #00ab45 0%, #09bf61 50%, #00ab45 100%); height: 2px; width: 100%; line-height: 0; font-size: 0;">&nbsp;</div>
+                </td>
+              </tr>
+              <!-- CONTEÚDO -->
+              <tr>
+                <td style="padding: 48px 40px;">
+                  <!-- TAG SUPERIOR -->
+                  <div style="margin-bottom: 32px;">
+                    <table border="0" cellspacing="0" cellpadding="0">
+                      <tbody>
+                        <tr>
+                          <td style="width: 8px; height: 8px; background-color: #00ab45;">&nbsp;</td>
+                          <td style="padding-left: 12px;">
+                            <span style="font-size: 11px; color: #09bf61; letter-spacing: 3px; text-transform: uppercase; font-weight: bold;">CONECTADO</span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- TÍTULO -->
+                  <div style="margin-bottom: 32px;">
+                    <h1 style="font-size: 32px; color: #ffffff; margin: 0 0 12px 0; font-weight: 300; letter-spacing: -1px;">
+                      Bem-vindo, <span style="color: #0aa452; font-weight: 600;">${customerName.split(' ')[0]}</span>
+                    </h1>
+                    <div style="width: 60px; height: 2px; background-color: #00ab45;">&nbsp;</div>
+                  </div>
+                  <!-- TEXTO -->
+                  <div style="margin-bottom: 32px;">
+                    <p style="font-size: 15px; color: #c0c0c0; line-height: 1.7; margin: 0;">
+                      Sua conta foi liberada e você já pode usar todos os recursos da plataforma.
+                    </p>
+                  </div>
+                  <!-- BOTÃO -->
+                  <div style="margin: 40px 0; text-align: center;">
+                    <a style="display: inline-block; background-color: transparent; color: #09bf61; font-weight: bold; font-size: 13px; padding: 14px 40px; border: 2px solid #09bf61; text-decoration: none; letter-spacing: 2px; text-transform: uppercase;" href="https://app.numero-virtual.com/">
+                      [ACESSAR]
+                    </a>
+                  </div>
+                  <!-- PRÓXIMOS PASSOS -->
+                  <div style="margin-top: 48px; padding: 20px; background-color: rgba(204, 255, 0, 0.03); border-left: 2px solid #0aa452;">
+                    <p style="font-size: 13px; color: #888; margin: 0; line-height: 1.6;">
+                      <strong style="color: #0aa452;">PRÓXIMOS PASSOS:</strong><br />
+                      Adicione saldo e comece a ativar seus números agora!
+                    </p>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </body>
 </html>
   `;
