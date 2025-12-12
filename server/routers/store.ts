@@ -108,16 +108,17 @@ export const storeRouter = router({
         emailVerified: false, // ✅ Conta inicia não verificada
       });
 
-      // ✅ Enviar apenas e-mail de ativação (com link de confirmação)
+      // ✅ Enviar e-mail de ativação (AGUARDAR envio antes de retornar)
       console.log(`[Store Register] Sending activation email to ${customer.email} (ID: ${customer.id})...`);
       const { sendActivationEmail } = await import('../mailchimp-email');
-      sendActivationEmail(customer.email, customer.name, customer.id)
-        .then(() => {
-          console.log(`[Store Register] ✅ Activation email sent successfully to ${customer.email}`);
-        })
-        .catch((error) => {
-          console.error(`[Store Register] ❌ Failed to send activation email to ${customer.email}:`, error);
-        });
+      
+      try {
+        await sendActivationEmail(customer.email, customer.name, customer.id);
+        console.log(`[Store Register] ✅ Activation email sent successfully to ${customer.email}`);
+      } catch (error) {
+        console.error(`[Store Register] ❌ Failed to send activation email to ${customer.email}:`, error);
+        // Não falhar o registro se email falhar, mas logar o erro
+      }
 
       return customer;
     }),

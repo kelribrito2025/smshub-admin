@@ -580,25 +580,22 @@ router.post('/customers', async (req: Request, res: Response) => {
       active: true,
     });
 
-    // Enviar email de ativação (não bloquear resposta se falhar)
+    // Enviar emails (AGUARDAR envio antes de retornar resposta)
     console.log(`[REST API] Sending activation email to ${customer.email} (ID: ${customer.id})...`);
-    sendActivationEmail(customer.email, customer.name, customer.id)
-      .then(() => {
-        console.log(`[REST API] ✅ Activation email sent successfully to ${customer.email}`);
-      })
-      .catch(error => {
-        console.error(`[REST API] ❌ Failed to send activation email to ${customer.email}:`, error);
-      });
+    try {
+      await sendActivationEmail(customer.email, customer.name, customer.id);
+      console.log(`[REST API] ✅ Activation email sent successfully to ${customer.email}`);
+    } catch (error) {
+      console.error(`[REST API] ❌ Failed to send activation email to ${customer.email}:`, error);
+    }
 
-    // Enviar email de boas-vindas (não bloquear resposta se falhar)
     console.log(`[REST API] Sending welcome email to ${customer.email}...`);
-    sendWelcomeEmail(customer.email, customer.name)
-      .then(() => {
-        console.log(`[REST API] ✅ Welcome email sent successfully to ${customer.email}`);
-      })
-      .catch(error => {
-        console.error(`[REST API] ❌ Failed to send welcome email to ${customer.email}:`, error);
-      });
+    try {
+      await sendWelcomeEmail(customer.email, customer.name);
+      console.log(`[REST API] ✅ Welcome email sent successfully to ${customer.email}`);
+    } catch (error) {
+      console.error(`[REST API] ❌ Failed to send welcome email to ${customer.email}:`, error);
+    }
 
     res.status(201).json({
       id: customer.id,
