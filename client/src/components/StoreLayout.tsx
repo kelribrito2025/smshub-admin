@@ -410,6 +410,19 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </Button>
 
+          {/* Admin Panel Button - Mobile (next to Menu button) */}
+          {customer?.role === 'admin' && (
+            <Button
+              onClick={() => {
+                window.location.href = '/admin';
+              }}
+              className="lg:hidden bg-purple-500 hover:bg-purple-600 text-white font-bold flex items-center gap-2 px-3 py-2 h-9"
+            >
+              <Shield className="w-4 h-4" />
+              <span className="text-xs sm:text-sm">Painel de Vendas</span>
+            </Button>
+          )}
+
           <button 
             onClick={() => setLocation('/')}
             className="flex items-center gap-2 text-lg md:text-xl font-bold"
@@ -508,16 +521,16 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
             </div>
           )}
 
-          {/* Admin Panel Button - Only show for admin users */}
+          {/* Admin Panel Button - Desktop only */}
           {customer?.role === 'admin' && (
             <Button
               onClick={() => {
                 window.location.href = '/admin';
               }}
-              className="bg-purple-500 hover:bg-purple-600 text-white font-bold flex items-center gap-2"
+              className="hidden lg:flex bg-purple-500 hover:bg-purple-600 text-white font-bold items-center gap-2"
             >
               <Shield className="w-4 h-4" />
-              <span className="hidden sm:inline">Painel Admin</span>
+              <span>Painel de Vendas</span>
             </Button>
           )}
 

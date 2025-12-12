@@ -2379,3 +2379,19 @@
 - [x] Definir cores específicas para cada métrica
 - [x] Testar visualização do tooltip
 - [x] Implementar novo visual para o card de Serviços Mais Vendidos
+
+
+---
+
+## 📱 Mover Botão "Painel de Vendas" para Linha do Menu no Mobile
+
+**Objetivo:**
+- Na versão mobile, mover o botão "Painel de Vendas" para a mesma linha/barra do botão "Menu"
+- Criar uma barra de navegação horizontal no topo
+- Melhorar UX mobile com acesso rápido ao painel de vendas
+
+**Tarefas:**
+- [x] Modificar layout do header mobile no DashboardLayout.tsx
+- [x] Posicionar botão "Painel de Vendas" ao lado do botão "Menu"
+- [x] Ajustar responsividade para telas pequenas
+- [x] Testar em diferentes tamanhos de tela mobile
