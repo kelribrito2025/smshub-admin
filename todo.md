@@ -2627,3 +2627,17 @@
 - [x] Aplicar cores aos valores exibidos no card
 - [x] Testar com diferentes valores de saldo
 - [x] Criar checkpoint
+
+
+---
+
+## 🎨 Correção Visual: Cor de Fundo do Card "Serviços Mais Vendidos"
+
+**Objetivo:**
+- Ajustar cor de fundo do card "Serviços Mais Vendidos" no Dashboard
+- Garantir consistência visual com outros elementos da interface
+
+**Tarefas:**
+- [x] Aplicar backgroundColor: '#18181b' no card de Serviços Mais Vendidos
+- [x] Verificar aplicação correta da alteração
+- [x] Criar checkpoint com a correção

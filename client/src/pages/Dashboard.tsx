@@ -754,7 +754,7 @@ export default function Dashboard() {
         {/* 3) DOIS CARDS LADO A LADO - Serviços e Países */}
         <div className="grid gap-4 md:grid-cols-2">
           {/* Serviços Mais Vendidos */}
-          <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+          <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6" style={{backgroundColor: '#18181b'}}>
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h2 className="text-lg font-medium text-white mb-1">Serviços Mais Vendidos</h2>
