@@ -334,7 +334,7 @@ function DashboardLayoutContent({
             <a href="https://app.numero-virtual.com" target="_blank" rel="noopener noreferrer">
               <Button size="sm" className="gap-2">
                 <ShoppingCart className="h-4 w-4" />
-                Painel
+                Painel de Vendas
               </Button>
             </a>
           </div>

@@ -2503,3 +2503,15 @@
 - [x] Aplicar classes de responsividade (hidden md:block ou block md:hidden)
 - [x] Testar em diferentes resoluções (mobile, tablet, desktop)
 - [x] Validar que apenas um botão aparece em cada resolução
+
+
+---
+
+## 🎨 Alterar Texto do Botão "Painel" para "Painel de Vendas"
+
+**Objetivo:**
+- Alterar o texto do botão "Painel" para "Painel de Vendas" no DashboardLayout
+- Melhorar clareza e UX do botão
+
+**Tarefas:**
+- [x] Alterar texto do botão no DashboardLayout.tsx
