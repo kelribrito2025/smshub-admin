@@ -2597,3 +2597,4 @@
 
 **Tarefas:**
 - [x] Alterar texto do botão no Dashboard.tsx
+- [x] Mover botão de filtro de data ao lado do título Dashboard (apenas mobile) no StoreLayout

@@ -225,16 +225,36 @@ export default function Dashboard() {
       <AnimatedPage className="space-y-6">
         {/* Header */}
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-          <div>
-            <h1 className="text-3xl font-bold text-white flex items-center gap-2">
-              <LayoutDashboard className="w-8 h-8 text-blue-500" />
-              Dashboard
-            </h1>
+          <div className="flex-1">
+            {/* Mobile: Título e filtro na mesma linha */}
+            <div className="flex items-center justify-between gap-2 lg:block">
+              <h1 className="text-3xl font-bold text-white flex items-center gap-2">
+                <LayoutDashboard className="w-8 h-8 text-blue-500" />
+                Dashboard
+              </h1>
+              {/* Filtro de data - visível apenas no mobile */}
+              <div className="lg:hidden">
+                <Select value={periodFilter} onValueChange={(value) => setPeriodFilter(value as PeriodFilter)}>
+                  <SelectTrigger className="w-auto min-w-[120px]" style={{width: '120px'}}>
+                    <Calendar className="mr-2 h-4 w-4" />
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="today">Hoje</SelectItem>
+                    <SelectItem value="yesterday">Ontem</SelectItem>
+                    <SelectItem value="last7days">Últi. 7 dias</SelectItem>
+                    <SelectItem value="last30days">Últi. 30 dias</SelectItem>
+                    <SelectItem value="last90days">Últi. 90 dias</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
             <p className="text-muted-foreground mt-1">
               Visão geral do seu painel admin
             </p>
           </div>
-          <div className="flex gap-2">
+          {/* Desktop: Filtros no lado direito */}
+          <div className="hidden lg:flex gap-2">
             <Select value={periodFilter} onValueChange={(value) => setPeriodFilter(value as PeriodFilter)}>
               <SelectTrigger className="w-auto min-w-[140px]" style={{width: '130px'}}>
                 <Calendar className="mr-2 h-4 w-4" />
@@ -248,7 +268,7 @@ export default function Dashboard() {
                 <SelectItem value="last90days">Últi. 90 dias</SelectItem>
               </SelectContent>
             </Select>
-            <a href="https://app.numero-virtual.com" target="_blank" rel="noopener noreferrer" className="hidden md:block">
+            <a href="https://app.numero-virtual.com" target="_blank" rel="noopener noreferrer">
               <Button className="gap-2">
                 <ShoppingCart className="h-4 w-4" />
                 Painel de vendas
