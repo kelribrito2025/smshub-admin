@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
 import { Activity, DollarSign, TrendingUp, Users, ShoppingCart, LayoutDashboard, ArrowDown, CheckCircle2, XCircle, Download, Loader2, TrendingDown, Minus } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "wouter";
 import { useEffect, useState, useMemo } from "react";
 import { toast } from "sonner";
@@ -15,6 +16,8 @@ import { fadeInScale, staggerContainer } from "@/lib/animations";
 import {
   Area,
   AreaChart,
+  Bar,
+  BarChart,
   CartesianGrid,
   Legend,
   ResponsiveContainer,
@@ -86,6 +89,27 @@ export default function Dashboard() {
   const { data: api3Stats } = trpc.apiPerformance.getDetailedStats.useQuery(
     { apiId: 3, startDate: dateRange.startDate.toISOString(), endDate: dateRange.endDate.toISOString() },
     { refetchOnWindowFocus: false }
+  );
+
+  // Fetch revenue by country and service for tabs
+  const { data: revenueByCountry, isLoading: countryLoading } = trpc.financial.getRevenueByCountry.useQuery(
+    {
+      startDate: dateRange.startDate,
+      endDate: dateRange.endDate,
+    },
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
+
+  const { data: revenueByService, isLoading: serviceLoading } = trpc.financial.getRevenueByService.useQuery(
+    {
+      startDate: dateRange.startDate,
+      endDate: dateRange.endDate,
+    },
+    {
+      refetchOnWindowFocus: false,
+    }
   );
 
   useEffect(() => {
@@ -311,62 +335,240 @@ export default function Dashboard() {
         </motion.div>
 
         {/* 2) GRÁFICO - Evolução de Receita e Lucro */}
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between">
-            <div>
-              <CardTitle>Evolução de Receita e Lucro</CardTitle>
-              <CardDescription>Análise temporal de desempenho financeiro</CardDescription>
-            </div>
-          </CardHeader>
-          <CardContent>
-            {revenueLoading ? (
-              <div className="flex items-center justify-center h-[400px]">
-                <Loader2 className="h-8 w-8 animate-spin" />
-              </div>
-            ) : revenueByPeriod && revenueByPeriod.length > 0 ? (
-              <ResponsiveContainer width="100%" height={400}>
-                <AreaChart data={revenueByPeriod}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="date" />
-                  <YAxis tickFormatter={(value) => formatCurrency(value)} />
-                  <Tooltip
-                    formatter={(value: number) => formatCurrency(value)}
-                    labelStyle={{ color: "#000" }}
-                  />
-                  <Legend />
-                  <Area
-                    type="monotone"
-                    dataKey="revenue"
-                    name="Receita"
-                    stroke="#8884d8"
-                    fill="#8884d8"
-                    fillOpacity={0.6}
-                  />
-                  <Area
-                    type="monotone"
-                    dataKey="profit"
-                    name="Lucro"
-                    stroke="#82ca9d"
-                    fill="#82ca9d"
-                    fillOpacity={0.6}
-                  />
-                  <Area
-                    type="monotone"
-                    dataKey="cost"
-                    name="Custo"
-                    stroke="#ff7c7c"
-                    fill="#ff7c7c"
-                    fillOpacity={0.6}
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
-            ) : (
-              <div className="flex items-center justify-center h-[400px] text-muted-foreground">
-                Nenhum dado disponível para o período selecionado
-              </div>
-            )}
-          </CardContent>
-        </Card>
+        <Tabs defaultValue="revenue" className="space-y-4">
+          <TabsList>
+            <TabsTrigger value="revenue">Receita & Lucro</TabsTrigger>
+            <TabsTrigger value="country">Por País</TabsTrigger>
+            <TabsTrigger value="service">Por Serviço</TabsTrigger>
+            <TabsTrigger value="transactions">Transações</TabsTrigger>
+          </TabsList>
+
+          {/* Revenue Chart */}
+          <TabsContent value="revenue" className="space-y-4">
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between">
+                <div>
+                  <CardTitle>Evolução de Receita e Lucro</CardTitle>
+                  <CardDescription>Análise temporal de desempenho financeiro</CardDescription>
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    if (revenueByPeriod && revenueByPeriod.length > 0) {
+                      const csv = [
+                        ['Data', 'Receita', 'Custo', 'Lucro'].join(','),
+                        ...revenueByPeriod.map(row => 
+                          [row.date, row.revenue, row.cost, row.profit].join(',')
+                        )
+                      ].join('\n');
+                      const blob = new Blob([csv], { type: 'text/csv' });
+                      const url = URL.createObjectURL(blob);
+                      const a = document.createElement('a');
+                      a.href = url;
+                      a.download = 'receita_por_periodo.csv';
+                      a.click();
+                      URL.revokeObjectURL(url);
+                    }
+                  }}
+                  disabled={!revenueByPeriod || revenueByPeriod.length === 0}
+                >
+                  <Download className="mr-2 h-4 w-4" />
+                  Exportar CSV
+                </Button>
+              </CardHeader>
+              <CardContent>
+                {revenueLoading ? (
+                  <div className="flex items-center justify-center h-[400px]">
+                    <Loader2 className="h-8 w-8 animate-spin" />
+                  </div>
+                ) : revenueByPeriod && revenueByPeriod.length > 0 ? (
+                  <ResponsiveContainer width="100%" height={400}>
+                    <AreaChart data={revenueByPeriod}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="date" />
+                      <YAxis tickFormatter={(value) => formatCurrency(value)} />
+                      <Tooltip
+                        formatter={(value: number) => formatCurrency(value)}
+                        labelStyle={{ color: "#000" }}
+                      />
+                      <Legend />
+                      <Area
+                        type="monotone"
+                        dataKey="revenue"
+                        name="Receita"
+                        stroke="#8884d8"
+                        fill="#8884d8"
+                        fillOpacity={0.6}
+                      />
+                      <Area
+                        type="monotone"
+                        dataKey="profit"
+                        name="Lucro"
+                        stroke="#82ca9d"
+                        fill="#82ca9d"
+                        fillOpacity={0.6}
+                      />
+                      <Area
+                        type="monotone"
+                        dataKey="cost"
+                        name="Custo"
+                        stroke="#ff7c7c"
+                        fill="#ff7c7c"
+                        fillOpacity={0.6}
+                      />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="flex items-center justify-center h-[400px] text-muted-foreground">
+                    Nenhum dado disponível para o período selecionado
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Country Chart */}
+          <TabsContent value="country" className="space-y-4">
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between">
+                <div>
+                  <CardTitle>Receita por País</CardTitle>
+                  <CardDescription>Top países por lucro gerado</CardDescription>
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    if (revenueByCountry && revenueByCountry.length > 0) {
+                      const csv = [
+                        ['País', 'Ativações', 'Receita', 'Custo', 'Lucro'].join(','),
+                        ...revenueByCountry.map(row => 
+                          [row.countryCode, row.activations, row.revenue, row.cost, row.profit].join(',')
+                        )
+                      ].join('\n');
+                      const blob = new Blob([csv], { type: 'text/csv' });
+                      const url = URL.createObjectURL(blob);
+                      const a = document.createElement('a');
+                      a.href = url;
+                      a.download = 'receita_por_pais.csv';
+                      a.click();
+                      URL.revokeObjectURL(url);
+                    }
+                  }}
+                  disabled={!revenueByCountry || revenueByCountry.length === 0}
+                >
+                  <Download className="mr-2 h-4 w-4" />
+                  Exportar CSV
+                </Button>
+              </CardHeader>
+              <CardContent>
+                {countryLoading ? (
+                  <div className="flex items-center justify-center h-[400px]">
+                    <Loader2 className="h-8 w-8 animate-spin" />
+                  </div>
+                ) : revenueByCountry && revenueByCountry.length > 0 ? (
+                  <ResponsiveContainer width="100%" height={400}>
+                    <BarChart data={revenueByCountry.slice(0, 10)}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="countryCode" />
+                      <YAxis tickFormatter={(value) => formatCurrency(value)} />
+                      <Tooltip
+                        formatter={(value: number) => formatCurrency(value)}
+                        labelStyle={{ color: "#000" }}
+                      />
+                      <Legend />
+                      <Bar dataKey="revenue" name="Receita" fill="#8884d8" />
+                      <Bar dataKey="profit" name="Lucro" fill="#82ca9d" />
+                    </BarChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="flex items-center justify-center h-[400px] text-muted-foreground">
+                    Nenhum dado disponível
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Service Chart */}
+          <TabsContent value="service" className="space-y-4">
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between">
+                <div>
+                  <CardTitle>Receita por Serviço</CardTitle>
+                  <CardDescription>Top serviços por lucro gerado</CardDescription>
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    if (revenueByService && revenueByService.length > 0) {
+                      const csv = [
+                        ['Serviço', 'Ativações', 'Receita', 'Custo', 'Lucro'].join(','),
+                        ...revenueByService.map(row => 
+                          [row.serviceName, row.activations, row.revenue, row.cost, row.profit].join(',')
+                        )
+                      ].join('\n');
+                      const blob = new Blob([csv], { type: 'text/csv' });
+                      const url = URL.createObjectURL(blob);
+                      const a = document.createElement('a');
+                      a.href = url;
+                      a.download = 'receita_por_servico.csv';
+                      a.click();
+                      URL.revokeObjectURL(url);
+                    }
+                  }}
+                  disabled={!revenueByService || revenueByService.length === 0}
+                >
+                  <Download className="mr-2 h-4 w-4" />
+                  Exportar CSV
+                </Button>
+              </CardHeader>
+              <CardContent>
+                {serviceLoading ? (
+                  <div className="flex items-center justify-center h-[400px]">
+                    <Loader2 className="h-8 w-8 animate-spin" />
+                  </div>
+                ) : revenueByService && revenueByService.length > 0 ? (
+                  <ResponsiveContainer width="100%" height={400}>
+                    <BarChart data={revenueByService.slice(0, 10)}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="serviceName" angle={-45} textAnchor="end" height={100} />
+                      <YAxis tickFormatter={(value) => formatCurrency(value)} />
+                      <Tooltip
+                        formatter={(value: number) => formatCurrency(value)}
+                        labelStyle={{ color: "#000" }}
+                      />
+                      <Legend />
+                      <Bar dataKey="revenue" name="Receita" fill="#8884d8" />
+                      <Bar dataKey="profit" name="Lucro" fill="#82ca9d" />
+                    </BarChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="flex items-center justify-center h-[400px] text-muted-foreground">
+                    Nenhum dado disponível
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Transactions Tab */}
+          <TabsContent value="transactions" className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle>Transações Recentes</CardTitle>
+                <CardDescription>Últimas ativações realizadas</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-8 text-muted-foreground">
+                  Visualização de transações disponível na página de Transações
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
 
         {/* 3) DOIS CARDS LADO A LADO - Serviços e Países */}
         <div className="grid gap-4 md:grid-cols-2">

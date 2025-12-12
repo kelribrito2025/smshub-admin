@@ -2285,3 +2285,19 @@
 - [x] Adicionar procedimento apiPerformance.getDetailedStats no backend
 - [x] Adicionar procedimento apiPerformance.getComparison no backend
 - [x] Testar página /admin/dashboard após correções
+
+
+---
+
+## 📊 Adicionar Menus de Navegação ao Card "Evolução de Receita e Lucro"
+
+**Problema:**
+- Card "Evolução de Receita e Lucro" foi movido para /admin/dashboard
+- Faltam os menus de navegação (Receita & Lucro, Por País, Por Serviço, Transações)
+- Botão "Exportar CSV" também está faltando
+
+**Tarefas:**
+- [x] Adicionar menus de navegação (Receita & Lucro, Por País, Por Serviço, Transações) ao card
+- [x] Adicionar botão "Exportar CSV" ao card
+- [x] Implementar funcionalidade de troca entre os diferentes modos de visualização
+- [x] Testar navegação entre os menus
