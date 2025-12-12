@@ -2413,3 +2413,20 @@
 - [x] Corrigir posicionamento do botão "Painel de Vendas" apenas para mobile (abaixo do título)
 - [x] Manter posicionamento atual no desktop (ao lado direito do título)
 - [x] Testar em diferentes tamanhos de tela mobile
+
+
+---
+
+## 📱 Mover Botão "Painel de Vendas" para Top Bar no Mobile
+
+**Objetivo:**
+- No mobile, mover o botão "Painel de Vendas" da posição abaixo do título "Dashboard" para a top bar
+- Posicionar o botão alinhado à direita, na mesma linha do texto "Menu"
+- Manter o estilo atual do botão
+
+**Layout Mobile:**
+- Esquerda: ícone + texto "Menu"
+- Direita: botão "Painel de Vendas"
+
+**Tarefas:**
+- [x] Mover botão "Painel de Vendas" para top bar no mobile (alinhado à direita)

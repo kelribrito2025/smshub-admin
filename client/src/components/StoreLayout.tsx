@@ -410,18 +410,8 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </Button>
 
-          {/* Admin Panel Button - Mobile (next to Menu button) */}
-          {customer?.role === 'admin' && (
-            <Button
-              onClick={() => {
-                window.location.href = '/admin';
-              }}
-              className="lg:hidden bg-purple-500 hover:bg-purple-600 text-white font-bold flex items-center gap-2 px-3 py-2 h-9"
-            >
-              <Shield className="w-4 h-4" />
-              <span className="text-xs sm:text-sm">Painel de Vendas</span>
-            </Button>
-          )}
+          {/* Text "Menu" next to icon - Mobile only */}
+          <span className="lg:hidden text-green-400 font-medium">Menu</span>
 
           <button 
             onClick={() => setLocation('/')}
@@ -484,6 +474,19 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
         </div>
 
         <div className="flex items-center gap-2 md:gap-4">
+          {/* Admin Panel Button - Mobile (aligned right) */}
+          {customer?.role === 'admin' && (
+            <Button
+              onClick={() => {
+                window.location.href = '/admin';
+              }}
+              className="lg:hidden bg-purple-500 hover:bg-purple-600 text-white font-bold flex items-center gap-2 px-3 py-2 h-9"
+            >
+              <Shield className="w-4 h-4" />
+              <span className="text-xs sm:text-sm">Painel de Vendas</span>
+            </Button>
+          )}
+
           {/* Mobile Balance Display */}
           {isAuthenticated && (
             <button 
