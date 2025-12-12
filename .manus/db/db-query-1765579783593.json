@@ -1,0 +1,90 @@
+{
+  "query": "SELECT \n  DATE_FORMAT(createdAt, '%Y-%m-%d') as date,\n  COUNT(*) as count,\n  SUM(sellingPrice) as total_revenue,\n  SUM(profit) as total_profit,\n  MIN(createdAt) as first_activation,\n  MAX(createdAt) as last_activation\nFROM activations\nGROUP BY DATE_FORMAT(createdAt, '%Y-%m-%d')\nORDER BY date DESC\nLIMIT 10",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT \n  DATE_FORMAT(createdAt, '%Y-%m-%d') as date,\n  COUNT(*) as count,\n  SUM(sellingPrice) as total_revenue,\n  SUM(profit) as total_profit,\n  MIN(createdAt) as first_activation,\n  MAX(createdAt) as last_activation\nFROM activations\nGROUP BY DATE_FORMAT(createdAt, '%Y-%m-%d')\nORDER BY date DESC\nLIMIT 10",
+  "rows": [
+    {
+      "date": "2025-12-12",
+      "count": "4",
+      "total_revenue": "704",
+      "total_profit": "481",
+      "first_activation": "2025-12-12 01:44:40",
+      "last_activation": "2025-12-12 19:53:12"
+    },
+    {
+      "date": "2025-12-11",
+      "count": "5",
+      "total_revenue": "875",
+      "total_profit": "465",
+      "first_activation": "2025-12-11 02:34:10",
+      "last_activation": "2025-12-11 13:02:16"
+    },
+    {
+      "date": "2025-12-10",
+      "count": "11",
+      "total_revenue": "1925",
+      "total_profit": "1155",
+      "first_activation": "2025-12-10 14:56:55",
+      "last_activation": "2025-12-10 22:49:08"
+    },
+    {
+      "date": "2025-12-09",
+      "count": "41",
+      "total_revenue": "7175",
+      "total_profit": "4305",
+      "first_activation": "2025-12-09 00:00:30",
+      "last_activation": "2025-12-09 22:10:18"
+    },
+    {
+      "date": "2025-12-08",
+      "count": "5",
+      "total_revenue": "947",
+      "total_profit": "649",
+      "first_activation": "2025-12-08 15:30:53",
+      "last_activation": "2025-12-08 23:45:30"
+    },
+    {
+      "date": "2025-12-07",
+      "count": "47",
+      "total_revenue": "8408",
+      "total_profit": "5202",
+      "first_activation": "2025-12-07 03:30:41",
+      "last_activation": "2025-12-07 20:43:12"
+    },
+    {
+      "date": "2025-12-06",
+      "count": "1",
+      "total_revenue": "190",
+      "total_profit": "0",
+      "first_activation": "2025-12-06 18:07:23",
+      "last_activation": "2025-12-06 18:07:23"
+    },
+    {
+      "date": "2025-12-05",
+      "count": "14",
+      "total_revenue": "2392",
+      "total_profit": "1705",
+      "first_activation": "2025-12-05 01:23:44",
+      "last_activation": "2025-12-05 16:41:15"
+    },
+    {
+      "date": "2025-12-04",
+      "count": "9",
+      "total_revenue": "1780",
+      "total_profit": "700",
+      "first_activation": "2025-12-04 05:02:53",
+      "last_activation": "2025-12-04 19:17:21"
+    },
+    {
+      "date": "2025-12-03",
+      "count": "301",
+      "total_revenue": "238914",
+      "total_profit": "3767",
+      "first_activation": "2025-12-03 00:28:17",
+      "last_activation": "2025-12-03 22:26:42"
+    }
+  ],
+  "messages": [],
+  "stdout": "date\tcount\ttotal_revenue\ttotal_profit\tfirst_activation\tlast_activation\n2025-12-12\t4\t704\t481\t2025-12-12 01:44:40\t2025-12-12 19:53:12\n2025-12-11\t5\t875\t465\t2025-12-11 02:34:10\t2025-12-11 13:02:16\n2025-12-10\t11\t1925\t1155\t2025-12-10 14:56:55\t2025-12-10 22:49:08\n2025-12-09\t41\t7175\t4305\t2025-12-09 00:00:30\t2025-12-09 22:10:18\n2025-12-08\t5\t947\t649\t2025-12-08 15:30:53\t2025-12-08 23:45:30\n2025-12-07\t47\t8408\t5202\t2025-12-07 03:30:41\t2025-12-07 20:43:12\n2025-12-06\t1\t190\t0\t2025-12-06 18:07:23\t2025-12-06 18:07:23\n2025-12-05\t14\t2392\t1705\t2025-12-05 01:23:44\t2025-12-05 16:41:15\n2025-12-04\t9\t1780\t700\t2025-12-04 05:02:53\t2025-12-04 19:17:21\n2025-12-03\t301\t238914\t3767\t2025-12-03 00:28:17\t2025-12-03 22:26:42\n",
+  "stderr": "",
+  "execution_time_ms": 390
+}

@@ -2515,3 +2515,31 @@
 
 **Tarefas:**
 - [x] Alterar texto do botão no DashboardLayout.tsx
+
+
+---
+
+## 🎨 Alterar Texto do Botão "Painel" para "Painel de Vendas"
+
+**Objetivo:**
+- Alterar o texto do botão "Painel" para "Painel de Vendas" no DashboardLayout
+- Aplicar alteração apenas na versão desktop
+
+**Tarefas:**
+- [x] Alterar texto do botão "Painel" para "Painel de Vendas" no DashboardLayout (versão desktop)
+
+
+---
+
+## 🐛 BUG: Gráfico "Evolução de Receita e Lucro" Mostrando Apenas Um Ponto
+
+**Problema:**
+- O card "Evolução de Receita e Lucro" está mostrando apenas um ponto de dados (2025-12-12)
+- Deveria mostrar a evolução temporal completa com múltiplos pontos de dados
+- Após mover o gráfico da página /admin/relatorios, os dados históricos não estão sendo carregados
+
+**Tarefas:**
+- [x] Investigar query de dados do gráfico de receita e lucro
+- [x] Verificar se a query está retornando dados históricos completos
+- [x] Corrigir componente do gráfico para exibir todos os pontos de dados
+- [x] Testar visualização do gráfico com dados históricos

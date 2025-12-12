@@ -76,6 +76,7 @@ function AdminRouter() {
         <Route path={"/admin/settings"} component={Settings} />
         <Route path={"/admin/countries"} component={Countries} />
         <Route path="/admin/relatorios" component={Financial} />
+        <Route path="/admin/financeiro" component={Financial} />
         <Route path="/admin/clientes" component={Customers} />
         <Route path={"/admin/catalogo"} component={Catalog} />
         <Route path={"/admin/apis"} component={Apis} />
