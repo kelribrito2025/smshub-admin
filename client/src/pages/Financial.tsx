@@ -48,10 +48,7 @@ import { toast } from "sonner";
 import { AnimatedPage } from "@/components/AnimatedPage";
 import { motion } from "framer-motion";
 import { fadeInScale, staggerContainer } from "@/lib/animations";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
-import { Percent, Power, Save } from "lucide-react";
+
 
 type PeriodType = "7days" | "30days" | "90days" | "year" | "all";
 type GroupByType = "day" | "week" | "month";
@@ -60,21 +57,7 @@ export default function Financial() {
   const [period, setPeriod] = useState<PeriodType>("30days");
   const [groupBy, setGroupBy] = useState<GroupByType>("day");
 
-  // Affiliate settings states
-  const [bonusPercentage, setBonusPercentage] = useState<number>(10);
-  const [isActive, setIsActive] = useState<boolean>(true);
 
-  // Affiliate queries
-  const { data: affiliateSettings } = trpc.affiliateAdmin.getSettings.useQuery();
-  const updateAffiliateMutation = trpc.affiliateAdmin.updateSettings.useMutation();
-
-  // Update local state when affiliate settings load
-  useState(() => {
-    if (affiliateSettings) {
-      setBonusPercentage(affiliateSettings.bonusPercentage);
-      setIsActive(affiliateSettings.isActive);
-    }
-  });
 
   // Calculate date range based on period
   const dateRange = useMemo(() => {
@@ -240,86 +223,7 @@ export default function Financial() {
           </div>
         </div>
 
-        {/* Affiliate Settings Card */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Configurações do Programa de Afiliados</CardTitle>
-            <CardDescription>
-              Defina as regras do programa de indicação
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            {/* Bonus Percentage */}
-            <div className="space-y-2">
-              <Label htmlFor="bonusPercentage" className="flex items-center gap-2">
-                <Percent className="w-4 h-4" />
-                Percentual de Bônus
-              </Label>
-              <div className="flex items-center gap-4">
-                <Input
-                  id="bonusPercentage"
-                  type="number"
-                  min="0"
-                  max="100"
-                  value={bonusPercentage}
-                  onChange={(e) => setBonusPercentage(Number(e.target.value))}
-                  className="max-w-xs"
-                />
-                <span className="text-sm text-muted-foreground">
-                  Afiliados ganharão {bonusPercentage}% do valor da primeira recarga dos indicados
-                </span>
-              </div>
-              <p className="text-xs text-muted-foreground">
-                Exemplo: Se um indicado recarregar R$ 100,00, o afiliado ganhará R${" "}
-                {((100 * bonusPercentage) / 100).toFixed(2)} de bônus
-              </p>
-            </div>
 
-            {/* Active Toggle */}
-            <div className="flex items-center justify-between">
-              <div className="space-y-0.5">
-                <Label htmlFor="isActive" className="flex items-center gap-2">
-                  <Power className="w-4 h-4" />
-                  Status do Programa
-                </Label>
-                <p className="text-sm text-muted-foreground">
-                  {isActive
-                    ? "O programa está ativo e aceitando novas indicações"
-                    : "O programa está desativado. Novas indicações não gerarão bônus"}
-                </p>
-              </div>
-              <Switch
-                id="isActive"
-                checked={isActive}
-                onCheckedChange={setIsActive}
-              />
-            </div>
-
-            {/* Save Button */}
-            <div className="flex justify-end pt-4 border-t">
-              <Button
-                onClick={async () => {
-                  try {
-                    await updateAffiliateMutation.mutateAsync({
-                      bonusPercentage,
-                      isActive,
-                    });
-                    toast.success("Configurações salvas com sucesso!");
-                  } catch (error: any) {
-                    toast.error("Erro ao salvar configurações", {
-                      description: error.message,
-                    });
-                  }
-                }}
-                disabled={updateAffiliateMutation.isPending}
-                className="flex items-center gap-2"
-              >
-                <Save className="w-4 h-4" />
-                {updateAffiliateMutation.isPending ? "Salvando..." : "Salvar Configurações"}
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
 
         {/* KPI Cards */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">

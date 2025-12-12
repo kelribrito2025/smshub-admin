@@ -5,8 +5,11 @@ import StoreLayout from "@/components/StoreLayout";
 import { AffiliateSkeleton } from "@/components/AffiliateSkeleton";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Copy, Check, Users, TrendingUp, DollarSign, Percent, Share2, Gift } from "lucide-react";
+import { Copy, Check, Users, TrendingUp, DollarSign, Percent, Share2, Gift, Power, Save } from "lucide-react";
 import { toast } from "sonner";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import {
   Table,
   TableBody,
@@ -22,6 +25,22 @@ export default function StoreAffiliate() {
   const [copied, setCopied] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const ITEMS_PER_PAGE = 13;
+
+  // Admin affiliate settings states
+  const [bonusPercentage, setBonusPercentage] = useState<number>(10);
+  const [isActive, setIsActive] = useState<boolean>(true);
+
+  // Admin affiliate queries
+  const { data: affiliateSettings } = trpc.affiliateAdmin.getSettings.useQuery();
+  const updateAffiliateMutation = trpc.affiliateAdmin.updateSettings.useMutation();
+
+  // Update local state when affiliate settings load
+  useState(() => {
+    if (affiliateSettings) {
+      setBonusPercentage(affiliateSettings.bonusPercentage);
+      setIsActive(affiliateSettings.isActive);
+    }
+  });
 
   // Queries - sempre buscar informações do programa
   const { data: programInfo, isLoading: programInfoLoading } = trpc.affiliate.getProgramInfo.useQuery();
@@ -133,13 +152,74 @@ export default function StoreAffiliate() {
     <StoreLayout>
       <div className="space-y-6">
         {/* Header */}
-        <div className="flex items-center gap-3 mb-2">
-          <Gift className="w-6 h-6 text-green-400" />
-          <h1 className="text-2xl font-bold text-green-400">Programa de Afiliados</h1>
+        <div className="flex items-center justify-between mb-2">
+          <div>
+            <div className="flex items-center gap-3">
+              <Gift className="w-6 h-6 text-green-400" />
+              <h1 className="text-2xl font-bold text-green-400">Programa de Afiliados</h1>
+            </div>
+            <p className="text-green-600 text-sm mt-2">
+              Acompanhe o desempenho do programa de indicações
+            </p>
+          </div>
+
+          {/* Admin Controls */}
+          <div className="flex items-center gap-4">
+            {/* Bonus Percentage */}
+            <div className="flex items-center gap-2">
+              <Label htmlFor="bonusPercentage" className="text-green-600 text-sm whitespace-nowrap">
+                Bônus:
+              </Label>
+              <div className="flex items-center gap-1">
+                <Input
+                  id="bonusPercentage"
+                  type="number"
+                  min="0"
+                  max="100"
+                  value={bonusPercentage}
+                  onChange={(e) => setBonusPercentage(Number(e.target.value))}
+                  className="w-20 bg-black border-green-900/50 text-green-400"
+                />
+                <Percent className="w-4 h-4 text-green-400" />
+              </div>
+            </div>
+
+            {/* Active Toggle */}
+            <div className="flex items-center gap-2">
+              <Label htmlFor="isActive" className="text-green-600 text-sm whitespace-nowrap">
+                {isActive ? "Ativo" : "Inativo"}
+              </Label>
+              <Switch
+                id="isActive"
+                checked={isActive}
+                onCheckedChange={setIsActive}
+              />
+            </div>
+
+            {/* Save Button */}
+            <Button
+              onClick={async () => {
+                try {
+                  await updateAffiliateMutation.mutateAsync({
+                    bonusPercentage,
+                    isActive,
+                  });
+                  toast.success("Configurações salvas com sucesso!");
+                } catch (error: any) {
+                  toast.error("Erro ao salvar configurações", {
+                    description: error.message,
+                  });
+                }
+              }}
+              disabled={updateAffiliateMutation.isPending}
+              size="sm"
+              className="bg-green-500 hover:bg-green-600 text-black font-semibold"
+            >
+              <Save className="w-4 h-4 mr-2" />
+              {updateAffiliateMutation.isPending ? "Salvando..." : "Salvar"}
+            </Button>
+          </div>
         </div>
-        <p className="text-green-600 text-sm mb-6">
-          Indique amigos e ganhe {programInfo?.bonusPercentage}% de bônus na primeira recarga deles
-        </p>
 
         {/* (A) Link de Indicação */}
         <Card className="bg-black border border-green-900/30 relative overflow-hidden" style={{borderWidth: '2px'}}>
