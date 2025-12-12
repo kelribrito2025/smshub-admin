@@ -2395,3 +2395,21 @@
 - [x] Posicionar botão "Painel de Vendas" ao lado do botão "Menu"
 - [x] Ajustar responsividade para telas pequenas
 - [x] Testar em diferentes tamanhos de tela mobile
+
+
+---
+
+## 📱 Corrigir Posicionamento do Botão "Painel de Vendas" no Mobile
+
+**Problema:**
+- No mobile, o botão "Painel de Vendas" está sobrepondo o título "Dashboard"
+- No desktop, o botão está posicionado corretamente e deve permanecer assim
+
+**Objetivo:**
+- Ajustar layout responsivo para que o botão fique abaixo do título no mobile
+- Manter posicionamento atual no desktop (ao lado do título)
+
+**Tarefas:**
+- [x] Corrigir posicionamento do botão "Painel de Vendas" apenas para mobile (abaixo do título)
+- [x] Manter posicionamento atual no desktop (ao lado direito do título)
+- [x] Testar em diferentes tamanhos de tela mobile

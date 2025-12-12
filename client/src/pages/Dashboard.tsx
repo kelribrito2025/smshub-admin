@@ -224,7 +224,7 @@ export default function Dashboard() {
     <DashboardLayout>
       <AnimatedPage className="space-y-6">
         {/* Header */}
-        <div className="flex items-start justify-between">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div>
             <h1 className="text-3xl font-bold text-white flex items-center gap-2">
               <LayoutDashboard className="w-8 h-8 text-blue-500" />
