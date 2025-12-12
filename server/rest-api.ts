@@ -581,21 +581,48 @@ router.post('/customers', async (req: Request, res: Response) => {
     });
 
     // Enviar emails (AGUARDAR envio antes de retornar resposta)
-    console.log(`[REST API] Sending activation email to ${customer.email} (ID: ${customer.id})...`);
+    console.log(`[REST API] 📧 ========== EMAIL SENDING WORKFLOW START ==========`);
+    console.log(`[REST API]    Customer ID: ${customer.id}`);
+    console.log(`[REST API]    Customer Email: ${customer.email}`);
+    console.log(`[REST API]    Customer Name: ${customer.name}`);
+    console.log(`[REST API]    Environment: ${process.env.NODE_ENV || 'development'}`);
+    
+    // 1. Activation Email
+    console.log(`[REST API] 📧 Step 1/2: Sending activation email...`);
     try {
-      await sendActivationEmail(customer.email, customer.name, customer.id);
-      console.log(`[REST API] ✅ Activation email sent successfully to ${customer.email}`);
-    } catch (error) {
-      console.error(`[REST API] ❌ Failed to send activation email to ${customer.email}:`, error);
+      const activationResult = await sendActivationEmail(customer.email, customer.name, customer.id);
+      if (activationResult) {
+        console.log(`[REST API] ✅ Step 1/2: Activation email sent successfully`);
+      } else {
+        console.error(`[REST API] ❌ Step 1/2: Activation email returned FALSE (check Mandrill logs above)`);
+      }
+    } catch (error: any) {
+      console.error(`[REST API] ❌ Step 1/2: Activation email threw exception:`, {
+        error_name: error.name,
+        error_message: error.message,
+        error_stack: error.stack,
+      });
     }
 
-    console.log(`[REST API] Sending welcome email to ${customer.email}...`);
+    // 2. Welcome Email
+    console.log(`[REST API] 📧 Step 2/2: Sending welcome email...`);
     try {
-      await sendWelcomeEmail(customer.email, customer.name);
-      console.log(`[REST API] ✅ Welcome email sent successfully to ${customer.email}`);
-    } catch (error) {
-      console.error(`[REST API] ❌ Failed to send welcome email to ${customer.email}:`, error);
+      const welcomeResult = await sendWelcomeEmail(customer.email, customer.name);
+      if (welcomeResult) {
+        console.log(`[REST API] ✅ Step 2/2: Welcome email sent successfully`);
+      } else {
+        console.error(`[REST API] ❌ Step 2/2: Welcome email returned FALSE (check Mandrill logs above)`);
+      }
+    } catch (error: any) {
+      console.error(`[REST API] ❌ Step 2/2: Welcome email threw exception:`, {
+        error_name: error.name,
+        error_message: error.message,
+        error_stack: error.stack,
+      });
     }
+    
+    console.log(`[REST API] 📧 ========== EMAIL SENDING WORKFLOW END ==========`);
+
 
     res.status(201).json({
       id: customer.id,
@@ -649,6 +676,93 @@ router.get('/customers/:id', async (req: Request, res: Response) => {
     res.status(500).json({
       error: 'Failed to fetch customer',
       message: error.message,
+    });
+  }
+});
+
+/**
+ * POST /api/public/test-email-diagnostics
+ * Diagnostic endpoint to test email sending in production
+ * Returns detailed logs and results
+ */
+router.post('/test-email-diagnostics', async (req: Request, res: Response) => {
+  const logs: string[] = [];
+  const originalLog = console.log;
+  const originalError = console.error;
+  
+  // Capture all console output
+  console.log = (...args: any[]) => {
+    logs.push(`[LOG] ${args.map(a => typeof a === 'object' ? JSON.stringify(a) : a).join(' ')}`);
+    originalLog(...args);
+  };
+  console.error = (...args: any[]) => {
+    logs.push(`[ERROR] ${args.map(a => typeof a === 'object' ? JSON.stringify(a) : a).join(' ')}`);
+    originalError(...args);
+  };
+
+  try {
+    const { email } = req.body;
+    
+    if (!email) {
+      return res.status(400).json({
+        error: 'Email is required',
+        usage: 'POST /api/public/test-email-diagnostics with body: { "email": "test@example.com" }',
+      });
+    }
+
+    logs.push(`[DIAGNOSTIC] Starting email diagnostic test for: ${email}`);
+    logs.push(`[DIAGNOSTIC] Environment: ${process.env.NODE_ENV || 'development'}`);
+    logs.push(`[DIAGNOSTIC] MANDRILL_API_KEY present: ${process.env.MANDRILL_API_KEY ? 'YES' : 'NO'}`);
+    logs.push(`[DIAGNOSTIC] MAILCHIMP_FROM_EMAIL: ${process.env.MAILCHIMP_FROM_EMAIL || 'NOT SET'}`);
+    logs.push(`[DIAGNOSTIC] MAILCHIMP_FROM_NAME: ${process.env.MAILCHIMP_FROM_NAME || 'NOT SET'}`);
+
+    // Test 1: Mandrill Connection
+    logs.push(`[DIAGNOSTIC] Test 1/3: Testing Mandrill API connection...`);
+    const { testMandrillConnection } = await import('./mailchimp-email.js');
+    const connectionResult = await testMandrillConnection();
+    logs.push(`[DIAGNOSTIC] Test 1/3 Result: ${connectionResult ? 'SUCCESS' : 'FAILED'}`);
+
+    // Test 2: Send Activation Email
+    logs.push(`[DIAGNOSTIC] Test 2/3: Sending activation email...`);
+    const activationResult = await sendActivationEmail(email, 'Test User', 99999);
+    logs.push(`[DIAGNOSTIC] Test 2/3 Result: ${activationResult ? 'SUCCESS' : 'FAILED'}`);
+
+    // Test 3: Send Welcome Email
+    logs.push(`[DIAGNOSTIC] Test 3/3: Sending welcome email...`);
+    const welcomeResult = await sendWelcomeEmail(email, 'Test User');
+    logs.push(`[DIAGNOSTIC] Test 3/3 Result: ${welcomeResult ? 'SUCCESS' : 'FAILED'}`);
+
+    // Restore console
+    console.log = originalLog;
+    console.error = originalError;
+
+    res.json({
+      success: true,
+      email,
+      environment: process.env.NODE_ENV || 'development',
+      results: {
+        connection: connectionResult,
+        activationEmail: activationResult,
+        welcomeEmail: welcomeResult,
+      },
+      logs,
+      summary: {
+        allTestsPassed: connectionResult && activationResult && welcomeResult,
+        timestamp: new Date().toISOString(),
+      },
+    });
+  } catch (error: any) {
+    // Restore console
+    console.log = originalLog;
+    console.error = originalError;
+
+    logs.push(`[DIAGNOSTIC] EXCEPTION: ${error.message}`);
+    logs.push(`[DIAGNOSTIC] STACK: ${error.stack}`);
+
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      logs,
     });
   }
 });

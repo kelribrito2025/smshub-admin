@@ -2036,3 +2036,25 @@
 - [x] Testar envio de email manualmente via procedure tRPC
 - [x] Validar que emails são enviados corretamente
 - [x] Criar testes automatizados para garantir funcionamento contínuo
+
+
+---
+
+## 📧 URGENTE: Diagnóstico de E-mails (Ativação e Boas-vindas)
+
+**Problema:**
+- Em DEV: e-mails de ativação e boas-vindas chegam normalmente
+- Em PROD: nenhum e-mail chega (ativação e boas-vindas)
+- Mandrill aparentemente configurado corretamente
+
+**Checklist de Investigação:**
+- [ ] Mapear código de disparo de e-mail de ativação
+- [ ] Mapear código de disparo de e-mail de boas-vindas
+- [ ] Verificar rotas/endpoints de criação de conta (dev vs prod)
+- [ ] Auditar variáveis de ambiente (MANDRILL_API_KEY, from_email, etc)
+- [ ] Validar templates do Mandrill (nomes, merge_vars)
+- [ ] Implementar logging robusto com captura de erros do Mandrill
+- [ ] Verificar filas/workers (se existir)
+- [ ] Verificar bloqueios do Mandrill (rejections/bounces/spam)
+- [ ] Testar envio real em produção com logs detalhados
+- [ ] Documentar causa raiz e correções

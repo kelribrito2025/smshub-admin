@@ -15,67 +15,110 @@ interface EmailOptions {
  * Send transactional email via Mandrill
  */
 export async function sendEmail(options: EmailOptions): Promise<boolean> {
+  const startTime = Date.now();
+  console.log(`[Mandrill] 📧 Attempting to send email to: ${options.to}`);
+  console.log(`[Mandrill]    Subject: ${options.subject}`);
+  
   try {
     const apiKey = process.env.MANDRILL_API_KEY;
     const fromEmail = options.fromEmail || process.env.MAILCHIMP_FROM_EMAIL || "noreply@numero-virtual.com";
     const fromName = options.fromName || process.env.MAILCHIMP_FROM_NAME || "Número Virtual";
 
+    console.log(`[Mandrill]    From: ${fromName} <${fromEmail}>`);
+    console.log(`[Mandrill]    API Key present: ${apiKey ? 'YES' : 'NO'}`);
+
     if (!apiKey) {
-      console.error("[Mandrill] API key not configured");
+      console.error("[Mandrill] ❌ CRITICAL: API key not configured");
       return false;
     }
 
     const mandrillUrl = "https://mandrillapp.com/api/1.0/messages/send";
+    
+    console.log(`[Mandrill]    Making API call to: ${mandrillUrl}`);
+    
+    const payload = {
+      key: apiKey,
+      message: {
+        html: options.html,
+        subject: options.subject,
+        from_email: fromEmail,
+        from_name: fromName,
+        to: [
+          {
+            email: options.to,
+            type: "to",
+          },
+        ],
+        track_opens: true,
+        track_clicks: true,
+        auto_text: true,
+        inline_css: true,
+      },
+    };
     
     const response = await fetch(mandrillUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        key: apiKey,
-        message: {
-          html: options.html,
-          subject: options.subject,
-          from_email: fromEmail,
-          from_name: fromName,
-          to: [
-            {
-              email: options.to,
-              type: "to",
-            },
-          ],
-          track_opens: true,
-          track_clicks: true,
-          auto_text: true,
-          inline_css: true,
-        },
-      }),
+      body: JSON.stringify(payload),
     });
 
+    const elapsed = Date.now() - startTime;
+    console.log(`[Mandrill]    Response received in ${elapsed}ms`);
+    console.log(`[Mandrill]    HTTP Status: ${response.status}`);
+    
     if (!response.ok) {
       const error = await response.text();
-      console.error("[Mandrill] Failed to send email:", error);
+      console.error("[Mandrill] ❌ HTTP Error:", {
+        status: response.status,
+        statusText: response.statusText,
+        body: error,
+      });
       return false;
     }
 
     const result = await response.json();
+    console.log(`[Mandrill]    Full API response:`, JSON.stringify(result, null, 2));
     
     // Check if email was sent successfully
     if (result[0]?.status === "sent" || result[0]?.status === "queued") {
-      console.log("[Mandrill] Email sent successfully:", {
+      const totalElapsed = Date.now() - startTime;
+      console.log(`[Mandrill] ✅ Email ${result[0].status} successfully in ${totalElapsed}ms:`, {
         to: options.to,
         subject: options.subject,
         status: result[0].status,
         id: result[0]._id,
       });
       return true;
+    } else if (result[0]?.status === "rejected") {
+      console.error(`[Mandrill] ❌ Email REJECTED:`, {
+        to: options.to,
+        status: result[0].status,
+        reject_reason: result[0].reject_reason,
+        full_response: result[0],
+      });
+      return false;
+    } else if (result[0]?.status === "invalid") {
+      console.error(`[Mandrill] ❌ Email INVALID:`, {
+        to: options.to,
+        status: result[0].status,
+        full_response: result[0],
+      });
+      return false;
     } else {
-      console.error("[Mandrill] Email rejected:", result[0]);
+      console.error("[Mandrill] ❌ Unexpected status:", result[0]);
       return false;
     }
-  } catch (error) {
-    console.error("[Mandrill] Error sending email:", error);
+  } catch (error: any) {
+    const elapsed = Date.now() - startTime;
+    console.error(`[Mandrill] ❌ EXCEPTION after ${elapsed}ms:`, {
+      to: options.to,
+      subject: options.subject,
+      error_name: error.name,
+      error_message: error.message,
+      error_stack: error.stack,
+    });
     return false;
   }
 }
