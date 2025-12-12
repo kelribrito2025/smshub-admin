@@ -6,7 +6,7 @@ import { Card } from '../components/ui/card';
 import { Activity, Clock, Copy, X, RefreshCw, Check, Loader2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { useState } from 'react';
-import { toast } from 'sonner';
+import { toast } from '@/contexts/ToastContext';
 import { copyToClipboard } from '../lib/clipboard';
 import TableSkeleton from '../components/TableSkeleton';
 
@@ -54,10 +54,7 @@ export default function StoreCatalog() {
       // ⚠️ IMPORTANTE: NÃO invalidar query aqui para evitar notificação falsa
       // A query será atualizada automaticamente pelo polling a cada 6 segundos
       // Apenas mostrar feedback visual de que a solicitação foi enviada
-      toast.info('🔄 Solicitação enviada', {
-        description: 'Aguardando novo SMS da operadora...',
-        duration: 3000,
-      });
+      toast.info('🔄 Solicitação enviada: Aguardando novo SMS da operadora...', { duration: 3000 });
     },
   });
 

@@ -27,7 +27,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { GripVertical } from "lucide-react";
 import { trpc } from "@/lib/trpc";
-import { toast } from "sonner";
+import { toast } from "@/contexts/ToastContext";
 
 interface MenuItem {
   id: number;

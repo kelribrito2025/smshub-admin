@@ -3,7 +3,7 @@ import { X, Wallet, CreditCard, Smartphone, Shield, ArrowRight, Zap, Lock, Bitco
 import { PixPaymentModal } from './PixPaymentModal';
 import { useStoreAuth } from '@/contexts/StoreAuthContext';
 import { trpc } from '@/lib/trpc';
-import { toast } from 'sonner';
+import { toast } from '@/contexts/ToastContext';
 
 interface RechargeModalProps {
   isOpen: boolean;

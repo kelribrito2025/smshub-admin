@@ -1,5 +1,4 @@
 import { lazy, Suspense } from "react";
-import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Route, Switch, useLocation } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -113,7 +112,6 @@ function App() {
         defaultTheme="dark"
         // switchable
       >
-        <Toaster duration={2300} closeButton={false} visibleToasts={1} />
         <TooltipProvider>
           <MainRouter />
         </TooltipProvider>

@@ -1,4 +1,4 @@
-import { toast } from 'sonner';
+import { toast } from '@/contexts/ToastContext';
 
 export default function ToastTest() {
   return (

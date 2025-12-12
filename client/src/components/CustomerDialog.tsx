@@ -14,7 +14,7 @@ import { Separator } from "@/components/ui/separator";
 import { trpc } from "@/lib/trpc";
 import { Loader2, Save } from "lucide-react";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
+import { toast } from "@/contexts/ToastContext";
 
 interface CustomerDialogProps {
   open: boolean;

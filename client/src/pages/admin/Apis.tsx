@@ -28,7 +28,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '../../components/ui/tooltip';
-import { toast } from 'sonner';
+import { toast } from '@/contexts/ToastContext';
 import { CurrencyInput } from '../../components/ui/currency-input';
 import { Switch } from '../../components/ui/switch';
 import {

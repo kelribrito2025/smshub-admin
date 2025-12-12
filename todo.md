@@ -2123,3 +2123,35 @@
 - [x] Remover card de Próximos Passos
 - [x] Remover estados e queries relacionados aos cards removidos
 - [x] Testar página após limpeza
+
+
+---
+
+## 🎨 Remover Sonner e Implementar Toast Customizado
+
+**Objetivo:**
+- Remover completamente a biblioteca Sonner do admin
+- Implementar sistema de toast customizado com visual dark theme
+- Criar ToastProvider com estado global
+- Expor funções toast.success/error/warning/info para uso em qualquer lugar
+
+**Visual Desejado:**
+- Posição: top-6 right-6
+- Fundo: bg-neutral-900/95 backdrop-blur-sm
+- Borda: border border-{color}/30 (verde/vermelho/amarelo/azul)
+- Animação: animate-in slide-in-from-top-2 duration-300
+- Auto-close: 3000ms
+- Ícones: CheckCircle2 (success), XCircle (error), AlertTriangle (warning), Info (info)
+
+**Tarefas:**
+- [x] Criar componente Toast customizado (client/src/components/Toast.tsx)
+- [x] Criar ToastProvider e ToastContext (client/src/contexts/ToastContext.tsx)
+- [x] Implementar funções toast.success/error/warning/info
+- [x] Integrar ToastProvider no main.tsx
+- [x] Buscar todas as chamadas de Sonner no código (toast.success, toast.error, etc)
+- [x] Substituir todas as chamadas de Sonner pelo novo toast
+- [x] Remover imports de sonner de todos os arquivos
+- [x] Remover biblioteca sonner do package.json
+- [x] Remover componente Toaster do App.tsx
+- [x] Testar toast em diferentes cenários (success, error, warning, info)
+- [x] Validar que não há erros no console após remoção

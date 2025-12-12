@@ -6,7 +6,7 @@ import { AffiliateSkeleton } from "@/components/AffiliateSkeleton";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Copy, Check, Users, TrendingUp, DollarSign, Percent, Share2, Gift } from "lucide-react";
-import { toast } from "sonner";
+import { toast } from "@/contexts/ToastContext";
 import {
   Table,
   TableBody,

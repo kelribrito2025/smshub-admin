@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { toast } from "sonner";
+import { toast } from "@/contexts/ToastContext";
 
 export interface Notification {
   type: "pix_payment_confirmed" | "balance_updated" | "sms_received" | "activation_expired" | "recharge_completed" | "operation_completed" | "operation_failed" | "admin_notification";
@@ -167,18 +167,12 @@ export function useNotifications(options: UseNotificationsOptions) {
             if (circuitBreaker.failureCount >= circuitBreaker.threshold) {
               circuitBreaker.isOpen = true;
               console.error(`[Notifications] Circuit breaker OPENED after ${circuitBreaker.failureCount} consecutive failures`);
-              toast.error('Limite de conexões atingido', {
-                description: 'O sistema pausará tentativas por 5 minutos. Se o problema persistir, recarregue a página.',
-                duration: 8000,
-              });
+              toast.error('Limite de conexões atingido: O sistema pausará tentativas por 5 minutos. Se o problema persistir, recarregue a página.', { duration: 8000 });
               
               // After 3 circuit breaker openings, permanently disable
               if (circuitBreaker.failureCount >= circuitBreaker.threshold * 3) {
                 circuitBreaker.permanentlyDisabled = true;
-                toast.error('Sistema de notificações desabilitado', {
-                  description: 'Muitas falhas consecutivas. Por favor, recarregue a página.',
-                  duration: 10000,
-                });
+                toast.error('Sistema de notificações desabilitado: Muitas falhas consecutivas. Por favor, recarregue a página.', { duration: 10000 });
               }
             }
           }
@@ -267,18 +261,12 @@ export function useNotifications(options: UseNotificationsOptions) {
         if (circuitBreaker.failureCount >= circuitBreaker.threshold) {
           circuitBreaker.isOpen = true;
           console.error(`[Notifications] Circuit breaker OPENED after ${circuitBreaker.failureCount} consecutive failures`);
-          toast.error('Limite de conexões atingido', {
-            description: 'O sistema pausará tentativas por 5 minutos.',
-            duration: 8000,
-          });
+          toast.error('Limite de conexões atingido: O sistema pausará tentativas por 5 minutos.', { duration: 8000 });
           
           // After 3 circuit breaker openings, permanently disable
           if (circuitBreaker.failureCount >= circuitBreaker.threshold * 3) {
             circuitBreaker.permanentlyDisabled = true;
-            toast.error('Sistema de notificações desabilitado', {
-              description: 'Muitas falhas consecutivas. Por favor, recarregue a página.',
-              duration: 10000,
-            });
+            toast.error('Sistema de notificações desabilitado: Muitas falhas consecutivas. Por favor, recarregue a página.', { duration: 10000 });
           }
           return; // Stop retrying
         }

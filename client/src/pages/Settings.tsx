@@ -8,7 +8,7 @@ import { Switch } from "@/components/ui/switch";
 import { trpc } from "@/lib/trpc";
 import { Settings as SettingsIcon, Percent, Power, Save } from "lucide-react";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
+import { toast } from "@/contexts/ToastContext";
 
 export default function Settings() {
   const { user } = useAuth();
@@ -108,9 +108,7 @@ export default function Settings() {
                     });
                     toast.success("Configurações salvas com sucesso!");
                   } catch (error: any) {
-                    toast.error("Erro ao salvar configurações", {
-                      description: error.message,
-                    });
+                    toast.error(`Erro ao salvar configurações: ${error.message}`);
                   }
                 }}
                 disabled={updateAffiliateMutation.isPending}

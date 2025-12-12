@@ -7,6 +7,7 @@ import superjson from "superjson";
 import App from "./App";
 import { getLoginUrl } from "./const";
 import "./index.css";
+import { ToastProviderWithListener } from "./contexts/ToastContext";
 
 // Suppress React DevTools message in console
 if (typeof window !== 'undefined') {
@@ -87,7 +88,9 @@ const trpcClient = trpc.createClient({
 createRoot(document.getElementById("root")!).render(
   <trpc.Provider client={trpcClient} queryClient={queryClient}>
     <QueryClientProvider client={queryClient}>
-      <App />
+      <ToastProviderWithListener>
+        <App />
+      </ToastProviderWithListener>
     </QueryClientProvider>
   </trpc.Provider>
 );

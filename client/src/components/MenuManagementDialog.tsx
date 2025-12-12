@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { trpc } from "@/lib/trpc";
-import { toast } from "sonner";
+import { toast } from "@/contexts/ToastContext";
 import { Trash2, Edit, Plus } from "lucide-react";
 import {
   Table,
