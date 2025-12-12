@@ -2611,3 +2611,19 @@
 - [x] Atualizar formatação dos valores das APIs no DashboardLayout
 - [x] Testar visualização com diferentes valores
 - [x] Criar checkpoint
+
+---
+
+## 🎨 Cores Condicionais no Saldo das APIs
+
+**Objetivo:**
+- Implementar cores condicionais baseadas no saldo de cada API
+- API 1 (BRL): Vermelho se < R$ 1.000 | Verde se ≥ R$ 1.000
+- API 2 (USD): Vermelho se < $ 1.000 | Verde se ≥ $ 1.000
+- API 3 (USD): Vermelho se < $ 1.000 | Verde se ≥ $ 1.000
+
+**Tarefas:**
+- [x] Implementar função de cor condicional baseada em moeda e threshold
+- [x] Aplicar cores aos valores exibidos no card
+- [x] Testar com diferentes valores de saldo
+- [x] Criar checkpoint

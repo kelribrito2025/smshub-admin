@@ -303,7 +303,7 @@ export default function Dashboard() {
                           {api.error ? (
                             <span className="text-red-500 text-xs">Erro</span>
                           ) : (
-                            <span>
+                            <span className={api.balance >= 1000 ? 'text-green-600' : 'text-red-600'}>
                               {api.currency === 'BRL' ? 'R$' : '$'} {api.balance.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                             </span>
                           )}
