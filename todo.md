@@ -2444,3 +2444,40 @@
 - [x] Renomear botão "Painel de Vendas" para "Painel" no StoreLayout (mobile e desktop)
 - [x] Renomear botão "Painel de Vendas" para "Painel" no DashboardLayout (se existir)
 - [x] Configurar filtro de data para selecionar "Hoje" por padrão no Dashboard
+
+
+---
+
+## 🔧 Corrigir Nome do Botão no Dashboard
+
+**Problema:**
+- Botão ainda mostra "Painel de Vendas" ao invés de "Criar Campanha"
+
+**Tarefas:**
+- [x] Corrigir nome do botão "Painel de Vendas" para "Criar Campanha" no dashboard
+- [x] Corrigir nome do botão de "Criar Campanha" para apenas "Painel"
+
+
+---
+
+## 📱 Mover Botão Painel para Top Bar Mobile
+
+**Objetivo:**
+- Mover botão "Painel" para a top bar mobile do DashboardLayout
+- Remover botão do Dashboard (desktop)
+
+**Tarefas:**
+- [ ] Mover botão "Painel" para a top bar mobile do DashboardLayout
+- [ ] Remover botão do Dashboard
+
+---
+
+## 🔄 Correção: Manter Botão Painel em Desktop e Mobile
+
+**Problema:**
+- Botão "Painel" foi removido do Dashboard desktop por engano
+- Deveria manter em ambas as versões (desktop E mobile)
+
+**Tarefas:**
+- [x] Restaurar botão "Painel" no Dashboard (versão desktop)
+- [x] Manter botão "Painel" na top bar mobile do DashboardLayout

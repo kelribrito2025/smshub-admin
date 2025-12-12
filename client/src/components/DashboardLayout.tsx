@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/sidebar";
 import { getLoginUrl } from "@/const";
 import { useIsMobile } from "@/hooks/useMobile";
-import { LayoutDashboard, LogOut, PanelLeft, Settings, RefreshCw, Globe, Package, Key, LineChart, Users, BookOpen, Cloud, BarChart3, FileText, Gift, GripVertical, LucideIcon, Shield } from "lucide-react";
+import { LayoutDashboard, LogOut, PanelLeft, Settings, RefreshCw, Globe, Package, Key, LineChart, Users, BookOpen, Cloud, BarChart3, FileText, Gift, GripVertical, LucideIcon, Shield, ShoppingCart } from "lucide-react";
 import * as LucideIcons from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
@@ -331,6 +331,12 @@ function DashboardLayoutContent({
                 </div>
               </div>
             </div>
+            <a href="https://app.numero-virtual.com" target="_blank" rel="noopener noreferrer">
+              <Button size="sm" className="gap-2">
+                <ShoppingCart className="h-4 w-4" />
+                Painel
+              </Button>
+            </a>
           </div>
         )}
         <main className="flex-1 p-4">
