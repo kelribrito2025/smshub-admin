@@ -20,11 +20,13 @@ export async function getAffiliateSettings() {
     // Create default settings
     const [newSettings] = await db.insert(affiliateSettings).values({
       bonusPercentage: 10,
+      description: "Afiliados ganharão 10% do valor da primeira recarga dos indicados",
       isActive: true,
     });
     return {
       id: newSettings.insertId,
       bonusPercentage: 10,
+      description: "Afiliados ganharão 10% do valor da primeira recarga dos indicados",
       isActive: true,
       updatedAt: new Date(),
     };
@@ -38,6 +40,7 @@ export async function getAffiliateSettings() {
  */
 export async function updateAffiliateSettings(data: {
   bonusPercentage?: number;
+  description?: string;
   isActive?: boolean;
 }) {
   const db = await getDb();

@@ -1,0 +1,1 @@
+ALTER TABLE `affiliate_settings` ADD `description` text DEFAULT ('Afiliados ganharão 10% do valor da primeira recarga dos indicados') NOT NULL;

@@ -419,6 +419,7 @@ export type InsertSmsMessage = typeof smsMessages.$inferInsert;
 export const affiliateSettings = mysqlTable("affiliate_settings", {
   id: int("id").autoincrement().primaryKey(),
   bonusPercentage: int("bonusPercentage").default(10).notNull(), // Percentage of first recharge given as bonus (e.g., 10 for 10%)
+  description: text("description"), // Description of the program
   isActive: boolean("isActive").default(true).notNull(), // Enable/disable entire referral program
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });

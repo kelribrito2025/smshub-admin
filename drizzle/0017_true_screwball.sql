@@ -1,0 +1,1 @@
+ALTER TABLE `affiliate_settings` MODIFY COLUMN `description` text;

@@ -2159,3 +2159,25 @@
 - [x] Estender schema do banco de dados com campos minAmount e bonusPercentage
 - [x] Atualizar router e procedures do backend
 - [x] Criar e executar testes unitários (9 testes passando)
+
+
+---
+
+## 🎨 Reformular Página /admin/settings (Configurações do Programa de Afiliados)
+
+**Objetivo:**
+- Reformular página /admin/settings para seguir padrão visual do print fornecido
+- Manter consistência com /admin/payment-settings
+- Implementar funcionalidades de edição e toggle ativo/inativo
+
+**Layout:**
+- Título: "Configurações do Programa de Afiliados"
+- Subtítulo: "Defina as regras do programa de indicação"
+- Tabela dentro de card com colunas: Programa, Percentual de Bônus, Descrição, Status, Ações
+- Bloco "Exemplo" dinâmico abaixo da tabela
+
+**Tarefas:**
+- [x] Reformular página /admin/settings com novo layout de tabela (padrão do print)
+- [x] Implementar botão Editar funcional para alterar percentual e descrição
+- [x] Implementar toggle Ativo/Inativo para status do programa
+- [x] Adicionar bloco "Exemplo" dinâmico baseado no percentual
