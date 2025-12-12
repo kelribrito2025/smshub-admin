@@ -156,7 +156,7 @@ export default function PaymentSettings() {
           </p>
         </div>
 
-        <Card style={{paddingTop: '0px', width: '1035px'}}>
+        <Card>
           <CardHeader>
             <CardTitle></CardTitle>
             <CardDescription>
