@@ -1929,3 +1929,25 @@
 - [x] Remover arquivo activation-email-light.html
 - [x] Remover arquivo activation-email-modern.html
 - [x] Verificar e remover referências aos modelos no código (se existirem)
+
+
+---
+
+## 📧 Email de Boas-Vindas Não Enviado
+
+**Problema:**
+- Usuário criou conta com email xkelrix@gmail.com
+- Email de boas-vindas não foi recebido
+- Sistema não estava enviando emails após registro
+
+**Solução Implementada:**
+- Adicionado envio automático de email de boas-vindas no endpoint de criação de cliente
+- Email é enviado de forma assíncrona (não bloqueia resposta da API)
+- Configuração de Mandrill validada e funcionando corretamente
+
+**Tarefas:**
+- [x] Investigar código de registro de usuário
+- [x] Verificar se há envio de email implementado
+- [x] Verificar configuração de serviço de email (Mandrill/Mailchimp)
+- [x] Implementar envio de email de boas-vindas no endpoint de criação
+- [x] Testar envio de email com conta real (xkelrix@gmail.com)
