@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/sidebar";
 import { getLoginUrl } from "@/const";
 import { useIsMobile } from "@/hooks/useMobile";
-import { LayoutDashboard, LogOut, PanelLeft, Settings, RefreshCw, Globe, Package, Key, LineChart, Users, BookOpen, Cloud, BarChart3, CreditCard, FileText, Gift, GripVertical, LucideIcon, Shield } from "lucide-react";
+import { LayoutDashboard, LogOut, PanelLeft, Settings, RefreshCw, Globe, Package, Key, LineChart, Users, BookOpen, Cloud, BarChart3, FileText, Gift, GripVertical, LucideIcon, Shield } from "lucide-react";
 import * as LucideIcons from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
@@ -41,7 +41,7 @@ const fallbackMenuItems = [
   { icon: LineChart, label: "Relatórios", path: "/admin/relatorios" },
   { icon: FileText, label: "Auditoria de Saldo", path: "/admin/auditoria" },
   { icon: Settings, label: "Configurações", path: "/admin/settings" },
-  { icon: CreditCard, label: "Pagamentos", path: "/admin/payment-settings" },
+
   { icon: Cloud, label: "APIs", path: "/admin/apis" },
   { icon: BarChart3, label: "Performance de APIs", path: "/admin/api-performance" },
   { icon: Globe, label: "Países", path: "/admin/countries" },

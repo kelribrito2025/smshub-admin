@@ -2181,3 +2181,21 @@
 - [x] Implementar botão Editar funcional para alterar percentual e descrição
 - [x] Implementar toggle Ativo/Inativo para status do programa
 - [x] Adicionar bloco "Exemplo" dinâmico baseado no percentual
+
+
+---
+
+## 🔄 Reorganização da Estrutura do Admin
+
+**Objetivo:**
+- Mover card de Métodos de Pagamento de /admin/payment-settings para /admin/settings
+- Reordenar cards na página /admin/settings
+- Remover página /admin/payment-settings
+- Restaurar ícone de engrenagem no título da página /admin/settings
+
+**Tarefas:**
+- [x] Mover card de Métodos de Pagamento de /admin/payment-settings para /admin/settings
+- [x] Reordenar cards em /admin/settings (Métodos de Pagamento em cima, Configurações do Programa de Afiliados abaixo)
+- [x] Remover página /admin/payment-settings (rota + arquivo)
+- [x] Remover referências/links para /admin/payment-settings no menu/navegação
+- [x] Restaurar ícone azul de engrenagem no título da página /admin/settings

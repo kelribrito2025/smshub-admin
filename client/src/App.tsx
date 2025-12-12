@@ -16,7 +16,7 @@ const Customers = lazy(() => import("./pages/Customers"));
 const Catalog = lazy(() => import("./pages/Catalog"));
 const Apis = lazy(() => import("./pages/admin/Apis"));
 const ApiPerformance = lazy(() => import("./pages/admin/ApiPerformance"));
-const PaymentSettings = lazy(() => import("./pages/PaymentSettings"));
+
 const Audit = lazy(() => import("./pages/Audit"));
 const Affiliates = lazy(() => import("./pages/admin/Affiliates"));
 
@@ -80,7 +80,7 @@ function AdminRouter() {
         <Route path={"/admin/catalogo"} component={Catalog} />
         <Route path={"/admin/apis"} component={Apis} />
         <Route path="/admin/api-performance" component={ApiPerformance} />
-        <Route path="/admin/payment-settings" component={PaymentSettings} />
+
         <Route path="/admin/auditoria" component={Audit} />
         <Route path="/admin/affiliates" component={Affiliates} />
       </Switch>
