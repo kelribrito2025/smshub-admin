@@ -236,16 +236,16 @@ export default function Dashboard() {
           </div>
           <div className="flex gap-2">
             <Select value={periodFilter} onValueChange={(value) => setPeriodFilter(value as PeriodFilter)}>
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger className="w-auto min-w-[140px]">
                 <Calendar className="mr-2 h-4 w-4" />
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="today">Hoje</SelectItem>
                 <SelectItem value="yesterday">Ontem</SelectItem>
-                <SelectItem value="last7days">Últimos 7 dias</SelectItem>
-                <SelectItem value="last30days">Últimos 30 dias</SelectItem>
-                <SelectItem value="last90days">Últimos 90 dias</SelectItem>
+                <SelectItem value="last7days">Últi. 7 dias</SelectItem>
+                <SelectItem value="last30days">Últi. 30 dias</SelectItem>
+                <SelectItem value="last90days">Últi. 90 dias</SelectItem>
               </SelectContent>
             </Select>
             <a href="https://app.numero-virtual.com" target="_blank" rel="noopener noreferrer" className="hidden md:block">

@@ -2543,3 +2543,23 @@
 - [x] Verificar se a query está retornando dados históricos completos
 - [x] Corrigir componente do gráfico para exibir todos os pontos de dados
 - [x] Testar visualização do gráfico com dados históricos
+
+
+---
+
+## 🎨 Editar Textos do Filtro de Período no Dashboard
+
+**Objetivo:**
+- Alterar textos do filtro de período na página /admin/dashboard
+- Ajustar largura do botão para ficar igual à largura do texto "Ontem"
+
+**Mudanças:**
+- "Hoje" → "Hoje"
+- "Ontem" → "Ontem"
+- "Últimos 7 dias" → "Últi. 7 dias"
+- "Últimos 30 dias" → "Últi. 30 dias"
+- "Últimos 90 dias" → "Últi. 90 dias"
+
+**Tarefas:**
+- [x] Editar textos do filtro de período no Dashboard
+- [x] Ajustar largura do botão para ficar igual à largura do texto "Ontem"
