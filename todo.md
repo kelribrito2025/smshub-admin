@@ -2301,3 +2301,29 @@
 - [x] Adicionar botão "Exportar CSV" ao card
 - [x] Implementar funcionalidade de troca entre os diferentes modos de visualização
 - [x] Testar navegação entre os menus
+
+
+
+---
+
+## 📋 Implementar Conteúdo dos Menus de Navegação da Página Transações
+
+**Problema:**
+- Os menus de navegação (Receita & Lucro, Por País, Por Serviço, Transações) estão sem conteúdo
+- Apenas a estrutura de navegação foi implementada
+- Falta implementar o conteúdo específico de cada aba
+
+**Solução:**
+- Adicionada query `getRecentActivations` no Dashboard.tsx
+- Implementada tabela completa de transações com todas as colunas (ID, Data, País, Serviço, Telefone, Status, Receita, Custo, Lucro)
+- Adicionado botão "Exportar CSV" funcional
+- Implementados estados de loading e empty state
+- Todas as abas já tinham conteúdo implementado (Receita & Lucro, Por País, Por Serviço)
+- Apenas a aba "Transações" estava com placeholder
+
+**Tarefas:**
+- [x] Implementar conteúdo da aba "Receita & Lucro" (já estava implementado)
+- [x] Implementar conteúdo da aba "Por País" (já estava implementado)
+- [x] Implementar conteúdo da aba "Por Serviço" (já estava implementado)
+- [x] Implementar conteúdo da aba "Transações"
+- [x] Testar navegação e conteúdo de cada aba

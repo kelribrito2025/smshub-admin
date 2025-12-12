@@ -4,6 +4,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
 import { Activity, DollarSign, TrendingUp, Users, ShoppingCart, LayoutDashboard, ArrowDown, CheckCircle2, XCircle, Download, Loader2, TrendingDown, Minus } from "lucide-react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "wouter";
 import { useEffect, useState, useMemo } from "react";
@@ -111,6 +119,14 @@ export default function Dashboard() {
       refetchOnWindowFocus: false,
     }
   );
+
+  const { data: recentActivations, isLoading: activationsLoading } =
+    trpc.financial.getRecentActivations.useQuery(
+      { limit: 20 },
+      {
+        refetchOnWindowFocus: false,
+      }
+    );
 
   useEffect(() => {
     if (error) {
@@ -557,14 +573,113 @@ export default function Dashboard() {
           {/* Transactions Tab */}
           <TabsContent value="transactions" className="space-y-4">
             <Card>
-              <CardHeader>
-                <CardTitle>Transações Recentes</CardTitle>
-                <CardDescription>Últimas ativações realizadas</CardDescription>
+              <CardHeader className="flex flex-row items-center justify-between">
+                <div>
+                  <CardTitle>Transações Recentes</CardTitle>
+                  <CardDescription>Últimas 20 ativações realizadas</CardDescription>
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    if (recentActivations) {
+                      const data = recentActivations.map((item) => ({
+                        id: item.activation.id,
+                        data: item.activation.createdAt,
+                        pais: item.country?.name || "N/A",
+                        servico: item.service?.name || "N/A",
+                        telefone: item.activation.phoneNumber || "N/A",
+                        status: item.activation.status,
+                        receita: item.activation.sellingPrice / 100,
+                        custo: item.activation.smshubCost / 100,
+                        lucro: item.activation.profit / 100,
+                      }));
+                      const headers = Object.keys(data[0]).join(",");
+                      const rows = data.map((row) => Object.values(row).join(",")).join("\n");
+                      const csv = `${headers}\n${rows}`;
+                      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+                      const link = document.createElement("a");
+                      link.href = URL.createObjectURL(blob);
+                      link.download = `transacoes_recentes_${new Date().toISOString().split("T")[0]}.csv`;
+                      link.click();
+                      toast.success("Relatório exportado com sucesso!");
+                    }
+                  }}
+                  disabled={!recentActivations || recentActivations.length === 0}
+                >
+                  <Download className="mr-2 h-4 w-4" />
+                  Exportar CSV
+                </Button>
               </CardHeader>
               <CardContent>
-                <div className="text-center py-8 text-muted-foreground">
-                  Visualização de transações disponível na página de Transações
-                </div>
+                {activationsLoading ? (
+                  <div className="flex items-center justify-center h-[400px]">
+                    <Loader2 className="h-8 w-8 animate-spin" />
+                  </div>
+                ) : recentActivations && recentActivations.length > 0 ? (
+                  <div className="rounded-md border">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>ID</TableHead>
+                          <TableHead>Data</TableHead>
+                          <TableHead>País</TableHead>
+                          <TableHead>Serviço</TableHead>
+                          <TableHead>Telefone</TableHead>
+                          <TableHead>Status</TableHead>
+                          <TableHead className="text-right">Receita</TableHead>
+                          <TableHead className="text-right">Custo</TableHead>
+                          <TableHead className="text-right">Lucro</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {recentActivations.map((item) => (
+                          <TableRow key={item.activation.id}>
+                            <TableCell className="font-mono text-xs">
+                              #{item.activation.id}
+                            </TableCell>
+                            <TableCell className="text-sm">
+                              {new Date(item.activation.createdAt).toLocaleString("pt-BR")}
+                            </TableCell>
+                            <TableCell>{item.country?.name || "N/A"}</TableCell>
+                            <TableCell>{item.service?.name || "N/A"}</TableCell>
+                            <TableCell className="font-mono text-xs">
+                              {item.activation.phoneNumber || "N/A"}
+                            </TableCell>
+                            <TableCell>
+                              <span
+                                className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                                  item.activation.status === "completed"
+                                    ? "bg-green-100 text-green-800"
+                                    : item.activation.status === "active"
+                                      ? "bg-blue-100 text-blue-800"
+                                      : item.activation.status === "cancelled"
+                                        ? "bg-red-100 text-red-800"
+                                        : "bg-gray-100 text-gray-800"
+                                }`}
+                              >
+                                {item.activation.status}
+                              </span>
+                            </TableCell>
+                            <TableCell className="text-right">
+                              {formatCurrency(item.activation.sellingPrice)}
+                            </TableCell>
+                            <TableCell className="text-right">
+                              {formatCurrency(item.activation.smshubCost)}
+                            </TableCell>
+                            <TableCell className="text-right text-green-600 font-medium">
+                              {formatCurrency(item.activation.profit)}
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-center h-[400px] text-muted-foreground">
+                    Nenhuma transação encontrada
+                  </div>
+                )}
               </CardContent>
             </Card>
           </TabsContent>
