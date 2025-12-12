@@ -251,7 +251,7 @@ export default function Dashboard() {
             <a href="https://app.numero-virtual.com" target="_blank" rel="noopener noreferrer" className="hidden md:block">
               <Button className="gap-2">
                 <ShoppingCart className="h-4 w-4" />
-                Painel
+                Painel de vendas
               </Button>
             </a>
           </div>

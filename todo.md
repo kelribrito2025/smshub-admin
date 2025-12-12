@@ -2563,3 +2563,37 @@
 **Tarefas:**
 - [x] Editar textos do filtro de período no Dashboard
 - [x] Ajustar largura do botão para ficar igual à largura do texto "Ontem"
+
+
+---
+
+## 🎨 Alterar Texto do Botão "Painel" no DashboardLayout
+
+**Objetivo:**
+- Alterar o texto do botão "Painel" para "Painel de Vendas" no DashboardLayout
+- Aplicar alteração apenas na versão desktop
+
+**Tarefas:**
+- [ ] Alterar texto do botão "Painel" para "Painel de Vendas" no DashboardLayout (versão desktop)
+
+---
+
+## 🎨 Alterar Texto do Botão "Painel" para "Painel de Vendas" (Desktop)
+
+**Objetivo:**
+- Alterar o texto do botão "Painel" para "Painel de Vendas" na versão desktop do DashboardLayout
+- Manter consistência com a versão mobile que já exibe "Painel de Vendas"
+
+**Tarefas:**
+- [x] Alterar texto do botão "Painel" para "Painel de Vendas" na versão desktop do DashboardLayout
+
+
+---
+
+## 🎨 Alteração de Texto do Botão "Painel de Vendas"
+
+**Objetivo:**
+- Alterar texto do botão de "Painel" para "Painel de vendas" no Dashboard
+
+**Tarefas:**
+- [x] Alterar texto do botão no Dashboard.tsx
