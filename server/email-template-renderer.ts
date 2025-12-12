@@ -1,9 +1,29 @@
-import { readFileSync } from "fs";
+import { readFileSync, existsSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+/**
+ * Get the correct path for email templates in both dev and production
+ */
+function getTemplatePath(templateName: string): string {
+  // In production (bundled), templates are copied to dist/email-templates
+  const prodPath = join(__dirname, "email-templates", `${templateName}.html`);
+  
+  // In development, templates are in server/email-templates
+  const devPath = join(__dirname, "../email-templates", `${templateName}.html`);
+  
+  // Try production path first, fallback to dev path
+  if (existsSync(prodPath)) {
+    return prodPath;
+  } else if (existsSync(devPath)) {
+    return devPath;
+  } else {
+    throw new Error(`Email template not found: ${templateName} (tried ${prodPath} and ${devPath})`);
+  }
+}
 
 /**
  * Renderiza um template de email substituindo variáveis dinâmicas
@@ -15,7 +35,7 @@ export function renderEmailTemplate(
   templateName: string,
   variables: Record<string, string>
 ): string {
-  const templatePath = join(__dirname, "email-templates", `${templateName}.html`);
+  const templatePath = getTemplatePath(templateName);
   let template = readFileSync(templatePath, "utf-8");
 
   // Substituir todas as variáveis no formato {{VARIABLE_NAME}}

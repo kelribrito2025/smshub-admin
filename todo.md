@@ -2056,6 +2056,8 @@
 ✅ Removido middleware global `router.use(validateApiKey)`
 ✅ Rotas públicas agora são verdadeiramente públicas
 ✅ Código de envio de e-mail será executado normalmente
+✅ Corrigido build para copiar templates de e-mail para dist/
+✅ Implementado fallback de path para templates funcionarem em dev e prod
 
 **Checklist de Investigação:**
 - [x] Mapear código de disparo de e-mail de ativação
