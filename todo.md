@@ -2087,3 +2087,17 @@
 - [x] Mover campo de porcentagem de bônus para página de relatórios
 - [x] Mover toggle de ativação para página de relatórios
 - [x] Testar funcionalidade após reorganização
+
+
+---
+
+## 🔄 Mover Card de Configurações de Afiliados para Página de Settings
+
+**Objetivo:**
+- Mover o card "Configurações do Programa de Afiliados" da página de relatórios (/admin/relatorios) para a página de configurações (/admin/settings)
+- Melhorar organização da interface administrativa
+
+**Tarefas:**
+- [x] Remover card de configurações da página Financial.tsx
+- [x] Adicionar card de configurações na página Settings.tsx
+- [x] Testar funcionalidade após movimentação
