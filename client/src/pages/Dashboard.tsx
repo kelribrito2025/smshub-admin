@@ -776,7 +776,7 @@ export default function Dashboard() {
               </div>
             </div>
 
-            <div className="h-[420px] overflow-y-auto pr-2 space-y-4 scrollbar-thin">
+            <div className="h-[360px] overflow-y-auto pr-2 space-y-4 scrollbar-thin">
               {dashboardData?.topServices && dashboardData.topServices.length > 0 ? (
                 dashboardData.topServices.slice(0, 15).map((item, index) => (
                   <div key={index} className="flex items-center justify-between">

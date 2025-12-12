@@ -2641,3 +2641,19 @@
 - [x] Aplicar backgroundColor: '#18181b' no card de Serviços Mais Vendidos
 - [x] Verificar aplicação correta da alteração
 - [x] Criar checkpoint com a correção
+
+
+---
+
+## 📊 Ajustar Exibição de Serviços Mais Vendidos no Dashboard
+
+**Objetivo:**
+- Exibir apenas os 6 primeiros serviços visíveis na lista
+- Adicionar barra de rolagem minimalista e discreta para acessar os demais (até 15 total)
+- Manter design limpo e consistente
+
+**Tarefas:**
+- [x] Adicionar altura fixa ao container da lista (equivalente a 6 itens)
+- [x] Implementar overflow-y-auto com scrollbar customizada minimalista
+- [x] Testar rolagem e verificar visual
+- [ ] Criar checkpoint
