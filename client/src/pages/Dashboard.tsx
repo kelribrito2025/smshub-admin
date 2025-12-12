@@ -66,8 +66,8 @@ export default function Dashboard() {
   // Fetch API comparison data
   const { data: comparisonData, isLoading: comparisonLoading } = trpc.apiPerformance.getComparison.useQuery(
     {
-      startDate: dateRange.startDate,
-      endDate: dateRange.endDate,
+      startDate: dateRange.startDate.toISOString(),
+      endDate: dateRange.endDate.toISOString(),
     },
     {
       refetchOnWindowFocus: false,
@@ -76,15 +76,15 @@ export default function Dashboard() {
 
   // Fetch detailed stats for each API
   const { data: api1Stats } = trpc.apiPerformance.getDetailedStats.useQuery(
-    { apiId: 1, startDate: dateRange.startDate, endDate: dateRange.endDate },
+    { apiId: 1, startDate: dateRange.startDate.toISOString(), endDate: dateRange.endDate.toISOString() },
     { refetchOnWindowFocus: false }
   );
   const { data: api2Stats } = trpc.apiPerformance.getDetailedStats.useQuery(
-    { apiId: 2, startDate: dateRange.startDate, endDate: dateRange.endDate },
+    { apiId: 2, startDate: dateRange.startDate.toISOString(), endDate: dateRange.endDate.toISOString() },
     { refetchOnWindowFocus: false }
   );
   const { data: api3Stats } = trpc.apiPerformance.getDetailedStats.useQuery(
-    { apiId: 3, startDate: dateRange.startDate, endDate: dateRange.endDate },
+    { apiId: 3, startDate: dateRange.startDate.toISOString(), endDate: dateRange.endDate.toISOString() },
     { refetchOnWindowFocus: false }
   );
 

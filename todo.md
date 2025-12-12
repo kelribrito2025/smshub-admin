@@ -2265,3 +2265,23 @@
 - [x] Mover componente de comparação detalhada para o dashboard
 - [x] Ajustar componente de ativações recentes para mostrar 20 últimas
 - [x] Testar e validar dashboard reorganizado
+
+
+---
+
+## 🐛 Erros de Procedimentos tRPC Faltantes
+
+**Problema:**
+- Página /admin/dashboard está gerando erros 404 no console
+- Procedimentos tRPC não encontrados:
+  - `apiPerformance.getDetailedStats`
+  - `apiPerformance.getComparison`
+
+**Causa:**
+- Frontend está chamando procedimentos que não existem no backend
+- Falta implementar os procedimentos no server/routers.ts
+
+**Tarefas:**
+- [x] Adicionar procedimento apiPerformance.getDetailedStats no backend
+- [x] Adicionar procedimento apiPerformance.getComparison no backend
+- [x] Testar página /admin/dashboard após correções
