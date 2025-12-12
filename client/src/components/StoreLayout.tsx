@@ -120,6 +120,12 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
       staleTime: 60 * 1000, // 1 minute
     }
   );
+
+  // Query para verificar se o Programa de Afiliados está ativo
+  const affiliateProgramQuery = trpc.affiliate.getProgramInfo.useQuery(undefined, {
+    refetchOnWindowFocus: false,
+    staleTime: 10 * 60 * 1000, // 10 minutes
+  });
   
   // ✅ REMOVIDO: Query duplicada - será carregada apenas na página específica (StoreCatalog)
   // const activationsQuery = trpc.store.getMyActivations.useQuery(...)
@@ -451,7 +457,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
                 Histórico
               </Button>
             )}
-            {isAuthenticated && (
+            {isAuthenticated && affiliateProgramQuery.data?.isActive && (
               <Button
                 onClick={() => setLocation('/affiliate')}
                 variant="ghost"
@@ -570,13 +576,15 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
                     Histórico
                   </DropdownMenuItem>
 
-                  <DropdownMenuItem 
-                    onClick={() => setLocation('/affiliate')}
-                    className="lg:hidden text-green-400 hover:text-green-300 hover:bg-green-900/20 cursor-pointer"
-                  >
-                    <Gift className="w-4 h-4 mr-2" />
-                    Afiliados
-                  </DropdownMenuItem>
+                  {affiliateProgramQuery.data?.isActive && (
+                    <DropdownMenuItem 
+                      onClick={() => setLocation('/affiliate')}
+                      className="lg:hidden text-green-400 hover:text-green-300 hover:bg-green-900/20 cursor-pointer"
+                    >
+                      <Gift className="w-4 h-4 mr-2" />
+                      Afiliados
+                    </DropdownMenuItem>
+                  )}
                 </>
               )}
               {isAuthenticated ? (

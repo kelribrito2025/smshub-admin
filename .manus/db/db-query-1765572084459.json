@@ -1,0 +1,9 @@
+{
+  "query": "DELETE FROM admin_menus WHERE label = 'Pagamentos';\nUPDATE admin_menus SET position = 12 WHERE label = 'Auditoria';\nUPDATE admin_menus SET position = 13 WHERE label = 'Afiliados';\nUPDATE admin_menus SET position = 14 WHERE label = 'Taxa de Câmbio';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute DELETE FROM admin_menus WHERE label = 'Pagamentos';\nUPDATE admin_menus SET position = 12 WHERE label = 'Auditoria';\nUPDATE admin_menus SET position = 13 WHERE label = 'Afiliados';\nUPDATE admin_menus SET position = 14 WHERE label = 'Taxa de Câmbio';",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 75
+}

@@ -143,10 +143,9 @@ export const adminMenusRouter = router({
       { label: "Documentação API", path: "/api-docs", icon: "FileText", position: 9 },
       { label: "APIs SMSHub", path: "/apis", icon: "Server", position: 10 },
       { label: "Métricas de API", path: "/api-metrics", icon: "BarChart", position: 11 },
-      { label: "Pagamentos", path: "/payment-settings", icon: "CreditCard", position: 12 },
-      { label: "Auditoria", path: "/audit", icon: "Shield", position: 13 },
-      { label: "Afiliados", path: "/affiliate-admin", icon: "UserPlus", position: 14 },
-      { label: "Taxa de Câmbio", path: "/exchange-rate", icon: "TrendingUp", position: 15 },
+      { label: "Auditoria", path: "/audit", icon: "Shield", position: 12 },
+      { label: "Afiliados", path: "/affiliate-admin", icon: "UserPlus", position: 13 },
+      { label: "Taxa de Câmbio", path: "/exchange-rate", icon: "TrendingUp", position: 14 },
     ];
 
     await db.insert(adminMenus).values(defaultMenus);

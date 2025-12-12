@@ -2213,3 +2213,30 @@
 - [x] Remover link de /admin/payment-settings do menu de navegação do AdminLayout
 - [x] Verificar se há outras referências à página no código
 - [x] Testar navegação do admin para confirmar remoção
+
+
+---
+
+## 🗑️ Remover Item 'Pagamentos' da Navegação
+
+**Objetivo:**
+- Remover o item de menu 'Pagamentos' da navegação do DashboardLayout
+- Limpar referências no código
+
+**Tarefas:**
+- [x] Remover item 'Pagamentos' do array navigationItems no DashboardLayout.tsx
+
+
+
+---
+
+## 🔒 Ocultar Menu "Afiliados" Quando Programa Estiver Desativado
+
+**Objetivo:**
+- Ocultar o item "Afiliados" do menu de navegação quando o Programa de Afiliados estiver desativado
+- Manter o item visível quando o programa estiver ativado
+
+**Tarefas:**
+- [x] Verificar onde está a configuração do status do Programa de Afiliados
+- [x] Implementar lógica condicional no StoreLayout para ocultar/mostrar item "Afiliados"
+- [x] Testar com programa ativado e desativado
