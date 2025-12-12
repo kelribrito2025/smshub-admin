@@ -2573,8 +2573,7 @@
 - Alterar o texto do botão "Painel" para "Painel de Vendas" no DashboardLayout
 - Aplicar alteração apenas na versão desktop
 
-**Tarefas:**
-- [ ] Alterar texto do botão "Painel" para "Painel de Vendas" no DashboardLayout (versão desktop)
+**Tarefas:**- [x] Alterar texto do botão "Painel de Vendas" para "Painel Admin" no StoreLayout(versão desktop)
 
 ---
 
@@ -2598,3 +2597,17 @@
 **Tarefas:**
 - [x] Alterar texto do botão no Dashboard.tsx
 - [x] Mover botão de filtro de data ao lado do título Dashboard (apenas mobile) no StoreLayout
+
+---
+
+## 💰 Atualizar Formatação de Valores no DashboardLayout
+
+**Objetivo:**
+- Alterar formatação de valores monetários no "Saldo das APIs" para formato brasileiro
+- Usar ponto como separador de milhar e vírgula como separador decimal
+- Exemplo: R$ 32.515,37 ao invés de R$ 32515.37
+
+**Tarefas:**
+- [x] Atualizar formatação dos valores das APIs no DashboardLayout
+- [x] Testar visualização com diferentes valores
+- [x] Criar checkpoint

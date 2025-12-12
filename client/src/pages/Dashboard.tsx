@@ -304,7 +304,7 @@ export default function Dashboard() {
                             <span className="text-red-500 text-xs">Erro</span>
                           ) : (
                             <span>
-                              {api.currency === 'BRL' ? 'R$' : '$'} {api.balance.toFixed(2)}
+                              {api.currency === 'BRL' ? 'R$' : '$'} {api.balance.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                             </span>
                           )}
                         </span>

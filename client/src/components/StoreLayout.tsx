@@ -520,7 +520,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
               className="bg-purple-500 hover:bg-purple-600 text-white font-bold flex items-center gap-2 lg:px-4 lg:py-2 px-3 py-2 h-9 lg:h-10"
             >
               <Shield className="w-4 h-4" />
-              <span className="text-xs sm:text-sm lg:text-base">Painel de Vendas</span>
+              <span className="text-xs sm:text-sm lg:text-base">Painel Admin</span>
             </Button>
           )}
 
