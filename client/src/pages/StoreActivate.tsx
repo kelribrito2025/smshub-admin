@@ -70,7 +70,7 @@ export default function StoreActivate() {
               <CheckCircle className="w-16 h-16 text-green-400" />
               <p className="text-green-400 font-mono text-center">{message}</p>
               <Button
-                onClick={() => window.open('https://app.numero-virtual.com', '_blank', 'noopener,noreferrer')}
+                onClick={() => setLocation('/store/login')}
                 className="w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-black font-bold font-mono mt-4"
               >
                 Fazer Login
