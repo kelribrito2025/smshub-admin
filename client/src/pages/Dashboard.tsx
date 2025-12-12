@@ -3,7 +3,7 @@ import DashboardLayout from "@/components/DashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
-import { Activity, DollarSign, TrendingUp, Users, ShoppingCart, LayoutDashboard, ArrowDown, CheckCircle2, XCircle, Download, Loader2, TrendingDown, Minus } from "lucide-react";
+import { Activity, DollarSign, TrendingUp, Users, ShoppingCart, LayoutDashboard, ArrowDown, CheckCircle2, XCircle, Download, Loader2, TrendingDown, Minus, Calendar } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -13,6 +13,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Link } from "wouter";
 import { useEffect, useState, useMemo } from "react";
 import { toast } from "sonner";
@@ -34,8 +41,11 @@ import {
   YAxis,
 } from "recharts";
 
+type PeriodFilter = 'today' | 'yesterday' | 'last7days' | 'last30days' | 'last90days';
+
 export default function Dashboard() {
   const { user, loading } = useAuth();
+  const [periodFilter, setPeriodFilter] = useState<PeriodFilter>('last30days');
 
   const { data: dashboardData, isLoading, error } = trpc.stats.getDashboard.useQuery();
   
@@ -45,13 +55,35 @@ export default function Dashboard() {
     refetchOnWindowFocus: false,
   });
 
-  // Fetch financial data for the chart (últimos 30 dias)
+  // Fetch financial data for the chart based on period filter
   const dateRange = useMemo(() => {
     const endDate = new Date();
     const startDate = new Date();
-    startDate.setDate(endDate.getDate() - 30);
+    
+    switch (periodFilter) {
+      case 'today':
+        startDate.setHours(0, 0, 0, 0);
+        endDate.setHours(23, 59, 59, 999);
+        break;
+      case 'yesterday':
+        startDate.setDate(endDate.getDate() - 1);
+        startDate.setHours(0, 0, 0, 0);
+        endDate.setDate(endDate.getDate() - 1);
+        endDate.setHours(23, 59, 59, 999);
+        break;
+      case 'last7days':
+        startDate.setDate(endDate.getDate() - 7);
+        break;
+      case 'last30days':
+        startDate.setDate(endDate.getDate() - 30);
+        break;
+      case 'last90days':
+        startDate.setDate(endDate.getDate() - 90);
+        break;
+    }
+    
     return { startDate, endDate };
-  }, []);
+  }, [periodFilter]);
 
   const { data: revenueByPeriod, isLoading: revenueLoading } = trpc.financial.getRevenueByPeriod.useQuery(
     {
@@ -202,6 +234,19 @@ export default function Dashboard() {
             </p>
           </div>
           <div className="flex gap-2">
+            <Select value={periodFilter} onValueChange={(value) => setPeriodFilter(value as PeriodFilter)}>
+              <SelectTrigger className="w-[180px]">
+                <Calendar className="mr-2 h-4 w-4" />
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="today">Hoje</SelectItem>
+                <SelectItem value="yesterday">Ontem</SelectItem>
+                <SelectItem value="last7days">Últimos 7 dias</SelectItem>
+                <SelectItem value="last30days">Últimos 30 dias</SelectItem>
+                <SelectItem value="last90days">Últimos 90 dias</SelectItem>
+              </SelectContent>
+            </Select>
             <a href="https://app.numero-virtual.com" target="_blank" rel="noopener noreferrer">
               <Button className="gap-2">
                 <ShoppingCart className="h-4 w-4" />

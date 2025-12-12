@@ -2327,3 +2327,21 @@
 - [x] Implementar conteúdo da aba "Por Serviço" (já estava implementado)
 - [x] Implementar conteúdo da aba "Transações"
 - [x] Testar navegação e conteúdo de cada aba
+
+
+---
+
+## 📅 Adicionar Filtro de Período no Dashboard Administrativo
+
+**Objetivo:**
+- Adicionar dropdown de filtro de período no header do Dashboard administrativo
+- Permitir filtrar dados por: Hoje, Ontem, Últimos 7 dias, Últimos 30 dias, Últimos 90 dias
+- Atualizar todos os KPIs e gráficos com base no período selecionado
+
+**Tarefas:**
+- [x] Criar componente de dropdown de filtro de período
+- [x] Adicionar estado de período selecionado no Dashboard
+- [x] Atualizar queries do backend para aceitar parâmetro de período
+- [x] Integrar filtro com KPIs (Saldo APIs, Total Ativações, Receita Total, Lucro Total)
+- [x] Integrar filtro com gráficos (Receita vs Custo, Ativações por Dia)
+- [x] Testar todos os períodos e validar cálculos
