@@ -60,7 +60,7 @@ export default function Settings() {
 
     setAffiliateEditing({
       bonusPercentage: (affiliateSettings?.bonusPercentage || 10).toString(),
-      description: affiliateSettings?.description || "Afiliados ganharão 10% do valor da primeira recarga dos indicados",
+      description: affiliateSettings?.description || "Bônus de 10% sobre a 1ª recarga do indicados.",
     });
     setIsEditingAffiliate(true);
   };
@@ -204,7 +204,7 @@ export default function Settings() {
   }
 
   const affiliateBonusPercentage = affiliateSettings?.bonusPercentage || 10;
-  const affiliateDescription = affiliateSettings?.description || "Afiliados ganharão 10% do valor da primeira recarga dos indicados";
+  const affiliateDescription = affiliateSettings?.description || "Bônus de 10% sobre a 1ª recarga do indicados.";
   const affiliateIsActive = affiliateSettings?.isActive ?? true;
 
   const paymentMethods = [
@@ -220,7 +220,7 @@ export default function Settings() {
     },
     {
       id: 'stripe' as PaymentMethod,
-      name: 'Cartão de Crédito',
+      name: 'Cartão',
       icon: CreditCard,
       iconColor: 'text-blue-500',
       iconBg: 'bg-blue-500/10',
