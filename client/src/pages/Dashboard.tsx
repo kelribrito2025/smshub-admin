@@ -3,7 +3,7 @@ import DashboardLayout from "@/components/DashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
-import { Activity, DollarSign, TrendingUp, Users, ShoppingCart, LayoutDashboard, ArrowDown, CheckCircle2, XCircle, Download, Loader2, TrendingDown, Minus, Calendar } from "lucide-react";
+import { Activity, DollarSign, TrendingUp, Users, ShoppingCart, LayoutDashboard, ArrowDown, CheckCircle2, XCircle, Download, Loader2, TrendingDown, Minus, Calendar, ChevronDown } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -46,6 +46,7 @@ type PeriodFilter = 'today' | 'yesterday' | 'last7days' | 'last30days' | 'last90
 export default function Dashboard() {
   const { user, loading } = useAuth();
   const [periodFilter, setPeriodFilter] = useState<PeriodFilter>('last30days');
+  const [servicesFilter, setServicesFilter] = useState('Hoje');
 
   const { data: dashboardData, isLoading, error } = trpc.stats.getDashboard.useQuery();
   
@@ -733,45 +734,54 @@ export default function Dashboard() {
         {/* 3) DOIS CARDS LADO A LADO - Serviços e Países */}
         <div className="grid gap-4 md:grid-cols-2">
           {/* Serviços Mais Vendidos */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Serviços Mais Vendidos</CardTitle>
-              <CardDescription>Top 5 serviços por número de vendas</CardDescription>
-            </CardHeader>
-            <CardContent>
+          <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h2 className="text-lg font-medium text-white mb-1">Serviços Mais Vendidos</h2>
+                <p className="text-sm text-neutral-500">Top 15 serviços por número de vendas</p>
+              </div>
+
+              <div className="relative">
+                <select
+                  value={servicesFilter}
+                  onChange={(e) => setServicesFilter(e.target.value)}
+                  className="appearance-none bg-neutral-900 border border-neutral-800 rounded-lg px-4 py-2 pr-10 text-white text-sm cursor-pointer hover:border-neutral-700 transition-colors focus:outline-none focus:border-blue-500"
+                >
+                  <option>Hoje</option>
+                  <option>Ontem</option>
+                  <option>Semana passada</option>
+                  <option>Mês passado</option>
+                </select>
+                <ChevronDown size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none" />
+              </div>
+            </div>
+
+            <div className="h-[420px] overflow-y-auto pr-2 space-y-4 scrollbar-thin">
               {dashboardData?.topServices && dashboardData.topServices.length > 0 ? (
-                <AnimatedList className="space-y-4">
-                  {dashboardData.topServices.map((item, index) => (
-                    <AnimatedListItem key={index}>
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold">
-                            {index + 1}
-                          </div>
-                          <div>
-                            <p className="font-medium">{item.service?.name}</p>
-                            <p className="text-xs text-muted-foreground">
-                              {item.count} vendas
-                            </p>
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          <p className="font-medium">{formatCurrency(Number(item.revenue) || 0)}</p>
-                          <p className="text-xs text-green-600">
-                            +{formatCurrency(Number(item.profit) || 0)}
-                          </p>
-                        </div>
+                dashboardData.topServices.slice(0, 15).map((item, index) => (
+                  <div key={index} className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <span className="text-neutral-500 text-sm font-medium w-6">{index + 1}</span>
+                      <div>
+                        <div className="text-white text-sm">{item.service?.name}</div>
+                        <div className="text-neutral-500 text-xs">{item.count} vendas</div>
                       </div>
-                    </AnimatedListItem>
-                  ))}
-                </AnimatedList>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-white text-sm">{formatCurrency(Number(item.revenue) || 0)}</div>
+                      <div className={`text-xs ${Number(item.profit) < 0 ? 'text-red-500' : 'text-emerald-500'}`}>
+                        {Number(item.profit) < 0 ? '' : '+'}{formatCurrency(Number(item.profit) || 0)}
+                      </div>
+                    </div>
+                  </div>
+                ))
               ) : (
-                <div className="text-center py-8 text-muted-foreground">
+                <div className="text-center py-8 text-neutral-400">
                   Nenhuma venda registrada ainda
                 </div>
               )}
-            </CardContent>
-          </Card>
+            </div>
+          </div>
 
           {/* Países Mais Utilizados */}
           <Card>

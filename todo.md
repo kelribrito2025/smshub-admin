@@ -2378,3 +2378,4 @@
 - [x] Aplicar estilo com fundo branco, sombra e bordas arredondadas
 - [x] Definir cores específicas para cada métrica
 - [x] Testar visualização do tooltip
+- [x] Implementar novo visual para o card de Serviços Mais Vendidos
