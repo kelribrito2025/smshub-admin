@@ -15,7 +15,7 @@ import {
   createCustomer,
   addBalance,
 } from './customers-helpers';
-import { sendWelcomeEmail } from './mailchimp-email';
+import { sendWelcomeEmail, sendActivationEmail } from './mailchimp-email';
 import {
   createActivation,
   getActivationById,
@@ -578,6 +578,11 @@ router.post('/customers', async (req: Request, res: Response) => {
       name: name || 'Indefinido',
       balance: 0,
       active: true,
+    });
+
+    // Enviar email de ativação (não bloquear resposta se falhar)
+    sendActivationEmail(customer.email, customer.name, customer.id).catch(error => {
+      console.error('[REST API] Failed to send activation email:', error);
     });
 
     // Enviar email de boas-vindas (não bloquear resposta se falhar)

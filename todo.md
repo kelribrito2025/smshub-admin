@@ -1951,3 +1951,21 @@
 - [x] Verificar configuração de serviço de email (Mandrill/Mailchimp)
 - [x] Implementar envio de email de boas-vindas no endpoint de criação
 - [x] Testar envio de email com conta real (xkelrix@gmail.com)
+
+
+---
+
+## 📧 BUG: Emails de Ativação e Boas-Vindas Não Chegam em Produção
+
+**Problema:**
+- Emails de ativação e boas-vindas funcionam corretamente no ambiente de desenvolvimento
+- Em produção, nenhum email é recebido pelo usuário
+- Possíveis causas: configuração de SMTP, variáveis de ambiente, rate limiting, ou problemas com Mandrill/Mailchimp
+
+**Tarefas:**
+- [x] Investigar configuração de email no ambiente de produção vs desenvolvimento
+- [x] Verificar variáveis de ambiente relacionadas a email (MANDRILL_API_KEY, MAILCHIMP_*)
+- [x] Verificar logs de envio de email no servidor de produção
+- [x] Testar envio de email manualmente em produção
+- [x] Corrigir problema identificado
+- [x] Validar que emails chegam corretamente em produção
