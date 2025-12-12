@@ -236,7 +236,7 @@ export default function Dashboard() {
           </div>
           <div className="flex gap-2">
             <Select value={periodFilter} onValueChange={(value) => setPeriodFilter(value as PeriodFilter)}>
-              <SelectTrigger className="w-auto min-w-[140px]">
+              <SelectTrigger className="w-auto min-w-[140px]" style={{width: '130px'}}>
                 <Calendar className="mr-2 h-4 w-4" />
                 <SelectValue />
               </SelectTrigger>
