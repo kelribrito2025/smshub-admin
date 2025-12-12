@@ -2123,3 +2123,21 @@
 - [x] Remover card de Próximos Passos
 - [x] Remover estados e queries relacionados aos cards removidos
 - [x] Testar página após limpeza
+
+
+---
+
+## 🎨 Redesign do Card de Cotação na Página /admin/apis
+
+**Objetivo:**
+- Atualizar visual do card de cotação para layout horizontal
+- Adicionar botão "Sincronizar" alinhado à direita
+- Seguir design da página admin (fundo escuro, bordas sutis, hover states)
+
+**Tarefas:**
+- [x] Modificar layout do card de cotação para horizontal
+- [x] Adicionar botão "Sincronizar" com ícone RefreshCw
+- [x] Aplicar estilos consistentes com o design do sistema
+- [x] Testar responsividade e hover states
+
+- [x] Implementar sistema de toast personalizado no painel admin com estilo verde e backdrop blur

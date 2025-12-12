@@ -28,7 +28,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '../../components/ui/tooltip';
-import { toast } from 'sonner';
+import { useAdminToast } from '../../hooks/useAdminToast';
 import { CurrencyInput } from '../../components/ui/currency-input';
 import { Switch } from '../../components/ui/switch';
 import {
@@ -55,6 +55,7 @@ interface ApiFormData {
 }
 
 export default function Apis() {
+  const { showToast, ToastContainer } = useAdminToast();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingApi, setEditingApi] = useState<number | null>(null);
   const [copiedTokenId, setCopiedTokenId] = useState<number | null>(null);
@@ -77,67 +78,55 @@ export default function Apis() {
   const exchangeRateQuery = trpc.exchangeRate.getInfo.useQuery();
   const fullSyncMutation = trpc.exchangeRate.fullSync.useMutation({
     onSuccess: (data) => {
-      toast.success(`Sincronização concluída!`, {
-        description: `${data.apisUpdated} APIs e ${data.pricesRecalculated} preços atualizados`
-      });
+      showToast(`Sincronização concluída! ${data.apisUpdated} APIs e ${data.pricesRecalculated} preços atualizados`, 'success');
       exchangeRateQuery.refetch();
       apisQuery.refetch();
     },
     onError: (error) => {
-      toast.error('Erro ao sincronizar câmbio', {
-        description: error.message
-      });
+      showToast(`Erro ao sincronizar câmbio: ${error.message}`, 'error');
     }
   });
   const createMutation = trpc.apis.create.useMutation({
     onSuccess: () => {
-      toast.success('API adicionada com sucesso!');
+      showToast('API adicionada com sucesso!', 'success');
       apisQuery.refetch();
       setIsDialogOpen(false);
       resetForm();
     },
     onError: (error) => {
-      toast.error('Erro ao adicionar API', {
-        description: error.message,
-      });
+      showToast(`Erro ao adicionar API: ${error.message}`, 'error');
     },
   });
 
   const updateMutation = trpc.apis.update.useMutation({
     onSuccess: () => {
-      toast.success('API atualizada e preços recalculados automaticamente!');
+      showToast('API atualizada e preços recalculados automaticamente!', 'success');
       apisQuery.refetch();
       setIsDialogOpen(false);
       resetForm();
     },
     onError: (error) => {
-      toast.error('Erro ao atualizar API', {
-        description: error.message,
-      });
+      showToast(`Erro ao atualizar API: ${error.message}`, 'error');
     },
   });
 
   const deleteMutation = trpc.apis.delete.useMutation({
     onSuccess: () => {
-      toast.success('API removida com sucesso!');
+      showToast('API removida com sucesso!', 'success');
       apisQuery.refetch();
     },
     onError: (error) => {
-      toast.error('Erro ao remover API', {
-        description: error.message,
-      });
+      showToast(`Erro ao remover API: ${error.message}`, 'error');
     },
   });
 
   const toggleActiveMutation = trpc.apis.toggleActive.useMutation({
     onSuccess: () => {
-      toast.success('Status atualizado!');
+      showToast('Status atualizado!', 'success');
       apisQuery.refetch();
     },
     onError: (error) => {
-      toast.error('Erro ao atualizar status', {
-        description: error.message,
-      });
+      showToast(`Erro ao atualizar status: ${error.message}`, 'error');
     },
   });
 
@@ -226,19 +215,21 @@ export default function Apis() {
         navigator.vibrate(50);
       }
       
-      toast.success('Token copiado!');
+      showToast('Token copiado!', 'success');
       
       // Reset ícone após 2 segundos
       setTimeout(() => {
         setCopiedTokenId(null);
       }, 2000);
     } catch (err) {
-      toast.error('Erro ao copiar token');
+      showToast('Erro ao copiar token', 'error');
     }
   };
 
   return (
-    <DashboardLayout>
+    <>
+      <ToastContainer />
+      <DashboardLayout>
       <div className="p-8 space-y-6">
         <div className="flex items-center justify-between">
           <div>
@@ -260,76 +251,39 @@ export default function Apis() {
         </div>
 
         {/* Exchange Rate Card */}
-        <Card className="bg-green-900/20 border-green-500/30" style={{paddingTop: '0px'}}>
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between gap-4">
-              <div className="flex items-center gap-3 flex-1">
-                <DollarSign className="w-5 h-5 text-green-400 flex-shrink-0" />
-                <div className="flex-1">
-                  <div className="flex items-center gap-2">
-                    <h3 className="font-semibold text-green-400">Cotação USD/BRL</h3>
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <Info className="w-4 h-4 text-gray-400 cursor-help" />
-                        </TooltipTrigger>
-                        <TooltipContent className="max-w-xs">
-                          <div className="space-y-2 text-sm">
-                            {exchangeRateQuery.data?.nextUpdate && (
-                              <p>
-                                <strong>Próxima Atualização:</strong>{' '}
-                                {new Date(exchangeRateQuery.data.nextUpdate).toLocaleString('pt-BR', {
-                                  hour: '2-digit',
-                                  minute: '2-digit'
-                                })}
-                              </p>
-                            )}
-                            <p>Atualização automática diária às 9h (horário de Brasília)</p>
-                          </div>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </div>
-                  {exchangeRateQuery.isLoading ? (
-                    <p className="text-sm text-gray-300 mt-1">Carregando cotação...</p>
-                  ) : exchangeRateQuery.data?.rate ? (
-                    <div className="flex items-baseline gap-3 mt-1">
-                      <p className="text-2xl font-bold text-green-400">
-                        R$ {exchangeRateQuery.data.rate.toFixed(2)}
-                      </p>
-                      <p className="text-sm text-gray-400 flex items-center gap-1">
-                        <Clock className="w-3 h-3" />
-                        {new Date(exchangeRateQuery.data.lastUpdate!).toLocaleString('pt-BR')}
-                      </p>
-                    </div>
-                  ) : (
-                    <p className="text-sm text-gray-300 mt-1">
-                      Nenhuma API em USD configurada
-                    </p>
-                  )}
+        <div className="bg-neutral-900 border border-neutral-800 rounded-lg px-6 py-4 flex items-center justify-between hover:border-neutral-700 transition-colors">
+          <div className="flex items-baseline gap-6">
+            <div>
+              <div className="text-neutral-500 text-xs font-medium mb-1">USD/BRL</div>
+              {exchangeRateQuery.isLoading ? (
+                <div className="text-white text-2xl font-light">Carregando...</div>
+              ) : exchangeRateQuery.data?.rate ? (
+                <div className="text-white text-2xl font-light">
+                  R$ {exchangeRateQuery.data.rate.toFixed(2)}
                 </div>
-              </div>
-              <Button
-                onClick={() => fullSyncMutation.mutate()}
-                disabled={fullSyncMutation.isPending}
-                size="sm"
-                className="bg-green-600 hover:bg-green-700 flex-shrink-0"
-              >
-                {fullSyncMutation.isPending ? (
-                  <>
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Sincronizando...
-                  </>
-                ) : (
-                  <>
-                    <RefreshCw className="w-4 h-4 mr-2" />
-                    Sincronizar Agora
-                  </>
-                )}
-              </Button>
+              ) : (
+                <div className="text-neutral-500 text-2xl font-light">--</div>
+              )}
             </div>
-          </CardContent>
-        </Card>
+            {exchangeRateQuery.data?.lastUpdate && (
+              <div className="text-neutral-600 text-xs self-center">
+                {new Date(exchangeRateQuery.data.lastUpdate).toLocaleTimeString('pt-BR', {
+                  hour: '2-digit',
+                  minute: '2-digit'
+                })}
+              </div>
+            )}
+          </div>
+
+          <button
+            onClick={() => fullSyncMutation.mutate()}
+            disabled={fullSyncMutation.isPending}
+            className="flex items-center gap-2 text-neutral-400 hover:text-white text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <RefreshCw size={16} className={fullSyncMutation.isPending ? 'animate-spin' : ''} />
+            {fullSyncMutation.isPending ? 'Sincronizando...' : 'Sincronizar'}
+          </button>
+        </div>
 
         {/* Info Card */}
         <Card style={{ backgroundColor: '#141417' }}>
@@ -743,5 +697,6 @@ export default function Apis() {
         </Dialog>
       </div>
     </DashboardLayout>
+    </>
   );
 }
