@@ -107,7 +107,14 @@ export async function getPaymentSettings() {
   return result.length > 0 ? result[0] : null;
 }
 
-export async function updatePaymentSettings(pixEnabled: boolean, stripeEnabled: boolean) {
+export async function updatePaymentSettings(input: {
+  pixEnabled?: boolean;
+  pixMinAmount?: number;
+  pixBonusPercentage?: number;
+  stripeEnabled?: boolean;
+  stripeMinAmount?: number;
+  stripeBonusPercentage?: number;
+}) {
   const db = await getDb();
   if (!db) {
     console.warn("[Database] Cannot update payment settings: database not available");
@@ -118,15 +125,22 @@ export async function updatePaymentSettings(pixEnabled: boolean, stripeEnabled: 
   const existing = await getPaymentSettings();
   
   if (existing) {
-    // Update existing record
+    // Update existing record with only provided fields
     await db.update(paymentSettings)
-      .set({ pixEnabled, stripeEnabled })
+      .set(input)
       .where(eq(paymentSettings.id, existing.id));
     
     return await getPaymentSettings();
   } else {
-    // Insert new record
-    await db.insert(paymentSettings).values({ pixEnabled, stripeEnabled });
+    // Insert new record with defaults for missing fields
+    await db.insert(paymentSettings).values({
+      pixEnabled: input.pixEnabled ?? true,
+      pixMinAmount: input.pixMinAmount ?? 1000,
+      pixBonusPercentage: input.pixBonusPercentage ?? 5,
+      stripeEnabled: input.stripeEnabled ?? true,
+      stripeMinAmount: input.stripeMinAmount ?? 2000,
+      stripeBonusPercentage: input.stripeBonusPercentage ?? 0,
+    });
     return await getPaymentSettings();
   }
 }

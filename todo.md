@@ -2123,3 +2123,39 @@
 - [x] Remover card de Próximos Passos
 - [x] Remover estados e queries relacionados aos cards removidos
 - [x] Testar página após limpeza
+
+
+---
+
+## 🎨 Redesign da Página de Pagamentos - Layout em Lista (Rows)
+
+**Objetivo:**
+- Refazer o layout da página de Pagamentos para seguir o mesmo padrão visual da página de APIs
+- Exibir métodos de pagamento em lista (rows) ao invés de cards
+- Implementar edição inline por linha
+- Remover card "Como funciona?"
+
+**Especificações:**
+- Layout em lista com colunas: Método, Valor Mínimo (R$), Bônus (%), Status, Ações
+- Ícone + nome do método em badge quadrado (igual página de APIs)
+- Edição inline: clicar no ícone de editar transforma apenas aquela linha em modo edição
+- Inputs aparecem apenas na linha editada (Valor Mínimo e Bônus)
+- Botões Salvar/Cancelar aparecem apenas durante edição
+- Toggle on/off sempre visível para ativar/desativar método
+- Apenas uma linha em edição por vez
+- Validações: valor mínimo não negativo e não vazio, bônus 0-100
+- Feedback com toast para ações de salvar/ativar/desativar
+- Responsivo: desktop como tabela, mobile empilhado
+
+**Tarefas:**
+- [x] Refazer layout da página de Pagamentos em formato de lista (rows) igual à página de APIs
+- [x] Implementar edição inline por linha com inputs para Valor Mínimo e Bônus
+- [x] Adicionar botões Salvar/Cancelar durante edição (substituem ícone de editar)
+- [x] Implementar validações (valor mínimo não negativo, bônus 0-100)
+- [x] Adicionar feedback com toast para ações de salvar/ativar/desativar
+- [x] Remover card "Como funciona?" da página de Pagamentos
+- [x] Garantir que apenas uma linha pode estar em edição por vez
+- [x] Implementar responsividade (desktop tabela, mobile empilhado)
+- [x] Estender schema do banco de dados com campos minAmount e bonusPercentage
+- [x] Atualizar router e procedures do backend
+- [x] Criar e executar testes unitários (9 testes passando)

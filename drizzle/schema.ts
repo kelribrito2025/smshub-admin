@@ -359,7 +359,11 @@ export type InsertStripeTransaction = typeof stripeTransactions.$inferInsert;
 export const paymentSettings = mysqlTable("payment_settings", {
   id: int("id").autoincrement().primaryKey(),
   pixEnabled: boolean("pix_enabled").default(true).notNull(),
+  pixMinAmount: int("pix_min_amount").default(1000).notNull(), // in cents (R$ 10.00)
+  pixBonusPercentage: int("pix_bonus_percentage").default(5).notNull(), // 5%
   stripeEnabled: boolean("stripe_enabled").default(true).notNull(),
+  stripeMinAmount: int("stripe_min_amount").default(2000).notNull(), // in cents (R$ 20.00)
+  stripeBonusPercentage: int("stripe_bonus_percentage").default(0).notNull(), // 0%
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
 
