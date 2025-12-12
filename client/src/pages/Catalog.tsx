@@ -12,7 +12,7 @@ import { Label } from '../components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 import { Switch } from '../components/ui/switch';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../components/ui/tooltip';
-import { toast } from '@/contexts/ToastContext';
+import { toast } from 'sonner';
 
 interface CatalogItem {
   id: number;

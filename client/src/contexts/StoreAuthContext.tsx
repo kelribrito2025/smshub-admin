@@ -4,7 +4,6 @@ import LoginModal from '../components/LoginModal';
 import BannedAccountModal from '../components/BannedAccountModal';
 import { useNotifications, type Notification } from '../hooks/useNotifications';
 import InitialLoader from '../components/InitialLoader';
-import { Toaster } from 'sonner';
 
 // ✅ REMOVIDO: Prefetch de páginas (causava lentidão no carregamento inicial)
 // Páginas serão carregadas sob demanda (lazy loading) quando o usuário navegar
@@ -296,20 +295,6 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
   return (
     <StoreAuthContext.Provider value={contextValue}>
       {isLoading ? <InitialLoader /> : children}
-      <Toaster 
-        position="top-right" 
-        expand={false} 
-        richColors 
-        closeButton 
-        duration={4000}
-        toastOptions={{
-          style: {
-            background: '#0a0a0a',
-            border: '1px solid rgba(34, 197, 94, 0.3)',
-            color: '#22c55e',
-          },
-        }}
-      />
       <LoginModal
         isOpen={isLoginModalOpen}
         onClose={handleLoginModalClose}

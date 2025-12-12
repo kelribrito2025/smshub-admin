@@ -28,7 +28,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '../../components/ui/tooltip';
-import { toast } from '@/contexts/ToastContext';
+import { toast } from 'sonner';
 import { CurrencyInput } from '../../components/ui/currency-input';
 import { Switch } from '../../components/ui/switch';
 import {
@@ -77,12 +77,16 @@ export default function Apis() {
   const exchangeRateQuery = trpc.exchangeRate.getInfo.useQuery();
   const fullSyncMutation = trpc.exchangeRate.fullSync.useMutation({
     onSuccess: (data) => {
-      toast.success(`Sincronização concluída! ${data.apisUpdated} APIs e ${data.pricesRecalculated} preços atualizados`);
+      toast.success(`Sincronização concluída!`, {
+        description: `${data.apisUpdated} APIs e ${data.pricesRecalculated} preços atualizados`
+      });
       exchangeRateQuery.refetch();
       apisQuery.refetch();
     },
     onError: (error) => {
-      toast.error(`Erro ao sincronizar câmbio: ${error.message}`);
+      toast.error('Erro ao sincronizar câmbio', {
+        description: error.message
+      });
     }
   });
   const createMutation = trpc.apis.create.useMutation({
@@ -93,7 +97,9 @@ export default function Apis() {
       resetForm();
     },
     onError: (error) => {
-      toast.error(`Erro ao adicionar API: ${error.message}`);
+      toast.error('Erro ao adicionar API', {
+        description: error.message,
+      });
     },
   });
 
@@ -105,7 +111,9 @@ export default function Apis() {
       resetForm();
     },
     onError: (error) => {
-      toast.error(`Erro ao atualizar API: ${error.message}`);
+      toast.error('Erro ao atualizar API', {
+        description: error.message,
+      });
     },
   });
 
@@ -115,7 +123,9 @@ export default function Apis() {
       apisQuery.refetch();
     },
     onError: (error) => {
-      toast.error(`Erro ao remover API: ${error.message}`);
+      toast.error('Erro ao remover API', {
+        description: error.message,
+      });
     },
   });
 
@@ -125,7 +135,9 @@ export default function Apis() {
       apisQuery.refetch();
     },
     onError: (error) => {
-      toast.error(`Erro ao atualizar status: ${error.message}`);
+      toast.error('Erro ao atualizar status', {
+        description: error.message,
+      });
     },
   });
 

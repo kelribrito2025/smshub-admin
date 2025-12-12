@@ -5,7 +5,7 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
-import { toast } from "@/contexts/ToastContext";
+import { toast } from "sonner";
 import { Loader2, CreditCard, Smartphone } from "lucide-react";
 
 export default function PaymentSettings() {

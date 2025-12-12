@@ -1,4 +1,4 @@
-import { toast } from '@/contexts/ToastContext';
+import { toast } from 'sonner';
 
 export default function ToastTest() {
   return (
@@ -8,7 +8,9 @@ export default function ToastTest() {
       <div className="grid grid-cols-2 gap-4 max-w-2xl">
         <button
           onClick={() => {
-            toast.success('Número adquirido com sucesso! Número: +55 11 98765-4321. Aguardando SMS...');
+            toast.success('Número adquirido com sucesso!', {
+              description: 'Número: +55 11 98765-4321. Aguardando SMS...'
+            });
           }}
           className="px-6 py-4 bg-green-500 hover:bg-green-400 text-black font-bold rounded transition-colors"
         >
@@ -17,7 +19,9 @@ export default function ToastTest() {
 
         <button
           onClick={() => {
-            toast.error('Erro ao comprar número: Saldo insuficiente. Você precisa de R$ 2,06, mas tem apenas R$ 0,00');
+            toast.error('Erro ao comprar número', {
+              description: 'Saldo insuficiente. Você precisa de R$ 2,06, mas tem apenas R$ 0,00'
+            });
           }}
           className="px-6 py-4 bg-red-500 hover:bg-red-400 text-black font-bold rounded transition-colors"
         >
@@ -26,7 +30,9 @@ export default function ToastTest() {
 
         <button
           onClick={() => {
-            toast.info('Em breve: sistema de recarga - Adicione saldo via PIX, cartão de crédito ou boleto bancário');
+            toast.info('Em breve: sistema de recarga', {
+              description: 'Adicione saldo via PIX, cartão de crédito ou boleto bancário'
+            });
           }}
           className="px-6 py-4 bg-cyan-500 hover:bg-cyan-400 text-black font-bold rounded transition-colors"
         >
@@ -35,7 +41,9 @@ export default function ToastTest() {
 
         <button
           onClick={() => {
-            toast.warning('Atenção: Estoque baixo - Apenas 3 números disponíveis para WhatsApp no Brasil');
+            toast.warning('Atenção: Estoque baixo', {
+              description: 'Apenas 3 números disponíveis para WhatsApp no Brasil'
+            });
           }}
           className="px-6 py-4 bg-yellow-500 hover:bg-yellow-400 text-black font-bold rounded transition-colors"
         >
@@ -44,8 +52,9 @@ export default function ToastTest() {
 
         <button
           onClick={() => {
-            // Toast customizado não suporta chamada direta com description
-            toast.info('Pedido Cancelado: Você cancelou com sucesso seu pedido #12345. Se isso foi um erro, por favor, refaça o pedido ou entre em contato com o suporte.');
+            toast('Pedido Cancelado', {
+              description: 'Você cancelou com sucesso seu pedido #12345. Se isso foi um erro, por favor, refaça o pedido ou entre em contato com o suporte.'
+            });
           }}
           className="px-6 py-4 bg-gray-500 hover:bg-gray-400 text-black font-bold rounded transition-colors"
         >

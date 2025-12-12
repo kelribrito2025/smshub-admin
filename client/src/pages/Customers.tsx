@@ -16,7 +16,7 @@ import { trpc } from "@/lib/trpc";
 import { DollarSign, Edit, Loader2, Plus, Search, Trash2, Users, Wallet, TrendingUp } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useState } from "react";
-import { toast } from "@/contexts/ToastContext";
+import { toast } from "sonner";
 import { CustomerDialog } from "@/components/CustomerDialog";
 import { BalanceSidePanel } from "@/components/BalanceSidePanel";
 

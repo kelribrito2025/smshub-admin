@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { toast } from 'sonner';
+import { toast } from "sonner";
 
 export interface Notification {
   type: "pix_payment_confirmed" | "balance_updated" | "sms_received" | "activation_expired" | "recharge_completed" | "operation_completed" | "operation_failed" | "admin_notification";
@@ -167,12 +167,18 @@ export function useNotifications(options: UseNotificationsOptions) {
             if (circuitBreaker.failureCount >= circuitBreaker.threshold) {
               circuitBreaker.isOpen = true;
               console.error(`[Notifications] Circuit breaker OPENED after ${circuitBreaker.failureCount} consecutive failures`);
-              toast.error('Limite de conexões atingido: O sistema pausará tentativas por 5 minutos. Se o problema persistir, recarregue a página.', { duration: 8000 });
+              toast.error('Limite de conexões atingido', {
+                description: 'O sistema pausará tentativas por 5 minutos. Se o problema persistir, recarregue a página.',
+                duration: 8000,
+              });
               
               // After 3 circuit breaker openings, permanently disable
               if (circuitBreaker.failureCount >= circuitBreaker.threshold * 3) {
                 circuitBreaker.permanentlyDisabled = true;
-                toast.error('Sistema de notificações desabilitado: Muitas falhas consecutivas. Por favor, recarregue a página.', { duration: 10000 });
+                toast.error('Sistema de notificações desabilitado', {
+                  description: 'Muitas falhas consecutivas. Por favor, recarregue a página.',
+                  duration: 10000,
+                });
               }
             }
           }
@@ -261,12 +267,18 @@ export function useNotifications(options: UseNotificationsOptions) {
         if (circuitBreaker.failureCount >= circuitBreaker.threshold) {
           circuitBreaker.isOpen = true;
           console.error(`[Notifications] Circuit breaker OPENED after ${circuitBreaker.failureCount} consecutive failures`);
-          toast.error('Limite de conexões atingido: O sistema pausará tentativas por 5 minutos.', { duration: 8000 });
+          toast.error('Limite de conexões atingido', {
+            description: 'O sistema pausará tentativas por 5 minutos.',
+            duration: 8000,
+          });
           
           // After 3 circuit breaker openings, permanently disable
           if (circuitBreaker.failureCount >= circuitBreaker.threshold * 3) {
             circuitBreaker.permanentlyDisabled = true;
-            toast.error('Sistema de notificações desabilitado: Muitas falhas consecutivas. Por favor, recarregue a página.', { duration: 10000 });
+            toast.error('Sistema de notificações desabilitado', {
+              description: 'Muitas falhas consecutivas. Por favor, recarregue a página.',
+              duration: 10000,
+            });
           }
           return; // Stop retrying
         }
@@ -334,38 +346,48 @@ export function useNotifications(options: UseNotificationsOptions) {
 function showNotificationToast(notification: Notification) {
   switch (notification.type) {
     case "pix_payment_confirmed":
-      toast.success(`${notification.title} - ${notification.message}`, {
+      toast.success(notification.title, {
+        description: notification.message,
         duration: 5000,
+        icon: "💰",
       });
       break;
 
     case "balance_updated":
-      toast.info(`${notification.title} - ${notification.message}`, {
+      toast.info(notification.title, {
+        description: notification.message,
         duration: 3000,
       });
       break;
 
     case "sms_received":
-      toast.success(`${notification.title} - ${notification.message}`, {
+      toast.success(notification.title, {
+        description: notification.message,
         duration: 5000,
+        icon: "📱",
       });
       break;
 
     case "activation_expired":
-      toast.warning(`${notification.title} - ${notification.message}`, {
+      toast.warning(notification.title, {
+        description: notification.message,
         duration: 5000,
       });
       break;
 
     case "operation_completed":
-      toast.success(`${notification.title} - ${notification.message}`, {
+      toast.success(notification.title, {
+        description: notification.message,
         duration: 4000,
+        icon: "✅",
       });
       break;
 
     case "operation_failed":
-      toast.error(`${notification.title} - ${notification.message}`, {
+      toast.error(notification.title, {
+        description: notification.message,
         duration: 5000,
+        icon: "❌",
       });
       break;
 
@@ -374,6 +396,8 @@ function showNotificationToast(notification: Notification) {
       break;
 
     default:
-      toast(`${notification.title} - ${notification.message}`);
+      toast(notification.title, {
+        description: notification.message,
+      });
   }
 }

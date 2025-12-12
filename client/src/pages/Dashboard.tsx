@@ -6,7 +6,7 @@ import { trpc } from "@/lib/trpc";
 import { Activity, DollarSign, TrendingUp, Users, ShoppingCart, LayoutDashboard } from "lucide-react";
 import { Link } from "wouter";
 import { useEffect, useState } from "react";
-import { toast } from "@/contexts/ToastContext";
+import { toast } from "sonner";
 
 import { AnimatedPage } from "@/components/AnimatedPage";
 import { AnimatedList, AnimatedListItem } from "@/components/AnimatedList";

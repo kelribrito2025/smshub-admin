@@ -163,7 +163,10 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
           console.error('Error saving displayed notification:', e);
         }
         
-        toast.success(lastNotification.title || 'Compra realizada', { duration: 5000 });
+        toast.success(lastNotification.title || 'Compra realizada', {
+          description: lastNotification.message || 'Número SMS adquirido com sucesso',
+          duration: 5000,
+        });
         playNotificationSound('purchase');
       }
     }
@@ -175,7 +178,9 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
       toast.success('Favorito atualizado!');
     },
     onError: (error) => {
-      toast.error(`Erro ao marcar favorito: ${error.message}`);
+      toast.error('Erro ao marcar favorito', {
+        description: error.message,
+      });
     },
   });
   
@@ -264,7 +269,9 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
       // Prevenir múltiplas compras simultâneas (local ou de outros navegadores)
       if (isPurchasing || isLocked) {
         if (isLocked) {
-          toast.warning('Aguarde: Uma operação já está em andamento em outro dispositivo');
+          toast.warning('Aguarde', {
+            description: 'Uma operação já está em andamento em outro dispositivo',
+          });
         }
         return;
       }
@@ -272,7 +279,9 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
       // Check balance first
       const currentBalance = customer?.balance || 0;
       if (currentBalance < service.price) {
-        toast.error(`Saldo insuficiente: Você precisa de ${formatBalance(service.price)}, mas tem apenas ${formatBalance(currentBalance)}`);
+        toast.error('Saldo insuficiente', {
+          description: `Você precisa de ${formatBalance(service.price)}, mas tem apenas ${formatBalance(currentBalance)}`,
+        });
         return;
       }
 
@@ -306,7 +315,9 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
           await utils.store.getMyActivations.invalidate();
         } catch (error: any) {
           // Mostrar apenas notificações de ERRO (5 segundos para mensagens longas)
-          toast.error(error.message, { duration: 5000 });
+          toast.error(error.message, {
+            duration: 5000,
+          });
         } finally {
           // Desativar estado global de compra após conclusão
           setIsPurchasing(false);
@@ -848,6 +859,8 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
         isOpen={rechargeModalOpen} 
         onClose={() => setRechargeModalOpen(false)} 
       />
+
+
     </div>
   );
 }

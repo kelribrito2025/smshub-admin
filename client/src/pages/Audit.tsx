@@ -40,7 +40,7 @@ import {
   Settings,
   Loader2,
 } from 'lucide-react';
-import { toast } from '@/contexts/ToastContext';
+import { toast } from 'sonner';
 import TableSkeleton from '../components/TableSkeleton';
 import DashboardLayout from '../components/DashboardLayout';
 
@@ -61,7 +61,9 @@ export default function Audit() {
   // Mutation para corrigir saldo
   const fixBalanceMutation = trpc.audit.fixBalance.useMutation({
     onSuccess: (data, variables) => {
-      toast.success(`Saldo corrigido com sucesso! Ajuste: R$ ${(Math.abs(data.adjustment) / 100).toFixed(2)}`);
+      toast.success('Saldo corrigido com sucesso!', {
+        description: `Ajuste: R$ ${(Math.abs(data.adjustment) / 100).toFixed(2)}`,
+      });
       // Invalidar queries para atualizar dados
       utils.audit.checkInconsistencies.invalidate();
       utils.audit.getTransactions.invalidate();
@@ -75,7 +77,9 @@ export default function Audit() {
         utils.audit.checkInconsistencies.invalidate();
         return;
       }
-      toast.error(`Erro ao corrigir saldo: ${error.message}`);
+      toast.error('Erro ao corrigir saldo', {
+        description: error.message,
+      });
     },
   });
 
@@ -87,7 +91,9 @@ export default function Audit() {
     let successCount = 0;
     let errorCount = 0;
 
-    toast.info(`Corrigindo todos os saldos... Processando ${inconsistencies.length} cliente(s)`);
+    toast.info('Corrigindo todos os saldos...', {
+      description: `Processando ${inconsistencies.length} cliente(s)`,
+    });
 
     for (const inc of inconsistencies) {
       try {
@@ -105,9 +111,13 @@ export default function Audit() {
     }
 
     if (errorCount === 0) {
-      toast.success(`Todos os saldos corrigidos! ${successCount} cliente(s) ajustado(s) com sucesso`);
+      toast.success('Todos os saldos corrigidos!', {
+        description: `${successCount} cliente(s) ajustado(s) com sucesso`,
+      });
     } else {
-      toast.warning(`Correção parcial: ${successCount} sucesso, ${errorCount} erro(s)`);
+      toast.warning('Correção parcial', {
+        description: `${successCount} sucesso, ${errorCount} erro(s)`,
+      });
     }
   };
 
@@ -161,7 +171,9 @@ export default function Audit() {
 
       toast.success('Relatório exportado com sucesso!');
     } catch (error: any) {
-      toast.error(`Erro ao exportar relatório: ${error.message}`);
+      toast.error('Erro ao exportar relatório', {
+        description: error.message,
+      });
     }
   };
 

@@ -1,6 +1,6 @@
 import { X, Shield, Zap, Lock, Mail, User, Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
-import { toast } from '@/contexts/ToastContext';
+import { toast } from 'sonner';
 
 interface LoginModalProps {
   isOpen: boolean;

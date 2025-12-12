@@ -44,7 +44,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { toast } from "@/contexts/ToastContext";
+import { toast } from "sonner";
 import { AnimatedPage } from "@/components/AnimatedPage";
 import { motion } from "framer-motion";
 import { fadeInScale, staggerContainer } from "@/lib/animations";

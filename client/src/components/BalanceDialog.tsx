@@ -29,7 +29,7 @@ import { CurrencyInput } from "@/components/ui/currency-input";
 import { trpc } from "@/lib/trpc";
 import { ArrowDown, ArrowUp, Loader2, Save } from "lucide-react";
 import { useEffect, useState } from "react";
-import { toast } from "@/contexts/ToastContext";
+import { toast } from "sonner";
 import { format } from "date-fns";
 
 interface BalanceDialogProps {

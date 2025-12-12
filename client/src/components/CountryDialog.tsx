@@ -13,7 +13,7 @@ import { Switch } from "@/components/ui/switch";
 import { trpc } from "@/lib/trpc";
 import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { toast } from "@/contexts/ToastContext";
+import { toast } from "sonner";
 
 interface CountryDialogProps {
   open: boolean;

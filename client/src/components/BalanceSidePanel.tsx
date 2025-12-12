@@ -19,7 +19,7 @@ import {
 import { trpc } from "@/lib/trpc";
 import { ArrowDown, ArrowUp, Loader2, Save, X, TrendingUp } from "lucide-react";
 import { useEffect, useState } from "react";
-import { toast } from "@/contexts/ToastContext";
+import { toast } from "sonner";
 import { format } from "date-fns";
 
 interface BalanceSidePanelProps {
