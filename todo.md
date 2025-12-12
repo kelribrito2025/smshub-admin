@@ -2199,3 +2199,17 @@
 - [x] Remover página /admin/payment-settings (rota + arquivo)
 - [x] Remover referências/links para /admin/payment-settings no menu/navegação
 - [x] Restaurar ícone azul de engrenagem no título da página /admin/settings
+
+
+---
+
+## 🗑️ Remover Página de Configurações de Pagamento do Menu Admin
+
+**Objetivo:**
+- Remover completamente a página /admin/payment-settings do menu de administração
+- Limpar qualquer referência restante no código
+
+**Tarefas:**
+- [x] Remover link de /admin/payment-settings do menu de navegação do AdminLayout
+- [x] Verificar se há outras referências à página no código
+- [x] Testar navegação do admin para confirmar remoção
