@@ -2815,3 +2815,24 @@
 - [x] Implementar paginação de 25 itens por página
 - [x] Adicionar query tRPC para buscar transações por cliente
 - [x] Testar expansão e paginação
+
+
+---
+
+## 🎨 Correções Visuais no DashboardLayout (Sidebar)
+
+**Problemas:**
+1. **Seleção desproporcional** - O indicador de item ativo estava com altura incorreta/desproporcional
+2. **Barra minimizada muito estreita** - Ícone de admin ficava cortado quando sidebar estava minimizada
+3. **Botões fantasma no hover** - Elementos indesejados apareciam ao passar o mouse sobre os itens de menu
+
+**Soluções Implementadas:**
+- Ajustada altura do botão de menu de `h-12` para `h-11` para melhor proporção visual
+- Aumentada largura da sidebar minimizada de `3rem` para `4.5rem` para acomodar ícones completamente
+- Removido tooltip duplicado customizado (mantido apenas o tooltip nativo do SidebarMenuButton)
+- Removida classe `group` do SidebarMenuItem que causava elementos fantasma no hover
+
+**Tarefas:**
+- [x] Corrigir altura do indicador de item ativo (seleção proporcional)
+- [x] Aumentar largura da sidebar minimizada para acomodar ícones completamente
+- [x] Remover/corrigir botões fantasma que aparecem no hover

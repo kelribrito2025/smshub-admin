@@ -231,7 +231,7 @@ function DashboardLayoutContent({
               {menuItems.map(item => {
                 const isActive = location === item.path;
                 return (
-                  <SidebarMenuItem key={item.path} className="relative group">
+                  <SidebarMenuItem key={item.path} className="relative">
                     <SidebarMenuButton
                       isActive={isActive}
                       onClick={(e) => {
@@ -244,7 +244,7 @@ function DashboardLayoutContent({
                         }
                       }}
                       tooltip={isCollapsed ? item.label : undefined}
-                      className={`h-12 px-4 rounded-lg transition-colors ${
+                      className={`h-11 px-4 rounded-lg transition-colors ${
                         isActive
                           ? 'bg-neutral-900 text-white hover:bg-neutral-900'
                           : 'text-neutral-400 hover:bg-neutral-900 hover:text-white'
@@ -255,12 +255,6 @@ function DashboardLayoutContent({
                       />
                       <span className={isActive ? 'font-medium' : ''}>{item.label}</span>
                     </SidebarMenuButton>
-                    {/* Tooltip for collapsed state */}
-                    {isCollapsed && (
-                      <div className="absolute left-full ml-2 top-1/2 -translate-y-1/2 px-3 py-2 bg-neutral-900 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50 border border-neutral-800">
-                        {item.label}
-                      </div>
-                    )}
                   </SidebarMenuItem>
                 );
               })}
