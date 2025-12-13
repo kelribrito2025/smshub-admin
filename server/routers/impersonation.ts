@@ -332,11 +332,24 @@ export const impersonationRouter = router({
         return null;
       }
 
+      // Get customer name from database
+      const db = await getDb();
+      let customerName = decoded.customerEmail;
+      
+      if (db) {
+        const customerResult = await db.select().from(customers).where(eq(customers.id, decoded.customerId)).limit(1);
+        const customer = customerResult[0] || null;
+        if (customer) {
+          customerName = customer.name || customer.email;
+        }
+      }
+
       return {
         isImpersonating: true,
         customer: {
           id: decoded.customerId,
           email: decoded.customerEmail,
+          name: customerName,
         },
         admin: {
           id: decoded.adminId,

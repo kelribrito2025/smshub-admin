@@ -3371,3 +3371,34 @@
 - [x] Verificar como sessão de impersonação é criada
 - [x] Corrigir autenticação no redirecionamento para store
 - [x] Testar fluxo completo de impersonação
+
+
+---
+
+## 🎭 Indicador Visual de Impersonação
+
+**Objetivo:**
+- Adicionar banner fixo no topo do StoreLayout quando admin estiver impersonando um cliente
+- Exibir claramente o nome do cliente sendo impersonado
+- Permitir encerramento seguro da impersonação com um clique
+
+**Comportamento:**
+- Banner fixo no topo de todas as páginas do StoreLayout
+- Texto: "Você está visualizando como [Nome do Cliente]"
+- Botão "Encerrar impersonação"
+- Cor de destaque (roxo) para diferenciar do contexto normal
+- Sempre visível durante toda a sessão de impersonação
+
+**Fluxo de Encerramento:**
+- Invalidar token do cliente impersonado
+- Restaurar token original do admin
+- Resetar completamente store/auth
+- Redirecionar para dashboard admin
+- Fechar aba atual do navegador
+
+**Tarefas:**
+- [x] Criar componente ImpersonationBanner
+- [x] Integrar banner no StoreLayout
+- [x] Implementar lógica de encerramento de impersonação
+- [x] Adicionar procedure tRPC para encerrar impersonação
+- [x] Testar fluxo completo de impersonação e encerramento
