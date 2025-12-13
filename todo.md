@@ -7,3 +7,6 @@
 - [x] Atualizar DashboardLayout para alternar entre sidebar existente e nova topbar
 - [x] Criar página /admin/settings com toggle para escolher entre barra lateral e barra superior
 - [x] Testar alternância entre layouts e persistência da preferência no banco de dados
+
+## Correção de Ícones
+- [x] Corrigir ícones da barra superior para corresponder aos ícones da barra lateral

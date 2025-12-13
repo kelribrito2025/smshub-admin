@@ -54,7 +54,7 @@ export default function TopNavLayout({
 
   const menuItems = dbMenus && dbMenus.length > 0
     ? dbMenus.map((menu: any) => ({
-        icon: menu.iconName || "LayoutDashboard",
+        icon: menu.icon || "LayoutDashboard",
         label: menu.label,
         path: menu.path,
       }))
