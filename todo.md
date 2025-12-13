@@ -60,3 +60,7 @@
 
 ## Ajuste de Altura dos Cards de Clientes
 - [x] Ajustar altura dos cards de estatísticas na página /admin/clientes para ficarem com a mesma altura dos cards da dashboard
+
+## Configuração de Tipografia
+- [x] Configurar fonte San Francisco (sistema Apple) no DashboardLayout e em todo o projeto
+- [x] Atualizar index.css com stack de fontes do sistema Apple (-apple-system, BlinkMacSystemFont, "SF Pro Display", etc.)
