@@ -2677,3 +2677,30 @@
 - [x] Corrigir comportamento para manter estado minimizado durante navegação
 - [x] Testar navegação entre menus com sidebar minimizada
 - [x] Validar que sidebar só expande ao clicar no botão de expandir
+
+
+---
+
+## 🐛 Sidebar Reseta ao Navegar Entre Rotas
+
+**Problema:**
+- Quando o usuário minimiza a sidebar, ela recolhe corretamente
+- Porém, ao navegar para qualquer menu/rota, a sidebar volta a ficar expandida
+- Estado de colapso não está sendo persistido entre navegações
+
+**Análise Necessária:**
+1. Verificar onde está sendo controlado o estado de `isSidebarCollapsed`
+2. Verificar se o estado está em context/global store ou sendo recriado a cada rota
+3. Verificar se o DashboardLayout está sendo remontado durante navegação
+4. Procurar por useEffect ou lógica que force expansão em mudanças de rota
+
+**Comportamento Desejado:**
+- Se o usuário minimizar a sidebar, esse estado deve persistir ao navegar entre páginas
+- Só deve voltar a expandir se o usuário clicar explicitamente no botão de expandir
+
+**Tarefas:**
+- [x] Analisar implementação do estado da sidebar no DashboardLayout
+- [x] Identificar causa do reset do estado ao navegar
+- [x] Implementar persistência de estado (cookie no SidebarProvider)
+- [x] Testar navegação entre rotas com sidebar minimizada
+- [x] Validar que estado persiste corretamente

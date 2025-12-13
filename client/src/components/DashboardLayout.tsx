@@ -75,14 +75,6 @@ export default function DashboardLayout({
     return saved ? parseInt(saved, 10) : DEFAULT_WIDTH;
   });
   
-  // Read sidebar state from cookie
-  const [sidebarOpen, setSidebarOpen] = useState(() => {
-    if (typeof document === 'undefined') return true;
-    const cookies = document.cookie.split('; ');
-    const sidebarCookie = cookies.find(c => c.startsWith('sidebar_state='));
-    if (!sidebarCookie) return true;
-    return sidebarCookie.split('=')[1] === 'true';
-  });
   const { loading, user } = useAuth();
 
   useEffect(() => {
@@ -121,9 +113,6 @@ export default function DashboardLayout({
 
   return (
     <SidebarProvider
-      defaultOpen={sidebarOpen}
-      open={sidebarOpen}
-      onOpenChange={setSidebarOpen}
       style={
         {
           "--sidebar-width": `${sidebarWidth}px`,
