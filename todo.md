@@ -3261,3 +3261,45 @@
 - [x] Corrigir lógica de autorização para permitir impersonation por admins
 - [x] Testar funcionalidade corrigida
 - [x] Criar checkpoint
+
+
+---
+
+## 🐛 Tela Preta Após Clicar no Ícone de Personificação
+
+**Problema:**
+- Ao clicar no ícone de "olhinho" para personificar um cliente na tabela de clientes
+- A aplicação redireciona para URL `/impersonate?token=...`
+- A tela fica completamente preta sem nenhum conteúdo visível
+- URL de exemplo: `https://app.numero-virtual.com/impersonate?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...`
+
+**Causa Raiz:**
+- O `StoreAuthProvider` envolve todas as rotas do painel de vendas, incluindo `/impersonate`
+- Quando a rota `/impersonate` era acessada, o provider estava em estado de loading inicial
+- Durante o loading, o provider mostrava `<InitialLoader />` ao invés do conteúdo da página
+- A página `/impersonate` nunca conseguia ser renderizada porque o provider bloqueava a renderização
+- O componente `StoreImpersonate.tsx` tem sua própria lógica de loading e autenticação via token JWT
+
+**Solução:**
+- Modificado `StoreAuthProvider` para permitir que rotas públicas (`/impersonate`, `/login`) sejam renderizadas sem esperar o loading
+- Adicionado hook `useLocation` do wouter para detectar a rota atual
+- Criada lista de rotas públicas que não precisam esperar autenticação
+- Alterada condição de renderização: `{isLoading && !isPublicRoute ? <InitialLoader /> : children}`
+- Agora a página `/impersonate` carrega imediatamente e executa sua própria lógica de validação de token
+
+**Resultado:**
+- ✅ Página `/impersonate` agora carrega corretamente sem tela preta
+- ✅ Componente mostra loading personalizado ("Validando acesso...")
+- ✅ Token é validado via tRPC mutation
+- ✅ Após validação, usuário é redirecionado para dashboard do cliente
+- ✅ Todos os testes de impersonação passaram (5/5)
+
+**Tarefas:**
+- [x] Investigar código da rota /impersonate no App.tsx
+- [x] Verificar se existe componente ou página para /impersonate
+- [x] Analisar lógica de autenticação/personificação no backend
+- [x] Identificar problema do StoreAuthProvider bloqueando renderização
+- [x] Implementar solução para permitir rotas públicas
+- [x] Testar fluxo completo de personificação
+- [x] Executar testes automatizados (5 testes passaram)
+- [x] Validar que não há erros de console
