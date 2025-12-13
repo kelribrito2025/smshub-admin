@@ -260,7 +260,7 @@ export default function Settings() {
             {/* Header da tabela */}
             <div className="hidden md:grid md:grid-cols-[2fr_1.5fr_1fr_1fr_1.5fr] gap-4 pb-3 mb-4 border-b text-sm font-semibold text-muted-foreground">
               <div>Método</div>
-              <div>Valor Mínimo (R$)</div>
+              <div>Mínimo (R$)</div>
               <div>Bônus (%)</div>
               <div>Status</div>
               <div className="text-right">Ações</div>
@@ -368,7 +368,8 @@ export default function Settings() {
                           onClick={() => startPaymentEdit(method.id)}
                           disabled={updatePaymentMutation.isPending || paymentEditing.method !== null}
                         >
-                          <Pencil className="w-4 h-4" />
+                          <Pencil className="w-4 h-4 mr-1" />
+                          Editar
                         </Button>
                       )}
                       

@@ -7,7 +7,7 @@ import { sendActivationEmail } from './mailchimp-email';
 async function sendTestActivation() {
   const testEmail = 'xkelrix@gmail.com';
   const testName = 'Usuário Teste';
-  const testCustomerId = 'test-' + Date.now();
+  const testCustomerId = Date.now();
 
   console.log(`Enviando email de ativação para ${testEmail}...`);
   
