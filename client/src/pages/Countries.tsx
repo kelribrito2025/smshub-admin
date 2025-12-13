@@ -88,7 +88,7 @@ export default function Countries() {
 
         {/* Stats */}
         <div className="grid gap-4 md:grid-cols-3">
-          <Card>
+          <Card style={{backgroundColor: '#0a0a0a'}}>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium">Total de Países</CardTitle>
             </CardHeader>
@@ -97,7 +97,7 @@ export default function Countries() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card style={{backgroundColor: '#0a0a0a'}}>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium">Países Ativos</CardTitle>
             </CardHeader>
@@ -108,7 +108,7 @@ export default function Countries() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card style={{backgroundColor: '#0a0a0a'}}>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium">Países Inativos</CardTitle>
             </CardHeader>
