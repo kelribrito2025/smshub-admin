@@ -338,7 +338,7 @@ export default function Customers() {
         </div>
 
         {/* Table */}
-        <Card>
+        <Card style={{backgroundColor: '#0a0a0a'}}>
           <CardHeader>
             <div className="flex items-center justify-between">
               <div>
