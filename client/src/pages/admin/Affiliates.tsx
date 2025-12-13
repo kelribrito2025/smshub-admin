@@ -100,69 +100,57 @@ export default function Affiliates() {
 
         {/* Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
-                <Users className="w-4 h-4" />
-                Total de Afiliados
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{totalAffiliates}</div>
-              <p className="text-xs text-muted-foreground mt-1">
-                Clientes que indicaram alguém
-              </p>
-            </CardContent>
-          </Card>
+          <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-neutral-400 text-sm">Total de Afiliados</span>
+              <Users size={18} className="text-neutral-500" />
+            </div>
+            <div className="text-3xl font-light text-white mb-1">
+              {totalAffiliates}
+            </div>
+            <div className="text-xs text-neutral-500">
+              Clientes que indicaram alguém
+            </div>
+          </div>
 
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
-                <TrendingUp className="w-4 h-4" />
-                Total de Indicações
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{totalReferrals}</div>
-              <p className="text-xs text-muted-foreground mt-1">
-                Pessoas indicadas
-              </p>
-            </CardContent>
-          </Card>
+          <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-neutral-400 text-sm">Total de Indicações</span>
+              <TrendingUp size={18} className="text-neutral-500" />
+            </div>
+            <div className="text-3xl font-light text-white mb-1">
+              {totalReferrals}
+            </div>
+            <div className="text-xs text-neutral-500">
+              Pessoas indicadas
+            </div>
+          </div>
 
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
-                <DollarSign className="w-4 h-4" />
-                Bônus Pagos
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-green-600">
-                {formatCurrency(totalEarnings)}
-              </div>
-              <p className="text-xs text-muted-foreground mt-1">
-                Total de bônus gerados
-              </p>
-            </CardContent>
-          </Card>
+          <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-neutral-400 text-sm">Bônus Pagos</span>
+              <DollarSign size={18} className="text-emerald-500" />
+            </div>
+            <div className="text-3xl font-light text-emerald-500 mb-1">
+              {formatCurrency(totalEarnings)}
+            </div>
+            <div className="text-xs text-neutral-500">
+              Total de bônus gerados
+            </div>
+          </div>
 
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
-                <DollarSign className="w-4 h-4" />
-                Total Recarregado
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-blue-600">
-                {formatCurrency(totalRecharged)}
-              </div>
-              <p className="text-xs text-muted-foreground mt-1">
-                Pelos indicados
-              </p>
-            </CardContent>
-          </Card>
+          <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-neutral-400 text-sm">Total Recarregado</span>
+              <DollarSign size={18} className="text-blue-500" />
+            </div>
+            <div className="text-3xl font-light text-blue-500 mb-1">
+              {formatCurrency(totalRecharged)}
+            </div>
+            <div className="text-xs text-neutral-500">
+              Pelos indicados
+            </div>
+          </div>
         </div>
 
         {/* Tabs */}

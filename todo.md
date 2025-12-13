@@ -54,3 +54,6 @@
 ## Ajuste de Cor de Fundo na Página de APIs
 - [x] Alterar cor de fundo do card de taxa de câmbio para #0a0a0a
 - [x] Alterar cor de fundo do card de informações de APIs para #0a0a0a
+
+## Ajuste de Altura dos Cards de Afiliados
+- [x] Ajustar altura dos cards de estatísticas na página de afiliados para ficarem com a mesma altura dos cards da dashboard
