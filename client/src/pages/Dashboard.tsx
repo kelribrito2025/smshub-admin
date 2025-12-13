@@ -351,9 +351,9 @@ export default function Dashboard() {
 
         </motion.div>
 
-        {/* 2) SEGUNDA LINHA - 2 CARDS KPI */}
+        {/* 2) SEGUNDA LINHA - 4 CARDS KPI (2 preenchidos + 2 vazios) */}
         <motion.div 
-          className="grid gap-4 md:grid-cols-2"
+          className="grid gap-4 md:grid-cols-2 lg:grid-cols-4"
           variants={staggerContainer}
           initial="initial"
           animate="animate"
@@ -401,6 +401,32 @@ export default function Dashboard() {
                     {metrics?.cancelledActivations || 0}
                   </span>
                 </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          {/* Card 7: Placeholder (futuro) */}
+          <motion.div variants={fadeInScale}>
+            <Card className="border-dashed">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium text-muted-foreground">Em breve</CardTitle>
+              </CardHeader>
+              <CardContent className="pt-8">
+                <div className="text-2xl font-bold text-muted-foreground">—</div>
+                <p className="text-xs text-muted-foreground">Novos dados em breve</p>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          {/* Card 8: Placeholder (futuro) */}
+          <motion.div variants={fadeInScale}>
+            <Card className="border-dashed">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium text-muted-foreground">Em breve</CardTitle>
+              </CardHeader>
+              <CardContent className="pt-8">
+                <div className="text-2xl font-bold text-muted-foreground">—</div>
+                <p className="text-xs text-muted-foreground">Novos dados em breve</p>
               </CardContent>
             </Card>
           </motion.div>

@@ -2934,3 +2934,18 @@
 
 **Tarefas:**
 - [x] Reorganizar grid de cards no Home.tsx (4 cards em cima, 2 em baixo)
+
+
+---
+
+## 🎨 Ajustar Layout dos Cards do Dashboard para Grid de 4 Colunas
+
+**Objetivo:**
+- Modificar layout dos cards do dashboard administrativo para grid de 4 colunas
+- Deixar 2 espaços vazios para futuros cards
+- Seguir design da imagem de referência fornecida
+
+**Tarefas:**
+- [x] Modificar grid de cards no AdminDashboard.tsx de 2 colunas para 4 colunas
+- [x] Ajustar espaçamento e responsividade dos cards
+- [x] Testar layout em diferentes resoluções
