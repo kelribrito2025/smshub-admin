@@ -503,7 +503,7 @@ export default function Catalog() {
             <DialogTrigger asChild>
               <Button className="bg-green-600 hover:bg-green-700">
                 <Plus className="w-4 h-4 mr-2" />
-                Adicionar Serviço
+                Novo Serviço
               </Button>
             </DialogTrigger>
             <DialogContent className="max-w-md">
@@ -660,7 +660,7 @@ export default function Catalog() {
             ) : (
               <>
                 <RefreshCw className="w-4 h-4 mr-2" />
-                Sincronizar Catálogo
+                Sincronizar serviços
               </>
             )}
           </Button>

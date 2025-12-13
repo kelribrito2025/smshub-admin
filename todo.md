@@ -43,3 +43,7 @@
 ## Ajuste de Altura dos Cards de Países
 - [x] Ajustar altura dos cards de estatísticas na página de países para ficarem com mesma altura dos cards da dashboard
 - [x] Ajustar cor de fundo do card "Lista de Países" para #101010 (via editor visual)
+
+## Ajustes de Texto no Catálogo
+- [x] Alterar texto do botão "Adicionar Serviço" para "Novo Serviço"
+- [x] Alterar texto do botão "Sincronizar Catálogo" para "Sincronizar serviços"
