@@ -11,14 +11,33 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Gift, Users, DollarSign, TrendingUp } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Gift, Users, DollarSign, TrendingUp, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState } from "react";
 
 export default function Affiliates() {
+  // Pagination state for referrals
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 20;
+
   // Report queries
   const { data: affiliates = [], isLoading: loadingAffiliates } =
     trpc.affiliateAdmin.getAllAffiliates.useQuery();
   const { data: referrals = [], isLoading: loadingReferrals } =
     trpc.affiliateAdmin.getAllReferrals.useQuery();
+
+  // Calculate pagination for referrals
+  const totalPages = Math.ceil(referrals.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedReferrals = referrals.slice(startIndex, endIndex);
+
+  // Reset to page 1 when switching tabs
+  const handleTabChange = (value: string) => {
+    if (value === 'referrals') {
+      setCurrentPage(1);
+    }
+  };
 
   const formatCurrency = (cents: number) => {
     return new Intl.NumberFormat("pt-BR", {
@@ -138,7 +157,7 @@ export default function Affiliates() {
         </div>
 
         {/* Tabs */}
-        <Tabs defaultValue="affiliates" className="space-y-4">
+        <Tabs defaultValue="affiliates" className="space-y-4" onValueChange={handleTabChange}>
           <TabsList>
             <TabsTrigger value="affiliates">Afiliados</TabsTrigger>
             <TabsTrigger value="referrals">Indicações</TabsTrigger>
@@ -241,7 +260,7 @@ export default function Affiliates() {
                         </TableRow>
                       </TableHeader>
                       <TableBody>
-                        {referrals.map((ref) => (
+                        {paginatedReferrals.map((ref) => (
                           <TableRow key={ref.id}>
                             <TableCell>
                               <div>
@@ -274,6 +293,38 @@ export default function Affiliates() {
                         ))}
                       </TableBody>
                     </Table>
+                  </div>
+                )}
+
+                {/* Pagination Controls */}
+                {referrals.length > itemsPerPage && (
+                  <div className="flex items-center justify-between mt-6 pt-4 border-t">
+                    <div className="text-sm text-muted-foreground">
+                      Mostrando {startIndex + 1} a {Math.min(endIndex, referrals.length)} de {referrals.length} indicações
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                        disabled={currentPage === 1}
+                      >
+                        <ChevronLeft className="w-4 h-4" />
+                        Anterior
+                      </Button>
+                      <div className="text-sm text-muted-foreground px-3">
+                        Página {currentPage} de {totalPages}
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                        disabled={currentPage === totalPages}
+                      >
+                        Próxima
+                        <ChevronRight className="w-4 h-4" />
+                      </Button>
+                    </div>
                   </div>
                 )}
               </CardContent>

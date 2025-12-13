@@ -3015,3 +3015,15 @@
 - [x] Atualizar lógica da coluna origem para mostrar "Cliente" em transações de compra, cancelamento e recarga
 - [x] Adicionar ícone apropriado para identificar origem "Cliente"
 - [x] Testar visualização na timeline de transações
+
+
+---
+
+## 📄 Paginação na Aba Indicações
+
+**Objetivo:**
+- Adicionar paginação de 20 itens por página na aba "Indicações" da página /admin/affiliates
+- Melhorar performance e usabilidade ao exibir grandes listas de indicações
+
+**Tarefas:**
+- [x] Adicionar paginação de 20 itens por página na aba Indicações da página /admin/affiliates
