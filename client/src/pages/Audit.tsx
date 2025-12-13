@@ -42,7 +42,7 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 import TableSkeleton from '../components/TableSkeleton';
-import DashboardLayout from '../components/DashboardLayout';
+import DashboardLayoutWrapper from '@/components/DashboardLayoutWrapper';
 
 export default function Audit() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -241,7 +241,7 @@ export default function Audit() {
   };
 
   return (
-    <DashboardLayout>
+    <DashboardLayoutWrapper>
       <div className="p-8 space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
@@ -663,6 +663,6 @@ export default function Audit() {
         </CardContent>
       </Card>
       </div>
-    </DashboardLayout>
+    </DashboardLayoutWrapper>
   );
 }

@@ -1,4 +1,4 @@
-import DashboardLayout from "@/components/DashboardLayout";
+import DashboardLayoutWrapper from "@/components/DashboardLayoutWrapper";
 import { CountryDialog } from "@/components/CountryDialog";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -58,16 +58,16 @@ export default function Countries() {
 
   if (isLoading) {
     return (
-      <DashboardLayout>
+      <DashboardLayoutWrapper>
         <div className="flex items-center justify-center min-h-[400px]">
           <Loader2 className="h-8 w-8 animate-spin" />
         </div>
-      </DashboardLayout>
+      </DashboardLayoutWrapper>
     );
   }
 
   return (
-    <DashboardLayout>
+    <DashboardLayoutWrapper>
       <div className="p-8 space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
@@ -188,6 +188,6 @@ export default function Countries() {
         country={null}
         onSuccess={() => utils.countries.getAll.invalidate()}
       />
-    </DashboardLayout>
+    </DashboardLayoutWrapper>
   );
 }

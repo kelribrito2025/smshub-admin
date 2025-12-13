@@ -1,4 +1,4 @@
-import DashboardLayout from "@/components/DashboardLayout";
+import DashboardLayoutWrapper from "@/components/DashboardLayoutWrapper";
 import { FinancialSkeleton } from "@/components/FinancialSkeleton";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -175,14 +175,14 @@ export default function Financial() {
 
   if (metricsLoading) {
     return (
-      <DashboardLayout>
+      <DashboardLayoutWrapper>
         <FinancialSkeleton />
-      </DashboardLayout>
+      </DashboardLayoutWrapper>
     );
   }
 
   return (
-    <DashboardLayout>
+    <DashboardLayoutWrapper>
       <AnimatedPage className="p-8 space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
@@ -700,6 +700,6 @@ export default function Financial() {
           </TabsContent>
         </Tabs>
       </AnimatedPage>
-    </DashboardLayout>
+    </DashboardLayoutWrapper>
   );
 }

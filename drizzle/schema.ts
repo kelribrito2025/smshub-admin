@@ -11,6 +11,7 @@ export const users = mysqlTable("users", {
   loginMethod: varchar("loginMethod", { length: 64 }),
   role: mysqlEnum("role", ["user", "admin"]).default("user").notNull(),
   permissions: text("permissions"), // JSON array of permissions (e.g., ["support:impersonate"])
+  navLayout: mysqlEnum("navLayout", ["sidebar", "top"]).default("sidebar").notNull(), // Navigation layout preference
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
   lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),

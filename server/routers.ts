@@ -1,7 +1,11 @@
 import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
-import { publicProcedure, router } from "./_core/trpc";
+import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
+import { z } from "zod";
+import { getDb } from "./db";
+import { users } from "../drizzle/schema";
+import { eq } from "drizzle-orm";
 import { settingsRouter } from "./routers/settings";
 import { countriesRouter } from "./routers/countries";
 import { servicesRouter } from "./routers/services";
@@ -43,6 +47,27 @@ export const appRouter = router({
         success: true,
       } as const;
     }),
+    updateNavLayout: protectedProcedure
+      .input(z.object({
+        navLayout: z.enum(["sidebar", "top"]),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        const db = await getDb();
+        if (!db) throw new Error("Database not available");
+        await db.update(users)
+          .set({ navLayout: input.navLayout })
+          .where(eq(users.id, ctx.user.id));
+        return { success: true };
+      }),
+    getNavLayout: protectedProcedure
+      .query(async ({ ctx }) => {
+        const db = await getDb();
+        if (!db) return "sidebar";
+        const [user] = await db.select({ navLayout: users.navLayout })
+          .from(users)
+          .where(eq(users.id, ctx.user.id));
+        return user?.navLayout || "sidebar";
+      }),
   }),
 
   // Admin routers

@@ -1,5 +1,5 @@
 import { trpc } from "@/lib/trpc";
-import DashboardLayout from "@/components/DashboardLayout";
+import DashboardLayoutWrapper from "@/components/DashboardLayoutWrapper";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -83,7 +83,7 @@ export default function Affiliates() {
   const totalRecharged = affiliates.reduce((sum, a) => sum + a.totalRecharged, 0);
 
   return (
-    <DashboardLayout>
+    <DashboardLayoutWrapper>
       <div className="p-8 space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
@@ -373,6 +373,6 @@ export default function Affiliates() {
           </TabsContent>
         </Tabs>
       </div>
-    </DashboardLayout>
+    </DashboardLayoutWrapper>
   );
 }

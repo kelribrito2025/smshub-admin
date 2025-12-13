@@ -1,11 +1,11 @@
 import { useAuth } from "@/_core/hooks/useAuth";
-import DashboardLayout from "@/components/DashboardLayout";
+import DashboardLayoutWrapper from "@/components/DashboardLayoutWrapper";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { trpc } from "@/lib/trpc";
-import { Users, Pencil, Check, X, Loader2, Info, Settings as SettingsIcon, CreditCard, Smartphone } from "lucide-react";
+import { Users, Pencil, Check, X, Loader2, Info, Settings as SettingsIcon, CreditCard, Smartphone, LayoutDashboard, SidebarOpen, Menu } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -20,6 +20,78 @@ interface PaymentEditingState {
   method: PaymentMethod | null;
   minAmount: string;
   bonusPercentage: string;
+}
+
+function LayoutToggleSection() {
+  const { data: navLayout } = trpc.auth.getNavLayout.useQuery();
+  const updateNavLayoutMutation = trpc.auth.updateNavLayout.useMutation();
+  const utils = trpc.useUtils();
+
+  const handleNavLayoutChange = async (layout: 'sidebar' | 'top') => {
+    try {
+      await updateNavLayoutMutation.mutateAsync({ navLayout: layout });
+      toast.success('Layout de navegação atualizado! Recarregando...');
+      utils.auth.getNavLayout.invalidate();
+      // Reload page to apply new layout
+      setTimeout(() => window.location.reload(), 500);
+    } catch (error) {
+      toast.error('Erro ao atualizar layout');
+      console.error(error);
+    }
+  };
+
+  return (
+    <div className="bg-neutral-900/50 border-2 border-blue-500/30 rounded-xl p-4 mb-4">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
+            <LayoutDashboard size={20} className="text-blue-500" />
+          </div>
+          <div>
+            <h3 className="text-white font-medium text-sm">Layout de Navegação</h3>
+            <p className="text-neutral-400 text-xs">Escolha como deseja visualizar o menu</p>
+          </div>
+        </div>
+
+        <div className="flex bg-neutral-900 border border-neutral-800 rounded-lg p-1 shadow-lg">
+          <button
+            onClick={() => handleNavLayoutChange('sidebar')}
+            disabled={updateNavLayoutMutation.isPending}
+            className={`flex items-center gap-2 px-6 py-3 rounded-md transition-all ${
+              navLayout === 'sidebar'
+                ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20'
+                : 'text-neutral-400 hover:text-white hover:bg-neutral-800'
+            }`}
+            title="Navegação lateral"
+          >
+            {updateNavLayoutMutation.isPending && navLayout !== 'sidebar' ? (
+              <Loader2 size={20} className="animate-spin" />
+            ) : (
+              <SidebarOpen size={20} />
+            )}
+            <span className="text-sm font-medium">Barra Lateral</span>
+          </button>
+          <button
+            onClick={() => handleNavLayoutChange('top')}
+            disabled={updateNavLayoutMutation.isPending}
+            className={`flex items-center gap-2 px-6 py-3 rounded-md transition-all ${
+              navLayout === 'top'
+                ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20'
+                : 'text-neutral-400 hover:text-white hover:bg-neutral-800'
+            }`}
+            title="Navegação superior"
+          >
+            {updateNavLayoutMutation.isPending && navLayout !== 'top' ? (
+              <Loader2 size={20} className="animate-spin" />
+            ) : (
+              <Menu size={20} />
+            )}
+            <span className="text-sm font-medium">Barra Superior</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default function Settings() {
@@ -195,11 +267,11 @@ export default function Settings() {
 
   if (isLoadingAffiliate || isLoadingPayment) {
     return (
-      <DashboardLayout>
+      <DashboardLayoutWrapper>
         <div className="flex items-center justify-center h-64">
           <Loader2 className="w-8 h-8 animate-spin text-primary" />
         </div>
-      </DashboardLayout>
+      </DashboardLayoutWrapper>
     );
   }
 
@@ -231,7 +303,7 @@ export default function Settings() {
   ];
 
   return (
-    <DashboardLayout>
+    <DashboardLayoutWrapper>
       <div className="p-8 space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
@@ -245,6 +317,9 @@ export default function Settings() {
             </p>
           </div>
         </div>
+
+        {/*  Toggle para mudar layout da navegação - DESTACADO */}
+        <LayoutToggleSection />
 
         {/* Container responsivo para os dois cards */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -529,6 +604,6 @@ export default function Settings() {
           </Card>
         </div>
       </div>
-    </DashboardLayout>
+    </DashboardLayoutWrapper>
   );
 }

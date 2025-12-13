@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import DashboardLayout from '@/components/DashboardLayout';
+import DashboardLayoutWrapper from '@/components/DashboardLayoutWrapper';
 import { trpc } from '@/lib/trpc';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -57,7 +57,7 @@ export default function PerformanceAPIs() {
   };
 
   return (
-    <DashboardLayout>
+    <DashboardLayoutWrapper>
       <div className="p-8 space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
@@ -326,6 +326,6 @@ export default function PerformanceAPIs() {
           </>
         )}
       </div>
-    </DashboardLayout>
+    </DashboardLayoutWrapper>
   );
 }

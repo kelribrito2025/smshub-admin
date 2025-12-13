@@ -155,6 +155,13 @@
       "when": 1765649813782,
       "tag": "0021_aberrant_supernaut",
       "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "5",
+      "when": 1765661104582,
+      "tag": "0022_new_silver_fox",
+      "breakpoints": true
     }
   ]
 }

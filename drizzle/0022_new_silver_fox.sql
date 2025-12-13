@@ -1,0 +1,1 @@
+ALTER TABLE `users` ADD `navLayout` enum('sidebar','top') DEFAULT 'sidebar' NOT NULL;

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { trpc } from '../lib/trpc';
 import { useDebouncedValue } from '../hooks/useDebouncedValue';
-import DashboardLayout from '../components/DashboardLayout';
+import DashboardLayoutWrapper from '@/components/DashboardLayoutWrapper';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Card } from '../components/ui/card';
@@ -324,7 +324,7 @@ export default function Catalog() {
   };
 
   return (
-    <DashboardLayout>
+    <DashboardLayoutWrapper>
       <div className="p-8 space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
@@ -1107,6 +1107,6 @@ export default function Catalog() {
         </AlertDialogContent>
       </AlertDialog> */}
       </div>
-    </DashboardLayout>
+    </DashboardLayoutWrapper>
   );
 }
