@@ -88,7 +88,7 @@ export default function Countries() {
 
         {/* Stats */}
         <div className="grid gap-4 md:grid-cols-3">
-          <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+          <div className="font-sans bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
             <div className="flex items-center justify-between mb-4">
               <span className="text-neutral-400 text-sm">Total de Países</span>
               <Globe size={18} className="text-neutral-500" />
@@ -101,7 +101,7 @@ export default function Countries() {
             </div>
           </div>
 
-          <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+          <div className="font-sans bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
             <div className="flex items-center justify-between mb-4">
               <span className="text-neutral-400 text-sm">Países Ativos</span>
               <Globe size={18} className="text-green-500" />
@@ -114,7 +114,7 @@ export default function Countries() {
             </div>
           </div>
 
-          <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+          <div className="font-sans bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
             <div className="flex items-center justify-between mb-4">
               <span className="text-neutral-400 text-sm">Países Inativos</span>
               <Globe size={18} className="text-neutral-500" />

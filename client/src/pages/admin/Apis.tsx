@@ -260,7 +260,7 @@ export default function Apis() {
         </div>
 
         {/* Exchange Rate Card */}
-        <div className="bg-neutral-900 border border-neutral-800 rounded-lg px-6 py-4 flex items-center justify-between hover:border-neutral-700 transition-colors" style={{backgroundColor: '#0a0a0a'}}>
+        <div className="font-sans bg-neutral-900 border border-neutral-800 rounded-lg px-6 py-4 flex items-center justify-between hover:border-neutral-700 transition-colors" style={{backgroundColor: '#0a0a0a'}}>
           <div className="flex items-baseline gap-6">
             <div>
               <div className="text-neutral-500 text-xs font-medium mb-1">USD/BRL</div>
@@ -304,7 +304,7 @@ export default function Apis() {
         </div>
 
         {/* Info Card */}
-        <Card style={{ backgroundColor: '#0a0a0a' }}>
+        <Card className="font-sans" style={{ backgroundColor: '#0a0a0a' }}>
           <CardHeader>
             <div className="flex items-center gap-2">
               <CardTitle className="text-white">APIs Configuradas</CardTitle>

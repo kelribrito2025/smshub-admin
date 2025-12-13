@@ -265,7 +265,7 @@ export default function PerformanceAPIs() {
             </Card>
 
             {/* Tabela comparativa */}
-            <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+            <div className="font-sans bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
               <div className="mb-6">
                 <h2 className="text-lg font-medium text-white">Comparação Detalhada</h2>
               </div>

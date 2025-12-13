@@ -64,3 +64,7 @@
 ## Configuração de Tipografia
 - [x] Configurar fonte San Francisco (sistema Apple) no DashboardLayout e em todo o projeto
 - [x] Atualizar index.css com stack de fontes do sistema Apple (-apple-system, BlinkMacSystemFont, "SF Pro Display", etc.)
+
+## Correção de Aplicação de Fonte nos Cards
+- [x] Adicionar font-sans explicitamente em todos os cards customizados (bg-neutral-900/50) nas páginas Countries, Customers, Dashboard, PerformanceAPIs, Affiliates, Apis e Settings
+- [x] Adicionar font-sans globalmente no componente Card do shadcn/ui para garantir aplicação consistente em todos os 59+ cards do projeto
