@@ -1,3 +1,4 @@
+import React from "react";
 import DashboardLayout from "@/components/DashboardLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -306,9 +307,8 @@ export default function Customers() {
                 <TableBody>
                   {paginatedCustomers && paginatedCustomers.length > 0 ? (
                     paginatedCustomers.map((customer) => (
-                      <>
+                      <React.Fragment key={customer.id}>
                         <TableRow 
-                          key={customer.id}
                           className={`${searchTerm.trim() ? 'cursor-pointer hover:bg-gray-800/50' : ''} ${customer.banned ? "border-2 border-red-500/50 animate-pulse" : ""} ${expandedCustomerId === customer.id ? "bg-gray-800/30" : ""}`}
                           onClick={() => handleRowClick(customer.id)}
                         >
@@ -391,7 +391,6 @@ export default function Customers() {
                           </div>
                         </TableCell>
                       </TableRow>
-
                       {/* Timeline Expandida - só aparece se houver busca ativa */}
                       {searchTerm.trim() && expandedCustomerId === customer.id && (
                         <TableRow>
@@ -529,7 +528,7 @@ export default function Customers() {
                           </TableCell>
                         </TableRow>
                       )}
-                      </>
+                      </React.Fragment>
                     ))
                   ) : (
                     <TableRow>

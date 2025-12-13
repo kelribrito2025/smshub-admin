@@ -60,7 +60,7 @@ export default function Settings() {
 
     setAffiliateEditing({
       bonusPercentage: (affiliateSettings?.bonusPercentage || 10).toString(),
-      description: affiliateSettings?.description || "Bônus sobre a 1ª recarga dos indicados.",
+      description: affiliateSettings?.description || "Bônus de 10% sobre a 1ª recarga dos indicados.",
     });
     setIsEditingAffiliate(true);
   };
