@@ -2796,3 +2796,22 @@
 
 **Tarefas:**
 - [x] Ajustar layout responsivo da página /admin/settings para cards lado a lado em desktop e empilhados em mobile
+
+
+---
+
+## 📋 Timeline Expandida de Transações na Página de Clientes
+
+**Objetivo:**
+- Adicionar timeline de transações na página /admin/clientes
+- Ao clicar em um cliente, expandir linha e exibir timeline de transações
+- Reaproveitar componente/estilo da timeline de auditoria
+- Implementar paginação de 25 itens por página
+
+**Tarefas:**
+- [x] Adicionar estado de expansão de linha na tabela de clientes
+- [x] Criar componente de timeline de transações do cliente
+- [x] Reaproveitar estilos da timeline de auditoria
+- [x] Implementar paginação de 25 itens por página
+- [x] Adicionar query tRPC para buscar transações por cliente
+- [x] Testar expansão e paginação
