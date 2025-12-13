@@ -18,3 +18,4 @@
 
 ## Atualização Visual do Dashboard
 - [x] Atualizar visual do card de custo total no dashboard
+- [x] Atualizar card de Taxa de Sucesso com novo visual (bg-neutral-900/50, bordas, ícone Activity)

@@ -376,31 +376,23 @@ export default function Dashboard() {
 
           {/* Card 6: Taxa de Sucesso */}
           <motion.div variants={fadeInScale}>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Taxa de Sucesso</CardTitle>
-                <Activity className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent className="pt-8">
-                <div className="text-2xl font-bold">
-                  {metrics?.totalActivations
-                    ? formatPercent(
-                        (metrics.completedActivations / metrics.totalActivations) * 100
-                      )
-                    : "0%"}
-                </div>
-                <div className="flex items-center gap-4 mt-1 text-xs text-muted-foreground">
-                  <span className="flex items-center gap-1">
-                    <CheckCircle2 className="h-3 w-3 text-green-600" />
-                    {metrics?.completedActivations || 0}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <XCircle className="h-3 w-3 text-red-600" />
-                    {metrics?.cancelledActivations || 0}
-                  </span>
-                </div>
-              </CardContent>
-            </Card>
+            <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-neutral-400 text-sm">Taxa de Sucesso</span>
+                <Activity size={18} className="text-neutral-500" />
+              </div>
+              <div className="text-3xl font-light text-white mb-1">
+                {metrics?.totalActivations
+                  ? formatPercent(
+                      (metrics.completedActivations / metrics.totalActivations) * 100
+                    )
+                  : "0%"}
+              </div>
+              <div className="flex items-center gap-3 text-xs">
+                <span className="text-emerald-500">{metrics?.completedActivations || 0} ✓</span>
+                <span className="text-red-500">{metrics?.cancelledActivations || 0} ✗</span>
+              </div>
+            </div>
           </motion.div>
 
           {/* Card 7: Placeholder (futuro) */}
