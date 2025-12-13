@@ -2894,3 +2894,30 @@
 - [x] Investigar DashboardLayout.tsx para identificar causa do problema
 - [x] Corrigir lógica do dropdown quando sidebar está minimizada
 - [x] Testar correção em ambos os estados (sidebar expandida e minimizada)
+
+
+---
+
+## ✅ Menus Dropdown Não Aparecem Corretamente na Sidebar Minimizada (CORRIGIDO)
+
+**Problema:**
+- Os menus de sair e reorganizar não aparecem corretamente quando a barra lateral está minimizada na versão desktop
+- Dropdowns ficam ocultos ou mal posicionados quando a sidebar está colapsada
+
+**Causa Raiz:**
+- Sistema anterior usava botões condicionais que apareciam inline na sidebar
+- Quando a sidebar estava minimizada, os botões não tinham container adequado para se posicionar
+- Faltava uso de Portal para renderizar fora da hierarquia da sidebar
+
+**Solução:**
+- Substituído sistema de botões condicionais por DropdownMenu do Radix UI
+- DropdownMenu usa Portal automático para renderizar fora da sidebar
+- Posicionamento dinâmico: side="right" quando minimizada, side="top" quando expandida
+- Adicionado z-index alto (z-[100]) para garantir visibilidade
+- Header de informações do usuário aparece no dropdown quando minimizada
+
+**Tarefas:**
+- [x] Investigar código do DashboardLayout para identificar problema de posicionamento
+- [x] Corrigir posicionamento dos dropdowns quando sidebar está minimizada
+- [x] Implementar DropdownMenu adequado com Portal
+- [x] Criar checkpoint após correção

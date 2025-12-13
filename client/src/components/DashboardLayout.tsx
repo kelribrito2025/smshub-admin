@@ -262,54 +262,62 @@ function DashboardLayoutContent({
           </SidebarContent>
 
           <SidebarFooter className="p-4 border-t border-neutral-800 space-y-2">
-            {/* Show menu items only when admin menu is open */}
-            {isAdminMenuOpen && (
-              <>
-                {/* Reorganize Menus Button */}
-                <button 
-                  onClick={() => setReorderDialogOpen(true)}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-neutral-400 hover:bg-neutral-900 hover:text-white transition-colors ${isCollapsed ? 'justify-center' : ''}`}
+            {/* User Profile with Dropdown Menu */}
+            <DropdownMenu open={isAdminMenuOpen} onOpenChange={setIsAdminMenuOpen}>
+              <DropdownMenuTrigger asChild>
+                <button
+                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-neutral-900 transition-colors ${isCollapsed ? 'justify-center' : ''} focus:outline-none focus-visible:ring-2 focus-visible:ring-ring`}
                 >
-                  <GripVertical className="h-5 w-5" />
-                  {!isCollapsed && <span className="text-sm">Reorganizar Menus</span>}
+                  <div className="w-12 h-12 bg-neutral-900 rounded-full flex items-center justify-center border-2 border-neutral-800 shrink-0">
+                    <Shield className="h-6 w-6 text-purple-500" strokeWidth={2} />
+                  </div>
+                  {!isCollapsed && (
+                    <div className="flex-1 text-left min-w-0">
+                      <div className="text-sm font-medium text-white truncate">Admin</div>
+                      <div className="text-xs text-neutral-500 truncate">{user?.email || "-"}</div>
+                    </div>
+                  )}
                 </button>
-
-                {/* Sign Out Button */}
-                <button 
-                  onClick={logout}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-red-500 hover:bg-neutral-900 hover:text-red-400 transition-colors ${isCollapsed ? 'justify-center' : ''}`}
-                >
-                  <LogOut className="h-5 w-5" />
-                  {!isCollapsed && <span className="text-sm">Sign out</span>}
-                </button>
-              </>
-            )}
-
-            {/* User Profile - Clickable */}
-            <div className="relative group">
-              <button
-                onClick={() => setIsAdminMenuOpen(!isAdminMenuOpen)}
-                className={`w-full flex items-center gap-3 px-4 py-3 mt-2 rounded-lg hover:bg-neutral-900 transition-colors ${isCollapsed ? 'justify-center' : ''} focus:outline-none focus-visible:ring-2 focus-visible:ring-ring`}
+              </DropdownMenuTrigger>
+              <DropdownMenuContent 
+                side={isCollapsed ? "right" : "top"}
+                align={isCollapsed ? "start" : "center"}
+                className="w-56 bg-neutral-900 border-neutral-800 z-[100]"
+                sideOffset={isCollapsed ? 8 : 4}
               >
-                <div className="w-12 h-12 bg-neutral-900 rounded-full flex items-center justify-center border-2 border-neutral-800 shrink-0">
-                  <Shield className="h-6 w-6 text-purple-500" strokeWidth={2} />
-                </div>
-                {!isCollapsed && (
-                  <div className="flex-1 text-left min-w-0">
-                    <div className="text-sm font-medium text-white truncate">Admin</div>
+                {/* User Info Header (only shown in dropdown when collapsed) */}
+                {isCollapsed && (
+                  <div className="px-2 py-2 border-b border-neutral-800">
+                    <div className="text-sm font-medium text-white">Admin</div>
                     <div className="text-xs text-neutral-500 truncate">{user?.email || "-"}</div>
                   </div>
                 )}
-              </button>
+                
+                {/* Reorganize Menus Button */}
+                <DropdownMenuItem 
+                  onClick={() => {
+                    setReorderDialogOpen(true);
+                    setIsAdminMenuOpen(false);
+                  }}
+                  className="flex items-center gap-3 px-3 py-2 text-neutral-400 hover:bg-neutral-800 hover:text-white cursor-pointer"
+                >
+                  <GripVertical className="h-5 w-5" />
+                  <span className="text-sm">Reorganizar Menus</span>
+                </DropdownMenuItem>
 
-              {/* Tooltip for collapsed state */}
-              {isCollapsed && (
-                <div className="absolute left-full ml-2 bottom-0 px-3 py-2 bg-neutral-900 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50 border border-neutral-800">
-                  <div className="font-medium">Admin</div>
-                  <div className="text-xs text-neutral-400">{user?.email || "-"}</div>
-                </div>
-              )}
-            </div>
+                {/* Sign Out Button */}
+                <DropdownMenuItem 
+                  onClick={() => {
+                    logout();
+                    setIsAdminMenuOpen(false);
+                  }}
+                  className="flex items-center gap-3 px-3 py-2 text-red-500 hover:bg-neutral-800 hover:text-red-400 cursor-pointer"
+                >
+                  <LogOut className="h-5 w-5" />
+                  <span className="text-sm">Sign out</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </SidebarFooter>
         </Sidebar>
         <div
