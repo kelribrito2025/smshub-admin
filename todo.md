@@ -3513,3 +3513,30 @@
 - [x] Atualizar página /admin/clientes para usar modal customizado
 - [x] Testar funcionalidade de impersonation com novo modal
 - [x] Atualizar visual do modal de acesso a conta do cliente com novo estilo (ícone alerta amarelo, URL formatada, aviso de auditoria em caixa amarela)
+- [x] Ajustar botões do modal de confirmação de acesso para ocuparem 50%/50% da largura
+
+
+---
+
+## 🎨 Padronizar Visual do Modal de Impersonação
+
+**Objetivo:**
+- Verificar e padronizar o visual do modal de acesso à conta do cliente (impersonação)
+- Usar como referência o modal de "Confirmar Reembolso" (/admin/clientes → transação → timeline → Confirmar Reembolso)
+
+**Itens a Validar/Igualar:**
+- Layout geral do modal
+- Espaçamentos internos (padding / margin)
+- Estilo e tamanho dos botões
+- Alinhamento dos botões
+- Tipografia (título, texto, hierarquia)
+- Bordas, sombra e radius
+- Cores e estados de hover/disabled
+
+**Tarefas:**
+- [x] Localizar modal de impersonação no código
+- [x] Localizar modal de confirmar reembolso no código
+- [x] Comparar estilos entre os dois modais
+- [x] Aplicar padronização visual do modal de reembolso no modal de impersonação
+- [x] Testar visual do modal de impersonação
+- [x] Validar que todos os aspectos visuais estão padronizados

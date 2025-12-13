@@ -1,5 +1,4 @@
 import { AlertTriangle, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 interface ConfirmationModalProps {
   isOpen: boolean;
@@ -32,27 +31,23 @@ export function ConfirmationModal({
 
   const accentColors = {
     orange: {
-      bg: "bg-orange-500/10",
-      border: "border-orange-500/20",
-      text: "text-orange-500",
+      iconBg: "bg-orange-500/20",
+      iconText: "text-orange-400",
       button: "bg-blue-600 hover:bg-blue-700",
     },
     red: {
-      bg: "bg-red-500/10",
-      border: "border-red-500/20",
-      text: "text-red-500",
+      iconBg: "bg-red-500/20",
+      iconText: "text-red-400",
       button: "bg-red-600 hover:bg-red-700",
     },
     green: {
-      bg: "bg-green-500/10",
-      border: "border-green-500/20",
-      text: "text-green-500",
+      iconBg: "bg-green-500/20",
+      iconText: "text-green-400",
       button: "bg-green-600 hover:bg-green-700",
     },
     blue: {
-      bg: "bg-blue-500/10",
-      border: "border-blue-500/20",
-      text: "text-blue-500",
+      iconBg: "bg-blue-500/20",
+      iconText: "text-blue-400",
       button: "bg-blue-600 hover:bg-blue-700",
     },
   };
@@ -60,64 +55,63 @@ export function ConfirmationModal({
   const colors = accentColors[accentColor];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-      <div className="bg-[#1a1a1a] border border-white/10 rounded-lg shadow-xl max-w-md w-full mx-4">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+      <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 max-w-md w-full mx-4 shadow-2xl">
         {/* Header */}
-        <div className="flex items-start justify-between p-6 pb-4">
+        <div className="flex items-start justify-between mb-4">
           <div className="flex items-center gap-3">
-            <div className={`p-3 rounded-full ${colors.bg} ${colors.border} border`}>
-              {icon || <AlertTriangle className={`w-6 h-6 ${colors.text}`} />}
+            <div className={`w-10 h-10 rounded-full flex items-center justify-center ${colors.iconBg}`}>
+              {icon || <AlertTriangle size={20} className={colors.iconText} />}
             </div>
             <div>
-              <h2 className="text-lg font-semibold text-white">{title}</h2>
+              <h3 className="text-lg font-medium text-white">{title}</h3>
               {customerId && (
-                <p className="text-sm text-gray-400 mt-1">ID do Cliente: {customerId}</p>
+                <p className="text-xs text-neutral-500">ID do Cliente: {customerId}</p>
               )}
             </div>
           </div>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-white transition-colors"
+            className="text-neutral-400 hover:text-white transition-colors"
           >
-            <X className="w-5 h-5" />
+            <X size={20} />
           </button>
         </div>
 
         {/* Content */}
-        <div className="px-6 pb-6 space-y-4">
-          {/* Alert Box */}
+        <div className="space-y-4 mb-6">
+          {/* Alert Box (opcional) */}
           {customerId && customerName && (
-            <div className="bg-[#0d0d0d] border border-white/10 rounded-lg p-4">
-              <code className="text-sm text-gray-300 font-mono">
+            <div className="bg-neutral-950/50 border border-neutral-800 rounded-lg p-4">
+              <code className="text-sm text-neutral-300 font-mono">
                 Alerta: app.numero-virtual.com diz
               </code>
             </div>
           )}
           
-          {/* Warning Box */}
-          <div className={`p-4 rounded-lg ${colors.bg} ${colors.border} border`}>
-            <p className="text-sm text-gray-300 leading-relaxed">{message}</p>
-          </div>
+          {/* Message */}
+          <p className="text-sm text-neutral-400">
+            {message}
+          </p>
         </div>
 
         {/* Actions */}
-        <div className="flex items-center justify-end gap-3 px-6 pb-6">
-          <Button
+        <div className="flex gap-3">
+          <button
             onClick={onClose}
-            variant="outline"
-            className="bg-transparent hover:bg-white/5"
+            className="flex-1 px-4 py-2.5 bg-neutral-800 hover:bg-neutral-700 text-white rounded-lg transition-colors text-sm font-medium"
           >
             {cancelText}
-          </Button>
-          <Button
+          </button>
+          <button
             onClick={() => {
               onConfirm();
               onClose();
             }}
-            className={colors.button}
+            className={`flex-1 px-4 py-2.5 ${colors.button} text-white rounded-lg transition-colors text-sm font-medium`}
           >
             {confirmText}
-          </Button>
+          </button>
         </div>
       </div>
     </div>
