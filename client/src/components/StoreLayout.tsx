@@ -387,35 +387,10 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
   // Only show red when user is logged in AND balance is low
   const isLowBalance = isAuthenticated && displayBalance < 700;
 
-  // Check if impersonation is active to adjust layout
-  const { data: impersonationSession } = trpc.impersonation.getCurrentSession.useQuery();
-  
-  // Fallback: ler do localStorage se cookie falhar
-  const localStorageImpersonation = (() => {
-    try {
-      const stored = localStorage.getItem('impersonation_session');
-      if (!stored) return null;
-      const parsed = JSON.parse(stored);
-      // Verificar se não expirou (10 minutos)
-      const age = Date.now() - (parsed.timestamp || 0);
-      if (age > 10 * 60 * 1000) {
-        localStorage.removeItem('impersonation_session');
-        return null;
-      }
-      return parsed;
-    } catch {
-      return null;
-    }
-  })();
-  
-  const isImpersonating = impersonationSession?.isImpersonating || localStorageImpersonation?.isImpersonating || false;
-
   return (
-    <>
-      {/* Impersonation Banner - MUST be outside overflow-hidden container */}
+    <div className="h-screen overflow-hidden bg-black text-green-400 font-mono">
+      {/* Impersonation Banner */}
       <ImpersonationBanner />
-      
-      <div className="h-screen overflow-hidden bg-black text-green-400 font-mono">
 
       {/* Matrix Background */}
       <div className="fixed inset-0 opacity-5 pointer-events-none">
@@ -427,7 +402,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
       </div>
 
       {/* Header */}
-      <header className={`fixed left-0 right-0 h-16 bg-black border-b border-green-900/50 z-40 flex items-center justify-between px-4 md:px-6 transition-all ${isImpersonating ? 'top-[52px]' : 'top-0'}`}>
+      <header className="fixed top-0 left-0 right-0 h-16 bg-black border-b border-green-900/50 z-50 flex items-center justify-between px-4 md:px-6">
         <div className="flex items-center gap-2 md:gap-8">
           {/* Mobile Menu Button */}
           <Button
@@ -657,9 +632,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
       )}
 
       {/* Sidebar */}
-      <aside className={`fixed left-0 bottom-0 w-[364px] bg-black border-r border-green-900/50 overflow-y-auto z-40 transition-transform duration-300 ${
-        isImpersonating ? 'top-[116px]' : 'top-16'
-      } ${
+      <aside className={`fixed left-0 top-16 bottom-0 w-[364px] bg-black border-r border-green-900/50 overflow-y-auto z-40 transition-transform duration-300 ${
         isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
       }`}>
         <div className="p-4 space-y-4">
@@ -890,11 +863,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
       </aside>
 
       {/* Main Content */}
-      <main className={`flex-1 lg:ml-[364px] p-4 md:p-8 overflow-y-auto ${
-        isImpersonating 
-          ? 'mt-[116px] h-[calc(100vh-116px)]' 
-          : 'mt-16 h-[calc(100vh-4rem)]'
-      }`}>
+      <main className="flex-1 lg:ml-[364px] mt-16 p-4 md:p-8 overflow-y-auto h-[calc(100vh-4rem)]">
         <div className="relative z-10">
           {children}
         </div>
@@ -908,6 +877,5 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
 
 
     </div>
-    </>
   );
 }

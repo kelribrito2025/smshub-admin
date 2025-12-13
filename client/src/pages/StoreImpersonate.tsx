@@ -11,45 +11,9 @@ export default function StoreImpersonate() {
 
   const validateTokenMutation = trpc.impersonation.validateToken.useMutation({
     onSuccess: (data) => {
-      console.log('[StoreImpersonate] Token validated successfully:', data);
-      
-      // ✅ CRÍTICO: Persistir dados do cliente no localStorage
-      // StoreAuthContext lê daqui para hidratar o estado
-      const customerData = {
-        id: data.customer.id,
-        name: data.customer.name,
-        email: data.customer.email,
-        balance: 0, // Será atualizado pela query getCustomer
-        pin: data.customer.pin,
-        active: true,
-      };
-      
-      console.log('[StoreImpersonate] Saving customer to localStorage:', customerData);
-      localStorage.setItem('store_customer', JSON.stringify(customerData));
-      
-      // ✅ CRÍTICO: Salvar flag de impersonação no localStorage como fallback
-      // Isso garante que o banner apareça mesmo se o cookie falhar
-      const impersonationData = {
-        isImpersonating: true,
-        customer: {
-          id: data.customer.id,
-          email: data.customer.email,
-        },
-        admin: {
-          id: data.admin.id,
-          name: data.admin.name,
-        },
-        timestamp: Date.now(),
-      };
-      console.log('[StoreImpersonate] Saving impersonation flag to localStorage:', impersonationData);
-      localStorage.setItem('impersonation_session', JSON.stringify(impersonationData));
-      
       toast.success(`Acesso como ${data.customer.name} iniciado com sucesso!`);
-      
-      // ✅ Forçar reload da página para reidratar contexto com novos dados
-      // Isso garante que StoreAuthContext leia o localStorage atualizado
-      console.log('[StoreImpersonate] Reloading page to apply impersonation context');
-      window.location.href = '/';
+      // Redirect to store dashboard
+      setLocation("/");
     },
     onError: (error) => {
       toast.error(`Erro ao validar token: ${error.message}`);

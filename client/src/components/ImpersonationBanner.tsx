@@ -1,95 +1,61 @@
-
+import { useEffect, useState } from "react";
 import { trpc } from "@/lib/trpc";
-import { AlertTriangle, LogOut } from "lucide-react";
+import { AlertCircle, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { toast } from "sonner";
 import { useLocation } from "wouter";
 
 export function ImpersonationBanner() {
   const [, setLocation] = useLocation();
+  const [isVisible, setIsVisible] = useState(false);
 
-  const { data: session, isLoading, error } = trpc.impersonation.getCurrentSession.useQuery();
-  
-  // Fallback: ler do localStorage se cookie falhar
-  const localStorageSession = (() => {
-    try {
-      const stored = localStorage.getItem('impersonation_session');
-      if (!stored) return null;
-      const parsed = JSON.parse(stored);
-      // Verificar se não expirou (10 minutos)
-      const age = Date.now() - (parsed.timestamp || 0);
-      if (age > 10 * 60 * 1000) {
-        localStorage.removeItem('impersonation_session');
-        return null;
-      }
-      return parsed;
-    } catch {
-      return null;
-    }
-  })();
-  
-  // Usar cookie se disponível, senão usar localStorage
-  const activeSession = session || localStorageSession;
-  
-  console.log('[ImpersonationBanner] Render:', { 
-    cookieSession: session, 
-    localStorageSession, 
-    activeSession,
-    isLoading, 
-    error 
+  const { data: session } = trpc.impersonation.getCurrentSession.useQuery(undefined, {
+    refetchInterval: 30000, // Check every 30 seconds
   });
 
   const endSessionMutation = trpc.impersonation.endSession.useMutation({
     onSuccess: () => {
-      // Limpar localStorage
-      localStorage.removeItem('impersonation_session');
-      localStorage.removeItem('store_customer');
-      
-      toast.success("Impersonação encerrada com sucesso");
-      // Redirect to admin customers page
-      setLocation("/admin/customers");
-      // Reload to clear state
-      window.location.reload();
+      toast.success("Sessão de suporte encerrada");
+      setIsVisible(false);
+      // Redirect to login
+      setLocation("/login");
     },
     onError: (error) => {
-      toast.error(`Erro ao encerrar impersonação: ${error.message}`);
+      toast.error(`Erro ao encerrar sessão: ${error.message}`);
     },
   });
 
-
+  useEffect(() => {
+    if (session?.isImpersonating) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
+  }, [session]);
 
   const handleEndSession = () => {
-    endSessionMutation.mutate();
+    if (confirm("Tem certeza que deseja encerrar o acesso de suporte?")) {
+      endSessionMutation.mutate();
+    }
   };
 
-  if (isLoading) {
-    console.log('[ImpersonationBanner] Still loading...');
+  if (!isVisible || !session?.isImpersonating) {
     return null;
   }
-  
-  if (error) {
-    console.error('[ImpersonationBanner] Error loading session:', error);
-    return null;
-  }
-  
-  if (!activeSession?.isImpersonating) {
-    console.log('[ImpersonationBanner] Not impersonating, activeSession:', activeSession);
-    return null;
-  }
-  
-  console.log('[ImpersonationBanner] Showing banner for:', activeSession.customer?.email);
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 bg-purple-600 text-white shadow-lg">
+    <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-orange-600 to-red-600 text-white shadow-lg">
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <AlertTriangle className="h-5 w-5 flex-shrink-0" />
-            <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
-              <span className="font-semibold">Modo de Impersonação:</span>
-              <span className="text-purple-100">
-                Você está visualizando como <strong>{activeSession?.customer?.email || 'Usuário desconhecido'}</strong>
-              </span>
+            <AlertCircle className="h-5 w-5 flex-shrink-0" />
+            <div className="flex-1">
+              <p className="text-sm font-semibold">
+                Modo Suporte Ativo
+              </p>
+              <p className="text-xs opacity-90">
+                Você está acessando como suporte (Admin: {session.admin.name})
+              </p>
             </div>
           </div>
           <Button
@@ -97,10 +63,19 @@ export function ImpersonationBanner() {
             size="sm"
             onClick={handleEndSession}
             disabled={endSessionMutation.isPending}
-            className="bg-white text-purple-600 hover:bg-purple-50 hover:text-purple-700 border-white flex-shrink-0"
+            className="bg-white/10 hover:bg-white/20 border-white/30 text-white flex-shrink-0"
           >
-            <LogOut className="h-4 w-4 mr-2" />
-            {endSessionMutation.isPending ? "Encerrando..." : "Encerrar Impersonação"}
+            {endSessionMutation.isPending ? (
+              <>
+                <X className="h-4 w-4 mr-2" />
+                Encerrando...
+              </>
+            ) : (
+              <>
+                <X className="h-4 w-4 mr-2" />
+                Encerrar Acesso
+              </>
+            )}
           </Button>
         </div>
       </div>

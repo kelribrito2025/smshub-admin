@@ -33,7 +33,6 @@ if (typeof document !== 'undefined') {
 import { DashboardLayoutSkeleton } from './DashboardLayoutSkeleton';
 import { Button } from "./ui/button";
 import { MenuReorderDialog } from "./MenuReorderDialog";
-import { ImpersonationBanner } from "./ImpersonationBanner";
 
 // Fallback menu items (used if database menus are not available)
 const fallbackMenuItems = [
@@ -205,7 +204,6 @@ function DashboardLayoutContent({
 
   return (
     <>
-      <ImpersonationBanner />
       <div className="relative" ref={sidebarRef}>
         <Sidebar
           collapsible="icon"

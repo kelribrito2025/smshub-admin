@@ -1,5 +1,4 @@
 import { createContext, useContext, useState, useEffect, ReactNode, useRef, useCallback } from 'react';
-import { useLocation } from 'wouter';
 import { trpc } from '../lib/trpc';
 import LoginModal from '../components/LoginModal';
 import BannedAccountModal from '../components/BannedAccountModal';
@@ -39,17 +38,12 @@ export interface StoreAuthContextType {
 const StoreAuthContext = createContext<StoreAuthContextType | undefined>(undefined);
 
 export function StoreAuthProvider({ children }: { children: ReactNode }) {
-  const [location] = useLocation();
   const [customer, setCustomer] = useState<Customer | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isBannedModalOpen, setIsBannedModalOpen] = useState(false);
   const [pendingAction, setPendingAction] = useState<(() => void) | null>(null);
   const utils = trpc.useUtils();
-  
-  // Rotas públicas que não precisam esperar o loading do auth
-  const publicRoutes = ['/impersonate', '/login'];
-  const isPublicRoute = publicRoutes.includes(location);
   
   // ✅ Hook de debounce para invalidações (prevenir requisições duplicadas)
   const invalidationTimeouts = useRef(new Map<string, NodeJS.Timeout>());
@@ -300,7 +294,7 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
 
   return (
     <StoreAuthContext.Provider value={contextValue}>
-      {isLoading && !isPublicRoute ? <InitialLoader /> : children}
+      {isLoading ? <InitialLoader /> : children}
       <LoginModal
         isOpen={isLoginModalOpen}
         onClose={handleLoginModalClose}
