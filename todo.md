@@ -2993,3 +2993,25 @@
 - [x] Atualizar lógica para mostrar "Admin" em vez de "Sistema" para ações administrativas (customers-helpers.ts)
 - [x] Criar testes para validar comportamento (customers.origin.test.ts)
 - [x] Testar e validar mudança
+
+
+---
+
+## 🎯 Corrigir Coluna "Origem" na Timeline de Transações
+
+**Problema:**
+- Na página /admin/clientes, timeline de transações mostra "Sistema" para ações do cliente
+- Ações de compra, cancelamento e recarga feitas pelo cliente devem mostrar ícone e nome "Cliente" na coluna origem
+
+**Solução Implementada:**
+- Adicionado parâmetro `origin` opcional na função `addBalance`
+- Atualizado webhook PIX para usar `origin: "customer"` em recargas
+- Atualizado webhook Stripe para usar `origin: "customer"` em recargas
+- Atualizado `transaction-helpers.ts` para usar `origin: "customer"` em compras
+- Atualizado `store.ts` para usar `origin: "customer"` em cancelamentos/reembolsos
+- Frontend já possui lógica para exibir ícone e label corretos baseado no campo `origin`
+
+**Tarefas:**
+- [x] Atualizar lógica da coluna origem para mostrar "Cliente" em transações de compra, cancelamento e recarga
+- [x] Adicionar ícone apropriado para identificar origem "Cliente"
+- [x] Testar visualização na timeline de transações

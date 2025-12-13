@@ -152,7 +152,7 @@ router.post("/webhook/pix", async (req, res) => {
       customerId: transaction.customerId,
       amount: transaction.amount,
       type: "credit",
-      origin: "system",
+      origin: "customer",
       description: `Recarga via PIX - ${pixData.txid}`,
       balanceBefore,
       balanceAfter,

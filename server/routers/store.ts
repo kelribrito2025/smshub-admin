@@ -1079,7 +1079,10 @@ export const storeRouter = router({
           input.customerId,
           activation.sellingPrice,
           'refund',
-          `Reembolso de ativação cancelada #${activation.id}`
+          `Reembolso de ativação cancelada #${activation.id}`,
+          undefined,
+          undefined,
+          'customer'
         );
 
         // Record cancellation for rate limiting

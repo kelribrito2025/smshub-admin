@@ -65,5 +65,5 @@ export async function debitBalanceAtomic(
 
   // Criar transação de saldo
   const { addBalance } = await import('./customers-helpers');
-  await addBalance(customerId, -amount, 'purchase', description, undefined, activationId);
+  await addBalance(customerId, -amount, 'purchase', description, undefined, activationId, 'customer');
 }

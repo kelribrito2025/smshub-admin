@@ -133,6 +133,7 @@ router.post("/webhook", async (req, res) => {
         customerId: customer.id,
         amount: transaction.amount,
         type: "credit",
+        origin: "customer",
         description: `Recarga via Stripe - R$ ${(transaction.amount / 100).toFixed(2)}`,
         balanceBefore: customer.balance,
         balanceAfter: newBalance,

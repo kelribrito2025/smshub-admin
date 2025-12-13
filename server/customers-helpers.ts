@@ -125,7 +125,8 @@ export async function addBalance(
   type: "credit" | "debit" | "purchase" | "refund" | "withdrawal" | "hold",
   description: string,
   createdBy?: number,
-  relatedActivationId?: number
+  relatedActivationId?: number,
+  origin?: "api" | "customer" | "admin" | "system"
 ) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
@@ -175,7 +176,7 @@ export async function addBalance(
       balanceAfter,
       relatedActivationId,
       createdBy,
-      origin: createdBy ? "admin" : "system", // Set origin to "admin" if created by an admin
+      origin: origin || (createdBy ? "admin" : "system"), // Use provided origin or default to "admin" if created by an admin, otherwise "system"
       metadata: metadata ? JSON.stringify(metadata) : null,
     });
 
