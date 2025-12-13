@@ -10,3 +10,6 @@
 
 ## Correção de Ícones
 - [x] Corrigir ícones da barra superior para corresponder aos ícones da barra lateral
+
+## Ajustes de Texto
+- [x] Alterar título do header de "Número Virtual" para "Painel admin"

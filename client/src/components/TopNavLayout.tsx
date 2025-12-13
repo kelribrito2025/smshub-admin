@@ -105,7 +105,7 @@ export default function TopNavLayout({
             {/* Logo/Brand */}
             <div className="flex items-center gap-3">
               <LayoutDashboard size={24} className="text-blue-500" />
-              <h1 className="text-lg font-medium text-white">Número Virtual</h1>
+              <h1 className="text-lg font-medium text-white">Painel admin</h1>
             </div>
 
             {/* Navigation */}
