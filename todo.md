@@ -3341,3 +3341,33 @@
 - [x] Garantir que `StoreAuthContext` reconheça sessão de impersonação via cookie
 - [x] Remover redirecionamento para `/login` em caso de erro (mostrar erro e voltar para admin)
 - [x] Testar fluxo completo de impersonação (admin → impersonate → painel de vendas)
+
+
+---
+
+## ✅ BUG CORRIGIDO: Impersonação Redireciona para Store Deslogado
+
+**Problema:**
+- Ao clicar no botão de impersonar (olhinho) no painel administrativo
+- Usuário era redirecionado para o store layout
+- Porém aparecia deslogado na página de vendas
+- Autenticação de impersonação não estava sendo aplicada corretamente
+
+**Causa Raiz:**
+- O `StoreAuthContext` carrega dados do `localStorage` no `useEffect` inicial
+- A página `/impersonate` salvava os dados no localStorage e redirecionava com `setLocation("/")`
+- O redirecionamento via wouter não recarregava o contexto completamente
+- Resultado: StoreAuthContext ainda tinha estado antigo (deslogado)
+
+**Solução:**
+- Mudado redirecionamento de `setLocation("/")` para `window.location.href = "/"`
+- Adicionado delay de 100ms para garantir que localStorage seja atualizado primeiro
+- Agora a página é completamente recarregada (hard reload)
+- StoreAuthContext carrega dados frescos do localStorage
+- Usuário aparece logado corretamente no store
+
+**Tarefas:**
+- [x] Investigar fluxo de impersonação atual (backend e frontend)
+- [x] Verificar como sessão de impersonação é criada
+- [x] Corrigir autenticação no redirecionamento para store
+- [x] Testar fluxo completo de impersonação

@@ -16,8 +16,11 @@ export default function StoreImpersonate() {
       
       toast.success(`Acesso como ${data.customer.name} iniciado com sucesso!`);
       
-      // ✅ Redirecionar diretamente para o painel de vendas
-      setLocation("/");
+      // ✅ Aguardar um momento para garantir que localStorage foi atualizado
+      // e então forçar reload completo da página para recarregar o StoreAuthContext
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 100);
     },
     onError: (error) => {
       toast.error(`Erro ao validar token: ${error.message}`);
