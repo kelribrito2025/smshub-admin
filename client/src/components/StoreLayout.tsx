@@ -387,6 +387,10 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
   // Only show red when user is logged in AND balance is low
   const isLowBalance = isAuthenticated && displayBalance < 700;
 
+  // Check if impersonation is active to adjust layout
+  const { data: impersonationSession } = trpc.impersonation.getCurrentSession.useQuery();
+  const isImpersonating = impersonationSession?.isImpersonating || false;
+
   return (
     <div className="h-screen overflow-hidden bg-black text-green-400 font-mono">
       {/* Impersonation Banner */}
@@ -402,7 +406,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
       </div>
 
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 h-16 bg-black border-b border-green-900/50 z-50 flex items-center justify-between px-4 md:px-6">
+      <header className={`fixed left-0 right-0 h-16 bg-black border-b border-green-900/50 z-40 flex items-center justify-between px-4 md:px-6 transition-all ${isImpersonating ? 'top-[52px]' : 'top-0'}`}>
         <div className="flex items-center gap-2 md:gap-8">
           {/* Mobile Menu Button */}
           <Button
@@ -632,7 +636,9 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
       )}
 
       {/* Sidebar */}
-      <aside className={`fixed left-0 top-16 bottom-0 w-[364px] bg-black border-r border-green-900/50 overflow-y-auto z-40 transition-transform duration-300 ${
+      <aside className={`fixed left-0 bottom-0 w-[364px] bg-black border-r border-green-900/50 overflow-y-auto z-40 transition-transform duration-300 ${
+        isImpersonating ? 'top-[116px]' : 'top-16'
+      } ${
         isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
       }`}>
         <div className="p-4 space-y-4">
@@ -863,7 +869,11 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 lg:ml-[364px] mt-16 p-4 md:p-8 overflow-y-auto h-[calc(100vh-4rem)]">
+      <main className={`flex-1 lg:ml-[364px] p-4 md:p-8 overflow-y-auto ${
+        isImpersonating 
+          ? 'mt-[116px] h-[calc(100vh-116px)]' 
+          : 'mt-16 h-[calc(100vh-4rem)]'
+      }`}>
         <div className="relative z-10">
           {children}
         </div>

@@ -3368,3 +3368,22 @@ Dashboard renderiza com dados do cliente
 - [x] Garantir que redirecionamento só acontece APÓS estado ser atualizado
 - [x] Adicionar logs para rastrear fluxo completo
 - [ ] Testar correção em produção (aguardando publicação)
+
+
+---
+
+## 🎭 Indicador Visual de Impersonação
+
+**Objetivo:**
+- Adicionar banner fixo no topo do dashboard quando admin estiver impersonando um cliente
+- Mostrar claramente "Você está visualizando como [Nome do Cliente]"
+- Adicionar botão "Encerrar impersonação" para voltar ao contexto admin
+- Evitar ações administrativas sendo feitas sem perceber o contexto
+
+**Tarefas:**
+- [x] Implementar lógica de detecção de impersonação no backend (JWT claim ou flag)
+- [x] Criar componente ImpersonationBanner com design roxo destacado
+- [x] Integrar banner no DashboardLayout (sempre visível, não ocultável)
+- [x] Implementar endpoint para encerrar impersonação e restaurar contexto admin
+- [x] Adicionar lógica de invalidação de token e reset de auth ao encerrar
+- [x] Testar fluxo completo de impersonação → banner → encerrar → voltar admin
