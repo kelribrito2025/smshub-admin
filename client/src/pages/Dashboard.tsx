@@ -266,7 +266,7 @@ export default function Dashboard() {
         >
           {/* Card 1: Saldo das APIs */}
           <motion.div variants={fadeInScale}>
-            <Card>
+            <Card style={{backgroundColor: '#101010'}}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Saldo das APIs</CardTitle>
                 <DollarSign className="h-4 w-4 text-muted-foreground" />
@@ -300,7 +300,7 @@ export default function Dashboard() {
 
           {/* Card 2: Total de Ativações */}
           <motion.div variants={fadeInScale}>
-            <Card>
+            <Card style={{backgroundColor: '#101010'}}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Total de Ativações</CardTitle>
                 <Activity className="h-4 w-4 text-muted-foreground" />
@@ -316,7 +316,7 @@ export default function Dashboard() {
 
           {/* Card 3: Receita Total */}
           <motion.div variants={fadeInScale}>
-            <Card>
+            <Card style={{backgroundColor: '#101010'}}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Receita Total</CardTitle>
                 <TrendingUp className="h-4 w-4 text-muted-foreground" />
@@ -332,7 +332,7 @@ export default function Dashboard() {
 
           {/* Card 4: Lucro Total */}
           <motion.div variants={fadeInScale}>
-            <Card>
+            <Card style={{backgroundColor: '#101010'}}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Lucro Total</CardTitle>
                 <DollarSign className="h-4 w-4 text-muted-foreground" />
@@ -397,7 +397,7 @@ export default function Dashboard() {
 
           {/* Card 7: Placeholder (futuro) */}
           <motion.div variants={fadeInScale}>
-            <Card className="border-dashed">
+            <Card className="border-dashed" style={{backgroundColor: '#101010'}}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">Em breve</CardTitle>
               </CardHeader>
@@ -410,7 +410,7 @@ export default function Dashboard() {
 
           {/* Card 8: Placeholder (futuro) */}
           <motion.div variants={fadeInScale}>
-            <Card className="border-dashed">
+            <Card className="border-dashed" style={{backgroundColor: '#101010'}}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">Em breve</CardTitle>
               </CardHeader>
