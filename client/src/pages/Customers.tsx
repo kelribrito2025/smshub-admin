@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { trpc } from "@/lib/trpc";
-import { DollarSign, Edit, Loader2, Plus, Search, Trash2, Users, Wallet, TrendingUp, ChevronDown, ChevronUp, ArrowDownCircle, ArrowUpCircle, ShoppingCart, RefreshCw, Activity, User, Shield, Settings, Gift, X, CheckCircle2, Eye } from "lucide-react";
+import { DollarSign, Edit, Loader2, Plus, Search, Trash2, Users, Wallet, TrendingUp, ChevronDown, ChevronUp, ArrowDownCircle, ArrowUpCircle, ShoppingCart, RefreshCw, Activity, User, Shield, Settings, Gift, X, CheckCircle2 } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -89,18 +89,6 @@ export default function Customers() {
     },
   });
 
-  const impersonateMutation = trpc.impersonation.generateToken.useMutation({
-    onSuccess: (data) => {
-      // Open new tab with impersonation URL
-      const impersonationUrl = `${import.meta.env.VITE_FRONTEND_URL}/impersonate?token=${data.token}`;
-      window.open(impersonationUrl, '_blank');
-      toast.success(`Acessando como ${data.customerName}...`);
-    },
-    onError: (error) => {
-      toast.error(`Erro ao gerar token: ${error.message}`);
-    },
-  });
-
   const filteredCustomers = customers?.filter(
     (customer) =>
       customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -125,12 +113,6 @@ export default function Customers() {
   const handleDelete = (customer: any) => {
     if (confirm(`Tem certeza que deseja excluir o cliente ${customer.name}?`)) {
       deleteCustomerMutation.mutate({ id: customer.id });
-    }
-  };
-
-  const handleImpersonate = (customerId: number) => {
-    if (confirm('Você está prestes a acessar a conta deste cliente. Esta ação será registrada em auditoria. Continuar?')) {
-      impersonateMutation.mutate({ customerId });
     }
   };
 
@@ -420,18 +402,6 @@ export default function Customers() {
                         </TableCell>
                         <TableCell className="text-right">
                           <div className="flex items-center justify-end gap-2" onClick={(e) => e.stopPropagation()}>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleImpersonate(customer.id);
-                              }}
-                              title="Logar como cliente (Suporte)"
-                              className="text-blue-500 hover:text-blue-400"
-                            >
-                              <Eye className="h-4 w-4" />
-                            </Button>
                             <Button
                               variant="ghost"
                               size="sm"

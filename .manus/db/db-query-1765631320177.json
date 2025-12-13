@@ -1,9 +1,0 @@
-{
-  "query": "CREATE TABLE impersonation_logs (\n  id INT AUTO_INCREMENT PRIMARY KEY,\n  adminId INT NOT NULL,\n  customerId INT NOT NULL,\n  token VARCHAR(500) NOT NULL UNIQUE,\n  status ENUM('active', 'ended', 'expired') NOT NULL DEFAULT 'active',\n  ipAddress VARCHAR(45),\n  userAgent TEXT,\n  startedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  endedAt TIMESTAMP NULL,\n  expiresAt TIMESTAMP NOT NULL,\n  INDEX impersonation_admin_idx (adminId),\n  INDEX impersonation_customer_idx (customerId),\n  UNIQUE INDEX impersonation_token_idx (token),\n  INDEX impersonation_status_idx (status),\n  INDEX impersonation_started_at_idx (startedAt)\n)",
-  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute CREATE TABLE impersonation_logs (\n  id INT AUTO_INCREMENT PRIMARY KEY,\n  adminId INT NOT NULL,\n  customerId INT NOT NULL,\n  token VARCHAR(500) NOT NULL UNIQUE,\n  status ENUM('active', 'ended', 'expired') NOT NULL DEFAULT 'active',\n  ipAddress VARCHAR(45),\n  userAgent TEXT,\n  startedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  endedAt TIMESTAMP NULL,\n  expiresAt TIMESTAMP NOT NULL,\n  INDEX impersonation_admin_idx (adminId),\n  INDEX impersonation_customer_idx (customerId),\n  UNIQUE INDEX impersonation_token_idx (token),\n  INDEX impersonation_status_idx (status),\n  INDEX impersonation_started_at_idx (startedAt)\n)",
-  "rows": [],
-  "messages": [],
-  "stdout": "",
-  "stderr": "",
-  "execution_time_ms": 177
-}

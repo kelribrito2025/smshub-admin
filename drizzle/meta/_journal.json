@@ -134,13 +134,6 @@
       "when": 1765597849238,
       "tag": "0018_luxuriant_blob",
       "breakpoints": true
-    },
-    {
-      "idx": 19,
-      "version": "5",
-      "when": 1765631304590,
-      "tag": "0019_lying_tana_nile",
-      "breakpoints": true
     }
   ]
 }

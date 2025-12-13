@@ -10,7 +10,6 @@ export const users = mysqlTable("users", {
   email: varchar("email", { length: 320 }),
   loginMethod: varchar("loginMethod", { length: 64 }),
   role: mysqlEnum("role", ["user", "admin"]).default("user").notNull(),
-  permissions: text("permissions"), // JSON array of permissions (e.g., ["support:impersonate"])
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
   lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
@@ -395,31 +394,6 @@ export const customerSessions = mysqlTable("customer_sessions", {
 
 export type CustomerSession = typeof customerSessions.$inferSelect;
 export type InsertCustomerSession = typeof customerSessions.$inferInsert;
-
-/**
- * Impersonation Logs table - tracks admin impersonation sessions for security audit
- */
-export const impersonationLogs = mysqlTable("impersonation_logs", {
-  id: int("id").autoincrement().primaryKey(),
-  adminId: int("adminId").notNull(), // Admin user who initiated impersonation
-  customerId: int("customerId").notNull(), // Customer being impersonated
-  token: varchar("token", { length: 500 }).notNull().unique(), // JWT token for impersonation session
-  status: mysqlEnum("status", ["active", "ended", "expired"]).default("active").notNull(),
-  ipAddress: varchar("ipAddress", { length: 45 }), // IP address of admin
-  userAgent: text("userAgent"), // Browser/device info
-  startedAt: timestamp("startedAt").defaultNow().notNull(),
-  endedAt: timestamp("endedAt"), // When impersonation was manually ended
-  expiresAt: timestamp("expiresAt").notNull(), // Token expiration (10 minutes from creation)
-}, (table) => ({
-  adminIdx: index("impersonation_admin_idx").on(table.adminId),
-  customerIdx: index("impersonation_customer_idx").on(table.customerId),
-  tokenIdx: uniqueIndex("impersonation_token_idx").on(table.token),
-  statusIdx: index("impersonation_status_idx").on(table.status),
-  startedAtIdx: index("impersonation_started_at_idx").on(table.startedAt),
-}));
-
-export type ImpersonationLog = typeof impersonationLogs.$inferSelect;
-export type InsertImpersonationLog = typeof impersonationLogs.$inferInsert;
 
 /**
  * SMS Messages table - stores all SMS codes received for each activation
