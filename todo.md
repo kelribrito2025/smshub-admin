@@ -2993,3 +2993,18 @@
 - [x] Atualizar lógica para mostrar "Admin" em vez de "Sistema" para ações administrativas (customers-helpers.ts)
 - [x] Criar testes para validar comportamento (customers.origin.test.ts)
 - [x] Testar e validar mudança
+
+
+---
+
+## 👤 Exibir Ícone de Usuário e Nome do Cliente nas Ações
+
+**Objetivo:**
+- Adicionar ícone de usuário e nome do cliente nas ações de compra, cancelamento e recarga
+- Melhorar visualização de ações realizadas por clientes no sistema
+
+**Tarefas:**
+- [x] Modificar schema do banco de dados para incluir informações do cliente nas ações
+- [x] Atualizar procedures tRPC para retornar dados do cliente
+- [x] Atualizar interface de atividades para exibir ícone e nome do cliente
+- [x] Testar exibição de ícone e nome do cliente nas ações
