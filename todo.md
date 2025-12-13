@@ -3101,3 +3101,33 @@
 - [x] Implementar UI condicional: mostrar "Reembolso Realizado" ao invés de "Confirmar Reembolso"
 - [x] Remover botão de confirmação quando transação já estiver reembolsada
 - [x] Testar comportamento com transações reembolsadas e não reembolsadas
+
+
+---
+
+## 🎨 Hover Highlight para Transações Relacionadas (Compra ↔ Reembolso)
+
+**Objetivo:**
+- Implementar efeito visual de hover na Timeline de Transações em /admin/clientes
+- Quando passar o mouse em uma Compra ou Reembolso, destacar ambas as transações relacionadas
+- Funciona apenas se ambas as transações estiverem visíveis na mesma paginação
+
+**Regra de Relacionamento:**
+- Reembolso tem referência à compra (activationId no campo "Ativação")
+- Compra correspondente é encontrada usando essa referência
+- Só aplicar efeito se ambas as linhas estiverem na lista atual
+
+**Comportamento:**
+- Hover em Compra → destaca Compra + Reembolso correspondente
+- Hover em Reembolso → destaca Reembolso + Compra correspondente
+
+**Efeito Visual:**
+- Background: bg-emerald-500/10
+- Borda esquerda: border-l-2 border-emerald-400
+- Transição suave
+
+**Tarefas:**
+- [x] Criar mapa de relacionamento (purchaseByActivationId, refundByActivationId)
+- [x] Implementar estado de hover (hoveredGroupKey)
+- [x] Aplicar classes de highlight quando hover
+- [x] Testar performance (sem recalcular a cada hover)

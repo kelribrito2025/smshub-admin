@@ -35,6 +35,7 @@ export default function Customers() {
   const [transactionPage, setTransactionPage] = useState(1);
   const transactionLimit = 25;
   const [refundModal, setRefundModal] = useState<{ show: boolean; transaction: any | null; customerId: number | null; isRefunded: boolean }>({ show: false, transaction: null, customerId: null, isRefunded: false });
+  const [hoveredGroupKey, setHoveredGroupKey] = useState<string | null>(null);
 
 
   const { data: customers, isLoading } = trpc.customers.getAll.useQuery();
@@ -477,25 +478,64 @@ export default function Customers() {
                                         </TableRow>
                                       </TableHeader>
                                       <TableBody>
-                                        {transactionsQuery.data.data.map((row) => {
-                                          const t = row.transaction;
-                                          const activation = row.activation;
-                                          const service = row.service;
+                                        {(() => {
+                                          // Criar mapa de relacionamento entre compras e reembolsos
+                                          const purchaseByActivationId = new Map<number, any>();
+                                          const refundByActivationId = new Map<number, any>();
 
-                                          const isBonus = isAffiliateBonus(t);
-                                          const isPurchase = t.type === 'purchase';
+                                          transactionsQuery.data.data.forEach((row) => {
+                                            const t = row.transaction;
+                                            if (t.type === 'purchase' && t.relatedActivationId) {
+                                              purchaseByActivationId.set(t.relatedActivationId, t);
+                                            } else if (t.type === 'refund' && t.relatedActivationId) {
+                                              refundByActivationId.set(t.relatedActivationId, t);
+                                            }
+                                          });
 
-                                          return (
-                                            <TableRow 
-                                              key={t.id} 
-                                              className={`border-gray-700 hover:bg-gray-800/30 ${
-                                                isPurchase ? 'cursor-pointer' : ''
-                                              }`}
-                                              onClick={() => {
-                                                if (isPurchase && expandedCustomerId) {
-                                                  openRefundModal(t, expandedCustomerId);
-                                                }
-                                              }}
+                                          return transactionsQuery.data.data.map((row) => {
+                                            const t = row.transaction;
+                                            const activation = row.activation;
+                                            const service = row.service;
+
+                                            const isBonus = isAffiliateBonus(t);
+                                            const isPurchase = t.type === 'purchase';
+                                            const isRefund = t.type === 'refund';
+
+                                            // Determinar groupKey (activationId para relacionamento)
+                                            const groupKey = t.relatedActivationId ? `activation-${t.relatedActivationId}` : null;
+
+                                            // Verificar se há transação relacionada na lista atual
+                                            const hasRelatedTransaction = groupKey && (
+                                              (isPurchase && refundByActivationId.has(t.relatedActivationId!)) ||
+                                              (isRefund && purchaseByActivationId.has(t.relatedActivationId!))
+                                            );
+
+                                            // Aplicar highlight se hover está ativo e groupKey corresponde
+                                            const isHighlighted = groupKey && hoveredGroupKey === groupKey;
+
+                                            return (
+                                              <TableRow 
+                                                key={t.id} 
+                                                className={`border-gray-700 transition-all duration-200 ${
+                                                  isPurchase ? 'cursor-pointer' : ''
+                                                } ${
+                                                  isHighlighted 
+                                                    ? 'bg-emerald-500/10 border-l-2 border-l-emerald-400 hover:bg-emerald-500/15' 
+                                                    : 'hover:bg-gray-800/30'
+                                                }`}
+                                                onClick={() => {
+                                                  if (isPurchase && expandedCustomerId) {
+                                                    openRefundModal(t, expandedCustomerId);
+                                                  }
+                                                }}
+                                                onMouseEnter={() => {
+                                                  if (hasRelatedTransaction && groupKey) {
+                                                    setHoveredGroupKey(groupKey);
+                                                  }
+                                                }}
+                                                onMouseLeave={() => {
+                                                  setHoveredGroupKey(null);
+                                                }}
                                             >
                                               <TableCell className="font-mono text-gray-400 text-sm">#{t.id}</TableCell>
                                               <TableCell>
@@ -541,9 +581,10 @@ export default function Customers() {
                                               <TableCell className="text-gray-400 text-sm">
                                                 {new Date(t.createdAt).toLocaleString('pt-BR')}
                                               </TableCell>
-                                            </TableRow>
-                                          );
-                                        })}
+                                              </TableRow>
+                                            );
+                                          });
+                                        })()}
                                       </TableBody>
                                     </Table>
                                   </div>
