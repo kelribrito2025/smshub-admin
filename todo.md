@@ -3210,3 +3210,24 @@
 - [x] Toast de sucesso ao iniciar impersonation
 - [x] Banner de suporte claramente visível no painel
 - [x] Confirmação antes de encerrar impersonation
+
+
+---
+
+## 🐛 Erro: Cannot read properties of undefined (reading 'support_session')
+
+**Problema:**
+- Erro ocorrendo na página inicial (/)
+- TRPCClientError: Cannot read properties of undefined (reading 'support_session')
+- Código tentando acessar propriedade de objeto indefinido
+
+**Solução:**
+- Adicionado optional chaining (?.) nas linhas 247 e 309 de `server/routers/impersonation.ts`
+- Agora o código verifica se `ctx.req.cookies` existe antes de acessar `support_session`
+- Erro corrigido e página carregando normalmente
+
+**Tarefas:**
+- [x] Identificar onde 'support_session' está sendo acessado no código
+- [x] Verificar se objeto pai está definido antes de acessar propriedade
+- [x] Adicionar verificação de segurança (optional chaining ou validação)
+- [x] Testar correção

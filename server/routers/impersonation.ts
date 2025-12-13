@@ -244,7 +244,7 @@ export const impersonationRouter = router({
    */
   endSession: publicProcedure.mutation(async ({ ctx }) => {
     // Get support session cookie
-    const supportToken = ctx.req.cookies[SUPPORT_COOKIE_NAME];
+    const supportToken = ctx.req.cookies?.[SUPPORT_COOKIE_NAME];
 
     if (!supportToken) {
       throw new TRPCError({
@@ -306,7 +306,7 @@ export const impersonationRouter = router({
    * Get current impersonation session info
    */
   getCurrentSession: publicProcedure.query(async ({ ctx }) => {
-    const supportToken = ctx.req.cookies[SUPPORT_COOKIE_NAME];
+    const supportToken = ctx.req.cookies?.[SUPPORT_COOKIE_NAME];
 
     if (!supportToken) {
       return null;
