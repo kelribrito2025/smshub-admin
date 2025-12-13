@@ -360,20 +360,18 @@ export default function Dashboard() {
         >
           {/* Card 5: Custo Total */}
           <motion.div variants={fadeInScale}>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Custo Total</CardTitle>
-                <ArrowDown className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent className="pt-8">
-                <div className="text-2xl font-bold text-red-600">
-                  {formatCurrency(Number(metrics?.totalCost) || 0)}
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  Lucro médio: {formatCurrency(Number(metrics?.averageProfit) || 0)}
-                </p>
-              </CardContent>
-            </Card>
+            <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-neutral-400 text-sm">Custo Total</span>
+                <TrendingDown size={18} className="text-red-500" />
+              </div>
+              <div className="text-3xl font-light text-red-500 mb-1">
+                {formatCurrency(Number(metrics?.totalCost) || 0)}
+              </div>
+              <div className="text-xs text-neutral-500">
+                Lucro médio: {formatCurrency(Number(metrics?.averageProfit) || 0)}
+              </div>
+            </div>
           </motion.div>
 
           {/* Card 6: Taxa de Sucesso */}

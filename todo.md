@@ -15,3 +15,6 @@
 - [x] Alterar título do header de "Número Virtual" para "Painel admin"
 
 - [x] Corrigir textos do menu dropdown do admin (mostrar "Reorganizar Menus" e "Sign out" ao invés de botões genéricos)
+
+## Atualização Visual do Dashboard
+- [x] Atualizar visual do card de custo total no dashboard
