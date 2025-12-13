@@ -2732,3 +2732,36 @@
 - [x] Identificar lógica que causa maximização automática
 - [x] Corrigir para manter estado minimizado após clique em menu
 - [x] Testar comportamento após correção
+
+
+---
+
+## 🎨 Atualizar Design da Sidebar do DashboardLayout
+
+**Objetivo:**
+- Atualizar o DashboardLayout para seguir o modelo de menu fornecido
+- Implementar sidebar minificável com botão de toggle
+- Adicionar tooltips quando sidebar está minificada
+- Implementar menu de administrador expansível no rodapé
+- Atualizar visual para usar tema escuro (neutral-950)
+
+**Tarefas:**
+- [x] Atualizar estrutura da sidebar no DashboardLayout
+- [x] Implementar funcionalidade de minimizar/expandir sidebar
+- [x] Adicionar tooltips para itens de menu quando minificado
+- [x] Implementar menu de administrador expansível no rodapé
+- [x] Atualizar cores e estilos para seguir o modelo (neutral-950, neutral-800, neutral-900)
+- [x] Testar funcionalidade de navegação e toggle
+
+
+---
+
+## ✏️ Alteração Visual: Tradução de "Navigation" para "Navegação"
+
+**Objetivo:**
+- Traduzir texto "Navigation" para "Navegação" no DashboardLayout
+- Manter consistência linguística da interface
+
+**Tarefas:**
+- [x] Alterar texto do header da sidebar de "Navigation" para "Navegação"
+- [x] Criar checkpoint com a alteração

@@ -21,7 +21,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { getLoginUrl } from "@/const";
-import { LayoutDashboard, LogOut, PanelLeft, Settings, RefreshCw, Globe, Package, Key, LineChart, Users, BookOpen, Cloud, BarChart3, FileText, Gift, GripVertical, LucideIcon, Shield, ShoppingCart } from "lucide-react";
+import { LayoutDashboard, LogOut, PanelLeft, Settings, RefreshCw, Globe, Package, Key, LineChart, Users, BookOpen, Cloud, BarChart3, FileText, Gift, GripVertical, LucideIcon, Shield, ShoppingCart, ChevronLeft, ChevronRight } from "lucide-react";
 import * as LucideIcons from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
@@ -144,6 +144,7 @@ function DashboardLayoutContent({
   const [isResizing, setIsResizing] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const [reorderDialogOpen, setReorderDialogOpen] = useState(false);
+  const [isAdminMenuOpen, setIsAdminMenuOpen] = useState(false);
 
   // Fetch menus from database (optimized to prevent 429)
   const { data: dbMenus } = trpc.adminMenus.getAll.useQuery(undefined, {
@@ -206,34 +207,31 @@ function DashboardLayoutContent({
       <div className="relative" ref={sidebarRef}>
         <Sidebar
           collapsible="icon"
-          className="border-r-0"
+          className="border-r-0 bg-neutral-950 border-neutral-800"
           disableTransition={isResizing}
         >
-          <SidebarHeader className="h-16 justify-center">
-            <div className="flex items-center gap-3 px-2 transition-all w-full">
+          <SidebarHeader className="h-16 justify-center border-b border-neutral-800">
+            <div className="flex items-center justify-between px-4 transition-all w-full">
+              <div className="flex items-center gap-3 text-neutral-400">
+                <PanelLeft className="h-6 w-6 text-white" />
+                {!isCollapsed && <h2 className="text-lg font-medium text-white">Navegação</h2>}
+              </div>
               <button
                 onClick={toggleSidebar}
-                className="h-8 w-8 flex items-center justify-center hover:bg-accent rounded-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring shrink-0"
+                className="text-neutral-400 hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 aria-label="Toggle navigation"
               >
-                <PanelLeft className="h-4 w-4 text-muted-foreground" />
+                {isCollapsed ? <ChevronRight className="h-5 w-5" /> : <ChevronLeft className="h-5 w-5" />}
               </button>
-              {!isCollapsed ? (
-                <div className="flex items-center gap-2 min-w-0">
-                  <span className="font-semibold tracking-tight truncate">
-                    Navigation
-                  </span>
-                </div>
-              ) : null}
             </div>
           </SidebarHeader>
 
-          <SidebarContent className="gap-0">
-            <SidebarMenu className="px-2 py-1">
+          <SidebarContent className="gap-0 p-4">
+            <SidebarMenu className="space-y-1">
               {menuItems.map(item => {
                 const isActive = location === item.path;
                 return (
-                  <SidebarMenuItem key={item.path}>
+                  <SidebarMenuItem key={item.path} className="relative group">
                     <SidebarMenuButton
                       isActive={isActive}
                       onClick={(e) => {
@@ -244,76 +242,80 @@ function DashboardLayoutContent({
                         if (isMobile) {
                           setOpenMobile(false);
                         }
-                        // Don't trigger sidebar expansion on desktop
                       }}
-                      tooltip={item.label}
-                      className={`h-10 transition-all font-normal`}
+                      tooltip={isCollapsed ? item.label : undefined}
+                      className={`h-12 px-4 rounded-lg transition-colors ${
+                        isActive
+                          ? 'bg-neutral-900 text-white hover:bg-neutral-900'
+                          : 'text-neutral-400 hover:bg-neutral-900 hover:text-white'
+                      } ${isCollapsed ? 'justify-center' : ''}`}
                     >
                       <item.icon
-                        className={`h-4 w-4 ${isActive ? "text-primary" : ""}`}
+                        className={`h-5 w-5 ${isActive ? 'text-blue-500' : ''}`}
                       />
-                      <span>{item.label}</span>
+                      <span className={isActive ? 'font-medium' : ''}>{item.label}</span>
                     </SidebarMenuButton>
+                    {/* Tooltip for collapsed state */}
+                    {isCollapsed && (
+                      <div className="absolute left-full ml-2 top-1/2 -translate-y-1/2 px-3 py-2 bg-neutral-900 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50 border border-neutral-800">
+                        {item.label}
+                      </div>
+                    )}
                   </SidebarMenuItem>
                 );
               })}
             </SidebarMenu>
           </SidebarContent>
 
-          <SidebarFooter className="p-3">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button className="flex items-center gap-3 rounded-lg px-1 py-1 hover:bg-accent/50 transition-colors w-full text-left group-data-[collapsible=icon]:justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-                  {user?.role === 'admin' ? (
-                    <>
-                      <div className="h-9 w-9 border shrink-0 rounded-full bg-purple-500/10 flex items-center justify-center">
-                        <Shield className="h-5 w-5 text-purple-500" />
-                      </div>
-                      <div className="flex-1 min-w-0 group-data-[collapsible=icon]:hidden">
-                        <p className="text-sm font-medium truncate leading-none">
-                          Admin
-                        </p>
-                        <p className="text-xs text-muted-foreground truncate mt-1.5">
-                          {user?.email || "-"}
-                        </p>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <Avatar className="h-9 w-9 border shrink-0">
-                        <AvatarFallback className="text-xs font-medium">
-                          {user?.name?.charAt(0).toUpperCase()}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="flex-1 min-w-0 group-data-[collapsible=icon]:hidden">
-                        <p className="text-sm font-medium truncate leading-none">
-                          {user?.name || "-"}
-                        </p>
-                        <p className="text-xs text-muted-foreground truncate mt-1.5">
-                          {user?.email || "-"}
-                        </p>
-                      </div>
-                    </>
-                  )}
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuItem
+          <SidebarFooter className="p-4 border-t border-neutral-800 space-y-2">
+            {/* Show menu items only when admin menu is open */}
+            {isAdminMenuOpen && !isCollapsed && (
+              <>
+                {/* Reorganize Menus Button */}
+                <button 
                   onClick={() => setReorderDialogOpen(true)}
-                  className="cursor-pointer"
+                  className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-neutral-400 hover:bg-neutral-900 hover:text-white transition-colors"
                 >
-                  <GripVertical className="mr-2 h-4 w-4" />
-                  <span>Reorganizar Menus</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem
+                  <GripVertical className="h-5 w-5" />
+                  <span className="text-sm">Reorganizar Menus</span>
+                </button>
+
+                {/* Sign Out Button */}
+                <button 
                   onClick={logout}
-                  className="cursor-pointer text-destructive focus:text-destructive"
+                  className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-red-500 hover:bg-neutral-900 hover:text-red-400 transition-colors"
                 >
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span>Sign out</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+                  <LogOut className="h-5 w-5" />
+                  <span className="text-sm">Sign out</span>
+                </button>
+              </>
+            )}
+
+            {/* User Profile - Clickable */}
+            <div className="relative group">
+              <button
+                onClick={() => setIsAdminMenuOpen(!isAdminMenuOpen)}
+                className={`w-full flex items-center gap-3 px-4 py-3 mt-2 rounded-lg hover:bg-neutral-900 transition-colors ${isCollapsed ? 'justify-center' : ''} focus:outline-none focus-visible:ring-2 focus-visible:ring-ring`}
+              >
+                <div className="w-12 h-12 bg-neutral-900 rounded-full flex items-center justify-center border-2 border-neutral-800 shrink-0">
+                  <Shield className="h-6 w-6 text-purple-500" strokeWidth={2} />
+                </div>
+                {!isCollapsed && (
+                  <div className="flex-1 text-left min-w-0">
+                    <div className="text-sm font-medium text-white truncate">Admin</div>
+                    <div className="text-xs text-neutral-500 truncate">{user?.email || "-"}</div>
+                  </div>
+                )}
+              </button>
+
+              {/* Tooltip for collapsed state */}
+              {isCollapsed && (
+                <div className="absolute left-full ml-2 bottom-0 px-3 py-2 bg-neutral-900 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50 border border-neutral-800">
+                  <div className="font-medium">Admin</div>
+                  <div className="text-xs text-neutral-400">{user?.email || "-"}</div>
+                </div>
+              )}
+            </div>
           </SidebarFooter>
         </Sidebar>
         <div
