@@ -35,9 +35,9 @@ export default function PerformanceAPIs() {
   })) || [];
 
   const getTrendIcon = (trend: 'up' | 'down' | 'stable') => {
-    if (trend === 'up') return <TrendingUp className="w-4 h-4 text-green-500" />;
-    if (trend === 'down') return <TrendingDown className="w-4 h-4 text-red-500" />;
-    return <Minus className="w-4 h-4 text-gray-500" />;
+    if (trend === 'up') return <TrendingUp size={14} className="text-green-400" />;
+    if (trend === 'down') return <TrendingDown size={14} className="text-red-400" />;
+    return <Minus size={14} className="text-neutral-400" />;
   };
 
   const getSuccessRateColor = (rate: number) => {
@@ -47,11 +47,23 @@ export default function PerformanceAPIs() {
   };
 
   const getRankingBadge = (ranking: number) => {
-    const colors = ['bg-yellow-500', 'bg-gray-400', 'bg-orange-600'];
-    const labels = ['🥇 1º Lugar', '🥈 2º Lugar', '🥉 3º Lugar'];
+    if (ranking === 1) {
+      return (
+        <span className="inline-flex items-center gap-1 px-3 py-1 bg-yellow-500/10 text-yellow-500 rounded-lg text-xs font-medium">
+          ⚡ 1º Lugar
+        </span>
+      );
+    }
+    if (ranking === 2) {
+      return (
+        <span className="inline-flex items-center gap-1 px-3 py-1 bg-neutral-700 text-neutral-300 rounded-lg text-xs font-medium">
+          ⚡ 2º Lugar
+        </span>
+      );
+    }
     return (
-      <span className={`px-2 py-1 ${colors[ranking - 1]} text-white text-xs font-bold rounded`}>
-        {labels[ranking - 1]}
+      <span className="inline-flex items-center gap-1 px-3 py-1 bg-orange-500/10 text-orange-500 rounded-lg text-xs font-medium">
+        ⚡ 3º Lugar
       </span>
     );
   };
@@ -253,19 +265,22 @@ export default function PerformanceAPIs() {
             </Card>
 
             {/* Tabela comparativa */}
-            <Card className="p-6">
-              <h3 className="text-lg font-semibold mb-4">Comparação Detalhada</h3>
+            <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+              <div className="mb-6">
+                <h2 className="text-lg font-medium text-white">Comparação Detalhada</h2>
+              </div>
+
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="border-b">
-                      <th className="text-left py-3 px-4 font-semibold">Fornecedor</th>
-                      <th className="text-center py-3 px-4 font-semibold">Ranking</th>
-                      <th className="text-center py-3 px-4 font-semibold">Taxa de Sucesso</th>
-                      <th className="text-center py-3 px-4 font-semibold">Total</th>
-                      <th className="text-center py-3 px-4 font-semibold">Completos</th>
-                      <th className="text-center py-3 px-4 font-semibold">Cancelados</th>
-                      <th className="text-center py-3 px-4 font-semibold">Tendência</th>
+                    <tr className="border-b border-neutral-800">
+                      <th className="text-left px-4 py-3 text-sm font-medium text-neutral-400">Fornecedor</th>
+                      <th className="text-left px-4 py-3 text-sm font-medium text-neutral-400">Ranking</th>
+                      <th className="text-left px-4 py-3 text-sm font-medium text-neutral-400">Taxa de Sucesso</th>
+                      <th className="text-left px-4 py-3 text-sm font-medium text-neutral-400">Total</th>
+                      <th className="text-left px-4 py-3 text-sm font-medium text-neutral-400">Completos</th>
+                      <th className="text-left px-4 py-3 text-sm font-medium text-neutral-400">Cancelados</th>
+                      <th className="text-left px-4 py-3 text-sm font-medium text-neutral-400">Tendência</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -276,30 +291,36 @@ export default function PerformanceAPIs() {
                         api3Query.data;
 
                       return (
-                        <tr key={api.apiId} className="border-b hover:bg-muted/50">
-                          <td className="py-3 px-4 font-medium">{api.apiName}</td>
-                          <td className="py-3 px-4 text-center">
+                        <tr key={api.apiId} className="border-b border-neutral-800/50 hover:bg-neutral-800/30">
+                          <td className="px-4 py-4 text-sm text-white">{api.apiName}</td>
+                          <td className="px-4 py-4">
                             {getRankingBadge(api.ranking)}
                           </td>
-                          <td className="py-3 px-4 text-center">
-                            <span className={`font-bold ${getSuccessRateColor(api.successRate)}`}>
+                          <td className="px-4 py-4">
+                            <span className={`text-lg font-medium ${getSuccessRateColor(api.successRate)}`}>
                               {api.successRate}%
                             </span>
                           </td>
-                          <td className="py-3 px-4 text-center">{api.totalActivations}</td>
-                          <td className="py-3 px-4 text-center text-green-500 font-semibold">
+                          <td className="px-4 py-4 text-sm text-neutral-300">{api.totalActivations}</td>
+                          <td className="px-4 py-4 text-sm text-emerald-500 font-medium">
                             {detailedStats?.completed || 0}
                           </td>
-                          <td className="py-3 px-4 text-center text-red-500 font-semibold">
+                          <td className="px-4 py-4 text-sm text-red-500 font-medium">
                             {detailedStats?.cancelled || 0}
                           </td>
-                          <td className="py-3 px-4 text-center flex items-center justify-center gap-2">
-                            {getTrendIcon(api.trend)}
-                            <span className="text-sm">
-                              {api.trend === 'up' && 'Melhorando'}
-                              {api.trend === 'down' && 'Piorando'}
-                              {api.trend === 'stable' && 'Estável'}
-                            </span>
+                          <td className="px-4 py-4">
+                            <div className={`flex items-center gap-2 text-xs ${
+                              api.trend === 'up' ? 'text-green-400' :
+                              api.trend === 'down' ? 'text-red-400' :
+                              'text-neutral-400'
+                            }`}>
+                              {getTrendIcon(api.trend)}
+                              <span>
+                                {api.trend === 'up' && 'Melhorando'}
+                                {api.trend === 'down' && 'Piorando'}
+                                {api.trend === 'stable' && 'Estável'}
+                              </span>
+                            </div>
                           </td>
                         </tr>
                       );
@@ -307,7 +328,7 @@ export default function PerformanceAPIs() {
                   </tbody>
                 </table>
               </div>
-            </Card>
+            </div>
 
             {/* Legenda */}
             <Card className="p-4 bg-muted/50">

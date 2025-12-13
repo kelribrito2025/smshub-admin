@@ -2949,3 +2949,5 @@
 - [x] Modificar grid de cards no AdminDashboard.tsx de 2 colunas para 4 colunas
 - [x] Ajustar espaçamento e responsividade dos cards
 - [x] Testar layout em diferentes resoluções
+
+- [x] Atualizar visual do card de comparação detalhada no DashboardLayout com novo modelo de design
