@@ -273,68 +273,54 @@ export default function Customers() {
 
         {/* Stats */}
         <div className="grid gap-4 md:grid-cols-4">
-          <Card style={{backgroundColor: '#0a0a0a'}}>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium flex items-center gap-2">
-                <Users className="h-4 w-4" />
-                Total de Clientes
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{stats?.totalCustomers || 0}</div>
-            </CardContent>
-          </Card>
+          <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-neutral-400 text-sm">Total de Clientes</span>
+              <Users size={18} className="text-neutral-500" />
+            </div>
+            <div className="text-3xl font-light text-white mb-1">
+              {stats?.totalCustomers || 0}
+            </div>
+          </div>
 
-          <Card style={{backgroundColor: '#0a0a0a'}}>
-            <CardHeader className="pb-2">
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <CardTitle className="text-sm font-medium flex items-center gap-2 cursor-help">
-                      <TrendingUp className="h-4 w-4 text-emerald-600" />
-                      Clientes Ativos (30d)
-                    </CardTitle>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Clientes que realizaram pelo menos uma compra nos últimos 30 dias</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-emerald-600">
-                {stats?.activeCustomersLast30Days || 0}
-              </div>
-            </CardContent>
-          </Card>
+          <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="flex items-center justify-between mb-4 cursor-help">
+                    <span className="text-neutral-400 text-sm">Clientes Ativos (30d)</span>
+                    <TrendingUp size={18} className="text-emerald-600" />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Clientes que realizaram pelo menos uma compra nos últimos 30 dias</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+            <div className="text-3xl font-light text-emerald-600 mb-1">
+              {stats?.activeCustomersLast30Days || 0}
+            </div>
+          </div>
 
-          <Card style={{backgroundColor: '#0a0a0a'}}>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium flex items-center gap-2">
-                <Wallet className="h-4 w-4" />
-                Saldo Total
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">
-                R$ {(stats?.totalBalance || 0).toFixed(2)}
-              </div>
-            </CardContent>
-          </Card>
+          <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-neutral-400 text-sm">Saldo Total</span>
+              <Wallet size={18} className="text-neutral-500" />
+            </div>
+            <div className="text-3xl font-light text-white mb-1">
+              R$ {(stats?.totalBalance || 0).toFixed(2)}
+            </div>
+          </div>
 
-          <Card style={{backgroundColor: '#0a0a0a'}}>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium flex items-center gap-2">
-                <DollarSign className="h-4 w-4" />
-                Saldo Médio
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">
-                R$ {(stats?.averageBalance || 0).toFixed(2)}
-              </div>
-            </CardContent>
-          </Card>
+          <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-neutral-400 text-sm">Saldo Médio</span>
+              <DollarSign size={18} className="text-neutral-500" />
+            </div>
+            <div className="text-3xl font-light text-white mb-1">
+              R$ {(stats?.averageBalance || 0).toFixed(2)}
+            </div>
+          </div>
         </div>
 
         {/* Table */}

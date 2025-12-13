@@ -57,3 +57,6 @@
 
 ## Ajuste de Altura dos Cards de Afiliados
 - [x] Ajustar altura dos cards de estatísticas na página de afiliados para ficarem com a mesma altura dos cards da dashboard
+
+## Ajuste de Altura dos Cards de Clientes
+- [x] Ajustar altura dos cards de estatísticas na página /admin/clientes para ficarem com a mesma altura dos cards da dashboard
