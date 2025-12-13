@@ -3085,3 +3085,19 @@
 - [x] Adicionar handler para clicar em transações de compra na timeline
 - [x] Exibir transações de reembolso na timeline do cliente
 - [x] Testar fluxo completo de reembolso
+
+
+---
+
+## 🔄 Ajustar Modal de Reembolso para Transações Já Reembolsadas
+
+**Objetivo:**
+- Quando clicar em uma transação já reembolsada, o modal deve mostrar estado "Reembolso Realizado"
+- Remover botão "Confirmar Reembolso" para transações já reembolsadas
+- Mostrar apenas informações do reembolso já processado
+
+**Tarefas:**
+- [x] Ajustar modal de reembolso para detectar se transação já foi reembolsada
+- [x] Implementar UI condicional: mostrar "Reembolso Realizado" ao invés de "Confirmar Reembolso"
+- [x] Remover botão de confirmação quando transação já estiver reembolsada
+- [x] Testar comportamento com transações reembolsadas e não reembolsadas

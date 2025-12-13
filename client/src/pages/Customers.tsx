@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { trpc } from "@/lib/trpc";
-import { DollarSign, Edit, Loader2, Plus, Search, Trash2, Users, Wallet, TrendingUp, ChevronDown, ChevronUp, ArrowDownCircle, ArrowUpCircle, ShoppingCart, RefreshCw, Activity, User, Shield, Settings, Gift, X } from "lucide-react";
+import { DollarSign, Edit, Loader2, Plus, Search, Trash2, Users, Wallet, TrendingUp, ChevronDown, ChevronUp, ArrowDownCircle, ArrowUpCircle, ShoppingCart, RefreshCw, Activity, User, Shield, Settings, Gift, X, CheckCircle2 } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -34,7 +34,7 @@ export default function Customers() {
   const [expandedCustomerId, setExpandedCustomerId] = useState<number | null>(null);
   const [transactionPage, setTransactionPage] = useState(1);
   const transactionLimit = 25;
-  const [refundModal, setRefundModal] = useState<{ show: boolean; transaction: any | null; customerId: number | null }>({ show: false, transaction: null, customerId: null });
+  const [refundModal, setRefundModal] = useState<{ show: boolean; transaction: any | null; customerId: number | null; isRefunded: boolean }>({ show: false, transaction: null, customerId: null, isRefunded: false });
 
 
   const { data: customers, isLoading } = trpc.customers.getAll.useQuery();
@@ -132,11 +132,16 @@ export default function Customers() {
   };
 
   const openRefundModal = (transaction: any, customerId: number) => {
-    setRefundModal({ show: true, transaction, customerId });
+    // Check if this purchase has already been refunded
+    const isRefunded = transactionsQuery.data?.data.some(
+      (row) => row.transaction.type === 'refund' && row.transaction.relatedActivationId === transaction.relatedActivationId
+    ) || false;
+    
+    setRefundModal({ show: true, transaction, customerId, isRefunded });
   };
 
   const closeRefundModal = () => {
-    setRefundModal({ show: false, transaction: null, customerId: null });
+    setRefundModal({ show: false, transaction: null, customerId: null, isRefunded: false });
   };
 
   const confirmRefund = () => {
@@ -708,11 +713,19 @@ export default function Customers() {
           <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 max-w-md w-full mx-4 shadow-2xl">
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center">
-                  <RefreshCw size={20} className="text-amber-400" />
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                  refundModal.isRefunded ? 'bg-emerald-500/20' : 'bg-amber-500/20'
+                }`}>
+                  {refundModal.isRefunded ? (
+                    <CheckCircle2 size={20} className="text-emerald-400" />
+                  ) : (
+                    <RefreshCw size={20} className="text-amber-400" />
+                  )}
                 </div>
                 <div>
-                  <h3 className="text-lg font-medium text-white">Confirmar Reembolso</h3>
+                  <h3 className="text-lg font-medium text-white">
+                    {refundModal.isRefunded ? 'Reembolso Realizado' : 'Confirmar Reembolso'}
+                  </h3>
                   <p className="text-xs text-neutral-500">Transação #{refundModal.transaction.id}</p>
                 </div>
               </div>
@@ -731,45 +744,64 @@ export default function Customers() {
                   <span className="text-white text-right">{refundModal.transaction.description}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-neutral-400">Valor:</span>
-                  <span className="text-red-400 font-medium">
+                  <span className="text-neutral-400">{refundModal.isRefunded ? 'Valor Reembolsado:' : 'Valor:'}</span>
+                  <span className={`font-medium ${
+                    refundModal.isRefunded ? 'text-emerald-400' : 'text-red-400'
+                  }`}>
                     {formatCurrency(Math.abs(refundModal.transaction.amount))}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-neutral-400">Data:</span>
+                  <span className="text-neutral-400">Data da Compra:</span>
                   <span className="text-white">{new Date(refundModal.transaction.createdAt).toLocaleString('pt-BR')}</span>
                 </div>
               </div>
 
-              <p className="text-sm text-neutral-400">
-                Deseja realmente realizar o reembolso desta transação? O valor será devolvido ao saldo do cliente.
-              </p>
+              {refundModal.isRefunded ? (
+                <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-4">
+                  <p className="text-sm text-emerald-400">
+                    O reembolso foi processado com sucesso e o valor foi devolvido ao saldo do cliente.
+                  </p>
+                </div>
+              ) : (
+                <p className="text-sm text-neutral-400">
+                  Deseja realmente realizar o reembolso desta transação? O valor será devolvido ao saldo do cliente.
+                </p>
+              )}
             </div>
 
-            <div className="flex gap-3">
+            {refundModal.isRefunded ? (
               <button
                 onClick={closeRefundModal}
-                disabled={refundPurchaseMutation.isPending}
-                className="flex-1 px-4 py-2.5 bg-neutral-800 hover:bg-neutral-700 text-white rounded-lg transition-colors text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full px-4 py-2.5 bg-neutral-800 hover:bg-neutral-700 text-white rounded-lg transition-colors text-sm font-medium"
               >
-                Cancelar
+                Fechar
               </button>
-              <button
-                onClick={confirmRefund}
-                disabled={refundPurchaseMutation.isPending}
-                className="flex-1 px-4 py-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-lg transition-colors text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-              >
-                {refundPurchaseMutation.isPending ? (
-                  <>
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                    Processando...
-                  </>
-                ) : (
-                  'Confirmar Reembolso'
-                )}
-              </button>
-            </div>
+            ) : (
+              <div className="flex gap-3">
+                <button
+                  onClick={closeRefundModal}
+                  disabled={refundPurchaseMutation.isPending}
+                  className="flex-1 px-4 py-2.5 bg-neutral-800 hover:bg-neutral-700 text-white rounded-lg transition-colors text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Cancelar
+                </button>
+                <button
+                  onClick={confirmRefund}
+                  disabled={refundPurchaseMutation.isPending}
+                  className="flex-1 px-4 py-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-lg transition-colors text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                >
+                  {refundPurchaseMutation.isPending ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      Processando...
+                    </>
+                  ) : (
+                    'Confirmar Reembolso'
+                  )}
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}
