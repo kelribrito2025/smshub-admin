@@ -28,3 +28,10 @@
 
 ## Melhorias no Drag and Drop
 - [x] Adicionar feedback visual profissional ao drag and drop (efeito ghost, placeholder, destaque no card ativo)
+
+## Card de Total de Reembolsos
+- [x] Analisar estrutura de reembolsos no schema e routers
+- [x] Criar procedure para calcular reembolsos do dia (admin apenas)
+- [x] Criar procedure para calcular reembolsos por período (filtro)
+- [x] Atualizar card "Em breve" com dados de reembolsos
+- [x] Garantir que métrica secundária reage ao filtro de período

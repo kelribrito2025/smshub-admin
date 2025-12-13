@@ -7,6 +7,7 @@ import {
   getRevenueByCountry,
   getRevenueByService,
   getRecentActivations,
+  getTotalRefunds,
 } from '../financial-helpers';
 
 export const financialRouter = router({
@@ -86,5 +87,21 @@ export const financialRouter = router({
     )
     .query(async ({ input }) => {
       return getRecentActivations(input?.limit || 50);
+    }),
+
+  /**
+   * Get total refunds (reembolsos) made by admin
+   */
+  getTotalRefunds: adminProcedure
+    .input(
+      z
+        .object({
+          startDate: z.date().optional(),
+          endDate: z.date().optional(),
+        })
+        .optional()
+    )
+    .query(async ({ input }) => {
+      return getTotalRefunds(input?.startDate, input?.endDate);
     }),
 });

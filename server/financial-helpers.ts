@@ -269,3 +269,40 @@ export async function getRecentActivations(limit: number = 50) {
 
   return result;
 }
+
+/**
+ * Get total refunds (reembolsos) for a date range
+ * Only considers refunds made by admin (origin = 'admin' and type = 'refund')
+ */
+export async function getTotalRefunds(
+  startDate?: Date,
+  endDate?: Date
+): Promise<number> {
+  const db = await getDb();
+  if (!db) return 0;
+
+  const { balanceTransactions } = await import('../drizzle/schema');
+  
+  const conditions = [
+    eq(balanceTransactions.type, 'refund'),
+    eq(balanceTransactions.origin, 'admin'),
+  ];
+  
+  if (startDate) {
+    conditions.push(gte(balanceTransactions.createdAt, startDate));
+  }
+  if (endDate) {
+    conditions.push(lte(balanceTransactions.createdAt, endDate));
+  }
+
+  const whereClause = and(...conditions);
+
+  const result = await db
+    .select({
+      totalRefunds: sql<number>`COALESCE(SUM(ABS(${balanceTransactions.amount})), 0)`,
+    })
+    .from(balanceTransactions)
+    .where(whereClause);
+
+  return Number(result[0]?.totalRefunds || 0);
+}

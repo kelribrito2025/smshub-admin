@@ -3,7 +3,7 @@ import DashboardLayoutWrapper from "@/components/DashboardLayoutWrapper";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
-import { Activity, DollarSign, TrendingUp, Users, ShoppingCart, LayoutDashboard, ArrowDown, CheckCircle2, XCircle, Download, Loader2, TrendingDown, Minus, Calendar, ChevronDown } from "lucide-react";
+import { Activity, DollarSign, TrendingUp, Users, ShoppingCart, LayoutDashboard, ArrowDown, CheckCircle2, XCircle, Download, Loader2, TrendingDown, Minus, Calendar, ChevronDown, RefreshCcw } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -99,6 +99,40 @@ export default function Dashboard() {
   );
 
   const { data: metrics } = trpc.financial.getMetrics.useQuery(
+    {
+      startDate: dateRange.startDate,
+      endDate: dateRange.endDate,
+    },
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
+
+  // Fetch refunds for today
+  const todayStart = useMemo(() => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return today;
+  }, []);
+
+  const todayEnd = useMemo(() => {
+    const today = new Date();
+    today.setHours(23, 59, 59, 999);
+    return today;
+  }, []);
+
+  const { data: refundsToday } = trpc.financial.getTotalRefunds.useQuery(
+    {
+      startDate: todayStart,
+      endDate: todayEnd,
+    },
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
+
+  // Fetch refunds for selected period
+  const { data: refundsByPeriod } = trpc.financial.getTotalRefunds.useQuery(
     {
       startDate: dateRange.startDate,
       endDate: dateRange.endDate,
@@ -396,15 +430,16 @@ export default function Dashboard() {
               {
                 id: 'card-7',
                 content: (
-                  <div className="bg-neutral-900/50 border border-dashed border-neutral-700 rounded-xl p-6">
+                  <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
                     <div className="flex items-center justify-between mb-4">
-                      <span className="text-neutral-500 text-sm">Em breve</span>
+                      <span className="text-neutral-400 text-sm">Total de Reembolsos</span>
+                      <RefreshCcw size={18} className="text-blue-500" />
                     </div>
-                    <div className="text-3xl font-light text-neutral-600 mb-1">
-                      —
+                    <div className="text-3xl font-light text-blue-500 mb-1">
+                      {formatCurrency(Number(refundsToday) || 0)}
                     </div>
-                    <div className="text-xs text-neutral-600">
-                      Novos dados em breve
+                    <div className="text-xs text-neutral-500">
+                      Período selecionado: {formatCurrency(Number(refundsByPeriod) || 0)}
                     </div>
                   </div>
                 ),
