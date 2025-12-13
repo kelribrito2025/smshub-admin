@@ -3303,3 +3303,68 @@
 - [x] Testar fluxo completo de personificação
 - [x] Executar testes automatizados (5 testes passaram)
 - [x] Validar que não há erros de console
+
+
+---
+
+## 🚨 BUG CRÍTICO: Contexto do Cliente Não Aplicado Após Impersonação
+
+**Status Atual:**
+- ✅ Tela preta resolvida - página /impersonate carrega corretamente
+- ✅ Token é validado com sucesso
+- ✅ Toast de sucesso aparece: "Acesso como [cliente] iniciado com sucesso"
+- ✅ Redirecionamento para / ocorre
+- ❌ **PROBLEMA**: Dashboard exibido está vazio, como se não estivesse logado
+- ❌ **PROBLEMA**: Contexto/estado do cliente não é aplicado
+
+**Comportamento Observado:**
+1. Admin clica no ícone de impersonação (olhinho)
+2. Nova aba abre: `/impersonate?token=JWT`
+3. Token é validado com sucesso (backend retorna success: true)
+4. Toast de sucesso aparece
+5. Redirecionamento para `/` acontece
+6. **MAS**: Dashboard fica em estado inicial/vazio (não logado como cliente)
+
+**Diagnóstico:**
+- Token é validado no backend ✅
+- Cookie `support_session` é criado no backend ✅
+- Redirecionamento acontece ✅
+- **FALTA**: Estado global/auth não é reidratado com dados do cliente ❌
+- **FALTA**: StoreAuthContext não reconhece sessão de impersonação ❌
+
+**Causa Provável:**
+1. Token/cookie não está sendo lido pelo frontend após redirect
+2. StoreAuthContext não está verificando cookie `support_session`
+3. Redirecionamento acontece antes do estado ser atualizado
+4. Query `auth.me` não está sendo executada após impersonação
+
+**Fluxo Esperado:**
+```
+/impersonate?token=JWT
+  ↓
+Validar token (backend)
+  ↓
+Criar cookie support_session
+  ↓
+Invalidar cache do tRPC
+  ↓
+Re-executar auth.me (deve retornar dados do cliente)
+  ↓
+Redirecionar para /
+  ↓
+Dashboard renderiza com dados do cliente
+```
+
+**Solução Implementada:**
+- ✅ Identificado que StoreAuthContext lê apenas localStorage, não cookie support_session
+- ✅ Adicionada persistência de dados do cliente no localStorage após validação
+- ✅ Implementado reload completo (window.location.href) para reidratar contexto
+- ✅ Adicionados logs detalhados para rastrear fluxo completo
+
+**Tarefas:**
+- [x] Analisar StoreAuthContext e verificar se lê cookie support_session
+- [x] Verificar se auth.me está sendo executado após impersonação
+- [x] Adicionar persistência de dados do cliente no localStorage
+- [x] Garantir que redirecionamento só acontece APÓS estado ser atualizado
+- [x] Adicionar logs para rastrear fluxo completo
+- [ ] Testar correção em produção (aguardando publicação)
