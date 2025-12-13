@@ -3231,3 +3231,33 @@
 - [x] Verificar se objeto pai está definido antes de acessar propriedade
 - [x] Adicionar verificação de segurança (optional chaining ou validação)
 - [x] Testar correção
+
+
+---
+
+## ✅ Erro de Permissão ao Fazer Impersonation de Clientes (RESOLVIDO)
+
+**Problema:**
+- Ao clicar no ícone do olho (👁️) na lista de clientes no painel administrativo
+- Sistema retornava erro: "Erro ao gerar token: Você não tem permissão para fazer impersonation de clientes"
+- Funcionalidade de impersonation não estava funcionando para administradores
+
+**Causa Raiz:**
+- O campo `permissions` existia no schema mas os usuários admin não tinham a permissão `support:impersonate` configurada no banco de dados
+- O código de autorização em `server/routers/impersonation.ts` verificava corretamente a permissão, mas nenhum admin a possuía
+
+**Solução:**
+- Executado SQL para adicionar permissão `support:impersonate` a todos os usuários admin:
+  ```sql
+  UPDATE users SET permissions = '["support:impersonate"]' WHERE role = 'admin';
+  ```
+- Agora todos os admins podem fazer impersonation de clientes
+- A funcionalidade abre uma nova aba com sessão temporária do cliente (10 minutos)
+- Todas as ações de impersonation são registradas na tabela `impersonation_logs` para auditoria
+
+**Tarefas:**
+- [x] Investigar código de impersonation no backend (routers.ts)
+- [x] Identificar causa do erro de permissão
+- [x] Corrigir lógica de autorização para permitir impersonation por admins
+- [x] Testar funcionalidade corrigida
+- [x] Criar checkpoint
