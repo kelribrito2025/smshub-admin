@@ -33,7 +33,7 @@ export function ConfirmationModal({
     orange: {
       iconBg: "bg-orange-500/20",
       iconText: "text-orange-400",
-      button: "bg-blue-600 hover:bg-blue-700",
+      button: "bg-[#ff8804] hover:bg-[#e67a03]",
     },
     red: {
       iconBg: "bg-red-500/20",
