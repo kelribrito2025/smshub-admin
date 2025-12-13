@@ -2783,3 +2783,16 @@
 - [x] Atualizar Dashboard.tsx com layout padronizado
 - [x] Atualizar demais páginas admin com layout padronizado (Affiliates, ApiPerformance, Financial, Customers, Catalog, Countries, Audit, Settings)
 - [x] Verificar consistência visual em todas as páginas
+
+
+---
+
+## 📱 Ajuste de Layout Responsivo - Página Admin Settings
+
+**Objetivo:**
+- Ajustar layout dos cards "Métodos de Pagamento" e "Configurações do Programa de Afiliados"
+- Desktop/telas largas: cards lado a lado (50%/50% ou proporcional)
+- Mobile/telas menores (<768px): cards empilhados verticalmente (100% largura cada)
+
+**Tarefas:**
+- [x] Ajustar layout responsivo da página /admin/settings para cards lado a lado em desktop e empilhados em mobile

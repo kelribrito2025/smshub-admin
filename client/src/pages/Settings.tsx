@@ -60,7 +60,7 @@ export default function Settings() {
 
     setAffiliateEditing({
       bonusPercentage: (affiliateSettings?.bonusPercentage || 10).toString(),
-      description: affiliateSettings?.description || "Bônus de 10% sobre a 1ª recarga do indicados.",
+      description: affiliateSettings?.description || "Bônus sobre a 1ª recarga dos indicados.",
     });
     setIsEditingAffiliate(true);
   };
@@ -204,7 +204,7 @@ export default function Settings() {
   }
 
   const affiliateBonusPercentage = affiliateSettings?.bonusPercentage || 10;
-  const affiliateDescription = affiliateSettings?.description || "Bônus de 10% sobre a 1ª recarga do indicados.";
+  const affiliateDescription = affiliateSettings?.description || "Bônus sobre a 1ª recarga dos indicados.";
   const affiliateIsActive = affiliateSettings?.isActive ?? true;
 
   const paymentMethods = [
@@ -246,8 +246,10 @@ export default function Settings() {
           </div>
         </div>
 
-        {/* Card 1: Métodos de Pagamento */}
-        <Card>
+        {/* Container responsivo para os dois cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Card 1: Métodos de Pagamento */}
+          <Card>
           <CardHeader>
             <CardTitle>Métodos de Pagamento</CardTitle>
             <CardDescription>
@@ -390,10 +392,10 @@ export default function Settings() {
               </div>
             )}
           </CardContent>
-        </Card>
+          </Card>
 
-        {/* Card 2: Configurações do Programa de Afiliados */}
-        <Card>
+          {/* Card 2: Configurações do Programa de Afiliados */}
+          <Card>
           <CardHeader>
             <CardTitle>Configurações do Programa de Afiliados</CardTitle>
             <CardDescription>
@@ -523,7 +525,8 @@ export default function Settings() {
               </div>
             </div>
           </CardContent>
-        </Card>
+          </Card>
+        </div>
       </div>
     </DashboardLayout>
   );
