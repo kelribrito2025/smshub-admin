@@ -96,7 +96,7 @@ export default function Customers() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-6">
+      <div className="p-8 space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
@@ -104,11 +104,11 @@ export default function Customers() {
               <Users className="w-8 h-8 text-blue-500" />
               Clientes
             </h1>
-            <p className="text-muted-foreground mt-1">
+            <p className="text-gray-400 mt-2">
               Gerencie os clientes do painel de vendas
             </p>
           </div>
-          <Button onClick={() => setAddDialogOpen(true)}>
+          <Button onClick={() => setAddDialogOpen(true)} className="bg-green-600 hover:bg-green-700">
             <Plus className="mr-2 h-4 w-4" />
             Adicionar Cliente
           </Button>

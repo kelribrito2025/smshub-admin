@@ -183,7 +183,7 @@ export default function Financial() {
 
   return (
     <DashboardLayout>
-      <AnimatedPage className="space-y-6">
+      <AnimatedPage className="p-8 space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
@@ -191,7 +191,7 @@ export default function Financial() {
               <BarChart3 className="w-8 h-8 text-blue-500" />
               Relatórios Financeiros
             </h1>
-            <p className="text-muted-foreground mt-1">
+            <p className="text-gray-400 mt-2">
               Análise detalhada de receita, custos e lucro
             </p>
           </div>

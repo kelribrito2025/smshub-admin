@@ -2765,3 +2765,21 @@
 **Tarefas:**
 - [x] Alterar texto do header da sidebar de "Navigation" para "Navegação"
 - [x] Criar checkpoint com a alteração
+
+---
+
+## 🎨 Padronizar Layout das Páginas Admin
+
+**Problema:**
+- A página /admin/apis está com layout correto (título, subtítulo e botão de ação no topo direito)
+- As demais páginas admin (/admin/dashboard, etc.) estão com layout diferente
+- Estrutura do header, espaçamentos e posição dos botões não seguem o mesmo padrão
+
+**Objetivo:**
+- Padronizar todas as páginas admin para seguir o mesmo layout da página de APIs
+- Garantir consistência visual em todo o painel administrativo
+
+**Tarefas:**
+- [x] Atualizar Dashboard.tsx com layout padronizado
+- [x] Atualizar demais páginas admin com layout padronizado (Affiliates, ApiPerformance, Financial, Customers, Catalog, Countries, Audit, Settings)
+- [x] Verificar consistência visual em todas as páginas

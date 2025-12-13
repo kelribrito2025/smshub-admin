@@ -242,16 +242,18 @@ export default function Audit() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-6">
+      <div className="p-8 space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-white flex items-center gap-2">
-          <FileText className="w-8 h-8 text-blue-500" />
-          Auditoria de Saldo
-        </h1>
-        <p className="text-gray-400 mt-1">
-          Rastreamento completo de todas as alterações de saldo dos clientes
-        </p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-white flex items-center gap-2">
+            <FileText className="w-8 h-8 text-blue-500" />
+            Auditoria de Saldo
+          </h1>
+          <p className="text-gray-400 mt-2">
+            Rastreamento completo de todas as alterações de saldo dos clientes
+          </p>
+        </div>
       </div>
 
       {/* Alerta de Inconsistências */}

@@ -325,7 +325,7 @@ export default function Catalog() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-6">
+      <div className="p-8 space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -333,7 +333,7 @@ export default function Catalog() {
             <BookOpen className="w-8 h-8 text-blue-500" />
             Catálogo de Serviços
           </h1>
-          <p className="text-gray-400 mt-1">
+          <p className="text-gray-400 mt-2">
             Gerencie todos os serviços disponíveis por país
           </p>
         </div>
