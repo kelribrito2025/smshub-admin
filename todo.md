@@ -39,3 +39,6 @@
 ## Atualização de Estilo Visual - Gráfico e Abas
 - [x] Atualizar estilo visual do card "Evolução de Receita e Lucro" conforme design de referência
 - [x] Atualizar estilo das abas de navegação (Receita & Lucro, Por País, Por Serviço, Transações)
+
+## Ajuste de Altura dos Cards de Países
+- [x] Ajustar altura dos cards de estatísticas na página de países para ficarem com mesma altura dos cards da dashboard

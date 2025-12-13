@@ -88,36 +88,44 @@ export default function Countries() {
 
         {/* Stats */}
         <div className="grid gap-4 md:grid-cols-3">
-          <Card style={{backgroundColor: '#0a0a0a'}}>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">Total de Países</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{countries?.length || 0}</div>
-            </CardContent>
-          </Card>
+          <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-neutral-400 text-sm">Total de Países</span>
+              <Globe size={18} className="text-neutral-500" />
+            </div>
+            <div className="text-3xl font-light text-white mb-1">
+              {countries?.length || 0}
+            </div>
+            <div className="text-xs text-neutral-500">
+              Países cadastrados
+            </div>
+          </div>
 
-          <Card style={{backgroundColor: '#0a0a0a'}}>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">Países Ativos</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-green-600">
-                {countries?.filter((c) => c.active).length || 0}
-              </div>
-            </CardContent>
-          </Card>
+          <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-neutral-400 text-sm">Países Ativos</span>
+              <Globe size={18} className="text-green-500" />
+            </div>
+            <div className="text-3xl font-light text-green-500 mb-1">
+              {countries?.filter((c) => c.active).length || 0}
+            </div>
+            <div className="text-xs text-neutral-500">
+              Disponíveis para venda
+            </div>
+          </div>
 
-          <Card style={{backgroundColor: '#0a0a0a'}}>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">Países Inativos</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-muted-foreground">
-                {countries?.filter((c) => !c.active).length || 0}
-              </div>
-            </CardContent>
-          </Card>
+          <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-neutral-400 text-sm">Países Inativos</span>
+              <Globe size={18} className="text-neutral-500" />
+            </div>
+            <div className="text-3xl font-light text-neutral-500 mb-1">
+              {countries?.filter((c) => !c.active).length || 0}
+            </div>
+            <div className="text-xs text-neutral-500">
+              Não disponíveis
+            </div>
+          </div>
         </div>
 
         {/* Search */}
