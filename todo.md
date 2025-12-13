@@ -3485,3 +3485,15 @@
 - [x] Adicionar ícone AlertCircle com animação pulse
 - [x] Estilizar botão "Encerrar Impersonação" com backdrop blur e bordas
 - [x] Testar visual em diferentes resoluções
+
+
+---
+
+## 🎬 Adicionar Animação Pulse na Barra de Impersonação
+
+**Objetivo:**
+- Adicionar animação pulse lenta na barra de impersonação para chamar atenção
+- Fazer a barra "pulsar" suavemente para destacar que o admin está impersonando
+
+**Tarefas:**
+- [x] Adicionar animação pulse lenta na barra de impersonação

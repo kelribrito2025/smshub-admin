@@ -57,7 +57,7 @@ export function ImpersonationBanner() {
   const customerId = session.customer.id;
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-[9999] bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg">
+    <div className="fixed top-0 left-0 right-0 z-[9999] bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg animate-pulse-slow">
       <div className="px-6 py-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <AlertCircle size={20} className="animate-pulse" />
