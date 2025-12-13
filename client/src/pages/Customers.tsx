@@ -273,7 +273,7 @@ export default function Customers() {
 
         {/* Stats */}
         <div className="grid gap-4 md:grid-cols-4">
-          <Card>
+          <Card style={{backgroundColor: '#0a0a0a'}}>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium flex items-center gap-2">
                 <Users className="h-4 w-4" />
@@ -285,7 +285,7 @@ export default function Customers() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card style={{backgroundColor: '#0a0a0a'}}>
             <CardHeader className="pb-2">
               <TooltipProvider>
                 <Tooltip>
@@ -308,7 +308,7 @@ export default function Customers() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card style={{backgroundColor: '#0a0a0a'}}>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium flex items-center gap-2">
                 <Wallet className="h-4 w-4" />
@@ -322,7 +322,7 @@ export default function Customers() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card style={{backgroundColor: '#0a0a0a'}}>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium flex items-center gap-2">
                 <DollarSign className="h-4 w-4" />
