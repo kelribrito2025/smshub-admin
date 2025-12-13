@@ -608,3 +608,26 @@ export const passwordResetTokens = mysqlTable("password_reset_tokens", {
 
 export type PasswordResetToken = typeof passwordResetTokens.$inferSelect;
 export type InsertPasswordResetToken = typeof passwordResetTokens.$inferInsert;
+
+/**
+ * API Performance Stats table - stores daily performance metrics for each SMS API
+ */
+export const apiPerformanceStats = mysqlTable("api_performance_stats", {
+  id: int("id").autoincrement().primaryKey(),
+  apiId: int("apiId").notNull(), // FK to sms_apis.id
+  date: varchar("date", { length: 10 }).notNull(), // YYYY-MM-DD format
+  totalActivations: int("totalActivations").default(0).notNull(), // Total activations for the day
+  completed: int("completed").default(0).notNull(), // Activations that received SMS
+  cancelled: int("cancelled").default(0).notNull(), // Cancelled activations
+  expired: int("expired").default(0).notNull(), // Expired activations
+  successRate: int("successRate").default(0).notNull(), // Success rate as integer (0-100)
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => ({
+  apiDateIdx: uniqueIndex("api_date_idx").on(table.apiId, table.date),
+  apiIdx: index("api_idx").on(table.apiId),
+  dateIdx: index("date_idx").on(table.date),
+}));
+
+export type ApiPerformanceStat = typeof apiPerformanceStats.$inferSelect;
+export type InsertApiPerformanceStat = typeof apiPerformanceStats.$inferInsert;

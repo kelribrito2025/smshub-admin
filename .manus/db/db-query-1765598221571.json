@@ -1,0 +1,50 @@
+{
+  "query": "SELECT DATE(createdAt) as date, COUNT(*) as total FROM activations GROUP BY DATE(createdAt) ORDER BY DATE(createdAt) DESC LIMIT 10",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT DATE(createdAt) as date, COUNT(*) as total FROM activations GROUP BY DATE(createdAt) ORDER BY DATE(createdAt) DESC LIMIT 10",
+  "rows": [
+    {
+      "date": "2025-12-12",
+      "total": "4"
+    },
+    {
+      "date": "2025-12-11",
+      "total": "5"
+    },
+    {
+      "date": "2025-12-10",
+      "total": "11"
+    },
+    {
+      "date": "2025-12-09",
+      "total": "41"
+    },
+    {
+      "date": "2025-12-08",
+      "total": "5"
+    },
+    {
+      "date": "2025-12-07",
+      "total": "47"
+    },
+    {
+      "date": "2025-12-06",
+      "total": "1"
+    },
+    {
+      "date": "2025-12-05",
+      "total": "14"
+    },
+    {
+      "date": "2025-12-04",
+      "total": "9"
+    },
+    {
+      "date": "2025-12-03",
+      "total": "301"
+    }
+  ],
+  "messages": [],
+  "stdout": "date\ttotal\n2025-12-12\t4\n2025-12-11\t5\n2025-12-10\t11\n2025-12-09\t41\n2025-12-08\t5\n2025-12-07\t47\n2025-12-06\t1\n2025-12-05\t14\n2025-12-04\t9\n2025-12-03\t301\n",
+  "stderr": "",
+  "execution_time_ms": 56
+}

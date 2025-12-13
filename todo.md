@@ -2951,3 +2951,23 @@
 - [x] Testar layout em diferentes resoluções
 
 - [x] Atualizar visual do card de comparação detalhada no DashboardLayout com novo modelo de design
+
+- [x] Inserir dados fictícios no card de comparação detalhada para visualização
+
+
+---
+
+## 📊 Cards Mostrando "Sem Dados" no Painel Administrativo
+
+**Problema:**
+- Card "Comparação Detalhada" mostra "sem dados"
+- Card "Evolução de Receita e Lucro" mostra "sem dados"
+- Usuário reporta que os dados deveriam estar disponíveis
+
+**Tarefas:**
+- [x] Verificar dados no banco de dados (recharges, activations)
+- [x] Verificar queries no backend (admin-helpers.ts)
+- [x] Verificar se há erros no console do navegador
+- [x] Identificar causa raiz do problema
+- [x] Implementar correção
+- [x] Testar e validar que dados aparecem corretamente

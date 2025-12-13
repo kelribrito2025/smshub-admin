@@ -1,0 +1,9 @@
+{
+  "query": "CREATE TABLE IF NOT EXISTS api_performance_stats (\n  id INT AUTO_INCREMENT PRIMARY KEY,\n  apiId INT NOT NULL,\n  date VARCHAR(10) NOT NULL,\n  totalActivations INT NOT NULL DEFAULT 0,\n  completed INT NOT NULL DEFAULT 0,\n  cancelled INT NOT NULL DEFAULT 0,\n  expired INT NOT NULL DEFAULT 0,\n  successRate INT NOT NULL DEFAULT 0,\n  createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n  UNIQUE KEY api_date_idx (apiId, date),\n  KEY api_idx (apiId),\n  KEY date_idx (date)\n)",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute CREATE TABLE IF NOT EXISTS api_performance_stats (\n  id INT AUTO_INCREMENT PRIMARY KEY,\n  apiId INT NOT NULL,\n  date VARCHAR(10) NOT NULL,\n  totalActivations INT NOT NULL DEFAULT 0,\n  completed INT NOT NULL DEFAULT 0,\n  cancelled INT NOT NULL DEFAULT 0,\n  expired INT NOT NULL DEFAULT 0,\n  successRate INT NOT NULL DEFAULT 0,\n  createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n  UNIQUE KEY api_date_idx (apiId, date),\n  KEY api_idx (apiId),\n  KEY date_idx (date)\n)",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 260
+}
