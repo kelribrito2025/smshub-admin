@@ -398,7 +398,7 @@ export default function Settings() {
           {/* Card 2: Configurações do Programa de Afiliados */}
           <Card>
           <CardHeader>
-            <CardTitle>Configurações do Programa de Afiliados</CardTitle>
+            <CardTitle>Config do Programa de Afiliados</CardTitle>
             <CardDescription>
               Defina as regras do programa de indicação
             </CardDescription>
@@ -407,7 +407,7 @@ export default function Settings() {
             {/* Header da tabela */}
             <div className="hidden md:grid md:grid-cols-[2fr_1.5fr_2.5fr_1fr_1.5fr] gap-4 pb-3 mb-4 border-b text-sm font-semibold text-muted-foreground">
               <div>Programa</div>
-              <div>Percentual de Bônus</div>
+              <div>% de Bônus</div>
               <div>Descrição</div>
               <div>Status</div>
               <div className="text-right">Ações</div>
