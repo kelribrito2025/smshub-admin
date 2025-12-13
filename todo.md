@@ -3131,3 +3131,24 @@
 - [x] Implementar estado de hover (hoveredGroupKey)
 - [x] Aplicar classes de highlight quando hover
 - [x] Testar performance (sem recalcular a cada hover)
+
+
+---
+
+## 🐛 BUG: Usuário Banido Não Aparece Vermelho na Lista Principal
+
+**Problema:**
+- Usuário `xkelrix@gmail.com` está marcado como banido
+- Na lista principal de clientes, ele pisca mas NÃO aparece vermelho
+- A cor vermelha + piscar só aparece quando filtro, clico no usuário e abro a timeline
+
+**Comportamento Correto:**
+- Se o usuário está banido, ele deve aparecer vermelho + efeito piscando direto na lista
+- Sem precisar filtrar ou abrir detalhes
+- O estado "banido" precisa ser aplicado no render da row do usuário na listagem principal
+
+**Tarefas:**
+- [x] Investigar código da lista de clientes (AdminClients.tsx)
+- [x] Identificar onde aplicar estilo de usuário banido na row da tabela
+- [x] Implementar cor vermelha + efeito piscando para usuários banidos
+- [x] Testar com usuário xkelrix@gmail.com

@@ -357,7 +357,7 @@ export default function Customers() {
                     paginatedCustomers.map((customer) => (
                       <React.Fragment key={customer.id}>
                         <TableRow 
-                          className={`${searchTerm.trim() ? 'cursor-pointer hover:bg-gray-800/50' : ''} ${customer.banned ? "border-2 border-red-500/50 animate-pulse" : ""} ${expandedCustomerId === customer.id ? "bg-gray-800/30" : ""}`}
+                          className={`${searchTerm.trim() ? 'cursor-pointer hover:bg-gray-800/50' : ''} ${customer.banned ? "bg-red-950/40 border-2 border-red-500/50 animate-pulse" : ""} ${expandedCustomerId === customer.id ? "bg-gray-800/30" : ""}`}
                           onClick={() => handleRowClick(customer.id)}
                         >
                           <TableCell>
@@ -376,15 +376,15 @@ export default function Customers() {
                             )}
                           </TableCell>
                           <TableCell>
-                            <Badge variant="outline" className="font-mono font-bold">
+                            <Badge variant="outline" className={`font-mono font-bold ${customer.banned ? "border-red-500 text-red-400" : ""}`}>
                               #{customer.pin}
                             </Badge>
                           </TableCell>
-                        <TableCell className="font-medium text-muted-foreground">{customer.id}</TableCell>
-                        <TableCell className="font-semibold">{customer.name}</TableCell>
-                        <TableCell className="text-muted-foreground">{customer.email}</TableCell>
+                        <TableCell className={`font-medium ${customer.banned ? "text-red-400" : "text-muted-foreground"}`}>{customer.id}</TableCell>
+                        <TableCell className={`font-semibold ${customer.banned ? "text-red-300" : ""}`}>{customer.name}</TableCell>
+                        <TableCell className={`${customer.banned ? "text-red-400" : "text-muted-foreground"}`}>{customer.email}</TableCell>
                         <TableCell>
-                          <span className="font-mono">
+                          <span className={`font-mono ${customer.banned ? "text-red-400" : ""}`}>
                             R$ {(customer.balance / 100).toFixed(2)}
                           </span>
                         </TableCell>
@@ -397,7 +397,7 @@ export default function Customers() {
                             disabled={toggleActiveMutation.isPending}
                           />
                         </TableCell>
-                        <TableCell className="text-muted-foreground">
+                        <TableCell className={`${customer.banned ? "text-red-400" : "text-muted-foreground"}`}>
                           {format(new Date(customer.createdAt), "dd/MM/yyyy HH:mm")}
                         </TableCell>
                         <TableCell className="text-right">
