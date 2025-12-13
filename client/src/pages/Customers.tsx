@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { trpc } from "@/lib/trpc";
-import { DollarSign, Edit, Loader2, Plus, Search, Trash2, Users, Wallet, TrendingUp, ChevronDown, ChevronUp, ArrowDownCircle, ArrowUpCircle, ShoppingCart, RefreshCw, Activity, User, Shield, Settings, Gift } from "lucide-react";
+import { DollarSign, Edit, Loader2, Plus, Search, Trash2, Users, Wallet, TrendingUp, ChevronDown, ChevronUp, ArrowDownCircle, ArrowUpCircle, ShoppingCart, RefreshCw, Activity, User, Shield, Settings, Gift, X } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -34,6 +34,7 @@ export default function Customers() {
   const [expandedCustomerId, setExpandedCustomerId] = useState<number | null>(null);
   const [transactionPage, setTransactionPage] = useState(1);
   const transactionLimit = 25;
+  const [refundModal, setRefundModal] = useState<{ show: boolean; transaction: any | null; customerId: number | null }>({ show: false, transaction: null, customerId: null });
 
 
   const { data: customers, isLoading } = trpc.customers.getAll.useQuery();
@@ -71,6 +72,19 @@ export default function Customers() {
     },
     onError: (error) => {
       toast.error(`Erro ao excluir: ${error.message}`);
+    },
+  });
+
+  const refundPurchaseMutation = trpc.customers.refundPurchase.useMutation({
+    onSuccess: (data) => {
+      toast.success(`Reembolso de ${formatCurrency(data.refundAmount * 100)} realizado com sucesso!`);
+      // Invalidate transactions to show the new refund
+      utils.audit.getTransactions.invalidate();
+      utils.customers.getAll.invalidate();
+      closeRefundModal();
+    },
+    onError: (error) => {
+      toast.error(`Erro ao processar reembolso: ${error.message}`);
     },
   });
 
@@ -115,6 +129,23 @@ export default function Customers() {
       setExpandedCustomerId(customerId);
       setTransactionPage(1);
     }
+  };
+
+  const openRefundModal = (transaction: any, customerId: number) => {
+    setRefundModal({ show: true, transaction, customerId });
+  };
+
+  const closeRefundModal = () => {
+    setRefundModal({ show: false, transaction: null, customerId: null });
+  };
+
+  const confirmRefund = () => {
+    if (!refundModal.transaction || !refundModal.customerId) return;
+    
+    refundPurchaseMutation.mutate({
+      transactionId: refundModal.transaction.id,
+      customerId: refundModal.customerId,
+    });
   };
 
   const formatCurrency = (cents: number) => `R$ ${(cents / 100).toFixed(2)}`;
@@ -447,9 +478,20 @@ export default function Customers() {
                                           const service = row.service;
 
                                           const isBonus = isAffiliateBonus(t);
+                                          const isPurchase = t.type === 'purchase';
 
                                           return (
-                                            <TableRow key={t.id} className="border-gray-700 hover:bg-gray-800/30">
+                                            <TableRow 
+                                              key={t.id} 
+                                              className={`border-gray-700 hover:bg-gray-800/30 ${
+                                                isPurchase ? 'cursor-pointer' : ''
+                                              }`}
+                                              onClick={() => {
+                                                if (isPurchase && expandedCustomerId) {
+                                                  openRefundModal(t, expandedCustomerId);
+                                                }
+                                              }}
+                                            >
                                               <TableCell className="font-mono text-gray-400 text-sm">#{t.id}</TableCell>
                                               <TableCell>
                                                 <div className="flex items-center gap-2">
@@ -660,6 +702,77 @@ export default function Customers() {
         }}
       />
 
+      {/* Modal de Reembolso */}
+      {refundModal.show && refundModal.transaction && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 max-w-md w-full mx-4 shadow-2xl">
+            <div className="flex items-start justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center">
+                  <RefreshCw size={20} className="text-amber-400" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-medium text-white">Confirmar Reembolso</h3>
+                  <p className="text-xs text-neutral-500">Transação #{refundModal.transaction.id}</p>
+                </div>
+              </div>
+              <button
+                onClick={closeRefundModal}
+                className="text-neutral-400 hover:text-white transition-colors"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="space-y-4 mb-6">
+              <div className="bg-neutral-950/50 border border-neutral-800 rounded-lg p-4 space-y-2">
+                <div className="flex justify-between text-sm">
+                  <span className="text-neutral-400">Descrição:</span>
+                  <span className="text-white text-right">{refundModal.transaction.description}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-neutral-400">Valor:</span>
+                  <span className="text-red-400 font-medium">
+                    {formatCurrency(Math.abs(refundModal.transaction.amount))}
+                  </span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-neutral-400">Data:</span>
+                  <span className="text-white">{new Date(refundModal.transaction.createdAt).toLocaleString('pt-BR')}</span>
+                </div>
+              </div>
+
+              <p className="text-sm text-neutral-400">
+                Deseja realmente realizar o reembolso desta transação? O valor será devolvido ao saldo do cliente.
+              </p>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={closeRefundModal}
+                disabled={refundPurchaseMutation.isPending}
+                className="flex-1 px-4 py-2.5 bg-neutral-800 hover:bg-neutral-700 text-white rounded-lg transition-colors text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={confirmRefund}
+                disabled={refundPurchaseMutation.isPending}
+                className="flex-1 px-4 py-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-lg transition-colors text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              >
+                {refundPurchaseMutation.isPending ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Processando...
+                  </>
+                ) : (
+                  'Confirmar Reembolso'
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
     </DashboardLayout>
   );

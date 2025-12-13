@@ -3068,3 +3068,20 @@
 
 **Tarefas:**
 - [x] Exibir bônus de afiliados na timeline de transações do cliente com ícone de presente
+
+
+---
+
+## 🔄 Modal de Confirmação de Reembolso na Página de Clientes
+
+**Objetivo:**
+- Implementar modal de confirmação de reembolso na página de detalhes do cliente (/admin/clientes)
+- Permitir que admin reembolse transações de compra clicando na timeline
+- Exibir transação de reembolso na timeline após confirmação
+
+**Tarefas:**
+- [x] Criar procedimento tRPC para processar reembolsos de compras
+- [x] Implementar modal de confirmação de reembolso no frontend
+- [x] Adicionar handler para clicar em transações de compra na timeline
+- [x] Exibir transações de reembolso na timeline do cliente
+- [x] Testar fluxo completo de reembolso

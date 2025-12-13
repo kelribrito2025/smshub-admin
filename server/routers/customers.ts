@@ -263,4 +263,55 @@ export const customersRouter = router({
       averageBalance: stats.averageBalance / 100, // Convert to reais
     };
   }),
+
+  /**
+   * Refund a purchase transaction
+   */
+  refundPurchase: adminProcedure
+    .input(
+      z.object({
+        transactionId: z.number(),
+        customerId: z.number(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      // Get the original transaction to verify it's a purchase
+      const transactions = await getCustomerTransactions(input.customerId, 1000);
+      const originalTransaction = transactions.find(t => t.id === input.transactionId);
+      
+      if (!originalTransaction) {
+        throw new Error('Transaction not found');
+      }
+
+      if (originalTransaction.type !== 'purchase') {
+        throw new Error('Only purchase transactions can be refunded');
+      }
+
+      // Check if already refunded (look for existing refund with same relatedActivationId)
+      const existingRefund = transactions.find(
+        t => t.type === 'refund' && t.relatedActivationId === originalTransaction.relatedActivationId
+      );
+      
+      if (existingRefund) {
+        throw new Error('This purchase has already been refunded');
+      }
+
+      // Create refund transaction (positive amount to return money to customer)
+      const refundAmount = Math.abs(originalTransaction.amount);
+      const result = await addBalance(
+        input.customerId,
+        refundAmount,
+        'refund',
+        `Reembolso: ${originalTransaction.description}`,
+        ctx.user?.id,
+        originalTransaction.relatedActivationId ?? undefined,
+        'admin'
+      );
+
+      return {
+        success: true,
+        refundAmount: refundAmount / 100,
+        balanceAfter: result.balanceAfter / 100,
+      };
+    }),
 });
