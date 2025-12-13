@@ -20,6 +20,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { CustomerDialog } from "@/components/CustomerDialog";
 import { BalanceSidePanel } from "@/components/BalanceSidePanel";
+import { ConfirmationModal } from "@/components/ConfirmationModal";
 
 import { format } from "date-fns";
 
@@ -36,6 +37,7 @@ export default function Customers() {
   const transactionLimit = 25;
   const [refundModal, setRefundModal] = useState<{ show: boolean; transaction: any | null; customerId: number | null; isRefunded: boolean }>({ show: false, transaction: null, customerId: null, isRefunded: false });
   const [hoveredGroupKey, setHoveredGroupKey] = useState<string | null>(null);
+  const [impersonateModal, setImpersonateModal] = useState<{ show: boolean; customerId: number | null; customerName: string }>({ show: false, customerId: null, customerName: '' });
 
 
   const { data: customers, isLoading } = trpc.customers.getAll.useQuery();
@@ -128,9 +130,13 @@ export default function Customers() {
     }
   };
 
-  const handleImpersonate = (customerId: number) => {
-    if (confirm('Você está prestes a acessar a conta deste cliente. Esta ação será registrada em auditoria. Continuar?')) {
-      impersonateMutation.mutate({ customerId });
+  const handleImpersonate = (customerId: number, customerName: string) => {
+    setImpersonateModal({ show: true, customerId, customerName });
+  };
+
+  const confirmImpersonate = () => {
+    if (impersonateModal.customerId) {
+      impersonateMutation.mutate({ customerId: impersonateModal.customerId });
     }
   };
 
@@ -425,7 +431,7 @@ export default function Customers() {
                               size="sm"
                               onClick={(e) => {
                                 e.stopPropagation();
-                                handleImpersonate(customer.id);
+                                handleImpersonate(customer.id, customer.name);
                               }}
                               title="Logar como cliente (Suporte)"
                               className="text-blue-500 hover:text-blue-400"
@@ -876,6 +882,19 @@ export default function Customers() {
           </div>
         </div>
       )}
+
+      {/* Modal de Confirmação de Impersonation */}
+      <ConfirmationModal
+        isOpen={impersonateModal.show}
+        onClose={() => setImpersonateModal({ show: false, customerId: null, customerName: '' })}
+        onConfirm={confirmImpersonate}
+        title="Acesso a Conta do Cliente"
+        message="Você está prestes a acessar a conta deste cliente. Esta ação será registrada em auditoria. Continuar?"
+        confirmText="Continuar"
+        cancelText="Cancelar"
+        accentColor="orange"
+        customerId={impersonateModal.customerId?.toString()}
+      />
 
     </DashboardLayout>
   );

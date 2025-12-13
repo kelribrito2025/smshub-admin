@@ -3497,3 +3497,18 @@
 
 **Tarefas:**
 - [x] Adicionar animação pulse lenta na barra de impersonação
+
+
+---
+
+## 🎨 Modal Customizado para Impersonation de Cliente
+
+**Objetivo:**
+- Substituir modal padrão do navegador (window.confirm) por modal customizado
+- Usar estilo laranja consistente com modal de reembolso
+- Melhorar experiência visual ao acessar conta de cliente
+
+**Tarefas:**
+- [x] Criar componente de modal de confirmação reutilizável com estilo laranja
+- [x] Atualizar página /admin/clientes para usar modal customizado
+- [x] Testar funcionalidade de impersonation com novo modal
