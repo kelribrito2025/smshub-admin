@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { trpc } from "@/lib/trpc";
-import { DollarSign, Edit, Loader2, Plus, Search, Trash2, Users, Wallet, TrendingUp, ChevronDown, ChevronUp, ArrowDownCircle, ArrowUpCircle, ShoppingCart, RefreshCw, Activity, User, Shield, Settings } from "lucide-react";
+import { DollarSign, Edit, Loader2, Plus, Search, Trash2, Users, Wallet, TrendingUp, ChevronDown, ChevronUp, ArrowDownCircle, ArrowUpCircle, ShoppingCart, RefreshCw, Activity, User, Shield, Settings, Gift } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -167,6 +167,17 @@ export default function Customers() {
       system: 'Sistema',
     };
     return labels[origin] || origin;
+  };
+
+  // Verifica se a transação é um bônus de afiliado
+  const isAffiliateBonus = (transaction: any) => {
+    if (transaction.type !== 'credit' || transaction.origin !== 'system') return false;
+    try {
+      const metadata = transaction.metadata ? JSON.parse(transaction.metadata) : null;
+      return metadata && metadata.referralId && metadata.bonusAmount;
+    } catch {
+      return false;
+    }
   };
 
   if (isLoading) {
@@ -435,13 +446,21 @@ export default function Customers() {
                                           const activation = row.activation;
                                           const service = row.service;
 
+                                          const isBonus = isAffiliateBonus(t);
+
                                           return (
                                             <TableRow key={t.id} className="border-gray-700 hover:bg-gray-800/30">
                                               <TableCell className="font-mono text-gray-400 text-sm">#{t.id}</TableCell>
                                               <TableCell>
                                                 <div className="flex items-center gap-2">
-                                                  {getTypeIcon(t.type)}
-                                                  <span className="text-white">{getTypeLabel(t.type)}</span>
+                                                  {isBonus ? (
+                                                    <Gift className="w-5 h-5 text-purple-500" />
+                                                  ) : (
+                                                    getTypeIcon(t.type)
+                                                  )}
+                                                  <span className="text-white">
+                                                    {isBonus ? 'Bônus' : getTypeLabel(t.type)}
+                                                  </span>
                                                 </div>
                                               </TableCell>
                                               <TableCell>

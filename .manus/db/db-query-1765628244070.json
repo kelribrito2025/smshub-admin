@@ -1,0 +1,65 @@
+{
+  "query": "SELECT bt.id, bt.customerId, bt.amount, bt.type, bt.origin, bt.description, bt.metadata, bt.createdAt, c.name as customerName FROM balance_transactions bt LEFT JOIN customers c ON bt.customerId = c.id WHERE bt.type = 'credit' AND bt.origin = 'system' AND bt.metadata LIKE '%referralId%' ORDER BY bt.createdAt DESC LIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT bt.id, bt.customerId, bt.amount, bt.type, bt.origin, bt.description, bt.metadata, bt.createdAt, c.name as customerName FROM balance_transactions bt LEFT JOIN customers c ON bt.customerId = c.id WHERE bt.type = 'credit' AND bt.origin = 'system' AND bt.metadata LIKE '%referralId%' ORDER BY bt.createdAt DESC LIMIT 5;",
+  "rows": [
+    {
+      "id": "1740002",
+      "customerId": "510014",
+      "amount": "40",
+      "type": "credit",
+      "origin": "system",
+      "description": "Bônus de afiliado - Primeira recarga de Cliente #630002",
+      "metadata": "{\"referralId\":60002,\"referredCustomerId\":630002,\"rechargeAmount\":400,\"bonusPercentage\":10,\"bonusAmount\":40}",
+      "createdAt": "2025-12-11 14:55:58",
+      "customerName": "NULL"
+    },
+    {
+      "id": "1710001",
+      "customerId": "600002",
+      "amount": "100",
+      "type": "credit",
+      "origin": "system",
+      "description": "Bônus de afiliado - Primeira recarga de Cliente #600003",
+      "metadata": "{\"referralId\":30002,\"referredCustomerId\":600003,\"rechargeAmount\":1000,\"bonusPercentage\":10,\"bonusAmount\":100}",
+      "createdAt": "2025-12-11 14:39:43",
+      "customerName": "NULL"
+    },
+    {
+      "id": "1590007",
+      "customerId": "510014",
+      "amount": "30",
+      "type": "credit",
+      "origin": "system",
+      "description": "Bônus de afiliado - Primeira recarga de Cliente #570033",
+      "metadata": "{\"referralId\":24,\"referredCustomerId\":570033,\"rechargeAmount\":300,\"bonusPercentage\":10,\"bonusAmount\":30}",
+      "createdAt": "2025-12-11 12:28:07",
+      "customerName": "NULL"
+    },
+    {
+      "id": "1590005",
+      "customerId": "510014",
+      "amount": "30",
+      "type": "credit",
+      "origin": "system",
+      "description": "Bônus de afiliado - Primeira recarga de Cliente #570011",
+      "metadata": "{\"referralId\":3,\"referredCustomerId\":570011,\"rechargeAmount\":300,\"bonusPercentage\":10,\"bonusAmount\":30}",
+      "createdAt": "2025-12-11 11:44:25",
+      "customerName": "NULL"
+    },
+    {
+      "id": "1590003",
+      "customerId": "510014",
+      "amount": "50",
+      "type": "credit",
+      "origin": "system",
+      "description": "Bônus de afiliado - Primeira recarga de Cliente #570010",
+      "metadata": "{\"referralId\":2,\"referredCustomerId\":570010,\"rechargeAmount\":500,\"bonusPercentage\":10,\"bonusAmount\":50}",
+      "createdAt": "2025-12-11 11:32:56",
+      "customerName": "NULL"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\tamount\ttype\torigin\tdescription\tmetadata\tcreatedAt\tcustomerName\n1740002\t510014\t40\tcredit\tsystem\tBônus de afiliado - Primeira recarga de Cliente #630002\t{\"referralId\":60002,\"referredCustomerId\":630002,\"rechargeAmount\":400,\"bonusPercentage\":10,\"bonusAmount\":40}\t2025-12-11 14:55:58\tNULL\n1710001\t600002\t100\tcredit\tsystem\tBônus de afiliado - Primeira recarga de Cliente #600003\t{\"referralId\":30002,\"referredCustomerId\":600003,\"rechargeAmount\":1000,\"bonusPercentage\":10,\"bonusAmount\":100}\t2025-12-11 14:39:43\tNULL\n1590007\t510014\t30\tcredit\tsystem\tBônus de afiliado - Primeira recarga de Cliente #570033\t{\"referralId\":24,\"referredCustomerId\":570033,\"rechargeAmount\":300,\"bonusPercentage\":10,\"bonusAmount\":30}\t2025-12-11 12:28:07\tNULL\n1590005\t510014\t30\tcredit\tsystem\tBônus de afiliado - Primeira recarga de Cliente #570011\t{\"referralId\":3,\"referredCustomerId\":570011,\"rechargeAmount\":300,\"bonusPercentage\":10,\"bonusAmount\":30}\t2025-12-11 11:44:25\tNULL\n1590003\t510014\t50\tcredit\tsystem\tBônus de afiliado - Primeira recarga de Cliente #570010\t{\"referralId\":2,\"referredCustomerId\":570010,\"rechargeAmount\":500,\"bonusPercentage\":10,\"bonusAmount\":50}\t2025-12-11 11:32:56\tNULL\n",
+  "stderr": "",
+  "execution_time_ms": 124
+}

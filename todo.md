@@ -3055,3 +3055,16 @@
 
 **Tarefas:**
 - [x] Filtrar histórico de transações em Gerenciar Saldo para mostrar apenas ações admin (adicionar, debitar, reembolsar, saque, reter) e recargas de usuários
+
+
+---
+
+## 🎁 Exibir Bônus de Afiliados na Timeline de Transações
+
+**Objetivo:**
+- Adicionar exibição de bônus de afiliados na timeline de transações do cliente em /admin/clientes
+- Mostrar ícone de presente e o nome "Bônus" para esses registros
+- Integrar bônus na timeline junto com recargas e ativações
+
+**Tarefas:**
+- [x] Exibir bônus de afiliados na timeline de transações do cliente com ícone de presente
