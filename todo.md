@@ -19,3 +19,6 @@
 ## Atualização Visual do Dashboard
 - [x] Atualizar visual do card de custo total no dashboard
 - [x] Atualizar card de Taxa de Sucesso com novo visual (bg-neutral-900/50, bordas, ícone Activity)
+
+## Ajuste de Altura dos Cards
+- [x] Ajustar altura dos cards "Em breve" para ficarem com a mesma altura dos cards "Taxa de Sucesso" e "Custo Total"

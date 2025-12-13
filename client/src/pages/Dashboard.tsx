@@ -397,28 +397,32 @@ export default function Dashboard() {
 
           {/* Card 7: Placeholder (futuro) */}
           <motion.div variants={fadeInScale}>
-            <Card className="border-dashed" style={{backgroundColor: '#101010'}}>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-muted-foreground">Em breve</CardTitle>
-              </CardHeader>
-              <CardContent className="pt-8">
-                <div className="text-2xl font-bold text-muted-foreground">—</div>
-                <p className="text-xs text-muted-foreground">Novos dados em breve</p>
-              </CardContent>
-            </Card>
+            <div className="bg-neutral-900/50 border border-dashed border-neutral-700 rounded-xl p-6">
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-neutral-500 text-sm">Em breve</span>
+              </div>
+              <div className="text-3xl font-light text-neutral-600 mb-1">
+                —
+              </div>
+              <div className="text-xs text-neutral-600">
+                Novos dados em breve
+              </div>
+            </div>
           </motion.div>
 
           {/* Card 8: Placeholder (futuro) */}
           <motion.div variants={fadeInScale}>
-            <Card className="border-dashed" style={{backgroundColor: '#101010'}}>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-muted-foreground">Em breve</CardTitle>
-              </CardHeader>
-              <CardContent className="pt-8">
-                <div className="text-2xl font-bold text-muted-foreground">—</div>
-                <p className="text-xs text-muted-foreground">Novos dados em breve</p>
-              </CardContent>
-            </Card>
+            <div className="bg-neutral-900/50 border border-dashed border-neutral-700 rounded-xl p-6">
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-neutral-500 text-sm">Em breve</span>
+              </div>
+              <div className="text-3xl font-light text-neutral-600 mb-1">
+                —
+              </div>
+              <div className="text-xs text-neutral-600">
+                Novos dados em breve
+              </div>
+            </div>
           </motion.div>
         </motion.div>
 
