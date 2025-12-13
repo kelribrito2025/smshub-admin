@@ -3429,3 +3429,30 @@
 - [x] Adicionar logs detalhados para debug de cookies
 - [ ] Validar que cookie está sendo parseado corretamente após correções
 - [ ] Testar visualmente que banner aparece durante impersonação
+
+
+---
+
+## 🎨 Corrigir Z-Index do Banner de Impersonação
+
+**Problema:**
+- Banner de impersonação está sendo renderizado, mas fica atrás do header
+- Em resolução normal, o banner fica completamente invisível
+- Ao mudar zoom/resolução, o header diminui e o banner aparece parcialmente
+- Confirma que o banner existe, mas está com z-index incorreto
+
+**Causa Raiz:**
+- Header do StoreLayout tem position: fixed/sticky com z-index alto
+- Banner de impersonação está sendo renderizado abaixo do header
+- Falta ajuste de z-index para garantir que banner fique sempre acima
+
+**Solução Esperada:**
+- Banner deve ficar ACIMA da barra de menu
+- Deve ser o elemento mais alto da hierarquia visual durante impersonação
+- Visível em todas as resoluções sem necessidade de scroll ou zoom
+
+**Tarefas:**
+- [x] Ajustar z-index do banner de impersonação para valor maior que o header
+- [x] Garantir que banner renderiza acima de todos os elementos do layout
+- [x] Testar em diferentes resoluções para confirmar visibilidade
+- [x] Validar que banner aparece imediatamente ao impersonar
