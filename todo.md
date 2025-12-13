@@ -2849,3 +2849,15 @@
 **Tarefas:**
 - [x] Centralizar ícones na barra lateral quando minimizada
 - [x] Exibir menu dropdown do admin ao clicar no ícone quando sidebar minimizada
+
+
+---
+
+## 🎯 Corrigir Alinhamento Vertical dos Ícones na Sidebar
+
+**Problema:**
+- Os ícones da barra lateral não estão centralizados verticalmente
+- Há um desalinhamento visível em relação ao centro vertical da sidebar
+
+**Tarefas:**
+- [x] Corrigir alinhamento vertical dos ícones na sidebar
