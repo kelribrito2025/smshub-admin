@@ -259,7 +259,7 @@ export default function Customers() {
           <div>
             <h1 className="text-3xl font-bold text-white flex items-center gap-2">
               <Users className="w-8 h-8 text-blue-500" />
-              Clientes kkkkkkkkkkkk
+              Clientes
             </h1>
             <p className="text-gray-400 mt-2">
               Gerencie os clientes do painel de vendas
