@@ -2971,3 +2971,25 @@
 - [x] Identificar causa raiz do problema
 - [x] Implementar correção
 - [x] Testar e validar que dados aparecem corretamente
+
+
+---
+
+## 👤 Mostrar "Admin" em vez de "Sistema" na Timeline de Transações
+
+**Problema:**
+- Na página /admin/clientes, na timeline de transações do cliente, todas as ações feitas pelo admin mostram "Sistema" na coluna Origem
+- Deveria mostrar "Admin" (com ícone e nome) para ações administrativas
+
+**Ações do Admin:**
+- Adicionar saldo
+- Debitar
+- Reembolsar saque
+- Reter saldo
+
+**Tarefas:**
+- [x] Analisar código atual da timeline de transações (Customers.tsx)
+- [x] Identificar como a origem é determinada (backend - campo origin em balanceTransactions)
+- [x] Atualizar lógica para mostrar "Admin" em vez de "Sistema" para ações administrativas (customers-helpers.ts)
+- [x] Criar testes para validar comportamento (customers.origin.test.ts)
+- [x] Testar e validar mudança

@@ -175,6 +175,7 @@ export async function addBalance(
       balanceAfter,
       relatedActivationId,
       createdBy,
+      origin: createdBy ? "admin" : "system", // Set origin to "admin" if created by an admin
       metadata: metadata ? JSON.stringify(metadata) : null,
     });
 
