@@ -16,8 +16,9 @@ import { Gift, Users, DollarSign, TrendingUp, ChevronLeft, ChevronRight } from "
 import { useState } from "react";
 
 export default function Affiliates() {
-  // Pagination state for referrals
-  const [currentPage, setCurrentPage] = useState(1);
+  // Pagination state for both tabs
+  const [currentPageReferrals, setCurrentPageReferrals] = useState(1);
+  const [currentPageAffiliates, setCurrentPageAffiliates] = useState(1);
   const itemsPerPage = 20;
 
   // Report queries
@@ -27,15 +28,23 @@ export default function Affiliates() {
     trpc.affiliateAdmin.getAllReferrals.useQuery();
 
   // Calculate pagination for referrals
-  const totalPages = Math.ceil(referrals.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const paginatedReferrals = referrals.slice(startIndex, endIndex);
+  const totalPagesReferrals = Math.ceil(referrals.length / itemsPerPage);
+  const startIndexReferrals = (currentPageReferrals - 1) * itemsPerPage;
+  const endIndexReferrals = startIndexReferrals + itemsPerPage;
+  const paginatedReferrals = referrals.slice(startIndexReferrals, endIndexReferrals);
+
+  // Calculate pagination for affiliates
+  const totalPagesAffiliates = Math.ceil(affiliates.length / itemsPerPage);
+  const startIndexAffiliates = (currentPageAffiliates - 1) * itemsPerPage;
+  const endIndexAffiliates = startIndexAffiliates + itemsPerPage;
+  const paginatedAffiliates = affiliates.slice(startIndexAffiliates, endIndexAffiliates);
 
   // Reset to page 1 when switching tabs
   const handleTabChange = (value: string) => {
     if (value === 'referrals') {
-      setCurrentPage(1);
+      setCurrentPageReferrals(1);
+    } else if (value === 'affiliates') {
+      setCurrentPageAffiliates(1);
     }
   };
 
@@ -198,7 +207,7 @@ export default function Affiliates() {
                         </TableRow>
                       </TableHeader>
                       <TableBody>
-                        {affiliates.map((affiliate) => (
+                        {paginatedAffiliates.map((affiliate) => (
                           <TableRow key={affiliate.id}>
                             <TableCell className="font-mono">#{affiliate.pin}</TableCell>
                             <TableCell className="font-medium">{affiliate.name}</TableCell>
@@ -220,6 +229,38 @@ export default function Affiliates() {
                         ))}
                       </TableBody>
                     </Table>
+                  </div>
+                )}
+
+                {/* Pagination Controls */}
+                {affiliates.length > itemsPerPage && (
+                  <div className="flex items-center justify-between mt-6 pt-4 border-t">
+                    <div className="text-sm text-muted-foreground">
+                      Mostrando {startIndexAffiliates + 1} a {Math.min(endIndexAffiliates, affiliates.length)} de {affiliates.length} afiliados
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setCurrentPageAffiliates((p) => Math.max(1, p - 1))}
+                        disabled={currentPageAffiliates === 1}
+                      >
+                        <ChevronLeft className="w-4 h-4" />
+                        Anterior
+                      </Button>
+                      <div className="text-sm text-muted-foreground px-3">
+                        Página {currentPageAffiliates} de {totalPagesAffiliates}
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setCurrentPageAffiliates((p) => Math.min(totalPagesAffiliates, p + 1))}
+                        disabled={currentPageAffiliates === totalPagesAffiliates}
+                      >
+                        Próxima
+                        <ChevronRight className="w-4 h-4" />
+                      </Button>
+                    </div>
                   </div>
                 )}
               </CardContent>
@@ -300,26 +341,26 @@ export default function Affiliates() {
                 {referrals.length > itemsPerPage && (
                   <div className="flex items-center justify-between mt-6 pt-4 border-t">
                     <div className="text-sm text-muted-foreground">
-                      Mostrando {startIndex + 1} a {Math.min(endIndex, referrals.length)} de {referrals.length} indicações
+                      Mostrando {startIndexReferrals + 1} a {Math.min(endIndexReferrals, referrals.length)} de {referrals.length} indicações
                     </div>
                     <div className="flex items-center gap-2">
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                        disabled={currentPage === 1}
+                        onClick={() => setCurrentPageReferrals((p) => Math.max(1, p - 1))}
+                        disabled={currentPageReferrals === 1}
                       >
                         <ChevronLeft className="w-4 h-4" />
                         Anterior
                       </Button>
                       <div className="text-sm text-muted-foreground px-3">
-                        Página {currentPage} de {totalPages}
+                        Página {currentPageReferrals} de {totalPagesReferrals}
                       </div>
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-                        disabled={currentPage === totalPages}
+                        onClick={() => setCurrentPageReferrals((p) => Math.min(totalPagesReferrals, p + 1))}
+                        disabled={currentPageReferrals === totalPagesReferrals}
                       >
                         Próxima
                         <ChevronRight className="w-4 h-4" />

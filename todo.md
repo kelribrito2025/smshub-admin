@@ -3027,3 +3027,17 @@
 
 **Tarefas:**
 - [x] Adicionar paginação de 20 itens por página na aba Indicações da página /admin/affiliates
+
+
+---
+
+## 📄 Paginação na Aba Afiliados
+
+**Objetivo:**
+- Verificar se existe paginação na aba "Afiliados" da página /admin/affiliates
+- Se não existir, adicionar paginação de 20 itens por página (mesma implementação da aba Indicações)
+- Garantir consistência entre as duas abas
+
+**Tarefas:**
+- [x] Verificar se existe paginação na aba Afiliados
+- [x] Adicionar paginação de 20 itens por página na aba Afiliados (se não existir)
