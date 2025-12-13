@@ -668,7 +668,7 @@ export default function Catalog() {
       </div>
 
       {/* Filters */}
-      <Card className="p-4">
+      <Card className="p-4" style={{backgroundColor: '#101010'}}>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {/* Search */}
           <div className="relative">
@@ -688,7 +688,7 @@ export default function Catalog() {
             <select
               value={filterCountry}
               onChange={(e) => setFilterCountry(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-black/30 border border-border rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary" style={{backgroundColor: '#1c1c1f'}}
+              className="w-full pl-10 pr-4 py-2 bg-black/30 border border-border rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary" style={{backgroundColor: '#101010'}}
             >
               <option value="all">Todos os países</option>
               {uniqueCountries.map((country) => (
@@ -705,7 +705,7 @@ export default function Catalog() {
             <select
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-black/30 border border-border rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary" style={{backgroundColor: '#1c1c1f'}}
+              className="w-full pl-10 pr-4 py-2 bg-black/30 border border-border rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary" style={{backgroundColor: '#101010'}}
             >
               <option value="all">Todos os status</option>
               <option value="active">Ativos</option>
@@ -719,7 +719,7 @@ export default function Catalog() {
             <select
               value={filterApi}
               onChange={(e) => setFilterApi(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-black/30 border border-border rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary" style={{backgroundColor: '#1c1c1f'}}
+              className="w-full pl-10 pr-4 py-2 bg-black/30 border border-border rounded-md text-white focus:outline-none focus:ring-2 focus:ring-primary" style={{backgroundColor: '#101010'}}
             >
               <option value="all">Todas as APIs</option>
               {apis?.map((api) => (
@@ -734,25 +734,25 @@ export default function Catalog() {
 
       {/* Stats - Usando registros filtrados por país */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="p-4">
+        <Card className="p-4" style={{backgroundColor: '#0a0a0a'}}>
           <div className="text-sm text-muted-foreground">Serviços Ativos</div>
           <div className="text-2xl font-bold mt-1 text-green-600">
             {globalFilteredItems.filter((i) => i.active).length}
           </div>
         </Card>
-        <Card className="p-4">
+        <Card className="p-4" style={{backgroundColor: '#101010'}}>
           <div className="text-sm text-muted-foreground">Serviços Inativos</div>
           <div className="text-2xl font-bold mt-1 text-red-600">
             {globalFilteredItems.filter((i) => !i.active).length}
           </div>
         </Card>
-        <Card className="p-4">
+        <Card className="p-4" style={{backgroundColor: '#101010'}}>
           <div className="text-sm text-muted-foreground">Países Disponíveis</div>
           <div className="text-2xl font-bold mt-1">
             {new Set(allCatalogItems.map((i) => i.countryCode)).size}
           </div>
         </Card>
-        <Card className="p-4">
+        <Card className="p-4" style={{backgroundColor: '#101010'}}>
           <div className="text-sm text-muted-foreground">Serviços Únicos</div>
           <div className="text-2xl font-bold mt-1">
             {new Set(allCatalogItems.map((i) => i.serviceCode)).size}
@@ -761,7 +761,7 @@ export default function Catalog() {
       </div>
 
       {/* Table */}
-      <Card>
+      <Card style={{backgroundColor: '#101010'}}>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-black/30 border-b border-border">
