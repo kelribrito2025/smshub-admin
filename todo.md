@@ -68,3 +68,9 @@
 ## Correção de Aplicação de Fonte nos Cards
 - [x] Adicionar font-sans explicitamente em todos os cards customizados (bg-neutral-900/50) nas páginas Countries, Customers, Dashboard, PerformanceAPIs, Affiliates, Apis e Settings
 - [x] Adicionar font-sans globalmente no componente Card do shadcn/ui para garantir aplicação consistente em todos os 59+ cards do projeto
+
+## Auditoria Completa de Tipografia
+- [x] Verificar tipografia em tabelas (Table, TableHeader, TableRow, TableCell)
+- [x] Verificar tipografia em formulários e inputs (Input, Select, Textarea, Label)
+- [x] Verificar tipografia em outros componentes shadcn/ui (Dialog, Popover, DropdownMenu, etc.)
+- [x] Corrigir inconsistências encontradas
