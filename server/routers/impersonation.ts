@@ -313,7 +313,11 @@ export const impersonationRouter = router({
   getCurrentSession: publicProcedure.query(async ({ ctx }) => {
     const supportToken = ctx.req.cookies?.[SUPPORT_COOKIE_NAME];
 
+    console.log('[getCurrentSession] All cookies:', ctx.req.cookies);
+    console.log('[getCurrentSession] Support token:', supportToken);
+
     if (!supportToken) {
+      console.log('[getCurrentSession] No support token found');
       return null;
     }
 
@@ -344,6 +348,13 @@ export const impersonationRouter = router({
         }
       }
 
+      console.log('[getCurrentSession] Returning impersonation session:', {
+        customerId: decoded.customerId,
+        customerName,
+        adminId: decoded.adminId,
+        adminName: decoded.adminName,
+      });
+
       return {
         isImpersonating: true,
         customer: {
@@ -358,6 +369,7 @@ export const impersonationRouter = router({
         expiresAt: decoded.expiresAt,
       };
     } catch (error) {
+      console.error('[getCurrentSession] Error verifying token:', error);
       return null;
     }
   }),

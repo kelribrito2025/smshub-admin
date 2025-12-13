@@ -3402,3 +3402,27 @@
 - [x] Implementar lógica de encerramento de impersonação
 - [x] Adicionar procedure tRPC para encerrar impersonação
 - [x] Testar fluxo completo de impersonação e encerramento
+
+
+---
+
+## 🐛 BUG: Banner de Impersonação Não Aparece no StoreLayout
+
+**Problema:**
+- Impersonação funciona corretamente (admin consegue acessar painel do cliente)
+- Porém, o banner de impersonação NÃO aparece no StoreLayout
+- Não há indicação visual de que o admin está visualizando como cliente
+- Impossível saber se está impersonando ou se é sessão real do cliente
+
+**Verificações Necessárias:**
+1. Confirmar se banner foi implementado no StoreLayout (não em outro layout)
+2. Verificar se condição de exibição está correta (token.type === 'impersonation')
+3. Confirmar se flag de impersonação está sendo detectada em runtime
+4. Garantir que banner renderiza em todas as páginas do StoreLayout
+
+**Tarefas:**
+- [x] Investigar código do StoreLayout para localizar banner
+- [x] Verificar se condição de exibição está correta
+- [x] Adicionar logs para debug da flag de impersonação
+- [ ] Corrigir implementação do banner no StoreLayout
+- [ ] Testar visualmente que banner aparece durante impersonação
