@@ -226,8 +226,8 @@ function DashboardLayoutContent({
             </div>
           </SidebarHeader>
 
-          <SidebarContent className="gap-0 p-4">
-            <SidebarMenu className="space-y-1">
+          <SidebarContent className={`gap-0 p-4 ${isCollapsed ? 'flex items-center' : ''}`}>
+            <SidebarMenu className={`space-y-1 ${isCollapsed ? 'w-full flex flex-col items-center' : ''}`}>
               {menuItems.map(item => {
                 const isActive = location === item.path;
                 return (
@@ -244,11 +244,11 @@ function DashboardLayoutContent({
                         }
                       }}
                       tooltip={isCollapsed ? item.label : undefined}
-                      className={`h-11 px-4 rounded-lg transition-colors ${
+                      className={`h-11 rounded-lg transition-colors ${
                         isActive
                           ? 'bg-neutral-900 text-white hover:bg-neutral-900'
                           : 'text-neutral-400 hover:bg-neutral-900 hover:text-white'
-                      } ${isCollapsed ? 'justify-center' : ''}`}
+                      } ${isCollapsed ? 'w-11 justify-center px-0' : 'px-4'}`}
                     >
                       <item.icon
                         className={`h-5 w-5 ${isActive ? 'text-blue-500' : ''}`}

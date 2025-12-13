@@ -2836,3 +2836,26 @@
 - [x] Corrigir altura do indicador de item ativo (seleção proporcional)
 - [x] Aumentar largura da sidebar minimizada para acomodar ícones completamente
 - [x] Remover/corrigir botões fantasma que aparecem no hover
+
+
+---
+
+## 🎨 Centralizar Ícones na Sidebar Minimizada (Desktop)
+
+**Problema:**
+- Na versão desktop do DashboardLayout, quando a sidebar está minimizada, os ícones estão alinhados à esquerda
+- Os ícones deveriam estar centralizados horizontalmente na largura da sidebar minimizada
+- Atualmente há mais espaço à direita dos ícones do que à esquerda
+
+**Objetivo:**
+- Centralizar os ícones na sidebar minimizada
+- Garantir que a distância do ícone até a borda esquerda e até a borda direita seja aproximadamente igual
+
+**Solução Implementada:**
+- Ajustado SidebarContent para adicionar `flex items-center` quando sidebar está minimizada
+- Ajustado SidebarMenu para adicionar `w-full flex flex-col items-center` quando sidebar está minimizada
+- Modificado SidebarMenuButton para usar `w-11 justify-center px-0` quando minimizada (ao invés de `px-4`)
+- Resultado: ícones agora ficam centralizados horizontalmente na sidebar minimizada
+
+**Tarefas:**
+- [x] Centralizar ícones na sidebar minimizada (desktop) - distância igual das bordas esquerda e direita
