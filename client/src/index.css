@@ -123,6 +123,26 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
+  /* Garantir que todos os elementos herdem a fonte SF Pro */
+  html,
+  body,
+  #root,
+  div,
+  span,
+  p,
+  h1, h2, h3, h4, h5, h6,
+  button,
+  input,
+  select,
+  textarea,
+  label,
+  a,
+  li,
+  td,
+  th {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
   /* Prevenir Radix UI de adicionar padding ao body quando dropdown abre */
   body[style*="padding-right"] {
     padding-right: 0 !important;
