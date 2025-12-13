@@ -3512,3 +3512,4 @@
 - [x] Criar componente de modal de confirmação reutilizável com estilo laranja
 - [x] Atualizar página /admin/clientes para usar modal customizado
 - [x] Testar funcionalidade de impersonation com novo modal
+- [x] Atualizar visual do modal de acesso a conta do cliente com novo estilo (ícone alerta amarelo, URL formatada, aviso de auditoria em caixa amarela)

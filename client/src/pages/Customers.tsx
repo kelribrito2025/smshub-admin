@@ -894,6 +894,7 @@ export default function Customers() {
         cancelText="Cancelar"
         accentColor="orange"
         customerId={impersonateModal.customerId?.toString()}
+        customerName={impersonateModal.customerName}
       />
 
     </DashboardLayout>

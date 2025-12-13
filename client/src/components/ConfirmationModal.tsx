@@ -12,6 +12,7 @@ interface ConfirmationModalProps {
   icon?: React.ReactNode;
   accentColor?: "orange" | "red" | "green" | "blue";
   customerId?: string;
+  customerName?: string;
 }
 
 export function ConfirmationModal({
@@ -25,6 +26,7 @@ export function ConfirmationModal({
   icon,
   accentColor = "orange",
   customerId,
+  customerName,
 }: ConfirmationModalProps) {
   if (!isOpen) return null;
 
@@ -82,7 +84,17 @@ export function ConfirmationModal({
         </div>
 
         {/* Content */}
-        <div className="px-6 pb-6">
+        <div className="px-6 pb-6 space-y-4">
+          {/* URL Box */}
+          {customerId && customerName && (
+            <div className="bg-[#0d0d0d] border border-white/10 rounded-lg p-4">
+              <code className="text-sm text-gray-300 font-mono">
+                {customerId}-{customerName.toLowerCase().replace(/\s+/g, '.')}.numero-virtual.com
+              </code>
+            </div>
+          )}
+          
+          {/* Warning Box */}
           <div className={`p-4 rounded-lg ${colors.bg} ${colors.border} border`}>
             <p className="text-sm text-gray-300 leading-relaxed">{message}</p>
           </div>
