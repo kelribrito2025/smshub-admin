@@ -440,7 +440,7 @@ export default function Dashboard() {
 
           {/* Revenue Chart */}
           <TabsContent value="revenue" className="space-y-4">
-            <Card>
+            <Card style={{backgroundColor: '#101010'}}>
               <CardHeader className="flex flex-row items-center justify-between">
                 <div>
                   <CardTitle>Evolução de Receita e Lucro</CardTitle>
@@ -767,7 +767,7 @@ export default function Dashboard() {
         {/* 3) DOIS CARDS LADO A LADO - Serviços e Países */}
         <div className="grid gap-4 md:grid-cols-2">
           {/* Serviços Mais Vendidos */}
-          <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6" style={{backgroundColor: '#18181b'}}>
+          <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6" style={{backgroundColor: '#101010'}}>
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h2 className="text-lg font-medium text-white mb-1">Serviços Mais Vendidos</h2>
@@ -817,7 +817,7 @@ export default function Dashboard() {
           </div>
 
           {/* Países Mais Utilizados */}
-          <Card>
+          <Card style={{backgroundColor: '#101010'}}>
             <CardHeader>
               <CardTitle>Países Mais Utilizados</CardTitle>
               <CardDescription>Top 5 países por número de vendas</CardDescription>
@@ -859,7 +859,7 @@ export default function Dashboard() {
         </div>
 
         {/* 4) CARD GRANDE - Comparação Detalhada */}
-        <Card className="p-6">
+        <Card className="p-6" style={{backgroundColor: '#101010'}}>
           <h3 className="text-lg font-semibold mb-4">Comparação Detalhada</h3>
           {comparisonLoading ? (
             <div className="flex items-center justify-center h-[200px]">
@@ -926,7 +926,7 @@ export default function Dashboard() {
         </Card>
 
         {/* 5) CARD GRANDE - Ativações Recentes (20 últimas) */}
-        <Card>
+        <Card style={{backgroundColor: '#101010'}}>
           <CardHeader>
             <CardTitle>Ativações Recentes</CardTitle>
             <CardDescription>Últimas 20 ativações realizadas</CardDescription>
