@@ -27,6 +27,23 @@ export default function StoreImpersonate() {
       console.log('[StoreImpersonate] Saving customer to localStorage:', customerData);
       localStorage.setItem('store_customer', JSON.stringify(customerData));
       
+      // ✅ CRÍTICO: Salvar flag de impersonação no localStorage como fallback
+      // Isso garante que o banner apareça mesmo se o cookie falhar
+      const impersonationData = {
+        isImpersonating: true,
+        customer: {
+          id: data.customer.id,
+          email: data.customer.email,
+        },
+        admin: {
+          id: data.admin.id,
+          name: data.admin.name,
+        },
+        timestamp: Date.now(),
+      };
+      console.log('[StoreImpersonate] Saving impersonation flag to localStorage:', impersonationData);
+      localStorage.setItem('impersonation_session', JSON.stringify(impersonationData));
+      
       toast.success(`Acesso como ${data.customer.name} iniciado com sucesso!`);
       
       // ✅ Forçar reload da página para reidratar contexto com novos dados

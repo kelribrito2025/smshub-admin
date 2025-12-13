@@ -389,12 +389,33 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
 
   // Check if impersonation is active to adjust layout
   const { data: impersonationSession } = trpc.impersonation.getCurrentSession.useQuery();
-  const isImpersonating = impersonationSession?.isImpersonating || false;
+  
+  // Fallback: ler do localStorage se cookie falhar
+  const localStorageImpersonation = (() => {
+    try {
+      const stored = localStorage.getItem('impersonation_session');
+      if (!stored) return null;
+      const parsed = JSON.parse(stored);
+      // Verificar se não expirou (10 minutos)
+      const age = Date.now() - (parsed.timestamp || 0);
+      if (age > 10 * 60 * 1000) {
+        localStorage.removeItem('impersonation_session');
+        return null;
+      }
+      return parsed;
+    } catch {
+      return null;
+    }
+  })();
+  
+  const isImpersonating = impersonationSession?.isImpersonating || localStorageImpersonation?.isImpersonating || false;
 
   return (
-    <div className="h-screen overflow-hidden bg-black text-green-400 font-mono">
-      {/* Impersonation Banner */}
+    <>
+      {/* Impersonation Banner - MUST be outside overflow-hidden container */}
       <ImpersonationBanner />
+      
+      <div className="h-screen overflow-hidden bg-black text-green-400 font-mono">
 
       {/* Matrix Background */}
       <div className="fixed inset-0 opacity-5 pointer-events-none">
@@ -887,5 +908,6 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
 
 
     </div>
+    </>
   );
 }

@@ -209,10 +209,23 @@ export const impersonationRouter = router({
 
         // Set support session cookie
         const cookieOptions = getSessionCookieOptions(ctx.req);
+        console.log('[Impersonation] Setting support_session cookie:', {
+          cookieOptions,
+          maxAge: IMPERSONATION_TOKEN_EXPIRY * 1000,
+          hostname: ctx.req.hostname,
+          protocol: ctx.req.protocol,
+          headers: {
+            'x-forwarded-proto': ctx.req.headers['x-forwarded-proto'],
+            'x-forwarded-host': ctx.req.headers['x-forwarded-host'],
+          },
+        });
+        
         ctx.res.cookie(SUPPORT_COOKIE_NAME, supportToken, {
           ...cookieOptions,
           maxAge: IMPERSONATION_TOKEN_EXPIRY * 1000,
         });
+        
+        console.log('[Impersonation] Cookie set successfully');
 
         return {
           success: true,
@@ -306,9 +319,15 @@ export const impersonationRouter = router({
    * Get current impersonation session info
    */
   getCurrentSession: publicProcedure.query(async ({ ctx }) => {
+    console.log('[Impersonation] getCurrentSession called');
+    console.log('[Impersonation] All cookies:', ctx.req.cookies);
+    console.log('[Impersonation] Looking for cookie:', SUPPORT_COOKIE_NAME);
+    
     const supportToken = ctx.req.cookies?.[SUPPORT_COOKIE_NAME];
+    console.log('[Impersonation] Support token found:', !!supportToken);
 
     if (!supportToken) {
+      console.log('[Impersonation] No support token found, returning null');
       return null;
     }
 
@@ -324,8 +343,16 @@ export const impersonationRouter = router({
       };
 
       if (decoded.type !== "impersonation") {
+        console.log('[Impersonation] Token type is not impersonation:', decoded.type);
         return null;
       }
+
+      console.log('[Impersonation] Valid impersonation session found:', {
+        customerId: decoded.customerId,
+        customerEmail: decoded.customerEmail,
+        adminId: decoded.adminId,
+        adminName: decoded.adminName,
+      });
 
       return {
         isImpersonating: true,
@@ -340,6 +367,7 @@ export const impersonationRouter = router({
         expiresAt: decoded.expiresAt,
       };
     } catch (error) {
+      console.error('[Impersonation] Error decoding token:', error);
       return null;
     }
   }),

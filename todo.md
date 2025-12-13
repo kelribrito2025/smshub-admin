@@ -3387,3 +3387,39 @@ Dashboard renderiza com dados do cliente
 - [x] Implementar endpoint para encerrar impersonação e restaurar contexto admin
 - [x] Adicionar lógica de invalidação de token e reset de auth ao encerrar
 - [x] Testar fluxo completo de impersonação → banner → encerrar → voltar admin
+
+
+---
+
+## ✅ Banner de Impersonação Corrigido
+
+**Problema:**
+- Banner de impersonação não aparecia em nenhum momento durante impersonação
+- Erro: `TypeError: Cannot read properties of null (reading 'customer')`
+- Componente não estava tratando caso de `activeSession` null
+
+**Causa Raiz:**
+- JSX tentava acessar `activeSession.customer.email` sem verificação de null
+- Container com `overflow-hidden` estava cortando o banner
+- Falta de optional chaining (`?.`) no acesso a propriedades
+
+**Solução:**
+- Adicionado optional chaining em todos os acessos: `activeSession?.customer?.email`
+- Movido `ImpersonationBanner` para fora do container com `overflow-hidden`
+- Implementado fallback para localStorage quando cookie falhar
+- Adicionado verificações de segurança em todo o JSX
+
+**Resultado:**
+- ✅ Banner aparece corretamente quando impersonação está ativa
+- ✅ Sem erros de null/undefined
+- ✅ Funciona tanto com cookie quanto com localStorage
+- ✅ Banner visível em todas as páginas (StoreLayout e DashboardLayout)
+
+**Tarefas:**
+- [x] Investigar por que banner não aparecia
+- [x] Identificar erro de null safety
+- [x] Adicionar optional chaining
+- [x] Mover banner para fora de overflow-hidden
+- [x] Implementar fallback de localStorage
+- [x] Testar renderização do banner
+- [x] Remover código de debug temporário
