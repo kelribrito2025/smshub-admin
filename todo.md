@@ -35,3 +35,7 @@
 - [x] Criar procedure para calcular reembolsos por período (filtro)
 - [x] Atualizar card "Em breve" com dados de reembolsos
 - [x] Garantir que métrica secundária reage ao filtro de período
+
+## Atualização de Estilo Visual - Gráfico e Abas
+- [x] Atualizar estilo visual do card "Evolução de Receita e Lucro" conforme design de referência
+- [x] Atualizar estilo das abas de navegação (Receita & Lucro, Por País, Por Serviço, Transações)

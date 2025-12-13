@@ -466,24 +466,45 @@ export default function Dashboard() {
 
         {/* 3) GRÁFICO - Evolução de Receita e Lucro */}
         <Tabs defaultValue="revenue" className="space-y-4">
-          <TabsList>
-            <TabsTrigger value="revenue">Receita & Lucro</TabsTrigger>
-            <TabsTrigger value="country">Por País</TabsTrigger>
-            <TabsTrigger value="service">Por Serviço</TabsTrigger>
-            <TabsTrigger value="transactions">Transações</TabsTrigger>
+          <TabsList className="bg-neutral-900/50 border border-neutral-800 p-1 rounded-xl">
+            <TabsTrigger 
+              value="revenue" 
+              className="data-[state=active]:bg-neutral-800 data-[state=active]:text-white rounded-lg px-4 py-2 transition-all"
+            >
+              Receita & Lucro
+            </TabsTrigger>
+            <TabsTrigger 
+              value="country"
+              className="data-[state=active]:bg-neutral-800 data-[state=active]:text-white rounded-lg px-4 py-2 transition-all"
+            >
+              Por País
+            </TabsTrigger>
+            <TabsTrigger 
+              value="service"
+              className="data-[state=active]:bg-neutral-800 data-[state=active]:text-white rounded-lg px-4 py-2 transition-all"
+            >
+              Por Serviço
+            </TabsTrigger>
+            <TabsTrigger 
+              value="transactions"
+              className="data-[state=active]:bg-neutral-800 data-[state=active]:text-white rounded-lg px-4 py-2 transition-all"
+            >
+              Transações
+            </TabsTrigger>
           </TabsList>
 
           {/* Revenue Chart */}
           <TabsContent value="revenue" className="space-y-4">
-            <Card style={{backgroundColor: '#101010'}}>
-              <CardHeader className="flex flex-row items-center justify-between">
+            <Card className="bg-neutral-900/50 border border-neutral-800 backdrop-blur-sm">
+              <CardHeader className="flex flex-row items-center justify-between pb-4">
                 <div>
-                  <CardTitle>Evolução de Receita e Lucro</CardTitle>
-                  <CardDescription>Análise temporal de desempenho financeiro</CardDescription>
+                  <CardTitle className="text-xl font-semibold text-white">Evolução de Receita e Lucro</CardTitle>
+                  <CardDescription className="text-sm text-neutral-400 mt-1">Análise temporal de desempenho financeiro</CardDescription>
                 </div>
                 <Button
                   variant="outline"
                   size="sm"
+                  className="bg-transparent border-neutral-700 hover:bg-neutral-800 text-white"
                   onClick={() => {
                     if (revenueByPeriod && revenueByPeriod.length > 0) {
                       const csv = [
@@ -515,37 +536,71 @@ export default function Dashboard() {
                 ) : revenueByPeriod && revenueByPeriod.length > 0 ? (
                   <ResponsiveContainer width="100%" height={400}>
                     <AreaChart data={revenueByPeriod}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="date" />
-                      <YAxis tickFormatter={(value) => formatCurrency(value)} />
+                      <defs>
+                        <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="hsl(250, 60%, 60%)" stopOpacity={0.8}/>
+                          <stop offset="95%" stopColor="hsl(250, 60%, 60%)" stopOpacity={0.1}/>
+                        </linearGradient>
+                        <linearGradient id="colorProfit" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="hsl(160, 50%, 50%)" stopOpacity={0.8}/>
+                          <stop offset="95%" stopColor="hsl(160, 50%, 50%)" stopOpacity={0.1}/>
+                        </linearGradient>
+                        <linearGradient id="colorCost" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="hsl(0, 60%, 60%)" stopOpacity={0.8}/>
+                          <stop offset="95%" stopColor="hsl(0, 60%, 60%)" stopOpacity={0.1}/>
+                        </linearGradient>
+                      </defs>
+                      <CartesianGrid strokeDasharray="5 5" stroke="#333" opacity={0.3} />
+                      <XAxis 
+                        dataKey="date" 
+                        stroke="#888"
+                        tick={{ fill: '#888', fontSize: 12 }}
+                      />
+                      <YAxis 
+                        tickFormatter={(value) => formatCurrency(value)} 
+                        stroke="#888"
+                        tick={{ fill: '#888', fontSize: 12 }}
+                      />
                       <Tooltip
                         formatter={(value: number) => formatCurrency(value)}
-                        labelStyle={{ color: "#000" }}
+                        contentStyle={{ 
+                          backgroundColor: '#1a1a1a', 
+                          border: '1px solid #333',
+                          borderRadius: '8px',
+                          color: '#fff'
+                        }}
+                        labelStyle={{ color: "#fff" }}
                       />
-                      <Legend />
-                      <Area
-                        type="monotone"
-                        dataKey="revenue"
-                        name="Receita"
-                        stroke="#8884d8"
-                        fill="#8884d8"
-                        fillOpacity={0.6}
-                      />
-                      <Area
-                        type="monotone"
-                        dataKey="profit"
-                        name="Lucro"
-                        stroke="#82ca9d"
-                        fill="#82ca9d"
-                        fillOpacity={0.6}
+                      <Legend 
+                        wrapperStyle={{ color: '#888' }}
+                        iconType="line"
                       />
                       <Area
                         type="monotone"
                         dataKey="cost"
                         name="Custo"
-                        stroke="#ff7c7c"
-                        fill="#ff7c7c"
-                        fillOpacity={0.6}
+                        stroke="hsl(0, 60%, 60%)"
+                        fill="url(#colorCost)"
+                        strokeWidth={2}
+                        stackId="1"
+                      />
+                      <Area
+                        type="monotone"
+                        dataKey="profit"
+                        name="Lucro"
+                        stroke="hsl(160, 50%, 50%)"
+                        fill="url(#colorProfit)"
+                        strokeWidth={2}
+                        stackId="1"
+                      />
+                      <Area
+                        type="monotone"
+                        dataKey="revenue"
+                        name="Receita"
+                        stroke="hsl(250, 60%, 60%)"
+                        fill="url(#colorRevenue)"
+                        strokeWidth={2}
+                        stackId="1"
                       />
                     </AreaChart>
                   </ResponsiveContainer>
@@ -560,15 +615,16 @@ export default function Dashboard() {
 
           {/* Country Chart */}
           <TabsContent value="country" className="space-y-4">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between">
+            <Card className="bg-neutral-900/50 border border-neutral-800 backdrop-blur-sm">
+              <CardHeader className="flex flex-row items-center justify-between pb-4">
                 <div>
-                  <CardTitle>Receita por País</CardTitle>
-                  <CardDescription>Top países por lucro gerado</CardDescription>
+                  <CardTitle className="text-xl font-semibold text-white">Receita por País</CardTitle>
+                  <CardDescription className="text-sm text-neutral-400 mt-1">Top países por lucro gerado</CardDescription>
                 </div>
                 <Button
                   variant="outline"
                   size="sm"
+                  className="bg-transparent border-neutral-700 hover:bg-neutral-800 text-white"
                   onClick={() => {
                     if (revenueByCountry && revenueByCountry.length > 0) {
                       const csv = [
@@ -623,15 +679,16 @@ export default function Dashboard() {
 
           {/* Service Chart */}
           <TabsContent value="service" className="space-y-4">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between">
+            <Card className="bg-neutral-900/50 border border-neutral-800 backdrop-blur-sm">
+              <CardHeader className="flex flex-row items-center justify-between pb-4">
                 <div>
-                  <CardTitle>Receita por Serviço</CardTitle>
-                  <CardDescription>Top serviços por lucro gerado</CardDescription>
+                  <CardTitle className="text-xl font-semibold text-white">Receita por Serviço</CardTitle>
+                  <CardDescription className="text-sm text-neutral-400 mt-1">Top serviços por lucro gerado</CardDescription>
                 </div>
                 <Button
                   variant="outline"
                   size="sm"
+                  className="bg-transparent border-neutral-700 hover:bg-neutral-800 text-white"
                   onClick={() => {
                     if (revenueByService && revenueByService.length > 0) {
                       const csv = [
@@ -686,15 +743,16 @@ export default function Dashboard() {
 
           {/* Transactions Tab */}
           <TabsContent value="transactions" className="space-y-4">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between">
+            <Card className="bg-neutral-900/50 border border-neutral-800 backdrop-blur-sm">
+              <CardHeader className="flex flex-row items-center justify-between pb-4">
                 <div>
-                  <CardTitle>Transações Recentes</CardTitle>
-                  <CardDescription>Últimas 20 ativações realizadas</CardDescription>
+                  <CardTitle className="text-xl font-semibold text-white">Transações Recentes</CardTitle>
+                  <CardDescription className="text-sm text-neutral-400 mt-1">Últimas 20 ativações realizadas</CardDescription>
                 </div>
                 <Button
                   variant="outline"
                   size="sm"
+                  className="bg-transparent border-neutral-700 hover:bg-neutral-800 text-white"
                   onClick={() => {
                     if (recentActivations) {
                       const data = recentActivations.map((item) => ({
