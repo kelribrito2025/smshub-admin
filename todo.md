@@ -3303,3 +3303,41 @@
 - [x] Testar fluxo completo de personificação
 - [x] Executar testes automatizados (5 testes passaram)
 - [x] Validar que não há erros de console
+
+
+---
+
+## 🚨 CRÍTICO: Fluxo de Impersonação Redirecionando para Login
+
+**Problema:**
+- Ao clicar no ícone de impersonar no admin, aparece tela de loading
+- Após o loading, ocorre erro de validação de token
+- Sistema redireciona para tela de login (comportamento incorreto)
+- Token de impersonação não está sendo persistido corretamente
+
+**Fluxo Atual (Incorreto):**
+1. Admin clica em impersonar
+2. Redireciona para `/impersonate?token=...`
+3. Aparece tela de loading
+4. Erro: "Unexpected token 'R', 'Rate exceeded.' is not valid JSON"
+5. Redireciona para `/login`
+
+**Fluxo Esperado (Correto):**
+1. Admin clica em impersonar
+2. Redireciona para `/impersonate?token=...`
+3. Valida token automaticamente
+4. Persiste dados do cliente no localStorage
+5. Redireciona diretamente para `/` (painel de vendas)
+6. Cliente já está autenticado, sem necessidade de login
+
+**Causa Raiz:**
+- `validateToken` cria cookie de sessão mas não persiste dados no localStorage
+- `StoreAuthContext` não reconhece sessão de impersonação
+- Falta integração entre cookie de suporte e estado do cliente no frontend
+
+**Tarefas:**
+- [x] Modificar `validateToken` para retornar dados completos do cliente (balance, pin, etc)
+- [x] Fazer `StoreImpersonate.tsx` persistir dados do cliente no localStorage após validação
+- [x] Garantir que `StoreAuthContext` reconheça sessão de impersonação via cookie
+- [x] Remover redirecionamento para `/login` em caso de erro (mostrar erro e voltar para admin)
+- [x] Testar fluxo completo de impersonação (admin → impersonate → painel de vendas)

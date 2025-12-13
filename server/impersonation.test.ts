@@ -182,6 +182,11 @@ describe("Impersonation Flow", () => {
     expect(result.success).toBe(true);
     expect(result.customer.id).toBe(testCustomerId);
     expect(result.customer.name).toBe("Test Customer");
+    expect(result.customer.email).toBe("customer@test.com");
+    expect(result.customer.pin).toBe(99999);
+    expect(result.customer.balance).toBe(1000);
+    expect(result.customer.active).toBe(true);
+    expect(result.customer.banned).toBe(false);
     expect(result.admin.id).toBe(testAdminId);
   });
 

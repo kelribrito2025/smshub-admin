@@ -11,16 +11,24 @@ export default function StoreImpersonate() {
 
   const validateTokenMutation = trpc.impersonation.validateToken.useMutation({
     onSuccess: (data) => {
+      // ✅ Persistir dados completos do cliente no localStorage
+      localStorage.setItem('store_customer', JSON.stringify(data.customer));
+      
       toast.success(`Acesso como ${data.customer.name} iniciado com sucesso!`);
-      // Redirect to store dashboard
+      
+      // ✅ Redirecionar diretamente para o painel de vendas
       setLocation("/");
     },
     onError: (error) => {
       toast.error(`Erro ao validar token: ${error.message}`);
-      // Redirect to login after 2 seconds
+      
+      // ❌ NÃO redirecionar para login - apenas mostrar erro
+      setIsValidating(false);
+      
+      // Opcional: redirecionar de volta para admin após 3 segundos
       setTimeout(() => {
-        setLocation("/login");
-      }, 2000);
+        window.location.href = "/admin/clientes";
+      }, 3000);
     },
     onSettled: () => {
       setIsValidating(false);
@@ -33,8 +41,12 @@ export default function StoreImpersonate() {
     const token = params.get("token");
 
     if (!token) {
-      toast.error("Token de impersonation não fornecido");
-      setLocation("/login");
+      toast.error("Token de impersonação não fornecido");
+      
+      // Redirecionar de volta para admin
+      setTimeout(() => {
+        window.location.href = "/admin/clientes";
+      }, 2000);
       return;
     }
 

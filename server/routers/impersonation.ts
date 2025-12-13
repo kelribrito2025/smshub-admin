@@ -221,6 +221,11 @@ export const impersonationRouter = router({
             name: customer.name,
             email: customer.email,
             pin: customer.pin,
+            balance: customer.balance,
+            active: customer.active,
+            banned: customer.banned,
+            bannedAt: customer.bannedAt,
+            bannedReason: customer.bannedReason,
           },
           admin: {
             id: decoded.adminId,
