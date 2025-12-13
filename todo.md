@@ -13,3 +13,5 @@
 
 ## Ajustes de Texto
 - [x] Alterar título do header de "Número Virtual" para "Painel admin"
+
+- [x] Corrigir textos do menu dropdown do admin (mostrar "Reorganizar Menus" e "Sign out" ao invés de botões genéricos)

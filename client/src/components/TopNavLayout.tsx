@@ -8,13 +8,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { getLoginUrl } from "@/const";
-import { LayoutDashboard, LogOut, Settings, ChevronDown, LucideIcon, Shield } from "lucide-react";
+import { LayoutDashboard, LogOut, Settings, ChevronDown, LucideIcon, Shield, GripVertical } from "lucide-react";
 import * as LucideIcons from "lucide-react";
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { DashboardLayoutSkeleton } from './DashboardLayoutSkeleton';
 import { Button } from "./ui/button";
 import { Breadcrumbs, BreadcrumbItem } from './Breadcrumbs';
+import { MenuReorderDialog } from './MenuReorderDialog';
 
 // Helper function to get icon component from string name
 function getIconComponent(iconName: string | null): LucideIcon {
@@ -33,6 +34,7 @@ export default function TopNavLayout({
   const { loading, user } = useAuth();
   const [location, setLocation] = useLocation();
   const [showMoreMenu, setShowMoreMenu] = useState(false);
+  const [reorderDialogOpen, setReorderDialogOpen] = useState(false);
   const logoutMutation = trpc.auth.logout.useMutation();
 
   // Fetch menu items from database
@@ -188,14 +190,14 @@ export default function TopNavLayout({
                   </div>
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56">
-                <DropdownMenuItem onClick={() => setLocation('/admin/settings')}>
-                  <Settings className="mr-2 h-4 w-4" />
-                  Configurações
+              <DropdownMenuContent align="end" className="w-56 bg-neutral-900 border-neutral-800">
+                <DropdownMenuItem onClick={() => setReorderDialogOpen(true)} className="flex items-center gap-3 px-3 py-2 text-neutral-400 hover:bg-neutral-800 hover:text-white cursor-pointer">
+                  <GripVertical className="h-4 w-4" />
+                  Reorganizar Menus
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={handleLogout}>
-                  <LogOut className="mr-2 h-4 w-4" />
-                  Sair
+                <DropdownMenuItem onClick={handleLogout} className="flex items-center gap-3 px-3 py-2 text-red-500 hover:bg-neutral-800 hover:text-red-400 cursor-pointer">
+                  <LogOut className="h-4 w-4" />
+                  Sign out
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -214,6 +216,12 @@ export default function TopNavLayout({
           {children}
         </main>
       </div>
+
+      {/* Menu Reorder Dialog */}
+      <MenuReorderDialog 
+        open={reorderDialogOpen} 
+        onOpenChange={setReorderDialogOpen}
+      />
     </div>
   );
 }
