@@ -129,7 +129,7 @@ export default function Countries() {
         </div>
 
         {/* Search */}
-        <Card>
+        <Card style={{backgroundColor: '#101010'}}>
           <CardHeader>
             <CardTitle>Lista de Países</CardTitle>
             <CardDescription>

@@ -42,3 +42,4 @@
 
 ## Ajuste de Altura dos Cards de Países
 - [x] Ajustar altura dos cards de estatísticas na página de países para ficarem com mesma altura dos cards da dashboard
+- [x] Ajustar cor de fundo do card "Lista de Países" para #101010 (via editor visual)
