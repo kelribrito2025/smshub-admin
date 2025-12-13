@@ -85,11 +85,11 @@ export function ConfirmationModal({
 
         {/* Content */}
         <div className="px-6 pb-6 space-y-4">
-          {/* URL Box */}
+          {/* Alert Box */}
           {customerId && customerName && (
             <div className="bg-[#0d0d0d] border border-white/10 rounded-lg p-4">
               <code className="text-sm text-gray-300 font-mono">
-                {customerId}-{customerName.toLowerCase().replace(/\s+/g, '.')}.numero-virtual.com
+                Alerta: app.numero-virtual.com diz
               </code>
             </div>
           )}
