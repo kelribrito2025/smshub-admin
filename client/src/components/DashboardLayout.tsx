@@ -244,11 +244,11 @@ function DashboardLayoutContent({
                         }
                       }}
                       tooltip={isCollapsed ? item.label : undefined}
-                      className={`h-11 px-4 rounded-lg transition-colors ${
+                      className={`h-11 rounded-lg transition-colors ${
                         isActive
                           ? 'bg-neutral-900 text-white hover:bg-neutral-900'
                           : 'text-neutral-400 hover:bg-neutral-900 hover:text-white'
-                      } ${isCollapsed ? 'justify-center' : ''}`}
+                      } ${isCollapsed ? 'justify-center px-0' : 'px-4'}`}
                     >
                       <item.icon
                         className={`h-5 w-5 ${isActive ? 'text-blue-500' : ''}`}
@@ -262,7 +262,7 @@ function DashboardLayoutContent({
           </SidebarContent>
 
           <SidebarFooter className="p-4 border-t border-neutral-800 space-y-2">
-            {/* Show menu items only when admin menu is open */}
+            {/* Show menu items when admin menu is open - use dropdown for collapsed state */}
             {isAdminMenuOpen && !isCollapsed && (
               <>
                 {/* Reorganize Menus Button */}
@@ -285,31 +285,55 @@ function DashboardLayoutContent({
               </>
             )}
 
-            {/* User Profile - Clickable */}
-            <div className="relative group">
-              <button
-                onClick={() => setIsAdminMenuOpen(!isAdminMenuOpen)}
-                className={`w-full flex items-center gap-3 px-4 py-3 mt-2 rounded-lg hover:bg-neutral-900 transition-colors ${isCollapsed ? 'justify-center' : ''} focus:outline-none focus-visible:ring-2 focus-visible:ring-ring`}
-              >
-                <div className="w-12 h-12 bg-neutral-900 rounded-full flex items-center justify-center border-2 border-neutral-800 shrink-0">
-                  <Shield className="h-6 w-6 text-purple-500" strokeWidth={2} />
-                </div>
-                {!isCollapsed && (
+            {/* User Profile - Clickable with Dropdown for collapsed state */}
+            {isCollapsed ? (
+              <DropdownMenu open={isAdminMenuOpen} onOpenChange={setIsAdminMenuOpen}>
+                <DropdownMenuTrigger asChild>
+                  <button
+                    className="w-full flex items-center justify-center py-3 mt-2 rounded-lg hover:bg-neutral-900 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  >
+                    <div className="w-12 h-12 bg-neutral-900 rounded-full flex items-center justify-center border-2 border-neutral-800 shrink-0">
+                      <Shield className="h-6 w-6 text-purple-500" strokeWidth={2} />
+                    </div>
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent side="right" align="end" className="w-56 bg-neutral-900 border-neutral-800">
+                  <div className="px-3 py-2 border-b border-neutral-800">
+                    <div className="text-sm font-medium text-white">Admin</div>
+                    <div className="text-xs text-neutral-500 truncate">{user?.email || "-"}</div>
+                  </div>
+                  <DropdownMenuItem 
+                    onClick={() => setReorderDialogOpen(true)}
+                    className="text-neutral-400 hover:text-white hover:bg-neutral-800 cursor-pointer"
+                  >
+                    <GripVertical className="h-4 w-4 mr-2" />
+                    Reorganizar Menus
+                  </DropdownMenuItem>
+                  <DropdownMenuItem 
+                    onClick={logout}
+                    className="text-red-500 hover:text-red-400 hover:bg-neutral-800 cursor-pointer"
+                  >
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Sign out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <div className="relative group">
+                <button
+                  onClick={() => setIsAdminMenuOpen(!isAdminMenuOpen)}
+                  className="w-full flex items-center gap-3 px-4 py-3 mt-2 rounded-lg hover:bg-neutral-900 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                >
+                  <div className="w-12 h-12 bg-neutral-900 rounded-full flex items-center justify-center border-2 border-neutral-800 shrink-0">
+                    <Shield className="h-6 w-6 text-purple-500" strokeWidth={2} />
+                  </div>
                   <div className="flex-1 text-left min-w-0">
                     <div className="text-sm font-medium text-white truncate">Admin</div>
                     <div className="text-xs text-neutral-500 truncate">{user?.email || "-"}</div>
                   </div>
-                )}
-              </button>
-
-              {/* Tooltip for collapsed state */}
-              {isCollapsed && (
-                <div className="absolute left-full ml-2 bottom-0 px-3 py-2 bg-neutral-900 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50 border border-neutral-800">
-                  <div className="font-medium">Admin</div>
-                  <div className="text-xs text-neutral-400">{user?.email || "-"}</div>
-                </div>
-              )}
-            </div>
+                </button>
+              </div>
+            )}
           </SidebarFooter>
         </Sidebar>
         <div

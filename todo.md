@@ -2836,3 +2836,16 @@
 - [x] Corrigir altura do indicador de item ativo (seleção proporcional)
 - [x] Aumentar largura da sidebar minimizada para acomodar ícones completamente
 - [x] Remover/corrigir botões fantasma que aparecem no hover
+
+
+---
+
+## 🐛 Problemas na Sidebar Minimizada
+
+**Problemas:**
+1. **Ícones desalinhados** - Os ícones não estão centralizados quando a sidebar está minimizada
+2. **Menu do admin não aparece** - Ao clicar no ícone do admin quando minimizado, o dropdown não é exibido
+
+**Tarefas:**
+- [x] Centralizar ícones na barra lateral quando minimizada
+- [x] Exibir menu dropdown do admin ao clicar no ícone quando sidebar minimizada
