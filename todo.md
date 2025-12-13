@@ -47,3 +47,6 @@
 ## Ajustes de Texto no Catálogo
 - [x] Alterar texto do botão "Adicionar Serviço" para "Novo Serviço"
 - [x] Alterar texto do botão "Sincronizar Catálogo" para "Sincronizar serviços"
+
+## Ajuste de Cor no Card de Países Inativos
+- [x] Alterar cor do número de países inativos para #fb2b37 (vermelho)

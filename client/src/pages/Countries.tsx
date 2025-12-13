@@ -119,7 +119,7 @@ export default function Countries() {
               <span className="text-neutral-400 text-sm">Países Inativos</span>
               <Globe size={18} className="text-neutral-500" />
             </div>
-            <div className="text-3xl font-light text-neutral-500 mb-1">
+            <div className="text-3xl font-light text-neutral-500 mb-1" style={{color: '#fb2b37'}}>
               {countries?.filter((c) => !c.active).length || 0}
             </div>
             <div className="text-xs text-neutral-500">
