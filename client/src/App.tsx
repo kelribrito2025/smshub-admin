@@ -29,6 +29,7 @@ const StoreActivate = lazy(() => import("./pages/StoreActivate"));
 
 const StoreAffiliate = lazy(() => import("./pages/StoreAffiliate"));
 const StoreRecharges = lazy(() => import("./pages/StoreRecharges"));
+const StoreImpersonate = lazy(() => import("./pages/StoreImpersonate"));
 
 const LoadingFallback = () => (
   <div className="fixed inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center z-50">
@@ -60,6 +61,7 @@ function StoreRouter() {
 
           <Route path="/affiliate" component={StoreAffiliate} />
           <Route path="/recharges" component={StoreRecharges} />
+          <Route path="/impersonate" component={StoreImpersonate} />
         </Switch>
       </Suspense>
     </StoreAuthProvider>

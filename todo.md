@@ -3152,3 +3152,61 @@
 - [x] Identificar onde aplicar estilo de usuário banido na row da tabela
 - [x] Implementar cor vermelha + efeito piscando para usuários banidos
 - [x] Testar com usuário xkelrix@gmail.com
+
+
+---
+
+## ✅ Funcionalidade de Impersonation (Logar como Cliente) - CONCLUÍDO
+
+**Objetivo:**
+- Permitir que admins com permissão específica possam logar como cliente para suporte
+- Implementar sessão isolada e temporária (token de 10 minutos)
+- Adicionar banner de "Modo Suporte" no painel de vendas durante impersonation
+- Registrar todas as ações em auditoria
+
+**Regras de Segurança:**
+- Somente admin com permissão `support:impersonate`
+- Token temporário (10 minutos) e não reutilizável
+- Sessão isolada (cookie separado: `support_session`)
+- Cliente não ganha privilégios de admin
+- Auditoria completa de início e fim de impersonation
+
+### Backend
+- [x] Criar tabela `impersonation_logs` no schema para auditoria
+- [x] Adicionar campo `permissions` na tabela `user` (JSON array)
+- [x] Criar procedure `admin.generateImpersonationToken` (valida permissão support:impersonate)
+- [x] Criar procedure `auth.validateImpersonationToken` (valida token e cria sessão isolada)
+- [x] Criar procedure `auth.endImpersonation` (encerra sessão de suporte)
+- [x] Implementar lógica de token JWT com expiração de 10 minutos
+- [x] Implementar sessão isolada (cookie separado: `support_session`)
+- [x] Registrar início de impersonation em `impersonation_logs`
+- [x] Registrar fim de impersonation em `impersonation_logs`
+
+### Frontend - Admin
+- [x] Adicionar coluna "Ações" na listagem de clientes (se não existir)
+- [x] Adicionar botão Eye (ícone) para impersonation em cada linha
+- [x] Implementar chamada tRPC para gerar token
+- [x] Abrir nova aba com URL de impersonation no painel de vendas
+- [x] Tratar erros (permissão negada, cliente não encontrado)
+
+### Frontend - Painel de Vendas
+- [x] Criar rota `/impersonate` que valida token e cria sessão
+- [x] Implementar banner fixo "Modo Suporte" durante impersonation
+- [x] Adicionar botão "Encerrar acesso" no banner
+- [x] Implementar lógica de encerramento de impersonation
+- [x] Redirecionar para login após encerramento
+
+### Testes
+- [x] Teste: admin sem permissão não pode gerar token
+- [x] Teste: token expira após 10 minutos
+- [x] Teste: token não pode ser reutilizado
+- [x] Teste: sessão isolada não conflita com sessão normal
+- [x] Teste: auditoria registra início e fim de impersonation
+- [x] Teste: cliente impersonado não ganha privilégios de admin
+
+### UX
+- [x] Botão Eye visível apenas para admins com permissão
+- [x] Loading state durante geração de token
+- [x] Toast de sucesso ao iniciar impersonation
+- [x] Banner de suporte claramente visível no painel
+- [x] Confirmação antes de encerrar impersonation

@@ -9,6 +9,7 @@ import { useStoreAuth } from '../contexts/StoreAuthContext';
 import ServiceApiOptions from './ServiceApiOptions';
 import { copyToClipboard, playNotificationSound } from '../lib/utils';
 import { RechargeModal } from './RechargeModal';
+import { ImpersonationBanner } from './ImpersonationBanner';
 
 import ServiceListSkeleton from './ServiceListSkeleton';
 import { useCountUp } from '../hooks/useCountUp';
@@ -388,6 +389,9 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
 
   return (
     <div className="h-screen overflow-hidden bg-black text-green-400 font-mono">
+      {/* Impersonation Banner */}
+      <ImpersonationBanner />
+
       {/* Matrix Background */}
       <div className="fixed inset-0 opacity-5 pointer-events-none">
         <div className="absolute inset-0" style={{
