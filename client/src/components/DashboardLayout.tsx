@@ -208,7 +208,7 @@ function DashboardLayoutContent({
         <Sidebar
           collapsible="icon"
           className="border-r-0 bg-neutral-950 border-neutral-800"
-          disableTransition={isResizing} style={{width: '61px'}}
+          disableTransition={isResizing}
         >
           <SidebarHeader className="h-16 justify-center border-b border-neutral-800">
             <div className="flex items-center justify-between px-4 transition-all w-full">
