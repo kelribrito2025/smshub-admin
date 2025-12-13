@@ -209,10 +209,23 @@ export const impersonationRouter = router({
 
         // Set support session cookie
         const cookieOptions = getSessionCookieOptions(ctx.req);
+        
+        console.log('[validateToken] Setting support cookie with options:', {
+          name: SUPPORT_COOKIE_NAME,
+          cookieOptions,
+          maxAge: IMPERSONATION_TOKEN_EXPIRY * 1000,
+          hostname: ctx.req.hostname,
+          protocol: ctx.req.protocol,
+        });
+        
         ctx.res.cookie(SUPPORT_COOKIE_NAME, supportToken, {
           ...cookieOptions,
           maxAge: IMPERSONATION_TOKEN_EXPIRY * 1000,
+          // ✅ CORREÇÃO: Garantir que cookie seja enviado em todas as requisições
+          sameSite: 'lax', // Mudar de 'none' para 'lax' para funcionar em redirecionamentos
         });
+        
+        console.log('[validateToken] Cookie set successfully');
 
         return {
           success: true,

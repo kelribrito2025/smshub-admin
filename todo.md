@@ -3424,5 +3424,8 @@
 - [x] Investigar código do StoreLayout para localizar banner
 - [x] Verificar se condição de exibição está correta
 - [x] Adicionar logs para debug da flag de impersonação
-- [ ] Corrigir implementação do banner no StoreLayout
+- [x] Identificar problema: cookie support_session não está sendo parseado pelo Express
+- [x] Instalar e configurar cookie-parser no servidor
+- [x] Adicionar logs detalhados para debug de cookies
+- [ ] Validar que cookie está sendo parseado corretamente após correções
 - [ ] Testar visualmente que banner aparece durante impersonação
