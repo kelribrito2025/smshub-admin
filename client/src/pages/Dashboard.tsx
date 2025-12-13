@@ -257,9 +257,9 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* 1) TOPO - 6 CARDS KPI */}
+        {/* 1) TOPO - 4 CARDS KPI */}
         <motion.div 
-          className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6"
+          className="grid gap-4 md:grid-cols-2 lg:grid-cols-4"
           variants={staggerContainer}
           initial="initial"
           animate="animate"
@@ -348,6 +348,16 @@ export default function Dashboard() {
             </Card>
           </motion.div>
 
+
+        </motion.div>
+
+        {/* 2) SEGUNDA LINHA - 2 CARDS KPI */}
+        <motion.div 
+          className="grid gap-4 md:grid-cols-2"
+          variants={staggerContainer}
+          initial="initial"
+          animate="animate"
+        >
           {/* Card 5: Custo Total */}
           <motion.div variants={fadeInScale}>
             <Card>
@@ -396,7 +406,7 @@ export default function Dashboard() {
           </motion.div>
         </motion.div>
 
-        {/* 2) GRÁFICO - Evolução de Receita e Lucro */}
+        {/* 3) GRÁFICO - Evolução de Receita e Lucro */}
         <Tabs defaultValue="revenue" className="space-y-4">
           <TabsList>
             <TabsTrigger value="revenue">Receita & Lucro</TabsTrigger>

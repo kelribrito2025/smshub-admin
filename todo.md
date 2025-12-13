@@ -2921,3 +2921,16 @@
 - [x] Corrigir posicionamento dos dropdowns quando sidebar está minimizada
 - [x] Implementar DropdownMenu adequado com Portal
 - [x] Criar checkpoint após correção
+
+
+---
+
+## 🎨 Reorganizar Layout do Dashboard: 4 Cards + 2 Cards
+
+**Objetivo:**
+- Modificar layout do dashboard para exibir 4 cards na primeira linha
+- Exibir 2 cards na segunda linha
+- Melhorar visualização e aproveitamento de espaço
+
+**Tarefas:**
+- [x] Reorganizar grid de cards no Home.tsx (4 cards em cima, 2 em baixo)
