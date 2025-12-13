@@ -50,3 +50,7 @@
 
 ## Ajuste de Cor no Card de Países Inativos
 - [x] Alterar cor do número de países inativos para #fb2b37 (vermelho)
+
+## Ajuste de Cor de Fundo na Página de APIs
+- [x] Alterar cor de fundo do card de taxa de câmbio para #0a0a0a
+- [x] Alterar cor de fundo do card de informações de APIs para #0a0a0a
