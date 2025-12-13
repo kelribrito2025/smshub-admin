@@ -2861,3 +2861,23 @@
 
 **Tarefas:**
 - [x] Corrigir alinhamento vertical dos ícones na sidebar
+
+
+---
+
+## 🎯 Corrigir Alinhamento de Ícones na Sidebar Minimizada
+
+**Problema:**
+- Na sidebar minimizada, os ícones não estão alinhados na mesma coluna vertical
+- Alguns ícones estão mais à esquerda que outros (visível na linha vermelha da screenshot)
+- O alinhamento horizontal está inconsistente entre os diferentes itens de navegação
+
+**Objetivo:**
+- Todos os ícones devem ficar exatamente na mesma posição horizontal na sidebar minimizada
+- Aplicar display: flex; align-items: center; justify-content: center; nos wrappers dos ícones
+- Garantir width e height fixos e iguais para todos os itens
+- Remover qualquer margin-left/padding específico que esteja deslocando ícones
+- Validar alinhamento em todos os estados (normal, hover, ativo) apenas na versão minimizada
+
+**Tarefas:**
+- [x] Corrigir alinhamento dos ícones na sidebar minimizada para ficarem na mesma coluna vertical

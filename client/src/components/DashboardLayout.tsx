@@ -248,10 +248,10 @@ function DashboardLayoutContent({
                         isActive
                           ? 'bg-neutral-900 text-white hover:bg-neutral-900'
                           : 'text-neutral-400 hover:bg-neutral-900 hover:text-white'
-                      } ${isCollapsed ? 'justify-center px-0' : 'px-4'}`}
+                      } ${isCollapsed ? 'w-11 !px-0 !justify-center !items-center !flex' : 'px-4'}`}
                     >
                       <item.icon
-                        className={`h-5 w-5 ${isActive ? 'text-blue-500' : ''}`}
+                        className={`h-5 w-5 ${isActive ? 'text-blue-500' : ''} ${isCollapsed ? 'mx-auto' : ''}`}
                       />
                       <span className={isActive ? 'font-medium' : ''}>{item.label}</span>
                     </SidebarMenuButton>
