@@ -37,10 +37,22 @@ export function BalanceSidePanel({ open, onOpenChange, customer, onSuccess }: Ba
   const [expandedRow, setExpandedRow] = useState<number | null>(null);
 
   // Buscar todas as transações (sem limite)
-  const { data: transactions, isLoading: loadingTransactions } = trpc.customers.getTransactions.useQuery(
+  const { data: allTransactions, isLoading: loadingTransactions } = trpc.customers.getTransactions.useQuery(
     { customerId: customer?.id || 0, limit: 100 },
     { enabled: !!customer }
   );
+
+  // Filtrar apenas transações relevantes:
+  // - Ações do admin: credit, debit, refund, withdrawal, hold
+  // - Ações do usuário: recargas (credit com descrição específica ou via PIX)
+  // - Remover: purchase (compras)
+  const transactions = allTransactions?.filter(transaction => {
+    // Remover transações de compra
+    if (transaction.type === 'purchase') return false;
+    
+    // Manter todas as outras transações (credit, debit, refund, withdrawal, hold)
+    return true;
+  });
 
   useEffect(() => {
     if (!open) {

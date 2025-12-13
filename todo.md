@@ -3041,3 +3041,17 @@
 **Tarefas:**
 - [x] Verificar se existe paginação na aba Afiliados
 - [x] Adicionar paginação de 20 itens por página na aba Afiliados (se não existir)
+
+
+---
+
+## 🔍 Filtrar Histórico de Transações em Gerenciar Saldo
+
+**Objetivo:**
+- Mostrar apenas transações relevantes no histórico de Gerenciar Saldo
+- Exibir ações do admin: Adicionar, Debitar, Reembolsar, Saque, Reter saldo
+- Exibir ações do usuário: Recargas (Créd. via PIX/pagamento)
+- Remover transações de "Compra" do histórico
+
+**Tarefas:**
+- [x] Filtrar histórico de transações em Gerenciar Saldo para mostrar apenas ações admin (adicionar, debitar, reembolsar, saque, reter) e recargas de usuários
