@@ -2859,3 +2859,38 @@
 
 **Tarefas:**
 - [x] Centralizar ícones na sidebar minimizada (desktop) - distância igual das bordas esquerda e direita
+
+
+---
+
+## 📱 Correções Mobile - Sidebar e Responsividade
+
+**Objetivo:**
+- Reverter alterações da sidebar mobile para estado anterior
+- Corrigir responsividade da versão mobile do sistema
+
+**Tarefas:**
+- [x] Reverter alterações da sidebar mobile para estado anterior
+- [x] Corrigir responsividade da versão mobile
+
+
+---
+
+## ✅ Menu Dropdown do Admin Não Exibe Opções com Sidebar Minimizada (RESOLVIDO)
+
+**Problema:**
+- Quando a barra lateral estava minimizada, ao clicar no ícone do admin, o menu dropdown não exibia as opções "Sair" e "Reorganizar menus"
+
+**Causa Raiz:**
+- Condição `isAdminMenuOpen && !isCollapsed` impedia exibição dos botões quando sidebar estava minimizada
+- A lógica exigia que a sidebar estivesse expandida para mostrar as opções
+
+**Solução:**
+- Removida condição `!isCollapsed` da verificação
+- Adicionado estilo condicional para centralizar botões quando minimizada
+- Textos ocultados automaticamente quando sidebar minimizada (apenas ícones visíveis)
+
+**Tarefas:**
+- [x] Investigar DashboardLayout.tsx para identificar causa do problema
+- [x] Corrigir lógica do dropdown quando sidebar está minimizada
+- [x] Testar correção em ambos os estados (sidebar expandida e minimizada)

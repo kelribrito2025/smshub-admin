@@ -263,24 +263,24 @@ function DashboardLayoutContent({
 
           <SidebarFooter className="p-4 border-t border-neutral-800 space-y-2">
             {/* Show menu items only when admin menu is open */}
-            {isAdminMenuOpen && !isCollapsed && (
+            {isAdminMenuOpen && (
               <>
                 {/* Reorganize Menus Button */}
                 <button 
                   onClick={() => setReorderDialogOpen(true)}
-                  className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-neutral-400 hover:bg-neutral-900 hover:text-white transition-colors"
+                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-neutral-400 hover:bg-neutral-900 hover:text-white transition-colors ${isCollapsed ? 'justify-center' : ''}`}
                 >
                   <GripVertical className="h-5 w-5" />
-                  <span className="text-sm">Reorganizar Menus</span>
+                  {!isCollapsed && <span className="text-sm">Reorganizar Menus</span>}
                 </button>
 
                 {/* Sign Out Button */}
                 <button 
                   onClick={logout}
-                  className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-red-500 hover:bg-neutral-900 hover:text-red-400 transition-colors"
+                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-red-500 hover:bg-neutral-900 hover:text-red-400 transition-colors ${isCollapsed ? 'justify-center' : ''}`}
                 >
                   <LogOut className="h-5 w-5" />
-                  <span className="text-sm">Sign out</span>
+                  {!isCollapsed && <span className="text-sm">Sign out</span>}
                 </button>
               </>
             )}
