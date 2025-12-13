@@ -2656,4 +2656,24 @@
 - [x] Adicionar altura fixa ao container da lista (equivalente a 6 itens)
 - [x] Implementar overflow-y-auto com scrollbar customizada minimalista
 - [x] Testar rolagem e verificar visual
-- [ ] Criar checkpoint
+- [x] Criar checkpoint
+
+
+---
+
+## 🐛 Sidebar Expande Automaticamente ao Navegar Entre Menus
+
+**Problema:**
+- Quando o usuário minimiza a sidebar e clica em algum menu, ela volta a expandir automaticamente
+- Comportamento indesejado: a sidebar deveria permanecer minimizada durante a navegação
+
+**Comportamento Desejado:**
+- Se o usuário minimizar a barra, ela deve permanecer minimizada ao navegar entre os menus
+- Só deve voltar a expandir se o usuário clicar explicitamente no botão de expandir
+
+**Tarefas:**
+- [x] Investigar lógica atual do DashboardLayout que controla estado da sidebar
+- [x] Identificar onde a sidebar está sendo expandida automaticamente durante navegação
+- [x] Corrigir comportamento para manter estado minimizado durante navegação
+- [x] Testar navegação entre menus com sidebar minimizada
+- [x] Validar que sidebar só expande ao clicar no botão de expandir

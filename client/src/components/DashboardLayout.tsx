@@ -21,7 +21,6 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { getLoginUrl } from "@/const";
-import { useIsMobile } from "@/hooks/useMobile";
 import { LayoutDashboard, LogOut, PanelLeft, Settings, RefreshCw, Globe, Package, Key, LineChart, Users, BookOpen, Cloud, BarChart3, FileText, Gift, GripVertical, LucideIcon, Shield, ShoppingCart } from "lucide-react";
 import * as LucideIcons from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
@@ -75,6 +74,15 @@ export default function DashboardLayout({
     const saved = localStorage.getItem(SIDEBAR_WIDTH_KEY);
     return saved ? parseInt(saved, 10) : DEFAULT_WIDTH;
   });
+  
+  // Read sidebar state from cookie
+  const [sidebarOpen, setSidebarOpen] = useState(() => {
+    if (typeof document === 'undefined') return true;
+    const cookies = document.cookie.split('; ');
+    const sidebarCookie = cookies.find(c => c.startsWith('sidebar_state='));
+    if (!sidebarCookie) return true;
+    return sidebarCookie.split('=')[1] === 'true';
+  });
   const { loading, user } = useAuth();
 
   useEffect(() => {
@@ -113,6 +121,9 @@ export default function DashboardLayout({
 
   return (
     <SidebarProvider
+      defaultOpen={sidebarOpen}
+      open={sidebarOpen}
+      onOpenChange={setSidebarOpen}
       style={
         {
           "--sidebar-width": `${sidebarWidth}px`,
@@ -139,11 +150,10 @@ function DashboardLayoutContent({
 }: DashboardLayoutContentProps) {
   const { user, logout } = useAuth();
   const [location, setLocation] = useLocation();
-  const { state, toggleSidebar } = useSidebar();
+  const { state, toggleSidebar, isMobile, setOpenMobile } = useSidebar();
   const isCollapsed = state === "collapsed";
   const [isResizing, setIsResizing] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
-  const isMobile = useIsMobile();
   const [reorderDialogOpen, setReorderDialogOpen] = useState(false);
 
   // Fetch menus from database (optimized to prevent 429)
@@ -237,7 +247,13 @@ function DashboardLayoutContent({
                   <SidebarMenuItem key={item.path}>
                     <SidebarMenuButton
                       isActive={isActive}
-                      onClick={() => setLocation(item.path)}
+                      onClick={() => {
+                        setLocation(item.path);
+                        // Close mobile sidebar after navigation
+                        if (isMobile) {
+                          setOpenMobile(false);
+                        }
+                      }}
                       tooltip={item.label}
                       className={`h-10 transition-all font-normal`}
                     >
