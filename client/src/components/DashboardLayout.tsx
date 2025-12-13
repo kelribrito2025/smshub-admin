@@ -236,12 +236,15 @@ function DashboardLayoutContent({
                   <SidebarMenuItem key={item.path}>
                     <SidebarMenuButton
                       isActive={isActive}
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
                         setLocation(item.path);
                         // Close mobile sidebar after navigation
                         if (isMobile) {
                           setOpenMobile(false);
                         }
+                        // Don't trigger sidebar expansion on desktop
                       }}
                       tooltip={item.label}
                       className={`h-10 transition-all font-normal`}

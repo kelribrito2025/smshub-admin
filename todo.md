@@ -2704,3 +2704,31 @@
 - [x] Implementar persistência de estado (cookie no SidebarProvider)
 - [x] Testar navegação entre rotas com sidebar minimizada
 - [x] Validar que estado persiste corretamente
+
+
+---
+
+## ✅ BUG CORRIGIDO: Barra Lateral Maximiza Automaticamente ao Clicar em Menu
+
+**Problema:**
+- Após minimizar a barra lateral, ao clicar em qualquer menu ela maximiza automaticamente
+- Comportamento esperado: barra deve permanecer minimizada após clicar em menu
+
+**Causa Raiz:**
+- O evento de clique nos itens do menu estava se propagando e causando expansão automática da sidebar
+- Faltava `preventDefault()` e `stopPropagation()` no handler de clique
+
+**Solução:**
+- Adicionado `e.preventDefault()` e `e.stopPropagation()` no onClick do SidebarMenuButton em DashboardLayout.tsx
+- Isso impede que o evento de clique se propague e cause expansão não intencional
+
+**Resultado:**
+- ✅ Barra lateral agora permanece minimizada após clicar em menu
+- ✅ Estado de colapso/expansão é preservado durante navegação
+- ✅ Comportamento funciona corretamente em desktop e mobile
+
+**Tarefas:**
+- [x] Investigar código da barra lateral (DashboardLayout.tsx)
+- [x] Identificar lógica que causa maximização automática
+- [x] Corrigir para manter estado minimizado após clique em menu
+- [x] Testar comportamento após correção
