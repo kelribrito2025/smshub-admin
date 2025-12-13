@@ -53,8 +53,9 @@ export function ImpersonationBanner() {
     return null;
   }
 
-  // Get customer name from session
-  const customerName = session.customer.name || session.customer.email;
+  // Get customer email and ID from session
+  const customerEmail = session.customer.email;
+  const customerId = session.customer.id;
 
   return (
     <div className="fixed top-0 left-0 right-0 z-[9999] bg-purple-600 text-white shadow-lg">
@@ -64,7 +65,8 @@ export function ImpersonationBanner() {
             <AlertCircle className="h-5 w-5 flex-shrink-0" />
             <p className="text-sm font-medium">
               Você está visualizando como{" "}
-              <span className="font-bold">{customerName}</span>
+              <span className="font-bold">{customerEmail}</span>
+              {" "}- ID: <span className="font-bold">#{customerId}</span>
             </p>
           </div>
           <Button

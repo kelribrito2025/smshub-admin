@@ -3456,3 +3456,16 @@
 - [x] Garantir que banner renderiza acima de todos os elementos do layout
 - [x] Testar em diferentes resoluções para confirmar visibilidade
 - [x] Validar que banner aparece imediatamente ao impersonar
+
+
+---
+
+## 🎨 Atualizar Formato da Barra de Impersonação
+
+**Objetivo:**
+- Modificar a barra de impersonação para exibir email e ID do cliente
+- Formato: "Você está visualizando como (email) - ID: #(id)"
+- Exemplo: "Você está visualizando como xkelrix@gmail.com - ID: #1272"
+
+**Tarefas:**
+- [x] Atualizar componente ImpersonationBanner para mostrar email e ID do cliente
