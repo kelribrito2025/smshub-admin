@@ -25,3 +25,6 @@
 
 ## Funcionalidade de Drag and Drop nos Cards
 - [x] Adicionar drag and drop nos 8 cards da dashboard para reordenação livre com persistência
+
+## Melhorias no Drag and Drop
+- [x] Adicionar feedback visual profissional ao drag and drop (efeito ghost, placeholder, destaque no card ativo)

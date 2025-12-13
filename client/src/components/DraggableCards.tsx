@@ -7,6 +7,8 @@ import {
   useSensor,
   useSensors,
   DragEndEvent,
+  DragOverlay,
+  DragStartEvent,
 } from '@dnd-kit/core';
 import {
   arrayMove,
@@ -44,8 +46,11 @@ function SortableCard({ id, children }: SortableCardProps) {
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    opacity: isDragging ? 0.5 : 1,
-    cursor: 'grab',
+    // Placeholder fica semi-transparente quando está sendo arrastado
+    opacity: isDragging ? 0.4 : 1,
+    cursor: isDragging ? 'grabbing' : 'grab',
+    // Adiciona escala e sombra ao card ativo
+    scale: isDragging ? 1.02 : 1,
   };
 
   return (
@@ -55,6 +60,7 @@ function SortableCard({ id, children }: SortableCardProps) {
       {...attributes}
       {...listeners}
       variants={fadeInScale}
+      className={isDragging ? 'z-0' : 'z-10'}
     >
       {children}
     </motion.div>
@@ -67,6 +73,7 @@ interface DraggableCardsProps {
 
 export function DraggableCards({ cards }: DraggableCardsProps) {
   const [items, setItems] = useState<CardItem[]>(cards);
+  const [activeId, setActiveId] = useState<string | null>(null);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -101,6 +108,10 @@ export function DraggableCards({ cards }: DraggableCardsProps) {
     }
   }, [cards]);
 
+  function handleDragStart(event: DragStartEvent) {
+    setActiveId(event.active.id as string);
+  }
+
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
 
@@ -117,13 +128,24 @@ export function DraggableCards({ cards }: DraggableCardsProps) {
         return newOrder;
       });
     }
+
+    setActiveId(null);
   }
+
+  function handleDragCancel() {
+    setActiveId(null);
+  }
+
+  // Encontra o card ativo para o DragOverlay
+  const activeCard = items.find((item) => item.id === activeId);
 
   return (
     <DndContext
       sensors={sensors}
       collisionDetection={closestCenter}
+      onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
+      onDragCancel={handleDragCancel}
     >
       <SortableContext items={items.map(item => item.id)} strategy={rectSortingStrategy}>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -134,6 +156,26 @@ export function DraggableCards({ cards }: DraggableCardsProps) {
           ))}
         </div>
       </SortableContext>
+      
+      {/* DragOverlay: Ghost que segue o cursor */}
+      <DragOverlay dropAnimation={{
+        duration: 200,
+        easing: 'cubic-bezier(0.18, 0.67, 0.6, 1.22)',
+      }}>
+        {activeCard ? (
+          <div 
+            className="cursor-grabbing"
+            style={{
+              opacity: 0.95,
+              transform: 'scale(1.05)',
+              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1)',
+              borderRadius: '12px',
+            }}
+          >
+            {activeCard.content}
+          </div>
+        ) : null}
+      </DragOverlay>
     </DndContext>
   );
 }
