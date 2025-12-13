@@ -3469,3 +3469,19 @@
 
 **Tarefas:**
 - [x] Atualizar componente ImpersonationBanner para mostrar email e ID do cliente
+
+
+---
+
+## 🎨 Atualizar Visual da Barra de Impersonação
+
+**Objetivo:**
+- Atualizar visual da barra de impersonação para gradiente laranja/âmbar
+- Tornar botão "Encerrar Impersonação" mais visível e estilizado
+- Melhorar UX da funcionalidade de impersonação
+
+**Tarefas:**
+- [x] Atualizar componente ImpersonationBar com novo visual (gradiente amber-500 to orange-500)
+- [x] Adicionar ícone AlertCircle com animação pulse
+- [x] Estilizar botão "Encerrar Impersonação" com backdrop blur e bordas
+- [x] Testar visual em diferentes resoluções

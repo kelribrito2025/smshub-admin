@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { AlertCircle, X } from "lucide-react";
-import { Button } from "./ui/button";
 import { toast } from "sonner";
 import { useStoreAuth } from "@/contexts/StoreAuthContext";
 
@@ -58,37 +57,32 @@ export function ImpersonationBanner() {
   const customerId = session.customer.id;
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-[9999] bg-purple-600 text-white shadow-lg">
-      <div className="container mx-auto px-4 py-3">
-        <div className="flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <AlertCircle className="h-5 w-5 flex-shrink-0" />
-            <p className="text-sm font-medium">
-              Você está visualizando como{" "}
-              <span className="font-bold">{customerEmail}</span>
-              {" "}- ID: <span className="font-bold">#{customerId}</span>
-            </p>
-          </div>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleEndSession}
-            disabled={endSessionMutation.isPending}
-            className="bg-white text-purple-600 hover:bg-purple-50 hover:text-purple-700 border-white flex-shrink-0"
-          >
-            {endSessionMutation.isPending ? (
-              <>
-                <span className="mr-2">Encerrando...</span>
-                <div className="h-4 w-4 animate-spin rounded-full border-2 border-purple-600 border-t-transparent" />
-              </>
-            ) : (
-              <>
-                <X className="h-4 w-4 mr-2" />
-                Encerrar impersonação
-              </>
-            )}
-          </Button>
+    <div className="fixed top-0 left-0 right-0 z-[9999] bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg">
+      <div className="px-6 py-3 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <AlertCircle size={20} className="animate-pulse" />
+          <span className="text-sm font-medium">
+            Você está visualizando como <strong className="font-semibold">{customerEmail}</strong> - ID: <strong className="font-semibold">#{customerId}</strong>
+          </span>
         </div>
+
+        <button
+          onClick={handleEndSession}
+          disabled={endSessionMutation.isPending}
+          className="flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm px-4 py-2 rounded-lg transition-all duration-200 text-sm font-medium border border-white/30 hover:border-white/50 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {endSessionMutation.isPending ? (
+            <>
+              <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+              Encerrando...
+            </>
+          ) : (
+            <>
+              <X size={16} />
+              Encerrar Impersonação
+            </>
+          )}
+        </button>
       </div>
     </div>
   );
