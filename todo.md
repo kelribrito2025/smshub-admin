@@ -83,3 +83,8 @@
 - [x] Garantir que a fonte SF Pro Display/Text seja aplicada em 100% do DashboardLayout (sidebar, header, breadcrumbs, conteúdo)
 - [x] Verificar e corrigir sobrescritas de font-family em componentes específicos
 - [x] Testar aplicação da fonte em desktop e mobile
+
+## Aplicação Consistente da SF Pro em 100% do DashboardLayout
+- [x] Aplicar SF Pro de forma consistente em todo o DashboardLayout via herança CSS no container raiz
+- [x] Garantir que sidebar, header, breadcrumbs, cards, tabelas e formulários herdem corretamente a fonte
+- [x] Verificar que componentes shadcn/ui não sobrescrevem a fonte com fallbacks incorretos
