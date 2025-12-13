@@ -22,3 +22,6 @@
 
 ## Ajuste de Altura dos Cards
 - [x] Ajustar altura dos cards "Em breve" para ficarem com a mesma altura dos cards "Taxa de Sucesso" e "Custo Total"
+
+## Funcionalidade de Drag and Drop nos Cards
+- [x] Adicionar drag and drop nos 8 cards da dashboard para reordenação livre com persistência

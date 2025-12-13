@@ -28,6 +28,7 @@ import { AnimatedPage } from "@/components/AnimatedPage";
 import { AnimatedList, AnimatedListItem } from "@/components/AnimatedList";
 import { motion } from "framer-motion";
 import { fadeInScale, staggerContainer } from "@/lib/animations";
+import { DraggableCards } from "@/components/DraggableCards";
 import {
   Area,
   AreaChart,
@@ -257,173 +258,175 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* 1) TOPO - 4 CARDS KPI */}
-        <motion.div 
-          className="grid gap-4 md:grid-cols-2 lg:grid-cols-4"
+        {/* 8 CARDS KPI COM DRAG AND DROP */}
+        <motion.div
           variants={staggerContainer}
           initial="initial"
           animate="animate"
         >
-          {/* Card 1: Saldo das APIs */}
-          <motion.div variants={fadeInScale}>
-            <Card style={{backgroundColor: '#101010'}}>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Saldo das APIs</CardTitle>
-                <DollarSign className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                {isLoadingBalances ? (
-                  <div className="text-sm text-muted-foreground">Carregando...</div>
-                ) : allBalances && allBalances.length > 0 ? (
-                  <div className="space-y-2">
-                    {allBalances.map((api) => (
-                      <div key={api.id} className="flex items-center justify-between">
-                        <span className="text-xs font-medium text-muted-foreground">{api.name}</span>
-                        <span className="text-sm font-bold">
-                          {api.error ? (
-                            <span className="text-red-500 text-xs">Erro</span>
-                          ) : (
-                            <span className={api.balance >= 1000 ? 'text-green-600' : 'text-red-600'}>
-                              {api.currency === 'BRL' ? 'R$' : '$'} {api.balance.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                            </span>
-                          )}
-                        </span>
+          <DraggableCards
+            cards={[
+              {
+                id: 'card-1',
+                content: (
+                  <Card style={{backgroundColor: '#101010'}}>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                      <CardTitle className="text-sm font-medium">Saldo das APIs</CardTitle>
+                      <DollarSign className="h-4 w-4 text-muted-foreground" />
+                    </CardHeader>
+                    <CardContent>
+                      {isLoadingBalances ? (
+                        <div className="text-sm text-muted-foreground">Carregando...</div>
+                      ) : allBalances && allBalances.length > 0 ? (
+                        <div className="space-y-2">
+                          {allBalances.map((api) => (
+                            <div key={api.id} className="flex items-center justify-between">
+                              <span className="text-xs font-medium text-muted-foreground">{api.name}</span>
+                              <span className="text-sm font-bold">
+                                {api.error ? (
+                                  <span className="text-red-500 text-xs">Erro</span>
+                                ) : (
+                                  <span className={api.balance >= 1000 ? 'text-green-600' : 'text-red-600'}>
+                                    {api.currency === 'BRL' ? 'R$' : '$'} {api.balance.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                  </span>
+                                )}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="text-sm text-muted-foreground">Nenhuma API configurada</div>
+                      )}
+                    </CardContent>
+                  </Card>
+                ),
+              },
+              {
+                id: 'card-2',
+                content: (
+                  <Card style={{backgroundColor: '#101010'}}>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                      <CardTitle className="text-sm font-medium">Total de Ativações</CardTitle>
+                      <Activity className="h-4 w-4 text-muted-foreground" />
+                    </CardHeader>
+                    <CardContent className="pt-8">
+                      <div className="text-2xl font-bold">{stats?.total || 0}</div>
+                      <p className="text-xs text-muted-foreground">
+                        {stats?.completed || 0} concluídas
+                      </p>
+                    </CardContent>
+                  </Card>
+                ),
+              },
+              {
+                id: 'card-3',
+                content: (
+                  <Card style={{backgroundColor: '#101010'}}>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                      <CardTitle className="text-sm font-medium">Receita Total</CardTitle>
+                      <TrendingUp className="h-4 w-4 text-muted-foreground" />
+                    </CardHeader>
+                    <CardContent className="pt-8">
+                      <div className="text-2xl font-bold">
+                        {formatCurrency(Number(stats?.totalRevenue) || 0)}
                       </div>
-                    ))}
+                      <p className="text-xs text-muted-foreground">Vendas realizadas</p>
+                    </CardContent>
+                  </Card>
+                ),
+              },
+              {
+                id: 'card-4',
+                content: (
+                  <Card style={{backgroundColor: '#101010'}}>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                      <CardTitle className="text-sm font-medium">Lucro Total</CardTitle>
+                      <DollarSign className="h-4 w-4 text-muted-foreground" />
+                    </CardHeader>
+                    <CardContent className="pt-8">
+                      <div className="text-2xl font-bold text-green-600">
+                        {formatCurrency(Number(stats?.totalProfit) || 0)}
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        Margem de {stats?.totalRevenue ? ((Number(stats.totalProfit) / Number(stats.totalRevenue)) * 100).toFixed(1) : 0}%
+                      </p>
+                    </CardContent>
+                  </Card>
+                ),
+              },
+              {
+                id: 'card-5',
+                content: (
+                  <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-neutral-400 text-sm">Custo Total</span>
+                      <TrendingDown size={18} className="text-red-500" />
+                    </div>
+                    <div className="text-3xl font-light text-red-500 mb-1">
+                      {formatCurrency(Number(metrics?.totalCost) || 0)}
+                    </div>
+                    <div className="text-xs text-neutral-500">
+                      Lucro médio: {formatCurrency(Number(metrics?.averageProfit) || 0)}
+                    </div>
                   </div>
-                ) : (
-                  <div className="text-sm text-muted-foreground">Nenhuma API configurada</div>
-                )}
-              </CardContent>
-            </Card>
-          </motion.div>
-
-          {/* Card 2: Total de Ativações */}
-          <motion.div variants={fadeInScale}>
-            <Card style={{backgroundColor: '#101010'}}>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total de Ativações</CardTitle>
-                <Activity className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent className="pt-8">
-                <div className="text-2xl font-bold">{stats?.total || 0}</div>
-                <p className="text-xs text-muted-foreground">
-                  {stats?.completed || 0} concluídas
-                </p>
-              </CardContent>
-            </Card>
-          </motion.div>
-
-          {/* Card 3: Receita Total */}
-          <motion.div variants={fadeInScale}>
-            <Card style={{backgroundColor: '#101010'}}>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Receita Total</CardTitle>
-                <TrendingUp className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent className="pt-8">
-                <div className="text-2xl font-bold">
-                  {formatCurrency(Number(stats?.totalRevenue) || 0)}
-                </div>
-                <p className="text-xs text-muted-foreground">Vendas realizadas</p>
-              </CardContent>
-            </Card>
-          </motion.div>
-
-          {/* Card 4: Lucro Total */}
-          <motion.div variants={fadeInScale}>
-            <Card style={{backgroundColor: '#101010'}}>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Lucro Total</CardTitle>
-                <DollarSign className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent className="pt-8">
-                <div className="text-2xl font-bold text-green-600">
-                  {formatCurrency(Number(stats?.totalProfit) || 0)}
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  Margem de {stats?.totalRevenue ? ((Number(stats.totalProfit) / Number(stats.totalRevenue)) * 100).toFixed(1) : 0}%
-                </p>
-              </CardContent>
-            </Card>
-          </motion.div>
-
-
-        </motion.div>
-
-        {/* 2) SEGUNDA LINHA - 4 CARDS KPI (2 preenchidos + 2 vazios) */}
-        <motion.div 
-          className="grid gap-4 md:grid-cols-2 lg:grid-cols-4"
-          variants={staggerContainer}
-          initial="initial"
-          animate="animate"
-        >
-          {/* Card 5: Custo Total */}
-          <motion.div variants={fadeInScale}>
-            <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-neutral-400 text-sm">Custo Total</span>
-                <TrendingDown size={18} className="text-red-500" />
-              </div>
-              <div className="text-3xl font-light text-red-500 mb-1">
-                {formatCurrency(Number(metrics?.totalCost) || 0)}
-              </div>
-              <div className="text-xs text-neutral-500">
-                Lucro médio: {formatCurrency(Number(metrics?.averageProfit) || 0)}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Card 6: Taxa de Sucesso */}
-          <motion.div variants={fadeInScale}>
-            <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-neutral-400 text-sm">Taxa de Sucesso</span>
-                <Activity size={18} className="text-neutral-500" />
-              </div>
-              <div className="text-3xl font-light text-white mb-1">
-                {metrics?.totalActivations
-                  ? formatPercent(
-                      (metrics.completedActivations / metrics.totalActivations) * 100
-                    )
-                  : "0%"}
-              </div>
-              <div className="flex items-center gap-3 text-xs">
-                <span className="text-emerald-500">{metrics?.completedActivations || 0} ✓</span>
-                <span className="text-red-500">{metrics?.cancelledActivations || 0} ✗</span>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Card 7: Placeholder (futuro) */}
-          <motion.div variants={fadeInScale}>
-            <div className="bg-neutral-900/50 border border-dashed border-neutral-700 rounded-xl p-6">
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-neutral-500 text-sm">Em breve</span>
-              </div>
-              <div className="text-3xl font-light text-neutral-600 mb-1">
-                —
-              </div>
-              <div className="text-xs text-neutral-600">
-                Novos dados em breve
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Card 8: Placeholder (futuro) */}
-          <motion.div variants={fadeInScale}>
-            <div className="bg-neutral-900/50 border border-dashed border-neutral-700 rounded-xl p-6">
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-neutral-500 text-sm">Em breve</span>
-              </div>
-              <div className="text-3xl font-light text-neutral-600 mb-1">
-                —
-              </div>
-              <div className="text-xs text-neutral-600">
-                Novos dados em breve
-              </div>
-            </div>
-          </motion.div>
+                ),
+              },
+              {
+                id: 'card-6',
+                content: (
+                  <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-neutral-400 text-sm">Taxa de Sucesso</span>
+                      <Activity size={18} className="text-neutral-500" />
+                    </div>
+                    <div className="text-3xl font-light text-white mb-1">
+                      {metrics?.totalActivations
+                        ? formatPercent(
+                            (metrics.completedActivations / metrics.totalActivations) * 100
+                          )
+                        : "0%"}
+                    </div>
+                    <div className="flex items-center gap-3 text-xs">
+                      <span className="text-emerald-500">{metrics?.completedActivations || 0} ✓</span>
+                      <span className="text-red-500">{metrics?.cancelledActivations || 0} ✗</span>
+                    </div>
+                  </div>
+                ),
+              },
+              {
+                id: 'card-7',
+                content: (
+                  <div className="bg-neutral-900/50 border border-dashed border-neutral-700 rounded-xl p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-neutral-500 text-sm">Em breve</span>
+                    </div>
+                    <div className="text-3xl font-light text-neutral-600 mb-1">
+                      —
+                    </div>
+                    <div className="text-xs text-neutral-600">
+                      Novos dados em breve
+                    </div>
+                  </div>
+                ),
+              },
+              {
+                id: 'card-8',
+                content: (
+                  <div className="bg-neutral-900/50 border border-dashed border-neutral-700 rounded-xl p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-neutral-500 text-sm">Em breve</span>
+                    </div>
+                    <div className="text-3xl font-light text-neutral-600 mb-1">
+                      —
+                    </div>
+                    <div className="text-xs text-neutral-600">
+                      Novos dados em breve
+                    </div>
+                  </div>
+                ),
+              },
+            ]}
+          />
         </motion.div>
 
         {/* 3) GRÁFICO - Evolução de Receita e Lucro */}
