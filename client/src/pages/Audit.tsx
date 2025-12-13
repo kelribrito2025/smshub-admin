@@ -575,12 +575,9 @@ export default function Audit() {
                         <TableRow key={t.id} className="border-gray-700 hover:bg-gray-800/30">
                           <TableCell className="font-mono text-gray-400 text-sm">#{t.id}</TableCell>
                           <TableCell>
-                            <div className="flex items-center gap-2">
-                              <User className="w-4 h-4 text-blue-400" />
-                              <div className="flex flex-col">
-                                <span className="text-white font-medium">{customer?.name}</span>
-                                <span className="text-gray-400 text-xs">PIN: {customer?.pin}</span>
-                              </div>
+                            <div className="flex flex-col">
+                              <span className="text-white font-medium">{customer?.name}</span>
+                              <span className="text-gray-400 text-xs">PIN: {customer?.pin}</span>
                             </div>
                           </TableCell>
                           <TableCell>
