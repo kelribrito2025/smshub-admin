@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 import { copyToClipboard } from '../lib/clipboard';
 import TableSkeleton from '../components/TableSkeleton';
+import CyberBanner from '../components/CyberBanner';
 
 
 
@@ -257,6 +258,19 @@ export default function StoreCatalog() {
               </span>
             </li>
           </ul>
+          
+          {/* Cyber Banner Call-to-Action */}
+          <div className="mt-12">
+            <CyberBanner 
+              title="Quer utilizar nossos serviços?"
+              subtitle="Crie uma conta em nosso painel para começar a utilizar nossos serviços e receba benefícios imperdíveis."
+              buttonText="Criar conta"
+              onButtonClick={() => {
+                const authContext = useStoreAuth();
+                authContext.requireAuth(() => {});
+              }}
+            />
+          </div>
           </>
         ) : (
           <Card className="bg-black/50 border-green-900/50 overflow-hidden" style={{paddingTop: '0px', paddingBottom: '15px'}}>
