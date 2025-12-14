@@ -133,7 +133,7 @@ export default function Payments() {
         {/* Cards de Resumo */}
         <div className="grid gap-4 md:grid-cols-3">
           {/* Card: Total de Pagamentos Recebidos */}
-          <Card className="bg-neutral-900/50 border-neutral-800">
+          <Card className="border-neutral-800" style={{backgroundColor: '#0a0a0a'}}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Total de Pagamentos Recebidos</CardTitle>
               <DollarSign className="h-4 w-4 text-green-500" />
@@ -156,7 +156,7 @@ export default function Payments() {
           </Card>
 
           {/* Card: Total de Devoluções via Pix */}
-          <Card className="bg-neutral-900/50 border-neutral-800">
+          <Card className="border-neutral-800" style={{backgroundColor: '#0a0a0a'}}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Total de Devoluções</CardTitle>
               <RefreshCw className="h-4 w-4 text-red-500" />
@@ -179,7 +179,7 @@ export default function Payments() {
           </Card>
 
           {/* Card: Em Breve */}
-          <Card className="bg-neutral-900/50 border-neutral-800">
+          <Card className="border-neutral-800" style={{backgroundColor: '#0a0a0a'}}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Em breve</CardTitle>
               <Calendar className="h-4 w-4 text-muted-foreground" />
@@ -194,7 +194,7 @@ export default function Payments() {
         </div>
 
         {/* Filtros */}
-        <Card className="bg-neutral-900/50 border-neutral-800">
+        <Card className="border-neutral-800" style={{backgroundColor: '#0a0a0a'}}>
           <CardHeader>
             <CardTitle>Filtros de Busca</CardTitle>
             <CardDescription>Busque por PIN, nome ou e-mail do cliente</CardDescription>
@@ -260,7 +260,7 @@ export default function Payments() {
         </Card>
 
         {/* Tabela de Pagamentos */}
-        <Card className="bg-neutral-900/50 border-neutral-800">
+        <Card className="border-neutral-800" style={{backgroundColor: '#0a0a0a'}}>
           <CardHeader>
             <CardTitle>Lista de Pagamentos</CardTitle>
             <CardDescription>

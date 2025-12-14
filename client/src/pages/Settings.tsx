@@ -41,7 +41,7 @@ function LayoutToggleSection() {
   };
 
   return (
-    <div className="font-sans bg-neutral-900/50 border-2 border-blue-500/30 rounded-xl p-4 mb-4" style={{backgroundColor: '#0a0a0a'}}>
+    <div className="font-sans border-2 border-blue-500/30 rounded-xl p-4 mb-4" style={{backgroundColor: '#0a0a0a'}}>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">

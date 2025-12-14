@@ -273,7 +273,7 @@ export default function Customers() {
 
         {/* Stats */}
         <div className="grid gap-4 md:grid-cols-4">
-          <div className="font-sans bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+          <div className="font-sans border border-neutral-800 rounded-xl p-6" style={{backgroundColor: '#0a0a0a'}}>
             <div className="flex items-center justify-between mb-4">
               <span className="text-neutral-400 text-sm">Total de Clientes</span>
               <Users size={18} className="text-neutral-500" />
@@ -283,7 +283,7 @@ export default function Customers() {
             </div>
           </div>
 
-          <div className="font-sans bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+          <div className="font-sans border border-neutral-800 rounded-xl p-6" style={{backgroundColor: '#0a0a0a'}}>
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -302,7 +302,7 @@ export default function Customers() {
             </div>
           </div>
 
-          <div className="font-sans bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+          <div className="font-sans border border-neutral-800 rounded-xl p-6" style={{backgroundColor: '#0a0a0a'}}>
             <div className="flex items-center justify-between mb-4">
               <span className="text-neutral-400 text-sm">Saldo Total</span>
               <Wallet size={18} className="text-neutral-500" />
@@ -312,7 +312,7 @@ export default function Customers() {
             </div>
           </div>
 
-          <div className="font-sans bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+          <div className="font-sans border border-neutral-800 rounded-xl p-6" style={{backgroundColor: '#0a0a0a'}}>
             <div className="flex items-center justify-between mb-4">
               <span className="text-neutral-400 text-sm">Saldo Médio</span>
               <DollarSign size={18} className="text-neutral-500" />

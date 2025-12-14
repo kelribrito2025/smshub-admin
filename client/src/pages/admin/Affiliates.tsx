@@ -100,7 +100,7 @@ export default function Affiliates() {
 
         {/* Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="font-sans bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+          <div className="font-sans border border-neutral-800 rounded-xl p-6" style={{backgroundColor: '#0a0a0a'}}>
             <div className="flex items-center justify-between mb-4">
               <span className="text-neutral-400 text-sm">Total de Afiliados</span>
               <Users size={18} className="text-neutral-500" />
@@ -113,7 +113,7 @@ export default function Affiliates() {
             </div>
           </div>
 
-          <div className="font-sans bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+          <div className="font-sans border border-neutral-800 rounded-xl p-6" style={{backgroundColor: '#0a0a0a'}}>
             <div className="flex items-center justify-between mb-4">
               <span className="text-neutral-400 text-sm">Total de Indicações</span>
               <TrendingUp size={18} className="text-neutral-500" />
@@ -126,7 +126,7 @@ export default function Affiliates() {
             </div>
           </div>
 
-          <div className="font-sans bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+          <div className="font-sans border border-neutral-800 rounded-xl p-6" style={{backgroundColor: '#0a0a0a'}}>
             <div className="flex items-center justify-between mb-4">
               <span className="text-neutral-400 text-sm">Bônus Pagos</span>
               <DollarSign size={18} className="text-emerald-500" />
@@ -139,7 +139,7 @@ export default function Affiliates() {
             </div>
           </div>
 
-          <div className="font-sans bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+          <div className="font-sans border border-neutral-800 rounded-xl p-6" style={{backgroundColor: '#0a0a0a'}}>
             <div className="flex items-center justify-between mb-4">
               <span className="text-neutral-400 text-sm">Total Recarregado</span>
               <DollarSign size={18} className="text-blue-500" />
