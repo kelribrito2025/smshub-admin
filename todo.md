@@ -232,3 +232,5 @@
 - [x] Remover linha horizontal animada da seção HeroSection
 
 - [x] Remover linha horizontal animada (scanner) quando usuário estiver logado
+
+- [x] Corrigir barra de rolagem verde indesejada na página StoreLayout quando usuário está deslogado

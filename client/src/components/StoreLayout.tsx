@@ -412,7 +412,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
   }, [isAuthenticated]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-zinc-950 to-slate-950 text-green-400 font-mono">
+    <div className="bg-gradient-to-br from-slate-950 via-zinc-950 to-slate-950 text-green-400 font-mono">
       {/* Impersonation Banner */}
       <ImpersonationBanner />
 
@@ -912,7 +912,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
       </aside>
 
       {/* Main Content */}
-      <main className={`flex-1 lg:ml-[364px] p-4 md:p-8 overflow-y-auto transition-all duration-300 ${
+      <main className={`flex-1 lg:ml-[364px] p-4 md:p-8 ${isAuthenticated ? 'overflow-y-auto' : 'overflow-y-hidden'} transition-all duration-300 ${
         isImpersonating ? 'mt-[124px] h-[calc(100vh-124px)]' : 'mt-16 h-[calc(100vh-4rem)]'
       }`} style={{paddingTop: '0px', paddingBottom: '36px'}}>
         <div className="relative z-10">

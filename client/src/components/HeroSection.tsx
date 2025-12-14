@@ -57,7 +57,7 @@ export default function HeroSection() {
   }, [typedText, isDeleting, currentPhraseIndex]);
 
   return (
-    <div className="min-h-screen text-white">
+    <div className="text-white">
       {/* Animated Background */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div
@@ -74,7 +74,7 @@ export default function HeroSection() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative min-h-[85vh] flex items-center justify-center px-4 pt-20" style={{paddingTop: '0px', height: '798px'}}>
+      <section className="relative flex items-center justify-center px-4" style={{paddingTop: '0px', height: '798px'}}>
         <div className="max-w-7xl mx-auto text-center" style={{height: '529px'}}>
           {/* Status Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/10 border border-green-500/30 rounded-full mb-8 animate-pulse">
