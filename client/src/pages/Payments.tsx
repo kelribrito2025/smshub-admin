@@ -21,7 +21,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { trpc } from '@/lib/trpc';
-import { DollarSign, RefreshCw, Search, Calendar, CreditCard, ArrowLeftRight, Loader2 } from 'lucide-react';
+import { DollarSign, RefreshCw, Search, Calendar, CreditCard, ArrowLeftRight, Loader2, ChevronDown, ChevronUp } from 'lucide-react';
 import { toast } from 'sonner';
 import { useDebouncedValue } from '@/hooks/useDebouncedValue';
 import TableSkeleton from '@/components/TableSkeleton';
@@ -40,6 +40,7 @@ export default function Payments() {
   const [refundType, setRefundType] = useState<'full' | 'partial'>('full');
   const [refundAmount, setRefundAmount] = useState('');
   const [refundReason, setRefundReason] = useState('');
+  const [expandedPaymentId, setExpandedPaymentId] = useState<number | null>(null);
 
   const utils = trpc.useUtils();
 
@@ -277,15 +278,25 @@ export default function Payments() {
                     <TableHead>Descrição</TableHead>
                     <TableHead>Valor</TableHead>
                     <TableHead>Data/Hora</TableHead>
+                    <TableHead>Status</TableHead>
                     <TableHead className="text-right">Ações</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {paymentsLoading ? (
-                    <TableSkeleton rows={5} columns={9} />
+                    <TableSkeleton rows={5} columns={10} />
                   ) : paymentsData?.payments && paymentsData.payments.length > 0 ? (
                     paymentsData.payments.map((payment) => (
-                        <TableRow key={payment.id} className="border-neutral-800">
+                      <>
+                        <TableRow 
+                          key={payment.id} 
+                          className="border-neutral-800 cursor-pointer hover:bg-neutral-900/30"
+                          onClick={() => {
+                            if (payment.hasRefund) {
+                              setExpandedPaymentId(expandedPaymentId === payment.id ? null : payment.id);
+                            }
+                          }}
+                        >
                           <TableCell className="font-mono text-sm">#{payment.id}</TableCell>
                           <TableCell className="font-mono text-xs">
                             {payment.transactionId || payment.stripePaymentIntentId || '-'}
@@ -333,7 +344,23 @@ export default function Payments() {
                           <TableCell className="text-sm">
                             {formatDate(payment.completedAt || payment.createdAt)}
                           </TableCell>
-                          <TableCell className="text-right">
+                          <TableCell>
+                            <div className="flex items-center gap-2">
+                              {payment.hasRefund ? (
+                                <>
+                                  <span className="text-green-500 font-medium">Devolvido</span>
+                                  {expandedPaymentId === payment.id ? (
+                                    <ChevronUp className="h-4 w-4 text-muted-foreground" />
+                                  ) : (
+                                    <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                                  )}
+                                </>
+                              ) : (
+                                <span className="text-muted-foreground">Não devolvido</span>
+                              )}
+                            </div>
+                          </TableCell>
+                          <TableCell className="text-right" onClick={(e) => e.stopPropagation()}>
                             <Button
                               variant="outline"
                               size="sm"
@@ -344,10 +371,21 @@ export default function Payments() {
                             </Button>
                           </TableCell>
                         </TableRow>
+                        {expandedPaymentId === payment.id && payment.hasRefund && (
+                          <TableRow className="border-neutral-800 bg-neutral-900/20">
+                            <TableCell colSpan={10} className="py-3">
+                              <div className="text-sm text-muted-foreground">
+                                <span className="font-medium">Observação:</span> Pagamento {payment.isFullRefund ? 'devolvido integralmente' : 'parcialmente devolvido'} no valor de{' '}
+                                <span className="text-green-500 font-semibold">{formatCurrency(payment.refundAmount || 0)}</span>
+                              </div>
+                            </TableCell>
+                          </TableRow>
+                        )}
+                      </>
                     ))
                   ) : (
                     <TableRow>
-                      <TableCell colSpan={9} className="text-center text-muted-foreground">
+                      <TableCell colSpan={10} className="text-center text-muted-foreground">
                         Nenhum pagamento encontrado
                       </TableCell>
                     </TableRow>

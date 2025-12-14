@@ -132,6 +132,23 @@ export const paymentsRouter = router({
 
       let payments = await query;
 
+      // Get refund information for each payment
+      const paymentIds = payments.map(p => p.id);
+      const refundData = paymentIds.length > 0 ? await db
+        .select({
+          rechargeId: refunds.rechargeId,
+          amount: refunds.amount,
+          originalAmount: refunds.originalAmount,
+          status: refunds.status,
+        })
+        .from(refunds)
+        .where(
+          and(
+            eq(refunds.status, 'completed'),
+            sql`${refunds.rechargeId} IN (${sql.join(paymentIds.map(id => sql`${id}`), sql`, `)})`
+          )
+        ) : [];
+
       // Apply search filter in memory (search by PIN, name, email)
       if (searchTerm && searchTerm.trim()) {
         const term = searchTerm.toLowerCase();
@@ -182,10 +199,19 @@ export const paymentsRouter = router({
           paymentHash = payment.stripePaymentIntentId || payment.transactionId;
         }
 
+        // Get refund info for this payment
+        const refundInfo = refundData.find(r => r.rechargeId === payment.id);
+        const hasRefund = !!refundInfo;
+        const isFullRefund = refundInfo ? refundInfo.amount === refundInfo.originalAmount : false;
+        const refundAmount = refundInfo?.amount || 0;
+
         return {
           ...payment,
           endToEndId,
           paymentHash,
+          hasRefund,
+          isFullRefund,
+          refundAmount,
         };
       });
 
