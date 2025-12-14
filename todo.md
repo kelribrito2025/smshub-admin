@@ -135,3 +135,6 @@
 - [x] Ajustar altura dos cards "Total de Reembolsos", "Em Breve" e "Saldo das APIs Total" para ficarem com a mesma altura do card "Receita Total"
 
 - [x] Corrigir sidebar desaparecida na página /admin/dashboard
+
+## Ajuste de Cor do Botão "Adicionar Cliente"
+- [x] Alterar cor de fundo do botão "Adicionar Cliente" para #1447e5 (via editor visual)
