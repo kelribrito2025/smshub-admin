@@ -4,7 +4,7 @@ import { useStoreAuth } from '../contexts/StoreAuthContext';
 
 export default function HeroSection() {
   const { openLoginModal, openRegisterModal } = useStoreAuth();
-  const [scanLine, setScanLine] = useState(0);
+
   const [typedText, setTypedText] = useState('');
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -16,12 +16,7 @@ export default function HeroSection() {
     'privacidade e segurança'
   ];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setScanLine(prev => (prev + 1) % 100);
-    }, 50);
-    return () => clearInterval(interval);
-  }, []);
+
 
   // Cursor blinking effect
   useEffect(() => {
@@ -75,12 +70,7 @@ export default function HeroSection() {
             backgroundSize: '80px 80px'
           }}
         />
-        <div
-          className="absolute inset-0"
-          style={{
-            background: `linear-gradient(180deg, transparent ${scanLine}%, rgba(34, 197, 94, 0.03) ${scanLine + 1}%, transparent ${scanLine + 2}%)`
-          }}
-        />
+
       </div>
 
       {/* Hero Section */}
