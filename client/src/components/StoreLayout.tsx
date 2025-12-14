@@ -398,13 +398,18 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
   // Estado para a linha de scan animada
   const [scanLine, setScanLine] = useState(0);
 
-  // Animar a linha de scan
+  // Animar a linha de scan apenas quando usuário NÃO estiver logado
   useEffect(() => {
+    if (isAuthenticated) {
+      // Se usuário está logado, não animar
+      return;
+    }
+    
     const interval = setInterval(() => {
       setScanLine(prev => (prev >= 100 ? 0 : prev + 0.5));
     }, 50);
     return () => clearInterval(interval);
-  }, []);
+  }, [isAuthenticated]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-zinc-950 to-slate-950 text-green-400 font-mono">
@@ -426,13 +431,15 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
           }}
         />
         
-        {/* 2. Linha de Scan Animada (Efeito Matrix) */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: `linear-gradient(180deg, transparent ${scanLine}%, rgba(34, 197, 94, 0.1) ${scanLine + 1}%, transparent ${scanLine + 2}%)`
-          }}
-        />
+        {/* 2. Linha de Scan Animada (Efeito Matrix) - Apenas para usuários não logados */}
+        {!isAuthenticated && (
+          <div
+            className="absolute inset-0"
+            style={{
+              background: `linear-gradient(180deg, transparent ${scanLine}%, rgba(34, 197, 94, 0.1) ${scanLine + 1}%, transparent ${scanLine + 2}%)`
+            }}
+          />
+        )}
         
         {/* 3. Glows Radiais (Efeitos de Luz Verde) */}
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-green-500/10 rounded-full blur-3xl" />

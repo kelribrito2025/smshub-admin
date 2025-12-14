@@ -230,3 +230,5 @@
 - [x] Aplicar background cyber/Matrix no StoreLayout (gradiente escuro, grid verde, scan line, glows)
 
 - [x] Remover linha horizontal animada da seção HeroSection
+
+- [x] Remover linha horizontal animada (scanner) quando usuário estiver logado
