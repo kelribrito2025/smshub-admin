@@ -156,3 +156,5 @@
 
 - [x] Remover bordas azuis remanescentes em todos os componentes do sistema
 - [x] Corrigir borda azul do campo de busca por número na página /history do StoreLayout
+
+- [x] Remover efeito ring do campo de busca por número na página History
