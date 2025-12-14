@@ -395,18 +395,48 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
   // Only show red when user is logged in AND balance is low
   const isLowBalance = isAuthenticated && displayBalance < 700;
 
+  // Estado para a linha de scan animada
+  const [scanLine, setScanLine] = useState(0);
+
+  // Animar a linha de scan
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setScanLine(prev => (prev >= 100 ? 0 : prev + 0.5));
+    }, 50);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div className="h-screen overflow-hidden bg-black text-green-400 font-mono">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-zinc-950 to-slate-950 text-green-400 font-mono">
       {/* Impersonation Banner */}
       <ImpersonationBanner />
 
-      {/* Matrix Background */}
-      <div className="fixed inset-0 opacity-5 pointer-events-none">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, #00ff41 2px, #00ff41 4px),
-                           repeating-linear-gradient(90deg, transparent, transparent 2px, #00ff41 2px, #00ff41 4px)`,
-          backgroundSize: '50px 50px'
-        }} />
+      {/* Camada de Background Animado - Fixo na tela */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        
+        {/* 1. Grid Cyber (Linhas Verdes) */}
+        <div
+          className="absolute inset-0 opacity-40"
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, rgba(34, 197, 94, 0.3) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(34, 197, 94, 0.3) 1px, transparent 1px)
+            `,
+            backgroundSize: '60px 60px'
+          }}
+        />
+        
+        {/* 2. Linha de Scan Animada (Efeito Matrix) */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `linear-gradient(180deg, transparent ${scanLine}%, rgba(34, 197, 94, 0.1) ${scanLine + 1}%, transparent ${scanLine + 2}%)`
+          }}
+        />
+        
+        {/* 3. Glows Radiais (Efeitos de Luz Verde) */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-green-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-green-500/10 rounded-full blur-3xl" />
       </div>
 
       {/* Header */}

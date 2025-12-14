@@ -225,3 +225,6 @@
 - [x] Conectar botão "Login" do Hero Section ao modal de autenticação
 - [x] Conectar botão "Criar conta" do Hero Section ao modal de criação de conta
 - [x] Testar abertura dos modais ao clicar nos botões
+
+## Aplicação de Background Cyber/Matrix no StoreLayout
+- [x] Aplicar background cyber/Matrix no StoreLayout (gradiente escuro, grid verde, scan line, glows)
