@@ -194,3 +194,5 @@
 - [x] Adicionar 4 novos itens à lista existente na StoreCatalog.tsx (seta + texto)
 
 - [x] Adicionar banner cyber call-to-action abaixo da seção de benefícios na página inicial
+
+- [x] Substituir seção "Quer utilizar nossos serviços?" no StoreLayout pelo novo visual com tema tech/hacker
