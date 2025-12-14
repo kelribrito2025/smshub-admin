@@ -249,14 +249,18 @@ export const paymentsRouter = router({
 
       const mappedPaymentMethod = paymentMethodMap[recharge.paymentMethod] || 'pix';
 
-      // Get end-to-end ID for PIX refunds
+      // Get end-to-end ID for PIX refunds (directly from recharges table)
       let endToEndId = null;
-      if (mappedPaymentMethod === 'pix' && recharge.transactionId) {
-        const [pixTx] = await db
-          .select({ txid: pixTransactions.txid })
-          .from(pixTransactions)
-          .where(eq(pixTransactions.txid, recharge.transactionId));
-        endToEndId = pixTx?.txid || null;
+      if (mappedPaymentMethod === 'pix') {
+        endToEndId = recharge.endToEndId || null;
+        
+        // Validate that we have endToEndId for PIX refunds
+        if (!endToEndId) {
+          throw new TRPCError({ 
+            code: "BAD_REQUEST", 
+            message: "Não é possível processar devolução PIX: endToEndId não encontrado. Esta recarga pode ter sido feita antes da implementação do sistema de devoluções." 
+          });
+        }
       }
 
       const [refundRecord] = await db.insert(refunds).values({

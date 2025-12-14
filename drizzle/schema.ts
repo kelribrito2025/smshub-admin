@@ -524,6 +524,7 @@ export const recharges = mysqlTable("recharges", {
   paymentMethod: mysqlEnum("paymentMethod", ["pix", "card", "crypto", "picpay"]).notNull(),
   status: mysqlEnum("status", ["completed", "pending", "expired"]).default("pending").notNull(),
   transactionId: varchar("transactionId", { length: 255 }), // External payment provider transaction ID
+  endToEndId: varchar("endToEndId", { length: 255 }), // PIX end-to-end ID (E2EID) - required for refunds
   stripePaymentIntentId: varchar("stripe_payment_intent_id", { length: 255 }), // Stripe Payment Intent ID
   metadata: text("metadata"), // JSON string for additional payment data
   createdAt: timestamp("createdAt").defaultNow().notNull(),

@@ -281,3 +281,10 @@
 - [x] Adicionar ícone de cartão no título "Pagamentos"
 
 - [x] Alterar cor do ícone de Pagamentos para azul (mesma cor do admin)
+
+## Correções da Funcionalidade de Devolução PIX
+- [x] Adicionar campo endToEndId na tabela recharges no schema
+- [x] Modificar webhook PIX para armazenar endToEndId quando pagamento for confirmado
+- [x] Corrigir busca do endToEndId no router de payments (buscar de recharges ao invés de pixTransactions)
+- [x] Adicionar validações para garantir que só pagamentos PIX com endToEndId possam ser devolvidos
+- [x] Testar fluxo completo de devolução PIX

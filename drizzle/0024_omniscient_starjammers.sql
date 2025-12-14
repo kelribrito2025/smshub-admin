@@ -1,0 +1,1 @@
+ALTER TABLE `recharges` ADD `endToEndId` varchar(255);

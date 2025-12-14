@@ -179,6 +179,7 @@ router.post("/webhook/pix", async (req, res) => {
         paymentMethod: "pix",
         status: "completed",
         transactionId: pixData.txid,
+        endToEndId: pixData.endToEndId, // PIX E2EID - required for refunds
         completedAt: pixData.paidAt,
         createdAt: now,
         // updatedAt is auto-managed by .onUpdateNow() in schema - do NOT pass manually
