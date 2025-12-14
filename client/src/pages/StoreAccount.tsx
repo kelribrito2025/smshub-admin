@@ -34,23 +34,21 @@ export default function StoreAccount() {
 
   return (
     <StoreLayout>
-      <div className="space-y-12 font-mono">
-        {/* Page Header - Story Style */}
-        <div className="max-w-2xl">
-          <div className="flex items-center gap-3 mb-4">
-            <User className="w-8 h-8 text-green-400" />
-            <h1 className="text-4xl font-bold text-green-400 tracking-tight">PERFIL</h1>
-          </div>
-          <p className="text-green-600 text-lg leading-relaxed">
-            Gerencie suas informações pessoais e mantenha seus dados atualizados para uma experiência completa.
-          </p>
+      <div className="space-y-6 font-mono">
+        {/* Page Header */}
+        <div className="flex items-center gap-3 mb-2">
+          <User className="w-6 h-6 text-green-400" />
+          <h1 className="text-2xl font-bold text-green-400">PERFIL</h1>
         </div>
+        <p className="text-green-600 text-sm mb-6">
+          Gerencie suas informações pessoais
+        </p>
 
-        {/* Profile Section - Story Card */}
-        <div className="space-y-8">
+        {/* Profile Section */}
+        <div className="space-y-4">
           <div>
-            <h2 className="text-2xl font-bold text-green-400 mb-4 tracking-tight">INFORMAÇÕES BÁSICAS</h2>
-            <p className="text-green-600 text-base mb-6 leading-relaxed">
+            <h2 className="text-xl font-bold text-green-400 mb-2">INFORMAÇÕES BÁSICAS</h2>
+            <p className="text-green-600 text-sm mb-4">
               Seus dados principais de identificação no sistema.
             </p>
           </div>
@@ -59,14 +57,14 @@ export default function StoreAccount() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* PIN - Destaque */}
               <div>
-                <label className="block text-sm font-bold text-green-400 mb-2 uppercase tracking-wide">
+                <label className="block text-sm font-bold text-green-400 mb-2 uppercase">
                   PIN DE CLIENTE
                 </label>
                 <div className="relative">
                   <Input
                     value={`#${customer.pin.toString().padStart(4, '0')}`}
                     readOnly
-                    className="bg-gray-900 border-green-900/50 text-green-400 font-mono pr-10 text-lg"
+                    className="bg-gray-900 border-green-900/50 text-green-400 font-mono pr-10"
                   />
                   <button
                     type="button"
@@ -92,7 +90,7 @@ export default function StoreAccount() {
 
               {/* Name */}
               <div>
-                <label className="block text-sm font-bold text-green-400 mb-2 uppercase tracking-wide">
+                <label className="block text-sm font-bold text-green-400 mb-2 uppercase">
                   NOME COMPLETO
                 </label>
                 <Input
@@ -105,7 +103,7 @@ export default function StoreAccount() {
 
               {/* Email */}
               <div>
-                <label className="block text-sm font-bold text-green-400 mb-2 uppercase tracking-wide">
+                <label className="block text-sm font-bold text-green-400 mb-2 uppercase">
                   EMAIL
                 </label>
                 <Input
@@ -118,7 +116,7 @@ export default function StoreAccount() {
 
               {/* CPF/CNPJ */}
               <div>
-                <label className="block text-sm font-bold text-green-400 mb-2 uppercase tracking-wide">
+                <label className="block text-sm font-bold text-green-400 mb-2 uppercase">
                   CPF/CNPJ
                 </label>
                 <Input
@@ -130,15 +128,15 @@ export default function StoreAccount() {
           </Card>
         </div>
 
-        {/* Address Section - Story Card */}
-        <div className="space-y-8">
+        {/* Address Section */}
+        <div className="space-y-4">
           <div>
-            <h2 className="text-2xl font-bold text-green-400 mb-4 tracking-tight flex items-center gap-3">
-              <MapPin className="w-7 h-7" />
+            <h2 className="text-xl font-bold text-green-400 mb-2 flex items-center gap-2">
+              <MapPin className="w-5 h-5" />
               ENDEREÇO
             </h2>
-            <p className="text-green-600 text-base mb-6 leading-relaxed">
-              Mantenha seu endereço atualizado para receber comunicações importantes e facilitar processos futuros.
+            <p className="text-green-600 text-sm mb-4">
+              Mantenha seu endereço atualizado para receber comunicações importantes.
             </p>
           </div>
 
@@ -146,7 +144,7 @@ export default function StoreAccount() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* CEP */}
               <div>
-                <label className="block text-sm font-bold text-green-400 mb-2 uppercase tracking-wide">
+                <label className="block text-sm font-bold text-green-400 mb-2 uppercase">
                   CEP
                 </label>
                 <Input
@@ -157,7 +155,7 @@ export default function StoreAccount() {
 
               {/* Estado */}
               <div>
-                <label className="block text-sm font-bold text-green-400 mb-2 uppercase tracking-wide">
+                <label className="block text-sm font-bold text-green-400 mb-2 uppercase">
                   ESTADO
                 </label>
                 <select className="w-full bg-gray-900 border border-green-900/50 rounded px-3 py-2 text-green-400 font-mono focus:outline-none focus:border-green-500">
@@ -194,7 +192,7 @@ export default function StoreAccount() {
 
               {/* Cidade */}
               <div>
-                <label className="block text-sm font-bold text-green-400 mb-2 uppercase tracking-wide">
+                <label className="block text-sm font-bold text-green-400 mb-2 uppercase">
                   CIDADE
                 </label>
                 <Input
@@ -205,7 +203,7 @@ export default function StoreAccount() {
 
               {/* Bairro */}
               <div>
-                <label className="block text-sm font-bold text-green-400 mb-2 uppercase tracking-wide">
+                <label className="block text-sm font-bold text-green-400 mb-2 uppercase">
                   BAIRRO
                 </label>
                 <Input
@@ -216,7 +214,7 @@ export default function StoreAccount() {
 
               {/* Rua/Avenida */}
               <div>
-                <label className="block text-sm font-bold text-green-400 mb-2 uppercase tracking-wide">
+                <label className="block text-sm font-bold text-green-400 mb-2 uppercase">
                   RUA/AVENIDA
                 </label>
                 <Input
@@ -227,7 +225,7 @@ export default function StoreAccount() {
 
               {/* Número */}
               <div>
-                <label className="block text-sm font-bold text-green-400 mb-2 uppercase tracking-wide">
+                <label className="block text-sm font-bold text-green-400 mb-2 uppercase">
                   NÚMERO
                 </label>
                 <Input
@@ -240,13 +238,10 @@ export default function StoreAccount() {
         </div>
 
         {/* Action Section */}
-        <div className="pt-4">
-          <Button className="bg-green-500 hover:bg-green-400 text-black font-mono font-bold text-base px-8 py-6">
+        <div className="mt-4">
+          <Button className="bg-green-500 hover:bg-green-400 text-black font-mono font-bold">
             💾 SALVAR PERFIL
           </Button>
-          <p className="text-green-700 text-sm mt-3">
-            Clique para salvar todas as alterações realizadas
-          </p>
         </div>
       </div>
     </StoreLayout>
