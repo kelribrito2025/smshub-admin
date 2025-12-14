@@ -188,3 +188,5 @@
 - [x] Remover completamente o Card/container da lista institucional, deixar apenas <ul> solta no fluxo da página (sem borda, fundo, padding)
 
 - [x] Corrigir Home para mostrar conteúdo de marketing apenas para usuários deslogados
+
+- [x] Ajustar espaçamento vertical entre descrição e lista de recursos na Home

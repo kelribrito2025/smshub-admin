@@ -212,7 +212,7 @@ export default function StoreCatalog() {
 
         {/* Activations Table or Institutional Content */}
         {!isAuthenticated ? (
-          <ul className="space-y-4">
+          <ul className="space-y-4 mt-8">
             <li className="flex items-start gap-3 text-green-400">
               <ChevronRightIcon className="w-5 h-5 mt-0.5 flex-shrink-0" />
               <span>
