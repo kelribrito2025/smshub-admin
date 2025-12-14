@@ -162,7 +162,7 @@ export default function Affiliates() {
 
           {/* Affiliates Tab */}
           <TabsContent value="affiliates">
-            <Card style={{backgroundColor: '#101010'}}>
+            <Card style={{backgroundColor: '#0a0a0a'}}>
               <CardHeader>
                 <CardTitle>Listagem de Afiliados</CardTitle>
                 <CardDescription>
