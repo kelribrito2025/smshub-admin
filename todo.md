@@ -111,3 +111,6 @@
 
 ## Atualização Visual do Card de Total de Ativações
 - [x] Atualizar visual do card "Total de Ativações" no dashboard administrativo com novo design (bg-neutral-900/50, bordas neutral-800, tipografia leve, ícone Activity)
+
+## Atualização Visual do Card de Receita Total
+- [x] Atualizar visual do card de Receita Total no dashboard admin com design moderno (bg-neutral-900/50, bordas neutral-800, tipografia leve, ícone TrendingUp)

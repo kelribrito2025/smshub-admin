@@ -357,18 +357,21 @@ export default function Dashboard() {
               {
                 id: 'card-3',
                 content: (
-                  <Card style={{backgroundColor: '#101010'}}>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium">Receita Total</CardTitle>
-                      <TrendingUp className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent className="pt-8">
-                      <div className="text-2xl font-bold">
-                        {formatCurrency(Number(stats?.totalRevenue) || 0)}
-                      </div>
-                      <p className="text-xs text-muted-foreground">Vendas realizadas</p>
-                    </CardContent>
-                  </Card>
+                  <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+                    {/* Cabeçalho do Card */}
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-neutral-400 text-sm">Receita Total</span>
+                      <TrendingUp size={18} className="text-neutral-500" />
+                    </div>
+                    
+                    {/* Valor Principal */}
+                    <div className="text-3xl font-light text-white mb-1">
+                      {formatCurrency(Number(stats?.totalRevenue) || 0)}
+                    </div>
+                    
+                    {/* Informação Secundária */}
+                    <div className="text-xs text-neutral-500">Vendas realizadas</div>
+                  </div>
                 ),
               },
               {
