@@ -168,3 +168,4 @@
 - [x] Corrigir inconsistência de fonte na página /affiliate (títulos e descrições devem usar mesma fonte do título principal)
 
 - [x] Aplicar mesma fonte do título "Programa de Afiliados" em todos os cards da página /affiliate
+- [x] Remover font-sans da página /affiliate para herdar font-mono do StoreLayout
