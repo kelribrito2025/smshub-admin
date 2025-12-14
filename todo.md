@@ -164,12 +164,3 @@
 - [x] Reformular visual do gráfico "Por Serviço" para usar o mesmo estilo moderno do gráfico de "Receita & Lucro"
 
 - [x] Alterar cor do ícone no card "Total de Reembolsos" para #cd9700
-
-- [x] Atualizar visual do card "Países Mais Utilizados" no DashboardLayout com novo design moderno
-
-- [x] Ajustar StoreLayout para exibir conteúdo institucional quando usuário não estiver logado
-
-- [x] Padronizar tipografia de todas as páginas do StoreLayout (títulos e descrições devem usar font-bold como em StoreActivations)
-
-- [x] Reduzir tamanho do título e descrição no cabeçalho do StoreLayout (manter mesmo tamanho do ícone)
-- [x] Converter cards de serviços em lista vertical simples (apenas títulos, sem descrições)

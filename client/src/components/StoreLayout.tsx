@@ -879,59 +879,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
         isImpersonating ? 'mt-[124px] h-[calc(100vh-124px)]' : 'mt-16 h-[calc(100vh-4rem)]'
       }`}>
         <div className="relative z-10">
-          {isAuthenticated ? (
-            children
-          ) : (
-            <div className="max-w-5xl mx-auto space-y-8">
-              {/* Título Principal */}
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="flex-shrink-0 w-8 h-8 bg-green-500 rounded flex items-center justify-center">
-                    <Shield className="w-5 h-5 text-black" />
-                  </div>
-                  <div>
-                    <h1 className="text-lg font-bold text-green-400">
-                      Ativações em Andamento
-                    </h1>
-                    <p className="text-sm text-green-600">
-                      Nenhuma ativação encontrada
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Lista de Serviços */}
-              <div className="space-y-2">
-                <div className="bg-gray-900 border border-green-900/50 rounded-lg p-3 hover:bg-green-900/10 transition-colors">
-                  <p className="text-green-400 font-bold text-sm">Compre números virtuais e receba SMS em tempo real.</p>
-                </div>
-                <div className="bg-gray-900 border border-green-900/50 rounded-lg p-3 hover:bg-green-900/10 transition-colors">
-                  <p className="text-green-400 font-bold text-sm">Ampla variedade de operadoras móveis internacionais.</p>
-                </div>
-                <div className="bg-gray-900 border border-green-900/50 rounded-lg p-3 hover:bg-green-900/10 transition-colors">
-                  <p className="text-green-400 font-bold text-sm">Preços competitivos e transparentes.</p>
-                </div>
-                <div className="bg-gray-900 border border-green-900/50 rounded-lg p-3 hover:bg-green-900/10 transition-colors">
-                  <p className="text-green-400 font-bold text-sm">Interface intuitiva com busca inteligente de serviços.</p>
-                </div>
-                <div className="bg-gray-900 border border-green-900/50 rounded-lg p-3 hover:bg-green-900/10 transition-colors">
-                  <p className="text-green-400 font-bold text-sm">Uso exclusivo por serviço.</p>
-                </div>
-                <div className="bg-gray-900 border border-green-900/50 rounded-lg p-3 hover:bg-green-900/10 transition-colors">
-                  <p className="text-green-400 font-bold text-sm">Receba SMS ilimitados por até 20 minutos.</p>
-                </div>
-                <div className="bg-gray-900 border border-green-900/50 rounded-lg p-3 hover:bg-green-900/10 transition-colors">
-                  <p className="text-green-400 font-bold text-sm">Compatível com integrações via API.</p>
-                </div>
-                <div className="bg-gray-900 border border-green-900/50 rounded-lg p-3 hover:bg-green-900/10 transition-colors">
-                  <p className="text-green-400 font-bold text-sm">Estorno automático em caso de não recebimento de SMS.</p>
-                </div>
-                <div className="bg-gray-900 border border-green-900/50 rounded-lg p-3 hover:bg-green-900/10 transition-colors">
-                  <p className="text-green-400 font-bold text-sm">Indicado para empresas, marketing, testes, validações e uso pessoal.</p>
-                </div>
-              </div>
-            </div>
-          )}
+          {children}
         </div>
       </main>
 
