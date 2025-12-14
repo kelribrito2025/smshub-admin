@@ -313,3 +313,5 @@
 - [x] Adicionar validação para nunca permitir saldo negativo
 - [x] Atualizar procedimento de devolução para executar débito antes da devolução Pix
 - [x] Criar testes para validar a lógica de débito automático
+
+- [x] Corrigir modal duplicado/incompleto de devolução na página /admin/pagamentos

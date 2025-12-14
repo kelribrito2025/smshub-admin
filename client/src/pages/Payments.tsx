@@ -45,7 +45,7 @@ export default function Payments() {
   const utils = trpc.useUtils();
 
   // Query para calcular informações de saldo
-  const { data: balanceInfo } = trpc.payments.calculateRefundBalance.useQuery(
+  const { data: balanceInfo, isLoading: balanceInfoLoading } = trpc.payments.calculateRefundBalance.useQuery(
     {
       rechargeId: selectedPayment?.id || 0,
       amount: refundType === 'partial' && refundAmount ? Math.round(parseFloat(refundAmount) * 100) : undefined,
@@ -457,8 +457,14 @@ export default function Payments() {
             </DialogDescription>
           </DialogHeader>
 
-          {selectedPayment && balanceInfo && (
+          {selectedPayment && (
             <div className="space-y-4">
+              {balanceInfoLoading ? (
+                <div className="flex items-center justify-center py-8">
+                  <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+                </div>
+              ) : balanceInfo ? (
+                <>
               {/* Informações do pagamento */}
               <div className="rounded-lg border border-neutral-800 bg-neutral-900/20 p-4 grid grid-cols-3 gap-4">
                 <div>
@@ -543,6 +549,12 @@ export default function Payments() {
                   />
                 </div>
               </div>
+                </>
+              ) : (
+                <div className="text-center py-8 text-muted-foreground">
+                  Erro ao carregar informações de saldo
+                </div>
+              )}
             </div>
           )}
 
@@ -556,7 +568,7 @@ export default function Payments() {
             </Button>
             <Button
               onClick={handleProcessRefund}
-              disabled={processRefundMutation.isPending || (refundType === 'partial' && !refundAmount)}
+              disabled={processRefundMutation.isPending || balanceInfoLoading || !balanceInfo || (refundType === 'partial' && !refundAmount)}
             >
               {processRefundMutation.isPending && (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
