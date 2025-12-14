@@ -57,7 +57,7 @@ export default function HeroSection({ onCreateAccount, onLogin }: { onCreateAcco
     }, isDeleting ? 50 : 100);
     
     return () => clearTimeout(timeout);
-  }, [typedText, isDeleting, currentPhraseIndex, phrases]);
+  }, [typedText, isDeleting, currentPhraseIndex]);
 
   return (
     <div className="min-h-screen text-white">

@@ -213,3 +213,9 @@
 - [x] Configurar timing: digitação 100ms/letra, pausa 2s ao completar, apagar 50ms/letra
 - [x] Adicionar cursor piscante (|) ao final do texto
 - [x] Criar loop contínuo entre as três frases
+
+## Bug: Efeito de Digitação Para Prematuramente
+- [x] Investigar por que o efeito de digitação no Hero Section começa a escrever e depois para
+- [x] Identificar causa raiz (array phrases nas dependências do useEffect causava loop infinito)
+- [x] Corrigir lógica do efeito de digitação (removido phrases das dependências)
+- [x] Testar correção no navegador
