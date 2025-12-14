@@ -168,3 +168,5 @@
 - [x] Atualizar visual do card "Países Mais Utilizados" no DashboardLayout com novo design moderno
 
 - [x] Ajustar StoreLayout para exibir conteúdo institucional quando usuário não estiver logado
+
+- [x] Padronizar tipografia de todas as páginas do StoreLayout (títulos e descrições devem usar font-bold como em StoreActivations)

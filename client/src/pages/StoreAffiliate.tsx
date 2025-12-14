@@ -107,7 +107,7 @@ export default function StoreAffiliate() {
         <div className="flex items-center justify-center min-h-[60vh]">
           <Card className="bg-black/50 border-green-900/50">
             <CardHeader>
-              <CardTitle className="text-green-400">Programa Desativado</CardTitle>
+              <CardTitle className="text-green-400 font-bold">Programa Desativado</CardTitle>
               <CardDescription className="text-green-600">
                 O programa de afiliados está temporariamente desativado.
               </CardDescription>
@@ -157,7 +157,7 @@ export default function StoreAffiliate() {
           <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-green-950/50 to-transparent pointer-events-none" />
           
           <CardHeader className="relative z-10">
-            <CardTitle className="text-green-400 flex items-center gap-2">
+            <CardTitle className="text-green-400 font-bold flex items-center gap-2">
               <Share2 className="w-5 h-5" />
               Seu Link de Indicação
             </CardTitle>
@@ -197,7 +197,7 @@ export default function StoreAffiliate() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <Card className="bg-black/50 border-green-900/50">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-green-600 flex items-center gap-2">
+              <CardTitle className="text-sm font-bold text-green-600 flex items-center gap-2">
                 <DollarSign className="w-4 h-4 text-green-400" />
                 Total Ganho
               </CardTitle>
@@ -212,7 +212,7 @@ export default function StoreAffiliate() {
 
           <Card className="bg-black/50 border-green-900/50">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-green-600 flex items-center gap-2">
+              <CardTitle className="text-sm font-bold text-green-600 flex items-center gap-2">
                 <Users className="w-4 h-4 text-green-400" />
                 Total de Indicações
               </CardTitle>
@@ -227,7 +227,7 @@ export default function StoreAffiliate() {
 
           <Card className="bg-black/50 border-green-900/50">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-green-600 flex items-center gap-2">
+              <CardTitle className="text-sm font-bold text-green-600 flex items-center gap-2">
                 <TrendingUp className="w-4 h-4 text-green-400" />
                 Indicações Ativas
               </CardTitle>
@@ -242,7 +242,7 @@ export default function StoreAffiliate() {
 
           <Card className="bg-black/50 border-green-900/50">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-green-600 flex items-center gap-2">
+              <CardTitle className="text-sm font-bold text-green-600 flex items-center gap-2">
                 <Percent className="w-4 h-4 text-green-400" />
                 Taxa de Conversão
               </CardTitle>
@@ -259,7 +259,7 @@ export default function StoreAffiliate() {
         {/* (B) Regras do Programa */}
         <Card className="bg-black/50 border-green-900/50">
           <CardHeader>
-            <CardTitle className="text-green-400">Como Funciona</CardTitle>
+            <CardTitle className="text-green-400 font-bold">Como Funciona</CardTitle>
           </CardHeader>
           <CardContent>
             <ul className="space-y-2">
@@ -276,7 +276,7 @@ export default function StoreAffiliate() {
         {/* (D) Histórico de Indicações */}
         <Card className="bg-black/50 border-green-900/50">
           <CardHeader>
-            <CardTitle className="text-green-400">Histórico de Indicações</CardTitle>
+            <CardTitle className="text-green-400 font-bold">Histórico de Indicações</CardTitle>
             <CardDescription className="text-green-600">
               Acompanhe o status de todas as suas indicações
             </CardDescription>
