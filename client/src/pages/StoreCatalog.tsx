@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 import { copyToClipboard } from '../lib/clipboard';
 import TableSkeleton from '../components/TableSkeleton';
+import CyberBanner from '../components/CyberBanner';
 
 
 
@@ -212,6 +213,7 @@ export default function StoreCatalog() {
 
         {/* Activations Table or Institutional Content */}
         {!isAuthenticated ? (
+          <>
           <ul className="space-y-4 mt-8">
             <li className="flex items-start gap-3 text-green-400">
               <ChevronRightIcon className="w-5 h-5 mt-0.5 flex-shrink-0" />
@@ -231,7 +233,45 @@ export default function StoreCatalog() {
                 Receba SMS ilimitados por até 20 minutos. Tempo suficiente para validação de contas.
               </span>
             </li>
+            <li className="flex items-start gap-3 text-green-400">
+              <ChevronRightIcon className="w-5 h-5 mt-0.5 flex-shrink-0" />
+              <span>
+                Preços competitivos e transparentes. Pague apenas pelo serviço que utilizar, sem surpresas.
+              </span>
+            </li>
+            <li className="flex items-start gap-3 text-green-400">
+              <ChevronRightIcon className="w-5 h-5 mt-0.5 flex-shrink-0" />
+              <span>
+                Cada número virtual é vendido apenas uma vez, garantindo privacidade total.
+              </span>
+            </li>
+            <li className="flex items-start gap-3 text-green-400">
+              <ChevronRightIcon className="w-5 h-5 mt-0.5 flex-shrink-0" />
+              <span>
+                Indicado para empresas, marketing, testes, validações e uso pessoal.
+              </span>
+            </li>
+            <li className="flex items-start gap-3 text-green-400">
+              <ChevronRightIcon className="w-5 h-5 mt-0.5 flex-shrink-0" />
+              <span>
+                Estorno automático em caso de não recebimento de SMS. Mais segurança e confiança para sua compra.
+              </span>
+            </li>
           </ul>
+          
+          {/* Cyber Banner Call-to-Action */}
+          <div className="mt-12">
+            <CyberBanner 
+              title="Quer utilizar nossos serviços?"
+              subtitle="Crie uma conta em nosso painel para começar a utilizar nossos serviços e receba benefícios imperdíveis."
+              buttonText="Criar conta"
+              onButtonClick={() => {
+                const authContext = useStoreAuth();
+                authContext.requireAuth(() => {});
+              }}
+            />
+          </div>
+          </>
         ) : (
           <Card className="bg-black/50 border-green-900/50 overflow-hidden" style={{paddingTop: '0px', paddingBottom: '15px'}}>
             <div className="overflow-x-auto">

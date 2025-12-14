@@ -190,3 +190,7 @@
 - [x] Corrigir Home para mostrar conteúdo de marketing apenas para usuários deslogados
 
 - [x] Ajustar espaçamento vertical entre descrição e lista de recursos na Home
+
+- [x] Adicionar 4 novos itens à lista existente na StoreCatalog.tsx (seta + texto)
+
+- [x] Adicionar banner cyber call-to-action abaixo da seção de benefícios na página inicial
