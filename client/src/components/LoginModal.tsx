@@ -34,7 +34,7 @@ export default function LoginModal({ isOpen, onClose, onLogin, onRegister }: Log
     if (isRegisterMode) {
       // Validações de registro
       if (!name || name.trim().length < 3) {
-        toast.error('Digite seu nome completo (mínimo 3 caracteres)');
+        toast.error('Digite seu primeiro nome (mínimo 3 caracteres)');
         return;
       }
 
@@ -221,12 +221,17 @@ export default function LoginModal({ isOpen, onClose, onLogin, onRegister }: Log
                       <input
                         type="text"
                         value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="Seu nome completo"
+                        onChange={(e) => {
+                          // Permitir apenas letras e limitar a 14 caracteres
+                          const value = e.target.value.replace(/[^a-zA-ZÀ-ÿ\s]/g, '').slice(0, 14);
+                          setName(value);
+                        }}
+                        placeholder="Primeiro nome"
                         className="w-full bg-black border-2 border-green-500/30 rounded-lg px-12 py-3 text-white placeholder-gray-600 focus:border-green-500 focus:outline-none transition-colors font-mono"
                         required
                         disabled={isLoading}
                         minLength={3}
+                        maxLength={14}
                       />
                     </div>
                   </div>

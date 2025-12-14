@@ -141,3 +141,9 @@
 
 ## Badge Contador de Novos Clientes
 - [x] Badge contador de clientes cadastrados hoje no menu "Clientes"
+
+## Ajuste do Campo Nome no Modal de Criação de Conta
+- [x] Ajustar campo "Nome" no modal de criação de conta do StoreLayout
+  - Mudar placeholder de "Seu nome completo" para "Primeiro nome"
+  - Limitar a 14 caracteres (apenas letras)
+  - Bloquear digitação acima do limite
