@@ -32,7 +32,7 @@ export default function Payments() {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [page, setPage] = useState(1);
-  const limit = 50;
+  const limit = 30;
 
   // Refund modal state
   const [refundDialogOpen, setRefundDialogOpen] = useState(false);

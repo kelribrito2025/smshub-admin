@@ -274,3 +274,5 @@
 - [x] Integrar filtros de busca no card da lista de pagamentos (remover container separado)
 
 - [x] Ajustar layout dos filtros na página de pagamentos (mesma linha do título, buscar 50%, data inicial 15%, data final 15%, alinhados à direita)
+
+- [x] Implementar paginação na página /admin/pagamentos (máximo 30 registros por página)

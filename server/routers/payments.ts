@@ -85,7 +85,7 @@ export const paymentsRouter = router({
       startDate: z.string().optional(),
       endDate: z.string().optional(),
       page: z.number().default(1),
-      limit: z.number().default(50),
+      limit: z.number().default(30),
     }))
     .query(async ({ input }) => {
       const db = await getDb();
