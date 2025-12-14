@@ -196,18 +196,18 @@ export default function Payments() {
         {/* Tabela de Pagamentos com Filtros Integrados */}
         <Card className="border-neutral-800" style={{backgroundColor: '#0a0a0a'}}>
           <CardHeader>
-            <CardTitle>Lista de Pagamentos</CardTitle>
-            <CardDescription>
-              {paymentsData?.total || 0} pagamento(s) encontrado(s)
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {/* Filtros de Busca */}
-            <div className="grid gap-4 md:grid-cols-3">
-              {/* Campo de busca */}
-              <div className="space-y-2">
-                <Label htmlFor="search">Buscar</Label>
-                <div className="relative">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <CardTitle>Lista de Pagamentos</CardTitle>
+                <CardDescription>
+                  {paymentsData?.total || 0} pagamento(s) encontrado(s)
+                </CardDescription>
+              </div>
+              
+              {/* Filtros na mesma linha do título */}
+              <div className="flex items-center gap-2" style={{minWidth: '600px'}}>
+                {/* Campo de busca - 50% */}
+                <div className="relative" style={{flex: '0 0 50%'}}>
                   <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="search"
@@ -217,30 +217,32 @@ export default function Payments() {
                     className="pl-8"
                   />
                 </div>
-              </div>
 
-              {/* Data inicial */}
-              <div className="space-y-2">
-                <Label htmlFor="startDate">Data Inicial</Label>
-                <Input
-                  id="startDate"
-                  type="date"
-                  value={startDate}
-                  onChange={(e) => setStartDate(e.target.value)}
-                />
-              </div>
+                {/* Data inicial - 15% */}
+                <div style={{flex: '0 0 15%'}}>
+                  <Input
+                    id="startDate"
+                    type="date"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                    placeholder="Data inicial"
+                  />
+                </div>
 
-              {/* Data final */}
-              <div className="space-y-2">
-                <Label htmlFor="endDate">Data Final</Label>
-                <Input
-                  id="endDate"
-                  type="date"
-                  value={endDate}
-                  onChange={(e) => setEndDate(e.target.value)}
-                />
+                {/* Data final - 15% */}
+                <div style={{flex: '0 0 15%'}}>
+                  <Input
+                    id="endDate"
+                    type="date"
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                    placeholder="Data final"
+                  />
+                </div>
               </div>
             </div>
+          </CardHeader>
+          <CardContent className="space-y-4">
 
             {/* Botão de limpar filtros */}
             {(searchTerm || startDate || endDate) && (
