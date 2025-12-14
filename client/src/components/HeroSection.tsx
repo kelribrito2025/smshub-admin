@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Shield, Zap, Globe, ArrowRight } from 'lucide-react';
 
-export default function HeroSection({ onCreateAccount }: { onCreateAccount?: () => void }) {
+export default function HeroSection({ onCreateAccount, onLogin }: { onCreateAccount?: () => void; onLogin?: () => void }) {
   const [scanLine, setScanLine] = useState(0);
 
   useEffect(() => {
@@ -12,7 +12,7 @@ export default function HeroSection({ onCreateAccount }: { onCreateAccount?: () 
   }, []);
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen text-white">
       {/* Animated Background */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div
@@ -56,15 +56,23 @@ export default function HeroSection({ onCreateAccount }: { onCreateAccount?: () 
             Gere números virtuais em segundos. Evite bloqueios, preserve sua privacidade e teste tudo com segurança total.
           </p>
 
-          {/* CTA Button */}
-          <button
-            onClick={onCreateAccount}
-            className="group relative inline-flex items-center gap-3 px-8 py-4 bg-green-500 text-black font-bold text-lg rounded-full transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-green-500/50"
-          >
-            <span className="font-mono">Criar conta</span>
-            <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-            <div className="absolute inset-0 border-2 border-green-300/0 rounded-full group-hover:border-green-300/50 transition-all duration-300" />
-          </button>
+          {/* CTA Buttons */}
+          <div className="flex items-center justify-center gap-4">
+            <button
+              onClick={onLogin}
+              className="group relative inline-flex items-center gap-3 px-8 py-4 bg-transparent border-2 border-green-500 text-green-500 font-bold text-lg rounded-full transition-all duration-300 hover:scale-105 hover:bg-green-500/10"
+            >
+              <span className="font-mono">Login</span>
+            </button>
+            <button
+              onClick={onCreateAccount}
+              className="group relative inline-flex items-center gap-3 px-8 py-4 bg-green-500 text-black font-bold text-lg rounded-full transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-green-500/50"
+            >
+              <span className="font-mono">Criar conta</span>
+              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+              <div className="absolute inset-0 border-2 border-green-300/0 rounded-full group-hover:border-green-300/50 transition-all duration-300" />
+            </button>
+          </div>
 
           {/* Trust Indicators */}
           <div className="mt-12 flex items-center justify-center gap-8 text-sm text-green-500/60 font-mono">

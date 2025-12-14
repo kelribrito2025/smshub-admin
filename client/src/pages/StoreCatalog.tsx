@@ -213,10 +213,16 @@ export default function StoreCatalog() {
 
         {/* Activations Table or Institutional Content */}
         {!isAuthenticated ? (
-          <HeroSection onCreateAccount={() => {
-            const authContext = useStoreAuth();
-            authContext.requireAuth(() => {});
-          }} />
+          <HeroSection 
+            onCreateAccount={() => {
+              const authContext = useStoreAuth();
+              authContext.requireAuth(() => {});
+            }}
+            onLogin={() => {
+              const authContext = useStoreAuth();
+              authContext.requireAuth(() => {});
+            }}
+          />
         ) : (
           <Card className="bg-black/50 border-green-900/50 overflow-hidden" style={{paddingTop: '0px', paddingBottom: '15px'}}>
             <div className="overflow-x-auto">

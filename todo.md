@@ -204,3 +204,5 @@
 
 - [x] Ajustar texto do Hero Section (singular "Número virtual para" e nova descrição sobre privacidade e segurança)
 - [x] Ajustar dimensões do Hero Section via editor visual
+
+- [x] Adicionar botão de Login vazado (outline) à esquerda do botão "Criar conta" na página inicial
