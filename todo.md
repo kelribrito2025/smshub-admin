@@ -201,3 +201,6 @@
 
 - [x] Ajustar padding superior do HeroSection para 0px (via editor visual)
 - [x] Ajustar padding superior e inferior do main do StoreLayout (via editor visual)
+
+- [x] Ajustar texto do Hero Section (singular "Número virtual para" e nova descrição sobre privacidade e segurança)
+- [x] Ajustar dimensões do Hero Section via editor visual

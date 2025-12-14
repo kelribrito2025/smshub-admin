@@ -44,7 +44,7 @@ export default function HeroSection({ onCreateAccount }: { onCreateAccount?: () 
 
           {/* Main Heading */}
           <h1 className="text-5xl md:text-7xl font-bold mb-6 font-mono tracking-tight">
-            <span className="text-white">Números virtuais para</span>
+            <span className="text-white">Número virtual para</span>
             <br />
             <span className="text-green-400 relative inline-block">
               verificação de contas
@@ -53,7 +53,7 @@ export default function HeroSection({ onCreateAccount }: { onCreateAccount?: () 
           </h1>
 
           <p className="text-xl md:text-2xl text-gray-400 mb-12 max-w-4xl mx-auto leading-relaxed">
-            Receba SMS online sem precisar de chip físico. Ativação imediata, + de 20 países.
+            Gere números virtuais em segundos. Evite bloqueios, preserve sua privacidade e teste tudo com segurança total.
           </p>
 
           {/* CTA Button */}
