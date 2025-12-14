@@ -108,3 +108,6 @@
 
 ## Atualização Visual do Card de Saldo das APIs
 - [x] Atualizar visual do card de Saldo das APIs com novo layout (bg-neutral-900/50, border neutral-800, cabeçalho com título e ícone, lista de saldos com labels e valores)
+
+## Atualização Visual do Card de Total de Ativações
+- [x] Atualizar visual do card "Total de Ativações" no dashboard administrativo com novo design (bg-neutral-900/50, bordas neutral-800, tipografia leve, ícone Activity)
