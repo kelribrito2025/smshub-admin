@@ -825,7 +825,7 @@ export default function Dashboard() {
                                   item.activation.status === "completed"
                                     ? "bg-green-100 text-green-800"
                                     : item.activation.status === "active"
-                                      ? "bg-blue-100 text-blue-800"
+                                      ? "bg-neutral-800 text-neutral-300"
                                       : item.activation.status === "cancelled"
                                         ? "bg-red-100 text-red-800"
                                         : "bg-gray-100 text-gray-800"
@@ -872,7 +872,7 @@ export default function Dashboard() {
                 <select
                   value={servicesFilter}
                   onChange={(e) => setServicesFilter(e.target.value)}
-                  className="appearance-none bg-neutral-900 border border-neutral-800 rounded-lg px-4 py-2 pr-10 text-white text-sm cursor-pointer hover:border-neutral-700 transition-colors focus:outline-none focus:border-blue-500"
+                  className="appearance-none bg-neutral-900 border border-neutral-800 rounded-lg px-4 py-2 pr-10 text-white text-sm cursor-pointer hover:border-neutral-700 transition-colors focus:outline-none focus:border-emerald-500"
                 >
                   <option>Hoje</option>
                   <option>Ontem</option>
@@ -1042,7 +1042,7 @@ export default function Dashboard() {
                               activation?.status === "completed"
                                 ? "bg-green-500"
                                 : activation?.status === "active"
-                                  ? "bg-blue-500"
+                                  ? "bg-neutral-500"
                                   : activation?.status === "cancelled"
                                     ? "bg-red-500"
                                     : "bg-gray-500"

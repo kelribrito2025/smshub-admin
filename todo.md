@@ -153,3 +153,6 @@
 - [x] Reduzir largura do campo de busca por número em 40%
 
 - [x] Ajustar estilo das bordas do campo de busca para remover azul do foco e manter estilo verde
+
+- [x] Remover bordas azuis remanescentes em todos os componentes do sistema
+- [x] Corrigir borda azul do campo de busca por número na página /history do StoreLayout

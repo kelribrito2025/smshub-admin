@@ -667,7 +667,7 @@ export default function Financial() {
                                   item.activation.status === "completed"
                                     ? "bg-green-100 text-green-800"
                                     : item.activation.status === "active"
-                                      ? "bg-blue-100 text-blue-800"
+                                      ? "bg-neutral-800 text-neutral-300"
                                       : item.activation.status === "cancelled"
                                         ? "bg-red-100 text-red-800"
                                         : "bg-gray-100 text-gray-800"

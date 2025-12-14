@@ -824,7 +824,7 @@ export default function Catalog() {
                       </code>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="px-2 py-1 bg-blue-900/30 border border-blue-500/30 rounded text-blue-400 text-sm">
+                      <span className="px-2 py-1 bg-neutral-900/50 border border-neutral-800 rounded text-neutral-300 text-sm">
                         {item.apiId ? `Opção ${item.apiId}` : 'N/A'}
                       </span>
                     </td>
@@ -1021,7 +1021,7 @@ export default function Catalog() {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between p-3 bg-blue-950/30 border border-blue-900/50 rounded-lg">
+              <div className="flex items-center justify-between p-3 bg-neutral-900/50 border border-neutral-800 rounded-lg">
                 <div className="flex flex-col gap-1">
                   <Label htmlFor="edit-fixedPrice" className="text-sm font-medium">Preço Fixo</Label>
                   <p className="text-xs text-gray-400">Quando ativo, o preço não será atualizado automaticamente</p>
