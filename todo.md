@@ -166,3 +166,5 @@
 - [x] Alterar cor do ícone no card "Total de Reembolsos" para #cd9700
 
 - [x] Corrigir inconsistência de fonte na página /affiliate (títulos e descrições devem usar mesma fonte do título principal)
+
+- [x] Aplicar mesma fonte do título "Programa de Afiliados" em todos os cards da página /affiliate

@@ -203,7 +203,7 @@ export default function StoreAffiliate() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-green-400">
+              <div className="text-2xl font-bold text-green-400 font-sans">
                 {formatCurrency(displayStats?.totalEarnings || 0)}
               </div>
               <p className="text-xs text-green-600 mt-1 font-sans">Saldo de bônus acumulado</p>
@@ -218,7 +218,7 @@ export default function StoreAffiliate() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-green-400">
+              <div className="text-2xl font-bold text-green-400 font-sans">
                 {displayStats?.totalReferrals || 0}
               </div>
               <p className="text-xs text-green-600 mt-1 font-sans">Pessoas indicadas</p>
@@ -233,7 +233,7 @@ export default function StoreAffiliate() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-green-400">
+              <div className="text-2xl font-bold text-green-400 font-sans">
                 {displayStats?.activeReferrals || 0}
               </div>
               <p className="text-xs text-green-600 mt-1 font-sans">Fizeram primeira recarga</p>
@@ -248,7 +248,7 @@ export default function StoreAffiliate() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-green-400">
+              <div className="text-2xl font-bold text-green-400 font-sans">
                 {displayStats?.conversionRate || 0}%
               </div>
               <p className="text-xs text-green-600 mt-1 font-sans">Indicações que recarregaram</p>
@@ -262,7 +262,7 @@ export default function StoreAffiliate() {
             <CardTitle className="text-green-400 font-sans">Como Funciona</CardTitle>
           </CardHeader>
           <CardContent>
-            <ul className="space-y-2">
+            <ul className="space-y-2 font-sans">
               {programInfo?.rules.map((rule, index) => (
                 <li key={index} className="flex items-start gap-2 text-green-600">
                   <span className="text-green-400 font-bold mt-1">•</span>
@@ -283,7 +283,7 @@ export default function StoreAffiliate() {
           </CardHeader>
           <CardContent>
             {!customer || referrals.length === 0 ? (
-              <div className="text-center py-12 text-green-600">
+              <div className="text-center py-12 text-green-600 font-sans">
                 <Users className="w-16 h-16 mx-auto mb-4 opacity-20" />
                 <p>
                   {!customer 
@@ -301,32 +301,32 @@ export default function StoreAffiliate() {
                 <Table>
                   <TableHeader>
                     <TableRow className="border-green-900/50 hover:bg-green-900/10">
-                      <TableHead className="text-green-600">ID</TableHead>
-                      <TableHead className="text-green-600">Nome</TableHead>
-                      <TableHead className="text-green-600">Data Cadastro</TableHead>
-                      <TableHead className="text-green-600">Primeira Recarga</TableHead>
-                      <TableHead className="text-green-600">Valor Recarga</TableHead>
-                      <TableHead className="text-green-600">Bônus Gerado</TableHead>
-                      <TableHead className="text-green-600">Status</TableHead>
+                      <TableHead className="text-green-600 font-sans">ID</TableHead>
+                      <TableHead className="text-green-600 font-sans">Nome</TableHead>
+                      <TableHead className="text-green-600 font-sans">Data Cadastro</TableHead>
+                      <TableHead className="text-green-600 font-sans">Primeira Recarga</TableHead>
+                      <TableHead className="text-green-600 font-sans">Valor Recarga</TableHead>
+                      <TableHead className="text-green-600 font-sans">Bônus Gerado</TableHead>
+                      <TableHead className="text-green-600 font-sans">Status</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {referrals.map((ref) => (
                       <TableRow key={ref.id} className="border-green-900/50 hover:bg-green-900/10">
-                        <TableCell className="text-green-400 font-mono">#{ref.referredId}</TableCell>
-                        <TableCell className="text-green-400">{ref.referredName}</TableCell>
-                        <TableCell className="text-green-600">
+                        <TableCell className="text-green-400 font-mono font-sans">#{ref.referredId}</TableCell>
+                        <TableCell className="text-green-400 font-sans">{ref.referredName}</TableCell>
+                        <TableCell className="text-green-600 font-sans">
                           {formatDate(ref.createdAt)}
                         </TableCell>
-                        <TableCell className="text-green-600">
+                        <TableCell className="text-green-600 font-sans">
                           {formatDate(ref.firstRechargeAt)}
                         </TableCell>
-                        <TableCell className="text-green-400 font-semibold">
+                        <TableCell className="text-green-400 font-semibold font-sans">
                           {ref.firstRechargeAmount > 0
                             ? formatCurrency(ref.firstRechargeAmount)
                             : "—"}
                         </TableCell>
-                        <TableCell className="text-green-400 font-semibold">
+                        <TableCell className="text-green-400 font-semibold font-sans">
                           {ref.bonusGenerated > 0 ? formatCurrency(ref.bonusGenerated) : "—"}
                         </TableCell>
                         <TableCell>{getStatusBadge(ref.status)}</TableCell>
@@ -340,7 +340,7 @@ export default function StoreAffiliate() {
             {/* Paginação */}
             {customer && referralsCount > ITEMS_PER_PAGE && (
               <div className="flex items-center justify-between mt-6 pt-4 border-t border-green-900/50">
-                <p className="text-sm text-green-600">
+                <p className="text-sm text-green-600 font-sans">
                   Mostrando {Math.min((currentPage - 1) * ITEMS_PER_PAGE + 1, referralsCount)} a{" "}
                   {Math.min(currentPage * ITEMS_PER_PAGE, referralsCount)} de {referralsCount} indicações
                 </p>
