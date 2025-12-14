@@ -370,7 +370,7 @@ export default function Customers() {
                           className={`${searchTerm.trim() ? 'cursor-pointer hover:bg-gray-800/50' : ''} ${customer.banned ? "bg-red-950/40 border-2 border-red-500/50 animate-pulse" : ""} ${expandedCustomerId === customer.id ? "bg-gray-800/30" : ""}`}
                           onClick={() => handleRowClick(customer.id)}
                         >
-                          <TableCell>
+                          <TableCell style={{backgroundColor: '#151515'}}>
                             {searchTerm.trim() && (
                               <Button
                                 variant="ghost"
@@ -385,20 +385,20 @@ export default function Customers() {
                               </Button>
                             )}
                           </TableCell>
-                          <TableCell>
+                          <TableCell style={{backgroundColor: '#151515'}}>
                             <Badge variant="outline" className={`font-mono font-bold ${customer.banned ? "border-red-500 text-red-400" : ""}`}>
                               #{customer.pin}
                             </Badge>
                           </TableCell>
-                        <TableCell className={`font-medium ${customer.banned ? "text-red-400" : "text-muted-foreground"}`}>{customer.id}</TableCell>
-                        <TableCell className={`font-semibold ${customer.banned ? "text-red-300" : ""}`}>{customer.name}</TableCell>
-                        <TableCell className={`${customer.banned ? "text-red-400" : "text-muted-foreground"}`}>{customer.email}</TableCell>
-                        <TableCell>
+                        <TableCell className={`font-medium ${customer.banned ? "text-red-400" : "text-muted-foreground"}`} style={{backgroundColor: '#151515'}}>{customer.id}</TableCell>
+                        <TableCell className={`font-semibold ${customer.banned ? "text-red-300" : ""}`} style={{backgroundColor: '#151515'}}>{customer.name}</TableCell>
+                        <TableCell className={`${customer.banned ? "text-red-400" : "text-muted-foreground"}`} style={{backgroundColor: '#151515'}}>{customer.email}</TableCell>
+                        <TableCell style={{backgroundColor: '#151515'}}>
                           <span className={`font-mono ${customer.banned ? "text-red-400" : ""}`}>
                             R$ {(customer.balance / 100).toFixed(2)}
                           </span>
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={{backgroundColor: '#151515'}}>
                           <Switch
                             checked={customer.active}
                             onCheckedChange={() =>
@@ -407,10 +407,10 @@ export default function Customers() {
                             disabled={toggleActiveMutation.isPending}
                           />
                         </TableCell>
-                        <TableCell className={`${customer.banned ? "text-red-400" : "text-muted-foreground"}`}>
+                        <TableCell className={`${customer.banned ? "text-red-400" : "text-muted-foreground"}`} style={{backgroundColor: '#151515'}}>
                           {format(new Date(customer.createdAt), "dd/MM/yyyy HH:mm")}
                         </TableCell>
-                        <TableCell className="text-right">
+                        <TableCell className="text-right" style={{backgroundColor: '#151515'}}>
                           <div className="flex items-center justify-end gap-2" onClick={(e) => e.stopPropagation()}>
                             <Button
                               variant="ghost"
@@ -465,7 +465,7 @@ export default function Customers() {
                       {searchTerm.trim() && expandedCustomerId === customer.id && (
                         <TableRow>
                           <TableCell colSpan={9} className="bg-gray-900/50 p-0">
-                            <div className="p-6 space-y-4">
+                            <div className="p-6 space-y-4" style={{backgroundColor: '#101010'}}>
                               <div className="flex items-center justify-between mb-4">
                                 <h3 className="text-lg font-semibold text-white flex items-center gap-2">
                                   <Activity className="w-5 h-5 text-blue-500" />

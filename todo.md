@@ -101,3 +101,7 @@
 ## Ajuste de Cor de Fundo na Página de Configurações
 - [x] Alterar cor de fundo do card de preferência de layout para #0a0a0a (via editor visual)
 - [x] Alterar cor de fundo dos cards de Métodos de Pagamento e Config do Programa de Afiliados para #0a0a0a (via editor visual)
+
+## Ajuste de Cor de Fundo na Página de Clientes
+- [x] Alterar cor de fundo das células da tabela de clientes para #151515 (via editor visual)
+- [x] Alterar cor de fundo da seção expandida de transações para #101010 (via editor visual)
