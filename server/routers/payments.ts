@@ -1,7 +1,7 @@
 import { router, protectedProcedure } from "../_core/trpc";
 import { z } from "zod";
 import { getDb } from "../db";
-import { recharges, refunds, customers, pixTransactions, stripeTransactions } from "../../drizzle/schema";
+import { recharges, refunds, customers, pixTransactions, stripeTransactions, balanceTransactions } from "../../drizzle/schema";
 import { eq, and, gte, lte, desc, or, like, sql } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
 
@@ -230,6 +230,59 @@ export const paymentsRouter = router({
     }),
 
   /**
+   * Calculate balance information for refund preview
+   */
+  calculateRefundBalance: adminProcedure
+    .input(z.object({
+      rechargeId: z.number(),
+      amount: z.number().optional(), // If not provided, full refund
+    }))
+    .query(async ({ input }) => {
+      const db = await getDb();
+      if (!db) throw new Error("Database not available");
+
+      const { rechargeId, amount } = input;
+
+      // Get recharge details
+      const [recharge] = await db
+        .select()
+        .from(recharges)
+        .where(eq(recharges.id, rechargeId));
+
+      if (!recharge) {
+        throw new TRPCError({ code: "NOT_FOUND", message: "Recarga não encontrada" });
+      }
+
+      // Get customer's current balance
+      const [customer] = await db
+        .select({ balance: customers.balance, name: customers.name, pin: customers.pin })
+        .from(customers)
+        .where(eq(customers.id, recharge.customerId));
+
+      if (!customer) {
+        throw new TRPCError({ code: "NOT_FOUND", message: "Cliente não encontrado" });
+      }
+
+      // Determine refund amount
+      const refundAmount = amount || recharge.amount;
+      const currentBalance = customer.balance;
+      
+      // Calculate debit amount: MIN(refund_amount, available_balance)
+      const debitAmount = Math.min(refundAmount, currentBalance);
+      const balanceAfterRefund = currentBalance - debitAmount;
+
+      return {
+        customerName: customer.name,
+        customerPin: customer.pin,
+        originalAmount: recharge.amount,
+        refundAmount,
+        currentBalance,
+        debitAmount,
+        balanceAfterRefund,
+      };
+    }),
+
+  /**
    * Process refund (integral ou parcial)
    */
   processRefund: adminProcedure
@@ -265,6 +318,21 @@ export const paymentsRouter = router({
         throw new TRPCError({ code: "BAD_REQUEST", message: "Valor de devolução não pode ser maior que o valor original" });
       }
 
+      // Get customer's current balance
+      const [customer] = await db
+        .select({ balance: customers.balance })
+        .from(customers)
+        .where(eq(customers.id, recharge.customerId));
+
+      if (!customer) {
+        throw new TRPCError({ code: "NOT_FOUND", message: "Cliente não encontrado" });
+      }
+
+      // Calculate debit amount: MIN(refund_amount, available_balance)
+      // This ensures we never create negative balance
+      const currentBalance = customer.balance;
+      const debitAmount = Math.min(refundAmount, currentBalance);
+
       // Create refund record
       const paymentMethodMap: Record<string, 'pix' | 'card'> = {
         'pix': 'pix',
@@ -287,6 +355,35 @@ export const paymentsRouter = router({
             message: "Não é possível processar devolução PIX: endToEndId não encontrado. Esta recarga pode ter sido feita antes da implementação do sistema de devoluções." 
           });
         }
+      }
+
+      // Debit customer balance BEFORE processing refund (atomic operation)
+      // This prevents negative balance even if refund fails
+      if (debitAmount > 0) {
+        const newBalance = currentBalance - debitAmount;
+        
+        // Update customer balance
+        await db.update(customers)
+          .set({ balance: newBalance })
+          .where(eq(customers.id, recharge.customerId));
+
+        // Record balance transaction
+        await db.insert(balanceTransactions).values({
+          customerId: recharge.customerId,
+          amount: -debitAmount, // Negative for debit
+          type: 'debit',
+          description: `Débito automático - Devolução de R$ ${(refundAmount / 100).toFixed(2)}`,
+          balanceBefore: currentBalance,
+          balanceAfter: newBalance,
+          origin: 'admin',
+          createdBy: ctx.user.id,
+          metadata: JSON.stringify({
+            rechargeId: recharge.id,
+            refundAmount,
+            debitAmount,
+            reason: reason || "Devolução solicitada pelo admin",
+          }),
+        });
       }
 
       const [refundRecord] = await db.insert(refunds).values({

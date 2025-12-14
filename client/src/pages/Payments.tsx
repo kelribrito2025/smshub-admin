@@ -1,4 +1,4 @@
-import { useState, useMemo, Fragment } from 'react';
+import { useState, useMemo, Fragment, useEffect } from 'react';
 import DashboardLayoutWrapper from '@/components/DashboardLayoutWrapper';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -21,7 +21,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { trpc } from '@/lib/trpc';
-import { DollarSign, RefreshCw, Search, Calendar, CreditCard, ArrowLeftRight, Loader2, ChevronDown, ChevronUp } from 'lucide-react';
+import { DollarSign, RefreshCw, Search, Calendar, CreditCard, ArrowLeftRight, Loader2, ChevronDown, ChevronUp, Wallet, TrendingDown } from 'lucide-react';
 import { toast } from 'sonner';
 import { useDebouncedValue } from '@/hooks/useDebouncedValue';
 import TableSkeleton from '@/components/TableSkeleton';
@@ -43,6 +43,28 @@ export default function Payments() {
   const [expandedPaymentId, setExpandedPaymentId] = useState<number | null>(null);
 
   const utils = trpc.useUtils();
+
+  // Query para calcular informações de saldo
+  const { data: balanceInfo } = trpc.payments.calculateRefundBalance.useQuery(
+    {
+      rechargeId: selectedPayment?.id || 0,
+      amount: refundType === 'partial' && refundAmount ? Math.round(parseFloat(refundAmount) * 100) : undefined,
+    },
+    {
+      enabled: !!selectedPayment,
+      refetchOnWindowFocus: false,
+    }
+  );
+
+  // Atualizar query quando valor de devolução parcial mudar
+  useEffect(() => {
+    if (selectedPayment && refundType === 'partial' && refundAmount) {
+      utils.payments.calculateRefundBalance.invalidate({
+        rechargeId: selectedPayment.id,
+        amount: Math.round(parseFloat(refundAmount) * 100),
+      });
+    }
+  }, [refundAmount, refundType, selectedPayment, utils]);
 
   // Query para estatísticas
   const { data: stats, isLoading: statsLoading } = trpc.payments.getStats.useQuery({
@@ -435,31 +457,56 @@ export default function Payments() {
             </DialogDescription>
           </DialogHeader>
 
-          {selectedPayment && (
+          {selectedPayment && balanceInfo && (
             <div className="space-y-4">
               {/* Informações do pagamento */}
-              <div className="rounded-lg border border-neutral-800 p-4 space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-sm text-muted-foreground">Cliente:</span>
-                  <span className="text-sm font-medium">{selectedPayment.customerName}</span>
+              <div className="rounded-lg border border-neutral-800 bg-neutral-900/20 p-4 grid grid-cols-3 gap-4">
+                <div>
+                  <span className="text-xs text-muted-foreground">Cliente:</span>
+                  <p className="text-sm font-semibold">{balanceInfo.customerName}</p>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-muted-foreground">PIN:</span>
-                  <span className="text-sm font-medium">{selectedPayment.customerPin}</span>
+                <div>
+                  <span className="text-xs text-muted-foreground">PIN:</span>
+                  <p className="text-sm font-semibold">{balanceInfo.customerPin}</p>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-muted-foreground">Valor Original:</span>
-                  <span className="text-sm font-medium">{formatCurrency(selectedPayment.amount)}</span>
+                <div>
+                  <span className="text-xs text-muted-foreground">Valor Original:</span>
+                  <p className="text-sm font-semibold">{formatCurrency(balanceInfo.originalAmount)}</p>
+                </div>
+              </div>
+
+              {/* Cards de Saldo */}
+              <div className="grid grid-cols-2 gap-4">
+                {/* Saldo Atual */}
+                <div className="rounded-lg border border-blue-500/20 bg-blue-500/5 p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Wallet className="h-5 w-5 text-blue-500" />
+                    <span className="text-xs text-blue-400 font-medium">Saldo Atual</span>
+                  </div>
+                  <p className="text-2xl font-bold text-blue-500">
+                    {formatCurrency(balanceInfo.currentBalance)}
+                  </p>
+                </div>
+
+                {/* Saldo Após Devolução */}
+                <div className="rounded-lg border border-yellow-500/20 bg-yellow-500/5 p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <TrendingDown className="h-5 w-5 text-yellow-500" />
+                    <span className="text-xs text-yellow-400 font-medium">Saldo Após Devolução</span>
+                  </div>
+                  <p className="text-2xl font-bold text-yellow-500">
+                    {formatCurrency(balanceInfo.balanceAfterRefund)}
+                  </p>
                 </div>
               </div>
 
               {/* Tipo de devolução */}
               <div className="space-y-2">
                 <Label>Tipo de Devolução</Label>
-                <div className="flex gap-2">
+                <div className="grid grid-cols-2 gap-2">
                   <Button
                     variant={refundType === 'full' ? 'default' : 'outline'}
-                    size="sm"
+                    className={refundType === 'full' ? '' : 'bg-transparent'}
                     onClick={() => {
                       setRefundType('full');
                       setRefundAmount((selectedPayment.amount / 100).toFixed(2));
@@ -469,7 +516,7 @@ export default function Payments() {
                   </Button>
                   <Button
                     variant={refundType === 'partial' ? 'default' : 'outline'}
-                    size="sm"
+                    className={refundType === 'partial' ? '' : 'bg-transparent'}
                     onClick={() => setRefundType('partial')}
                   >
                     Parcial
@@ -477,10 +524,11 @@ export default function Payments() {
                 </div>
               </div>
 
-              {/* Valor da devolução (se parcial) */}
-              {refundType === 'partial' && (
-                <div className="space-y-2">
-                  <Label htmlFor="refundAmount">Valor da Devolução (R$)</Label>
+              {/* Valor da devolução */}
+              <div className="space-y-2">
+                <Label htmlFor="refundAmount">Valor da Devolução</Label>
+                <div className="relative">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">R$</span>
                   <Input
                     id="refundAmount"
                     type="number"
@@ -489,20 +537,11 @@ export default function Payments() {
                     max={(selectedPayment.amount / 100).toFixed(2)}
                     value={refundAmount}
                     onChange={(e) => setRefundAmount(e.target.value)}
-                    placeholder="0.00"
+                    placeholder="0,00"
+                    className="pl-10 bg-neutral-900/50"
+                    disabled={refundType === 'full'}
                   />
                 </div>
-              )}
-
-              {/* Motivo da devolução */}
-              <div className="space-y-2">
-                <Label htmlFor="refundReason">Motivo (opcional)</Label>
-                <Input
-                  id="refundReason"
-                  value={refundReason}
-                  onChange={(e) => setRefundReason(e.target.value)}
-                  placeholder="Ex: Solicitação do cliente"
-                />
               </div>
             </div>
           )}

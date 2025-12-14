@@ -303,3 +303,13 @@
 - [x] Não exibir botão de devolução em pagamentos já devolvidos
 
 - [x] Corrigir erro de chave única do React na tabela de pagamentos (Fragment precisa de key)
+
+## Débito Automático em Devoluções Pix
+
+- [x] Implementar lógica de débito automático de saldo no backend durante devoluções
+- [x] Adicionar cálculo de valor_debito = MIN(valor_devolucao, saldo_disponivel)
+- [x] Garantir que débito e devolução sejam atômicos (mesma transação)
+- [x] Reformular modal de devolução com informações de saldo atual e após devolução
+- [x] Adicionar validação para nunca permitir saldo negativo
+- [x] Atualizar procedimento de devolução para executar débito antes da devolução Pix
+- [x] Criar testes para validar a lógica de débito automático
