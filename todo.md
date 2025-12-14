@@ -299,3 +299,5 @@
 
 - [x] Adicionar coluna "Status" na tabela de pagamentos
 - [x] Implementar dropdown com observações de devolução ao clicar em pagamentos devolvidos
+
+- [x] Não exibir botão de devolução em pagamentos já devolvidos

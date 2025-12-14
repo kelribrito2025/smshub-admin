@@ -361,14 +361,16 @@ export default function Payments() {
                             </div>
                           </TableCell>
                           <TableCell className="text-right" onClick={(e) => e.stopPropagation()}>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => handleOpenRefundDialog(payment)}
-                            >
-                              <ArrowLeftRight className="h-4 w-4 mr-1" />
-                              Devolver
-                            </Button>
+                            {!payment.hasRefund && (
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => handleOpenRefundDialog(payment)}
+                              >
+                                <ArrowLeftRight className="h-4 w-4 mr-1" />
+                                Devolver
+                              </Button>
+                            )}
                           </TableCell>
                         </TableRow>
                         {expandedPaymentId === payment.id && payment.hasRefund && (
