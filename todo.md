@@ -182,3 +182,5 @@
 
 - [x] Ajustar StoreLayout para exibir conteúdo institucional quando usuário não estiver logado (lista vertical simples com setas, sem accordion ou animações)
 - [x] Atualizar cabeçalho da página de ativações para "Números virtuais para verificação de contas" e descrição institucional
+
+- [x] Remover título e descrição repetidos na seção de funcionalidades da Home, manter apenas lista simples com setas
