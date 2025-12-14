@@ -91,3 +91,6 @@
 
 ## Comportamento do Header Durante Rolagem
 - [x] Fixar header do DashboardLayout no topo durante rolagem da página (sticky position)
+
+- [x] Ajustar header do painel admin para ficar fixo/sticky durante a rolagem da página
+- [x] Corrigir comportamento sticky do header - aplicar solução robusta com position fixed

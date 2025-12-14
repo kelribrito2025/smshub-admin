@@ -101,7 +101,7 @@ export default function TopNavLayout({
   return (
     <div className="flex flex-col min-h-screen bg-neutral-950">
       {/* Top Navigation Bar */}
-      <div className="w-full bg-neutral-950 border-b border-neutral-800">
+      <div className="w-full bg-neutral-950 border-b border-neutral-800 sticky top-0 z-50">
         <div className="px-6 py-4">
           <div className="flex items-center justify-between">
             {/* Logo/Brand */}
