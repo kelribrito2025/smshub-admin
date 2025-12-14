@@ -158,7 +158,7 @@ export default function StoreActivations() {
                 placeholder="Buscar por número..."
                 value={searchNumber}
                 onChange={(e) => setSearchNumber(e.target.value)}
-                className="pl-10 bg-black/50 border-green-900/50 text-green-400 placeholder:text-green-600/50 focus:border-green-500 font-mono"
+                className="pl-10 bg-black/50 border-green-900/50 text-green-400 placeholder:text-green-600/50 focus:border-green-500 focus:ring-0 focus:ring-offset-0 font-mono"
               />
             </div>
           </div>
