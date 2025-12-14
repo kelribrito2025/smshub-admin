@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useLocation } from 'wouter';
 import { useStoreAuth } from '../contexts/StoreAuthContext';
 import StoreLayout from '../components/StoreLayout';
 import { trpc } from '../lib/trpc';
 import { Card } from '../components/ui/card';
-import { ChevronLeft, ChevronRight, ChevronDown, ChevronUp, History } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ChevronDown, ChevronUp, History, Search } from 'lucide-react';
 import TableSkeleton from '../components/TableSkeleton';
 import { AnimatedPage } from '../components/AnimatedPage';
 import { AnimatedList, AnimatedListItem } from '../components/AnimatedList';
+import { Input } from '../components/ui/input';
 
 
 export default function StoreActivations() {
@@ -41,6 +42,7 @@ export default function StoreActivations() {
   }
   const [currentPage, setCurrentPage] = useState(1);
   const [expandedRows, setExpandedRows] = useState<Set<number>>(new Set());
+  const [searchNumber, setSearchNumber] = useState('');
   const limit = 20;
 
   const historyQuery = trpc.store.getMyHistory.useQuery(
@@ -76,7 +78,15 @@ export default function StoreActivations() {
   };
 
   const pagination = historyQuery.data?.pagination;
-  const activations = historyQuery.data?.data || [];
+  const allActivations = historyQuery.data?.data || [];
+  
+  // Filtrar ativações por número de telefone
+  const activations = useMemo(() => {
+    if (!searchNumber.trim()) return allActivations;
+    return allActivations.filter((activation: any) => 
+      activation.phoneNumber?.includes(searchNumber.trim())
+    );
+  }, [allActivations, searchNumber]);
 
   const handlePreviousPage = () => {
     if (currentPage > 1) {
@@ -136,13 +146,25 @@ export default function StoreActivations() {
     <StoreLayout>
       <AnimatedPage className="space-y-6">
         <div className="mb-4">
-          <h1 className="text-2xl font-bold text-green-400 mb-2 flex items-center gap-2">
-            <History className="w-6 h-6" />
-            Histórico de Ativações
-          </h1>
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-2">
+            <h1 className="text-2xl font-bold text-green-400 flex items-center gap-2">
+              <History className="w-6 h-6" />
+              Histórico de Ativações
+            </h1>
+            <div className="relative w-full md:w-80">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-green-600" />
+              <Input
+                type="text"
+                placeholder="Buscar por número..."
+                value={searchNumber}
+                onChange={(e) => setSearchNumber(e.target.value)}
+                className="pl-10 bg-black/50 border-green-900/50 text-green-400 placeholder:text-green-600/50 focus:border-green-500 font-mono"
+              />
+            </div>
+          </div>
           <p className="text-green-600 text-sm">
             {totalEntries > 0 
-              ? `Mostrando ${startEntry}-${endEntry} de ${totalEntries} entradas`
+              ? `Mostrando ${startEntry}-${endEntry} de ${totalEntries} entradas${searchNumber ? ` (${activations.length} encontradas)` : ''}`
               : 'Nenhuma ativação encontrada'
             }
           </p>
