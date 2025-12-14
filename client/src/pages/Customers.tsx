@@ -265,7 +265,7 @@ export default function Customers() {
               Gerencie os clientes do painel de vendas
             </p>
           </div>
-          <Button onClick={() => setAddDialogOpen(true)} className="bg-green-600 hover:bg-green-700">
+          <Button onClick={() => setAddDialogOpen(true)} className="bg-green-600 hover:bg-green-700" style={{backgroundColor: '#2b7eff'}}>
             <Plus className="mr-2 h-4 w-4" />
             Adicionar Cliente
           </Button>
