@@ -276,3 +276,6 @@
 - [x] Ajustar layout dos filtros na página de pagamentos (mesma linha do título, buscar 50%, data inicial 15%, data final 15%, alinhados à direita)
 
 - [x] Implementar paginação na página /admin/pagamentos (máximo 30 registros por página)
+
+- [x] Ajustar espaçamento do cabeçalho da página /admin/pagamentos para corresponder ao layout da /admin/dashboard
+- [x] Adicionar ícone de cartão no título "Pagamentos"
