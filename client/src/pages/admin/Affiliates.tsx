@@ -155,14 +155,14 @@ export default function Affiliates() {
 
         {/* Tabs */}
         <Tabs defaultValue="affiliates" className="space-y-4" onValueChange={handleTabChange}>
-          <TabsList>
+          <TabsList style={{backgroundColor: '#101010'}}>
             <TabsTrigger value="affiliates">Afiliados</TabsTrigger>
             <TabsTrigger value="referrals">Indicações</TabsTrigger>
           </TabsList>
 
           {/* Affiliates Tab */}
           <TabsContent value="affiliates">
-            <Card>
+            <Card style={{backgroundColor: '#101010'}}>
               <CardHeader>
                 <CardTitle>Listagem de Afiliados</CardTitle>
                 <CardDescription>

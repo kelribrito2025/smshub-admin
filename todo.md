@@ -94,3 +94,6 @@
 
 - [x] Ajustar header do painel admin para ficar fixo/sticky durante a rolagem da página
 - [x] Corrigir comportamento sticky do header - aplicar solução robusta com position fixed
+
+## Ajuste de Cor de Fundo na Página de Afiliados
+- [x] Alterar cor de fundo do TabsList e Card principal para #101010 (via editor visual)
