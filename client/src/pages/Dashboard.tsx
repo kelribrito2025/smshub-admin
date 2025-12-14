@@ -748,16 +748,46 @@ export default function Dashboard() {
                 ) : revenueByService && revenueByService.length > 0 ? (
                   <ResponsiveContainer width="100%" height={400}>
                     <BarChart data={revenueByService.slice(0, 10)}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="serviceName" angle={-45} textAnchor="end" height={100} />
-                      <YAxis tickFormatter={(value) => formatCurrency(value)} />
+                      <defs>
+                        <linearGradient id="colorServiceRevenue" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="hsl(250, 60%, 60%)" stopOpacity={0.9}/>
+                          <stop offset="95%" stopColor="hsl(250, 60%, 60%)" stopOpacity={0.6}/>
+                        </linearGradient>
+                        <linearGradient id="colorServiceProfit" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="hsl(160, 50%, 50%)" stopOpacity={0.9}/>
+                          <stop offset="95%" stopColor="hsl(160, 50%, 50%)" stopOpacity={0.6}/>
+                        </linearGradient>
+                      </defs>
+                      <CartesianGrid strokeDasharray="5 5" stroke="#333" opacity={0.3} />
+                      <XAxis 
+                        dataKey="serviceName" 
+                        angle={-45} 
+                        textAnchor="end" 
+                        height={100}
+                        stroke="#888"
+                        tick={{ fill: '#888', fontSize: 12 }}
+                      />
+                      <YAxis 
+                        tickFormatter={(value) => formatCurrency(value)} 
+                        stroke="#888"
+                        tick={{ fill: '#888', fontSize: 12 }}
+                      />
                       <Tooltip
                         formatter={(value: number) => formatCurrency(value)}
-                        labelStyle={{ color: "#000" }}
+                        contentStyle={{ 
+                          backgroundColor: '#1a1a1a', 
+                          border: '1px solid #333',
+                          borderRadius: '8px',
+                          color: '#fff'
+                        }}
+                        labelStyle={{ color: "#fff" }}
                       />
-                      <Legend />
-                      <Bar dataKey="revenue" name="Receita" fill="#8884d8" />
-                      <Bar dataKey="profit" name="Lucro" fill="#82ca9d" />
+                      <Legend 
+                        wrapperStyle={{ color: '#888' }}
+                        iconType="rect"
+                      />
+                      <Bar dataKey="revenue" name="Receita" fill="url(#colorServiceRevenue)" radius={[4, 4, 0, 0]} />
+                      <Bar dataKey="profit" name="Lucro" fill="url(#colorServiceProfit)" radius={[4, 4, 0, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
                 ) : (

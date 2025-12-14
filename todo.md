@@ -160,3 +160,5 @@
 - [x] Remover efeito ring do campo de busca por número na página History
 
 - [x] Reformular visual do gráfico "Por País" para usar o mesmo estilo moderno do gráfico de "Receita & Lucro"
+
+- [x] Reformular visual do gráfico "Por Serviço" para usar o mesmo estilo moderno do gráfico de "Receita & Lucro"
