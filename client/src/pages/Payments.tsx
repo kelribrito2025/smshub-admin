@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, Fragment } from 'react';
 import DashboardLayoutWrapper from '@/components/DashboardLayoutWrapper';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -287,9 +287,8 @@ export default function Payments() {
                     <TableSkeleton rows={5} columns={10} />
                   ) : paymentsData?.payments && paymentsData.payments.length > 0 ? (
                     paymentsData.payments.map((payment) => (
-                      <>
+                      <Fragment key={payment.id}>
                         <TableRow 
-                          key={payment.id} 
                           className="border-neutral-800 cursor-pointer hover:bg-neutral-900/30"
                           onClick={() => {
                             if (payment.hasRefund) {
@@ -383,7 +382,7 @@ export default function Payments() {
                             </TableCell>
                           </TableRow>
                         )}
-                      </>
+                      </Fragment>
                     ))
                   ) : (
                     <TableRow>

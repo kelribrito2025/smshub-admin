@@ -301,3 +301,5 @@
 - [x] Implementar dropdown com observações de devolução ao clicar em pagamentos devolvidos
 
 - [x] Não exibir botão de devolução em pagamentos já devolvidos
+
+- [x] Corrigir erro de chave única do React na tabela de pagamentos (Fragment precisa de key)
