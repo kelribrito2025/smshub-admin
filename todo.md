@@ -162,3 +162,5 @@
 - [x] Reformular visual do gráfico "Por País" para usar o mesmo estilo moderno do gráfico de "Receita & Lucro"
 
 - [x] Reformular visual do gráfico "Por Serviço" para usar o mesmo estilo moderno do gráfico de "Receita & Lucro"
+
+- [x] Alterar cor do ícone no card "Total de Reembolsos" para #cd9700

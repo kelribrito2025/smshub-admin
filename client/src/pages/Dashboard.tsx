@@ -434,7 +434,7 @@ export default function Dashboard() {
                   <div className="font-sans bg-neutral-900/50 border border-neutral-800 rounded-xl p-6" style={{height: '142px'}}>
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-neutral-400 text-sm">Total de Reembolsos</span>
-                      <RefreshCcw size={18} className="text-blue-500" />
+                      <RefreshCcw size={18} style={{color: '#cd9700'}} />
                     </div>
                     <div className="text-3xl font-light text-blue-500 mb-1" style={{color: '#cd9700'}}>
                       {formatCurrency(Number(refundsToday) || 0)}
