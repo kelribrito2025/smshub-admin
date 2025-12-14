@@ -265,27 +265,26 @@ export default function Payments() {
               </div>
             )}
 
-            {paymentsLoading ? (
-              <TableSkeleton />
-            ) : (
-              <div className="rounded-md border border-neutral-800">
-                <Table>
-                  <TableHeader>
-                    <TableRow className="hover:bg-transparent border-neutral-800">
-                      <TableHead>ID</TableHead>
-                      <TableHead>ID Gerencianet</TableHead>
-                      <TableHead>Cliente</TableHead>
-                      <TableHead>Tipo</TableHead>
-                      <TableHead>Origem</TableHead>
-                      <TableHead>Descrição</TableHead>
-                      <TableHead>Valor</TableHead>
-                      <TableHead>Data/Hora</TableHead>
-                      <TableHead className="text-right">Ações</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {paymentsData?.payments && paymentsData.payments.length > 0 ? (
-                      paymentsData.payments.map((payment) => (
+            <div className="rounded-md border border-neutral-800">
+              <Table>
+                <TableHeader>
+                  <TableRow className="hover:bg-transparent border-neutral-800">
+                    <TableHead>ID</TableHead>
+                    <TableHead>ID Gerencianet</TableHead>
+                    <TableHead>Cliente</TableHead>
+                    <TableHead>Tipo</TableHead>
+                    <TableHead>Origem</TableHead>
+                    <TableHead>Descrição</TableHead>
+                    <TableHead>Valor</TableHead>
+                    <TableHead>Data/Hora</TableHead>
+                    <TableHead className="text-right">Ações</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {paymentsLoading ? (
+                    <TableSkeleton rows={5} columns={9} />
+                  ) : paymentsData?.payments && paymentsData.payments.length > 0 ? (
+                    paymentsData.payments.map((payment) => (
                         <TableRow key={payment.id} className="border-neutral-800">
                           <TableCell className="font-mono text-sm">#{payment.id}</TableCell>
                           <TableCell className="font-mono text-xs">
@@ -345,18 +344,17 @@ export default function Payments() {
                             </Button>
                           </TableCell>
                         </TableRow>
-                      ))
-                    ) : (
-                      <TableRow>
-                        <TableCell colSpan={9} className="text-center text-muted-foreground">
-                          Nenhum pagamento encontrado
-                        </TableCell>
-                      </TableRow>
-                    )}
-                  </TableBody>
-                </Table>
-              </div>
-            )}
+                    ))
+                  ) : (
+                    <TableRow>
+                      <TableCell colSpan={9} className="text-center text-muted-foreground">
+                        Nenhum pagamento encontrado
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </div>
 
             {/* Paginação */}
             {paymentsData && paymentsData.total > limit && (

@@ -294,3 +294,5 @@
 ## Bugs
 
 - [x] Investigar e corrigir erro "PIX: endToEndId não encontrado" ao processar devoluções (pagamento #600001, cliente João PIN: 1273)
+
+- [x] Corrigir erro de estrutura HTML na página de pagamentos (div aninhado dentro de tr)
