@@ -240,8 +240,6 @@ export class EfiPayClient {
 
       const body = {
         valor: amountInReais,
-        natureza: "DEVOLUCAO",
-        descricao: params.reason || "Devolução solicitada",
       };
 
       console.log("[EfiPay] Processing PIX refund:", {
