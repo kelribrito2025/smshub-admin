@@ -158,3 +158,5 @@
 - [x] Corrigir borda azul do campo de busca por número na página /history do StoreLayout
 
 - [x] Remover efeito ring do campo de busca por número na página History
+
+- [x] Reformular visual do gráfico "Por País" para usar o mesmo estilo moderno do gráfico de "Receita & Lucro"
