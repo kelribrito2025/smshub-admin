@@ -303,36 +303,37 @@ export default function Dashboard() {
               {
                 id: 'card-1',
                 content: (
-                  <Card style={{backgroundColor: '#101010'}}>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium">Saldo das APIs</CardTitle>
-                      <DollarSign className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                      {isLoadingBalances ? (
-                        <div className="text-sm text-muted-foreground">Carregando...</div>
-                      ) : allBalances && allBalances.length > 0 ? (
-                        <div className="space-y-2">
-                          {allBalances.map((api) => (
-                            <div key={api.id} className="flex items-center justify-between">
-                              <span className="text-xs font-medium text-muted-foreground">{api.name}</span>
-                              <span className="text-sm font-bold">
-                                {api.error ? (
-                                  <span className="text-red-500 text-xs">Erro</span>
-                                ) : (
-                                  <span className={api.balance >= 1000 ? 'text-green-600' : 'text-red-600'}>
-                                    {api.currency === 'BRL' ? 'R$' : '$'} {api.balance.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                                  </span>
-                                )}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-                      ) : (
-                        <div className="text-sm text-muted-foreground">Nenhuma API configurada</div>
-                      )}
-                    </CardContent>
-                  </Card>
+                  <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+                    {/* Cabeçalho do Card */}
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-neutral-400 text-sm">Saldo das APIs</span>
+                      <DollarSign size={18} className="text-neutral-500" />
+                    </div>
+                    
+                    {/* Lista de Saldos */}
+                    {isLoadingBalances ? (
+                      <div className="text-sm text-neutral-500">Carregando...</div>
+                    ) : allBalances && allBalances.length > 0 ? (
+                      <div className="space-y-2">
+                        {allBalances.map((api) => (
+                          <div key={api.id} className="flex justify-between items-center">
+                            <span className="text-xs text-neutral-500">{api.name}</span>
+                            <span className="text-sm text-white">
+                              {api.error ? (
+                                <span className="text-red-500 text-xs">Erro</span>
+                              ) : (
+                                <span className={api.balance >= 1000 ? 'text-green-600' : 'text-red-600'}>
+                                  {api.currency === 'BRL' ? 'R$' : '$'} {api.balance.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                </span>
+                              )}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="text-sm text-neutral-500">Nenhuma API configurada</div>
+                    )}
+                  </div>
                 ),
               },
               {

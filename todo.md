@@ -105,3 +105,6 @@
 ## Ajuste de Cor de Fundo na Página de Clientes
 - [x] Alterar cor de fundo das células da tabela de clientes para #151515 (via editor visual)
 - [x] Alterar cor de fundo da seção expandida de transações para #101010 (via editor visual)
+
+## Atualização Visual do Card de Saldo das APIs
+- [x] Atualizar visual do card de Saldo das APIs com novo layout (bg-neutral-900/50, border neutral-800, cabeçalho com título e ícone, lista de saldos com labels e valores)
