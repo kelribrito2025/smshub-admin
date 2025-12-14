@@ -34,8 +34,8 @@ export default function HeroSection({ onCreateAccount }: { onCreateAccount?: () 
       </div>
 
       {/* Hero Section */}
-      <section className="relative min-h-[85vh] flex items-center justify-center px-4 pt-20" style={{paddingTop: '0px'}}>
-        <div className="max-w-7xl mx-auto text-center">
+      <section className="relative min-h-[85vh] flex items-center justify-center px-4 pt-20" style={{paddingTop: '0px', height: '798px'}}>
+        <div className="max-w-7xl mx-auto text-center" style={{height: '529px'}}>
           {/* Status Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/10 border border-green-500/30 rounded-full mb-8 animate-pulse">
             <div className="w-2 h-2 bg-green-500 rounded-full" />
