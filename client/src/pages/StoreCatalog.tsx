@@ -10,6 +10,7 @@ import { toast } from 'sonner';
 import { copyToClipboard } from '../lib/clipboard';
 import TableSkeleton from '../components/TableSkeleton';
 import CyberBanner from '../components/CyberBanner';
+import HeroSection from '../components/HeroSection';
 
 
 
@@ -194,84 +195,28 @@ export default function StoreCatalog() {
   return (
     <StoreLayout>
       <div className="space-y-6">
-        {/* Page Title */}
-        <div className="mb-4">
-          <h1 className="text-2xl font-bold text-green-400 mb-2 flex items-center gap-2">
-            <Activity className="w-6 h-6" />
-            {isAuthenticated ? 'Ativações em Andamento' : 'Números virtuais para verificação de contas'}
-          </h1>
-          <p className="text-green-600 text-sm">
-            {isAuthenticated 
-              ? (totalEntries > 0 
-                  ? `Mostrando ${startEntry}-${endEntry} de ${totalEntries} entradas`
-                  : 'Nenhuma ativação encontrada'
-                )
-              : 'Receba SMS online sem precisar de chip físico. Ativação imediata, + de 20 países.'
-            }
-          </p>
-        </div>
+        {/* Page Title - Only show when authenticated */}
+        {isAuthenticated && (
+          <div className="mb-4">
+            <h1 className="text-2xl font-bold text-green-400 mb-2 flex items-center gap-2">
+              <Activity className="w-6 h-6" />
+              Ativações em Andamento
+            </h1>
+            <p className="text-green-600 text-sm">
+              {totalEntries > 0 
+                ? `Mostrando ${startEntry}-${endEntry} de ${totalEntries} entradas`
+                : 'Nenhuma ativação encontrada'
+              }
+            </p>
+          </div>
+        )}
 
         {/* Activations Table or Institutional Content */}
         {!isAuthenticated ? (
-          <>
-          <ul className="space-y-4 mt-8">
-            <li className="flex items-start gap-3 text-green-400">
-              <ChevronRightIcon className="w-5 h-5 mt-0.5 flex-shrink-0" />
-              <span>
-                Receba SMS online sem precisar de chip físico. Ativação imediata, mais de 20 países.
-              </span>
-            </li>
-            <li className="flex items-start gap-3 text-green-400">
-              <ChevronRightIcon className="w-5 h-5 mt-0.5 flex-shrink-0" />
-              <span>
-                Interface intuitiva com busca inteligente de serviços.
-              </span>
-            </li>
-            <li className="flex items-start gap-3 text-green-400">
-              <ChevronRightIcon className="w-5 h-5 mt-0.5 flex-shrink-0" />
-              <span>
-                Receba SMS ilimitados por até 20 minutos. Tempo suficiente para validação de contas.
-              </span>
-            </li>
-            <li className="flex items-start gap-3 text-green-400">
-              <ChevronRightIcon className="w-5 h-5 mt-0.5 flex-shrink-0" />
-              <span>
-                Preços competitivos e transparentes. Pague apenas pelo serviço que utilizar, sem surpresas.
-              </span>
-            </li>
-            <li className="flex items-start gap-3 text-green-400">
-              <ChevronRightIcon className="w-5 h-5 mt-0.5 flex-shrink-0" />
-              <span>
-                Cada número virtual é vendido apenas uma vez, garantindo privacidade total.
-              </span>
-            </li>
-            <li className="flex items-start gap-3 text-green-400">
-              <ChevronRightIcon className="w-5 h-5 mt-0.5 flex-shrink-0" />
-              <span>
-                Indicado para empresas, marketing, testes, validações e uso pessoal.
-              </span>
-            </li>
-            <li className="flex items-start gap-3 text-green-400">
-              <ChevronRightIcon className="w-5 h-5 mt-0.5 flex-shrink-0" />
-              <span>
-                Estorno automático em caso de não recebimento de SMS. Mais segurança e confiança para sua compra.
-              </span>
-            </li>
-          </ul>
-          
-          {/* Cyber Banner Call-to-Action */}
-          <div className="mt-12">
-            <CyberBanner 
-              title="Quer utilizar nossos serviços?"
-              subtitle="Crie uma conta em nosso painel para começar a utilizar nossos serviços e receba benefícios imperdíveis."
-              buttonText="Criar conta"
-              onButtonClick={() => {
-                const authContext = useStoreAuth();
-                authContext.requireAuth(() => {});
-              }}
-            />
-          </div>
-          </>
+          <HeroSection onCreateAccount={() => {
+            const authContext = useStoreAuth();
+            authContext.requireAuth(() => {});
+          }} />
         ) : (
           <Card className="bg-black/50 border-green-900/50 overflow-hidden" style={{paddingTop: '0px', paddingBottom: '15px'}}>
             <div className="overflow-x-auto">
