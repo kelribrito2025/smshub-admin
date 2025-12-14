@@ -315,3 +315,5 @@
 - [x] Criar testes para validar a lógica de débito automático
 
 - [x] Corrigir modal duplicado/incompleto de devolução na página /admin/pagamentos
+
+- [x] Reorganizar menu dropdown do admin no DashboardLayout para incluir 3 opções: Configurações, Reorganizar Menus e Sign out

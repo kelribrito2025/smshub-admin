@@ -293,6 +293,18 @@ function DashboardLayoutContent({
                   </div>
                 )}
                 
+                {/* Configurações Button */}
+                <DropdownMenuItem 
+                  onClick={() => {
+                    setLocation('/admin/settings');
+                    setIsAdminMenuOpen(false);
+                  }}
+                  className="flex items-center gap-3 px-3 py-2 text-neutral-400 hover:bg-neutral-800 hover:text-white cursor-pointer"
+                >
+                  <Settings className="h-5 w-5" />
+                  <span className="text-sm">Configurações</span>
+                </DropdownMenuItem>
+
                 {/* Reorganize Menus Button */}
                 <DropdownMenuItem 
                   onClick={() => {
