@@ -3,6 +3,16 @@ import { Shield, Zap, Globe, ArrowRight } from 'lucide-react';
 
 export default function HeroSection({ onCreateAccount, onLogin }: { onCreateAccount?: () => void; onLogin?: () => void }) {
   const [scanLine, setScanLine] = useState(0);
+  const [typedText, setTypedText] = useState('');
+  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [showCursor, setShowCursor] = useState(true);
+
+  const phrases = [
+    'verificação de contas',
+    'receber SMS online',
+    'privacidade e segurança'
+  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -10,6 +20,44 @@ export default function HeroSection({ onCreateAccount, onLogin }: { onCreateAcco
     }, 50);
     return () => clearInterval(interval);
   }, []);
+
+  // Cursor blinking effect
+  useEffect(() => {
+    const cursorInterval = setInterval(() => {
+      setShowCursor(prev => !prev);
+    }, 500);
+    return () => clearInterval(cursorInterval);
+  }, []);
+
+  // Typing effect
+  useEffect(() => {
+    const currentPhrase = phrases[currentPhraseIndex];
+    
+    if (!isDeleting && typedText === currentPhrase) {
+      // Pause when phrase is complete
+      const timeout = setTimeout(() => setIsDeleting(true), 2000);
+      return () => clearTimeout(timeout);
+    }
+    
+    if (isDeleting && typedText === '') {
+      // Move to next phrase
+      setIsDeleting(false);
+      setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length);
+      return;
+    }
+    
+    const timeout = setTimeout(() => {
+      if (isDeleting) {
+        // Delete one character
+        setTypedText(currentPhrase.substring(0, typedText.length - 1));
+      } else {
+        // Type one character
+        setTypedText(currentPhrase.substring(0, typedText.length + 1));
+      }
+    }, isDeleting ? 50 : 100);
+    
+    return () => clearTimeout(timeout);
+  }, [typedText, isDeleting, currentPhraseIndex, phrases]);
 
   return (
     <div className="min-h-screen text-white">
@@ -47,7 +95,8 @@ export default function HeroSection({ onCreateAccount, onLogin }: { onCreateAcco
             <span className="text-white">Número virtual para</span>
             <br />
             <span className="text-green-400 relative inline-block">
-              verificação de contas
+              {typedText}
+              <span className={`ml-1 ${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity`}>|</span>
               <div className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-green-500 to-transparent" />
             </span>
           </h1>

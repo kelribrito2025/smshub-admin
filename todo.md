@@ -206,3 +206,10 @@
 - [x] Ajustar dimensões do Hero Section via editor visual
 
 - [x] Adicionar botão de Login vazado (outline) à esquerda do botão "Criar conta" na página inicial
+
+## Efeito de Digitação Animado no Hero
+- [x] Implementar efeito de digitação (typing effect) no texto verde "verificação de contas" do Hero Section
+- [x] Alternar entre três frases: "verificação de contas", "receber SMS online" e "privacidade e segurança"
+- [x] Configurar timing: digitação 100ms/letra, pausa 2s ao completar, apagar 50ms/letra
+- [x] Adicionar cursor piscante (|) ao final do texto
+- [x] Criar loop contínuo entre as três frases
