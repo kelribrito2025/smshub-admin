@@ -354,7 +354,7 @@ export default function Dashboard() {
               {
                 id: 'card-3',
                 content: (
-                  <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6 h-full flex flex-col min-h-[160px]">
+                  <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6 h-full flex flex-col">
                     {/* Cabeçalho do Card */}
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-neutral-400 text-sm">Receita Total</span>
@@ -393,12 +393,12 @@ export default function Dashboard() {
               {
                 id: 'card-5',
                 content: (
-                  <div className="font-sans bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+                  <div className="font-sans bg-neutral-900/50 border border-neutral-800 rounded-xl p-6 h-full flex flex-col">
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-neutral-400 text-sm">Custo Total</span>
                       <TrendingDown size={18} className="text-red-500" />
                     </div>
-                    <div className="text-3xl font-light text-red-500 mb-1">
+                    <div className="text-3xl font-light text-red-500 mb-1 flex-1">
                       {formatCurrency(Number(metrics?.totalCost) || 0)}
                     </div>
                     <div className="text-xs text-neutral-500">
@@ -432,12 +432,12 @@ export default function Dashboard() {
               {
                 id: 'card-7',
                 content: (
-                  <div className="font-sans bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+                  <div className="font-sans bg-neutral-900/50 border border-neutral-800 rounded-xl p-6 h-full flex flex-col">
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-neutral-400 text-sm">Total de Reembolsos</span>
                       <RefreshCcw size={18} className="text-blue-500" />
                     </div>
-                    <div className="text-3xl font-light text-blue-500 mb-1">
+                    <div className="text-3xl font-light text-blue-500 mb-1 flex-1">
                       {formatCurrency(Number(refundsToday) || 0)}
                     </div>
                     <div className="text-xs text-neutral-500">

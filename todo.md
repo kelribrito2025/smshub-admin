@@ -118,3 +118,9 @@
 ## Ajuste de Layout da Página Admin Dashboard
 - [x] Remover DashboardLayout da página /admin/dashboard
 - [x] Ajustar altura dos cards de Total de Ativações e Receita Total para corresponder ao card de Saldo das APIs
+
+## Ajuste de Altura do Card de Custo Total
+- [x] Ajustar altura do card de Custo Total para corresponder à altura do card de Total de Ativações
+
+## Ajuste de Altura dos Cards de Receita Total e Total de Reembolsos
+- [x] Ajustar altura dos cards de "Receita Total" e "Total de Reembolsos" no dashboard admin para ficarem com a mesma altura
