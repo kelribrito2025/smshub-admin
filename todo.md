@@ -184,3 +184,5 @@
 - [x] Atualizar cabeçalho da página de ativações para "Números virtuais para verificação de contas" e descrição institucional
 
 - [x] Remover título e descrição repetidos na seção de funcionalidades da Home, manter apenas lista simples com setas
+
+- [x] Remover completamente o Card/container da lista institucional, deixar apenas <ul> solta no fluxo da página (sem borda, fundo, padding)

@@ -209,28 +209,26 @@ export default function StoreCatalog() {
 
         {/* Activations Table or Institutional Content */}
         {!isAuthenticated ? (
-          <Card className="bg-black/50 border-green-900/50 overflow-hidden p-6 md:p-8">
-            <ul className="space-y-4">
-                <li className="flex items-start gap-3 text-green-400">
-                  <ChevronRightIcon className="w-5 h-5 mt-0.5 flex-shrink-0" />
-                  <span>
-                    Receba SMS online sem precisar de chip físico. Ativação imediata, mais de 20 países.
-                  </span>
-                </li>
-                <li className="flex items-start gap-3 text-green-400">
-                  <ChevronRightIcon className="w-5 h-5 mt-0.5 flex-shrink-0" />
-                  <span>
-                    Interface intuitiva com busca inteligente de serviços.
-                  </span>
-                </li>
-                <li className="flex items-start gap-3 text-green-400">
-                  <ChevronRightIcon className="w-5 h-5 mt-0.5 flex-shrink-0" />
-                  <span>
-                    Receba SMS ilimitados por até 20 minutos. Tempo suficiente para validação de contas.
-                  </span>
-                </li>
-            </ul>
-          </Card>
+          <ul className="space-y-4">
+            <li className="flex items-start gap-3 text-green-400">
+              <ChevronRightIcon className="w-5 h-5 mt-0.5 flex-shrink-0" />
+              <span>
+                Receba SMS online sem precisar de chip físico. Ativação imediata, mais de 20 países.
+              </span>
+            </li>
+            <li className="flex items-start gap-3 text-green-400">
+              <ChevronRightIcon className="w-5 h-5 mt-0.5 flex-shrink-0" />
+              <span>
+                Interface intuitiva com busca inteligente de serviços.
+              </span>
+            </li>
+            <li className="flex items-start gap-3 text-green-400">
+              <ChevronRightIcon className="w-5 h-5 mt-0.5 flex-shrink-0" />
+              <span>
+                Receba SMS ilimitados por até 20 minutos. Tempo suficiente para validação de contas.
+              </span>
+            </li>
+          </ul>
         ) : (
           <Card className="bg-black/50 border-green-900/50 overflow-hidden" style={{paddingTop: '0px', paddingBottom: '15px'}}>
             <div className="overflow-x-auto">
