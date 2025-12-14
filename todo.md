@@ -198,3 +198,6 @@
 - [x] Substituir seção "Quer utilizar nossos serviços?" no StoreLayout pelo novo visual com tema tech/hacker
 
 - [x] Substituir completamente a seção "Nossos Serviços" pelo novo código fornecido
+
+- [x] Ajustar padding superior do HeroSection para 0px (via editor visual)
+- [x] Ajustar padding superior e inferior do main do StoreLayout (via editor visual)
