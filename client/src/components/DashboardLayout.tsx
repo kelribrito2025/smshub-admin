@@ -331,6 +331,23 @@ function DashboardLayoutContent({
       </div>
 
       <SidebarInset>
+        {/* Desktop Header - Always visible and sticky */}
+        {!isMobile && (
+          <div className="flex border-b h-14 items-center justify-between bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:backdrop-blur sticky top-0 z-40">
+            <div className="flex items-center gap-3">
+              <span className="text-lg font-semibold tracking-tight text-foreground">
+                {activeMenuItem?.label ?? "Painel admin"}
+              </span>
+            </div>
+            <a href="https://app.numero-virtual.com" target="_blank" rel="noopener noreferrer">
+              <Button size="sm" className="gap-2">
+                <ShoppingCart className="h-4 w-4" />
+                Painel de Vendas
+              </Button>
+            </a>
+          </div>
+        )}
+        {/* Mobile Header - Always visible and sticky */}
         {isMobile && (
           <div className="flex border-b h-14 items-center justify-between bg-background/95 px-2 backdrop-blur supports-[backdrop-filter]:backdrop-blur sticky top-0 z-40">
             <div className="flex items-center gap-2">

@@ -88,3 +88,6 @@
 - [x] Aplicar SF Pro de forma consistente em todo o DashboardLayout via herança CSS no container raiz
 - [x] Garantir que sidebar, header, breadcrumbs, cards, tabelas e formulários herdem corretamente a fonte
 - [x] Verificar que componentes shadcn/ui não sobrescrevem a fonte com fallbacks incorretos
+
+## Comportamento do Header Durante Rolagem
+- [x] Fixar header do DashboardLayout no topo durante rolagem da página (sticky position)
