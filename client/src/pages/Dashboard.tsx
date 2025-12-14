@@ -301,7 +301,7 @@ export default function Dashboard() {
               {
                 id: 'card-1',
                 content: (
-                  <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6" style={{height: '147px'}}>
+                  <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6" style={{height: '142px'}}>
                     {/* Cabeçalho do Card */}
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-neutral-400 text-sm">Saldo das APIs</span>
@@ -409,7 +409,7 @@ export default function Dashboard() {
               {
                 id: 'card-6',
                 content: (
-                  <div className="font-sans bg-neutral-900/50 border border-neutral-800 rounded-xl p-6" style={{height: '147px'}}>
+                  <div className="font-sans bg-neutral-900/50 border border-neutral-800 rounded-xl p-6" style={{height: '142px'}}>
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-neutral-400 text-sm">Taxa de Sucesso</span>
                       <Activity size={18} className="text-neutral-500" />
@@ -431,7 +431,7 @@ export default function Dashboard() {
               {
                 id: 'card-7',
                 content: (
-                  <div className="font-sans bg-neutral-900/50 border border-neutral-800 rounded-xl p-6" style={{height: '147px'}}>
+                  <div className="font-sans bg-neutral-900/50 border border-neutral-800 rounded-xl p-6" style={{height: '142px'}}>
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-neutral-400 text-sm">Total de Reembolsos</span>
                       <RefreshCcw size={18} className="text-blue-500" />
@@ -448,7 +448,7 @@ export default function Dashboard() {
               {
                 id: 'card-8',
                 content: (
-                  <div className="font-sans bg-neutral-900/50 border border-dashed border-neutral-700 rounded-xl p-6" style={{height: '147px'}}>
+                  <div className="font-sans bg-neutral-900/50 border border-dashed border-neutral-700 rounded-xl p-6" style={{height: '142px'}}>
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-neutral-500 text-sm">Em breve</span>
                     </div>
