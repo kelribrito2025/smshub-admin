@@ -219,3 +219,9 @@
 - [x] Identificar causa raiz (array phrases nas dependências do useEffect causava loop infinito)
 - [x] Corrigir lógica do efeito de digitação (removido phrases das dependências)
 - [x] Testar correção no navegador
+
+## Integração dos Botões do Hero Section com Modais de Autenticação
+- [x] Analisar estrutura dos modais de login e criação de conta no StoreLayout
+- [x] Conectar botão "Login" do Hero Section ao modal de autenticação
+- [x] Conectar botão "Criar conta" do Hero Section ao modal de criação de conta
+- [x] Testar abertura dos modais ao clicar nos botões

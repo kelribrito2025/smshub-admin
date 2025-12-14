@@ -31,6 +31,8 @@ export interface StoreAuthContextType {
   logout: () => void;
   refreshCustomer: () => Promise<void>;
   requireAuth: (action: () => void) => void;
+  openLoginModal: () => void;
+  openRegisterModal: () => void;
   isSSEConnected: boolean;
   lastNotification: Notification | null;
   notifications: any[];
@@ -43,6 +45,7 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
   const [customer, setCustomer] = useState<Customer | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [loginModalMode, setLoginModalMode] = useState<'login' | 'register'>('login');
   const [isBannedModalOpen, setIsBannedModalOpen] = useState(false);
   const [pendingAction, setPendingAction] = useState<(() => void) | null>(null);
   const utils = trpc.useUtils();
@@ -270,8 +273,19 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
       action();
     } else {
       setPendingAction(() => action);
+      setLoginModalMode('login');
       setIsLoginModalOpen(true);
     }
+  };
+
+  const openLoginModal = () => {
+    setLoginModalMode('login');
+    setIsLoginModalOpen(true);
+  };
+
+  const openRegisterModal = () => {
+    setLoginModalMode('register');
+    setIsLoginModalOpen(true);
   };
 
   const handleLoginModalClose = () => {
@@ -293,6 +307,8 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
     logout,
     refreshCustomer,
     requireAuth,
+    openLoginModal,
+    openRegisterModal,
     isSSEConnected,
     lastNotification,
     notifications,
@@ -306,6 +322,7 @@ export function StoreAuthProvider({ children }: { children: ReactNode }) {
         onClose={handleLoginModalClose}
         onLogin={login}
         onRegister={register}
+        initialMode={loginModalMode}
       />
       <BannedAccountModal
         open={isBannedModalOpen}

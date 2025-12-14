@@ -1,5 +1,5 @@
 import { X, Shield, Zap, Lock, Mail, User, Eye, EyeOff } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 
 interface LoginModalProps {
@@ -7,15 +7,23 @@ interface LoginModalProps {
   onClose: () => void;
   onLogin: (email: string, password?: string) => Promise<void>;
   onRegister?: (email: string, password: string, name: string) => Promise<void>;
+  initialMode?: 'login' | 'register';
 }
 
-export default function LoginModal({ isOpen, onClose, onLogin, onRegister }: LoginModalProps) {
-  const [isRegisterMode, setIsRegisterMode] = useState(false);
+export default function LoginModal({ isOpen, onClose, onLogin, onRegister, initialMode = 'login' }: LoginModalProps) {
+  const [isRegisterMode, setIsRegisterMode] = useState(initialMode === 'register');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  // Reset mode when initialMode changes
+  useEffect(() => {
+    if (isOpen) {
+      setIsRegisterMode(initialMode === 'register');
+    }
+  }, [isOpen, initialMode]);
 
   if (!isOpen) return null;
 

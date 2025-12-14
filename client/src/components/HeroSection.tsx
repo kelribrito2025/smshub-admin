@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Shield, Zap, Globe, ArrowRight } from 'lucide-react';
+import { useStoreAuth } from '../contexts/StoreAuthContext';
 
-export default function HeroSection({ onCreateAccount, onLogin }: { onCreateAccount?: () => void; onLogin?: () => void }) {
+export default function HeroSection() {
+  const { openLoginModal, openRegisterModal } = useStoreAuth();
   const [scanLine, setScanLine] = useState(0);
   const [typedText, setTypedText] = useState('');
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
@@ -108,13 +110,13 @@ export default function HeroSection({ onCreateAccount, onLogin }: { onCreateAcco
           {/* CTA Buttons */}
           <div className="flex items-center justify-center gap-4">
             <button
-              onClick={onLogin}
+              onClick={openLoginModal}
               className="group relative inline-flex items-center gap-3 px-8 py-4 bg-transparent border-2 border-green-500 text-green-500 font-bold text-lg rounded-full transition-all duration-300 hover:scale-105 hover:bg-green-500/10"
             >
               <span className="font-mono">Login</span>
             </button>
             <button
-              onClick={onCreateAccount}
+              onClick={openRegisterModal}
               className="group relative inline-flex items-center gap-3 px-8 py-4 bg-green-500 text-black font-bold text-lg rounded-full transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-green-500/50"
             >
               <span className="font-mono">Criar conta</span>
