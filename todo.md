@@ -166,3 +166,5 @@
 - [x] Alterar cor do ícone no card "Total de Reembolsos" para #cd9700
 
 - [x] Atualizar visual do card "Países Mais Utilizados" no DashboardLayout com novo design moderno
+
+- [x] Ajustar StoreLayout para exibir conteúdo institucional quando usuário não estiver logado
