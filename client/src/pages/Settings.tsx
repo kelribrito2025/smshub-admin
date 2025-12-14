@@ -41,7 +41,7 @@ function LayoutToggleSection() {
   };
 
   return (
-    <div className="font-sans bg-neutral-900/50 border-2 border-blue-500/30 rounded-xl p-4 mb-4">
+    <div className="font-sans bg-neutral-900/50 border-2 border-blue-500/30 rounded-xl p-4 mb-4" style={{backgroundColor: '#0a0a0a'}}>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
@@ -324,7 +324,7 @@ export default function Settings() {
         {/* Container responsivo para os dois cards */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Card 1: Métodos de Pagamento */}
-          <Card>
+          <Card style={{backgroundColor: '#0a0a0a'}}>
           <CardHeader>
             <CardTitle>Métodos de Pagamento</CardTitle>
             <CardDescription>
@@ -471,7 +471,7 @@ export default function Settings() {
           </Card>
 
           {/* Card 2: Configurações do Programa de Afiliados */}
-          <Card>
+          <Card style={{backgroundColor: '#0a0a0a'}}>
           <CardHeader>
             <CardTitle>Config do Programa de Afiliados</CardTitle>
             <CardDescription>

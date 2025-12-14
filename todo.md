@@ -97,3 +97,7 @@
 
 ## Ajuste de Cor de Fundo na Página de Afiliados
 - [x] Alterar cor de fundo do TabsList e Card principal para #101010 (via editor visual)
+
+## Ajuste de Cor de Fundo na Página de Configurações
+- [x] Alterar cor de fundo do card de preferência de layout para #0a0a0a (via editor visual)
+- [x] Alterar cor de fundo dos cards de Métodos de Pagamento e Config do Programa de Afiliados para #0a0a0a (via editor visual)
