@@ -884,168 +884,50 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
           ) : (
             <div className="max-w-5xl mx-auto space-y-8">
               {/* Título Principal */}
-              <div className="text-center space-y-4">
-                <h1 className="text-3xl md:text-4xl font-bold text-green-400">
-                  Números virtuais para verificação de contas
-                </h1>
-                <p className="text-lg text-green-600">
-                  Receba SMS online sem precisar de chip físico. Ativação imediata, mais de 20 países.
-                </p>
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex-shrink-0 w-8 h-8 bg-green-500 rounded flex items-center justify-center">
+                    <Shield className="w-5 h-5 text-black" />
+                  </div>
+                  <div>
+                    <h1 className="text-lg font-bold text-green-400">
+                      Ativações em Andamento
+                    </h1>
+                    <p className="text-sm text-green-600">
+                      Nenhuma ativação encontrada
+                    </p>
+                  </div>
+                </div>
               </div>
 
-              {/* Lista de Benefícios */}
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {/* Benefício 1 */}
-                <div className="bg-gray-900 border border-green-900/50 rounded-lg p-6 space-y-3">
-                  <div className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-black font-bold">
-                      1
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-green-400 font-bold mb-2">
-                        Compre números virtuais e receba SMS em tempo real.
-                      </h3>
-                      <p className="text-green-600 text-sm">
-                        Ativação imediata, simples e segura.
-                      </p>
-                    </div>
-                  </div>
+              {/* Lista de Serviços */}
+              <div className="space-y-2">
+                <div className="bg-gray-900 border border-green-900/50 rounded-lg p-3 hover:bg-green-900/10 transition-colors">
+                  <p className="text-green-400 font-bold text-sm">Compre números virtuais e receba SMS em tempo real.</p>
                 </div>
-
-                {/* Benefício 2 */}
-                <div className="bg-gray-900 border border-green-900/50 rounded-lg p-6 space-y-3">
-                  <div className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-black font-bold">
-                      2
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-green-400 font-bold mb-2">
-                        Ampla variedade de operadoras móveis internacionais.
-                      </h3>
-                      <p className="text-green-600 text-sm">
-                        Escolha o país e a operadora que melhor atende sua necessidade.
-                      </p>
-                    </div>
-                  </div>
+                <div className="bg-gray-900 border border-green-900/50 rounded-lg p-3 hover:bg-green-900/10 transition-colors">
+                  <p className="text-green-400 font-bold text-sm">Ampla variedade de operadoras móveis internacionais.</p>
                 </div>
-
-                {/* Benefício 3 */}
-                <div className="bg-gray-900 border border-green-900/50 rounded-lg p-6 space-y-3">
-                  <div className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-black font-bold">
-                      3
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-green-400 font-bold mb-2">
-                        Preços competitivos e transparentes.
-                      </h3>
-                      <p className="text-green-600 text-sm">
-                        Pague apenas pelo serviço que utilizar, sem surpresas.
-                      </p>
-                    </div>
-                  </div>
+                <div className="bg-gray-900 border border-green-900/50 rounded-lg p-3 hover:bg-green-900/10 transition-colors">
+                  <p className="text-green-400 font-bold text-sm">Preços competitivos e transparentes.</p>
                 </div>
-
-                {/* Benefício 4 */}
-                <div className="bg-gray-900 border border-green-900/50 rounded-lg p-6 space-y-3">
-                  <div className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-black font-bold">
-                      4
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-green-400 font-bold mb-2">
-                        Interface intuitiva com busca inteligente de serviços.
-                      </h3>
-                      <p className="text-green-600 text-sm">
-                        Encontre rapidamente o serviço desejado e ative seu número em poucos cliques.
-                      </p>
-                    </div>
-                  </div>
+                <div className="bg-gray-900 border border-green-900/50 rounded-lg p-3 hover:bg-green-900/10 transition-colors">
+                  <p className="text-green-400 font-bold text-sm">Interface intuitiva com busca inteligente de serviços.</p>
                 </div>
-
-                {/* Benefício 5 */}
-                <div className="bg-gray-900 border border-green-900/50 rounded-lg p-6 space-y-3">
-                  <div className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-black font-bold">
-                      5
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-green-400 font-bold mb-2">
-                        Uso exclusivo por serviço.
-                      </h3>
-                      <p className="text-green-600 text-sm">
-                        Cada número virtual é vendido apenas uma vez, garantindo privacidade total.
-                      </p>
-                    </div>
-                  </div>
+                <div className="bg-gray-900 border border-green-900/50 rounded-lg p-3 hover:bg-green-900/10 transition-colors">
+                  <p className="text-green-400 font-bold text-sm">Uso exclusivo por serviço.</p>
                 </div>
-
-                {/* Benefício 6 */}
-                <div className="bg-gray-900 border border-green-900/50 rounded-lg p-6 space-y-3">
-                  <div className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-black font-bold">
-                      6
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-green-400 font-bold mb-2">
-                        Receba SMS ilimitados por até 20 minutos.
-                      </h3>
-                      <p className="text-green-600 text-sm">
-                        Tempo suficiente para validação e conclusão do processo.
-                      </p>
-                    </div>
-                  </div>
+                <div className="bg-gray-900 border border-green-900/50 rounded-lg p-3 hover:bg-green-900/10 transition-colors">
+                  <p className="text-green-400 font-bold text-sm">Receba SMS ilimitados por até 20 minutos.</p>
                 </div>
-
-                {/* Benefício 7 */}
-                <div className="bg-gray-900 border border-green-900/50 rounded-lg p-6 space-y-3">
-                  <div className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-black font-bold">
-                      7
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-green-400 font-bold mb-2">
-                        Compatível com integrações via API.
-                      </h3>
-                      <p className="text-green-600 text-sm">
-                        Ideal para automações, sistemas e fluxos empresariais.
-                      </p>
-                    </div>
-                  </div>
+                <div className="bg-gray-900 border border-green-900/50 rounded-lg p-3 hover:bg-green-900/10 transition-colors">
+                  <p className="text-green-400 font-bold text-sm">Compatível com integrações via API.</p>
                 </div>
-
-                {/* Benefício 8 */}
-                <div className="bg-gray-900 border border-green-900/50 rounded-lg p-6 space-y-3">
-                  <div className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-black font-bold">
-                      8
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-green-400 font-bold mb-2">
-                        Estorno automático em caso de não recebimento de SMS.
-                      </h3>
-                      <p className="text-green-600 text-sm">
-                        Mais segurança e confiança para sua compra.
-                      </p>
-                    </div>
-                  </div>
+                <div className="bg-gray-900 border border-green-900/50 rounded-lg p-3 hover:bg-green-900/10 transition-colors">
+                  <p className="text-green-400 font-bold text-sm">Estorno automático em caso de não recebimento de SMS.</p>
                 </div>
-
-                {/* Benefício 9 */}
-                <div className="bg-gray-900 border border-green-900/50 rounded-lg p-6 space-y-3">
-                  <div className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-black font-bold">
-                      9
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-green-400 font-bold mb-2">
-                        Indicado para empresas, marketing, testes, validações e uso pessoal.
-                      </h3>
-                      <p className="text-green-600 text-sm">
-                        Versátil para diversos casos de uso.
-                      </p>
-                    </div>
-                  </div>
+                <div className="bg-gray-900 border border-green-900/50 rounded-lg p-3 hover:bg-green-900/10 transition-colors">
+                  <p className="text-green-400 font-bold text-sm">Indicado para empresas, marketing, testes, validações e uso pessoal.</p>
                 </div>
               </div>
             </div>

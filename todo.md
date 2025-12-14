@@ -170,3 +170,6 @@
 - [x] Ajustar StoreLayout para exibir conteúdo institucional quando usuário não estiver logado
 
 - [x] Padronizar tipografia de todas as páginas do StoreLayout (títulos e descrições devem usar font-bold como em StoreActivations)
+
+- [x] Reduzir tamanho do título e descrição no cabeçalho do StoreLayout (manter mesmo tamanho do ícone)
+- [x] Converter cards de serviços em lista vertical simples (apenas títulos, sem descrições)
