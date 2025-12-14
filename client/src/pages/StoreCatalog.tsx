@@ -188,48 +188,7 @@ export default function StoreCatalog() {
     return pages;
   };
 
-  // Conteúdo institucional para usuários não autenticados
-  if (!isAuthenticated) {
-    return (
-      <StoreLayout>
-        <div className="space-y-8 max-w-3xl mx-auto py-8">
-          {/* Título Principal */}
-          <div className="text-center space-y-4">
-            <h1 className="text-3xl md:text-4xl font-bold text-green-400">
-              Números virtuais para verificação de contas
-            </h1>
-            <p className="text-lg text-green-600">
-              Receba SMS online sem precisar de chip físico. Ativação imediata, mais de 20 países.
-            </p>
-          </div>
 
-          {/* Lista de Benefícios */}
-          <div className="bg-black/50 border border-green-900/50 rounded-lg p-6 md:p-8">
-            <ul className="space-y-4">
-              <li className="flex items-start gap-3 text-green-400">
-                <ChevronRightIcon className="w-5 h-5 mt-0.5 flex-shrink-0" />
-                <span className="text-base md:text-lg">
-                  Receba SMS online sem precisar de chip físico. Ativação imediata, mais de 20 países.
-                </span>
-              </li>
-              <li className="flex items-start gap-3 text-green-400">
-                <ChevronRightIcon className="w-5 h-5 mt-0.5 flex-shrink-0" />
-                <span className="text-base md:text-lg">
-                  Interface intuitiva com busca inteligente de serviços.
-                </span>
-              </li>
-              <li className="flex items-start gap-3 text-green-400">
-                <ChevronRightIcon className="w-5 h-5 mt-0.5 flex-shrink-0" />
-                <span className="text-base md:text-lg">
-                  Receba SMS ilimitados por até 20 minutos. Tempo suficiente para validação de contas.
-                </span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </StoreLayout>
-    );
-  }
 
   return (
     <StoreLayout>
@@ -248,57 +207,92 @@ export default function StoreCatalog() {
           </p>
         </div>
 
-        {/* Activations Table */}
-        <Card className="bg-black/50 border-green-900/50 overflow-hidden" style={{paddingTop: '0px', paddingBottom: '15px'}}>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-green-900/50">
-                  <th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-bold text-green-400 uppercase tracking-wider">
-                    Serviço
-                  </th>
-                  <th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-bold text-green-400 uppercase tracking-wider">
-                    Número
-                  </th>
-                  <th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-bold text-green-400 uppercase tracking-wider">
-                    <span className="lg:hidden">SMS</span>
-                    <span className="hidden lg:inline">Código SMS</span>
-                  </th>
-                  {/* Desktop: STATUS → REST → AÇÃO */}
-                  <th className="hidden md:table-cell px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-bold text-green-400 uppercase tracking-wider">
-                    Status
-                  </th>
-                  <th className="hidden md:table-cell px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-bold text-green-400 uppercase tracking-wider">
-                    Rest
-                  </th>
-                  <th className="hidden md:table-cell px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-bold text-green-400 uppercase tracking-wider">
-                    Ação
-                  </th>
-                  {/* Mobile: AÇÃO → REST → STATUS */}
-                  <th className="md:hidden px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-bold text-green-400 uppercase tracking-wider">
-                    Ação
-                  </th>
-                  <th className="md:hidden px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-bold text-green-400 uppercase tracking-wider">
-                    Rest
-                  </th>
-                  <th className="md:hidden px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-bold text-green-400 uppercase tracking-wider">
-                    Status
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {activationsQuery.isLoading ? (
-                  <TableSkeleton rows={3} columns={6} />
-                ) : activations.length === 0 ? (
-                  <tr>
-                    <td colSpan={6} className="px-6 py-12 text-center">
-                      <div className="flex flex-col items-center gap-4">
-                        <div className="w-8 h-8 border-4 border-green-500/30 border-t-green-500 rounded-full animate-spin" />
-                        <p className="text-green-600 font-mono">Nenhuma ativação em andamento</p>
-                      </div>
-                    </td>
+        {/* Activations Table or Institutional Content */}
+        {!isAuthenticated ? (
+          <Card className="bg-black/50 border-green-900/50 overflow-hidden p-6 md:p-8">
+            <div className="space-y-6">
+              <div>
+                <h2 className="text-xl font-bold text-green-400 mb-2">
+                  Números virtuais para verificação de contas
+                </h2>
+                <p className="text-green-600">
+                  Receba SMS online sem precisar de chip físico. Ativação imediata, mais de 20 países.
+                </p>
+              </div>
+              
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3 text-green-400">
+                  <ChevronRightIcon className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                  <span>
+                    Receba SMS online sem precisar de chip físico. Ativação imediata, mais de 20 países.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3 text-green-400">
+                  <ChevronRightIcon className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                  <span>
+                    Interface intuitiva com busca inteligente de serviços.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3 text-green-400">
+                  <ChevronRightIcon className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                  <span>
+                    Receba SMS ilimitados por até 20 minutos. Tempo suficiente para validação de contas.
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </Card>
+        ) : (
+          <Card className="bg-black/50 border-green-900/50 overflow-hidden" style={{paddingTop: '0px', paddingBottom: '15px'}}>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b border-green-900/50">
+                    <th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-bold text-green-400 uppercase tracking-wider">
+                      Serviço
+                    </th>
+                    <th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-bold text-green-400 uppercase tracking-wider">
+                      Número
+                    </th>
+                    <th className="px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-bold text-green-400 uppercase tracking-wider">
+                      <span className="lg:hidden">SMS</span>
+                      <span className="hidden lg:inline">Código SMS</span>
+                    </th>
+                    {/* Desktop: STATUS → REST → AÇÃO */}
+                    <th className="hidden md:table-cell px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-bold text-green-400 uppercase tracking-wider">
+                      Status
+                    </th>
+                    <th className="hidden md:table-cell px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-bold text-green-400 uppercase tracking-wider">
+                      Rest
+                    </th>
+                    <th className="hidden md:table-cell px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-bold text-green-400 uppercase tracking-wider">
+                      Ação
+                    </th>
+                    {/* Mobile: AÇÃO → REST → STATUS */}
+                    <th className="md:hidden px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-bold text-green-400 uppercase tracking-wider">
+                      Ação
+                    </th>
+                    <th className="md:hidden px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-bold text-green-400 uppercase tracking-wider">
+                      Rest
+                    </th>
+                    <th className="md:hidden px-3 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-bold text-green-400 uppercase tracking-wider">
+                      Status
+                    </th>
                   </tr>
-                ) : (
+                </thead>
+                <tbody>
+                  {activationsQuery.isLoading ? (
+                    <TableSkeleton rows={3} columns={6} />
+                  ) : activations.length === 0 ? (
+                    <tr>
+                      <td colSpan={6} className="px-6 py-12 text-center">
+                        <div className="flex flex-col items-center gap-4">
+                          <div className="w-8 h-8 border-4 border-green-500/30 border-t-green-500 rounded-full animate-spin" />
+                          <p className="text-green-600 font-mono">Nenhuma ativação em andamento</p>
+                        </div>
+                      </td>
+                    </tr>
+                  ) : (
                   activations.map((activation: any) => (
                     <tr key={activation.id} className="border-b border-green-900/30 hover:bg-green-900/10 transition-colors">
                       <td className="px-3 md:px-6 py-3 md:py-4 text-green-400 font-mono text-xs md:text-sm">
@@ -535,11 +529,11 @@ export default function StoreCatalog() {
               </tbody>
             </table>
           </div>
-
         </Card>
+        )}
 
         {/* Pagination */}
-        {totalPages > 1 && (
+        {isAuthenticated && totalPages > 1 && (
           <div className="flex items-center justify-between mt-6">
             {/* Contador de entradas à esquerda */}
             <p className="text-sm text-green-600 font-mono">
