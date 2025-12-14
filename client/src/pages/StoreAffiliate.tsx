@@ -105,7 +105,7 @@ export default function StoreAffiliate() {
     return (
       <StoreLayout>
         <div className="flex items-center justify-center min-h-[60vh]">
-          <Card className="bg-black/50 border-green-900/50">
+          <Card className="bg-black/50 border-green-900/50 font-mono">
             <CardHeader>
               <CardTitle className="text-green-400">Programa Desativado</CardTitle>
               <CardDescription className="text-green-600">
@@ -142,7 +142,7 @@ export default function StoreAffiliate() {
         </p>
 
         {/* (A) Link de Indicação */}
-        <Card className="bg-black border border-green-900/30 relative overflow-hidden" style={{borderWidth: '2px'}}>
+        <Card className="bg-black border border-green-900/30 relative overflow-hidden font-mono" style={{borderWidth: '2px'}}>
           {/* Grid cyber background */}
           <div className="absolute inset-0 pointer-events-none" style={{
             backgroundImage: `
@@ -195,7 +195,7 @@ export default function StoreAffiliate() {
 
         {/* (C) Cards de Estatísticas */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Card className="bg-black/50 border-green-900/50">
+          <Card className="bg-black/50 border-green-900/50 font-mono">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm font-medium text-green-600 flex items-center gap-2">
                 <DollarSign className="w-4 h-4 text-green-400" />
@@ -210,7 +210,7 @@ export default function StoreAffiliate() {
             </CardContent>
           </Card>
 
-          <Card className="bg-black/50 border-green-900/50">
+          <Card className="bg-black/50 border-green-900/50 font-mono">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm font-medium text-green-600 flex items-center gap-2">
                 <Users className="w-4 h-4 text-green-400" />
@@ -225,7 +225,7 @@ export default function StoreAffiliate() {
             </CardContent>
           </Card>
 
-          <Card className="bg-black/50 border-green-900/50">
+          <Card className="bg-black/50 border-green-900/50 font-mono">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm font-medium text-green-600 flex items-center gap-2">
                 <TrendingUp className="w-4 h-4 text-green-400" />
@@ -240,7 +240,7 @@ export default function StoreAffiliate() {
             </CardContent>
           </Card>
 
-          <Card className="bg-black/50 border-green-900/50">
+          <Card className="bg-black/50 border-green-900/50 font-mono">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm font-medium text-green-600 flex items-center gap-2">
                 <Percent className="w-4 h-4 text-green-400" />
@@ -257,7 +257,7 @@ export default function StoreAffiliate() {
         </div>
 
         {/* (B) Regras do Programa */}
-        <Card className="bg-black/50 border-green-900/50">
+        <Card className="bg-black/50 border-green-900/50 font-mono">
           <CardHeader>
             <CardTitle className="text-green-400">Como Funciona</CardTitle>
           </CardHeader>
@@ -274,7 +274,7 @@ export default function StoreAffiliate() {
         </Card>
 
         {/* (D) Histórico de Indicações */}
-        <Card className="bg-black/50 border-green-900/50">
+        <Card className="bg-black/50 border-green-900/50 font-mono">
           <CardHeader>
             <CardTitle className="text-green-400">Histórico de Indicações</CardTitle>
             <CardDescription className="text-green-600">

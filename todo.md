@@ -169,3 +169,5 @@
 
 - [x] Aplicar mesma fonte do título "Programa de Afiliados" em todos os cards da página /affiliate
 - [x] Remover font-sans da página /affiliate para herdar font-mono do StoreLayout
+
+- [x] Corrigir fonte Geist em todos os elementos do StoryLayout na página /affiliate (atualmente apenas título e descrição estão corretos, mas os cards de histórias ainda usam fonte sans)
