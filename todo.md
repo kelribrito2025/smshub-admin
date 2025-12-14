@@ -133,3 +133,5 @@
 
 ## Ajuste de Altura dos Cards no Dashboard Admin (Total de Reembolsos, Em Breve, Saldo das APIs)
 - [x] Ajustar altura dos cards "Total de Reembolsos", "Em Breve" e "Saldo das APIs Total" para ficarem com a mesma altura do card "Receita Total"
+
+- [x] Corrigir sidebar desaparecida na página /admin/dashboard

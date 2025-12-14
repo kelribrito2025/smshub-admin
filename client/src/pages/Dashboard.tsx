@@ -1,5 +1,5 @@
 import { useAuth } from "@/_core/hooks/useAuth";
-
+import DashboardLayoutWrapper from "@/components/DashboardLayoutWrapper";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
@@ -254,7 +254,8 @@ export default function Dashboard() {
   };
 
   return (
-    <AnimatedPage className="p-8 space-y-6">
+    <DashboardLayoutWrapper>
+      <AnimatedPage className="p-8 space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
@@ -1077,5 +1078,6 @@ export default function Dashboard() {
           </CardContent>
         </Card>
       </AnimatedPage>
+    </DashboardLayoutWrapper>
   );
 }
