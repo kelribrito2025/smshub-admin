@@ -301,7 +301,7 @@ export default function Dashboard() {
               {
                 id: 'card-1',
                 content: (
-                  <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6" style={{height: '142px'}}>
+                  <div className="border border-neutral-800 rounded-xl p-6" style={{backgroundColor: '#0a0a0a', height: '142px'}}>
                     {/* Cabeçalho do Card */}
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-neutral-400 text-sm">Saldo das APIs</span>
@@ -337,7 +337,7 @@ export default function Dashboard() {
               {
                 id: 'card-2',
                 content: (
-                  <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+                  <div className="border border-neutral-800 rounded-xl p-6" style={{backgroundColor: '#0a0a0a'}}>
                     {/* Cabeçalho do Card */}
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-neutral-400 text-sm">Total de Ativações</span>
@@ -355,7 +355,7 @@ export default function Dashboard() {
               {
                 id: 'card-3',
                 content: (
-                  <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+                  <div className="border border-neutral-800 rounded-xl p-6" style={{backgroundColor: '#0a0a0a'}}>
                     {/* Cabeçalho do Card */}
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-neutral-400 text-sm">Receita Total</span>
@@ -375,7 +375,7 @@ export default function Dashboard() {
               {
                 id: 'card-4',
                 content: (
-                  <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+                  <div className="border border-neutral-800 rounded-xl p-6" style={{backgroundColor: '#0a0a0a'}}>
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-neutral-400 text-sm">Lucro Total</span>
                       <DollarSign size={18} className="text-neutral-500" />
@@ -392,7 +392,7 @@ export default function Dashboard() {
               {
                 id: 'card-5',
                 content: (
-                  <div className="font-sans bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+                  <div className="font-sans border border-neutral-800 rounded-xl p-6" style={{backgroundColor: '#0a0a0a'}}>
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-neutral-400 text-sm">Custo Total</span>
                       <TrendingDown size={18} className="text-red-500" />
@@ -409,7 +409,7 @@ export default function Dashboard() {
               {
                 id: 'card-6',
                 content: (
-                  <div className="font-sans bg-neutral-900/50 border border-neutral-800 rounded-xl p-6" style={{height: '142px'}}>
+                  <div className="font-sans border border-neutral-800 rounded-xl p-6" style={{backgroundColor: '#0a0a0a', height: '142px'}}>
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-neutral-400 text-sm">Taxa de Sucesso</span>
                       <Activity size={18} className="text-neutral-500" />
@@ -431,7 +431,7 @@ export default function Dashboard() {
               {
                 id: 'card-7',
                 content: (
-                  <div className="font-sans bg-neutral-900/50 border border-neutral-800 rounded-xl p-6" style={{height: '142px'}}>
+                  <div className="font-sans border border-neutral-800 rounded-xl p-6" style={{backgroundColor: '#0a0a0a', height: '142px'}}>
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-neutral-400 text-sm">Total de Reembolsos</span>
                       <RefreshCcw size={18} style={{color: '#cd9700'}} />
@@ -448,7 +448,7 @@ export default function Dashboard() {
               {
                 id: 'card-8',
                 content: (
-                  <div className="font-sans bg-neutral-900/50 border border-dashed border-neutral-700 rounded-xl p-6" style={{height: '142px'}}>
+                  <div className="font-sans border border-dashed border-neutral-700 rounded-xl p-6" style={{backgroundColor: '#0a0a0a', height: '142px'}}>
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-neutral-500 text-sm">Em breve</span>
                     </div>
@@ -467,7 +467,7 @@ export default function Dashboard() {
 
         {/* 3) GRÁFICO - Evolução de Receita e Lucro */}
         <Tabs defaultValue="revenue" className="space-y-4">
-          <TabsList className="font-sans bg-neutral-900/50 border border-neutral-800 p-1 rounded-xl">
+          <TabsList className="font-sans border border-neutral-800 p-1 rounded-xl" style={{backgroundColor: '#0a0a0a'}}>
             <TabsTrigger 
               value="revenue" 
               className="data-[state=active]:bg-neutral-800 data-[state=active]:text-white rounded-lg px-4 py-2 transition-all"
@@ -496,7 +496,7 @@ export default function Dashboard() {
 
           {/* Revenue Chart */}
           <TabsContent value="revenue" className="space-y-4">
-            <Card className="font-sans bg-neutral-900/50 border border-neutral-800 backdrop-blur-sm">
+            <Card className="font-sans border border-neutral-800 backdrop-blur-sm" style={{backgroundColor: '#0a0a0a'}}>
               <CardHeader className="flex flex-row items-center justify-between pb-4">
                 <div>
                   <CardTitle className="text-xl font-semibold text-white">Evolução de Receita e Lucro</CardTitle>
@@ -616,7 +616,7 @@ export default function Dashboard() {
 
           {/* Country Chart */}
           <TabsContent value="country" className="space-y-4">
-            <Card className="font-sans bg-neutral-900/50 border border-neutral-800 backdrop-blur-sm">
+            <Card className="font-sans border border-neutral-800 backdrop-blur-sm" style={{backgroundColor: '#0a0a0a'}}>
               <CardHeader className="flex flex-row items-center justify-between pb-4">
                 <div>
                   <CardTitle className="text-xl font-semibold text-white">Receita por País</CardTitle>
@@ -707,7 +707,7 @@ export default function Dashboard() {
 
           {/* Service Chart */}
           <TabsContent value="service" className="space-y-4">
-            <Card className="font-sans bg-neutral-900/50 border border-neutral-800 backdrop-blur-sm">
+            <Card className="font-sans border border-neutral-800 backdrop-blur-sm" style={{backgroundColor: '#0a0a0a'}}>
               <CardHeader className="flex flex-row items-center justify-between pb-4">
                 <div>
                   <CardTitle className="text-xl font-semibold text-white">Receita por Serviço</CardTitle>
@@ -801,7 +801,7 @@ export default function Dashboard() {
 
           {/* Transactions Tab */}
           <TabsContent value="transactions" className="space-y-4">
-            <Card className="font-sans bg-neutral-900/50 border border-neutral-800 backdrop-blur-sm">
+            <Card className="font-sans border border-neutral-800 backdrop-blur-sm" style={{backgroundColor: '#0a0a0a'}}>
               <CardHeader className="flex flex-row items-center justify-between pb-4">
                 <div>
                   <CardTitle className="text-xl font-semibold text-white">Transações Recentes</CardTitle>
@@ -918,7 +918,7 @@ export default function Dashboard() {
         {/* 3) DOIS CARDS LADO A LADO - Serviços e Países */}
         <div className="grid gap-4 md:grid-cols-2">
           {/* Serviços Mais Vendidos */}
-          <div className="font-sans bg-neutral-900/50 border border-neutral-800 rounded-xl p-6" style={{backgroundColor: '#101010'}}>
+          <div className="font-sans border border-neutral-800 rounded-xl p-6" style={{backgroundColor: '#0a0a0a'}}>
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h2 className="text-lg font-medium text-white mb-1">Serviços Mais Vendidos</h2>

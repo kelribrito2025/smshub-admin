@@ -263,3 +263,5 @@
 ### Integração
 - [x] Adicionar rota /admin/pagamentos no App.tsx
 - [x] Adicionar item "Pagamentos" no menu do DashboardLayout
+
+- [x] Corrigir cor de fundo dos cards da dashboard para #0a0a0a (consistência visual)
