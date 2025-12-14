@@ -171,3 +171,5 @@
 - [x] Remover font-sans da página /affiliate para herdar font-mono do StoreLayout
 
 - [x] Corrigir fonte Geist em todos os elementos do StoryLayout na página /affiliate (atualmente apenas título e descrição estão corretos, mas os cards de histórias ainda usam fonte sans)
+
+- [x] Aplicar fonte Geist (font-mono) e story layout na página /account
