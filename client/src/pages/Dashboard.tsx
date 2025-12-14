@@ -336,7 +336,7 @@ export default function Dashboard() {
               {
                 id: 'card-2',
                 content: (
-                  <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6 h-full flex flex-col">
+                  <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6 h-full flex flex-col min-h-[160px]">
                     {/* Cabeçalho do Card */}
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-neutral-400 text-sm">Total de Ativações</span>
@@ -354,7 +354,7 @@ export default function Dashboard() {
               {
                 id: 'card-3',
                 content: (
-                  <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6 h-full flex flex-col">
+                  <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6 h-full flex flex-col min-h-[160px]">
                     {/* Cabeçalho do Card */}
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-neutral-400 text-sm">Receita Total</span>
