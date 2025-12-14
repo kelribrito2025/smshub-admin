@@ -3,7 +3,7 @@ import { useStoreAuth } from '../contexts/StoreAuthContext';
 import StoreLayout from '../components/StoreLayout';
 import { trpc } from '../lib/trpc';
 import { Card } from '../components/ui/card';
-import { Activity, Clock, Copy, X, RefreshCw, Check, Loader2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Activity, Clock, Copy, X, RefreshCw, Check, Loader2, ChevronLeft, ChevronRight, ChevronRight as ChevronRightIcon } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { useState } from 'react';
 import { toast } from 'sonner';
@@ -13,7 +13,7 @@ import TableSkeleton from '../components/TableSkeleton';
 
 
 export default function StoreCatalog() {
-  const { customer } = useStoreAuth();
+  const { customer, isAuthenticated } = useStoreAuth();
   const [copiedId, setCopiedId] = useState<number | null>(null);
   const [isCancelling, setIsCancelling] = useState(false); // Estado global de cancelamento
   const [currentPage, setCurrentPage] = useState(1);
@@ -187,6 +187,49 @@ export default function StoreCatalog() {
 
     return pages;
   };
+
+  // Conteúdo institucional para usuários não autenticados
+  if (!isAuthenticated) {
+    return (
+      <StoreLayout>
+        <div className="space-y-8 max-w-3xl mx-auto py-8">
+          {/* Título Principal */}
+          <div className="text-center space-y-4">
+            <h1 className="text-3xl md:text-4xl font-bold text-green-400">
+              Números virtuais para verificação de contas
+            </h1>
+            <p className="text-lg text-green-600">
+              Receba SMS online sem precisar de chip físico. Ativação imediata, mais de 20 países.
+            </p>
+          </div>
+
+          {/* Lista de Benefícios */}
+          <div className="bg-black/50 border border-green-900/50 rounded-lg p-6 md:p-8">
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3 text-green-400">
+                <ChevronRightIcon className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                <span className="text-base md:text-lg">
+                  Receba SMS online sem precisar de chip físico. Ativação imediata, mais de 20 países.
+                </span>
+              </li>
+              <li className="flex items-start gap-3 text-green-400">
+                <ChevronRightIcon className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                <span className="text-base md:text-lg">
+                  Interface intuitiva com busca inteligente de serviços.
+                </span>
+              </li>
+              <li className="flex items-start gap-3 text-green-400">
+                <ChevronRightIcon className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                <span className="text-base md:text-lg">
+                  Receba SMS ilimitados por até 20 minutos. Tempo suficiente para validação de contas.
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </StoreLayout>
+    );
+  }
 
   return (
     <StoreLayout>

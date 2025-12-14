@@ -177,3 +177,7 @@
 - [x] Ajustar cabeçalho da página /account para ficar compacto como o da página /affiliate (reduzir tamanhos de fonte e espaçamentos)
 
 - [x] Corrigir capitalização dos textos na página /account (usar apenas primeira letra maiúscula ao invés de tudo em uppercase)
+
+- [x] Verificar e corrigir fonte dos campos de valores (Pin de cliente, Nome completo, Email, CPF/CNPJ, CEP, Estado, Cidade, Bairro, Rua/Avenida, Número) na página /account para usar font-mono (Geist)
+
+- [x] Ajustar StoreLayout para exibir conteúdo institucional quando usuário não estiver logado (lista vertical simples com setas, sem accordion ou animações)
