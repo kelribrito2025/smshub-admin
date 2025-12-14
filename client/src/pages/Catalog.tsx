@@ -668,7 +668,7 @@ export default function Catalog() {
       </div>
 
       {/* Filters */}
-      <Card className="p-4" style={{backgroundColor: '#101010'}}>
+      <Card className="p-4" style={{backgroundColor: '#0a0a0a'}}>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {/* Search */}
           <div className="relative">
@@ -740,19 +740,19 @@ export default function Catalog() {
             {globalFilteredItems.filter((i) => i.active).length}
           </div>
         </Card>
-        <Card className="p-4" style={{backgroundColor: '#101010'}}>
+        <Card className="p-4" style={{backgroundColor: '#0a0a0a'}}>
           <div className="text-sm text-muted-foreground">Serviços Inativos</div>
           <div className="text-2xl font-bold mt-1 text-red-600">
             {globalFilteredItems.filter((i) => !i.active).length}
           </div>
         </Card>
-        <Card className="p-4" style={{backgroundColor: '#101010'}}>
+        <Card className="p-4" style={{backgroundColor: '#0a0a0a'}}>
           <div className="text-sm text-muted-foreground">Países Disponíveis</div>
           <div className="text-2xl font-bold mt-1">
             {new Set(allCatalogItems.map((i) => i.countryCode)).size}
           </div>
         </Card>
-        <Card className="p-4" style={{backgroundColor: '#101010'}}>
+        <Card className="p-4" style={{backgroundColor: '#0a0a0a'}}>
           <div className="text-sm text-muted-foreground">Serviços Únicos</div>
           <div className="text-2xl font-bold mt-1">
             {new Set(allCatalogItems.map((i) => i.serviceCode)).size}
@@ -761,7 +761,7 @@ export default function Catalog() {
       </div>
 
       {/* Table */}
-      <Card style={{backgroundColor: '#101010'}}>
+      <Card style={{backgroundColor: '#0a0a0a'}}>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-black/30 border-b border-border">

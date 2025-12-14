@@ -267,3 +267,6 @@
 - [x] Corrigir cor de fundo dos cards da dashboard para #0a0a0a (consistência visual)
 
 - [x] Revisar e corrigir bg-neutral-900/50 para #0a0a0a em todas as páginas admin do DashboardLayout
+
+## Ajuste de Cor de Fundo na Página de Catálogo
+- [x] Alterar cor de fundo dos cards de filtros, estatísticas e tabela principal para #0a0a0a (via editor visual)
