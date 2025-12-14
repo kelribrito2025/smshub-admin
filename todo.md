@@ -194,3 +194,5 @@
 - [x] Adicionar 4 novos itens à lista existente na StoreCatalog.tsx (seta + texto)
 
 - [x] Adicionar banner cyber call-to-action abaixo da seção de benefícios na página inicial
+
+- [x] Adicionar nova seção hero visual abaixo do título na página inicial (StoreLayout)

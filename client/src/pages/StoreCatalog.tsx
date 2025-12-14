@@ -10,6 +10,7 @@ import { toast } from 'sonner';
 import { copyToClipboard } from '../lib/clipboard';
 import TableSkeleton from '../components/TableSkeleton';
 import CyberBanner from '../components/CyberBanner';
+import HeroSection from '../components/HeroSection';
 
 
 
@@ -214,6 +215,12 @@ export default function StoreCatalog() {
         {/* Activations Table or Institutional Content */}
         {!isAuthenticated ? (
           <>
+          {/* Hero Section */}
+          <HeroSection onCreateAccount={() => {
+            const authContext = useStoreAuth();
+            authContext.requireAuth(() => {});
+          }} />
+          
           <ul className="space-y-4 mt-8">
             <li className="flex items-start gap-3 text-green-400">
               <ChevronRightIcon className="w-5 h-5 mt-0.5 flex-shrink-0" />
