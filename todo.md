@@ -288,3 +288,9 @@
 - [x] Corrigir busca do endToEndId no router de payments (buscar de recharges ao invés de pixTransactions)
 - [x] Adicionar validações para garantir que só pagamentos PIX com endToEndId possam ser devolvidos
 - [x] Testar fluxo completo de devolução PIX
+
+- [x] Limpar dados mock da página /admin/pagamentos mantendo estrutura UI
+
+## Bugs
+
+- [x] Investigar e corrigir erro "PIX: endToEndId não encontrado" ao processar devoluções (pagamento #600001, cliente João PIN: 1273)

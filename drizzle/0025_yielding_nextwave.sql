@@ -1,0 +1,1 @@
+ALTER TABLE `pix_transactions` ADD `endToEndId` varchar(255);

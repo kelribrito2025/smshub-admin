@@ -1,0 +1,22 @@
+{
+  "query": "SELECT r.id, r.customerId, r.amount, r.paymentMethod, r.status, r.transactionId, r.endToEndId, r.createdAt, c.name, c.pin \nFROM recharges r \nLEFT JOIN customers c ON r.customerId = c.id \nWHERE r.id = 600001 OR r.transactionId = 'f76786d04e5d44508fd50305c8a062ee'\nLIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT r.id, r.customerId, r.amount, r.paymentMethod, r.status, r.transactionId, r.endToEndId, r.createdAt, c.name, c.pin \nFROM recharges r \nLEFT JOIN customers c ON r.customerId = c.id \nWHERE r.id = 600001 OR r.transactionId = 'f76786d04e5d44508fd50305c8a062ee'\nLIMIT 5;",
+  "rows": [
+    {
+      "id": "600001",
+      "customerId": "1200001",
+      "amount": "500",
+      "paymentMethod": "pix",
+      "status": "completed",
+      "transactionId": "f76786d04e5d44508fd50305c8a062ee",
+      "endToEndId": "NULL",
+      "createdAt": "2025-12-13 12:03:14",
+      "name": "Joao",
+      "pin": "1"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tcustomerId\tamount\tpaymentMethod\tstatus\ttransactionId\tendToEndId\tcreatedAt\tname\tpin\n600001\t1200001\t500\tpix\tcompleted\tf76786d04e5d44508fd50305c8a062ee\tNULL\t2025-12-13 12:03:14\tJoao\t1\n",
+  "stderr": "",
+  "execution_time_ms": 58
+}

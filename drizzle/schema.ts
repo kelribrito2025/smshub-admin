@@ -314,6 +314,7 @@ export const pixTransactions = mysqlTable("pix_transactions", {
   id: int("id").autoincrement().primaryKey(),
   customerId: int("customerId").notNull(), // Customer who initiated the recharge
   txid: varchar("txid", { length: 100 }).notNull().unique(), // EfiPay transaction ID
+  endToEndId: varchar("endToEndId", { length: 255 }), // PIX end-to-end ID (E2EID) - received when payment is confirmed
   amount: int("amount").notNull(), // Amount in cents
   status: mysqlEnum("status", ["pending", "paid", "expired", "cancelled"]).default("pending").notNull(),
   pixCopyPaste: text("pixCopyPaste"), // PIX Copia e Cola code

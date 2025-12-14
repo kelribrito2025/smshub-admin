@@ -103,12 +103,13 @@ router.post("/webhook/pix", async (req, res) => {
       return res.status(200).json({ success: true, message: "Already processed" });
     }
 
-    // Update transaction status
+    // Update transaction status and store endToEndId
     timestamps.beforeUpdateTx = Date.now();
     await db
       .update(pixTransactions)
       .set({
         status: "paid",
+        endToEndId: pixData.endToEndId, // Store E2EID for refunds
         paidAt: pixData.paidAt,
         updatedAt: new Date(),
       })
