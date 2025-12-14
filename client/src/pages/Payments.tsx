@@ -193,13 +193,16 @@ export default function Payments() {
           </Card>
         </div>
 
-        {/* Filtros */}
+        {/* Tabela de Pagamentos com Filtros Integrados */}
         <Card className="border-neutral-800" style={{backgroundColor: '#0a0a0a'}}>
           <CardHeader>
-            <CardTitle>Filtros de Busca</CardTitle>
-            <CardDescription>Busque por PIN, nome ou e-mail do cliente</CardDescription>
+            <CardTitle>Lista de Pagamentos</CardTitle>
+            <CardDescription>
+              {paymentsData?.total || 0} pagamento(s) encontrado(s)
+            </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="space-y-4">
+            {/* Filtros de Busca */}
             <div className="grid gap-4 md:grid-cols-3">
               {/* Campo de busca */}
               <div className="space-y-2">
@@ -241,7 +244,7 @@ export default function Payments() {
 
             {/* Botão de limpar filtros */}
             {(searchTerm || startDate || endDate) && (
-              <div className="mt-4">
+              <div>
                 <Button
                   variant="outline"
                   size="sm"
@@ -256,18 +259,7 @@ export default function Payments() {
                 </Button>
               </div>
             )}
-          </CardContent>
-        </Card>
 
-        {/* Tabela de Pagamentos */}
-        <Card className="border-neutral-800" style={{backgroundColor: '#0a0a0a'}}>
-          <CardHeader>
-            <CardTitle>Lista de Pagamentos</CardTitle>
-            <CardDescription>
-              {paymentsData?.total || 0} pagamento(s) encontrado(s)
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
             {paymentsLoading ? (
               <TableSkeleton />
             ) : (

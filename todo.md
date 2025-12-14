@@ -270,3 +270,5 @@
 
 ## Ajuste de Cor de Fundo na Página de Catálogo
 - [x] Alterar cor de fundo dos cards de filtros, estatísticas e tabela principal para #0a0a0a (via editor visual)
+
+- [x] Integrar filtros de busca no card da lista de pagamentos (remover container separado)
