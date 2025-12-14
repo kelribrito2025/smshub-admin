@@ -157,11 +157,11 @@ export default function StoreAffiliate() {
           <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-green-950/50 to-transparent pointer-events-none" />
           
           <CardHeader className="relative z-10">
-            <CardTitle className="text-green-400 flex items-center gap-2">
+            <CardTitle className="text-green-400 flex items-center gap-2 font-sans">
               <Share2 className="w-5 h-5" />
               Seu Link de Indicação
             </CardTitle>
-            <CardDescription className="text-green-600">
+            <CardDescription className="text-green-600 font-sans">
               Compartilhe este link com seus amigos para ganhar bônus
             </CardDescription>
           </CardHeader>
@@ -197,7 +197,7 @@ export default function StoreAffiliate() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <Card className="bg-black/50 border-green-900/50">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-green-600 flex items-center gap-2">
+              <CardTitle className="text-sm font-medium text-green-600 flex items-center gap-2 font-sans">
                 <DollarSign className="w-4 h-4 text-green-400" />
                 Total Ganho
               </CardTitle>
@@ -206,13 +206,13 @@ export default function StoreAffiliate() {
               <div className="text-2xl font-bold text-green-400">
                 {formatCurrency(displayStats?.totalEarnings || 0)}
               </div>
-              <p className="text-xs text-green-600 mt-1">Saldo de bônus acumulado</p>
+              <p className="text-xs text-green-600 mt-1 font-sans">Saldo de bônus acumulado</p>
             </CardContent>
           </Card>
 
           <Card className="bg-black/50 border-green-900/50">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-green-600 flex items-center gap-2">
+              <CardTitle className="text-sm font-medium text-green-600 flex items-center gap-2 font-sans">
                 <Users className="w-4 h-4 text-green-400" />
                 Total de Indicações
               </CardTitle>
@@ -221,13 +221,13 @@ export default function StoreAffiliate() {
               <div className="text-2xl font-bold text-green-400">
                 {displayStats?.totalReferrals || 0}
               </div>
-              <p className="text-xs text-green-600 mt-1">Pessoas indicadas</p>
+              <p className="text-xs text-green-600 mt-1 font-sans">Pessoas indicadas</p>
             </CardContent>
           </Card>
 
           <Card className="bg-black/50 border-green-900/50">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-green-600 flex items-center gap-2">
+              <CardTitle className="text-sm font-medium text-green-600 flex items-center gap-2 font-sans">
                 <TrendingUp className="w-4 h-4 text-green-400" />
                 Indicações Ativas
               </CardTitle>
@@ -236,13 +236,13 @@ export default function StoreAffiliate() {
               <div className="text-2xl font-bold text-green-400">
                 {displayStats?.activeReferrals || 0}
               </div>
-              <p className="text-xs text-green-600 mt-1">Fizeram primeira recarga</p>
+              <p className="text-xs text-green-600 mt-1 font-sans">Fizeram primeira recarga</p>
             </CardContent>
           </Card>
 
           <Card className="bg-black/50 border-green-900/50">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-green-600 flex items-center gap-2">
+              <CardTitle className="text-sm font-medium text-green-600 flex items-center gap-2 font-sans">
                 <Percent className="w-4 h-4 text-green-400" />
                 Taxa de Conversão
               </CardTitle>
@@ -251,7 +251,7 @@ export default function StoreAffiliate() {
               <div className="text-2xl font-bold text-green-400">
                 {displayStats?.conversionRate || 0}%
               </div>
-              <p className="text-xs text-green-600 mt-1">Indicações que recarregaram</p>
+              <p className="text-xs text-green-600 mt-1 font-sans">Indicações que recarregaram</p>
             </CardContent>
           </Card>
         </div>
@@ -259,7 +259,7 @@ export default function StoreAffiliate() {
         {/* (B) Regras do Programa */}
         <Card className="bg-black/50 border-green-900/50">
           <CardHeader>
-            <CardTitle className="text-green-400">Como Funciona</CardTitle>
+            <CardTitle className="text-green-400 font-sans">Como Funciona</CardTitle>
           </CardHeader>
           <CardContent>
             <ul className="space-y-2">
@@ -276,8 +276,8 @@ export default function StoreAffiliate() {
         {/* (D) Histórico de Indicações */}
         <Card className="bg-black/50 border-green-900/50">
           <CardHeader>
-            <CardTitle className="text-green-400">Histórico de Indicações</CardTitle>
-            <CardDescription className="text-green-600">
+            <CardTitle className="text-green-400 font-sans">Histórico de Indicações</CardTitle>
+            <CardDescription className="text-green-600 font-sans">
               Acompanhe o status de todas as suas indicações
             </CardDescription>
           </CardHeader>
