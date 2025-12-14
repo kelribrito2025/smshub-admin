@@ -12,6 +12,7 @@ import {
   getCustomerTransactions,
   getAllTransactions,
   getCustomerStats,
+  getNewCustomersToday,
 } from '../customers-helpers';
 
 export const customersRouter = router({
@@ -262,6 +263,14 @@ export const customersRouter = router({
       totalBalance: stats.totalBalance / 100, // Convert to reais
       averageBalance: stats.averageBalance / 100, // Convert to reais
     };
+  }),
+
+  /**
+   * Get count of new customers registered today
+   */
+  getNewCustomersToday: adminProcedure.query(async () => {
+    const count = await getNewCustomersToday();
+    return { count };
   }),
 
   /**

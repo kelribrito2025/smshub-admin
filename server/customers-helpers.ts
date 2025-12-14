@@ -265,3 +265,30 @@ export async function getCustomerStats() {
     activeCustomersLast30Days,
   };
 }
+
+/**
+ * Get count of new customers registered today
+ */
+export async function getNewCustomersToday(): Promise<number> {
+  const db = await getDb();
+  if (!db) return 0;
+
+  // Get start of today in Brazil timezone (UTC-3)
+  const now = new Date();
+  const brazilOffset = -3 * 60; // UTC-3 in minutes
+  const localOffset = now.getTimezoneOffset(); // Current timezone offset
+  const offsetDiff = brazilOffset - localOffset;
+  
+  const todayBrazil = new Date(now.getTime() + offsetDiff * 60 * 1000);
+  todayBrazil.setHours(0, 0, 0, 0);
+  
+  // Convert back to UTC for database query
+  const startOfDayUTC = new Date(todayBrazil.getTime() - offsetDiff * 60 * 1000);
+
+  const result = await db
+    .select({ count: sql<number>`CAST(COUNT(*) AS UNSIGNED)` })
+    .from(customers)
+    .where(gte(customers.createdAt, startOfDayUTC));
+
+  return result[0]?.count || 0;
+}

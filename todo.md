@@ -138,3 +138,6 @@
 
 ## Ajuste de Cor do Botão "Adicionar Cliente"
 - [x] Alterar cor de fundo do botão "Adicionar Cliente" para #1447e5 (via editor visual)
+
+## Badge Contador de Novos Clientes
+- [x] Badge contador de clientes cadastrados hoje no menu "Clientes"

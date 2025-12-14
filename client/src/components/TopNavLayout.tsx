@@ -40,6 +40,16 @@ export default function TopNavLayout({
   // Fetch menu items from database
   const { data: dbMenus, isLoading: menusLoading } = trpc.adminMenus.getAll.useQuery();
 
+  // Fetch new customers count for today
+  const { data: newCustomersData } = trpc.customers.getNewCustomersToday.useQuery(
+    undefined,
+    {
+      refetchInterval: 60000, // Refetch every 1 minute
+      staleTime: 30000, // Consider data stale after 30 seconds
+    }
+  );
+  const newCustomersCount = newCustomersData?.count || 0;
+
   // Fallback menu items (used if database menus are not available)
   const fallbackMenuItems = [
     { icon: "LayoutDashboard", label: "Dashboard", path: "/admin/dashboard" },
@@ -115,12 +125,14 @@ export default function TopNavLayout({
               {visibleItems.map((item: any) => {
                 const Icon = getIconComponent(item.icon);
                 const isActive = location === item.path;
+                const isCustomersMenu = item.path === '/admin/clientes';
+                const showBadge = isCustomersMenu && newCustomersCount > 0;
 
                 return (
                   <button
                     key={item.path}
                     onClick={() => setLocation(item.path)}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors relative ${
                       isActive
                         ? 'bg-neutral-900 text-white'
                         : 'text-neutral-400 hover:bg-neutral-900 hover:text-white'
@@ -128,6 +140,11 @@ export default function TopNavLayout({
                   >
                     <Icon size={18} className={isActive ? 'text-blue-500' : ''} />
                     <span className="text-sm">{item.label}</span>
+                    {showBadge && (
+                      <span className="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 text-xs font-medium text-white bg-green-600 rounded-full">
+                        {newCustomersCount}
+                      </span>
+                    )}
                   </button>
                 );
               })}
