@@ -150,3 +150,4 @@
 
 ## Campo de Busca por Número no Histórico
 - [x] Adicionar campo de busca por número na página /history do StoreLayout (mesma linha horizontal do histórico de ativações)
+- [x] Reduzir largura do campo de busca por número em 40%

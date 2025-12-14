@@ -151,7 +151,7 @@ export default function StoreActivations() {
               <History className="w-6 h-6" />
               Histórico de Ativações
             </h1>
-            <div className="relative w-full md:w-80">
+            <div className="relative w-full md:w-48">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-green-600" />
               <Input
                 type="text"
