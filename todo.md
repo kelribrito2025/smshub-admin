@@ -279,3 +279,5 @@
 
 - [x] Ajustar espaçamento do cabeçalho da página /admin/pagamentos para corresponder ao layout da /admin/dashboard
 - [x] Adicionar ícone de cartão no título "Pagamentos"
+
+- [x] Alterar cor do ícone de Pagamentos para azul (mesma cor do admin)
