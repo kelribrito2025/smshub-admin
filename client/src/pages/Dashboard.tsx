@@ -300,7 +300,7 @@ export default function Dashboard() {
               {
                 id: 'card-1',
                 content: (
-                  <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6 h-full flex flex-col">
+                  <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
                     {/* Cabeçalho do Card */}
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-neutral-400 text-sm">Saldo das APIs</span>
@@ -309,9 +309,9 @@ export default function Dashboard() {
                     
                     {/* Lista de Saldos */}
                     {isLoadingBalances ? (
-                      <div className="text-sm text-neutral-500 flex-1">Carregando...</div>
+                      <div className="text-sm text-neutral-500">Carregando...</div>
                     ) : allBalances && allBalances.length > 0 ? (
-                      <div className="space-y-2 flex-1">
+                      <div className="space-y-2">
                         {allBalances.map((api) => (
                           <div key={api.id} className="flex justify-between items-center">
                             <span className="text-xs text-neutral-500">{api.name}</span>
@@ -328,7 +328,7 @@ export default function Dashboard() {
                         ))}
                       </div>
                     ) : (
-                      <div className="text-sm text-neutral-500 flex-1">Nenhuma API configurada</div>
+                      <div className="text-sm text-neutral-500">Nenhuma API configurada</div>
                     )}
                   </div>
                 ),
@@ -336,7 +336,7 @@ export default function Dashboard() {
               {
                 id: 'card-2',
                 content: (
-                  <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6 h-full flex flex-col min-h-[160px]">
+                  <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
                     {/* Cabeçalho do Card */}
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-neutral-400 text-sm">Total de Ativações</span>
@@ -344,7 +344,7 @@ export default function Dashboard() {
                     </div>
                     
                     {/* Valor Principal */}
-                    <div className="text-3xl font-light text-white mb-1 flex-1">{stats?.total || 0}</div>
+                    <div className="text-3xl font-light text-white mb-1">{stats?.total || 0}</div>
                     
                     {/* Informação Secundária */}
                     <div className="text-xs text-neutral-500">{stats?.completed || 0} concluídas</div>
@@ -354,7 +354,7 @@ export default function Dashboard() {
               {
                 id: 'card-3',
                 content: (
-                  <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6 h-full flex flex-col">
+                  <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
                     {/* Cabeçalho do Card */}
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-neutral-400 text-sm">Receita Total</span>
@@ -362,7 +362,7 @@ export default function Dashboard() {
                     </div>
                     
                     {/* Valor Principal */}
-                    <div className="text-3xl font-light text-white mb-1 flex-1">
+                    <div className="text-3xl font-light text-white mb-1">
                       {formatCurrency(Number(stats?.totalRevenue) || 0)}
                     </div>
                     
@@ -374,31 +374,29 @@ export default function Dashboard() {
               {
                 id: 'card-4',
                 content: (
-                  <Card style={{backgroundColor: '#101010'}}>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium">Lucro Total</CardTitle>
-                      <DollarSign className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent className="pt-8">
-                      <div className="text-2xl font-bold text-green-600">
-                        {formatCurrency(Number(stats?.totalProfit) || 0)}
-                      </div>
-                      <p className="text-xs text-muted-foreground">
-                        Margem de {stats?.totalRevenue ? ((Number(stats.totalProfit) / Number(stats.totalRevenue)) * 100).toFixed(1) : 0}%
-                      </p>
-                    </CardContent>
-                  </Card>
+                  <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-neutral-400 text-sm">Lucro Total</span>
+                      <DollarSign size={18} className="text-neutral-500" />
+                    </div>
+                    <div className="text-3xl font-light text-green-600 mb-1">
+                      {formatCurrency(Number(stats?.totalProfit) || 0)}
+                    </div>
+                    <div className="text-xs text-neutral-500">
+                      Margem de {stats?.totalRevenue ? ((Number(stats.totalProfit) / Number(stats.totalRevenue)) * 100).toFixed(1) : 0}%
+                    </div>
+                  </div>
                 ),
               },
               {
                 id: 'card-5',
                 content: (
-                  <div className="font-sans bg-neutral-900/50 border border-neutral-800 rounded-xl p-6 h-full flex flex-col">
+                  <div className="font-sans bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-neutral-400 text-sm">Custo Total</span>
                       <TrendingDown size={18} className="text-red-500" />
                     </div>
-                    <div className="text-3xl font-light text-red-500 mb-1 flex-1">
+                    <div className="text-3xl font-light text-red-500 mb-1">
                       {formatCurrency(Number(metrics?.totalCost) || 0)}
                     </div>
                     <div className="text-xs text-neutral-500">
@@ -432,12 +430,12 @@ export default function Dashboard() {
               {
                 id: 'card-7',
                 content: (
-                  <div className="font-sans bg-neutral-900/50 border border-neutral-800 rounded-xl p-6 h-full flex flex-col">
+                  <div className="font-sans bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-neutral-400 text-sm">Total de Reembolsos</span>
                       <RefreshCcw size={18} className="text-blue-500" />
                     </div>
-                    <div className="text-3xl font-light text-blue-500 mb-1 flex-1">
+                    <div className="text-3xl font-light text-blue-500 mb-1">
                       {formatCurrency(Number(refundsToday) || 0)}
                     </div>
                     <div className="text-xs text-neutral-500">

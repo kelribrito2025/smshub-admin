@@ -124,3 +124,12 @@
 
 ## Ajuste de Altura dos Cards de Receita Total e Total de Reembolsos
 - [x] Ajustar altura dos cards de "Receita Total" e "Total de Reembolsos" no dashboard admin para ficarem com a mesma altura
+
+## Remoção do DashboardLayout da Página /admin/dashboard
+- [x] Remover DashboardLayout da página /admin/dashboard e ajustar altura dos cards de receita e reembolsos para igualar ao card "Em breve"
+
+## Ajuste de Altura dos Cards de Métricas no Dashboard Admin
+- [x] Ajustar altura dos cards de Lucro Total, Total de Ativações e Custo Total para ficarem com a mesma altura do card de Taxa de Sucesso
+
+## Ajuste de Altura dos Cards no Dashboard Admin (Total de Reembolsos, Em Breve, Saldo das APIs)
+- [x] Ajustar altura dos cards "Total de Reembolsos", "Em Breve" e "Saldo das APIs Total" para ficarem com a mesma altura do card "Receita Total"
