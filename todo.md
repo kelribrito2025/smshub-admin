@@ -175,3 +175,5 @@
 - [x] Aplicar fonte Geist (font-mono) e story layout na página /account
 
 - [x] Ajustar cabeçalho da página /account para ficar compacto como o da página /affiliate (reduzir tamanhos de fonte e espaçamentos)
+
+- [x] Corrigir capitalização dos textos na página /account (usar apenas primeira letra maiúscula ao invés de tudo em uppercase)

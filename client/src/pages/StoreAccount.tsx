@@ -38,7 +38,7 @@ export default function StoreAccount() {
         {/* Page Header */}
         <div className="flex items-center gap-3 mb-2">
           <User className="w-6 h-6 text-green-400" />
-          <h1 className="text-2xl font-bold text-green-400">PERFIL</h1>
+          <h1 className="text-2xl font-bold text-green-400">Perfil</h1>
         </div>
         <p className="text-green-600 text-sm mb-6">
           Gerencie suas informações pessoais
@@ -47,7 +47,7 @@ export default function StoreAccount() {
         {/* Profile Section */}
         <div className="space-y-4">
           <div>
-            <h2 className="text-xl font-bold text-green-400 mb-2">INFORMAÇÕES BÁSICAS</h2>
+            <h2 className="text-xl font-bold text-green-400 mb-2">Informações básicas</h2>
             <p className="text-green-600 text-sm mb-4">
               Seus dados principais de identificação no sistema.
             </p>
@@ -57,8 +57,8 @@ export default function StoreAccount() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* PIN - Destaque */}
               <div>
-                <label className="block text-sm font-bold text-green-400 mb-2 uppercase">
-                  PIN DE CLIENTE
+                <label className="block text-sm font-bold text-green-400 mb-2">
+                  Pin de cliente
                 </label>
                 <div className="relative">
                   <Input
@@ -90,8 +90,8 @@ export default function StoreAccount() {
 
               {/* Name */}
               <div>
-                <label className="block text-sm font-bold text-green-400 mb-2 uppercase">
-                  NOME COMPLETO
+                <label className="block text-sm font-bold text-green-400 mb-2">
+                  Nome completo
                 </label>
                 <Input
                   value={customer.name}
@@ -103,8 +103,8 @@ export default function StoreAccount() {
 
               {/* Email */}
               <div>
-                <label className="block text-sm font-bold text-green-400 mb-2 uppercase">
-                  EMAIL
+                <label className="block text-sm font-bold text-green-400 mb-2">
+                  Email
                 </label>
                 <Input
                   value={customer.email}
@@ -116,7 +116,7 @@ export default function StoreAccount() {
 
               {/* CPF/CNPJ */}
               <div>
-                <label className="block text-sm font-bold text-green-400 mb-2 uppercase">
+                <label className="block text-sm font-bold text-green-400 mb-2">
                   CPF/CNPJ
                 </label>
                 <Input
@@ -133,7 +133,7 @@ export default function StoreAccount() {
           <div>
             <h2 className="text-xl font-bold text-green-400 mb-2 flex items-center gap-2">
               <MapPin className="w-5 h-5" />
-              ENDEREÇO
+              Endereço
             </h2>
             <p className="text-green-600 text-sm mb-4">
               Mantenha seu endereço atualizado para receber comunicações importantes.
@@ -144,7 +144,7 @@ export default function StoreAccount() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* CEP */}
               <div>
-                <label className="block text-sm font-bold text-green-400 mb-2 uppercase">
+                <label className="block text-sm font-bold text-green-400 mb-2">
                   CEP
                 </label>
                 <Input
@@ -155,8 +155,8 @@ export default function StoreAccount() {
 
               {/* Estado */}
               <div>
-                <label className="block text-sm font-bold text-green-400 mb-2 uppercase">
-                  ESTADO
+                <label className="block text-sm font-bold text-green-400 mb-2">
+                  Estado
                 </label>
                 <select className="w-full bg-gray-900 border border-green-900/50 rounded px-3 py-2 text-green-400 font-mono focus:outline-none focus:border-green-500">
                   <option value="">Selecione o estado</option>
@@ -192,8 +192,8 @@ export default function StoreAccount() {
 
               {/* Cidade */}
               <div>
-                <label className="block text-sm font-bold text-green-400 mb-2 uppercase">
-                  CIDADE
+                <label className="block text-sm font-bold text-green-400 mb-2">
+                  Cidade
                 </label>
                 <Input
                   placeholder="Digite a cidade"
@@ -203,8 +203,8 @@ export default function StoreAccount() {
 
               {/* Bairro */}
               <div>
-                <label className="block text-sm font-bold text-green-400 mb-2 uppercase">
-                  BAIRRO
+                <label className="block text-sm font-bold text-green-400 mb-2">
+                  Bairro
                 </label>
                 <Input
                   placeholder="Digite o bairro"
@@ -214,8 +214,8 @@ export default function StoreAccount() {
 
               {/* Rua/Avenida */}
               <div>
-                <label className="block text-sm font-bold text-green-400 mb-2 uppercase">
-                  RUA/AVENIDA
+                <label className="block text-sm font-bold text-green-400 mb-2">
+                  Rua/Avenida
                 </label>
                 <Input
                   placeholder="Digite a rua"
@@ -225,8 +225,8 @@ export default function StoreAccount() {
 
               {/* Número */}
               <div>
-                <label className="block text-sm font-bold text-green-400 mb-2 uppercase">
-                  NÚMERO
+                <label className="block text-sm font-bold text-green-400 mb-2">
+                  Número
                 </label>
                 <Input
                   placeholder="Nº"
@@ -240,7 +240,7 @@ export default function StoreAccount() {
         {/* Action Section */}
         <div className="mt-4">
           <Button className="bg-green-500 hover:bg-green-400 text-black font-mono font-bold">
-            💾 SALVAR PERFIL
+            💾 Salvar perfil
           </Button>
         </div>
       </div>
