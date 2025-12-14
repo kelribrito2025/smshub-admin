@@ -114,3 +114,7 @@
 
 ## Atualização Visual do Card de Receita Total
 - [x] Atualizar visual do card de Receita Total no dashboard admin com design moderno (bg-neutral-900/50, bordas neutral-800, tipografia leve, ícone TrendingUp)
+
+## Ajuste de Layout da Página Admin Dashboard
+- [x] Remover DashboardLayout da página /admin/dashboard
+- [x] Ajustar altura dos cards de Total de Ativações e Receita Total para corresponder ao card de Saldo das APIs
