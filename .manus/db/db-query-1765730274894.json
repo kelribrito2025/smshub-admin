@@ -1,0 +1,9 @@
+{
+  "query": "CREATE TABLE IF NOT EXISTS `refunds` (\n  `id` int AUTO_INCREMENT NOT NULL,\n  `customerId` int NOT NULL,\n  `rechargeId` int,\n  `paymentMethod` enum('pix','card') NOT NULL,\n  `amount` int NOT NULL,\n  `originalAmount` int NOT NULL,\n  `status` enum('pending','completed','failed') NOT NULL DEFAULT 'pending',\n  `paymentId` varchar(255),\n  `endToEndId` varchar(255),\n  `refundId` varchar(255),\n  `reason` text,\n  `processedBy` int,\n  `metadata` text,\n  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  `completedAt` timestamp,\n  CONSTRAINT `refunds_id` PRIMARY KEY(`id`),\n  INDEX `refund_customer_idx` (`customerId`),\n  INDEX `refund_status_idx` (`status`),\n  INDEX `refund_created_at_idx` (`createdAt`),\n  INDEX `refund_payment_method_idx` (`paymentMethod`)\n)",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute CREATE TABLE IF NOT EXISTS `refunds` (\n  `id` int AUTO_INCREMENT NOT NULL,\n  `customerId` int NOT NULL,\n  `rechargeId` int,\n  `paymentMethod` enum('pix','card') NOT NULL,\n  `amount` int NOT NULL,\n  `originalAmount` int NOT NULL,\n  `status` enum('pending','completed','failed') NOT NULL DEFAULT 'pending',\n  `paymentId` varchar(255),\n  `endToEndId` varchar(255),\n  `refundId` varchar(255),\n  `reason` text,\n  `processedBy` int,\n  `metadata` text,\n  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,\n  `completedAt` timestamp,\n  CONSTRAINT `refunds_id` PRIMARY KEY(`id`),\n  INDEX `refund_customer_idx` (`customerId`),\n  INDEX `refund_status_idx` (`status`),\n  INDEX `refund_created_at_idx` (`createdAt`),\n  INDEX `refund_payment_method_idx` (`paymentMethod`)\n)",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 226
+}

@@ -19,6 +19,7 @@ const ApiPerformance = lazy(() => import("./pages/admin/ApiPerformance"));
 
 const Audit = lazy(() => import("./pages/Audit"));
 const Affiliates = lazy(() => import("./pages/admin/Affiliates"));
+const Payments = lazy(() => import("./pages/Payments"));
 
 // Store pages (public)
 const StoreCatalog = lazy(() => import("./pages/StoreCatalog"));
@@ -86,6 +87,7 @@ function AdminRouter() {
 
         <Route path="/admin/auditoria" component={Audit} />
         <Route path="/admin/affiliates" component={Affiliates} />
+        <Route path="/admin/pagamentos" component={Payments} />
       </Switch>
     </Suspense>
   );

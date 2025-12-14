@@ -658,3 +658,32 @@ export const apiPerformanceStats = mysqlTable("api_performance_stats", {
 
 export type ApiPerformanceStat = typeof apiPerformanceStats.$inferSelect;
 export type InsertApiPerformanceStat = typeof apiPerformanceStats.$inferInsert;
+
+/**
+ * Refunds table - stores all payment refunds (PIX and Stripe)
+ */
+export const refunds = mysqlTable("refunds", {
+  id: int("id").autoincrement().primaryKey(),
+  customerId: int("customerId").notNull(), // Customer who received the refund
+  rechargeId: int("rechargeId"), // Link to original recharge (optional)
+  paymentMethod: mysqlEnum("paymentMethod", ["pix", "card"]).notNull(),
+  amount: int("amount").notNull(), // Refund amount in cents
+  originalAmount: int("originalAmount").notNull(), // Original payment amount in cents
+  status: mysqlEnum("status", ["pending", "completed", "failed"]).default("pending").notNull(),
+  paymentId: varchar("paymentId", { length: 255 }), // External payment ID (Gerencianet txid or Stripe payment intent)
+  endToEndId: varchar("endToEndId", { length: 255 }), // PIX End-to-End ID
+  refundId: varchar("refundId", { length: 255 }), // External refund ID from payment provider
+  reason: text("reason"), // Reason for refund
+  processedBy: int("processedBy"), // Admin user who processed the refund
+  metadata: text("metadata"), // JSON string for additional refund data
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  completedAt: timestamp("completedAt"), // When refund was completed
+}, (table) => ({
+  customerIdx: index("refund_customer_idx").on(table.customerId),
+  statusIdx: index("refund_status_idx").on(table.status),
+  createdAtIdx: index("refund_created_at_idx").on(table.createdAt),
+  paymentMethodIdx: index("refund_payment_method_idx").on(table.paymentMethod),
+}));
+
+export type Refund = typeof refunds.$inferSelect;
+export type InsertRefund = typeof refunds.$inferInsert;

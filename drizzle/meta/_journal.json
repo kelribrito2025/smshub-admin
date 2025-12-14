@@ -162,6 +162,13 @@
       "when": 1765661104582,
       "tag": "0022_new_silver_fox",
       "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "5",
+      "when": 1765730110373,
+      "tag": "0023_lucky_mandarin",
+      "breakpoints": true
     }
   ]
 }

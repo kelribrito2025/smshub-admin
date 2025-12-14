@@ -227,7 +227,67 @@ export class EfiPayClient {
   }
 
   /**
-   * Generate QR Code image URL from pixCopyPaste
+   * Process PIX refund (devolução)
+   */
+  async processRefund(params: {
+    endToEndId: string;
+    amount: number; // Amount in cents
+    reason?: string;
+  }): Promise<{ refundId: string; status: string }> {
+    try {
+      const amountInReais = (params.amount / 100).toFixed(2);
+      const refundId = randomUUID().replace(/-/g, "");
+
+      const body = {
+        valor: amountInReais,
+        natureza: "DEVOLUCAO",
+        descricao: params.reason || "Devolução solicitada",
+      };
+
+      console.log("[EfiPay] Processing PIX refund:", {
+        endToEndId: params.endToEndId,
+        amount: amountInReais,
+        refundId,
+      });
+
+      const response = await this.client.pixDevolution(
+        { e2eId: params.endToEndId, id: refundId },
+        body
+      );
+
+      console.log("[EfiPay] Refund processed successfully:", {
+        refundId: response.id,
+        status: response.status,
+      });
+
+      return {
+        refundId: response.id,
+        status: response.status,
+      };
+    } catch (error: any) {
+      console.error("[EfiPay] Error processing refund:", error);
+      
+      let errorMessage = "Unknown error";
+      
+      if (error.message) {
+        errorMessage = error.message;
+      } else if (error.response?.data) {
+        try {
+          const data = typeof error.response.data === 'string' 
+            ? JSON.parse(error.response.data) 
+            : error.response.data;
+          errorMessage = data.mensagem || data.message || JSON.stringify(data);
+        } catch (e) {
+          errorMessage = String(error.response.data);
+        }
+      }
+      
+      throw new Error(`EfiPay refund error: ${errorMessage}`);
+    }
+  }
+
+  /**
+   * Generate QR Code image URL from PIX copy-paste code
    */
   generateQRCodeImageUrl(pixCopyPaste: string): string {
     // Use a QR Code generation service with green color (#00FF41)

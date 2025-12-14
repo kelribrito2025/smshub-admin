@@ -234,3 +234,32 @@
 - [x] Remover linha horizontal animada (scanner) quando usuário estiver logado
 
 - [x] Corrigir barra de rolagem verde indesejada na página StoreLayout quando usuário está deslogado
+
+## Página Pagamentos (/admin/pagamentos)
+
+### Cards de Resumo
+- [x] Card: Total de pagamentos recebidos (R$)
+- [x] Card: Total de devoluções via Pix (R$)
+- [x] Card: Em breve (placeholder)
+
+### Tabela de Pagamentos
+- [x] Criar schema de pagamentos no banco
+- [x] Criar procedures tRPC para listar pagamentos
+- [x] Implementar tabela com colunas: ID, ID Gerencianet, Cliente (nome + PIN), Tipo, Origem, Descrição, Valor, Data/Hora
+- [x] Aplicar mesmo estilo visual da tabela de /admin/auditoria
+
+### Filtros de Busca
+- [x] Filtro de busca por texto (PIN, nome, e-mail)
+- [x] Filtro por intervalo de datas (data inicial/final)
+
+### Funcionalidade de Devolução
+- [x] Estrutura para abrir modal/drawer de confirmação
+- [x] Opção: devolução integral ou parcial
+- [x] Input para valor (se parcial)
+- [x] Integração com API de devolução (Gerencianet PIX)
+- [x] Atualizar lista e cards após devolução
+- [x] Testes unitários do router de pagamentos
+
+### Integração
+- [x] Adicionar rota /admin/pagamentos no App.tsx
+- [x] Adicionar item "Pagamentos" no menu do DashboardLayout
