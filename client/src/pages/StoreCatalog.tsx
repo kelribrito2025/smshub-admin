@@ -197,12 +197,12 @@ export default function StoreCatalog() {
         <div className="mb-4">
           <h1 className="text-2xl font-bold text-green-400 mb-2 flex items-center gap-2">
             <Activity className="w-6 h-6" />
-            Ativações em Andamento
+            Números virtuais para verificação de contas
           </h1>
           <p className="text-green-600 text-sm">
-            {totalEntries > 0 
+            {isAuthenticated && totalEntries > 0 
               ? `Mostrando ${startEntry}-${endEntry} de ${totalEntries} entradas`
-              : 'Nenhuma ativação encontrada'
+              : 'Receba SMS online sem precisar de chip físico. Ativação imediata, + de 20 países.'
             }
           </p>
         </div>

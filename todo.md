@@ -181,3 +181,4 @@
 - [x] Verificar e corrigir fonte dos campos de valores (Pin de cliente, Nome completo, Email, CPF/CNPJ, CEP, Estado, Cidade, Bairro, Rua/Avenida, Número) na página /account para usar font-mono (Geist)
 
 - [x] Ajustar StoreLayout para exibir conteúdo institucional quando usuário não estiver logado (lista vertical simples com setas, sem accordion ou animações)
+- [x] Atualizar cabeçalho da página de ativações para "Números virtuais para verificação de contas" e descrição institucional
