@@ -366,3 +366,7 @@
 - [x] Remover bordas redondas do status na tabela de pedidos (Dashboard e Financial) - deixar apenas texto colorido
 
 - [x] Traduzir textos de status para português (completed → Concluído, cancelled → Cancelado, etc.)
+
+- [x] Adicionar ícone de exclusão na coluna de ações da página /admin/catalogo
+- [x] Criar modal de confirmação para exclusão de serviço do catálogo
+- [x] Implementar lógica de exclusão do serviço do catálogo

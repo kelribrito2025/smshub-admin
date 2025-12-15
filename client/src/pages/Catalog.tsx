@@ -43,9 +43,9 @@ export default function Catalog() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isImportDialogOpen, setIsImportDialogOpen] = useState(false);
-  // const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<CatalogItem | null>(null);
-  // const [deletingItem, setDeletingItem] = useState<CatalogItem | null>(null);
+  const [deletingItem, setDeletingItem] = useState<CatalogItem | null>(null);
   const [importCountryId, setImportCountryId] = useState<string>('');
   const [importApiId, setImportApiId] = useState<string>('');
   const [formData, setFormData] = useState({
@@ -96,6 +96,11 @@ export default function Catalog() {
   const createManual = trpc.prices.createManual.useMutation();
   const editService = trpc.prices.editService.useMutation();
   const importCountryServices = trpc.prices.importCountryServices.useMutation();
+  const deletePrice = trpc.prices.delete.useMutation({
+    onSuccess: () => {
+      utils.prices.getAll.invalidate();
+    },
+  });
 
   const { data: countries } = trpc.countries.getAll.useQuery();
   const { data: apis } = trpc.apis.list.useQuery();
@@ -194,24 +199,23 @@ export default function Catalog() {
     }
   };
 
-  // const handleDelete = (item: CatalogItem) => {
-  //   setDeletingItem(item);
-  //   setIsDeleteDialogOpen(true);
-  // };
+  const handleDelete = (item: CatalogItem) => {
+    setDeletingItem(item);
+    setIsDeleteDialogOpen(true);
+  };
 
-  // const handleConfirmDelete = async () => {
-  //   if (!deletingItem) return;
+  const handleConfirmDelete = async () => {
+    if (!deletingItem) return;
 
-  //   try {
-  //     await deletePrice.mutateAsync({ id: deletingItem.id });
-  //     toast.success('Serviço excluído com sucesso!');
-  //     setIsDeleteDialogOpen(false);
-  //     setDeletingItem(null);
-  //     refetch();
-  //   } catch (error: any) {
-  //     toast.error(error.message || 'Erro ao excluir serviço');
-  //   }
-  // };
+    try {
+      await deletePrice.mutateAsync({ id: deletingItem.id });
+      toast.success('Serviço excluído com sucesso!');
+      setIsDeleteDialogOpen(false);
+      setDeletingItem(null);
+    } catch (error: any) {
+      toast.error(error.message || 'Erro ao excluir serviço');
+    }
+  };
 
   const handleCreateManual = async () => {
     try {
@@ -861,14 +865,13 @@ export default function Catalog() {
                         >
                           <Pencil className="w-4 h-4 text-green-400" />
                         </button>
-                        {/* Delete button commented until backend is implemented */}
-                        {/* <button
+                        <button
                           onClick={() => handleDelete(item)}
                           className="p-2 hover:bg-red-900/30 rounded transition-colors"
                           title="Excluir serviço"
                         >
                           <Trash2 className="w-4 h-4 text-red-400" />
-                        </button> */}
+                        </button>
                       </div>
                     </td>
                   </tr>
@@ -1080,8 +1083,8 @@ export default function Catalog() {
         </DialogContent>
       </Dialog>
 
-      {/* Delete Confirmation Dialog - Commented out until backend is implemented */}
-      {/* <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+      {/* Delete Confirmation Dialog */}
+      <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
         <AlertDialogContent className="bg-gray-900 border-red-900/50">
           <AlertDialogHeader>
             <AlertDialogTitle className="text-red-400">Confirmar Exclusão</AlertDialogTitle>
@@ -1105,7 +1108,7 @@ export default function Catalog() {
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
-      </AlertDialog> */}
+      </AlertDialog>
       </div>
     </DashboardLayoutWrapper>
   );
