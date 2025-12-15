@@ -355,3 +355,5 @@
 - [x] Aplicar mesmo estilo visual da tabela da página /admin/pagamentos
 
 - [x] Corrigir tabela "Últimos Pagamentos" para ocupar 100% da largura disponível (remover espaço vazio à direita da coluna Data/Hora)
+
+- [x] Corrigir espaço vazio após coluna Data/Hora na tabela de Últimos Pagamentos (tabela não ocupa 100% da largura) - REVISÃO

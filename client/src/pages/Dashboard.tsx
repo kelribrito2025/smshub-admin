@@ -984,16 +984,16 @@ export default function Dashboard() {
                     <Loader2 className="h-8 w-8 animate-spin" />
                   </div>
                 ) : recentPayments?.payments && recentPayments.payments.length > 0 ? (
-                  <div className="rounded-md border border-neutral-800 w-full">
-                    <Table className="w-full table-fixed">
+                  <div className="rounded-md border border-neutral-800 w-full overflow-hidden">
+                    <Table className="w-full">
                       <TableHeader>
                         <TableRow className="hover:bg-transparent border-neutral-800">
-                          <TableHead className="w-[12%]">ID</TableHead>
-                          <TableHead className="w-[22%]">Cliente</TableHead>
-                          <TableHead className="w-[12%]">Tipo</TableHead>
-                          <TableHead className="w-[12%]">Origem</TableHead>
-                          <TableHead className="w-[14%]">Valor</TableHead>
-                          <TableHead className="w-[28%]">Data/Hora</TableHead>
+                          <TableHead className="w-[100px]">ID</TableHead>
+                          <TableHead>Cliente</TableHead>
+                          <TableHead className="w-[100px]">Tipo</TableHead>
+                          <TableHead className="w-[100px]">Origem</TableHead>
+                          <TableHead className="w-[120px]">Valor</TableHead>
+                          <TableHead className="w-[180px] text-right">Data/Hora</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
@@ -1021,7 +1021,7 @@ export default function Dashboard() {
                             <TableCell className="font-semibold">
                               {formatCurrency(payment.amount)}
                             </TableCell>
-                            <TableCell className="text-sm">
+                            <TableCell className="text-sm text-right">
                               {new Date(payment.completedAt || payment.createdAt).toLocaleString('pt-BR', {
                                 day: '2-digit',
                                 month: '2-digit',
