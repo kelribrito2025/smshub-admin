@@ -985,15 +985,15 @@ export default function Dashboard() {
                   </div>
                 ) : recentPayments?.payments && recentPayments.payments.length > 0 ? (
                   <div className="rounded-md border border-neutral-800 w-full overflow-hidden">
-                    <Table className="w-full">
+                    <Table className="w-full table-fixed">
                       <TableHeader>
                         <TableRow className="hover:bg-transparent border-neutral-800">
-                          <TableHead className="w-[100px]">ID</TableHead>
-                          <TableHead>Cliente</TableHead>
-                          <TableHead className="w-[100px]">Tipo</TableHead>
-                          <TableHead className="w-[100px]">Origem</TableHead>
-                          <TableHead className="w-[120px]">Valor</TableHead>
-                          <TableHead className="w-[180px] text-right">Data/Hora</TableHead>
+                          <TableHead className="w-[8%]">ID</TableHead>
+                          <TableHead className="w-[22%]">Cliente</TableHead>
+                          <TableHead className="w-[12%]">Tipo</TableHead>
+                          <TableHead className="w-[12%]">Origem</TableHead>
+                          <TableHead className="w-[14%]">Valor</TableHead>
+                          <TableHead className="w-[32%] text-right">Data/Hora</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
