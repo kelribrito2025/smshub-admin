@@ -353,3 +353,5 @@
 - [x] Mostrar os 25 últimos pagamentos na aba
 - [x] Implementar tabela com colunas: ID, Cliente, Tipo, Origem, Valor, Data e Hora
 - [x] Aplicar mesmo estilo visual da tabela da página /admin/pagamentos
+
+- [x] Corrigir tabela "Últimos Pagamentos" para ocupar 100% da largura disponível (remover espaço vazio à direita da coluna Data/Hora)
