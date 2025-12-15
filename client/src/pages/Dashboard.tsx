@@ -970,7 +970,7 @@ export default function Dashboard() {
           </div>
 
           {/* Países Mais Utilizados */}
-          <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+          <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6" style={{backgroundColor: '#090909'}}>
             <div className="mb-6">
               <h2 className="text-lg font-medium text-white mb-1">Países Mais Utilizados</h2>
               <p className="text-sm text-neutral-500">Top 5 países por número de vendas</p>
@@ -1003,7 +1003,7 @@ export default function Dashboard() {
         </div>
 
         {/* 4) CARD GRANDE - Comparação Detalhada */}
-        <Card className="p-6" style={{backgroundColor: '#101010'}}>
+        <Card className="p-6" style={{backgroundColor: '#080808'}}>
           <h3 className="text-lg font-semibold mb-4">Comparação Detalhada</h3>
           {comparisonLoading ? (
             <div className="flex items-center justify-center h-[200px]">
@@ -1070,7 +1070,7 @@ export default function Dashboard() {
         </Card>
 
         {/* 5) CARD GRANDE - Ativações Recentes (20 últimas) */}
-        <Card style={{backgroundColor: '#101010'}}>
+        <Card style={{backgroundColor: '#070707'}}>
           <CardHeader>
             <CardTitle>Ativações Recentes</CardTitle>
             <CardDescription>Últimas 20 ativações realizadas</CardDescription>
