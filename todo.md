@@ -346,3 +346,10 @@
 - [x] Corrigir espaçamento dos cabeçalhos nas páginas quando usuário está logado (Home, History, Recharges, Account)
 
 - [x] Aplicar efeito AnimatedPage nas páginas do StoreLayout quando utilizador estiver logado (StoreCatalog, StoreRecharges, StoreAccount, StoreAffiliate)
+
+
+## Nova Aba "Pagamentos" na Seção de Evolução de Receita e Lucro
+- [x] Criar nova aba "Pagamentos" no card de Evolução de Receita e Lucro do DashboardLayout admin
+- [x] Mostrar os 25 últimos pagamentos na aba
+- [x] Implementar tabela com colunas: ID, Cliente, Tipo, Origem, Valor, Data e Hora
+- [x] Aplicar mesmo estilo visual da tabela da página /admin/pagamentos

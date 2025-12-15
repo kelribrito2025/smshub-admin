@@ -3,7 +3,7 @@ import DashboardLayoutWrapper from "@/components/DashboardLayoutWrapper";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
-import { Activity, DollarSign, TrendingUp, Users, ShoppingCart, LayoutDashboard, ArrowDown, CheckCircle2, XCircle, Download, Loader2, TrendingDown, Minus, Calendar, ChevronDown, RefreshCcw } from "lucide-react";
+import { Activity, DollarSign, TrendingUp, Users, ShoppingCart, LayoutDashboard, ArrowDown, CheckCircle2, XCircle, Download, Loader2, TrendingDown, Minus, Calendar, ChevronDown, RefreshCcw, CreditCard } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -191,6 +191,15 @@ export default function Dashboard() {
   const { data: recentActivations, isLoading: activationsLoading } =
     trpc.financial.getRecentActivations.useQuery(
       { limit: 20 },
+      {
+        refetchOnWindowFocus: false,
+      }
+    );
+
+  // Fetch recent payments for the Payments tab
+  const { data: recentPayments, isLoading: paymentsLoading } =
+    trpc.payments.getPayments.useQuery(
+      { limit: 25, page: 1 },
       {
         refetchOnWindowFocus: false,
       }
@@ -491,6 +500,12 @@ export default function Dashboard() {
               className="data-[state=active]:bg-neutral-800 data-[state=active]:text-white rounded-lg px-4 py-2 transition-all"
             >
               Transações
+            </TabsTrigger>
+            <TabsTrigger 
+              value="payments"
+              className="data-[state=active]:bg-neutral-800 data-[state=active]:text-white rounded-lg px-4 py-2 transition-all"
+            >
+              Pagamentos
             </TabsTrigger>
           </TabsList>
 
@@ -910,6 +925,120 @@ export default function Dashboard() {
                 ) : (
                   <div className="flex items-center justify-center h-[400px] text-muted-foreground">
                     Nenhuma transação encontrada
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Payments Tab */}
+          <TabsContent value="payments" className="space-y-4">
+            <Card className="font-sans border border-neutral-800 backdrop-blur-sm" style={{backgroundColor: '#0a0a0a'}}>
+              <CardHeader className="flex flex-row items-center justify-between pb-4">
+                <div>
+                  <CardTitle className="text-xl font-semibold text-white flex items-center gap-2">
+                    <CreditCard className="w-5 h-5" style={{ color: '#1447e5' }} />
+                    Últimos Pagamentos
+                  </CardTitle>
+                  <CardDescription className="text-sm text-neutral-400 mt-1">
+                    25 pagamentos mais recentes
+                  </CardDescription>
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="bg-transparent border-neutral-700 hover:bg-neutral-800 text-white"
+                  onClick={() => {
+                    if (recentPayments?.payments && recentPayments.payments.length > 0) {
+                      const data = recentPayments.payments.map((payment) => ({
+                        id: payment.id,
+                        cliente: payment.customerName || 'N/A',
+                        pin: payment.customerPin || 'N/A',
+                        tipo: 'Crédito',
+                        origem: payment.paymentMethod === 'pix' ? 'Pix' : 'Cartão',
+                        valor: payment.amount / 100,
+                        data: payment.completedAt || payment.createdAt,
+                      }));
+                      const headers = ['ID', 'Cliente', 'PIN', 'Tipo', 'Origem', 'Valor', 'Data'].join(',');
+                      const rows = data.map((row) => 
+                        [row.id, row.cliente, row.pin, row.tipo, row.origem, row.valor, row.data].join(',')
+                      ).join('\n');
+                      const csv = `${headers}\n${rows}`;
+                      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                      const link = document.createElement('a');
+                      link.href = URL.createObjectURL(blob);
+                      link.download = `pagamentos_recentes_${new Date().toISOString().split('T')[0]}.csv`;
+                      link.click();
+                      toast.success('Relatório exportado com sucesso!');
+                    }
+                  }}
+                  disabled={!recentPayments?.payments || recentPayments.payments.length === 0}
+                >
+                  <Download className="mr-2 h-4 w-4" />
+                  Exportar CSV
+                </Button>
+              </CardHeader>
+              <CardContent>
+                {paymentsLoading ? (
+                  <div className="flex items-center justify-center h-[400px]">
+                    <Loader2 className="h-8 w-8 animate-spin" />
+                  </div>
+                ) : recentPayments?.payments && recentPayments.payments.length > 0 ? (
+                  <div className="rounded-md border border-neutral-800">
+                    <Table>
+                      <TableHeader>
+                        <TableRow className="hover:bg-transparent border-neutral-800">
+                          <TableHead>ID</TableHead>
+                          <TableHead>Cliente</TableHead>
+                          <TableHead>Tipo</TableHead>
+                          <TableHead>Origem</TableHead>
+                          <TableHead>Valor</TableHead>
+                          <TableHead>Data/Hora</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {recentPayments.payments.map((payment) => (
+                          <TableRow key={payment.id} className="border-neutral-800 hover:bg-neutral-900/30">
+                            <TableCell className="font-mono text-sm">#{payment.id}</TableCell>
+                            <TableCell>
+                              <div className="flex flex-col">
+                                <span className="font-medium">{payment.customerName || 'N/A'}</span>
+                                <span className="text-xs text-muted-foreground">
+                                  PIN: {payment.customerPin || 'N/A'}
+                                </span>
+                              </div>
+                            </TableCell>
+                            <TableCell>
+                              <span className={payment.paymentMethod === 'pix' ? 'text-green-500' : 'text-blue-500'}>
+                                Crédito
+                              </span>
+                            </TableCell>
+                            <TableCell>
+                              <span className="capitalize">
+                                {payment.paymentMethod === 'pix' ? 'Pix' : 'Cartão'}
+                              </span>
+                            </TableCell>
+                            <TableCell className="font-semibold">
+                              {formatCurrency(payment.amount)}
+                            </TableCell>
+                            <TableCell className="text-sm">
+                              {new Date(payment.completedAt || payment.createdAt).toLocaleString('pt-BR', {
+                                day: '2-digit',
+                                month: '2-digit',
+                                year: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit',
+                                second: '2-digit',
+                              })}
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-center h-[400px] text-muted-foreground">
+                    Nenhum pagamento encontrado
                   </div>
                 )}
               </CardContent>
