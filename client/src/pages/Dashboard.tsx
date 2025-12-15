@@ -909,7 +909,7 @@ export default function Dashboard() {
                                             : "text-gray-400"
                                 }`}
                               >
-                                {item.activation.status}
+                                {item.activation.status === "completed" ? "Concluído" : item.activation.status === "cancelled" ? "Cancelado" : item.activation.status === "active" ? "Ativo" : item.activation.status === "expired" ? "Expirado" : item.activation.status === "pending" ? "Pendente" : item.activation.status}
                               </span>
                             </TableCell>
                             <TableCell className="text-right">

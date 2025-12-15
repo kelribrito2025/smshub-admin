@@ -364,3 +364,5 @@
 - [x] Reorganizar colunas da tabela de transações: ID - Data - País - Serviço - Telefone - Status - Custo - Receita - Lucro
 
 - [x] Remover bordas redondas do status na tabela de pedidos (Dashboard e Financial) - deixar apenas texto colorido
+
+- [x] Traduzir textos de status para português (completed → Concluído, cancelled → Cancelado, etc.)
