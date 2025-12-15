@@ -346,7 +346,7 @@ export default function Catalog() {
             <DialogTrigger asChild>
               <Button className="bg-green-600 hover:bg-green-700">
                 <Download className="w-4 h-4 mr-2" />
-                Importar Serviços
+                Importar
               </Button>
             </DialogTrigger>
             <DialogContent className="max-w-md">
@@ -507,7 +507,7 @@ export default function Catalog() {
             <DialogTrigger asChild>
               <Button className="bg-green-600 hover:bg-green-700">
                 <Plus className="w-4 h-4 mr-2" />
-                Novo Serviço
+                Novo
               </Button>
             </DialogTrigger>
             <DialogContent className="max-w-md">
