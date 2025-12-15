@@ -333,3 +333,5 @@
 - [x] Alterar cor do card "Saldo Atual" de azul para verde (emerald) no modal de Processar Devolução
 
 - [x] Ajustar transparência do hover no gráfico de Receita por País para 90%
+
+- [x] Ajustar transparência do hover no gráfico de Receita por País para 100% (totalmente transparente)
