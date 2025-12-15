@@ -493,12 +493,12 @@ export default function Payments() {
                 {/* Cards de Saldo */}
                 <div className="grid grid-cols-2 gap-3">
                   {/* Saldo Atual */}
-                  <div className="bg-blue-950/30 border border-blue-800/40 rounded-lg p-4">
-                    <div className="flex items-center gap-1.5 text-blue-400 mb-2">
+                  <div className="bg-emerald-950/30 border border-emerald-700/40 rounded-lg p-4">
+                    <div className="flex items-center gap-1.5 text-emerald-400 mb-2">
                       <Wallet size={16} />
                       <span className="text-xs font-medium">Saldo Atual</span>
                     </div>
-                    <div className="text-2xl font-light text-blue-400">
+                    <div className="text-2xl font-light text-emerald-400">
                       {formatCurrency(balanceInfo.currentBalance)}
                     </div>
                   </div>

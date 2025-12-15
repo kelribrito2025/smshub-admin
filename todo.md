@@ -330,3 +330,4 @@
 
 ## Atualização Visual do Modal de Processar Devolução
 - [x] Aplicar novo visual do modal de Processar Devolução na página /admin/pagamentos conforme especificado
+- [x] Alterar cor do card "Saldo Atual" de azul para verde (emerald) no modal de Processar Devolução
