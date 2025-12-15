@@ -1,0 +1,20 @@
+{
+  "query": "SELECT * FROM admin_menus WHERE label LIKE '%Configura%' OR path LIKE '%settings%';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT * FROM admin_menus WHERE label LIKE '%Configura%' OR path LIKE '%settings%';",
+  "rows": [
+    {
+      "id": "19",
+      "label": "Configurações",
+      "path": "/admin/settings",
+      "icon": "Settings",
+      "position": "8",
+      "active": "1",
+      "createdAt": "2025-12-05 19:22:51",
+      "updatedAt": "2025-12-14 17:15:26"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tlabel\tpath\ticon\tposition\tactive\tcreatedAt\tupdatedAt\n19\tConfigurações\t/admin/settings\tSettings\t8\t1\t2025-12-05 19:22:51\t2025-12-14 17:15:26\n",
+  "stderr": "",
+  "execution_time_ms": 49
+}

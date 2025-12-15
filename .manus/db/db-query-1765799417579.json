@@ -1,0 +1,87 @@
+{
+  "query": "SELECT id, label, path, icon, position FROM admin_menus ORDER BY position;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT id, label, path, icon, position FROM admin_menus ORDER BY position;",
+  "rows": [
+    {
+      "id": "16",
+      "label": "Dashboard",
+      "path": "/admin/dashboard",
+      "icon": "LayoutDashboard",
+      "position": "1"
+    },
+    {
+      "id": "25",
+      "label": "Clientes",
+      "path": "/admin/clientes",
+      "icon": "Users",
+      "position": "2"
+    },
+    {
+      "id": "60001",
+      "label": "Pagamentos",
+      "path": "/admin/pagamentos",
+      "icon": "CreditCard",
+      "position": "3"
+    },
+    {
+      "id": "24",
+      "label": "Catálogo",
+      "path": "/admin/catalogo",
+      "icon": "BookOpen",
+      "position": "4"
+    },
+    {
+      "id": "23",
+      "label": "Países",
+      "path": "/admin/countries",
+      "icon": "Globe",
+      "position": "5"
+    },
+    {
+      "id": "21",
+      "label": "APIs",
+      "path": "/admin/apis",
+      "icon": "Cloud",
+      "position": "6"
+    },
+    {
+      "id": "26",
+      "label": "Afiliados",
+      "path": "/admin/affiliates",
+      "icon": "Gift",
+      "position": "7"
+    },
+    {
+      "id": "19",
+      "label": "Configurações",
+      "path": "/admin/settings",
+      "icon": "Settings",
+      "position": "8"
+    },
+    {
+      "id": "18",
+      "label": "Auditoria de Saldo",
+      "path": "/admin/auditoria",
+      "icon": "FileText",
+      "position": "9"
+    },
+    {
+      "id": "17",
+      "label": "Relatórios",
+      "path": "/admin/relatorios",
+      "icon": "LineChart",
+      "position": "10"
+    },
+    {
+      "id": "22",
+      "label": "Performance de APIs",
+      "path": "/admin/api-performance",
+      "icon": "BarChart3",
+      "position": "11"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tlabel\tpath\ticon\tposition\n16\tDashboard\t/admin/dashboard\tLayoutDashboard\t1\n25\tClientes\t/admin/clientes\tUsers\t2\n60001\tPagamentos\t/admin/pagamentos\tCreditCard\t3\n24\tCatálogo\t/admin/catalogo\tBookOpen\t4\n23\tPaíses\t/admin/countries\tGlobe\t5\n21\tAPIs\t/admin/apis\tCloud\t6\n26\tAfiliados\t/admin/affiliates\tGift\t7\n19\tConfigurações\t/admin/settings\tSettings\t8\n18\tAuditoria de Saldo\t/admin/auditoria\tFileText\t9\n17\tRelatórios\t/admin/relatorios\tLineChart\t10\n22\tPerformance de APIs\t/admin/api-performance\tBarChart3\t11\n",
+  "stderr": "",
+  "execution_time_ms": 48
+}

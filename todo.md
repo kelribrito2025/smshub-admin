@@ -325,3 +325,5 @@
 - [x] Remover opção "Configurações" duplicada do menu dropdown do perfil no TopNavLayout (já existe no menu "Mais")
 
 - [x] Remover item "Configurações" do dropdown "Mais" na barra de navegação superior (TopNavLayout) - manter apenas no dropdown do perfil
+
+- [x] Remover item "Configurações" do dropdown "Mais" no DashboardLayout (removido do fallbackMenuItems e da tabela admin_menus)

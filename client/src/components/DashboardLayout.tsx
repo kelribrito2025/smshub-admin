@@ -39,8 +39,6 @@ const fallbackMenuItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/admin/dashboard" },
   { icon: LineChart, label: "Relatórios", path: "/admin/relatorios" },
   { icon: FileText, label: "Auditoria de Saldo", path: "/admin/auditoria" },
-  { icon: Settings, label: "Configurações", path: "/admin/settings" },
-
   { icon: Cloud, label: "APIs", path: "/admin/apis" },
   { icon: BarChart3, label: "Performance de APIs", path: "/admin/api-performance" },
   { icon: Globe, label: "Países", path: "/admin/countries" },
