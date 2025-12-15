@@ -782,6 +782,7 @@ export default function Dashboard() {
                           color: '#fff'
                         }}
                         labelStyle={{ color: "#fff" }}
+                        cursor={{ fill: 'transparent' }}
                       />
                       <Legend 
                         wrapperStyle={{ color: '#888' }}

@@ -335,3 +335,4 @@
 - [x] Ajustar transparência do hover no gráfico de Receita por País para 90%
 
 - [x] Ajustar transparência do hover no gráfico de Receita por País para 100% (totalmente transparente)
+- [x] Ajustar transparência do hover no gráfico de Receita por Serviço para 100% (totalmente transparente)
