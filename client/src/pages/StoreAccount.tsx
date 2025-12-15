@@ -7,6 +7,7 @@ import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { User, Mail, Hash, Key, MapPin, Home, Copy } from 'lucide-react';
 import { copyToClipboard } from '../lib/utils';
+import { AnimatedPage } from '../components/AnimatedPage';
 
 export default function StoreAccount() {
   const { customer, logout } = useStoreAuth();
@@ -34,7 +35,7 @@ export default function StoreAccount() {
 
   return (
     <StoreLayout>
-      <div className="space-y-6 font-mono">
+      <AnimatedPage className="space-y-6 font-mono">
         {/* Page Header */}
         <div className="flex items-center gap-3 mb-2">
           <User className="w-6 h-6 text-green-400" />
@@ -243,7 +244,7 @@ export default function StoreAccount() {
             💾 Salvar perfil
           </Button>
         </div>
-      </div>
+      </AnimatedPage>
     </StoreLayout>
   );
 }

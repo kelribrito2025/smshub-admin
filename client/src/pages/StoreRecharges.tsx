@@ -7,6 +7,7 @@ import { CreditCard, ChevronLeft, ChevronRight, CheckCircle, XCircle } from 'luc
 import TableSkeleton from '../components/TableSkeleton';
 import { useLocation } from 'wouter';
 import { toast } from 'sonner';
+import { AnimatedPage } from '../components/AnimatedPage';
 
 
 
@@ -189,7 +190,7 @@ export default function StoreRecharges() {
 
   return (
     <StoreLayout>
-      <div className="space-y-6">
+      <AnimatedPage className="space-y-6">
         {/* Success Message */}
         {showSuccessMessage && (
           <Card className="bg-green-950/30 border-green-500/50 p-4">
@@ -338,7 +339,7 @@ export default function StoreRecharges() {
             </div>
           </div>
         )}
-      </div>
+      </AnimatedPage>
     </StoreLayout>
   );
 }

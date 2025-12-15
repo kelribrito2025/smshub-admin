@@ -344,3 +344,5 @@
 - [x] BUG: Corrigir erros tRPC na página /admin - API retorna HTML em vez de JSON (verificado: servidor funcionando corretamente, erro foi temporário)
 
 - [x] Corrigir espaçamento dos cabeçalhos nas páginas quando usuário está logado (Home, History, Recharges, Account)
+
+- [x] Aplicar efeito AnimatedPage nas páginas do StoreLayout quando utilizador estiver logado (StoreCatalog, StoreRecharges, StoreAccount, StoreAffiliate)

@@ -11,6 +11,7 @@ import { copyToClipboard } from '../lib/clipboard';
 import TableSkeleton from '../components/TableSkeleton';
 import CyberBanner from '../components/CyberBanner';
 import HeroSection from '../components/HeroSection';
+import { AnimatedPage } from '../components/AnimatedPage';
 
 
 
@@ -194,9 +195,14 @@ export default function StoreCatalog() {
 
   return (
     <StoreLayout>
-      <div className="space-y-6">
-        {/* Page Title - Only show when authenticated */}
-        {isAuthenticated && (
+      {/* Activations Table or Institutional Content */}
+      {!isAuthenticated ? (
+        <div className="space-y-6">
+          <HeroSection />
+        </div>
+      ) : (
+        <AnimatedPage className="space-y-6">
+          {/* Page Title */}
           <div className="mb-4">
             <h1 className="text-2xl font-bold text-green-400 mb-2 flex items-center gap-2">
               <Activity className="w-6 h-6" />
@@ -209,12 +215,6 @@ export default function StoreCatalog() {
               }
             </p>
           </div>
-        )}
-
-        {/* Activations Table or Institutional Content */}
-        {!isAuthenticated ? (
-          <HeroSection />
-        ) : (
           <Card className="bg-black/50 border-green-900/50 overflow-hidden" style={{paddingTop: '0px', paddingBottom: '15px'}}>
             <div className="overflow-x-auto">
               <table className="w-full">
@@ -502,10 +502,9 @@ export default function StoreCatalog() {
             </table>
           </div>
         </Card>
-        )}
 
-        {/* Pagination */}
-        {isAuthenticated && totalPages > 1 && (
+          {/* Pagination */}
+          {totalPages > 1 && (
           <div className="flex items-center justify-between mt-6">
             {/* Contador de entradas à esquerda */}
             <p className="text-sm text-green-600 font-mono">
@@ -555,8 +554,9 @@ export default function StoreCatalog() {
               </button>
             </div>
           </div>
-        )}
-      </div>
+          )}
+        </AnimatedPage>
+      )}
     </StoreLayout>
   );
 }

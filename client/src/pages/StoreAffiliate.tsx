@@ -16,6 +16,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { AnimatedPage } from "@/components/AnimatedPage";
 
 export default function StoreAffiliate() {
   const { customer } = useStoreAuth();
@@ -131,7 +132,7 @@ export default function StoreAffiliate() {
 
   return (
     <StoreLayout>
-      <div className="space-y-6">
+      <AnimatedPage className="space-y-6">
         {/* Header */}
         <div className="flex items-center gap-3 mb-2">
           <Gift className="w-6 h-6 text-green-400" />
@@ -385,7 +386,7 @@ export default function StoreAffiliate() {
             )}
           </CardContent>
         </Card>
-      </div>
+      </AnimatedPage>
     </StoreLayout>
   );
 }
