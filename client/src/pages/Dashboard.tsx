@@ -970,45 +970,36 @@ export default function Dashboard() {
           </div>
 
           {/* Países Mais Utilizados */}
-          <Card style={{backgroundColor: '#101010'}}>
-            <CardHeader>
-              <CardTitle>Países Mais Utilizados</CardTitle>
-              <CardDescription>Top 5 países por número de vendas</CardDescription>
-            </CardHeader>
-            <CardContent>
-              {dashboardData?.topCountries && dashboardData.topCountries.length > 0 ? (
-                <AnimatedList className="space-y-4">
-                  {dashboardData.topCountries.map((item, index) => (
-                    <AnimatedListItem key={index}>
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold">
-                            {index + 1}
-                          </div>
-                          <div>
-                            <p className="font-medium">{item.country?.name}</p>
-                            <p className="text-xs text-muted-foreground">
-                              {item.count} vendas
-                            </p>
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          <p className="font-medium">{formatCurrency(Number(item.revenue) || 0)}</p>
-                          <p className="text-xs text-green-600">
-                            +{formatCurrency(Number(item.profit) || 0)}
-                          </p>
-                        </div>
+          <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+            <div className="mb-6">
+              <h2 className="text-lg font-medium text-white mb-1">Países Mais Utilizados</h2>
+              <p className="text-sm text-neutral-500">Top 5 países por número de vendas</p>
+            </div>
+
+            {dashboardData?.topCountries && dashboardData.topCountries.length > 0 ? (
+              <div className="space-y-4">
+                {dashboardData.topCountries.map((item, index) => (
+                  <div key={index} className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <span className="text-neutral-500 text-sm font-medium w-6">{index + 1}</span>
+                      <div>
+                        <div className="text-white text-sm">{item.country?.name}</div>
+                        <div className="text-neutral-500 text-xs">{item.count} vendas</div>
                       </div>
-                    </AnimatedListItem>
-                  ))}
-                </AnimatedList>
-              ) : (
-                <div className="text-center py-8 text-muted-foreground">
-                  Nenhuma venda registrada ainda
-                </div>
-              )}
-            </CardContent>
-          </Card>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-white text-sm">{formatCurrency(Number(item.revenue) || 0)}</div>
+                      <div className="text-emerald-500 text-xs">+{formatCurrency(Number(item.profit) || 0)}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-8 text-neutral-500">
+                Nenhuma venda registrada ainda
+              </div>
+            )}
+          </div>
         </div>
 
         {/* 4) CARD GRANDE - Comparação Detalhada */}

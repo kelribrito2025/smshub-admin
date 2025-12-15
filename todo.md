@@ -336,3 +336,5 @@
 
 - [x] Ajustar transparência do hover no gráfico de Receita por País para 100% (totalmente transparente)
 - [x] Ajustar transparência do hover no gráfico de Receita por Serviço para 100% (totalmente transparente)
+
+- [x] Atualizar visual do card "Países Mais Utilizados" no dashboard admin
