@@ -109,3 +109,7 @@ temp/
 # Database dumps (large SQL files)
 production-dump*.sql
 *-dump.sql
+
+# Database dumps
+*.sql
+production-dump*.sql
