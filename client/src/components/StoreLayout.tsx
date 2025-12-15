@@ -914,7 +914,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
       {/* Main Content */}
       <main className={`flex-1 lg:ml-[364px] p-4 md:p-8 ${isAuthenticated ? 'overflow-y-auto' : 'overflow-y-hidden'} transition-all duration-300 ${
         isImpersonating ? 'mt-[124px] h-[calc(100vh-124px)]' : 'mt-16 h-[calc(100vh-4rem)]'
-      }`} style={{paddingTop: '0px', paddingBottom: '36px'}}>
+      }`} style={{paddingTop: isAuthenticated ? '24px' : '0px', paddingBottom: '36px'}}>
         <div className="relative z-10">
           {children}
         </div>

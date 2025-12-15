@@ -340,3 +340,7 @@
 - [x] Atualizar visual do card "Países Mais Utilizados" no dashboard admin
 
 - [x] BUG: Erro "Failed to fetch dynamically imported module: StoreAccount" - importação incorreta de copyToClipboard de '../lib/clipboard' ao invés de '../lib/utils'
+
+- [x] BUG: Corrigir erros tRPC na página /admin - API retorna HTML em vez de JSON (verificado: servidor funcionando corretamente, erro foi temporário)
+
+- [x] Corrigir espaçamento dos cabeçalhos nas páginas quando usuário está logado (Home, History, Recharges, Account)
