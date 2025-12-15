@@ -1,0 +1,15 @@
+{
+  "query": "SELECT \n  COUNT(*) as total_prices,\n  SUM(CASE WHEN active = 1 THEN 1 ELSE 0 END) as active_prices,\n  SUM(CASE WHEN active = 0 OR active IS NULL THEN 1 ELSE 0 END) as inactive_prices\nFROM prices;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 35dchGD4KrPJFby.4046de8efa3e --database SoKyCCsEmaEjcFkVqbEFR7 --execute SELECT \n  COUNT(*) as total_prices,\n  SUM(CASE WHEN active = 1 THEN 1 ELSE 0 END) as active_prices,\n  SUM(CASE WHEN active = 0 OR active IS NULL THEN 1 ELSE 0 END) as inactive_prices\nFROM prices;",
+  "rows": [
+    {
+      "total_prices": "4416",
+      "active_prices": "4416",
+      "inactive_prices": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "total_prices\tactive_prices\tinactive_prices\n4416\t4416\t0\n",
+  "stderr": "",
+  "execution_time_ms": 54
+}

@@ -327,3 +327,6 @@
 - [x] Remover item "Configurações" do dropdown "Mais" na barra de navegação superior (TopNavLayout) - manter apenas no dropdown do perfil
 
 - [x] Remover item "Configurações" do dropdown "Mais" no DashboardLayout (removido do fallbackMenuItems e da tabela admin_menus)
+
+## Atualização Visual do Modal de Processar Devolução
+- [x] Aplicar novo visual do modal de Processar Devolução na página /admin/pagamentos conforme especificado

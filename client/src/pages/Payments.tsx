@@ -21,7 +21,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { trpc } from '@/lib/trpc';
-import { DollarSign, RefreshCw, Search, Calendar, CreditCard, ArrowLeftRight, Loader2, ChevronDown, ChevronUp, Wallet, TrendingDown } from 'lucide-react';
+import { DollarSign, RefreshCw, Search, Calendar, CreditCard, ArrowLeftRight, Loader2, ChevronDown, ChevronUp, Wallet, TrendingDown, X } from 'lucide-react';
 import { toast } from 'sonner';
 import { useDebouncedValue } from '@/hooks/useDebouncedValue';
 import TableSkeleton from '@/components/TableSkeleton';
@@ -447,137 +447,151 @@ export default function Payments() {
         </Card>
       </div>
 
-      {/* Modal de Devolução */}
-      <Dialog open={refundDialogOpen} onOpenChange={setRefundDialogOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Processar Devolução</DialogTitle>
-            <DialogDescription>
-              Selecione o tipo de devolução e confirme a operação
-            </DialogDescription>
-          </DialogHeader>
-
-          {selectedPayment && (
-            <div className="space-y-4">
-              {balanceInfoLoading ? (
-                <div className="flex items-center justify-center py-8">
-                  <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
-                </div>
-              ) : balanceInfo ? (
-                <>
-              {/* Informações do pagamento */}
-              <div className="rounded-lg border border-neutral-800 bg-neutral-900/20 p-4 grid grid-cols-3 gap-4">
-                <div>
-                  <span className="text-xs text-muted-foreground">Cliente:</span>
-                  <p className="text-sm font-semibold">{balanceInfo.customerName}</p>
-                </div>
-                <div>
-                  <span className="text-xs text-muted-foreground">PIN:</span>
-                  <p className="text-sm font-semibold">{balanceInfo.customerPin}</p>
-                </div>
-                <div>
-                  <span className="text-xs text-muted-foreground">Valor Original:</span>
-                  <p className="text-sm font-semibold">{formatCurrency(balanceInfo.originalAmount)}</p>
-                </div>
+      {/* Modal de Processar Devolução */}
+      {refundDialogOpen && selectedPayment && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-5 max-w-[500px] w-full mx-4 shadow-2xl">
+            <div className="flex items-start justify-between mb-1">
+              <div>
+                <h3 className="text-xl font-normal text-neutral-200">Processar Devolução</h3>
+                <p className="text-xs text-neutral-400 mt-0.5">Selecione o tipo de devolução e confirme a operação</p>
               </div>
-
-              {/* Cards de Saldo */}
-              <div className="grid grid-cols-2 gap-4">
-                {/* Saldo Atual */}
-                <div className="rounded-lg border border-blue-500/20 bg-blue-500/5 p-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Wallet className="h-5 w-5 text-blue-500" />
-                    <span className="text-xs text-blue-400 font-medium">Saldo Atual</span>
-                  </div>
-                  <p className="text-2xl font-bold text-blue-500">
-                    {formatCurrency(balanceInfo.currentBalance)}
-                  </p>
-                </div>
-
-                {/* Saldo Após Devolução */}
-                <div className="rounded-lg border border-yellow-500/20 bg-yellow-500/5 p-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <TrendingDown className="h-5 w-5 text-yellow-500" />
-                    <span className="text-xs text-yellow-400 font-medium">Saldo Após Devolução</span>
-                  </div>
-                  <p className="text-2xl font-bold text-yellow-500">
-                    {formatCurrency(balanceInfo.balanceAfterRefund)}
-                  </p>
-                </div>
-              </div>
-
-              {/* Tipo de devolução */}
-              <div className="space-y-2">
-                <Label>Tipo de Devolução</Label>
-                <div className="grid grid-cols-2 gap-2">
-                  <Button
-                    variant={refundType === 'full' ? 'default' : 'outline'}
-                    className={refundType === 'full' ? '' : 'bg-transparent'}
-                    onClick={() => {
-                      setRefundType('full');
-                      setRefundAmount((selectedPayment.amount / 100).toFixed(2));
-                    }}
-                  >
-                    Integral
-                  </Button>
-                  <Button
-                    variant={refundType === 'partial' ? 'default' : 'outline'}
-                    className={refundType === 'partial' ? '' : 'bg-transparent'}
-                    onClick={() => setRefundType('partial')}
-                  >
-                    Parcial
-                  </Button>
-                </div>
-              </div>
-
-              {/* Valor da devolução */}
-              <div className="space-y-2">
-                <Label htmlFor="refundAmount">Valor da Devolução</Label>
-                <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">R$</span>
-                  <Input
-                    id="refundAmount"
-                    type="number"
-                    step="0.01"
-                    min="0.01"
-                    max={(selectedPayment.amount / 100).toFixed(2)}
-                    value={refundAmount}
-                    onChange={(e) => setRefundAmount(e.target.value)}
-                    placeholder="0,00"
-                    className="pl-10 bg-neutral-900/50"
-                    disabled={refundType === 'full'}
-                  />
-                </div>
-              </div>
-                </>
-              ) : (
-                <div className="text-center py-8 text-muted-foreground">
-                  Erro ao carregar informações de saldo
-                </div>
-              )}
+              <button
+                onClick={() => setRefundDialogOpen(false)}
+                className="text-neutral-400 hover:text-white transition-colors"
+              >
+                <X size={20} />
+              </button>
             </div>
-          )}
 
-          <DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => setRefundDialogOpen(false)}
-              disabled={processRefundMutation.isPending}
-            >
-              Cancelar
-            </Button>
-            <Button
-              onClick={handleProcessRefund}
-              disabled={processRefundMutation.isPending || balanceInfoLoading || !balanceInfo || (refundType === 'partial' && !refundAmount)}
-            >
-              {processRefundMutation.isPending && (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              )}
-              Confirmar Devolução
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+            {balanceInfoLoading ? (
+              <div className="flex items-center justify-center py-8">
+                <Loader2 className="h-8 w-8 animate-spin text-neutral-400" />
+              </div>
+            ) : balanceInfo ? (
+              <div className="space-y-4 mt-4">
+                {/* Informações do Cliente */}
+                <div className="bg-neutral-950/50 border border-neutral-800 rounded-lg p-3.5">
+                  <div className="grid grid-cols-3 gap-4">
+                    <div>
+                      <div className="text-neutral-400 text-xs mb-0.5">Cliente:</div>
+                      <div className="text-white text-sm font-normal">{balanceInfo.customerName}</div>
+                    </div>
+                    <div>
+                      <div className="text-neutral-400 text-xs mb-0.5">PIN:</div>
+                      <div className="text-white text-sm font-normal">{balanceInfo.customerPin}</div>
+                    </div>
+                    <div>
+                      <div className="text-neutral-400 text-xs mb-0.5">Valor Original:</div>
+                      <div className="text-white text-sm font-normal">
+                        {formatCurrency(balanceInfo.originalAmount)}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Cards de Saldo */}
+                <div className="grid grid-cols-2 gap-3">
+                  {/* Saldo Atual */}
+                  <div className="bg-blue-950/30 border border-blue-800/40 rounded-lg p-4">
+                    <div className="flex items-center gap-1.5 text-blue-400 mb-2">
+                      <Wallet size={16} />
+                      <span className="text-xs font-medium">Saldo Atual</span>
+                    </div>
+                    <div className="text-2xl font-light text-blue-400">
+                      {formatCurrency(balanceInfo.currentBalance)}
+                    </div>
+                  </div>
+
+                  {/* Saldo Após Devolução */}
+                  <div className="bg-amber-950/30 border border-amber-700/40 rounded-lg p-4">
+                    <div className="flex items-center gap-1.5 text-amber-400 mb-2">
+                      <TrendingDown size={16} />
+                      <span className="text-xs font-medium">Saldo Após Devolução</span>
+                    </div>
+                    <div className="text-2xl font-light text-amber-400">
+                      {formatCurrency(balanceInfo.balanceAfterRefund)}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Tipo de Devolução */}
+                <div>
+                  <label className="block text-neutral-300 text-sm mb-2">Tipo de Devolução</label>
+                  <div className="grid grid-cols-2 gap-3">
+                    <button
+                      onClick={() => {
+                        setRefundType('full');
+                        setRefundAmount((selectedPayment.amount / 100).toFixed(2));
+                      }}
+                      className={`py-2.5 rounded-lg text-sm font-medium transition-all ${
+                        refundType === 'full'
+                          ? 'bg-blue-600 text-white'
+                          : 'bg-neutral-800/50 text-neutral-400 hover:bg-neutral-800'
+                      }`}
+                    >
+                      Integral
+                    </button>
+                    <button
+                      onClick={() => setRefundType('partial')}
+                      className={`py-2.5 rounded-lg text-sm font-medium transition-all ${
+                        refundType === 'partial'
+                          ? 'bg-blue-600 text-white'
+                          : 'bg-neutral-800/50 text-neutral-400 hover:bg-neutral-800'
+                      }`}
+                    >
+                      Parcial
+                    </button>
+                  </div>
+                </div>
+
+                {/* Valor da Devolução */}
+                <div>
+                  <label className="block text-neutral-300 text-sm mb-2">Valor da Devolução</label>
+                  <div className="relative">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 text-sm">R$</span>
+                    <input
+                      type="text"
+                      value={refundAmount}
+                      onChange={(e) => {
+                        const value = e.target.value.replace(/[^\d.,]/g, '');
+                        setRefundAmount(value);
+                      }}
+                      disabled={refundType === 'full'}
+                      className="w-full bg-neutral-950/50 border border-neutral-800 rounded-lg pl-12 pr-3 py-2.5 text-white text-sm placeholder-neutral-500 focus:outline-none focus:border-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    />
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="text-center py-8 text-neutral-400">
+                Erro ao carregar informações de saldo
+              </div>
+            )}
+
+            {/* Botões */}
+            <div className="flex gap-3 mt-5">
+              <button
+                onClick={() => setRefundDialogOpen(false)}
+                disabled={processRefundMutation.isPending}
+                className="flex-1 px-4 py-2.5 bg-neutral-800/50 hover:bg-neutral-800 text-white rounded-lg transition-colors text-sm font-medium border border-neutral-700 disabled:opacity-50"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={handleProcessRefund}
+                disabled={processRefundMutation.isPending || balanceInfoLoading || !balanceInfo || (refundType === 'partial' && !refundAmount)}
+                className="flex-1 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium disabled:opacity-50 flex items-center justify-center"
+              >
+                {processRefundMutation.isPending && (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                )}
+                Confirmar Devolução
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </DashboardLayoutWrapper>
   );
 }
