@@ -218,7 +218,7 @@ export default function TopNavLayout({
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={handleLogout} className="flex items-center gap-3 px-3 py-2 text-red-500 hover:bg-neutral-800 hover:text-red-400 cursor-pointer">
                   <LogOut className="h-4 w-4" />
-                  Sign out
+                  Sair
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
