@@ -6,7 +6,7 @@ import { Card } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { User, Mail, Hash, Key, MapPin, Home, Copy } from 'lucide-react';
-import { copyToClipboard } from '../lib/clipboard';
+import { copyToClipboard } from '../lib/utils';
 
 export default function StoreAccount() {
   const { customer, logout } = useStoreAuth();

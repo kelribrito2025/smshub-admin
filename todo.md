@@ -338,3 +338,5 @@
 - [x] Ajustar transparência do hover no gráfico de Receita por Serviço para 100% (totalmente transparente)
 
 - [x] Atualizar visual do card "Países Mais Utilizados" no dashboard admin
+
+- [x] BUG: Erro "Failed to fetch dynamically imported module: StoreAccount" - importação incorreta de copyToClipboard de '../lib/clipboard' ao invés de '../lib/utils'
