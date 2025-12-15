@@ -359,3 +359,6 @@
 - [x] Corrigir espaço vazio após coluna Data/Hora na tabela de Últimos Pagamentos (tabela não ocupa 100% da largura) - REVISÃO
 
 - [x] Ajustar distribuição de largura das colunas na tabela de Últimos Pagamentos (ID mais compacto, Cliente reduzido, Data/Hora mais largo, Valor alinhado)
+
+- [x] Renomear "Transações" para "Pedidos" no menu admin do DashboardLayout
+- [x] Reorganizar colunas da tabela de transações: ID - Data - País - Serviço - Telefone - Status - Custo - Receita - Lucro

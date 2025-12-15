@@ -499,7 +499,7 @@ export default function Dashboard() {
               value="transactions"
               className="data-[state=active]:bg-neutral-800 data-[state=active]:text-white rounded-lg px-4 py-2 transition-all"
             >
-              Transações
+              Pedidos
             </TabsTrigger>
             <TabsTrigger 
               value="payments"
@@ -821,8 +821,8 @@ export default function Dashboard() {
             <Card className="font-sans border border-neutral-800 backdrop-blur-sm" style={{backgroundColor: '#0a0a0a'}}>
               <CardHeader className="flex flex-row items-center justify-between pb-4">
                 <div>
-                  <CardTitle className="text-xl font-semibold text-white">Transações Recentes</CardTitle>
-                  <CardDescription className="text-sm text-neutral-400 mt-1">Últimas 20 ativações realizadas</CardDescription>
+                  <CardTitle className="text-xl font-semibold text-white">Pedidos Recentes</CardTitle>
+                  <CardDescription className="text-sm text-neutral-400 mt-1">Últimas 20 compras realizadas</CardDescription>
                 </div>
                 <Button
                   variant="outline"
@@ -837,8 +837,8 @@ export default function Dashboard() {
                         servico: item.service?.name || "N/A",
                         telefone: item.activation.phoneNumber || "N/A",
                         status: item.activation.status,
-                        receita: item.activation.sellingPrice / 100,
                         custo: item.activation.smshubCost / 100,
+                        receita: item.activation.sellingPrice / 100,
                         lucro: item.activation.profit / 100,
                       }));
                       const headers = Object.keys(data[0]).join(",");
@@ -847,7 +847,7 @@ export default function Dashboard() {
                       const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
                       const link = document.createElement("a");
                       link.href = URL.createObjectURL(blob);
-                      link.download = `transacoes_recentes_${new Date().toISOString().split("T")[0]}.csv`;
+                      link.download = `pedidos_recentes_${new Date().toISOString().split("T")[0]}.csv`;
                       link.click();
                       toast.success("Relatório exportado com sucesso!");
                     }
@@ -874,8 +874,8 @@ export default function Dashboard() {
                           <TableHead>Serviço</TableHead>
                           <TableHead>Telefone</TableHead>
                           <TableHead>Status</TableHead>
-                          <TableHead className="text-right">Receita</TableHead>
                           <TableHead className="text-right">Custo</TableHead>
+                          <TableHead className="text-right">Receita</TableHead>
                           <TableHead className="text-right">Lucro</TableHead>
                         </TableRow>
                       </TableHeader>
@@ -909,10 +909,10 @@ export default function Dashboard() {
                               </span>
                             </TableCell>
                             <TableCell className="text-right">
-                              {formatCurrency(item.activation.sellingPrice)}
+                              {formatCurrency(item.activation.smshubCost)}
                             </TableCell>
                             <TableCell className="text-right">
-                              {formatCurrency(item.activation.smshubCost)}
+                              {formatCurrency(item.activation.sellingPrice)}
                             </TableCell>
                             <TableCell className="text-right text-green-600 font-medium">
                               {formatCurrency(item.activation.profit)}
@@ -924,7 +924,7 @@ export default function Dashboard() {
                   </div>
                 ) : (
                   <div className="flex items-center justify-center h-[400px] text-muted-foreground">
-                    Nenhuma transação encontrada
+                    Nenhum pedido encontrado
                   </div>
                 )}
               </CardContent>
