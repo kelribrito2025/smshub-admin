@@ -323,3 +323,5 @@
 - [x] Adicionar menu de Configurações na TopNavLayout do perfil admin
 
 - [x] Remover opção "Configurações" duplicada do menu dropdown do perfil no TopNavLayout (já existe no menu "Mais")
+
+- [x] Remover item "Configurações" do dropdown "Mais" na barra de navegação superior (TopNavLayout) - manter apenas no dropdown do perfil
