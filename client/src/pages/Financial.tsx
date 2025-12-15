@@ -663,14 +663,18 @@ export default function Financial() {
                             </TableCell>
                             <TableCell>
                               <span
-                                className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                                className={`text-xs font-medium ${
                                   item.activation.status === "completed"
-                                    ? "bg-green-100 text-green-800"
+                                    ? "text-green-500"
                                     : item.activation.status === "active"
-                                      ? "bg-neutral-800 text-neutral-300"
+                                      ? "text-neutral-400"
                                       : item.activation.status === "cancelled"
-                                        ? "bg-red-100 text-red-800"
-                                        : "bg-gray-100 text-gray-800"
+                                        ? "text-red-500"
+                                        : item.activation.status === "expired"
+                                          ? "text-orange-500"
+                                          : item.activation.status === "pending"
+                                            ? "text-yellow-500"
+                                            : "text-gray-400"
                                 }`}
                               >
                                 {item.activation.status}

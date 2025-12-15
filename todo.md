@@ -362,3 +362,5 @@
 
 - [x] Renomear "Transações" para "Pedidos" no menu admin do DashboardLayout
 - [x] Reorganizar colunas da tabela de transações: ID - Data - País - Serviço - Telefone - Status - Custo - Receita - Lucro
+
+- [x] Remover bordas redondas do status na tabela de pedidos (Dashboard e Financial) - deixar apenas texto colorido
