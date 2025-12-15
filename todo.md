@@ -321,3 +321,5 @@
 - [x] Adicionar opção ⚙️ Configurações no menu dropdown do perfil admin (navega para /admin/settings)
 
 - [x] Adicionar menu de Configurações na TopNavLayout do perfil admin
+
+- [x] Remover opção "Configurações" duplicada do menu dropdown do perfil no TopNavLayout (já existe no menu "Mais")

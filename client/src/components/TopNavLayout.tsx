@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { getLoginUrl } from "@/const";
-import { LayoutDashboard, LogOut, Settings, ChevronDown, LucideIcon, Shield, GripVertical } from "lucide-react";
+import { LayoutDashboard, LogOut, ChevronDown, LucideIcon, Shield, GripVertical } from "lucide-react";
 import * as LucideIcons from "lucide-react";
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
@@ -211,10 +211,6 @@ export default function TopNavLayout({
                 <DropdownMenuItem onClick={() => setReorderDialogOpen(true)} className="flex items-center gap-3 px-3 py-2 text-neutral-400 hover:bg-neutral-800 hover:text-white cursor-pointer">
                   <GripVertical className="h-4 w-4" />
                   Reorganizar Menus
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setLocation('/admin/settings')} className="flex items-center gap-3 px-3 py-2 text-neutral-400 hover:bg-neutral-800 hover:text-white cursor-pointer">
-                  <Settings className="h-4 w-4" />
-                  Configurações
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={handleLogout} className="flex items-center gap-3 px-3 py-2 text-red-500 hover:bg-neutral-800 hover:text-red-400 cursor-pointer">
                   <LogOut className="h-4 w-4" />
